@@ -18,7 +18,10 @@
         }
         
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
-            // Fügen Sie hier Code zum Behandeln des SettingChangingEvent-Ereignisses hinzu.
+            if (e.SettingName == "Language")
+            {
+                Program.OnLanguageChanged(e.NewValue.ToString());
+            }
         }
         
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using System.Text;
+using System.Xml.XPath;
 
 namespace AHKScriptsMan.Data
 {
@@ -91,7 +92,7 @@ namespace AHKScriptsMan.Data
             protected set;
         }
 
-        public System.Xml.XPath.XPathNavigator XML
+        public XPathNavigator XML
         {
             get;
             protected set;
@@ -106,9 +107,9 @@ namespace AHKScriptsMan.Data
         public virtual void Open()
         {
             if (ParentID != IntPtr.Zero)
-                OpenProject();
+                this.OpenProject();
             else
-                OpenResource();
+                this.OpenResource();
         }
 
         /// <summary>
@@ -143,24 +144,6 @@ namespace AHKScriptsMan.Data
         public virtual void Save2File()
         {
 
-        }
-
-        // maybe make this a constructor?
-        public virtual void List(System.Xml.XPath.XPathNavigator xmlnav, string xpath, IntPtr parentID, string datafile)
-        {
-            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            if (!ResourceList.HasKey(this.Name))
-                {
-                    this.Type = xmlnav.SelectSingleNode(xpath + "/@data-type").Value == "file" ? ResourceType.file : ResourceType.library;
-                    this.ParentID = parentID;
-                    this.XML = xmlnav;
-                    this.XPath = xpath;
-                    this.DataFile = datafile;
-                    this.Node = new TreeNode(this.Name);
-                    ResourceList.Add((object)this);
-                }
-            
-           // LV_Add("", this.Name, TypeToString(this.Type), this.ID);
         }
 
         public virtual string TypeToString(ResourceType id)

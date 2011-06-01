@@ -3,6 +3,6 @@ This program is intended to help AHK coders to manage their projects and related
 It is written in C#.
 IT ISN'T YET FUNCTIONAL.
 
-Notes:
-	- any features relying on the zip component won't work on 64bit systems.
+External components:
+	- the MsgBoxCreator.MsgBox() method is taken from IronAHK (www.ironahk.net).
 	

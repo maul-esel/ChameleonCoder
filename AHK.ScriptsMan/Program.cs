@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml;
+using System.Xml.XPath;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
+using AHKScriptsMan.Window;
+
 namespace AHKScriptsMan
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// contains the window object as public property
         /// </summary>
-        public static WindowsFormsApplication1.MainWin Window
+        public static WindowsFormsApplication1.MainWin Gui
         {
             get;
             set;
@@ -33,11 +35,11 @@ namespace AHKScriptsMan
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(Window = new WindowsFormsApplication1.MainWin());
-            
-            FinishGui();
+            Application.Run(Gui = new WindowsFormsApplication1.MainWin());
+
+            Gui.FinishGui();
             ListData();
-            Window.Show();
+            Gui.Show();
         }
 
         /// <summary>
@@ -46,42 +48,34 @@ namespace AHKScriptsMan
         private static void ListData()
         {
             string[] files = Directory.GetFiles(Application.StartupPath + "\\#Data", "*.xml");
-            TreeNode ResourceNode = Window.TreeView.Nodes.Add("ResourceNode", "resources", "icon2");
+            TreeNode ResourceNode = Gui.TreeView.Nodes.Add("ResourceNode", "resources", "icon2");
             foreach (string file in files)
             {
-                System.Xml.XPath.XPathDocument xmldoc = new System.Xml.XPath.XPathDocument(file);
-                System.Xml.XPath.XPathNavigator xmlnav = xmldoc.CreateNavigator();
+                XPathDocument xmldoc = new System.Xml.XPath.XPathDocument(file);
+                XPathNavigator xmlnav = xmldoc.CreateNavigator();
                                          
                 switch (xmlnav.SelectSingleNode("/resource/@name").ToString())
                 {
-                    case "file":
-                        Data.cFile res1 = new Data.cFile();
-                        res1.List(xmlnav, "/resource", IntPtr.Zero, file);
+                    case "file": Data.cFile res1 = new Data.cFile(xmlnav, "/resource", IntPtr.Zero, file);
                         ResourceNode.Nodes.Add(res1.Node);
                         break;
                     case "library":
-                        Data.cLibrary res2 = new Data.cLibrary();
-                        res2.List(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res2.Node);
-                        break;
+                        Data.cLibrary res2 = new Data.cLibrary(xmlnav, "/resource", IntPtr.Zero, file);
+                        ResourceNode.Nodes.Add(res2.Node); break;
                     case "project":
-                        Data.cProject res3 = new Data.cProject();
-                        res3.List(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res3.Node);
-                        break;
+                        Data.cProject res3 = new Data.cProject(xmlnav, "/resource", IntPtr.Zero, file);
+                        ResourceNode.Nodes.Add(res3.Node); break;
                     case "task":
-                        Data.cTask res4 = new Data.cTask();
-                        res4.List(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res4.Node);
-                        break;
+                        Data.cTask res4 = new Data.cTask(xmlnav, "/resource", IntPtr.Zero, file);
+                        ResourceNode.Nodes.Add(res4.Node); break;
                     default:
-                        MessageBox.Show("parsing error in file " + file + ".", "AHKScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("parsing error in file " + file + ".", "AHK.ScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         // TODO: check exceptions
                         continue;
                 }
                                 
             }
-            Window.TreeView.Click += new EventHandler(TreeView_Click);
+            Gui.TreeView.Click += new EventHandler(TreeView_Click);
         }
 
         static void TreeView_Click(object sender, EventArgs e)
@@ -89,21 +83,7 @@ namespace AHKScriptsMan
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// finishs the GUI build process
-        /// </summary>
-        private static void FinishGui()
-        {
-            Window.TreeView.ImageList = AHKScriptsMan.Window.DataProvider.GetImageList(9, 5);
-            Window.DragDrop += new DragEventHandler(Window_DragDrop);
-
-            Window.TreeView.PathSeparator = "\\";
-
-            
-
-        }
-
-        static void Window_DragDrop(object sender, DragEventArgs e)
+        public static void Window_DragDrop(object sender, DragEventArgs e)
         {
             throw new NotImplementedException();
         }
@@ -125,10 +105,13 @@ namespace AHKScriptsMan
 
         public static void CreateTask()
         {
-
+            throw new NotImplementedException();
         }
 
-        
+        public static void OnLanguageChanged(string newlang)
+        {
+            throw new NotImplementedException();
+        }
 
         public static bool FilesAreMissing()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using System.Text;
+using System.Xml.XPath;
 
 namespace AHKScriptsMan.Data
 {
@@ -11,8 +12,6 @@ namespace AHKScriptsMan.Data
     /// </summary>
     public class cProject : cResource
     {
-        public static ResourceType TypeID = ResourceType.project;
-
         #region properties
         /// <summary>
         /// contains the project's priority (int from 1 to 3)
@@ -80,23 +79,25 @@ namespace AHKScriptsMan.Data
             
         }
 
-        public override void List(System.Xml.XPath.XPathNavigator xmlnav, string xpath, IntPtr parentID, string datafile)
+        public cProject(XPathNavigator xmlnav, string xpath, IntPtr parentID, string datafile)
         {
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            if (!ResourceList.HasKey(this.Name))
+            if (ResourceList.HasKey(this.Name))
             {
-                this.Priority = (int)xmlnav.SelectSingleNode(xpath + "/properties/priority").TypedValue;
-                this.Type = ResourceType.project;
-                this.ParentID = parentID;
-                this.XML = xmlnav;
-                this.XPath = xpath;
-                this.DataFile = datafile;
-                this.Node = new TreeNode(this.Name);
-                ResourceList.Add((object)this);
-
-                this.Node.ImageKey = "icon5";
+                throw new Exception("duplicate resource name:" + this.Name + "\nresource type: project");
             }
-                      
+
+            this.Priority = (int)xmlnav.SelectSingleNode(xpath + "/properties/priority").TypedValue;
+            this.Type = ResourceType.project;
+            this.ParentID = parentID;
+            this.XML = xmlnav;
+            this.XPath = xpath;
+            this.DataFile = datafile;
+            this.Node = new TreeNode(this.Name);
+            ResourceList.Add((object)this);
+
+            this.Node.ImageKey = "icon5";
+            
             
         }
         #endregion

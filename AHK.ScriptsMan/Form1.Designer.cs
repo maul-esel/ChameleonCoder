@@ -31,22 +31,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWin));
             this.Container1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip0 = new System.Windows.Forms.ToolStrip();
             this.TreeView = new System.Windows.Forms.TreeView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolbutton1_1 = new System.Windows.Forms.ToolStripButton();
-            this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.listView1 = new System.Windows.Forms.ListView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.scintilla1 = new ScintillaNet.Scintilla();
+            this.toolbutton1_2 = new System.Windows.Forms.ToolStripButton();
+            this.toolbutton0_1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.Container1)).BeginInit();
             this.Container1.Panel1.SuspendLayout();
             this.Container1.Panel2.SuspendLayout();
             this.Container1.SuspendLayout();
+            this.toolStrip0.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -74,6 +75,8 @@
             // 
             // toolStrip0
             // 
+            this.toolStrip0.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolbutton0_1});
             this.toolStrip0.Location = new System.Drawing.Point(0, 0);
             this.toolStrip0.Name = "toolStrip0";
             this.toolStrip0.Size = new System.Drawing.Size(391, 25);
@@ -90,27 +93,19 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.listView1);
             this.panel1.Controls.Add(this.toolStrip1);
+            this.panel1.Controls.Add(this.listView1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(778, 640);
             this.panel1.TabIndex = 0;
             // 
-            // listView1
-            // 
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listView1.Location = new System.Drawing.Point(0, 28);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(778, 612);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolbutton1_1});
+            this.toolbutton1_1,
+            this.toolbutton1_2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(778, 25);
@@ -126,12 +121,14 @@
             this.toolbutton1_1.Size = new System.Drawing.Size(23, 22);
             this.toolbutton1_1.Text = "toolStripButton1";
             // 
-            // TrayIcon
+            // listView1
             // 
-            this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
-            this.TrayIcon.Text = "notifyIcon1";
-            this.TrayIcon.Visible = true;
-            this.TrayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listView1.Location = new System.Drawing.Point(0, 28);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(778, 612);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // panel2
             // 
@@ -158,6 +155,24 @@
             this.scintilla1.Styles.Max.FontName = "Verdana";
             this.scintilla1.TabIndex = 0;
             // 
+            // toolbutton1_2
+            // 
+            this.toolbutton1_2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbutton1_2.Image = ((System.Drawing.Image)(resources.GetObject("toolbutton1_2.Image")));
+            this.toolbutton1_2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbutton1_2.Name = "toolbutton1_2";
+            this.toolbutton1_2.Size = new System.Drawing.Size(23, 22);
+            this.toolbutton1_2.Text = "toolStripButton1";
+            // 
+            // toolbutton0_1
+            // 
+            this.toolbutton0_1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbutton0_1.Image = ((System.Drawing.Image)(resources.GetObject("toolbutton0_1.Image")));
+            this.toolbutton0_1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbutton0_1.Name = "toolbutton0_1";
+            this.toolbutton0_1.Size = new System.Drawing.Size(23, 22);
+            this.toolbutton0_1.Text = "toolStripButton1";
+            // 
             // MainWin
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -178,6 +193,8 @@
             this.Container1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Container1)).EndInit();
             this.Container1.ResumeLayout(false);
+            this.toolStrip0.ResumeLayout(false);
+            this.toolStrip0.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -192,14 +209,15 @@
 
         public System.Windows.Forms.SplitContainer Container1;
         public System.Windows.Forms.TreeView TreeView;
-        private System.Windows.Forms.NotifyIcon TrayIcon;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolbutton1_1;
         private System.Windows.Forms.ToolStrip toolStrip0;
         private System.Windows.Forms.Panel panel2;
-        private ScintillaNet.Scintilla scintilla1;
+        internal ScintillaNet.Scintilla scintilla1;
+        internal System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ToolStripButton toolbutton0_1;
+        private System.Windows.Forms.ToolStripButton toolbutton1_2;
 
 
 
