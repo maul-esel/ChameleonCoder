@@ -43,20 +43,21 @@
             this.radioButton0 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button_combobox = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.defbutton_combobox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.defbutton_combobox = new System.Windows.Forms.ComboBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button_combobox = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.right_checkbox = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.rtl_checkbox = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.right_checkbox = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.output_textbox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.output_textbox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -215,6 +216,37 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "buttons";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(220, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(99, 17);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "default button:";
+            // 
+            // defbutton_combobox
+            // 
+            this.defbutton_combobox.FormattingEnabled = true;
+            this.defbutton_combobox.Items.AddRange(new object[] {
+            "first",
+            "second",
+            "third"});
+            this.defbutton_combobox.Location = new System.Drawing.Point(325, 51);
+            this.defbutton_combobox.Name = "defbutton_combobox";
+            this.defbutton_combobox.Size = new System.Drawing.Size(189, 24);
+            this.defbutton_combobox.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(15, 51);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(101, 21);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "help button";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // button_combobox
             // 
             this.button_combobox.FormattingEnabled = true;
@@ -231,37 +263,6 @@
             this.button_combobox.Size = new System.Drawing.Size(499, 24);
             this.button_combobox.TabIndex = 0;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 51);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(101, 21);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "help button";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // defbutton_combobox
-            // 
-            this.defbutton_combobox.FormattingEnabled = true;
-            this.defbutton_combobox.Items.AddRange(new object[] {
-            "first",
-            "second",
-            "third"});
-            this.defbutton_combobox.Location = new System.Drawing.Point(325, 51);
-            this.defbutton_combobox.Name = "defbutton_combobox";
-            this.defbutton_combobox.Size = new System.Drawing.Size(189, 24);
-            this.defbutton_combobox.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(220, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 17);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "default button:";
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.rtl_checkbox);
@@ -276,21 +277,24 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "other";
             // 
-            // numericUpDown1
+            // rtl_checkbox
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(76, 21);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown1.TabIndex = 5;
+            this.rtl_checkbox.AutoSize = true;
+            this.rtl_checkbox.Location = new System.Drawing.Point(325, 48);
+            this.rtl_checkbox.Name = "rtl_checkbox";
+            this.rtl_checkbox.Size = new System.Drawing.Size(99, 21);
+            this.rtl_checkbox.TabIndex = 9;
+            this.rtl_checkbox.Text = "right-to-left";
+            this.rtl_checkbox.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // label5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 17);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "timeout:";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(220, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 17);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "alignment:";
             // 
             // right_checkbox
             // 
@@ -302,28 +306,26 @@
             this.right_checkbox.Text = "right-justified";
             this.right_checkbox.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // label4
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(220, 25);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 17);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "alignment:";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 17);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "timeout:";
             // 
-            // rtl_checkbox
+            // numericUpDown1
             // 
-            this.rtl_checkbox.AutoSize = true;
-            this.rtl_checkbox.Location = new System.Drawing.Point(325, 48);
-            this.rtl_checkbox.Name = "rtl_checkbox";
-            this.rtl_checkbox.Size = new System.Drawing.Size(99, 21);
-            this.rtl_checkbox.TabIndex = 9;
-            this.rtl_checkbox.Text = "right-to-left";
-            this.rtl_checkbox.UseVisualStyleBackColor = true;
+            this.numericUpDown1.Location = new System.Drawing.Point(76, 21);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown1.TabIndex = 5;
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.button3);
+            this.groupBox6.Controls.Add(this.button4);
             this.groupBox6.Controls.Add(this.button2);
             this.groupBox6.Controls.Add(this.button1);
             this.groupBox6.Controls.Add(this.output_textbox);
@@ -334,22 +336,14 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "output";
             // 
-            // output_textbox
+            // button4
             // 
-            this.output_textbox.Location = new System.Drawing.Point(3, 18);
-            this.output_textbox.Multiline = true;
-            this.output_textbox.Name = "output_textbox";
-            this.output_textbox.Size = new System.Drawing.Size(511, 76);
-            this.output_textbox.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 100);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "create code";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button4.Location = new System.Drawing.Point(409, 101);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(105, 23);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "save code";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -360,13 +354,30 @@
             this.button2.Text = "insert code";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 100);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "create code";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // output_textbox
+            // 
+            this.output_textbox.Location = new System.Drawing.Point(3, 18);
+            this.output_textbox.Multiline = true;
+            this.output_textbox.Name = "output_textbox";
+            this.output_textbox.Size = new System.Drawing.Size(511, 76);
+            this.output_textbox.TabIndex = 0;
+            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(268, 101);
+            this.button3.Location = new System.Drawing.Point(272, 101);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(105, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "save code";
+            this.button3.TabIndex = 5;
+            this.button3.Text = "insert code";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // MsgBoxCreator
@@ -428,9 +439,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox right_checkbox;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox output_textbox;
+        private System.Windows.Forms.Button button3;
     }
 }

@@ -45,23 +45,13 @@ namespace AHKScriptsMan
         /// </summary>
         private static void ListData()
         {
-            System.Xml.XPath.XPathNodeIterator List = new System.Xml.XPath.XPathDocument(Application.StartupPath + "\\Settings.xml").CreateNavigator().Select("/settings/tasks/task");
-            TreeNode TaskNode = Window.TreeView.Nodes.Add("TaskNode", "tasks", "icon1");
-            foreach (System.Xml.XPath.XPathNavigator xmlnav in List)
-            {
-                string name = xmlnav.SelectSingleNode("/@name").ToString();
-                string description = xmlnav.ToString();
-                ListViewItem item = new ListViewItem( new string[] {name, description, "(none)"} );
-                //Window.listView1.Items.Add(item);
-            }
-            
             string[] files = Directory.GetFiles(Application.StartupPath + "\\#Data", "*.xml");
             TreeNode ResourceNode = Window.TreeView.Nodes.Add("ResourceNode", "resources", "icon2");
             foreach (string file in files)
             {
                 System.Xml.XPath.XPathDocument xmldoc = new System.Xml.XPath.XPathDocument(file);
                 System.Xml.XPath.XPathNavigator xmlnav = xmldoc.CreateNavigator();
-                
+                                         
                 switch (xmlnav.SelectSingleNode("/resource/@name").ToString())
                 {
                     case "file":
@@ -79,14 +69,19 @@ namespace AHKScriptsMan
                         res3.List(xmlnav, "/resource", IntPtr.Zero, file);
                         ResourceNode.Nodes.Add(res3.Node);
                         break;
+                    case "task":
+                        Data.cTask res4 = new Data.cTask();
+                        res4.List(xmlnav, "/resource", IntPtr.Zero, file);
+                        ResourceNode.Nodes.Add(res4.Node);
+                        break;
                     default:
                         MessageBox.Show("parsing error in file " + file + ".", "AHKScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         // TODO: check exceptions
                         continue;
                 }
-                Window.TreeView.Click += new EventHandler(TreeView_Click);
-                
+                                
             }
+            Window.TreeView.Click += new EventHandler(TreeView_Click);
         }
 
         static void TreeView_Click(object sender, EventArgs e)

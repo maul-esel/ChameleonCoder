@@ -23,9 +23,8 @@ namespace AHKScriptsMan.Plugins
         public void CallClasses()
         {
             // instantiate all classes in AHKScriptsMan.Plugins
-            // 
-            Type plugin = Assembly.Load("assemblyname").GetType("pluginname");
-            plugin.FullName instance = Activator.CreateInstance(plugin);
+            // RaptorOne: FindLocalMetod o. Ä.
+            
 
         }
 

@@ -66,8 +66,8 @@
             // 
             // Container1.Panel2
             // 
-            this.Container1.Panel2.Controls.Add(this.panel2);
             this.Container1.Panel2.Controls.Add(this.panel1);
+            this.Container1.Panel2.Controls.Add(this.panel2);
             this.Container1.Size = new System.Drawing.Size(1173, 640);
             this.Container1.SplitterDistance = 391;
             this.Container1.TabIndex = 0;
@@ -145,9 +145,9 @@
             // scintilla1
             // 
             this.scintilla1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.scintilla1.Location = new System.Drawing.Point(0, 30);
+            this.scintilla1.Location = new System.Drawing.Point(0, 36);
             this.scintilla1.Name = "scintilla1";
-            this.scintilla1.Size = new System.Drawing.Size(778, 610);
+            this.scintilla1.Size = new System.Drawing.Size(778, 604);
             this.scintilla1.Styles.BraceBad.FontName = "Verdana";
             this.scintilla1.Styles.BraceLight.FontName = "Verdana";
             this.scintilla1.Styles.ControlChar.FontName = "Verdana";
