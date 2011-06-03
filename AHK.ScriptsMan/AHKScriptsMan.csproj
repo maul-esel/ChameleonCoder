@@ -49,7 +49,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
@@ -93,9 +93,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cFile.cs" />
+    <Compile Include="cCodeFile.cs" />
+    <Compile Include="ResourceLink.cs" />
     <Compile Include="cTask.cs" />
-    <Compile Include="GuiHelper.cs" />
     <Compile Include="Localization.cs" />
+    <Compile Include="Localizer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localizer.resx</DependentUpon>
+    </Compile>
     <Compile Include="MsgBoxCreator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,15 +116,15 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="PluginInfo.cs" />
-    <Compile Include="Localization.de-DE.Designer.cs">
+    <Compile Include="Localizer.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Localization.de-DE.resx</DependentUpon>
+      <DependentUpon>Localizer.de-DE.resx</DependentUpon>
     </Compile>
     <Compile Include="ResourceList.cs" />
     <Compile Include="cLibrary.cs" />
     <Compile Include="cProject.cs" />
-    <Compile Include="cResource.cs" />
+    <Compile Include="IResource.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
       <CustomToolNamespace>AHKScriptsMan</CustomToolNamespace>
@@ -134,6 +140,10 @@
     <Compile Include="Tab.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localizer.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localizer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MsgBoxCreator.resx">
       <DependentUpon>MsgBoxCreator.cs</DependentUpon>
@@ -152,9 +162,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Localization.de-DE.resx">
+    <EmbeddedResource Include="Localizer.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Localization.de-DE.Designer.cs</LastGenOutput>
+      <LastGenOutput>Localizer.de-DE.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AHKScriptsMan</CustomToolNamespace>
     </EmbeddedResource>
     <None Include="AHK.ScriptsMan_TemporaryKey.pfx" />
     <None Include="app.config" />
@@ -233,6 +244,14 @@
     <Content Include="00 - icon_tray.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -5,16 +5,10 @@ using System.Text;
 
 namespace AHKScriptsMan
 {
-    public enum PluginType
+    public struct PluginInfo
     {
-        undefined,
-        lexer
-        // add more
-    }
-
-    public class PluginInfo
-    {
-        public string AssemblyName;
-        public PluginType PluginType = PluginType.undefined;
+        public Guid language;
+        public string languageName;
+        // todo: add delegates / events
     }
 }

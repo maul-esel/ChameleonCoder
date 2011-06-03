@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AHKScriptsMan.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Language" Type="System.String" Scope="User">
-      <Value Profile="(Default)">English</Value>
-    </Setting>
     <Setting Name="SaveData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -13,6 +10,9 @@
     </Setting>
     <Setting Name="ScriptDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">de-DE</Value>
     </Setting>
   </Settings>
 </SettingsFile>

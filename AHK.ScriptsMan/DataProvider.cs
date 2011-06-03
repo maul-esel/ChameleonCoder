@@ -17,7 +17,7 @@ namespace AHKScriptsMan.Window
             {
                 try
                 {
-                    il.Images.Add("icon" + i, (Image)AppResources.ResourceManager.GetObject("icon" + i));
+                    il.Images.Add((Image)AppResources.ResourceManager.GetObject("icon" + i));
                 }
                 catch
                 {

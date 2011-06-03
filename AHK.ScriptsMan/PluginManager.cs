@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Text;
 
 namespace AHKScriptsMan.Plugins
 {
-    public delegate void NewPlugin(object sender, EventArgs e);
+    public delegate void PluginEvent(object sender, EventArgs e);
     
     /// <summary>
     /// manages all plugins
-    /// (for future use)
     /// </summary>
     public class PluginManager
     {
-        public static event NewPlugin PluginEvent;
+        public static event PluginEvent NewPlugin;
+
+        public static SortedList plugins;
 
         /// <summary>
         /// should call all classes to instantiate them.
@@ -23,16 +23,22 @@ namespace AHKScriptsMan.Plugins
         public void CallClasses()
         {
             // instantiate all classes in AHKScriptsMan.Plugins
-            // RaptorOne: FindLocalMetod o. Ä.
-            
-
+            string[] files = Directory.GetFiles(Application.StartupPath + "\\Plugins", "*.dll");
+            foreach (string file in files)
+            {
+                PluginInfo[] info = (PluginInfo[])Assembly.LoadFile(file).GetType("Plugin.Program").GetMethod("PluginMain").Invoke(null, new string[] { "a", "b" });
+                foreach (PluginInfo lang in info)
+                {
+                    plugins.Add(lang.language, lang);
+                }
+            }
         }
 
         public static void OnNewPlugin(EventArgs args)
         {
-            if (PluginEvent != null)
+            if (NewPlugin != null)
             {
-                PluginEvent(null, args);
+                NewPlugin(null, args);
             }
         }
 

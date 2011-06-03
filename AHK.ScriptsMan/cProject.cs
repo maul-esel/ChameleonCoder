@@ -1,59 +1,153 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Linq;
-using System.Text;
 using System.Xml.XPath;
 
-namespace AHKScriptsMan.Data
+namespace AHKScriptsMan
 {
     /// <summary>
     /// represents a project resource
     /// </summary>
-    public class cProject : cResource
+    public class cProject : IResource
     {
-        #region properties
+        public cProject(XPathNavigator xmlnav, string xpath, string datafile)
+        {
+            this.Compatible_AHKB = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKB").ValueAsBoolean;
+            this.Compatible_AHKL = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKL").ValueAsBoolean;
+            this.Compatible_AHKI = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKI").ValueAsBoolean;
+            this.Compatible_AHK2 = xmlnav.SelectSingleNode(xpath + "/@compatible_AHK2").ValueAsBoolean;            
+            this.DataFile = datafile;
+            this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
+            this.GUID = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
+            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
+            this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
+            this.Priority = xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt;
+            this.Type = ResourceType.project;
+            this.XML = xmlnav;
+            this.XPath = xpath;
+
+            this.Node = new TreeNode(this.Name);
+            this.Node.ImageIndex = 3;
+            this.Item = new ListViewItem(new string[] { this.Name, this.Type.ToString(), this.Description }); // add this.description (and this.typetostring())
+        }
+
+        #region IResource.properties
+
+        public string DataFile { get; set; }
+
+        public string Description { get; set; }
+
+        public Guid GUID { get; set; }
+
+        public bool Hide { get; set; }
+
+        public ListViewItem Item { get; set; }
+
+        public string Name { get; set; }
+
+        public TreeNode Node { get; set; }
+
+        public string Notes { get; set; }
+
+        public ResourceType Type { get; set; }
+
+        public XPathNavigator XML { get; set; }
+
+        public string XPath { get; set; }
+
+        #endregion
+
+        #region cProject properties
+
         /// <summary>
         /// contains the project's priority (int from 1 to 3)
         /// </summary>
-        public int Priority
-        {
-            get;
-            protected set;
-        }
+        public int Priority { get; set; }
 
         /// <summary>
-        /// contains a tree displayig the project's inheritance
+        /// defines whether the project is compatible to AutoHotkey (basic).
         /// </summary>
-        public string ProjectTree
-        {
-            get;
-            protected set;
-        }
+        bool Compatible_AHKB { get; set; }
+
+        /// <summary>
+        /// defines whether the project is compatible to AutoHotkey_L.
+        /// </summary>
+        bool Compatible_AHKL { get; set; }
+
+        /// <summary>
+        /// defines whether the project is compatible to IronAHK.
+        /// </summary>
+        bool Compatible_AHKI { get; set; }
+
+        /// <summary>
+        /// defines whether the project is compatible to AutoHotkey v2.
+        /// </summary>
+        bool Compatible_AHK2 { get; set; }
+
         #endregion
 
         #region methods
-       
+
+
+        void IResource.Move()
+        {
+
+        }
+
+        void IResource.ReceiveResourceLink()
+        {
+
+        }
+
+        void IResource.LinkResource()
+        {
+
+        }
+
+        void IResource.ReceiveResource()
+        {
+
+        }
+
+        void IResource.AttachResource()
+        {
+
+        }
+
+        void IResource.SaveToFile()
+        {
+
+        }
+
+        void IResource.SaveToObject()
+        {
+
+        }
+
+        void IResource.OpenAsDescendant()
+        {
+
+        }
+
+        void IResource.OpenAsAncestor()
+        {
+
+        }
+
+        void IResource.AddMetadata()
+        {
+
+        }
+
+        void IResource.Package()
+        {
+
+        }
+
         /// <summary>
         /// opens the project
         /// </summary>
-        public override void Open()
-        {
-
-        }
-
-        /// <summary>
-        /// saves available information to the object
-        /// </summary>
-        public override void Save2Obj()
-        {
-
-        }
-
-        /// <summary>
-        /// saves the object's properties to the file
-        /// </summary>
-        public override void Save2File()
+        public void Open()
         {
 
         }
@@ -66,40 +160,7 @@ namespace AHKScriptsMan.Data
 
         }
 
-        /// <summary>
-        /// asks the user to enter name, flags and value of the new metadata
-        /// </summary>
-        public void AddMetadata()
-        {
-
-        }
-
-        public override void Package()
-        {
-            
-        }
-
-        public cProject(XPathNavigator xmlnav, string xpath, IntPtr parentID, string datafile)
-        {
-            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            if (ResourceList.HasKey(this.Name))
-            {
-                throw new Exception("duplicate resource name:" + this.Name + "\nresource type: project");
-            }
-
-            this.Priority = (int)xmlnav.SelectSingleNode(xpath + "/properties/priority").TypedValue;
-            this.Type = ResourceType.project;
-            this.ParentID = parentID;
-            this.XML = xmlnav;
-            this.XPath = xpath;
-            this.DataFile = datafile;
-            this.Node = new TreeNode(this.Name);
-            ResourceList.Add((object)this);
-
-            this.Node.ImageKey = "icon5";
-            
-            
-        }
         #endregion
+               
     }
 }

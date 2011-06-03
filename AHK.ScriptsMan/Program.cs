@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml.XPath;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-
 using AHKScriptsMan.Window;
 
 namespace AHKScriptsMan
@@ -16,17 +11,20 @@ namespace AHKScriptsMan
         /// <summary>
         /// contains the window object as public property
         /// </summary>
-        public static WindowsFormsApplication1.MainWin Gui
+        public static MainWin Gui
         {
             get;
             set;
         }
+
+        
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] arguments)
         {
+            Localization.UpdateLanguage(Properties.Settings.Default.Language);
             if (FilesAreMissing())
             {
                 MessageBox.Show("required files are missing!", "AHKScriptsMan error:", MessageBoxButtons.OK);
@@ -35,11 +33,17 @@ namespace AHKScriptsMan
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(Gui = new WindowsFormsApplication1.MainWin());
 
-            Gui.FinishGui();
+            Gui = new MainWin();
             ListData();
-            Gui.Show();
+            Gui.FormClosed += new FormClosedEventHandler(Gui_FormClosed);
+            Gui.listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            Application.Run(Gui);            
+        }
+
+        static void Gui_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
         /// <summary>
@@ -48,75 +52,112 @@ namespace AHKScriptsMan
         private static void ListData()
         {
             string[] files = Directory.GetFiles(Application.StartupPath + "\\#Data", "*.xml");
-            TreeNode ResourceNode = Gui.TreeView.Nodes.Add("ResourceNode", "resources", "icon2");
+            cFile res1; cCodeFile res2;  cLibrary res3; cProject res4; cTask res5;
             foreach (string file in files)
             {
-                XPathDocument xmldoc = new System.Xml.XPath.XPathDocument(file);
-                XPathNavigator xmlnav = xmldoc.CreateNavigator();
-                                         
-                switch (xmlnav.SelectSingleNode("/resource/@name").ToString())
+#if DEBUG
+                try
                 {
-                    case "file": Data.cFile res1 = new Data.cFile(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res1.Node);
-                        break;
-                    case "library":
-                        Data.cLibrary res2 = new Data.cLibrary(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res2.Node); break;
-                    case "project":
-                        Data.cProject res3 = new Data.cProject(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res3.Node); break;
-                    case "task":
-                        Data.cTask res4 = new Data.cTask(xmlnav, "/resource", IntPtr.Zero, file);
-                        ResourceNode.Nodes.Add(res4.Node); break;
-                    default:
-                        MessageBox.Show("parsing error in file " + file + ".", "AHK.ScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        // TODO: check exceptions
-                        continue;
+#endif
+                    XPathDocument xmldoc = new System.Xml.XPath.XPathDocument(file);
+                    XPathNavigator xmlnav = xmldoc.CreateNavigator();
+
+                    ResourceType type = (ResourceType)xmlnav.SelectSingleNode("/resource/@data-type").ValueAsInt;
+                    
+                    switch (type)
+                    {
+                        case ResourceType.file:
+                            res1 = new cFile(xmlnav, "/resource", file);
+                            Gui.TreeView.Nodes.Add(res1.Node);
+                            Gui.listView1.Items.Add(res1.Item);
+                            Gui.groups[0].Items.Add(res1.Item);
+                            // problem: handle immer 0 (noch nicht erstellt :( )
+                            ResourceList.Add(res1.Node.Handle, res1.GUID, res1.Type, res1);
+                            break;
+                        case ResourceType.code:
+                            res2 = new cCodeFile(xmlnav, "/resource", file);
+                            Gui.TreeView.Nodes.Add(res2.Node);
+                            Gui.listView1.Items.Add(res2.Item);
+                            Gui.groups[1].Items.Add(res2.Item);
+                            ResourceList.Add(res2.Node.Handle, res2.GUID, res2.Type, res2);
+                            break;
+                        case ResourceType.library:
+                            res3 = new cLibrary(xmlnav, "/resource", file);
+                            Gui.TreeView.Nodes.Add(res3.Node);
+                            Gui.listView1.Items.Add(res3.Item);
+                            Gui.groups[2].Items.Add(res3.Item);
+                            ResourceList.Add(res3.Node.Handle, res3.GUID, res3.Type, res3);
+                            break;
+                        case ResourceType.project:
+                            res4 = new cProject(xmlnav, "/resource", file);
+                            Gui.TreeView.Nodes.Add(res4.Node);
+                            Gui.listView1.Items.Add(res4.Item);
+                            Gui.groups[3].Items.Add(res4.Item);
+                            ResourceList.Add(res4.Node.Handle, res4.GUID, res4.Type, res4);
+                            break;
+                        case ResourceType.task:
+                            res5 = new cTask(xmlnav, "/resource", file);
+                            Gui.TreeView.Nodes.Add(res5.Node);
+                            Gui.listView1.Items.Add(res5.Item);
+                            Gui.groups[4].Items.Add(res5.Item);
+                            ResourceList.Add(res5.Node.Handle, res5.GUID, res5.Type, res5);
+                            break;
+                        default:
+                            MessageBox.Show("parsing error in file " + file + ".\ncase:" + type, "AHK.ScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            // TODO: check exceptions
+                            continue;
+                    }
+#if DEBUG
                 }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n\n" + e.StackTrace);
+                }
+#endif
                                 
             }
-            Gui.TreeView.Click += new EventHandler(TreeView_Click);
+
+            
         }
 
-        static void TreeView_Click(object sender, EventArgs e)
+        public static void TreeView_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void Window_DragDrop(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void CreateProject()
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void CreateFile()
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void CreateLibrary()
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void CreateTask()
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void OnLanguageChanged(string newlang)
         {
-            throw new NotImplementedException();
+            
         }
 
         public static bool FilesAreMissing()
         {
-            return !(File.Exists(Application.StartupPath + "\\Settings.xml")
-                && File.Exists(Application.StartupPath + "\\#Extern\\ScintillaNet.dll")
+            return !(File.Exists(Application.StartupPath + "\\#Extern\\ScintillaNet.dll")
                 && File.Exists(Application.StartupPath + "\\#Extern\\SciLexer.dll"));
         }
     
