@@ -11,24 +11,27 @@ namespace AHKScriptsMan
     {
         public cProject(XPathNavigator xmlnav, string xpath, string datafile)
         {
-            this.Compatible_AHKB = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKB").ValueAsBoolean;
-            this.Compatible_AHKL = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKL").ValueAsBoolean;
-            this.Compatible_AHKI = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKI").ValueAsBoolean;
-            this.Compatible_AHK2 = xmlnav.SelectSingleNode(xpath + "/@compatible_AHK2").ValueAsBoolean;            
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
             this.GUID = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
             this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
-            this.Priority = xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt;
             this.Type = ResourceType.project;
             this.XML = xmlnav;
             this.XPath = xpath;
 
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 3;
-            this.Item = new ListViewItem(new string[] { this.Name, this.Type.ToString(), this.Description }); // add this.description (and this.typetostring())
+            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
+
+            int i = 0;
+            foreach (XPathNavigator node in xmlnav.Select(xpath + "/languages/lang"))
+            {
+                i++;
+                languages[i] = Guid.Parse(node.SelectSingleNode("/@guid").Value);
+            }
+            this.Priority = xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt;
         }
 
         #region IResource.properties
@@ -65,24 +68,9 @@ namespace AHKScriptsMan
         public int Priority { get; set; }
 
         /// <summary>
-        /// defines whether the project is compatible to AutoHotkey (basic).
+        /// contains all languages to which the project is compatible
         /// </summary>
-        bool Compatible_AHKB { get; set; }
-
-        /// <summary>
-        /// defines whether the project is compatible to AutoHotkey_L.
-        /// </summary>
-        bool Compatible_AHKL { get; set; }
-
-        /// <summary>
-        /// defines whether the project is compatible to IronAHK.
-        /// </summary>
-        bool Compatible_AHKI { get; set; }
-
-        /// <summary>
-        /// defines whether the project is compatible to AutoHotkey v2.
-        /// </summary>
-        bool Compatible_AHK2 { get; set; }
+        public Guid[] languages;
 
         #endregion
 

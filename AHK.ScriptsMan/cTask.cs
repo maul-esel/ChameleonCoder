@@ -4,6 +4,9 @@ using System.Xml.XPath;
 
 namespace AHKScriptsMan
 {
+    /// <summary>
+    /// represents a task
+    /// </summary>
     class cTask : IResource
     {
         public cTask(XPathNavigator xmlnav, string xpath, string datafile)
@@ -17,6 +20,10 @@ namespace AHKScriptsMan
             this.Type = ResourceType.task;
             this.XML = xmlnav;
             this.XPath = xpath;
+
+            this.Node = new TreeNode(this.Name);
+            this.Node.ImageIndex = 3;
+            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
         }
 
         #region IResource.properties

@@ -4,44 +4,32 @@ using System.Xml.XPath;
 
 namespace AHKScriptsMan
 {
-    public class cCodeFile : cFile, IResource
+    public class cCodeFile : cFile
     {
         public cCodeFile(XPathNavigator xmlnav, string xpath, string datafile) : base(xmlnav, xpath, datafile)
         {
-            this.Item = new ListViewItem(new string[] { this.Name, this.Description, this.Type.ToString() });
-            this.Compatible_AHKB = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKB").ValueAsBoolean;
-            this.Compatible_AHKL = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKL").ValueAsBoolean;
-            this.Compatible_AHKI = xmlnav.SelectSingleNode(xpath + "/@compatible_AHKI").ValueAsBoolean;
-            this.Compatible_AHK2 = xmlnav.SelectSingleNode(xpath + "/@compatible_AHK2").ValueAsBoolean;
             this.Type = ResourceType.code;
+
+            int i = 0;
+            foreach (XPathNavigator node in xmlnav.Select(xpath + "/languages/lang"))
+            {
+                i++;
+                languages[i] = Guid.Parse(node.SelectSingleNode("/@guid").Value);
+            }
+            this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
         }
 
         #region cCodeFile properties
 
         /// <summary>
-        /// defines whether the code is compatible to AutoHotkey (basic).
+        /// contains the languages to which the file is compatible
         /// </summary>
-        bool Compatible_AHKB { get; set; }
-
-        /// <summary>
-        /// defines whether the code is compatible to AutoHotkey_L.
-        /// </summary>
-        bool Compatible_AHKL { get; set; }
-
-        /// <summary>
-        /// defines whether the code is compatible to IronAHK.
-        /// </summary>
-        bool Compatible_AHKI { get; set; }
-
-        /// <summary>
-        /// defines whether the code is compatible to AutoHotkey v2.
-        /// </summary>
-        bool Compatible_AHK2 { get; set; }
+        public Guid[] languages { get; protected set; }
 
         /// <summary>
         /// the path to save the files if it is compiled.
         /// </summary>
-        string CompilationPath { get; set; }
+        public string CompilationPath { get; protected set; }
 
         #endregion
     }

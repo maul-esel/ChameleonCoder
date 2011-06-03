@@ -13,7 +13,6 @@ namespace AHKScriptsMan
             this.listView1.GridLines = true;
 
             this.listView1.Columns.Add("Name");
-            this.listView1.Columns.Add("type");
             this.listView1.Columns.Add("description");
             this.listView1.View = View.Details;
 
@@ -25,7 +24,7 @@ namespace AHKScriptsMan
             groups[3] = this.listView1.Groups.Add("projects", string.Empty);
             groups[4] = this.listView1.Groups.Add("tasks", string.Empty);
 
-            this.TreeView.ImageList = AHKScriptsMan.Window.DataProvider.GetImageList(9, 5);
+            this.TreeView.ImageList = Window.DataProvider.GetImageList(9, 5);
             this.TreeView.PathSeparator = "\\";
 
             this.DragDrop += new DragEventHandler(Program.Window_DragDrop); // geeignet für Dateien?
@@ -33,6 +32,9 @@ namespace AHKScriptsMan
 
             this.UpdateLanguage();
             this.TreeView.CreateControl();
+
+            //this.scintilla1.StyleNeeded += ...
+            this.scintilla1.Lexing.Lexer = ScintillaNet.Lexer.Container;
         }
 
         public void UpdateLanguage()

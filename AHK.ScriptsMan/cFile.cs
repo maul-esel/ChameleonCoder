@@ -17,14 +17,15 @@ namespace AHKScriptsMan
             this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
             this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
-            this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
             this.Type = ResourceType.file;
             this.XML = xmlnav;
             this.XPath = xpath;
             
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 1;
-            this.Item = new ListViewItem(new string[] { this.Name, this.Type.ToString(), this.Description });
+            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
+
+            this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
         }
 
         #region IResource.properties
@@ -58,7 +59,7 @@ namespace AHKScriptsMan
         /// <summary>
         /// the path to the file representedc by the resource
         /// </summary>
-        string Path { get; set; }
+        public string Path { get; protected set; }
 
         #endregion
 

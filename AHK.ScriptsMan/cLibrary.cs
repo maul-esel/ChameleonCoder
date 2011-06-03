@@ -10,27 +10,15 @@ namespace AHKScriptsMan
     /// <summary>
     /// represents a library resource
     /// </summary>
-    public class cLibrary : IResource
+    public class cLibrary : cCodeFile
     {
-        public cLibrary(XPathNavigator xmlnav, string xpath, string datafile)
+        public cLibrary(XPathNavigator xmlnav, string xpath, string datafile) : base(xmlnav, xpath, datafile)
         {
-            this.Author = xmlnav.SelectSingleNode(xpath + "/@author").Value;
-            this.DataFile = datafile;
-            this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
-            this.License = xmlnav.SelectSingleNode(xpath + "/@license").Value;
-            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
-            this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
             this.Type = ResourceType.library;
+            
+            this.Author = xmlnav.SelectSingleNode(xpath + "/@author").Value;
+            this.License = xmlnav.SelectSingleNode(xpath + "/@license").Value;
             this.Version = xmlnav.SelectSingleNode(xpath + "/@version").Value;
-            this.XML = xmlnav;
-            this.XPath = xpath;
-
-            this.Node = new TreeNode(this.Name);
-            this.Node.ImageIndex = 2;
-            this.Item = new ListViewItem(new string[] { this.Name, this.Type.ToString(), this.Description }); // add this.description (and this.typetostring())
         }
 
         #region IResource.properties
@@ -61,13 +49,11 @@ namespace AHKScriptsMan
 
         #region cLibrary properties
 
-        string Author { get; set; }
+        public string Author { get; protected set; }
 
-        string License { get; set; }
+        public string License { get; protected set; }
 
-        string Version { get; set; }
-
-        string Path { get; set; }
+        public string Version { get; protected set; }
 
         #endregion
 

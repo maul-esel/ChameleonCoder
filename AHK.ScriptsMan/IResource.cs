@@ -149,6 +149,9 @@ namespace AHKScriptsMan
         void Move(); 
             // first: attach
             // then: delete
+        static void CreateNew();
+
+        void Delete();
 
         #endregion
 
