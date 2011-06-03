@@ -9,11 +9,11 @@ namespace AHKScriptsMan
     /// </summary>
     public class cFile : IResource
     {
-        public cFile(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal cFile(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
             this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
@@ -22,7 +22,7 @@ namespace AHKScriptsMan
             this.XPath = xpath;
             
             this.Node = new TreeNode(this.Name);
-            this.Node.ImageIndex = 1;
+            this.Node.ImageIndex = 0;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
             this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
         }
@@ -58,9 +58,9 @@ namespace AHKScriptsMan
         #region cFile properties
 
         /// <summary>
-        /// the path to the file representedc by the resource
+        /// the path to the file represented by the resource
         /// </summary>
-        public string Path { get; protected set; }
+        internal string Path { get; set; }
 
         #endregion
 
@@ -107,7 +107,9 @@ namespace AHKScriptsMan
 
         void IResource.OpenAsDescendant()
         {
-
+            Program.Gui.panel1.Hide();
+            Program.Gui.panel2.Hide();
+            Program.Gui.panel3.Show();
         }
 
         void IResource.OpenAsAncestor()

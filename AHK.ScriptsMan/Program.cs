@@ -2,11 +2,11 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.XPath;
-using AHKScriptsMan.Window;
+using System.Collections;
 
 namespace AHKScriptsMan
 {
-    public static class Program
+    internal sealed class Program
     {
         /// <summary>
         /// contains the window object as public property
@@ -14,8 +14,10 @@ namespace AHKScriptsMan
         public static MainWin Gui
         {
             get;
-            set;
+            private set;
         }
+
+        internal static System.Collections.ArrayList links { get; private set; }
 
         
         /// <summary>
@@ -38,6 +40,9 @@ namespace AHKScriptsMan
             ListData();
             Gui.FormClosed += new FormClosedEventHandler(Gui_FormClosed);
             Gui.listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            Gui.TreeView.ExpandAll();
+            Gui.TreeView.Sort();
+            Gui.TreeView.TreeViewNodeSorter = new TreeNodeSorter();
             Application.Run(Gui);            
         }
 
@@ -51,95 +56,113 @@ namespace AHKScriptsMan
         /// </summary>
         private static void ListData()
         {
+            links = new System.Collections.ArrayList();
+
+            TreeNodeCollection nodes = Gui.TreeView.Nodes;
             string[] files = Directory.GetFiles(Application.StartupPath + "\\#Data", "*.xml");
-            IResource resource;
-            int i;
             foreach (string file in files)
             {
-#if DEBUG
-                try
-                {
-#endif
-                    XPathDocument xmldoc = new System.Xml.XPath.XPathDocument(file);
-                    XPathNavigator xmlnav = xmldoc.CreateNavigator();
+                XPathNavigator xmlnav = new System.Xml.XPath.XPathDocument(file).CreateNavigator();
+                AddResource(ref xmlnav, file, "/resource", nodes);
+            }
+            foreach (ResourceLink link in links)
+            {
+                link.UpdateLink();
+            }
+        }
 
-                    ResourceType type = (ResourceType)xmlnav.SelectSingleNode("/resource/@data-type").ValueAsInt;
-                    
-                    switch (type)
-                    {
-                        case ResourceType.file:
-                            resource = new cFile(ref xmlnav, "/resource", file);
-                            i = 0; break;
-                        case ResourceType.code:
-                            resource = new cCodeFile(ref xmlnav, "/resource", file);
-                            i = 1; break;
-                        case ResourceType.library:
-                            resource = new cLibrary(ref xmlnav, "/resource", file);
-                            i = 2; break;
-                        case ResourceType.project:
-                            resource = new cProject(ref xmlnav, "/resource", file);
-                            i = 3; break;
-                        case ResourceType.task:
-                            resource = new cTask(ref xmlnav, "/resource", file);
-                            i = 4;  break;
-                        default:
-                            MessageBox.Show("parsing error in file " + file + ".\ncase:" + type, "AHK.ScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            // TODO: check exceptions
-                            continue;
-                    }
-                    Gui.TreeView.Nodes.Add(resource.Node);
-                    Gui.listView1.Items.Add(resource.Item);
-                    Gui.groups[i].Items.Add(resource.Item);
-                    ResourceList.Add(resource.Node.GetHashCode(), resource.GUID, resource.Type, resource);
-#if DEBUG
-                }
-                catch (Exception e)
+        private static void AddResource(ref XPathNavigator xmlnav, string file, string xpath, TreeNodeCollection parentNodes)
+        {
+            IResource resource;
+            int i;
+            ResourceType type = (ResourceType)xmlnav.SelectSingleNode(xpath + "/@data-type").ValueAsInt;
+            
+            switch (type)
                 {
-                    MessageBox.Show(e.Message + "\n\n" + e.StackTrace);
-                }
-#endif
-                                
+                    case ResourceType.file:
+                        resource = new cFile(ref xmlnav, xpath, file);
+                        i = 0; break;
+                    case ResourceType.code:
+                        resource = new cCodeFile(ref xmlnav, xpath, file);
+                        i = 1; break;
+                    case ResourceType.library:
+                        resource = new cLibrary(ref xmlnav, xpath, file);
+                        i = 2; break;
+                    case ResourceType.project:
+                        resource = new cProject(ref xmlnav, xpath, file);
+                        i = 3; break;
+                    case ResourceType.task:
+                        resource = new cTask(ref xmlnav, xpath, file);
+                        i = 4; break;
+                    default:
+                        throw new Exception("parsing error in file " + file + ".\ncase:" + type);
+            }
+            Gui.listView1.Items.Add(resource.Item);
+            Gui.groups[i].Items.Add(resource.Item);
+            ResourceList.Add(resource.Node.GetHashCode(), resource.GUID, resource);
+            resource.Node.SelectedImageIndex = resource.Node.ImageIndex;
+            parentNodes.Add(resource.Node);
+           
+            i = 0;
+            foreach (XPathNavigator xmlnav2 in xmlnav.Select(xpath + "/attach"))
+            {
+                i++;
+                XPathNavigator xmlnav3 = xmlnav2.Clone();
+                AddResource(ref xmlnav3, file, xpath + "/attach[" + i + "]", resource.Node.Nodes);
             }
 
-            
+            i = 0;
+            foreach (XPathNavigator xmlnav2 in xmlnav.Select(xpath + "/link"))
+            {
+                i++;
+                XPathNavigator xmlnav3 = xmlnav2.Clone();
+                ResourceLink link = new ResourceLink(ref xmlnav3, xpath + "/link[" + i + "]", file);
+                links.Add(link);
+                resource.Node.Nodes.Add(link.Node);
+            }
         }
 
-        public static void TreeView_Click(object sender, EventArgs e)
+        internal static void TreeView_Click(object sender, EventArgs e)
+        {
+            TreeView tree = (TreeView)sender;
+            MouseEventArgs ev = (MouseEventArgs)e;
+            TreeNode node = tree.GetNodeAt(ev.X, ev.Y);
+            if (node.Parent != null)
+            {
+                ResourceList.GetInstance(node.GetHashCode()).OpenAsDescendant();
+            }
+            else
+            {
+                ResourceList.GetInstance(node.GetHashCode()).OpenAsAncestor();
+            }
+        }
+
+        internal static void CreateProject()
         {
             
         }
 
-        public static void Window_DragDrop(object sender, DragEventArgs e)
+        internal static void CreateFile()
         {
             
         }
 
-        public static void CreateProject()
+        internal static void CreateLibrary()
         {
             
         }
 
-        public static void CreateFile()
+        internal static void CreateTask()
         {
             
         }
 
-        public static void CreateLibrary()
+        internal static void OnLanguageChanged(string newlang)
         {
             
         }
 
-        public static void CreateTask()
-        {
-            
-        }
-
-        public static void OnLanguageChanged(string newlang)
-        {
-            
-        }
-
-        public static bool FilesAreMissing()
+        internal static bool FilesAreMissing()
         {
             return !(File.Exists(Application.StartupPath + "\\#Extern\\ScintillaNet.dll")
                 && File.Exists(Application.StartupPath + "\\#Extern\\SciLexer.dll"));

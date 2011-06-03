@@ -2,14 +2,14 @@
 
 namespace AHKScriptsMan
 {
-    public delegate void LanguageEvent(Guid language, object[] Arguments);
-    public struct PluginInfo
+    internal delegate void LanguageEvent(Guid language, object[] Arguments);
+    internal struct PluginInfo
     {
-        public Guid language;
-        public string languageName;
-        public LanguageEvent CompilerCallback;
-        public LanguageEvent ExecutionCallback;
-        public LanguageEvent CharTypedCallback;
+        internal Guid language;
+        internal string languageName;
+        internal LanguageEvent CompilerCallback;
+        internal LanguageEvent ExecutionCallback;
+        internal LanguageEvent CharTypedCallback;
         //public LanguageEvent 
         // todo: add delegates / events
     }

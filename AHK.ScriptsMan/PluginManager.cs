@@ -6,19 +6,19 @@ using System.Windows.Forms;
 
 namespace AHKScriptsMan.Plugins
 {
-    public delegate void PluginEvent(object sender, EventArgs e);
+    internal delegate void PluginEvent(object sender, EventArgs e);
     
     /// <summary>
     /// manages all plugins
     /// </summary>
-    public class PluginManager
+    internal sealed class PluginManager
     {
-        public static SortedList plugins;
+        internal static SortedList plugins { get; private set; }
 
         /// <summary>
         /// should call all classes to instantiate them.
         /// </summary>
-        public void CallClasses()
+        internal static void CallClasses()
         {
             // instantiate all classes in AHKScriptsMan.Plugins
             string[] files = Directory.GetFiles(Application.StartupPath + "\\Plugins", "*.dll");

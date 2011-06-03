@@ -8,7 +8,7 @@
     //  Das SettingsSaving-Ereignis wird ausgelöst, bevor die Einstellungswerte gespeichert werden.
     internal sealed partial class Settings {
         
-        public Settings() {
+        internal Settings() {
             // // Heben Sie die  Auskommentierung der unten angezeigten Zeilen auf, um Ereignishandler zum Speichern und Ändern von Einstellungen hinzuzufügen:
             //
             // this.SettingChanging += this.SettingChangingEventHandler;

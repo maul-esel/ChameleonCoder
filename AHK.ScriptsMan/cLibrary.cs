@@ -10,12 +10,13 @@ namespace AHKScriptsMan
     /// <summary>
     /// represents a library resource
     /// </summary>
-    public class cLibrary : cCodeFile
+    internal sealed class cLibrary : cCodeFile
     {
-        public cLibrary(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
+        internal cLibrary(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.library;
-            
+
+            this.Node.ImageIndex = 2;
             this.Author = xmlnav.SelectSingleNode(xpath + "/@author").Value;
             this.License = xmlnav.SelectSingleNode(xpath + "/@license").Value;
             this.Version = xmlnav.SelectSingleNode(xpath + "/@version").Value;
@@ -23,11 +24,11 @@ namespace AHKScriptsMan
 
         #region cLibrary properties
 
-        public string Author { get; protected set; }
+        internal string Author { get; private set; }
 
-        public string License { get; protected set; }
+        internal string License { get; private set; }
 
-        public string Version { get; protected set; }
+        internal string Version { get; private set; }
 
         #endregion
 

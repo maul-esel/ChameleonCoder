@@ -162,14 +162,11 @@
     <value>maul.esel</value>
     <comment>the translator's (nick-) name</comment>
   </data>
-  <data name="traymenu1" xml:space="preserve">
+  <data name="Item_Help" xml:space="preserve">
     <value>Hilfe</value>
   </data>
-  <data name="traymenu2" xml:space="preserve">
+  <data name="Item_Restart" xml:space="preserve">
     <value>Neustart</value>
-  </data>
-  <data name="traymenu3" xml:space="preserve">
-    <value>Beenden</value>
   </data>
   <data name="Item_About" xml:space="preserve">
     <value>Über...</value>
@@ -197,5 +194,8 @@
   </data>
   <data name="ResourceType_Task_pl" xml:space="preserve">
     <value>Aufgaben</value>
+  </data>
+  <data name="Item_Home" xml:space="preserve">
+    <value>Startseite</value>
   </data>
 </root>

@@ -108,12 +108,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Localizer.resx</DependentUpon>
     </Compile>
-    <Compile Include="DataProvider.cs" />
-    <Compile Include="AppResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="PluginInfo.cs" />
     <Compile Include="Localizer.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -131,12 +125,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IPlugin.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Tab.cs" />
+    <Compile Include="TreeNodeSorter.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,10 +147,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Localizer.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localizer.de-DE.Designer.cs</LastGenOutput>

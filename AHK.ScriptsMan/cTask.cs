@@ -7,13 +7,13 @@ namespace AHKScriptsMan
     /// <summary>
     /// represents a task
     /// </summary>
-    class cTask : IResource
+    internal sealed class cTask : IResource
     {
-        public cTask(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal cTask(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
             this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
@@ -22,7 +22,7 @@ namespace AHKScriptsMan
             this.XPath = xpath;
 
             this.Node = new TreeNode(this.Name);
-            this.Node.ImageIndex = 3;
+            this.Node.ImageIndex = 4;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
         }
 

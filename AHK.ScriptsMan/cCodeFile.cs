@@ -4,10 +4,11 @@ using System.Xml.XPath;
 
 namespace AHKScriptsMan
 {
-    public class cCodeFile : cFile
+    internal class cCodeFile : cFile
     {
-        public cCodeFile(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
+        internal cCodeFile(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
         {
+            this.Node.ImageIndex = 1;
             this.Type = ResourceType.code;
             this.language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             try
@@ -25,12 +26,12 @@ namespace AHKScriptsMan
         /// <summary>
         /// contains the languages to which the file is compatible
         /// </summary>
-        public Guid language { get; protected set; }
+        internal Guid language { get; set; }
 
         /// <summary>
-        /// the path to save the files if it is compiled.
+        /// the path to save the file if it is compiled.
         /// </summary>
-        public string CompilationPath { get; protected set; }
+        internal string CompilationPath { get; set; }
 
         #endregion
     }

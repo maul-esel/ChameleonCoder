@@ -9,38 +9,30 @@ namespace AHKScriptsMan
     /// <summary>
     /// lists all resources
     /// </summary>
-    public class ResourceList
+    internal sealed class ResourceList
     {
-        public static SortedList identifiers = new SortedList();
-        public static SortedList instances = new SortedList();
-        public static SortedList types = new SortedList();
+        private static SortedList identifiers = new SortedList();
+        private static SortedList instances = new SortedList();
 
-        public static void Add(int hash, Guid ID, ResourceType type, object instance)
+        internal static void Add(int hash, Guid ID, object instance)
         {
             identifiers.Add(hash, ID);
             instances.Add(ID, instance);
-            types.Add(ID, type);
         }
 
-        public static T GetInstance<T>(IntPtr ID)
+        internal static void AddLink(int hash, Guid ID)
         {
-            return GetInstance<T>((Guid)identifiers.GetByIndex(identifiers.IndexOfKey(ID)));
+            identifiers.Add(hash, ID);
         }
 
-        public static T GetInstance<T>(Guid ID)
+        internal static IResource GetInstance(int hash)
         {
-            return (T)instances.GetByIndex(instances.IndexOfKey(ID));
+            return GetInstance((Guid)identifiers.GetByIndex(identifiers.IndexOfKey(hash)));
         }
 
-        public static ResourceType GetType(IntPtr ID)
+        internal static IResource GetInstance(Guid ID)
         {
-            return GetType((Guid)identifiers.GetByIndex(identifiers.IndexOfKey(ID)));
+            return (IResource)instances.GetByIndex(instances.IndexOfKey(ID));
         }
-
-        public static ResourceType GetType(Guid ID)
-        {
-            return (ResourceType)types.GetByIndex(types.IndexOfKey(ID));
-        }
-        
     }
 }

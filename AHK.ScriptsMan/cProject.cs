@@ -4,16 +4,23 @@ using System.Xml.XPath;
 
 namespace AHKScriptsMan
 {
+    internal enum Priority
+    {
+        basic,
+        middle,
+        high
+    }
+
     /// <summary>
     /// represents a project resource
     /// </summary>
-    public class cProject : IResource
+    internal sealed class cProject : IResource
     {
-        public cProject(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal cProject(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
             this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
@@ -25,13 +32,16 @@ namespace AHKScriptsMan
             this.Node.ImageIndex = 3;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
 
-            int i = 0;
-            foreach (XPathNavigator node in xmlnav.Select(xpath + "/languages/lang"))
+            this.language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.Priority = (Priority)xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt;
+            this.Node.StateImageIndex = (int)this.Priority;
+            try
             {
-                i++;
-                languages[i] = Guid.Parse(node.SelectSingleNode("/@guid").Value);
+                this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
             }
-            this.Priority = xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt;
+            catch
+            {
+            }
         }
 
         #region IResource.properties
@@ -67,12 +77,14 @@ namespace AHKScriptsMan
         /// <summary>
         /// contains the project's priority (int from 1 to 3)
         /// </summary>
-        public int Priority { get; set; }
+        internal Priority Priority { get; private set; }
 
         /// <summary>
         /// contains all languages to which the project is compatible
         /// </summary>
-        public Guid[] languages;
+        internal Guid language { get; private set; }
+
+        internal string CompilationPath { get; private set; }
 
         #endregion
 
@@ -116,12 +128,14 @@ namespace AHKScriptsMan
 
         void IResource.OpenAsDescendant()
         {
-
+            
         }
 
         void IResource.OpenAsAncestor()
         {
-
+            Program.Gui.panel1.Hide();
+            Program.Gui.panel2.Hide();
+            Program.Gui.panel3.Show();
         }
 
         void IResource.AddMetadata()

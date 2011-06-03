@@ -39,7 +39,7 @@ namespace AHKScriptsMan
 
     }
     
-    public interface IResource
+    internal interface IResource
     {
         #region properties
 
@@ -158,6 +158,5 @@ namespace AHKScriptsMan
         void Delete();
 
         #endregion
-
     }
 }

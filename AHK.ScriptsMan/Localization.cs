@@ -15,11 +15,11 @@ namespace AHKScriptsMan
     /// used to handle localization.
     /// This code is taken from http://www.mycsharp.de/wbb2/thread.php?threadid=61039.
     /// </summary>
-    public class Localization
+    internal class Localization
     {
         private static ResourceManager resMgr;
 
-        public static void UpdateLanguage(string langID)
+        internal static void UpdateLanguage(string langID)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace AHKScriptsMan
             }
           }
 
-        public static string get_string(string pattern)
+        internal static string get_string(string pattern)
         {
             string result = string.Empty;
             try
