@@ -6,7 +6,7 @@ namespace AHKScriptsMan
 {
     public class cCodeFile : cFile
     {
-        public cCodeFile(XPathNavigator xmlnav, string xpath, string datafile) : base(xmlnav, xpath, datafile)
+        public cCodeFile(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.code;
 
@@ -16,7 +16,14 @@ namespace AHKScriptsMan
                 i++;
                 languages[i] = Guid.Parse(node.SelectSingleNode("/@guid").Value);
             }
-            this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
+            try
+            {
+                this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
+            }
+            catch
+            {
+            }
+
         }
 
         #region cCodeFile properties

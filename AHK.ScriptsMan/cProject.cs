@@ -9,7 +9,7 @@ namespace AHKScriptsMan
     /// </summary>
     public class cProject : IResource
     {
-        public cProject(XPathNavigator xmlnav, string xpath, string datafile)
+        public cProject(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
@@ -51,6 +51,8 @@ namespace AHKScriptsMan
         public TreeNode Node { get; set; }
 
         public string Notes { get; set; }
+
+        public Guid Parent { get; set; }
 
         public ResourceType Type { get; set; }
 
@@ -128,6 +130,11 @@ namespace AHKScriptsMan
         }
 
         void IResource.Package()
+        {
+
+        }
+
+        void IResource.Delete()
         {
 
         }

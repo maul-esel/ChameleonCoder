@@ -85,6 +85,11 @@ namespace AHKScriptsMan
         string Notes { get; set; }
 
         /// <summary>
+        /// contains the parent's GUID
+        /// </summary>
+        Guid Parent { get; set; }
+
+        /// <summary>
         /// contains the type of the resource
         /// </summary>
         ResourceType Type { get; set; }
@@ -149,7 +154,6 @@ namespace AHKScriptsMan
         void Move(); 
             // first: attach
             // then: delete
-        static void CreateNew();
 
         void Delete();
 

@@ -9,7 +9,7 @@ namespace AHKScriptsMan
     /// </summary>
     class cTask : IResource
     {
-        public cTask(XPathNavigator xmlnav, string xpath, string datafile)
+        public cTask(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
@@ -43,6 +43,8 @@ namespace AHKScriptsMan
         public TreeNode Node { get; set; }
 
         public string Notes { get; set; }
+
+        public Guid Parent { get; set; }
 
         public ResourceType Type { get; set; }
 
@@ -104,6 +106,11 @@ namespace AHKScriptsMan
         }
 
         void IResource.AddMetadata()
+        {
+
+        }
+
+        void IResource.Delete()
         {
 
         }

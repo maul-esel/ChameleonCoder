@@ -67,7 +67,7 @@ namespace AHKScriptsMan
                     switch (type)
                     {
                         case ResourceType.file:
-                            res1 = new cFile(xmlnav, "/resource", file);
+                            res1 = new cFile(ref xmlnav, "/resource", file);
                             Gui.TreeView.Nodes.Add(res1.Node);
                             Gui.listView1.Items.Add(res1.Item);
                             Gui.groups[0].Items.Add(res1.Item);
@@ -75,28 +75,28 @@ namespace AHKScriptsMan
                             ResourceList.Add(res1.Node.Handle, res1.GUID, res1.Type, res1);
                             break;
                         case ResourceType.code:
-                            res2 = new cCodeFile(xmlnav, "/resource", file);
+                            res2 = new cCodeFile(ref xmlnav, "/resource", file);
                             Gui.TreeView.Nodes.Add(res2.Node);
                             Gui.listView1.Items.Add(res2.Item);
                             Gui.groups[1].Items.Add(res2.Item);
                             ResourceList.Add(res2.Node.Handle, res2.GUID, res2.Type, res2);
                             break;
                         case ResourceType.library:
-                            res3 = new cLibrary(xmlnav, "/resource", file);
+                            res3 = new cLibrary(ref xmlnav, "/resource", file);
                             Gui.TreeView.Nodes.Add(res3.Node);
                             Gui.listView1.Items.Add(res3.Item);
                             Gui.groups[2].Items.Add(res3.Item);
                             ResourceList.Add(res3.Node.Handle, res3.GUID, res3.Type, res3);
                             break;
                         case ResourceType.project:
-                            res4 = new cProject(xmlnav, "/resource", file);
+                            res4 = new cProject(ref xmlnav, "/resource", file);
                             Gui.TreeView.Nodes.Add(res4.Node);
                             Gui.listView1.Items.Add(res4.Item);
                             Gui.groups[3].Items.Add(res4.Item);
                             ResourceList.Add(res4.Node.Handle, res4.GUID, res4.Type, res4);
                             break;
                         case ResourceType.task:
-                            res5 = new cTask(xmlnav, "/resource", file);
+                            res5 = new cTask(ref xmlnav, "/resource", file);
                             Gui.TreeView.Nodes.Add(res5.Node);
                             Gui.listView1.Items.Add(res5.Item);
                             Gui.groups[4].Items.Add(res5.Item);

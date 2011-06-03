@@ -10,8 +10,7 @@ namespace AHKScriptsMan
         public MainWin()
         {
             InitializeComponent();
-            this.listView1.GridLines = true;
-
+            
             this.listView1.Columns.Add("Name");
             this.listView1.Columns.Add("description");
             this.listView1.View = View.Details;
@@ -31,10 +30,11 @@ namespace AHKScriptsMan
             this.TreeView.Click += new EventHandler(Program.TreeView_Click);
 
             this.UpdateLanguage();
-            this.TreeView.CreateControl();
 
             //this.scintilla1.StyleNeeded += ...
             this.scintilla1.Lexing.Lexer = ScintillaNet.Lexer.Container;
+
+            
         }
 
         public void UpdateLanguage()

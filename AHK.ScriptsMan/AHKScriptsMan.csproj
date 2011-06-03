@@ -48,7 +48,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Release\</OutputPath>
+    <OutputPath>..\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -109,13 +109,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Localizer.resx</DependentUpon>
     </Compile>
-    <Compile Include="MsgBoxCreator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MsgBoxCreator.Designer.cs">
-      <DependentUpon>MsgBoxCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GuiCreator.cs" />
     <Compile Include="DataProvider.cs" />
     <Compile Include="AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -151,9 +144,6 @@
     <EmbeddedResource Include="Localizer.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localizer.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MsgBoxCreator.resx">
-      <DependentUpon>MsgBoxCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
