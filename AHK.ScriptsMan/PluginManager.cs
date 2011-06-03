@@ -26,7 +26,7 @@ namespace AHKScriptsMan.Plugins
             string[] files = Directory.GetFiles(Application.StartupPath + "\\Plugins", "*.dll");
             foreach (string file in files)
             {
-                PluginInfo[] info = (PluginInfo[])Assembly.LoadFile(file).GetType("Plugin.Program").GetMethod("PluginMain").Invoke(null, new string[] { "a", "b" });
+                PluginInfo[] info = (PluginInfo[])Assembly.LoadFrom(file).EntryPoint.Invoke(null, new string[] { "a", "b" });
                 foreach (PluginInfo lang in info)
                 {
                     plugins.Add(lang.language, lang);
