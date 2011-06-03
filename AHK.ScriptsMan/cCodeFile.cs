@@ -9,13 +9,7 @@ namespace AHKScriptsMan
         public cCodeFile(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.code;
-
-            int i = 0;
-            foreach (XPathNavigator node in xmlnav.Select(xpath + "/languages/lang"))
-            {
-                i++;
-                languages[i] = Guid.Parse(node.SelectSingleNode("/@guid").Value);
-            }
+            this.language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             try
             {
                 this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
@@ -31,7 +25,7 @@ namespace AHKScriptsMan
         /// <summary>
         /// contains the languages to which the file is compatible
         /// </summary>
-        public Guid[] languages { get; protected set; }
+        public Guid language { get; protected set; }
 
         /// <summary>
         /// the path to save the files if it is compiled.

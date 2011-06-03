@@ -143,7 +143,7 @@
     <comment>display name for the ResourceType.file type</comment>
   </data>
   <data name="ResourceType_Library" xml:space="preserve">
-    <value>Library</value>
+    <value>Bibliothek</value>
     <comment>display name for the ResourceType.library type</comment>
   </data>
   <data name="ResourceType_Project" xml:space="preserve">
@@ -179,5 +179,23 @@
   </data>
   <data name="ResourceType_Code" xml:space="preserve">
     <value>Code-Datei</value>
+  </data>
+  <data name="ResourceType_Code_pl" xml:space="preserve">
+    <value>Code-Dateien</value>
+  </data>
+  <data name="ResourceType_File_pl" xml:space="preserve">
+    <value>Dateien</value>
+  </data>
+  <data name="ResourceType_Library_pl" xml:space="preserve">
+    <value>Bibliotheken</value>
+  </data>
+  <data name="ResourceType_Project_pl" xml:space="preserve">
+    <value>Projekte</value>
+  </data>
+  <data name="ResourceType_resource_pl" xml:space="preserve">
+    <value>Ressourcen</value>
+  </data>
+  <data name="ResourceType_Task_pl" xml:space="preserve">
+    <value>Aufgaben</value>
   </data>
 </root>

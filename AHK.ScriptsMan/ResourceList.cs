@@ -15,9 +15,9 @@ namespace AHKScriptsMan
         public static SortedList instances = new SortedList();
         public static SortedList types = new SortedList();
 
-        public static void Add(IntPtr Handle, Guid ID, ResourceType type, object instance)
+        public static void Add(int hash, Guid ID, ResourceType type, object instance)
         {
-            identifiers.Add(Handle, ID);
+            identifiers.Add(hash, ID);
             instances.Add(ID, instance);
             types.Add(ID, type);
         }

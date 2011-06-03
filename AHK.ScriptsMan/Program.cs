@@ -52,7 +52,8 @@ namespace AHKScriptsMan
         private static void ListData()
         {
             string[] files = Directory.GetFiles(Application.StartupPath + "\\#Data", "*.xml");
-            cFile res1; cCodeFile res2;  cLibrary res3; cProject res4; cTask res5;
+            IResource resource;
+            int i;
             foreach (string file in files)
             {
 #if DEBUG
@@ -67,46 +68,29 @@ namespace AHKScriptsMan
                     switch (type)
                     {
                         case ResourceType.file:
-                            res1 = new cFile(ref xmlnav, "/resource", file);
-                            Gui.TreeView.Nodes.Add(res1.Node);
-                            Gui.listView1.Items.Add(res1.Item);
-                            Gui.groups[0].Items.Add(res1.Item);
-                            // problem: handle immer 0 (noch nicht erstellt :( )
-                            ResourceList.Add(res1.Node.Handle, res1.GUID, res1.Type, res1);
-                            break;
+                            resource = new cFile(ref xmlnav, "/resource", file);
+                            i = 0; break;
                         case ResourceType.code:
-                            res2 = new cCodeFile(ref xmlnav, "/resource", file);
-                            Gui.TreeView.Nodes.Add(res2.Node);
-                            Gui.listView1.Items.Add(res2.Item);
-                            Gui.groups[1].Items.Add(res2.Item);
-                            ResourceList.Add(res2.Node.Handle, res2.GUID, res2.Type, res2);
-                            break;
+                            resource = new cCodeFile(ref xmlnav, "/resource", file);
+                            i = 1; break;
                         case ResourceType.library:
-                            res3 = new cLibrary(ref xmlnav, "/resource", file);
-                            Gui.TreeView.Nodes.Add(res3.Node);
-                            Gui.listView1.Items.Add(res3.Item);
-                            Gui.groups[2].Items.Add(res3.Item);
-                            ResourceList.Add(res3.Node.Handle, res3.GUID, res3.Type, res3);
-                            break;
+                            resource = new cLibrary(ref xmlnav, "/resource", file);
+                            i = 2; break;
                         case ResourceType.project:
-                            res4 = new cProject(ref xmlnav, "/resource", file);
-                            Gui.TreeView.Nodes.Add(res4.Node);
-                            Gui.listView1.Items.Add(res4.Item);
-                            Gui.groups[3].Items.Add(res4.Item);
-                            ResourceList.Add(res4.Node.Handle, res4.GUID, res4.Type, res4);
-                            break;
+                            resource = new cProject(ref xmlnav, "/resource", file);
+                            i = 3; break;
                         case ResourceType.task:
-                            res5 = new cTask(ref xmlnav, "/resource", file);
-                            Gui.TreeView.Nodes.Add(res5.Node);
-                            Gui.listView1.Items.Add(res5.Item);
-                            Gui.groups[4].Items.Add(res5.Item);
-                            ResourceList.Add(res5.Node.Handle, res5.GUID, res5.Type, res5);
-                            break;
+                            resource = new cTask(ref xmlnav, "/resource", file);
+                            i = 4;  break;
                         default:
                             MessageBox.Show("parsing error in file " + file + ".\ncase:" + type, "AHK.ScriptsMan", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             // TODO: check exceptions
                             continue;
                     }
+                    Gui.TreeView.Nodes.Add(resource.Node);
+                    Gui.listView1.Items.Add(resource.Item);
+                    Gui.groups[i].Items.Add(resource.Item);
+                    ResourceList.Add(resource.Node.GetHashCode(), resource.GUID, resource.Type, resource);
 #if DEBUG
                 }
                 catch (Exception e)

@@ -24,7 +24,6 @@ namespace AHKScriptsMan
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 1;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
-
             this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
         }
 
