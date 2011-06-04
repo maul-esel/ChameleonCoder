@@ -402,6 +402,7 @@
             this.priorityIL.Images.SetKeyName(0, "05 - priority_green.ico");
             this.priorityIL.Images.SetKeyName(1, "06 - priority_yellow.ico");
             this.priorityIL.Images.SetKeyName(2, "07 - priority_red.ico");
+            this.priorityIL.Images.SetKeyName(3, "agt_forward.ico");
             // 
             // MainWin
             // 

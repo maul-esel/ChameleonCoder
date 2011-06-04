@@ -9,7 +9,7 @@ namespace ChameleonCoder
         internal ResourceLink(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.Node = new TreeNode();
-            this.Node.StateImageIndex = 4;
+            this.Node.StateImageIndex = 3;
             this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.XML = xmlnav;
             ResourceList.AddLink(this.Node.GetHashCode(), this.GUID);
