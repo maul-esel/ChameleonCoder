@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Xml.XPath;
 using System.Collections;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     internal sealed class Program
     {

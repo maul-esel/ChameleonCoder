@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.XPath;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     /// <summary>
     /// defines the resource's type

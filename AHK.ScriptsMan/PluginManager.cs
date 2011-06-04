@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace AHKScriptsMan.Plugins
+namespace ChameleonCoder.Plugins
 {
     internal delegate void PluginEvent(object sender, EventArgs e);
     

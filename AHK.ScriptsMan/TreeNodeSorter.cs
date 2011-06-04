@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     internal class TreeNodeSorter : IComparer
     {

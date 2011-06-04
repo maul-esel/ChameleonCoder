@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     internal sealed partial class MainWin : Form
     {

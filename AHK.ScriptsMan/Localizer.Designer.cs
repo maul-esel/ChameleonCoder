@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AHKScriptsMan {
+namespace ChameleonCoder {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace AHKScriptsMan {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AHKScriptsMan.Localizer", typeof(Localizer).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ChameleonCoder.Localizer", typeof(Localizer).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

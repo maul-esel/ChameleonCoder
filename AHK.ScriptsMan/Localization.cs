@@ -9,7 +9,7 @@ using System.Threading;
 using System.Reflection;
 
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     /// <summary>
     /// used to handle localization.
@@ -27,7 +27,7 @@ namespace AHKScriptsMan
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(langID);
 
                 // Init ResourceManager  
-                resMgr = new ResourceManager("AHKScriptsMan.Localizer", Assembly.GetExecutingAssembly());
+                resMgr = new ResourceManager("ChameleonCoder.Localizer", Assembly.GetExecutingAssembly());
             }
             catch(Exception e)
             {

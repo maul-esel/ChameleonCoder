@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Xml.XPath;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     /// <summary>
     /// represents a file resource

@@ -1,4 +1,4 @@
-﻿namespace AHKScriptsMan.Properties {
+﻿namespace ChameleonCoder.Properties {
     
     
     // Diese Klasse ermöglicht die Behandlung bestimmter Ereignisse der Einstellungsklasse:

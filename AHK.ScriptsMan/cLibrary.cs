@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.XPath;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     /// <summary>
     /// represents a library resource

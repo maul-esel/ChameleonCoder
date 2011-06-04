@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     internal delegate void LanguageEvent(Guid language, object[] Arguments);
     internal struct PluginInfo

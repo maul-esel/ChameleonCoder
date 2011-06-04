@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 
-namespace AHKScriptsMan
+namespace ChameleonCoder
 {
     /// <summary>
     /// lists all resources
