@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>C:\Programming\C#\AHK.ScriptsMan\publish\</PublishUrlHistory>
+    <PublishUrlHistory>C:\Programming\C#\ChameleonCoder\publish\|C:\Programming\C#\AHK.ScriptsMan\publish\</PublishUrlHistory>
     <InstallUrlHistory />
     <SupportUrlHistory />
     <UpdateUrlHistory />
@@ -11,7 +11,7 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartWorkingDirectory>C:\Programming\C#\AHK.ScriptsMan\</StartWorkingDirectory>
+    <StartWorkingDirectory>C:\Programming\C#\ChameleonCoder\</StartWorkingDirectory>
     <StartArguments>
     </StartArguments>
   </PropertyGroup>
