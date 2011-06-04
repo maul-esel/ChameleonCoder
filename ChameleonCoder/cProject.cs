@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections;
 using System.Xml.XPath;
 
 namespace ChameleonCoder
@@ -55,6 +56,10 @@ namespace ChameleonCoder
         public bool Hide { get; set; }
 
         public ListViewItem Item { get; set; }
+
+        public SortedList MetaData { get; set; }
+
+        public MetaFlags[] Flags { get; set; }
 
         public string Name { get; set; }
 

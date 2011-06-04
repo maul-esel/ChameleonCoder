@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Windows.Forms;
 using System.Linq;
 using System.Text;
@@ -36,7 +36,16 @@ namespace ChameleonCoder
         /// the resource is a task
         /// </summary>
         task
+    }
 
+    [FlagsAttribute]
+    public enum MetaFlags
+    {
+        none = 0,
+        hide = 1,
+        noconfig = 2,
+        noedit = 4,
+        standard = 8, 
     }
     
     internal interface IResource
@@ -68,6 +77,16 @@ namespace ChameleonCoder
         /// contains the listview item
         /// </summary>
         ListViewItem Item { get; set; }
+
+        /// <summary>
+        /// the associated metadata as key-value pairs
+        /// </summary>
+        SortedList MetaData { get; set; }
+
+        /// <summary>
+        /// the flags associated to the metadata
+        /// </summary>
+        MetaFlags[] Flags { get; set; }
 
         /// <summary>
         /// contains the user-defined name

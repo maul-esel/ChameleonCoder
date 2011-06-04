@@ -230,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="00 - icon_tray.ico" />
+    <Content Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
