@@ -11,14 +11,9 @@ namespace ChameleonCoder
             this.Node.ImageIndex = 1;
             this.Type = ResourceType.code;
             this.language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            try
-            {
-                this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
-            }
-            catch
-            {
-            }
 
+            try { this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value; }
+            catch { }
         }
 
         #region cCodeFile properties

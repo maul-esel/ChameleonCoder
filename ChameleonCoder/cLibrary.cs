@@ -17,9 +17,15 @@ namespace ChameleonCoder
             this.Type = ResourceType.library;
 
             this.Node.ImageIndex = 2;
-            this.Author = xmlnav.SelectSingleNode(xpath + "/@author").Value;
-            this.License = xmlnav.SelectSingleNode(xpath + "/@license").Value;
-            this.Version = xmlnav.SelectSingleNode(xpath + "/@version").Value;
+
+            try { this.Author = xmlnav.SelectSingleNode(xpath + "/@author").Value; }
+            catch { }
+
+            try { this.License = xmlnav.SelectSingleNode(xpath + "/@license").Value; }
+            catch { }
+
+            try { this.Version = xmlnav.SelectSingleNode(xpath + "/@version").Value; }
+            catch { }
         }
 
         #region cLibrary properties

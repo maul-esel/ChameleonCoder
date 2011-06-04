@@ -12,6 +12,7 @@ namespace ChameleonCoder
             this.Node.StateImageIndex = 3;
             this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.XML = xmlnav;
+            this.XPath = xpath;
             ResourceList.AddLink(this.Node.GetHashCode(), this.GUID);
         }
 
@@ -43,6 +44,8 @@ namespace ChameleonCoder
         internal Guid Parent { get; private set; }
 
         internal XPathNavigator XML { get; private set; }
+
+        internal string XPath { get; private set; }
 
         #endregion
 

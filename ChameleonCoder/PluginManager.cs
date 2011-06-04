@@ -33,6 +33,17 @@ namespace ChameleonCoder.Plugins
 
         }
 
+        internal static string GetLanguageName(Guid language)
+        {
+            string result = string.Empty;
+            try
+            {
+                result = ((PluginInfo)plugins.GetByIndex(plugins.IndexOfKey(language))).languageName;
+            }
+            catch { }
+            return result;
+        }
+
         
 
     }

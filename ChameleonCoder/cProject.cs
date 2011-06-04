@@ -29,20 +29,33 @@ namespace ChameleonCoder
             this.XML = xmlnav;
             this.XPath = xpath;
 
+            this.MetaData = new SortedList();
+            //this.Flags = new MetaFlags[].;
+
+            int i = 0;
+            try
+            {
+                foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
+                {
+                    i++;
+                    this.MetaData.Add(xml.SelectSingleNode(xpath + "/metadata[" + i + "]/@name").Value, xml.SelectSingleNode(xpath + "/metadata[" + i + "]").Value);
+                    //this.MetaData[i] = MetaFlags.none;
+                }
+            }
+            catch { }
+
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 3;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
 
             this.language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            this.Priority = (Priority)xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt;
+
+            try { this.Priority = (Priority)xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt; }
+            catch { this.Priority = Priority.basic; }
             this.Node.StateImageIndex = (int)this.Priority;
-            try
-            {
-                this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value;
-            }
-            catch
-            {
-            }
+
+            try { this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value; }
+            catch { }
         }
 
         #region IResource.properties
@@ -138,6 +151,31 @@ namespace ChameleonCoder
 
         void IResource.OpenAsAncestor()
         {
+            Program.Gui.listView2.Items.Clear();
+            Program.Gui.dataGridView1.Rows.Clear();
+
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), this.Type.ToString() }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Priority"), this.Priority.ToString() }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.language) }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CompilePath"), this.CompilationPath }));
+
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("DataFile"), this.DataFile }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("GUID"), this.GUID.ToString() }));
+
+
+            try
+            {
+                for (int i = 0; i <= this.MetaData.Count; i++)
+                {
+                    Program.Gui.dataGridView1.Rows.Add(new string[] { this.MetaData.GetKey(i).ToString(), this.MetaData.GetByIndex(i).ToString() });
+                }
+            }
+            catch { }
+
+            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
             Program.Gui.panel1.Hide();
             Program.Gui.panel2.Hide();
             Program.Gui.panel3.Show();

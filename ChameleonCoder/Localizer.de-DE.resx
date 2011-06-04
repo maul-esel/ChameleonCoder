@@ -198,4 +198,40 @@
   <data name="Item_Home" xml:space="preserve">
     <value>Startseite</value>
   </data>
+  <data name="CodeLanguage" xml:space="preserve">
+    <value>Programmiersprache</value>
+  </data>
+  <data name="CompilePath" xml:space="preserve">
+    <value>Kompilierte Datei</value>
+  </data>
+  <data name="DataFile" xml:space="preserve">
+    <value>Ressource-Datei</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="GUID" xml:space="preserve">
+    <value>GUID</value>
+  </data>
+  <data name="Item_Metadata" xml:space="preserve">
+    <value>Metadata</value>
+  </data>
+  <data name="Item_Property" xml:space="preserve">
+    <value>Eigenschaft</value>
+  </data>
+  <data name="Item_Value" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priorität</value>
+  </data>
+  <data name="ResourceType" xml:space="preserve">
+    <value>Ressource-Typ</value>
+  </data>
+  <data name="Tree" xml:space="preserve">
+    <value>Struktur</value>
+  </data>
 </root>
