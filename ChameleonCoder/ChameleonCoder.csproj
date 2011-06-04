@@ -73,7 +73,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>00 - icon_tray.ico</ApplicationIcon>
+    <ApplicationIcon>logo2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="cFile.cs" />
     <Compile Include="cCodeFile.cs" />
+    <Compile Include="HelperClass.cs" />
     <Compile Include="ResourceLink.cs" />
     <Compile Include="cTask.cs" />
     <Compile Include="Localization.cs" />
@@ -229,8 +230,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="00 - icon_tray.ico" />
-    <Content Include="logo.ico" />
+    <Content Include="logo2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

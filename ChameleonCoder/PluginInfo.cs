@@ -7,10 +7,13 @@ namespace ChameleonCoder
     {
         internal Guid language;
         internal string languageName;
+        internal LanguageEvent LoadCallback;
+        internal LanguageEvent MetadataReadCallback;
         internal LanguageEvent CompilerCallback;
         internal LanguageEvent ExecutionCallback;
         internal LanguageEvent CharTypedCallback;
-        //public LanguageEvent 
+        internal LanguageEvent AboutBoxCallback;
+        internal LanguageEvent UnloadCallback;
         // todo: add delegates / events
     }
 }

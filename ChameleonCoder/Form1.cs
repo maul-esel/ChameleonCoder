@@ -11,8 +11,6 @@ namespace ChameleonCoder
         {
             InitializeComponent();
 
-            this.ShowIcon = false;
-
             this.listView1.Columns.Add(string.Empty);
             this.listView1.Columns.Add(string.Empty);
             this.listView1.View = View.Details;

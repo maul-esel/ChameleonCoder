@@ -127,14 +127,7 @@ namespace ChameleonCoder
             TreeView tree = (TreeView)sender;
             MouseEventArgs ev = (MouseEventArgs)e;
             TreeNode node = tree.GetNodeAt(ev.X, ev.Y);
-            if (node.Parent != null)
-            {
-                ResourceList.GetInstance(node.GetHashCode()).OpenAsDescendant();
-            }
-            else
-            {
-                ResourceList.GetInstance(node.GetHashCode()).OpenAsAncestor();
-            }
+            ResourceList.GetInstance(node.GetHashCode()).Open();
         }
 
         internal static void CreateProject()
@@ -166,7 +159,6 @@ namespace ChameleonCoder
         {
             return !(File.Exists(Application.StartupPath + "\\#Extern\\ScintillaNet.dll")
                 && File.Exists(Application.StartupPath + "\\#Extern\\SciLexer.dll"));
-        }
-    
+        }    
     }
 }

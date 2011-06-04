@@ -21,6 +21,18 @@ namespace ChameleonCoder
             this.Type = ResourceType.file;
             this.XML = xmlnav;
             this.XPath = xpath;
+
+            int i = 0;
+            try
+            {
+                foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
+                {
+                    i++;
+                    this.MetaData.Add(xml.SelectSingleNode(xpath + "/metadata[" + i + "]/@name").Value, xml.SelectSingleNode(xpath + "/metadata[" + i + "]").Value);
+                    //this.MetaData[i] = MetaFlags.none;
+                }
+            }
+            catch { }
             
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 0;
@@ -110,16 +122,36 @@ namespace ChameleonCoder
 
         }
 
-        void IResource.OpenAsDescendant()
+        void IResource.Open()
         {
+            Program.Gui.listView2.Items.Clear();
+            Program.Gui.dataGridView1.Rows.Clear();
+
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), HelperClass.ToString(this.Type) }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), this.Node.FullPath }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Path"), this.Path }));
+
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("DataFile"), this.DataFile }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("GUID"), this.GUID.ToString() }));
+
+            Program.Gui.textBox1.Text = this.Notes;
+
+            try
+            {
+                for (int i = 0; i <= this.MetaData.Count; i++)
+                {
+                    Program.Gui.dataGridView1.Rows.Add(new string[] { this.MetaData.GetKey(i).ToString(), this.MetaData.GetByIndex(i).ToString() });
+                }
+            }
+            catch { }
+
+            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
             Program.Gui.panel1.Hide();
             Program.Gui.panel2.Hide();
             Program.Gui.panel3.Show();
-        }
-
-        void IResource.OpenAsAncestor()
-        {
-
         }
 
         void IResource.AddMetadata()

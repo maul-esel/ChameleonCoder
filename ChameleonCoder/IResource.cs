@@ -127,14 +127,9 @@ namespace ChameleonCoder
 
         #region methods
         /// <summary>
-        /// opens a resource inherited from a project
+        /// opens a resource
         /// </summary>
-        void OpenAsAncestor();
-
-        /// <summary>
-        /// opens a resource which isn't inherited
-        /// </summary>
-        void OpenAsDescendant();
+        void Open();
 
         /// <summary>
         /// packages a resource

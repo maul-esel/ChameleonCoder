@@ -189,7 +189,7 @@
   <data name="ResourceType_Project_pl" xml:space="preserve">
     <value>Projekte</value>
   </data>
-  <data name="ResourceType_resource_pl" xml:space="preserve">
+  <data name="ResourceType_Resource_pl" xml:space="preserve">
     <value>Ressourcen</value>
   </data>
   <data name="ResourceType_Task_pl" xml:space="preserve">
@@ -233,5 +233,17 @@
   </data>
   <data name="Tree" xml:space="preserve">
     <value>Struktur</value>
+  </data>
+  <data name="Priority_Basic" xml:space="preserve">
+    <value>niedrig</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>hoch</value>
+  </data>
+  <data name="Priority_Middle" xml:space="preserve">
+    <value>mittel</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Pfad</value>
   </data>
 </root>

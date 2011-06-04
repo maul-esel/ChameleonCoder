@@ -46,6 +46,7 @@ namespace ChameleonCoder
 
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 3;
+            //this.Node.BackColor = System.Drawing.Color.SkyBlue;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
 
             this.language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
@@ -144,43 +145,6 @@ namespace ChameleonCoder
 
         }
 
-        void IResource.OpenAsDescendant()
-        {
-            
-        }
-
-        void IResource.OpenAsAncestor()
-        {
-            Program.Gui.listView2.Items.Clear();
-            Program.Gui.dataGridView1.Rows.Clear();
-
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), this.Type.ToString() }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Priority"), this.Priority.ToString() }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.language) }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CompilePath"), this.CompilationPath }));
-
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("DataFile"), this.DataFile }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("GUID"), this.GUID.ToString() }));
-
-
-            try
-            {
-                for (int i = 0; i <= this.MetaData.Count; i++)
-                {
-                    Program.Gui.dataGridView1.Rows.Add(new string[] { this.MetaData.GetKey(i).ToString(), this.MetaData.GetByIndex(i).ToString() });
-                }
-            }
-            catch { }
-
-            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-            Program.Gui.panel1.Hide();
-            Program.Gui.panel2.Hide();
-            Program.Gui.panel3.Show();
-        }
-
         void IResource.AddMetadata()
         {
 
@@ -199,9 +163,38 @@ namespace ChameleonCoder
         /// <summary>
         /// opens the project
         /// </summary>
-        public void Open()
+        void IResource.Open()
         {
+            Program.Gui.listView2.Items.Clear();
+            Program.Gui.dataGridView1.Rows.Clear();
 
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), HelperClass.ToString(this.Type) }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), this.Node.FullPath }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Priority"), HelperClass.ToString(this.Priority) }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.language) }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CompilePath"), this.CompilationPath }));
+
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("DataFile"), this.DataFile }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("GUID"), this.GUID.ToString() }));
+
+            Program.Gui.textBox1.Text = this.Notes;
+
+            try
+            {
+                for (int i = 0; i <= this.MetaData.Count; i++)
+                {
+                    Program.Gui.dataGridView1.Rows.Add(new string[] { this.MetaData.GetKey(i).ToString(), this.MetaData.GetByIndex(i).ToString() });
+                }
+            }
+            catch { }
+
+            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            Program.Gui.panel1.Hide();
+            Program.Gui.panel2.Hide();
+            Program.Gui.panel3.Show();
         }
 
         /// <summary>

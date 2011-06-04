@@ -100,12 +100,7 @@ namespace ChameleonCoder
 
         }
 
-        void IResource.OpenAsDescendant()
-        {
-
-        }
-
-        void IResource.OpenAsAncestor()
+        void IResource.Open()
         {
 
         }
