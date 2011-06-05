@@ -39,7 +39,7 @@ namespace ChameleonCoder
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.AllowUserToResizeColumns = false;
             
-            this.TreeView.PathSeparator = "\\";
+            this.TreeView.PathSeparator = "/";
             this.TreeView.FullRowSelect = true;
             this.TreeView.ShowLines = true;
             this.TreeView.ShowPlusMinus = false;
@@ -51,7 +51,9 @@ namespace ChameleonCoder
             this.TreeView.Click += new EventHandler(Program.TreeView_Click);
 
             this.toolbutton0_0.Click += new EventHandler(GoHome);
+            // other toolbuttons
             this.toolbutton0_4.Click += new EventHandler(Restart);
+            this.toolbutton0_5.Click += new EventHandler(CreateResource);
 
             this.UpdateLanguage();
         }
@@ -63,6 +65,7 @@ namespace ChameleonCoder
             this.toolbutton0_2.Text = Localization.get_string("Item_About");
             this.toolbutton0_3.Text = Localization.get_string("Item_Help");
             this.toolbutton0_4.Text = Localization.get_string("Item_Restart");
+            this.toolbutton0_5.Text = Localization.get_string("Action_New");
 
             this.listView2.Columns[0].Text = Localization.get_string("Item_Property");
             this.listView2.Columns[1].Text = Localization.get_string("Item_Value");
@@ -87,6 +90,11 @@ namespace ChameleonCoder
         internal void Restart(object sender, EventArgs e)
         {
             Application.Restart();
+        }
+
+        internal void CreateResource(object sender, EventArgs e)
+        {
+            new CreateResource();
         }
     }
 }

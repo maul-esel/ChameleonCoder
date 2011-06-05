@@ -38,6 +38,14 @@ namespace ChameleonCoder
 
         #endregion
 
-               
+        #region cLibrary methods
+
+        internal static new void Create(object sender, EventArgs e)
+        {
+            Program.Gui.Enabled = true;
+            Program.Selector.Close();
+        }
+
+        #endregion
     }
 }

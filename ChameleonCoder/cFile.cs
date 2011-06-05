@@ -40,7 +40,7 @@ namespace ChameleonCoder
             this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
         }
 
-        #region IResource.properties
+        #region IResource properties
 
         public string DataFile { get; set; }
 
@@ -72,16 +72,8 @@ namespace ChameleonCoder
 
         #endregion
 
-        #region cFile properties
+        #region IResource methods
 
-        /// <summary>
-        /// the path to the file represented by the resource
-        /// </summary>
-        internal string Path { get; set; }
-
-        #endregion
-
-        #region methods
         void IResource.Move()
         {
 
@@ -129,7 +121,7 @@ namespace ChameleonCoder
 
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), HelperClass.ToString(this.Type) }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), this.Node.FullPath }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), "/" + this.Node.FullPath }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Path"), this.Path }));
 
@@ -164,6 +156,24 @@ namespace ChameleonCoder
 
         }
         #endregion
-                       
+
+        #region cFile properties
+
+        /// <summary>
+        /// the path to the file represented by the resource
+        /// </summary>
+        internal string Path { get; set; }
+
+        #endregion
+
+        #region cFile methods
+
+        internal static void Create(object sender, EventArgs e)
+        {
+            Program.Gui.Enabled = true;
+            Program.Selector.Close();
+        }
+
+        #endregion
     }
 }

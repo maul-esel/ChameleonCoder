@@ -9,7 +9,8 @@ namespace ChameleonCoder
         internal ResourceLink(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.Node = new TreeNode();
-            this.Node.StateImageIndex = 3;
+            this.Node.NodeFont = new System.Drawing.Font("Cambria", 10, System.Drawing.FontStyle.Italic);
+            
             this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
             this.XML = xmlnav;
             this.XPath = xpath;
@@ -20,15 +21,8 @@ namespace ChameleonCoder
         {
             this.Node.Text = this.Name = this.Resolve().Name;
             this.Type = this.Resolve().Type;
-
-            switch (this.Type)
-            {
-                case ResourceType.file: this.Node.SelectedImageIndex = this.Node.ImageIndex = 0; break;
-                case ResourceType.code: this.Node.SelectedImageIndex = this.Node.ImageIndex = 1; break;
-                case ResourceType.library: this.Node.SelectedImageIndex = this.Node.ImageIndex = 2; break;
-                case ResourceType.project: this.Node.SelectedImageIndex = this.Node.ImageIndex = 3; break;
-                case ResourceType.task: this.Node.SelectedImageIndex = this.Node.ImageIndex = 4; break;
-            }
+            this.Node.SelectedImageIndex = this.Node.ImageIndex = this.Resolve().Node.ImageIndex;
+            this.Node.StateImageIndex = this.Resolve().Node.StateImageIndex;
         }
 
         #region properties

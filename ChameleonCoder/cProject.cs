@@ -46,7 +46,6 @@ namespace ChameleonCoder
 
             this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 3;
-            //this.Node.BackColor = System.Drawing.Color.SkyBlue;
             this.Item = new ListViewItem(new string[] { this.Name, this.Description });
 
             this.language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
@@ -59,7 +58,7 @@ namespace ChameleonCoder
             catch { }
         }
 
-        #region IResource.properties
+        #region IResource properties
 
         public string DataFile { get; set; }
 
@@ -91,24 +90,7 @@ namespace ChameleonCoder
 
         #endregion
 
-        #region cProject properties
-
-        /// <summary>
-        /// contains the project's priority (int from 1 to 3)
-        /// </summary>
-        internal Priority Priority { get; private set; }
-
-        /// <summary>
-        /// contains all languages to which the project is compatible
-        /// </summary>
-        internal Guid language { get; private set; }
-
-        internal string CompilationPath { get; private set; }
-
-        #endregion
-
-        #region methods
-
+        #region IResource methods
 
         void IResource.Move()
         {
@@ -170,7 +152,7 @@ namespace ChameleonCoder
 
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), HelperClass.ToString(this.Type) }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), this.Node.FullPath }));
+            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), "/" + this.Node.FullPath }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Priority"), HelperClass.ToString(this.Priority) }));
             Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.language) }));
@@ -197,12 +179,41 @@ namespace ChameleonCoder
             Program.Gui.panel3.Show();
         }
 
+        #endregion
+
+        #region cProject properties
+
+        /// <summary>
+        /// contains the project's priority (int from 0 to 2)
+        /// </summary>
+        internal Priority Priority { get; private set; }
+
+        /// <summary>
+        /// the GUID of the language in which the project is written
+        /// </summary>
+        internal Guid language { get; private set; }
+
+        /// <summary>
+        /// the path to which the project would be compiled
+        /// </summary>
+        internal string CompilationPath { get; private set; }
+
+        #endregion
+
+        #region cProject methods
+
         /// <summary>
         /// asks the user to enter a new priority and saves it
         /// </summary>
-        public void SetPriority()
+        internal void SetPriority()
         {
 
+        }
+
+        internal static void Create(object sender, EventArgs e)
+        {
+            Program.Gui.Enabled = true;
+            Program.Selector.Close();
         }
 
         #endregion

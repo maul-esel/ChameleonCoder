@@ -39,8 +39,8 @@
             this.toolbutton0_0 = new System.Windows.Forms.ToolStripButton();
             this.toolbutton0_1 = new System.Windows.Forms.ToolStripButton();
             this.toolbutton0_2 = new System.Windows.Forms.ToolStripButton();
-            this.toolbutton0_3 = new System.Windows.Forms.ToolStripButton();
             this.toolbutton0_4 = new System.Windows.Forms.ToolStripButton();
+            this.toolbutton0_5 = new System.Windows.Forms.ToolStripButton();
             this.TreeView = new System.Windows.Forms.TreeView();
             this.TreeIL = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -53,12 +53,13 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listView2 = new System.Windows.Forms.ListView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.scintilla1 = new ScintillaNet.Scintilla();
             this.priorityIL = new System.Windows.Forms.ImageList(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.toolbutton0_3 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -136,7 +137,8 @@
             this.toolbutton0_1,
             this.toolbutton0_2,
             this.toolbutton0_3,
-            this.toolbutton0_4});
+            this.toolbutton0_4,
+            this.toolbutton0_5});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(325, 25);
@@ -170,15 +172,6 @@
             this.toolbutton0_2.Size = new System.Drawing.Size(23, 22);
             this.toolbutton0_2.Text = "toolStripButton2";
             // 
-            // toolbutton0_3
-            // 
-            this.toolbutton0_3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolbutton0_3.Image = ((System.Drawing.Image)(resources.GetObject("toolbutton0_3.Image")));
-            this.toolbutton0_3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolbutton0_3.Name = "toolbutton0_3";
-            this.toolbutton0_3.Size = new System.Drawing.Size(23, 22);
-            this.toolbutton0_3.Text = "toolStripButton1";
-            // 
             // toolbutton0_4
             // 
             this.toolbutton0_4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -187,6 +180,15 @@
             this.toolbutton0_4.Name = "toolbutton0_4";
             this.toolbutton0_4.Size = new System.Drawing.Size(23, 22);
             this.toolbutton0_4.Text = "toolStripButton2";
+            // 
+            // toolbutton0_5
+            // 
+            this.toolbutton0_5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbutton0_5.Image = ((System.Drawing.Image)(resources.GetObject("toolbutton0_5.Image")));
+            this.toolbutton0_5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbutton0_5.Name = "toolbutton0_5";
+            this.toolbutton0_5.Size = new System.Drawing.Size(23, 22);
+            this.toolbutton0_5.Text = "toolStripButton1";
             // 
             // TreeView
             // 
@@ -332,6 +334,15 @@
             this.dataGridView1.Size = new System.Drawing.Size(847, 231);
             this.dataGridView1.TabIndex = 1;
             // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 372);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(847, 254);
+            this.textBox1.TabIndex = 2;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.splitContainer4);
@@ -392,16 +403,15 @@
             this.priorityIL.Images.SetKeyName(0, "05 - priority_green.ico");
             this.priorityIL.Images.SetKeyName(1, "06 - priority_yellow.ico");
             this.priorityIL.Images.SetKeyName(2, "07 - priority_red.ico");
-            this.priorityIL.Images.SetKeyName(3, "agt_forward.ico");
             // 
-            // textBox1
+            // toolbutton0_3
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 372);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(847, 254);
-            this.textBox1.TabIndex = 2;
+            this.toolbutton0_3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbutton0_3.Image = ((System.Drawing.Image)(resources.GetObject("toolbutton0_3.Image")));
+            this.toolbutton0_3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbutton0_3.Name = "toolbutton0_3";
+            this.toolbutton0_3.Size = new System.Drawing.Size(23, 22);
+            this.toolbutton0_3.Text = "toolStripButton1";
             // 
             // MainWin
             // 
@@ -413,6 +423,7 @@
             this.ClientSize = new System.Drawing.Size(1182, 658);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Cambria", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainWin";
@@ -471,7 +482,6 @@
         internal System.Windows.Forms.TreeView TreeView;
         private System.Windows.Forms.ToolStripButton toolbutton0_1;
         private System.Windows.Forms.ToolStripButton toolbutton0_2;
-        private System.Windows.Forms.ToolStripButton toolbutton0_3;
         private System.Windows.Forms.ToolStripButton toolbutton0_4;
         private System.Windows.Forms.ImageList priorityIL;
         private System.Windows.Forms.ImageList TreeIL;
@@ -483,6 +493,8 @@
         internal System.Windows.Forms.ListView listView2;
         internal System.Windows.Forms.DataGridView dataGridView1;
         internal System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolStripButton toolbutton0_5;
+        private System.Windows.Forms.ToolStripButton toolbutton0_3;
 
 
 

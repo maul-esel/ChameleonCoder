@@ -17,6 +17,12 @@ namespace ChameleonCoder
             private set;
         }
 
+        internal static Form Selector
+        {
+            get;
+            set;
+        }
+
         internal static System.Collections.ArrayList links { get; private set; }
 
         

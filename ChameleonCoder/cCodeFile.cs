@@ -13,7 +13,7 @@ namespace ChameleonCoder
             this.language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
 
             try { this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value; }
-            catch { }
+            catch { this.CompilationPath = this.Path + ".exe"; }
         }
 
         #region cCodeFile properties
@@ -27,6 +27,16 @@ namespace ChameleonCoder
         /// the path to save the file if it is compiled.
         /// </summary>
         internal string CompilationPath { get; set; }
+
+        #endregion
+
+        #region cCodeFile methods
+
+        internal static new void Create(object sender, EventArgs e)
+        {
+            Program.Gui.Enabled = true;
+            Program.Selector.Close();
+        }
 
         #endregion
     }

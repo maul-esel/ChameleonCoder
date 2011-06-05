@@ -25,6 +25,18 @@ namespace ChameleonCoder
             identifiers.Add(hash, ID);
         }
 
+        internal static void Remove(int hash)
+        {
+            Guid key = (Guid)identifiers.GetByIndex(identifiers.IndexOfKey(hash));
+            identifiers.Remove(hash);
+            instances.Remove(key);
+        }
+
+        internal static void RemoveLink(int hash)
+        {
+            identifiers.Remove(hash);
+        }
+
         internal static IResource GetInstance(int hash)
         {
             return GetInstance((Guid)identifiers.GetByIndex(identifiers.IndexOfKey(hash)));
