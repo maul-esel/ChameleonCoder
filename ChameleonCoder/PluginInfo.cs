@@ -2,18 +2,32 @@
 
 namespace ChameleonCoder
 {
-    internal delegate void LanguageEvent(Guid language, object[] Arguments);
-    internal struct PluginInfo
+    public enum LexerType
     {
-        internal Guid language;
-        internal string languageName;
-        internal LanguageEvent LoadCallback;
-        internal LanguageEvent MetadataReadCallback;
-        internal LanguageEvent CompilerCallback;
-        internal LanguageEvent ExecutionCallback;
-        internal LanguageEvent CharTypedCallback;
-        internal LanguageEvent AboutBoxCallback;
-        internal LanguageEvent UnloadCallback;
-        // todo: add delegates / events
+        none,
+        interned,
+        unmanaged,
+        container
+    }
+
+    public delegate void LanguageEvent(Guid language, object[] Arguments);
+    public struct PluginInfo
+    {
+        public Guid language;
+        public string languageName;
+        public LanguageEvent LoadCallback;
+        public LanguageEvent MetadataReadCallback;
+        public LanguageEvent CompilerCallback;
+        public LanguageEvent ExecutionCallback;
+        public LanguageEvent CharTypedCallback;
+        public LexerType Lexer;
+        public LanguageEvent AboutBoxCallback;
+        public LanguageEvent UnloadCallback;
+
+        
+        public int InternedLexer;
+        public string[] UnmanagedLexer;
+        public LanguageEvent StyleNeededCallback;
+        // todo: add more delegates / events
     }
 }

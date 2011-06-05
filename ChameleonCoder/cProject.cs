@@ -177,6 +177,7 @@ namespace ChameleonCoder
             Program.Gui.panel1.Hide();
             Program.Gui.panel2.Hide();
             Program.Gui.panel3.Show();
+
         }
 
         #endregion
