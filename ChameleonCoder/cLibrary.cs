@@ -28,6 +28,24 @@ namespace ChameleonCoder
             catch { }
         }
 
+        internal override void Open()
+        {
+            base.Open();
+
+            ListViewItem item;
+
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Author"), this.Author }));
+            Program.Gui.listView2.Groups[1].Items.Add(item);
+
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("License"), this.License }));
+            Program.Gui.listView2.Groups[1].Items.Add(item);
+
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Version"), this.Version }));
+            Program.Gui.listView2.Groups[1].Items.Add(item);
+
+            Program.Gui.listView2.Groups[1].Header = Localization.get_string("info_lib");
+        }
+
         #region cLibrary properties
 
         internal string Author { get; private set; }

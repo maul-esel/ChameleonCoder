@@ -37,14 +37,14 @@ namespace ChameleonCoder
             identifiers.Remove(hash);
         }
 
-        internal static IResource GetInstance(int hash)
+        internal static cResource GetInstance(int hash)
         {
             return GetInstance((Guid)identifiers.GetByIndex(identifiers.IndexOfKey(hash)));
         }
 
-        internal static IResource GetInstance(Guid ID)
+        internal static cResource GetInstance(Guid ID)
         {
-            return (IResource)instances.GetByIndex(instances.IndexOfKey(ID));
+            return (cResource)instances.GetByIndex(instances.IndexOfKey(ID));
         }
     }
 }

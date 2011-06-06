@@ -13,7 +13,25 @@ namespace ChameleonCoder
             this.language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
 
             try { this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value; }
-            catch { this.CompilationPath = this.Path + ".exe"; }
+            catch {
+                if (!string.IsNullOrWhiteSpace(this.Path))
+                    this.CompilationPath = this.Path + ".exe";
+            }
+        }
+
+        internal override void Open()
+        {
+            base.Open();
+
+            ListViewItem item;
+
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.GUID) }));
+            Program.Gui.listView2.Groups[1].Items.Add(item);
+
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CompilePath"), this.CompilationPath}));
+            Program.Gui.listView2.Groups[1].Items.Add(item);
+
+            Program.Gui.listView2.Groups[1].Header = Localization.get_string("info_code");
         }
 
         #region cCodeFile properties

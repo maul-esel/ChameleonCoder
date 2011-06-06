@@ -15,7 +15,7 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Programming\C#\ChameleonCoder\publish\</PublishUrl>
+    <PublishUrl>C:\Programming\C#\ChameleonCoder\Deploy\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -67,7 +67,7 @@
     <ManifestKeyFile>AHK.ScriptsMan_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -125,7 +125,7 @@
     <Compile Include="ResourceList.cs" />
     <Compile Include="cLibrary.cs" />
     <Compile Include="cProject.cs" />
-    <Compile Include="IResource.cs" />
+    <Compile Include="cResource.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
       <CustomToolNamespace>AHKScriptsMan</CustomToolNamespace>

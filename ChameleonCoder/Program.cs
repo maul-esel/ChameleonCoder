@@ -79,7 +79,7 @@ namespace ChameleonCoder
 
         private static void AddResource(ref XPathNavigator xmlnav, string file, string xpath, TreeNodeCollection parentNodes)
         {
-            IResource resource;
+            cResource resource;
             int i;
             ResourceType type = (ResourceType)xmlnav.SelectSingleNode(xpath + "/@data-type").ValueAsInt;
             
@@ -104,7 +104,7 @@ namespace ChameleonCoder
                         throw new Exception("parsing error in file " + file + ".\ncase:" + type);
             }
             Gui.listView1.Items.Add(resource.Item);
-            Gui.groups[i].Items.Add(resource.Item);
+            Gui.listView1.Groups[i].Items.Add(resource.Item);
             ResourceList.Add(resource.Node.GetHashCode(), resource.GUID, resource);
             resource.Node.SelectedImageIndex = resource.Node.ImageIndex;
             parentNodes.Add(resource.Node);
@@ -133,7 +133,14 @@ namespace ChameleonCoder
             TreeView tree = (TreeView)sender;
             MouseEventArgs ev = (MouseEventArgs)e;
             TreeNode node = tree.GetNodeAt(ev.X, ev.Y);
+
             ResourceList.GetInstance(node.GetHashCode()).Open();
+
+            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            Program.Gui.panel1.Hide();
+            Program.Gui.panel2.Hide();
+            Program.Gui.panel3.Show();
         }
 
         internal static void CreateProject()

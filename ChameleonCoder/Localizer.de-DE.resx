@@ -255,4 +255,34 @@
   <data name="Item_Help" xml:space="preserve">
     <value>Hilfe</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="info_code" xml:space="preserve">
+    <value>Code-Informationen</value>
+  </data>
+  <data name="info_file" xml:space="preserve">
+    <value>Datei-Informationen</value>
+  </data>
+  <data name="info_general" xml:space="preserve">
+    <value>Allgemein</value>
+  </data>
+  <data name="info_intern" xml:space="preserve">
+    <value>Interne Informationen</value>
+  </data>
+  <data name="info_lib" xml:space="preserve">
+    <value>Bibliotheks-Informationen</value>
+  </data>
+  <data name="info_project" xml:space="preserve">
+    <value>Projekt-Informationen</value>
+  </data>
+  <data name="info_task" xml:space="preserve">
+    <value>Aufgaben-Informationen</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>Lizenz</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

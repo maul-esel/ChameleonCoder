@@ -9,8 +9,8 @@ namespace ChameleonCoder
     {
         int IComparer.Compare(object obj1, object obj2)
         {
-            IResource resource1 = ResourceList.GetInstance(obj1.GetHashCode());
-            IResource resource2 = ResourceList.GetInstance(obj2.GetHashCode());
+            cResource resource1 = ResourceList.GetInstance(obj1.GetHashCode());
+            cResource resource2 = ResourceList.GetInstance(obj2.GetHashCode());
 
             if (resource1.Type < resource2.Type)
             {

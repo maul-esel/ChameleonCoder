@@ -8,14 +8,13 @@ namespace ChameleonCoder
     /// <summary>
     /// represents a file resource
     /// </summary>
-    public class cFile : IResource
+    internal class cFile : cResource
     {
         internal cFile(ref XPathNavigator xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
             this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            this.Hide = xmlnav.SelectSingleNode(xpath + "/@hide").ValueAsBoolean;
             this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
             this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
             this.Type = ResourceType.file;
@@ -40,121 +39,20 @@ namespace ChameleonCoder
             this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
         }
 
-        #region IResource properties
+        #region cResource methods
 
-        public string DataFile { get; set; }
-
-        public string Description { get; set; }
-        
-        public Guid GUID { get; set; }
-
-        public bool Hide { get; set; }
-
-        public ListViewItem Item { get; set; }
-
-        public SortedList MetaData { get; set; }
-
-        public MetaFlags[] Flags { get; set; }
-
-        public string Name { get; set; }
-
-        public TreeNode Node { get; set; }
-
-        public string Notes { get; set; }
-
-        public Guid Parent { get; set; }
-
-        public ResourceType Type { get; set; }
-
-        public XPathNavigator XML { get; set; }
-
-        public string XPath { get; set; }
-
-        #endregion
-
-        #region IResource methods
-
-        void IResource.Move()
+        internal override void Open()
         {
+            base.Open();
 
+            ListViewItem item;
+
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Path"), this.Path }));
+            Program.Gui.listView2.Groups[1].Items.Add(item);
+
+            Program.Gui.listView2.Groups[1].Header = Localization.get_string("info_file");
         }
 
-        void IResource.ReceiveResourceLink()
-        {
-
-        }
-
-        void IResource.LinkResource()
-        {
-
-        }
-
-        void IResource.ReceiveResource()
-        {
-
-        }
-
-        void IResource.AttachResource()
-        {
-
-        }
-
-        void IResource.SaveToFile()
-        {
-
-        }
-
-        void IResource.SaveToObject()
-        {
-
-        }
-
-        void IResource.Package()
-        {
-
-        }
-
-        void IResource.Open()
-        {
-            Program.Gui.listView2.Items.Clear();
-            Program.Gui.dataGridView1.Rows.Clear();
-
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), HelperClass.ToString(this.Type) }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), "/" + this.Node.FullPath }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Path"), this.Path }));
-
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("DataFile"), this.DataFile }));
-            Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("GUID"), this.GUID.ToString() }));
-
-            Program.Gui.textBox1.Text = this.Notes;
-
-            try
-            {
-                for (int i = 0; i <= this.MetaData.Count; i++)
-                {
-                    Program.Gui.dataGridView1.Rows.Add(new string[] { this.MetaData.GetKey(i).ToString(), this.MetaData.GetByIndex(i).ToString() });
-                }
-            }
-            catch { }
-
-            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-            Program.Gui.panel1.Hide();
-            Program.Gui.panel2.Hide();
-            Program.Gui.panel3.Show();
-        }
-
-        void IResource.AddMetadata()
-        {
-
-        }
-
-        void IResource.Delete()
-        {
-
-        }
         #endregion
 
         #region cFile properties

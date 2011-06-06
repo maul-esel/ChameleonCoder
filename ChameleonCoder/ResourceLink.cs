@@ -43,7 +43,7 @@ namespace ChameleonCoder
 
         #endregion
 
-        internal IResource Resolve()
+        internal cResource Resolve()
         {
             return ResourceList.GetInstance(this.GUID);
         }

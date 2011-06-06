@@ -21,6 +21,8 @@ namespace ChameleonCoder.Plugins
         internal static void CallClasses()
         {
             // instantiate all classes in AHKScriptsMan.Plugins
+            plugins = new SortedList();
+
             string[] files = Directory.GetFiles(Application.StartupPath + "\\Plugins", "*.dll");
             foreach (string file in files)
             {
