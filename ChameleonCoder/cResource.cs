@@ -58,6 +58,7 @@ namespace ChameleonCoder
 
             int i = 0;
             Metadata data;
+            string defaultdata = string.Empty;
             try
             {
                 foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
@@ -67,6 +68,7 @@ namespace ChameleonCoder
                     if (data.IsDefault())
                     {
                         this.DefaultData = data;
+                        defaultdata = data.GetName() + ": " + data.GetValue();
                     }
                 }
             }
@@ -74,7 +76,7 @@ namespace ChameleonCoder
 
             this.Node = new TreeNode(this.Name);
 
-            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
+            this.Item = new ListViewItem(new string[] { this.Name, this.Description, defaultdata  });
         }
 
         #region contained types
@@ -125,7 +127,7 @@ namespace ChameleonCoder
                 try { this.noconfig = xmlnav.SelectSingleNode(xpath + "/@noconfig").ValueAsBoolean; }
                 catch { }
 
-                try { this.isdefault = xmlnav.SelectSingleNode(xpath + "/@is-default").ValueAsBoolean; }
+                try { this.isdefault = xmlnav.SelectSingleNode(xpath + "/@default").ValueAsBoolean; }
                 catch { }
 
                 this.xpath = xpath;

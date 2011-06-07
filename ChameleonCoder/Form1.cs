@@ -12,6 +12,7 @@ namespace ChameleonCoder
 
             this.listView1.Columns.Add(string.Empty);
             this.listView1.Columns.Add(string.Empty);
+            this.listView1.Columns.Add(string.Empty);
             this.listView1.View = View.Details;
             this.listView1.Font = new System.Drawing.Font(this.listView1.Font.FontFamily, 10);
             this.listView1.HeaderStyle = ColumnHeaderStyle.None;
