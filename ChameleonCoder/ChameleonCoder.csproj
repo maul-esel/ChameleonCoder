@@ -107,7 +107,6 @@
     <Compile Include="CreateResource.Designer.cs">
       <DependentUpon>CreateResource.cs</DependentUpon>
     </Compile>
-    <Compile Include="HelperClass.cs" />
     <Compile Include="ResourceLink.cs" />
     <Compile Include="cTask.cs" />
     <Compile Include="Localization.cs" />
@@ -116,7 +115,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Localizer.resx</DependentUpon>
     </Compile>
-    <Compile Include="PluginInfo.cs" />
     <Compile Include="Localizer.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

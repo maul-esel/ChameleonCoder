@@ -11,31 +11,12 @@ namespace ChameleonCoder
     internal class cFile : cResource
     {
         internal cFile(ref XPathNavigator xmlnav, string xpath, string datafile)
+            : base(ref xmlnav, xpath, datafile)
         {
-            this.DataFile = datafile;
-            this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
             this.Type = ResourceType.file;
-            this.XML = xmlnav;
-            this.XPath = xpath;
 
-            int i = 0;
-            try
-            {
-                foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
-                {
-                    i++;
-                    this.MetaData.Add(xml.SelectSingleNode(xpath + "/metadata[" + i + "]/@name").Value, xml.SelectSingleNode(xpath + "/metadata[" + i + "]").Value);
-                    //this.MetaData[i] = MetaFlags.none;
-                }
-            }
-            catch { }
-            
-            this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 0;
-            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
+
             this.Path = xmlnav.SelectSingleNode(xpath + "/@path").Value;
         }
 
@@ -51,6 +32,15 @@ namespace ChameleonCoder
             Program.Gui.listView2.Groups[1].Items.Add(item);
 
             Program.Gui.listView2.Groups[1].Header = Localization.get_string("info_file");
+        }
+
+        internal override SortedList ToSortedList()
+        {
+            SortedList list = base.ToSortedList();
+
+            list.Add("Path", this.Path);
+
+            return list;
         }
 
         #endregion

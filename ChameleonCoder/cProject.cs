@@ -5,56 +5,53 @@ using System.Xml.XPath;
 
 namespace ChameleonCoder
 {
-    internal enum Priority
-    {
-        basic,
-        middle,
-        high
-    }
-
     /// <summary>
     /// represents a project resource
     /// </summary>
     internal sealed class cProject : cResource
     {
+        /// <summary>
+        /// instantiates a new instance of the cProject class
+        /// </summary>
+        /// <param name="xmlnav">a XPathNavigator containing the resource document</param>
+        /// <param name="xpath">the xpath to the resource's main element</param>
+        /// <param name="datafile">the file that contains the definition</param>
         internal cProject(ref XPathNavigator xmlnav, string xpath, string datafile)
+            : base(ref xmlnav, xpath, datafile)
         {
-            this.DataFile = datafile;
-            this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
             this.Type = ResourceType.project;
-            this.XML = xmlnav;
-            this.XPath = xpath;
 
-            this.MetaData = new SortedList();
-            //this.Flags = new MetaFlags[].;
-
-            int i = 0;
-            try
-            {
-                foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
-                {
-                    i++;
-                    this.MetaData.Add(xml.SelectSingleNode(xpath + "/metadata[" + i + "]/@name").Value, xml.SelectSingleNode(xpath + "/metadata[" + i + "]").Value);
-                    //this.MetaData[i] = MetaFlags.none;
-                }
-            }
-            catch { }
-
-            this.Node = new TreeNode(this.Name);
             this.Node.ImageIndex = 3;
-            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
 
-            this.language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.Language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
 
-            try { this.Priority = (Priority)xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt; }
-            catch { this.Priority = Priority.basic; }
+            try { this.Priority = (ProjectPriority)xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt; }
+            catch { this.Priority = ProjectPriority.basic; }
             this.Node.StateImageIndex = (int)this.Priority;
 
             try { this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value; }
             catch { }
+        }
+
+        /// <summary>
+        /// defines a project's priority
+        /// </summary>
+        internal enum ProjectPriority
+        {
+            /// <summary>
+            /// the project has the default (low) priority
+            /// </summary>
+            basic,
+
+            /// <summary>
+            /// the project has a slightly higher priority (middle)
+            /// </summary>
+            middle,
+
+            /// <summary>
+            /// the project has a high priority
+            /// </summary>
+            high
         }
 
         #region methods
@@ -67,10 +64,10 @@ namespace ChameleonCoder
 
             ListViewItem item;
             
-            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Priority"), HelperClass.ToString(this.Priority) }));
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Priority"), ToString(this.Priority) }));
             Program.Gui.listView2.Groups[1].Items.Add(item);
 
-            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.language) }));
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.Language) }));
             Program.Gui.listView2.Groups[1].Items.Add(item);
 
             item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("CompilePath"), this.CompilationPath }));
@@ -81,17 +78,39 @@ namespace ChameleonCoder
 
         #endregion
 
+        internal override SortedList ToSortedList()
+        {
+            SortedList list = base.ToSortedList();
+
+            list.Add("CompilationPath", this.CompilationPath);
+            list.Add("Language", this.Language);
+            list.Add("Priority", this.Priority);
+
+            return list;
+        }
+
+        private static string ToString(ProjectPriority priority)
+        {
+            switch (priority)
+            {
+                case ProjectPriority.basic: return Localization.get_string("Priority_Basic");
+                case ProjectPriority.middle: return Localization.get_string("Priority_Middle");
+                case ProjectPriority.high: return Localization.get_string("Priority_High");
+                default: return string.Empty;
+            }
+        }
+
         #region cProject properties
 
         /// <summary>
         /// contains the project's priority (int from 0 to 2)
         /// </summary>
-        internal Priority Priority { get; private set; }
+        internal ProjectPriority Priority { get; private set; }
 
         /// <summary>
         /// the GUID of the language in which the project is written
         /// </summary>
-        internal Guid language { get; private set; }
+        internal Guid Language { get; private set; }
 
         /// <summary>
         /// the path to which the project would be compiled

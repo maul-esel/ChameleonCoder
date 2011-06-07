@@ -11,25 +11,20 @@ namespace ChameleonCoder
     internal sealed class cTask : cResource
     {
         internal cTask(ref XPathNavigator xmlnav, string xpath, string datafile)
+            : base(ref xmlnav, xpath, datafile)
         {
-            this.DataFile = datafile;
-            this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
-            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
-            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
-            this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
             this.Type = ResourceType.task;
-            this.XML = xmlnav;
-            this.XPath = xpath;
+
+            this.Node.ImageIndex = 4;
 
             try { this.EndTime = DateTime.Parse(xmlnav.SelectSingleNode(xpath + "/@enddate").Value); }
             catch { }
             this.EndTime = this.EndTime == DateTime.MinValue ? DateTime.Today : this.EndTime;
-
-            this.Node = new TreeNode(this.Name);
-            this.Node.ImageIndex = 4;
-            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
         }
 
+        /// <summary>
+        /// opens the resource in the user interface
+        /// </summary>
         internal override void Open()
         {
             base.Open();
@@ -42,19 +37,24 @@ namespace ChameleonCoder
             Program.Gui.listView2.Groups[1].Header = Localization.get_string("info_task");
         }
 
-        #region cTask properties
+        internal override SortedList ToSortedList()
+        {
+            SortedList list = base.ToSortedList();
 
-        internal DateTime EndTime;
+            list.Add("EndTime", this.EndTime);
 
-        #endregion
-
-        #region cTask methods
+            return list;
+        }
 
         internal static void Create(object sender, EventArgs e)
         {
             Program.Gui.Enabled = true;
             Program.Selector.Close();
         }
+
+        #region cTask properties
+
+        internal DateTime EndTime;
 
         #endregion
     }

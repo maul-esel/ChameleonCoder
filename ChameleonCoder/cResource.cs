@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Windows.Forms;
-using System.Linq;
-using System.Text;
 using System.Xml.XPath;
 
 namespace ChameleonCoder
@@ -10,46 +9,178 @@ namespace ChameleonCoder
     /// <summary>
     /// defines the resource's type
     /// </summary>
-    public enum ResourceType
+    internal enum ResourceType
     {
         /// <summary>
         /// (this value is not used)
         /// </summary>
         resource,
+
         /// <summary>
         /// the resource is a file
         /// </summary>
         file,
+
         /// <summary>
         /// a file resource specified on code files
         /// </summary>
         code,
+
         /// <summary>
         /// the resource is a library
         /// </summary>
         library,
+
         /// <summary>
         /// the resource is a project
         /// </summary>
         project,
+
         /// <summary>
         /// the resource is a task
         /// </summary>
         task
     }
 
-    [FlagsAttribute]
-    public enum MetaFlags
-    {
-        none = 0,
-        hide = 1,
-        noconfig = 2,
-        noedit = 4,
-        standard = 8, 
-    }
-    
     internal abstract class cResource
     {
+        protected cResource(ref XPathNavigator xmlnav, string xpath, string datafile)
+        {
+            this.DataFile = datafile;
+            this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
+            this.GUID = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.MetaData = new ArrayList();
+            this.Name = xmlnav.SelectSingleNode(xpath + "/@name").Value;
+            this.Notes = xmlnav.SelectSingleNode(xpath + "/@notes").Value;
+            this.Type = ResourceType.resource;
+            this.XML = xmlnav;
+            this.XPath = xpath;
+
+            int i = 0;
+            try
+            {
+                foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
+                {
+                    i++;
+                    this.MetaData.Add(new Metadata(xmlnav, xpath + "/metadata[" + i + "]"));
+                }
+            }
+            catch { }
+
+            this.Node = new TreeNode(this.Name);
+
+            this.Item = new ListViewItem(new string[] { this.Name, this.Description });
+        }
+
+        #region contained types
+
+        /// <summary>
+        /// represents a resource's metadata
+        /// </summary>
+        protected class Metadata
+        {
+            /// <summary>
+            /// defines if this metadata can be used for configuration
+            /// </summary>
+            private bool noconfig;
+
+            /// <summary>
+            /// defines if this metadata is used as default
+            /// </summary>
+            private bool isdefault;
+
+            /// <summary>
+            /// contains the name of the metadata element
+            /// </summary>
+            private string name;
+
+            /// <summary>
+            /// contains the value of the metadata element
+            /// </summary>
+            private string value;
+
+            /// <summary>
+            /// contains the xpath to the element
+            /// </summary>
+            private string xpath;
+
+            /// <summary>
+            /// creates a new instance of the Metadata class
+            /// </summary>
+            /// <param name="xmlnav">the XPathNavigator that contains the element</param>
+            /// <param name="xpath">the xpath to the element</param>
+            internal Metadata(XPathNavigator xmlnav, string xpath)
+            {
+                try { this.name = xmlnav.SelectSingleNode(xpath + "/@name").Value; }
+                catch { } // output error!
+
+                try { this.value = xmlnav.SelectSingleNode(xpath).Value; }
+                catch { }
+
+                try { this.noconfig = xmlnav.SelectSingleNode(xpath + "/@noconfig").ValueAsBoolean; }
+                catch { }
+
+                try { this.isdefault = xmlnav.SelectSingleNode(xpath + "/@is-default").ValueAsBoolean; }
+                catch { }
+
+                this.xpath = xpath;
+            }
+
+            /// <summary>
+            /// gets whether the metadata is allowed to be used for configuration or not
+            /// </summary>
+            /// <returns>a boolean</returns>
+            internal bool IsConfigAllowed()
+            {
+                return !this.noconfig;
+            }
+
+            /// <summary>
+            /// gets whether the metadata is the standard metadata
+            /// </summary>
+            /// <returns></returns>
+            internal bool IsDefault()
+            {
+                return this.isdefault;
+            }
+
+            /// <summary>
+            /// gets the metadata's name
+            /// </summary>
+            /// <returns>the name (as string)</returns>
+            internal string GetName()
+            {
+                return this.name;
+            }
+
+            /// <summary>
+            /// gets the metadata's value
+            /// </summary>
+            /// <returns>the value (as string)</returns>
+            internal string GetValue()
+            {
+                return this.value;
+            }
+
+            /// <summary>
+            /// converts the instance to a SortedList
+            /// </summary>
+            /// <returns>the SortedList containing the instance</returns>
+            internal SortedList ToSortedList()
+            {
+                SortedList list = new SortedList();
+
+                list.Add("name", this.name);
+                list.Add("value", this.value);
+                list.Add("noconfig", this.noconfig);
+                list.Add("standard", this.isdefault);
+
+                return list;
+            }
+        }
+
+        #endregion
+
         #region properties
 
         /// <summary>
@@ -74,14 +205,9 @@ namespace ChameleonCoder
         public ListViewItem Item { get; protected internal set; }
 
         /// <summary>
-        /// the associated metadata as key-value pairs
+        /// the associated metadata as Metadata class instances
         /// </summary>
-        public SortedList MetaData { get; protected internal set; }
-
-        /// <summary>
-        /// the flags associated to the metadata
-        /// </summary>
-        public MetaFlags[] Flags { get; protected internal set; } // maybe: requires int[] ?
+        public ArrayList MetaData { get; protected internal set; }
 
         /// <summary>
         /// contains the user-defined name
@@ -116,6 +242,7 @@ namespace ChameleonCoder
         #endregion
 
         #region methods
+
         /// <summary>
         /// opens a resource
         /// </summary>
@@ -129,7 +256,7 @@ namespace ChameleonCoder
             item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Name"), this.Name }));
             Program.Gui.listView2.Groups[0].Items.Add(item);
 
-            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), HelperClass.ToString(this.Type) }));
+            item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("ResourceType"), ToString(this.Type) }));
             Program.Gui.listView2.Groups[0].Items.Add(item);
 
             item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Tree"), "/" + this.Node.FullPath }));
@@ -148,9 +275,9 @@ namespace ChameleonCoder
 
             try
             {
-                for (int i = 0; i <= this.MetaData.Count; i++)
+                foreach (Metadata data in this.MetaData)
                 {
-                    Program.Gui.dataGridView1.Rows.Add(new string[] { this.MetaData.GetKey(i).ToString(), this.MetaData.GetByIndex(i).ToString() });
+                    Program.Gui.dataGridView1.Rows.Add(new string[] { data.GetName(), data.GetValue() });
                 }
             }
             catch { }
@@ -165,7 +292,7 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// saves the information changed through the UI to the current instance
+        /// saves the information changed through the UI to the current instance and its XML representation
         /// </summary>
         internal virtual void SaveToObject()
         {
@@ -173,12 +300,13 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// saves the information stored in the instance to the XML property
-        /// and then to the file
+        /// saves the information stored in the instance to the file
         /// </summary>
         internal virtual void SaveToFile()
         {
-
+            this.XML.MoveToRoot();
+            File.WriteAllText(this.DataFile, this.XML.OuterXml); // ignoriert Änderungen anderer Instanzen????
+            // vllt. nicht: ref-Parameter
         }
 
         /// <summary>
@@ -200,7 +328,7 @@ namespace ChameleonCoder
         /// <summary>
         /// receives a resource that should be attached
         /// </summary>
-        internal virtual void ReceiveResource()
+        internal virtual void ReceiveAttach()
         {
 
         }
@@ -216,7 +344,7 @@ namespace ChameleonCoder
         /// <summary>
         /// receives a resource link
         /// </summary>
-        internal virtual void ReceiveResourceLink()
+        internal virtual void ReceiveLink()
         {
 
         }
@@ -229,14 +357,51 @@ namespace ChameleonCoder
 
         }
             // first: attach
-            // then: delete
+            // then: delete --> option (param) who get's the GUID
 
+        /// <summary>
+        /// deletes a resource
+        /// </summary>
         internal virtual void Delete()
         {
             ResourceList.Remove(this.Node.GetHashCode());
             this.Node.Remove();
         }
 
+        /// <summary>
+        /// compiles a resource object into a SortedList which can be given to plugins
+        /// </summary>
+        /// <returns></returns>
+        internal virtual SortedList ToSortedList()
+        {
+            SortedList list = new SortedList();
+
+            list.Add("Description", this.Description);
+            list.Add("GUID", this.GUID);
+            list.Add("MetaData", this.MetaData);
+            list.Add("Name", this.Name);
+            list.Add("Notes", this.Notes);
+            list.Add("Type", this.Type);
+            list.Add("XML", this.XML);
+            list.Add("XPath", this.XPath);
+
+            return list;
+        }
+
         #endregion
+
+        protected static string ToString(ResourceType type)
+        {
+            switch (type)
+            {
+                case ResourceType.resource: return Localization.get_string("ResourceType_Resource");
+                case ResourceType.file: return Localization.get_string("ResourceType_File");
+                case ResourceType.code: return Localization.get_string("ResourceType_Code");
+                case ResourceType.library: return Localization.get_string("ResourceType_Library");
+                case ResourceType.project: return Localization.get_string("ResourceType_Project");
+                case ResourceType.task: return Localization.get_string("ResourceType_Task");
+                default: return string.Empty;
+            }
+        }
     }
 }

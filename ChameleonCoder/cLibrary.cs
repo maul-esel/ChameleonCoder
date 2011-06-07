@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Windows.Forms;
-using System.Linq;
-using System.Text;
 using System.Xml.XPath;
 
 namespace ChameleonCoder
@@ -12,7 +10,8 @@ namespace ChameleonCoder
     /// </summary>
     internal sealed class cLibrary : cCodeFile
     {
-        internal cLibrary(ref XPathNavigator xmlnav, string xpath, string datafile) : base(ref xmlnav, xpath, datafile)
+        internal cLibrary(ref XPathNavigator xmlnav, string xpath, string datafile)
+            : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.library;
 
@@ -44,6 +43,17 @@ namespace ChameleonCoder
             Program.Gui.listView2.Groups[1].Items.Add(item);
 
             Program.Gui.listView2.Groups[1].Header = Localization.get_string("info_lib");
+        }
+
+        internal override SortedList ToSortedList()
+        {
+            SortedList list = base.ToSortedList();
+
+            list.Add("Author", this.Author);
+            list.Add("License", this.License);
+            list.Add("Version", this.Version);
+
+            return list;
         }
 
         #region cLibrary properties
