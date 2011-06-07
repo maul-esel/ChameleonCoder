@@ -67,6 +67,11 @@ namespace ChameleonCoder.Plugins
             container
         }
 
+        private enum APIVersion
+        {
+            one
+        }
+
         /// <summary>
         /// contains information about a language supported by a plugin
         /// </summary>
@@ -81,6 +86,11 @@ namespace ChameleonCoder.Plugins
             /// the language name which is displayed to the user
             /// </summary>
             public string languageName;
+
+            /// <summary>
+            /// the API version the plugin uses - may be useful for backwards compatibility in future versions
+            /// </summary>
+            public APIVersion API;
 
             /// <summary>
             /// called when the user switches to a resource in this language
