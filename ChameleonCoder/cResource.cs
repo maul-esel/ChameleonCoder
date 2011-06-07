@@ -193,6 +193,9 @@ namespace ChameleonCoder
         /// </summary>
         public string DataFile { get; protected internal set; }
 
+        /// <summary>
+        /// contains the metadata marked as default
+        /// </summary>
         protected Metadata DefaultData { get; set; }
 
         /// <summary>
@@ -311,7 +314,11 @@ namespace ChameleonCoder
         /// </summary>
         internal virtual void SaveToObject()
         {
+            this.XML.SelectSingleNode(this.XPath + "/@notes").SetValue(this.Notes = Program.Gui.textBox1.Text);
 
+            this.XML.SelectSingleNode(this.XPath + "/@description").SetValue(this.Description);
+            this.XML.SelectSingleNode(this.XPath + "/@name").SetValue(this.Name);
+            this.XML.SelectSingleNode(this.XPath + "/@type").SetValue(((int)this.Type).ToString());
         }
 
         /// <summary>
