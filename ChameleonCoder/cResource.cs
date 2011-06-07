@@ -57,12 +57,17 @@ namespace ChameleonCoder
             this.XPath = xpath;
 
             int i = 0;
+            Metadata data;
             try
             {
                 foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
                 {
                     i++;
-                    this.MetaData.Add(new Metadata(xmlnav, xpath + "/metadata[" + i + "]"));
+                    this.MetaData.Add(data = new Metadata(xmlnav, xpath + "/metadata[" + i + "]"));
+                    if (data.IsDefault())
+                    {
+                        this.DefaultData = data;
+                    }
                 }
             }
             catch { }
@@ -188,6 +193,8 @@ namespace ChameleonCoder
         /// </summary>
         public string DataFile { get; protected internal set; }
 
+        protected Metadata DefaultData { get; set; }
+
         /// <summary>
         /// a short description of the resource
         /// [optional]
@@ -265,6 +272,13 @@ namespace ChameleonCoder
             item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("Description"), this.Description }));
             Program.Gui.listView2.Groups[0].Items.Add(item);
 
+            try
+            {
+                item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { this.DefaultData.GetName(), this.DefaultData.GetValue() }));
+                Program.Gui.listView2.Groups[0].Items.Add(item);
+            }
+            catch { }
+
             item = Program.Gui.listView2.Items.Add(new ListViewItem(new string[] { Localization.get_string("DataFile"), this.DataFile }));
             Program.Gui.listView2.Groups[2].Items.Add(item);
 
@@ -278,6 +292,7 @@ namespace ChameleonCoder
                 foreach (Metadata data in this.MetaData)
                 {
                     Program.Gui.dataGridView1.Rows.Add(new string[] { data.GetName(), data.GetValue() });
+
                 }
             }
             catch { }
