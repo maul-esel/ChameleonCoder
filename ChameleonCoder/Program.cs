@@ -112,16 +112,14 @@ namespace ChameleonCoder
             foreach (XPathNavigator xmlnav2 in xmlnav.Select(xpath + "/attach"))
             {
                 i++;
-                XPathNavigator xmlnav3 = xmlnav2.Clone();
-                AddResource(ref xmlnav3, file, xpath + "/attach[" + i + "]", resource.Node.Nodes);
+                AddResource(ref xmlnav, file, xpath + "/attach[" + i + "]", resource.Node.Nodes);
             }
 
             i = 0;
             foreach (XPathNavigator xmlnav2 in xmlnav.Select(xpath + "/link"))
             {
                 i++;
-                XPathNavigator xmlnav3 = xmlnav2.Clone();
-                ResourceLink link = new ResourceLink(ref xmlnav3, xpath + "/link[" + i + "]", file);
+                ResourceLink link = new ResourceLink(ref xmlnav, xpath + "/link[" + i + "]", file);
                 links.Add(link);
                 resource.Node.Nodes.Add(link.Node);
             }
