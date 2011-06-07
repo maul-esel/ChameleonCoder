@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.XPath;
-using System.Collections;
 
 namespace ChameleonCoder
 {
@@ -170,8 +169,8 @@ namespace ChameleonCoder
 
         internal static bool FilesAreMissing()
         {
-            return !(File.Exists(Application.StartupPath + "\\#Extern\\ScintillaNet.dll")
-                && File.Exists(Application.StartupPath + "\\#Extern\\SciLexer.dll"));
+            return !(File.Exists(Application.StartupPath + "\\ScintillaNet.dll")
+                && File.Exists(Application.StartupPath + "\\SciLexer.dll"));
         }    
     }
 }
