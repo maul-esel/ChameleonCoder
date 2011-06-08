@@ -109,7 +109,7 @@ namespace ChameleonCoder
             /// <summary>
             /// contains the xpath to the element
             /// </summary>
-            private string xpath;
+            public string xpath { get; private set; }
 
             /// <summary>
             /// creates a new instance of the Metadata class
@@ -325,6 +325,12 @@ namespace ChameleonCoder
                 this.XML.SelectSingleNode(this.XPath + "/@type").Value = ((int)this.Type).ToString();
             }
             catch { }
+
+            foreach (Metadata data in this.MetaData)
+            {
+                this.XML.SelectSingleNode(data.xpath).Value = data.GetValue();
+            }
+
             File.WriteAllText(this.DataFile, this.XML.DocumentElement.OuterXml);
         }
 

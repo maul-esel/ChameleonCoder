@@ -49,14 +49,8 @@ namespace ChameleonCoder
             Application.SetCompatibleTextRenderingDefault(false);
 
             Gui = new MainWin();
-            try
-            {
-                ListData();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message + "\n\n" + e.StackTrace);
-            }
+            ListData();
+ 
             Gui.FormClosed += new FormClosedEventHandler(Gui_FormClosed);
             Gui.listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             Gui.TreeView.ExpandAll();
@@ -84,7 +78,6 @@ namespace ChameleonCoder
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load(file);
-                XPathNavigator xmlnav = new System.Xml.XPath.XPathDocument(file).CreateNavigator();
                 AddResource(ref doc, file, "/resource", nodes);
             }
             foreach (ResourceLink link in links)

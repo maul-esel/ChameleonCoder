@@ -23,7 +23,7 @@ namespace ChameleonCoder
 
             this.Node.ImageIndex = 3;
 
-            this.Language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.Language = new Guid(xmlnav.SelectSingleNode(xpath + "/@language").Value);
 
             try { this.Priority = (ProjectPriority)xmlnav.CreateNavigator().SelectSingleNode(xpath + "/@priority").ValueAsInt; }
             catch { this.Priority = ProjectPriority.basic; }

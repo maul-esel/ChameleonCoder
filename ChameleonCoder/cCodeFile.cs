@@ -14,7 +14,7 @@ namespace ChameleonCoder
             
             this.Node.ImageIndex = 1;
             
-            this.Language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
+            this.Language = Guid.Parse(xmlnav.SelectSingleNode(xpath + "/@language").Value);
 
             try { this.CompilationPath = xmlnav.SelectSingleNode(xpath + "/@compilation-path").Value; }
             catch {
