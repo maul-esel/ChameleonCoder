@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Xml.XPath;
+using System.Xml;
 using System.Collections;
 
 namespace ChameleonCoder
 {
     internal class cCodeFile : cFile
     {
-        internal cCodeFile(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal cCodeFile(ref XmlDocument xmlnav, string xpath, string datafile)
             : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.code;

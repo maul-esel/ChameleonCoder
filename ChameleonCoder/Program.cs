@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.XPath;
+using System.Xml;
 
 namespace ChameleonCoder
 {
@@ -38,17 +39,30 @@ namespace ChameleonCoder
                 Application.Exit();
             }
 
+            try
+            {
+                Plugins.PluginManager.LoadPlugins();
+            }
+            catch (Exception e) { MessageBox.Show(e.Message + "\n\n" + e.StackTrace); }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             Gui = new MainWin();
-            ListData();
+            try
+            {
+                ListData();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\n\n" + e.StackTrace);
+            }
             Gui.FormClosed += new FormClosedEventHandler(Gui_FormClosed);
             Gui.listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             Gui.TreeView.ExpandAll();
             Gui.TreeView.Sort();
             Gui.TreeView.TreeViewNodeSorter = new TreeNodeSorter();
-            Application.Run(Gui);            
+            Application.Run(Gui);           
         }
 
         static void Gui_FormClosed(object sender, FormClosedEventArgs e)
@@ -65,10 +79,13 @@ namespace ChameleonCoder
 
             TreeNodeCollection nodes = Gui.TreeView.Nodes;
             string[] files = Directory.GetFiles(Application.StartupPath + "\\#Data", "*.xml");
+
             foreach (string file in files)
             {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(file);
                 XPathNavigator xmlnav = new System.Xml.XPath.XPathDocument(file).CreateNavigator();
-                AddResource(ref xmlnav, file, "/resource", nodes);
+                AddResource(ref doc, file, "/resource", nodes);
             }
             foreach (ResourceLink link in links)
             {
@@ -76,11 +93,11 @@ namespace ChameleonCoder
             }
         }
 
-        private static void AddResource(ref XPathNavigator xmlnav, string file, string xpath, TreeNodeCollection parentNodes)
+        private static void AddResource(ref XmlDocument xmlnav, string file, string xpath, TreeNodeCollection parentNodes)
         {
             cResource resource;
             int i;
-            ResourceType type = (ResourceType)xmlnav.SelectSingleNode(xpath + "/@data-type").ValueAsInt;
+            ResourceType type = (ResourceType)xmlnav.CreateNavigator().SelectSingleNode(xpath + "/@data-type").ValueAsInt;
             
             switch (type)
                 {
@@ -109,14 +126,14 @@ namespace ChameleonCoder
             parentNodes.Add(resource.Node);
            
             i = 0;
-            foreach (XPathNavigator xmlnav2 in xmlnav.Select(xpath + "/attach"))
+            foreach (XmlNode xmlnav2 in xmlnav.SelectNodes(xpath + "/attach"))
             {
                 i++;
                 AddResource(ref xmlnav, file, xpath + "/attach[" + i + "]", resource.Node.Nodes);
             }
 
             i = 0;
-            foreach (XPathNavigator xmlnav2 in xmlnav.Select(xpath + "/link"))
+            foreach (XmlNode xmlnav2 in xmlnav.SelectNodes(xpath + "/link"))
             {
                 i++;
                 ResourceLink link = new ResourceLink(ref xmlnav, xpath + "/link[" + i + "]", file);
@@ -131,11 +148,19 @@ namespace ChameleonCoder
             MouseEventArgs ev = (MouseEventArgs)e;
             TreeNode node = tree.GetNodeAt(ev.X, ev.Y);
 
-            ResourceList.GetInstance(node.GetHashCode()).Open();
+            cResource old = ResourceList.GetActiveInstance();
+            if (old != null)
+            {
+                old.Save(); // save old opened instance
+            }
 
-            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            ResourceList.SetActiveInstance(node.GetHashCode()); // set new opened instance
 
-            Program.Gui.panel1.Hide();
+            ResourceList.GetActiveInstance().Open(); // open the new instance
+
+            Program.Gui.listView2.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent); // resize columns
+
+            Program.Gui.panel1.Hide(); // switch to resource view panel
             Program.Gui.panel2.Hide();
             Program.Gui.panel3.Show();
         }

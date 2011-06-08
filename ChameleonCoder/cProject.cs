@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections;
-using System.Xml.XPath;
+using System.Xml;
 
 namespace ChameleonCoder
 {
@@ -16,7 +16,7 @@ namespace ChameleonCoder
         /// <param name="xmlnav">a XPathNavigator containing the resource document</param>
         /// <param name="xpath">the xpath to the resource's main element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        internal cProject(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal cProject(ref XmlDocument xmlnav, string xpath, string datafile)
             : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.project;
@@ -25,7 +25,7 @@ namespace ChameleonCoder
 
             this.Language = new Guid(xmlnav.SelectSingleNode(xpath + "/@guid").Value);
 
-            try { this.Priority = (ProjectPriority)xmlnav.SelectSingleNode(xpath + "/@priority").ValueAsInt; }
+            try { this.Priority = (ProjectPriority)xmlnav.CreateNavigator().SelectSingleNode(xpath + "/@priority").ValueAsInt; }
             catch { this.Priority = ProjectPriority.basic; }
             this.Node.StateImageIndex = (int)this.Priority;
 

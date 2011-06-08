@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.XPath;
+using System.Xml;
 
 namespace ChameleonCoder
 {
@@ -44,7 +44,7 @@ namespace ChameleonCoder
 
     internal abstract class cResource
     {
-        protected cResource(ref XPathNavigator xmlnav, string xpath, string datafile)
+        protected cResource(ref XmlDocument xmlnav, string xpath, string datafile)
         {
             this.DataFile = datafile;
             this.Description = xmlnav.SelectSingleNode(xpath + "/@description").Value;
@@ -61,7 +61,7 @@ namespace ChameleonCoder
             string defaultdata = string.Empty;
             try
             {
-                foreach (XPathNavigator xml in xmlnav.Select(xpath + "/metadata"))
+                foreach (XmlNode xml in xmlnav.SelectNodes(xpath + "/metadata"))
                 {
                     i++;
                     this.MetaData.Add(data = new Metadata(xmlnav, xpath + "/metadata[" + i + "]"));
@@ -116,18 +116,18 @@ namespace ChameleonCoder
             /// </summary>
             /// <param name="xmlnav">the XPathNavigator that contains the element</param>
             /// <param name="xpath">the xpath to the element</param>
-            internal Metadata(XPathNavigator xmlnav, string xpath)
+            internal Metadata(XmlDocument xmlnav, string xpath)
             {
                 try { this.name = xmlnav.SelectSingleNode(xpath + "/@name").Value; }
                 catch { } // output error!
 
-                try { this.value = xmlnav.SelectSingleNode(xpath).Value; }
+                try { this.value = xmlnav.CreateNavigator().SelectSingleNode(xpath).Value; }
                 catch { }
 
-                try { this.noconfig = xmlnav.SelectSingleNode(xpath + "/@noconfig").ValueAsBoolean; }
+                try { this.noconfig = xmlnav.CreateNavigator().SelectSingleNode(xpath + "/@noconfig").ValueAsBoolean; }
                 catch { }
 
-                try { this.isdefault = xmlnav.SelectSingleNode(xpath + "/@default").ValueAsBoolean; }
+                try { this.isdefault = xmlnav.CreateNavigator().SelectSingleNode(xpath + "/@default").ValueAsBoolean; }
                 catch { }
 
                 this.xpath = xpath;
@@ -244,7 +244,7 @@ namespace ChameleonCoder
         /// <summary>
         /// can be used to naviagte through the XML definition
         /// </summary>
-        public XPathNavigator XML { get; protected internal set; }
+        public XmlDocument XML { get; protected internal set; }
 
         /// <summary>
         /// contains the xpath to the resource element
@@ -314,23 +314,18 @@ namespace ChameleonCoder
         /// <summary>
         /// saves the information changed through the UI to the current instance and its XML representation
         /// </summary>
-        internal virtual void SaveToObject()
+        internal virtual void Save()
         {
-            this.XML.SelectSingleNode(this.XPath + "/@notes").SetValue(this.Notes = Program.Gui.textBox1.Text);
+            try
+            {
+                this.XML.SelectSingleNode(this.XPath + "/@notes").Value = this.Notes = Program.Gui.textBox1.Text;
 
-            this.XML.SelectSingleNode(this.XPath + "/@description").SetValue(this.Description);
-            this.XML.SelectSingleNode(this.XPath + "/@name").SetValue(this.Name);
-            this.XML.SelectSingleNode(this.XPath + "/@type").SetValue(((int)this.Type).ToString());
-        }
-
-        /// <summary>
-        /// saves the information stored in the instance to the file
-        /// </summary>
-        internal virtual void SaveToFile()
-        {
-            this.XML.MoveToRoot();
-            File.WriteAllText(this.DataFile, this.XML.OuterXml); // ignoriert Änderungen anderer Instanzen????
-            // vllt. nicht: ref-Parameter
+                this.XML.SelectSingleNode(this.XPath + "/@description").Value = this.Description;
+                this.XML.SelectSingleNode(this.XPath + "/@name").Value = this.Name;
+                this.XML.SelectSingleNode(this.XPath + "/@type").Value = ((int)this.Type).ToString();
+            }
+            catch { }
+            File.WriteAllText(this.DataFile, this.XML.DocumentElement.OuterXml);
         }
 
         /// <summary>

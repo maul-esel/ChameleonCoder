@@ -13,6 +13,7 @@ namespace ChameleonCoder
     {
         private static SortedList identifiers = new SortedList();
         private static SortedList instances = new SortedList();
+        private static Guid Active = Guid.Empty;
 
         internal static void Add(int hash, Guid ID, object instance)
         {
@@ -45,6 +46,25 @@ namespace ChameleonCoder
         internal static cResource GetInstance(Guid ID)
         {
             return (cResource)instances.GetByIndex(instances.IndexOfKey(ID));
+        }
+
+        internal static cResource GetActiveInstance()
+        {
+            if (Active != Guid.Empty)
+            {
+                return GetInstance(Active);
+            }
+            return null;
+        }
+
+        internal static void SetActiveInstance(Guid ID)
+        {
+            Active = ID;
+        }
+
+        internal static void SetActiveInstance(int hash)
+        {
+            SetActiveInstance((Guid)identifiers.GetByIndex(identifiers.IndexOfKey(hash)));
         }
     }
 }

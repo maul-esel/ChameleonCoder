@@ -43,6 +43,7 @@ namespace ChameleonCoder
             this.dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(EditedMetadataCallback);
             
             this.TreeView.PathSeparator = "/";
             this.TreeView.FullRowSelect = true;
@@ -61,6 +62,11 @@ namespace ChameleonCoder
             this.toolbutton0_5.Click += new EventHandler(CreateResource);
 
             this.UpdateLanguage();
+        }
+
+        void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         internal void UpdateLanguage()
@@ -103,6 +109,21 @@ namespace ChameleonCoder
         internal void CreateResource(object sender, EventArgs e)
         {
             new CreateResource();
+        }
+
+        internal void EditedMetadataCallback(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                if (string.IsNullOrWhiteSpace((string)this.dataGridView1.Rows[e.RowIndex].Cells[0].Value))
+                {
+                    MessageBox.Show("no empty names!");
+                }
+            }
+            else if (e.ColumnIndex == 1)
+            {
+
+            }
         }
     }
 }

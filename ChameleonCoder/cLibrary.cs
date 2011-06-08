@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Windows.Forms;
-using System.Xml.XPath;
+using System.Xml;
 
 namespace ChameleonCoder
 {
@@ -10,7 +10,7 @@ namespace ChameleonCoder
     /// </summary>
     internal sealed class cLibrary : cCodeFile
     {
-        internal cLibrary(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal cLibrary(ref XmlDocument xmlnav, string xpath, string datafile)
             : base(ref xmlnav, xpath, datafile)
         {
             this.Type = ResourceType.library;

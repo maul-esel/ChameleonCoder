@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Xml.XPath;
+using System.Xml;
 
 namespace ChameleonCoder
 {
     internal sealed class ResourceLink
     {
-        internal ResourceLink(ref XPathNavigator xmlnav, string xpath, string datafile)
+        internal ResourceLink(ref XmlDocument xmlnav, string xpath, string datafile)
         {
             this.Node = new TreeNode();
             this.Node.NodeFont = new System.Drawing.Font("Cambria", 10, System.Drawing.FontStyle.Italic);
@@ -37,7 +37,7 @@ namespace ChameleonCoder
 
         internal Guid Parent { get; private set; }
 
-        internal XPathNavigator XML { get; private set; }
+        internal XmlDocument XML { get; private set; }
 
         internal string XPath { get; private set; }
 
