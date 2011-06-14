@@ -5,17 +5,18 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E3F4B1D5-CB02-4DCF-84BF-D7D20E499CF2}</ProjectGuid>
+    <ProjectGuid>{D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChameleonCoder</RootNamespace>
     <AssemblyName>ChameleonCoder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Programming\C#\ChameleonCoder\</PublishUrl>
+    <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,11 +26,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>0.0.1.1</ApplicationVersion>
+    <ApplicationVersion>0.0.0.1</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -41,182 +40,187 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>ChameleonCoder.Program</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>205669E4728B90E455B8E05EEC9045085861F086</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>AHK.ScriptsMan_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>logo2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="ScintillaNet">
-      <HintPath>..\..\..\..\Program Files\ScintillaNet\ScintillaNet.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Deploy\RibbonControlsLibrary.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cFile.cs" />
-    <Compile Include="cCodeFile.cs" />
-    <Compile Include="CreateResource.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CreateResource.Designer.cs">
-      <DependentUpon>CreateResource.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ResourceLink.cs" />
-    <Compile Include="cTask.cs" />
-    <Compile Include="Localization.cs" />
-    <Compile Include="Localizer.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Localizer.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Localizer.de-DE.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Localizer.de-DE.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ResourceList.cs" />
-    <Compile Include="cLibrary.cs" />
-    <Compile Include="cProject.cs" />
-    <Compile Include="cResource.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-      <CustomToolNamespace>AHKScriptsMan</CustomToolNamespace>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PluginManager.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="TreeNodeSorter.cs" />
-    <EmbeddedResource Include="CreateResource.resx">
-      <DependentUpon>CreateResource.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Localizer.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Localizer.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </ApplicationDefinition>
+    <Compile Include="ChameleonCoder.Plugins\IManager.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\Metadata.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceManager.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Collections\MetadataCollection.cs" />
+    <Compile Include="ChameleonCoder.Resources\LibraryResource.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Collections\LinkCollection.cs" />
+    <Compile Include="Localization\Language.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ChameleonCoder.Plugins\PluginManager.cs" />
+    <Compile Include="ChameleonCoder.Resources\ProjectResource.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceBase.cs" />
+    <Compile Include="ChameleonCoder.Resources\CodeResource.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Collections\ResourceCollection.cs" />
+    <Compile Include="ChameleonCoder.Resources\FileResource.cs" />
+    <Compile Include="ChameleonCoder.Resources\LinkResource.cs" />
+    <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceType.cs" />
+    <Compile Include="ChameleonCoder.Converter\PriorityConverter.cs" />
+    <Compile Include="ChameleonCoder.Converter\ResourceTypeConverter.cs" />
+    <Compile Include="ChameleonCoder.Resources\TaskResource.cs" />
+    <Compile Include="ChameleonCoder.Converter\ResourceTypeImageConverter.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Localizer.de-DE.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Localizer.de-DE.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
-    </EmbeddedResource>
-    <None Include="AHK.ScriptsMan_TemporaryKey.pfx" />
-    <None Include="app.config" />
-    <None Include="Properties\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Localization\Language.de-DE.resx" />
+    <EmbeddedResource Include="Localization\Language.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\01 - icon_file.ico" />
+    <Resource Include="Images\LargeIcon.png" />
+    <Resource Include="Images\SmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\02 - AHK_B.ico" />
+    <Resource Include="Images\RibbonTab1\home.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\03 - AHK_L.ico" />
+    <Resource Include="Images\Priority\low.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\04 - AHK_I.ico" />
+    <Resource Include="Images\Priority\middle.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\05 - AHK_2.ico" />
+    <Resource Include="Images\Priority\high.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\05 - priority_green.ico" />
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\06 - priority_yellow.ico" />
+    <Resource Include="Images\RibbonTab1\close.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\07 - priority_red.ico" />
+    <Resource Include="Images\RibbonTab1\restart.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\08 - todo.ico" />
+    <Resource Include="Images\RibbonTab1\create.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\09 - resources.ico" />
+    <Resource Include="Images\RibbonTab1\help.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\10 - project.ico" />
+    <Resource Include="Images\RibbonTab1\settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\11 - file.ico" />
+    <Resource Include="Images\RibbonTab1\info.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\12 - lib.ico" />
+    <Resource Include="Images\RibbonTab2\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab3\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\cut.png" />
+    <Resource Include="Images\RibbonTab2\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\viewminus.png" />
+    <Resource Include="Images\RibbonTab2\viewplus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\function.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\redo.png" />
+    <Resource Include="Images\RibbonTab2\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\class.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo2.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -241,17 +245,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="logo2.ico" />
+    <Resource Include="Images\ResourceType\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ResourceType\code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ResourceType\library.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ResourceType\project.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ResourceType\task.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

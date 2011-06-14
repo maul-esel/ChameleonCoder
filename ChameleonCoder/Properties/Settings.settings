@@ -2,14 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChameleonCoder.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="UpdatesEnable" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="Language" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1031</Value>
     </Setting>
     <Setting Name="ScriptDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Language" Type="System.String" Scope="User">
-      <Value Profile="(Default)">de-DE</Value>
+    <Setting Name="EnableUpdates" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

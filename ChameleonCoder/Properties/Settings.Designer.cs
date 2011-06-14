@@ -25,13 +25,13 @@ namespace ChameleonCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UpdatesEnable {
+        [global::System.Configuration.DefaultSettingValueAttribute("1031")]
+        public int Language {
             get {
-                return ((bool)(this["UpdatesEnable"]));
+                return ((int)(this["Language"]));
             }
             set {
-                this["UpdatesEnable"] = value;
+                this["Language"] = value;
             }
         }
         
@@ -49,13 +49,13 @@ namespace ChameleonCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("de-DE")]
-        public string Language {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableUpdates {
             get {
-                return ((string)(this["Language"]));
+                return ((bool)(this["EnableUpdates"]));
             }
             set {
-                this["Language"] = value;
+                this["EnableUpdates"] = value;
             }
         }
     }

@@ -1,0 +1,322 @@
+﻿<ribbon:RibbonWindow x:Class="ChameleonCoder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+        xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:col="clr-namespace:ChameleonCoder.Resources.Collections"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
+        xmlns:conv="clr-namespace:ChameleonCoder.Converter"
+        Title="CC - ChameleonCoder alpha 1"
+        WindowState="Maximized"
+		x:Name="RibbonWindow"
+		Width="1200" Height="800" Icon="Images\logo.png">
+    
+    <Window.Resources>
+        <conv:ResourceTypeConverter x:Key="TypeConverter"/><!--converts language-specific-->
+        <conv:ResourceTypeImageConverter x:Key="ImageConverter"/><!--converts type to image-->
+        <conv:PriorityConverter x:Key="PriorityConverter"/><!--SHOULD convert ProjectPriority to image-->
+        
+        <col:ResourceCollection x:Key="resources"/>
+        <col:ResourceCollection x:Key="resourceHierarchy"/>
+        
+        <CollectionViewSource x:Key="cvResources" Source="{StaticResource resources}" Filter="CollectionViewSource_Filter">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Type"/>
+            </CollectionViewSource.GroupDescriptions>
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Type"/>
+                <scm:SortDescription PropertyName="Name"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        
+        <win:HierarchicalDataTemplate x:Key="TreeTemplate" ItemsSource="{Binding Path=children}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="3"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="1" Source="{Binding Path=Priority, Converter={StaticResource PriorityConverter}}" Grid.Column="0" MaxHeight="19" MaxWidth="19"/><!--doesn't work because projects are saved as resources: no priority-->
+                <Border Background="Chocolate" Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
+                    <Image Source="{Binding Path=Type, Converter={StaticResource ImageConverter}}" Width="19" Height="19"/>
+                </Border>
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=Name}"/>
+            </Grid>
+        </win:HierarchicalDataTemplate>
+        
+
+    </Window.Resources>
+    <DockPanel>
+        <Grid x:Name="LayoutRoot" DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ribbon:Ribbon x:Name="Ribbon">
+                <ribbon:Ribbon.ApplicationMenu>
+                    <ribbon:RibbonApplicationMenu SmallImageSource="Images\LargeIcon.png">
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuHome"
+                                         ImageSource="Images\RibbonTab1\home.png"
+                                         Header="Home"  Click="GoHome" />
+                        <ribbon:RibbonSeparator/>
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuCreate"
+                                         ImageSource="Images\RibbonTab1\create.png"
+                                         Header="Create resource" />
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuImport"
+                                         ImageSource="Images\LargeIcon.png"
+                                         Header="Import resource" />
+                        <ribbon:RibbonSeparator/>
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuHelp"
+                                         ImageSource="Images\RibbonTab1\help.jpg"
+                                         Header="Help" />
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuSettings"
+                                         ImageSource="Images\RibbonTab1\settings.png"
+                                         Header="Settings" />
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuAbout"
+                                         ImageSource="Images\RibbonTab1\info.png"
+                                         Header="About" />
+                        <ribbon:RibbonSeparator/>
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuClose"
+                                         ImageSource="Images\RibbonTab1\close.png"
+                                         Header="Close"
+                                         Click="Close"/>
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuRestart"
+                                         ImageSource="Images\RibbonTab1\restart.png"
+                                         Header="Restart"
+                                         Click="Restart"/>
+                    </ribbon:RibbonApplicationMenu>
+                </ribbon:Ribbon.ApplicationMenu>
+                <ribbon:Ribbon.QuickAccessToolBar>
+                    <ribbon:RibbonQuickAccessToolBar>
+                        <ribbon:RibbonButton SmallImageSource="Images\RibbonTab1\home.png" Click="GoHome"/>
+                    </ribbon:RibbonQuickAccessToolBar>
+                </ribbon:Ribbon.QuickAccessToolBar>
+                <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
+                    <ribbon:RibbonGroup>
+                        <ribbon:RibbonCheckBox x:Name="HideFiles"
+                                                   Label="hide files"
+                                                   LargeImageSource="Images\LargeIcon.png"
+                                                   Unchecked="FilterChanged" Checked="FilterChanged"
+                                                   IsChecked="False"/>
+
+                        <ribbon:RibbonCheckBox x:Name="HideCodes"
+                                                   Label="hide codes"
+                                                   LargeImageSource="Images\LargeIcon.png"
+                                                   Unchecked="FilterChanged" Checked="FilterChanged"
+                                                   IsChecked="False"/>
+                        <ribbon:RibbonCheckBox x:Name="HideLibraries"
+                                                   Label="hide libraries"
+                                                   LargeImageSource="Images\LargeIcon.png"
+                                                   Unchecked="FilterChanged" Checked="FilterChanged"
+                                                   IsChecked="False"/>
+                        <ribbon:RibbonCheckBox x:Name="HideProjects"
+                                                   Label="hide projects"
+                                                   LargeImageSource="Images\LargeIcon.png"
+                                                   Unchecked="FilterChanged" Checked="FilterChanged"
+                                                   IsChecked="False"/>
+                        <ribbon:RibbonCheckBox x:Name="HideTasks"
+                                                   Label="hide tasks"
+                                                   LargeImageSource="Images\LargeIcon.png"
+                                                   Unchecked="FilterChanged" Checked="FilterChanged"
+                                                   IsChecked="False"/>
+                        <ribbon:RibbonSeparator />
+                        <ribbon:RibbonToggleButton x:Name="ShowLinks"
+                                                   Label="show links"
+                                                   SmallImageSource="Images\SmallIcon.png"
+                                                   Unchecked="FilterChanged" Checked="FilterChanged"
+                                                   IsChecked="False"/>
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="CustomGroup1" Header="custom"/>
+                </ribbon:RibbonTab>
+                <ribbon:RibbonTab x:Name="EditTab"
+                              Header="Editing">
+                    <ribbon:RibbonGroup x:Name="Group3"
+                                    Header="clipboard">
+                        <ribbon:RibbonButton x:Name="PasteButton"
+                                         LargeImageSource="Images\RibbonTab2\paste.png"
+                                         Label="Insert" />
+                        <ribbon:RibbonButton x:Name="CutButton"
+                                         SmallImageSource="Images\RibbonTab2\cut.png"
+                                         Label="Cut" />
+                        <ribbon:RibbonButton x:Name="CopyButton"
+                                         SmallImageSource="Images\RibbonTab2\copy.png"
+                                         Label="Copy" />
+                        <ribbon:RibbonButton x:Name="DeleteButton"
+                                         SmallImageSource="Images\RibbonTab2\delete.png"
+                                         Label="Delete" />
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Group4"
+                                        Header="View">
+                        <ribbon:RibbonButton x:Name="ViewPlusButton"
+                                             SmallImageSource="Images\RibbonTab2\viewplus.png"
+                                             Label="plus" />
+                        <ribbon:RibbonButton x:Name="ViewMinusButton"
+                                             SmallImageSource="Images\RibbonTab2\viewminus.png"
+                                             Label="minus"/>
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Group5"
+                                    Header="Undo and redo">
+                        <ribbon:RibbonButton x:Name="UndoButton"
+                                         SmallImageSource="Images\RibbonTab2\undo.png"
+                                         Label="Undo"/>
+                        <ribbon:RibbonButton x:Name="RedoButton"
+                                         SmallImageSource="Images\RibbonTab2\redo.png"
+                                         Label="Redo"/>
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Group6"
+                                    Header="Search and Replace">
+                        <ribbon:RibbonButton x:Name="SearchButton"
+                                         Label="search"
+                                         SmallImageSource="Images\RibbonTab2\search.png"/>
+                        <ribbon:RibbonButton x:Name="ReplaceButton"
+                                         Label="replace"
+                                         SmallImageSource="Images\RibbonTab2\search.png" />
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="Group7"
+                                    Header="Code-specific">
+                        <ribbon:RibbonButton x:Name="NewFunc"
+                                         Label="new function"
+                                         LargeImageSource="Images\RibbonTab2\function.png"/>
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="CustomGroup2"
+                                        Header="custom">
+                    </ribbon:RibbonGroup>
+                </ribbon:RibbonTab>
+                <ribbon:RibbonTab x:Name="ResourceViewTab"
+                              Header="Resource">
+                    <ribbon:RibbonGroup x:Name="Group8"
+                                        Header="Common">
+                        <ribbon:RibbonButton x:Name="OpenEdit"
+                                             Label="Edit"
+                                             LargeImageSource="Images\RibbonTab3\edit.png" />
+                    </ribbon:RibbonGroup>
+                    <ribbon:RibbonGroup x:Name="CustomGroup3" Header="custom"/>
+                </ribbon:RibbonTab>
+            </ribbon:Ribbon>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" Grid.ColumnSpan="1" x:Name="TreeView"
+                      SelectedItemChanged="OpenAResource"
+                      ItemsSource="{StaticResource resourceHierarchy}"
+                      ItemTemplate="{StaticResource TreeTemplate}"
+                      HorizontalContentAlignment="Stretch">
+            </TreeView>
+            <Grid Grid.Column="1" Grid.ColumnSpan="1" x:Name="Grid1"> <!-- Treeview: add sorting-->
+                <ListBox x:Name="listView1" ItemsSource="{Binding Source={StaticResource cvResources}, Mode=OneWay}" IsSynchronizedWithCurrentItem="True" HorizontalContentAlignment="Stretch">
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <Border CornerRadius="10" BorderBrush="#4989FF" BorderThickness="3">
+                                                    <Expander IsExpanded="True" Margin="0,0,0,0">
+                                                        <Expander.Header>
+                                                            <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="0,0,0,0"/>
+                                                        </Expander.Header>
+                                                        <Expander.Content>
+                                                            <ItemsPresenter/>
+                                                        </Expander.Content>
+                                                    </Expander>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="ItemBorder" BorderBrush="Red" BorderThickness="2" CornerRadius="10"  Margin="5,5,5,5" Padding="2,2,2,2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Description:"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Description}"/>
+                                </Grid>
+                            </Border>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=Type}" Value="1">
+                                    <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Blue"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Type}" Value="2">
+                                    <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Orange"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Type}" Value="3">
+                                    <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Green"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Type}" Value="4">
+                                    <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Aquamarine"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Type}" Value="5">
+                                    <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Yellow"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <Grid Grid.Column="1" Grid.ColumnSpan="1" x:Name="Grid2">
+                <avalon:TextEditor x:Name="Editor" />
+            </Grid>
+            <Grid Grid.Column="1" x:Name="Grid3">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="0" Grid.RowSpan="1" x:Name="PropertyGrid" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" HeadersVisibility="None"> <!-- todo: add binding-->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn CanUserResize="False" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn CanUserResize="False" IsReadOnly="False" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid x:Name="MetadataGrid"
+                          Grid.Row="1" Grid.RowSpan="1"
+                          ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem.MetaData}"
+                          HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray"
+                          HeadersVisibility="Column">
+                    <!--DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <DataGridCell Content="{Binding Path=Name}"/>
+                                <DataGridCell Content="{Binding Path=Value}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn CanUserResize="False" IsReadOnly="False" Width="*"/>
+                        <DataGridTextColumn CanUserResize="False" IsReadOnly="False" Width="*"/>
+                    </DataGrid.Columns-->
+                </DataGrid>
+                <TextBox Grid.Row="2" Grid.RowSpan="1" x:Name="NotesBox" AutoWordSelection="True" AcceptsReturn="True">
+                    <TextBox.Text>
+                        <Binding ElementName="TreeView" Path="SelectedItem.Notes"/>
+                    </TextBox.Text>
+                </TextBox> 
+            </Grid>
+        </Grid>
+    </DockPanel>
+</ribbon:RibbonWindow>
