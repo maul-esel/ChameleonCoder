@@ -50,8 +50,6 @@
                 <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=Name}"/>
             </Grid>
         </win:HierarchicalDataTemplate>
-        
-
     </Window.Resources>
     <DockPanel>
         <Grid x:Name="LayoutRoot" DockPanel.Dock="Top">
@@ -61,7 +59,14 @@
             </Grid.RowDefinitions>
             <ribbon:Ribbon x:Name="Ribbon">
                 <ribbon:Ribbon.ApplicationMenu>
-                    <ribbon:RibbonApplicationMenu SmallImageSource="Images\LargeIcon.png">
+                    <ribbon:RibbonApplicationMenu SmallImageSource="Images\logo.png">
+                        <ribbon:RibbonApplicationMenu.FooterPaneContent>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <ribbon:RibbonButton Label="Exit" Click="Close" SmallImageSource="Images\RibbonTab1\close.png" MinWidth="100" Height="25"/>
+                                <ribbon:RibbonButton Label="Restart" Click="Restart" SmallImageSource="Images\RibbonTab1\restart.png" MinWidth="100" Height="25"/>
+                            </StackPanel>
+                        </ribbon:RibbonApplicationMenu.FooterPaneContent>
+                        
                         <ribbon:RibbonApplicationMenuItem x:Name="MenuHome"
                                          ImageSource="Images\RibbonTab1\home.png"
                                          Header="Home"  Click="GoHome" />
@@ -72,6 +77,9 @@
                         <ribbon:RibbonApplicationMenuItem x:Name="MenuImport"
                                          ImageSource="Images\LargeIcon.png"
                                          Header="Import resource" />
+                        <ribbon:RibbonApplicationMenuItem x:Name="MenuUnpack"
+                                         ImageSource="Images\LargeIcon.png"
+                                         Header="Unpack resource" />
                         <ribbon:RibbonSeparator/>
                         <ribbon:RibbonApplicationMenuItem x:Name="MenuHelp"
                                          ImageSource="Images\RibbonTab1\help.jpg"
@@ -82,15 +90,6 @@
                         <ribbon:RibbonApplicationMenuItem x:Name="MenuAbout"
                                          ImageSource="Images\RibbonTab1\info.png"
                                          Header="About" />
-                        <ribbon:RibbonSeparator/>
-                        <ribbon:RibbonApplicationMenuItem x:Name="MenuClose"
-                                         ImageSource="Images\RibbonTab1\close.png"
-                                         Header="Close"
-                                         Click="Close"/>
-                        <ribbon:RibbonApplicationMenuItem x:Name="MenuRestart"
-                                         ImageSource="Images\RibbonTab1\restart.png"
-                                         Header="Restart"
-                                         Click="Restart"/>
                     </ribbon:RibbonApplicationMenu>
                 </ribbon:Ribbon.ApplicationMenu>
                 <ribbon:Ribbon.QuickAccessToolBar>
@@ -126,12 +125,17 @@
                                                    LargeImageSource="Images\LargeIcon.png"
                                                    Unchecked="FilterChanged" Checked="FilterChanged"
                                                    IsChecked="False"/>
-                        <ribbon:RibbonSeparator />
                         <ribbon:RibbonToggleButton x:Name="ShowLinks"
                                                    Label="show links"
                                                    SmallImageSource="Images\SmallIcon.png"
                                                    Unchecked="FilterChanged" Checked="FilterChanged"
                                                    IsChecked="False"/>
+                        <ribbon:RibbonToggleButton x:Name="EnableGroups"
+                                                   Label="enable grouping"
+                                                   LargeImageSource="Images\LargeIcon.png"
+                                                   Unchecked="GroupsChanged" Checked="GroupsChanged"
+                                                   IsChecked="True"/>
+                                                   
                     </ribbon:RibbonGroup>
                     <ribbon:RibbonGroup x:Name="CustomGroup1" Header="custom"/>
                 </ribbon:RibbonTab>
@@ -181,9 +185,89 @@
                     </ribbon:RibbonGroup>
                     <ribbon:RibbonGroup x:Name="Group7"
                                     Header="Code-specific">
-                        <ribbon:RibbonButton x:Name="NewFunc"
-                                         Label="new function"
-                                         LargeImageSource="Images\RibbonTab2\function.png"/>
+                        
+                        <ribbon:RibbonMenuButton
+                            LargeImageSource="Images\LargeIcon.png"
+                            Label="new element"
+                            ToolTipTitle="creates a new code element"
+                            ToolTipDescription="creates a new code lement, such as a function, a class, a label, ..."
+                            ToolTipImageSource="Images\info.png">
+
+                            <ribbon:RibbonGallery MaxHeight="250" MaxColumnCount="8">
+                                <ribbon:RibbonGalleryCategory HorizontalContentAlignment="Stretch" MinColumnCount="3">
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75" x:Name="NewFunc">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
+                                            <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\class.png"/>
+                                            <TextBlock Grid.Row="1" Text="class" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
+                                            <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
+                                            <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
+                                            <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
+                                            <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                    <ribbon:RibbonGalleryItem Width="75" Height="75">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
+                                            <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ribbon:RibbonGalleryItem>
+                                </ribbon:RibbonGalleryCategory>
+                            </ribbon:RibbonGallery>
+                        </ribbon:RibbonMenuButton>
                     </ribbon:RibbonGroup>
                     <ribbon:RibbonGroup x:Name="CustomGroup2"
                                         Header="custom">

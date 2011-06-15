@@ -87,6 +87,24 @@ namespace ChameleonCoder
             }
         }
 
+        private void GroupsChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.EnableGroups.IsChecked == false)
+            {
+                CollectionViewSource.GetDefaultView(this.listView1.ItemsSource).GroupDescriptions.Clear();
+            }
+            else if (this.EnableGroups.IsChecked == true)
+            {
+                if (this.listView1 != null)
+                {
+                    object source = this.listView1.ItemsSource;
+                    if (source != null)
+                        CollectionViewSource.GetDefaultView(source).GroupDescriptions.Add(new PropertyGroupDescription("Type"));
+                }
+            }
+
+        }
+
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(this.listView1.ItemsSource).Refresh();
@@ -99,7 +117,8 @@ namespace ChameleonCoder
 
         private void Restart(object sender, RoutedEventArgs e)
         {
-            
+            System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
+            Application.Current.Shutdown(0);
         }
     }
 }

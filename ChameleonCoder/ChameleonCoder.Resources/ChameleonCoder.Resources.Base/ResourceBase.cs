@@ -185,9 +185,22 @@ namespace ChameleonCoder.Resources.Base
         }
 
         /// <summary>
-        /// adds a metadata element, asking the user for name, value and properties
+        /// adds a metadata element, given any changes through the UI
+        /// it directly manipulates
+        /// 1) the XmlDocument
+        /// 2) the MetadataCollection
         /// </summary>
         internal virtual void AddMetadata()
+        {
+            // ...
+
+            this.Save();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal virtual void DeleteMetadata()
         {
 
         }

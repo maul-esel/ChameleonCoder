@@ -153,6 +153,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\info.png" />
     <Resource Include="Images\LargeIcon.png" />
     <Resource Include="Images\SmallIcon.png" />
   </ItemGroup>
