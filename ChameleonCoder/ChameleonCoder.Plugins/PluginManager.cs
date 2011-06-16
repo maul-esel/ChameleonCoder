@@ -6,12 +6,16 @@ using System.Windows;
 using System.Windows.Media;
 using Microsoft.Windows.Controls.Ribbon;
 
+// maybe this should be replaced with a better system
+// such as the Managed Extensibility Framework (which would require .Net Framework v4)
+
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// manages all plugins
     /// </summary>
-    internal sealed class PluginManager : IManager
+    [Obsolete("should use MEF for the future")]
+    internal sealed class PluginManager
     {
         /// <summary>
         /// holds a list of all registered plugins
@@ -39,6 +43,7 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// defines the lexer type used for syntax highlighting
         /// </summary>
+        [Obsolete]
         private enum LexerType
         {
             /// <summary>
@@ -214,7 +219,7 @@ namespace ChameleonCoder.Plugins
         /// provides the current UI language so that plugins can synchronize their localization
         /// </summary>
         /// <returns>the CultureInfo object</returns>
-        System.Globalization.CultureInfo IManager.GetUILanguage()
+        System.Globalization.CultureInfo GetUILanguage()
         {
             return System.Threading.Thread.CurrentThread.CurrentUICulture;
         }
@@ -226,7 +231,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="image">the image to set</param>
         /// <param name="OnClick">the event handler for the click event</param>
         /// <param name="UIContext">an integer defining the ribbon tab</param>
-        void IManager.AddButton(string Text, ImageSource image, RoutedEventHandler OnClick, int UIContext)
+        void AddButton(string Text, ImageSource image, RoutedEventHandler OnClick, int UIContext)
         {
             RibbonButton button = new RibbonButton();
             button.Label = Text;
@@ -245,7 +250,7 @@ namespace ChameleonCoder.Plugins
         /// inserts code into the current edit view
         /// </summary>
         /// <param name="code">the code to insert</param>
-        void IManager.InsertCode(string code)
+        void InsertCode(string code)
         {
 
         }
@@ -256,7 +261,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="resource">the GUID of the resource to work on</param>
         /// <param name="name">the name of the metadata</param>
         /// <param name="value">the metadata's value</param>
-        void IManager.AddMetadata(Guid resource, string name, string value)
+        void AddMetadata(Guid resource, string name, string value)
         {
 
         }

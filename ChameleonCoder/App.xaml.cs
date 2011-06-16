@@ -15,13 +15,17 @@ namespace ChameleonCoder
     public partial class App : Application
     {
         internal static MainWindow Gui;
-        internal static Plugins.PluginManager Manager = new Plugins.PluginManager();
+
+        [Obsolete]
+        internal static Plugins.PluginManager Manager;
+
+        internal static Plugins.PluginHost Host;
 
         public void Init(Object sender, StartupEventArgs e)
         {
             Gui = new MainWindow();
 
-            App.Manager.LoadPlugins();
+            App.Host = new Plugins.PluginHost();
 
             ListData();
 
@@ -87,6 +91,4 @@ namespace ChameleonCoder
             }
         }
     }
-
-
 }
