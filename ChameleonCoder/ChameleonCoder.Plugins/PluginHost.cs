@@ -8,18 +8,10 @@ namespace ChameleonCoder.Plugins
 {
     class PluginHost : IPluginHost
     {
+        #region IPluginHost
+
         int IPluginHost.MinSupportedAPIVersion { get { return 0; } }
         int IPluginHost.MaxSupportedAPIVersion { get { return 1; } }
-
-        void IPluginHost.InsertCode(string code)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        void IPluginHost.InsertCode(string code, int position)
-        {
-            throw new System.NotImplementedException();
-        }
 
         void IPluginHost.AddButton(string text, System.Windows.Media.ImageSource Image, Action<object, EventArgs> clickHandler, int Panel)
         {
@@ -36,13 +28,37 @@ namespace ChameleonCoder.Plugins
             throw new System.NotImplementedException();
         }
 
-        static void Shutdown(object sender, EventArgs e)
+        string IPluginHost.GetCurrentEditText()
         {
-            foreach (ILanguageModule module in App.Host.LanguageModules.Values)
-            {
-                module.Shutdown();
-            }
+            throw new System.NotImplementedException();
         }
+
+        Guid IPluginHost.GetCurrentResource()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        int IPluginHost.GetCurrentView()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Resources.Base.ResourceBase IPluginHost.GetResource(Guid ID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IPluginHost.InsertCode(string code)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IPluginHost.InsertCode(string code, int position)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
 
         SortedList<Guid, ILanguageModule> LanguageModules = new SortedList<Guid, ILanguageModule>();
 
@@ -67,8 +83,15 @@ namespace ChameleonCoder.Plugins
             foreach (ILanguageModule module in LanguageModules.Values)
             {
                 module.Initalize(this);
+            } 
+        }
+
+        static void Shutdown(object sender, EventArgs e)
+        {
+            foreach (ILanguageModule module in App.Host.LanguageModules.Values)
+            {
+                module.Shutdown();
             }
-            
         }
     }
 }

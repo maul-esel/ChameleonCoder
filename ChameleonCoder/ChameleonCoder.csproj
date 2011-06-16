@@ -99,7 +99,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
-    <Compile Include="ChameleonCoder.Plugins\PluginManager.cs" />
     <Compile Include="ChameleonCoder.Resources\ProjectResource.cs" />
     <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceBase.cs" />
     <Compile Include="ChameleonCoder.Resources\CodeResource.cs" />
