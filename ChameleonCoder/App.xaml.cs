@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Xml;
 using ChameleonCoder.Resources;
@@ -15,9 +14,6 @@ namespace ChameleonCoder
     public partial class App : Application
     {
         internal static MainWindow Gui;
-
-        [Obsolete]
-        internal static Plugins.PluginManager Manager;
 
         internal static Plugins.PluginHost Host;
 
@@ -34,9 +30,9 @@ namespace ChameleonCoder
 
         internal static void ListData()
         {
-            if (Directory.Exists(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\#Data"))
+            if (Directory.Exists(Environment.CurrentDirectory + "\\#Data"))
             {
-                string[] files = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\#Data", "*.xml");
+                string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\#Data", "*.xml");
 
                 foreach (string file in files)
                 {

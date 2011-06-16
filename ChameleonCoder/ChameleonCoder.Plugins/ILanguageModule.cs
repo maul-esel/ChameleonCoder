@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ChameleonCoder.Plugins
 {
     public interface ILanguageModule
     {
-        void Initalize();
+        void Initalize(IPluginHost Host);
 
         void Shutdown();
 
         void Compile(Guid resource);
 
         void Execute(Guid resource);
+
+        void Load();
+
+        void Unload();
 
         string NewFunction(Guid resource);
 

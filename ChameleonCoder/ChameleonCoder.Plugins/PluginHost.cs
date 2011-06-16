@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace ChameleonCoder.Plugins
@@ -36,10 +36,20 @@ namespace ChameleonCoder.Plugins
             throw new System.NotImplementedException();
         }
 
+        static void Shutdown(object sender, EventArgs e)
+        {
+            foreach (ILanguageModule module in App.Host.LanguageModules.Values)
+            {
+                module.Shutdown();
+            }
+        }
+
         SortedList<Guid, ILanguageModule> LanguageModules = new SortedList<Guid, ILanguageModule>();
 
         public PluginHost()
         {
+            App.Current.Exit += PluginHost.Shutdown;
+
             // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
             var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Plugins", "*.dll")
                          let a = Assembly.LoadFrom(dll)
@@ -56,7 +66,7 @@ namespace ChameleonCoder.Plugins
 
             foreach (ILanguageModule module in LanguageModules.Values)
             {
-                module.Initalize();
+                module.Initalize(this);
             }
             
         }
