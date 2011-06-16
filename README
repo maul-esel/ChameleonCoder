@@ -3,8 +3,11 @@ This program is intended to help AHK coders to manage their projects and related
 It is written in C#.
 IT ISN'T YET FUNCTIONAL.
 
+System Requirements:
+	* Windows XP SP3 or higher
+	* .NET Framework v4
+
 External components:
-	- the MsgBoxCreator.MsgBox() method is taken from IronAHK (www.ironahk.net).
 	- AvalonEdit from the SharpDevelop project (http://www.icsharpcode.net/OpenSource/SD/)
 	- the RibbonControlsLibrary (Microsoft, http://www.microsoft.com/downloads/en/details.aspx?FamilyID=2bfc3187-74aa-4154-a670-76ef8bc2a0b4)
 	
