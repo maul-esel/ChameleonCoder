@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 using System.IO;
 using System.Reflection;
 
 namespace ChameleonCoder.Plugins
 {
-    [Export(typeof(IPluginHost))]
     class PluginHost : IPluginHost
     {
         int IPluginHost.MinSupportedAPIVersion { get { return 0; } }
@@ -38,20 +36,29 @@ namespace ChameleonCoder.Plugins
             throw new System.NotImplementedException();
         }
 
-        [ImportMany]
-        IEnumerable<Lazy<ILanguageModule>> modules;
+        SortedList<Guid, ILanguageModule> LanguageModules = new SortedList<Guid, ILanguageModule>();
 
         public PluginHost()
         {
-            AggregateCatalog PluginCatalog = new AggregateCatalog();
-            PluginCatalog.Catalogs.Add(new AssemblyCatalog(typeof(PluginHost).Assembly));
-            PluginCatalog.Catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Plugins"));
-            
-            CompositionContainer Container = new CompositionContainer(PluginCatalog);
-            Container.ComposeParts(this);
+            // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
+            var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Plugins", "*.dll")
+                         let a = Assembly.LoadFrom(dll)
+                         from t in a.GetTypes()
+                         where t.GetInterface(typeof(ILanguageModule).ToString()) != null
+                         select Activator.CreateInstance(t) as ILanguageModule;
+            // ... up to here ;-)
 
-            foreach (Lazy<ILanguageModule> i in this.modules)
-                i.Value.Initalize();
+            foreach (ILanguageModule module in result)
+            {
+                if (module != null)
+                    LanguageModules.Add(module.Language, module);
+            }
+
+            foreach (ILanguageModule module in LanguageModules.Values)
+            {
+                module.Initalize();
+            }
+            
         }
     }
 }
