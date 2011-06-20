@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Xml;
 
 namespace ChameleonCoder.Resources.Base
@@ -14,7 +15,7 @@ namespace ChameleonCoder.Resources.Base
         public string Name
         {
             get { return this.XML.SelectSingleNode(this.XPath + "/@name").Value; }
-            set { this.XML.SelectSingleNode(this.XPath + "/@name").Value = value; }
+            private set { this.XML.SelectSingleNode(this.XPath + "/@name").Value = value; }
         }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace ChameleonCoder.Resources.Base
         public string Value
         {
             get { return this.XML.SelectSingleNode(this.XPath).InnerText; }
-            set { this.XML.SelectSingleNode(this.XPath).InnerText = value; }
+            private set { this.XML.SelectSingleNode(this.XPath).InnerText = value; }
         }
 
         /// <summary>
@@ -31,8 +32,15 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         public bool IsNoConfig
         {
-            get { return this.XML.CreateNavigator().SelectSingleNode(this.XPath + "/@noconfig").ValueAsBoolean; }
-            set
+            get
+            {
+                try
+                {
+                    return this.XML.CreateNavigator().SelectSingleNode(this.XPath + "/@noconfig").ValueAsBoolean;
+                }
+                catch (NullReferenceException) { return false; }
+            }
+            private set
             {
                 int i;
                 if (value)
@@ -49,7 +57,7 @@ namespace ChameleonCoder.Resources.Base
         public bool IsDefault
         {
             get { return this.XML.CreateNavigator().SelectSingleNode(this.XPath + "/@default").ValueAsBoolean; }
-            set
+            private set
             {
                 int i;
                 if (value)

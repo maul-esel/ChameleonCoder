@@ -6,7 +6,7 @@
       <Value Profile="(Default)">1031</Value>
     </Setting>
     <Setting Name="ScriptDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\Programming\AutoHotkey\</Value>
     </Setting>
     <Setting Name="EnableUpdates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

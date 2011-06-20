@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// represents a task,
     /// inherits from ResourceBase
     /// </summary>
-    sealed class TaskResource : ResourceBase
+    public sealed class TaskResource : ResourceBase
     {
         internal TaskResource(ref XmlDocument xml, string xpath, string datafile)
             : base(ref xml, xpath, datafile)
@@ -28,15 +28,6 @@ namespace ChameleonCoder.Resources
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("EndTime"), this.EndTime.ToLongDateString() }));
 
             //App.Gui.listView2.Groups[1].Header = Localization.get_string("info_task");
-        }
-
-        internal override SortedList ToSortedList()
-        {
-            SortedList list = base.ToSortedList();
-
-            list.Add("EndTime", this.EndTime);
-
-            return list;
         }
 
         internal static void Create(object sender, EventArgs e)

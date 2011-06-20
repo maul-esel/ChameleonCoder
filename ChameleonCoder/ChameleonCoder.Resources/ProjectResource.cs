@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// represents a project resource,
     /// inherits from ResourceBase
     /// </summary>
-    sealed class ProjectResource : ResourceBase
+    public sealed class ProjectResource : ResourceBase
     {
         /// <summary>
         /// instantiates a new instance of the ProjectResource class
@@ -59,7 +59,7 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// defines a project's priority
         /// </summary>
-        internal enum ProjectPriority
+        public enum ProjectPriority
         {
             /// <summary>
             /// the project has the default (low) priority
@@ -95,17 +95,6 @@ namespace ChameleonCoder.Resources
         }
 
         #endregion
-
-        internal override SortedList ToSortedList()
-        {
-            SortedList list = base.ToSortedList();
-
-            list.Add("CompilationPath", this.CompilationPath);
-            list.Add("Language", this.Language);
-            list.Add("Priority", this.Priority);
-
-            return list;
-        }
 
         /// <summary>
         /// asks the user to enter a new priority and saves it

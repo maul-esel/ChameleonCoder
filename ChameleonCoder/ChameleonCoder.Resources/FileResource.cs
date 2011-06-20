@@ -11,7 +11,7 @@ namespace ChameleonCoder.Resources
     /// <summary>
     /// represents a file resource
     /// </summary>
-    internal class FileResource : ResourceBase
+    public class FileResource : ResourceBase
     {
         internal FileResource(ref XmlDocument xml, string xpath, string datafile)
             : base(ref xml, xpath, datafile)
@@ -26,8 +26,17 @@ namespace ChameleonCoder.Resources
         /// </summary>
         public string Path
         {
-            get { return this.XML.SelectSingleNode(this.XPath + "/@path").Value; }
-            protected set { this.XML.SelectSingleNode(this.XPath + "/@path").Value = value; }
+            get
+            {
+                string path = string.Empty;
+                try { path = this.XML.SelectSingleNode(this.XPath + "/@path").Value; }
+                catch (NullReferenceException) { }
+                if (!System.IO.Path.IsPathRooted(path) && path != string.Empty
+                    && System.IO.Path.IsPathRooted(ChameleonCoder.Properties.Settings.Default.ScriptDir + path))
+                    return ChameleonCoder.Properties.Settings.Default.ScriptDir + path;
+                return path;
+            }
+            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@path").Value = value; }
         }
 
         #endregion
@@ -44,19 +53,6 @@ namespace ChameleonCoder.Resources
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Path"), this.Path }));
 
             //App.Gui.listView2.Groups[1].Header = Localization.get_string("info_file");
-        }
-
-        /// <summary>
-        /// compiles the instance into a SortedList which can be given to plugins
-        /// </summary>
-        /// <returns>the SortedList representing the resource</returns>
-        internal override SortedList ToSortedList()
-        {
-            SortedList list = base.ToSortedList();
-
-            list.Add("Path", this.Path);
-
-            return list;
         }
 
         #endregion

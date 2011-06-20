@@ -6,17 +6,20 @@ using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Base
 {
-    class ResourceManager
+    internal class ResourceManager
     {
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
-        public static ResourceCollection children;
+        internal static ResourceCollection children;
 
         /// <summary>
         /// contains a list of ALL resources
         /// </summary>
-        public static ResourceCollection FlatList = new ResourceCollection();
+        internal static ResourceCollection FlatList;
+
+        internal static ResourceBase ActiveItem;
+
 
         /// <summary>
         /// adds a resource
@@ -26,7 +29,7 @@ namespace ChameleonCoder.Resources.Base
         /// <param name="instance">the resource to add</param>
         /// <param name="parentlist">the parent list to add the resource to.
         /// If this is null, it will be added to the list of top-level resources</param>
-        public static void Add(ResourceBase instance, ResourceCollection parentlist)
+        internal static void Add(ResourceBase instance, ResourceCollection parentlist)
         {
             FlatList.Add(instance);
 

@@ -10,13 +10,13 @@
         Title="CC - ChameleonCoder alpha 1"
         WindowState="Maximized"
 		x:Name="RibbonWindow"
-		Width="1200" Height="800" Icon="Images\logo.png">
+		Width="1200" Height="800"
+        Icon="Images\logo.ico">
     
     <Window.Resources>
         <conv:ResourceTypeConverter x:Key="TypeConverter"/><!--converts language-specific-->
         <conv:ResourceTypeImageConverter x:Key="ImageConverter"/><!--converts type to image-->
-        <conv:PriorityConverter x:Key="PriorityConverter"/><!--SHOULD convert ProjectPriority to image-->
-        
+
         <col:ResourceCollection x:Key="resources"/>
         <col:ResourceCollection x:Key="resourceHierarchy"/>
         
@@ -43,7 +43,6 @@
                     <RowDefinition/>
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
-                <Image Grid.Row="1" Source="{Binding Path=Priority, Converter={StaticResource PriorityConverter}}" Grid.Column="0" MaxHeight="19" MaxWidth="19"/><!--doesn't work because projects are saved as resources: no priority-->
                 <Border Background="Chocolate" Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
                     <Image Source="{Binding Path=Type, Converter={StaticResource ImageConverter}}" Width="19" Height="19"/>
                 </Border>
@@ -59,7 +58,7 @@
             </Grid.RowDefinitions>
             <ribbon:Ribbon x:Name="Ribbon">
                 <ribbon:Ribbon.ApplicationMenu>
-                    <ribbon:RibbonApplicationMenu SmallImageSource="Images\logo.png">
+                    <ribbon:RibbonApplicationMenu>
                         <ribbon:RibbonApplicationMenu.FooterPaneContent>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <ribbon:RibbonButton Label="Exit" Click="Close" SmallImageSource="Images\RibbonTab1\close.png" MinWidth="100" Height="25"/>
@@ -279,7 +278,8 @@
                                         Header="Common">
                         <ribbon:RibbonButton x:Name="OpenEdit"
                                              Label="Edit"
-                                             LargeImageSource="Images\RibbonTab3\edit.png" />
+                                             LargeImageSource="Images\RibbonTab3\edit.png"
+                                             Click="EditAResource"/>
                     </ribbon:RibbonGroup>
                     <ribbon:RibbonGroup x:Name="CustomGroup3" Header="custom"/>
                 </ribbon:RibbonTab>

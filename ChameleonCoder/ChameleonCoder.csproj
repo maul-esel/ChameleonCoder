@@ -87,7 +87,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ChameleonCoder.Plugins\ILanguageModule.cs" />
+    <Compile Include="ChameleonCoder.Plugins\ILanguageModuleHost.cs" />
     <Compile Include="ChameleonCoder.Plugins\IPluginHost.cs" />
+    <Compile Include="ChameleonCoder.Plugins\IService.cs" />
+    <Compile Include="ChameleonCoder.Plugins\IServiceHost.cs" />
     <Compile Include="ChameleonCoder.Plugins\PluginHost.cs" />
     <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\Metadata.cs" />
     <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceManager.cs" />
@@ -106,10 +109,10 @@
     <Compile Include="ChameleonCoder.Resources\FileResource.cs" />
     <Compile Include="ChameleonCoder.Resources\LinkResource.cs" />
     <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceType.cs" />
-    <Compile Include="ChameleonCoder.Converter\PriorityConverter.cs" />
     <Compile Include="ChameleonCoder.Converter\ResourceTypeConverter.cs" />
     <Compile Include="ChameleonCoder.Resources\TaskResource.cs" />
     <Compile Include="ChameleonCoder.Converter\ResourceTypeImageConverter.cs" />
+    <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -157,6 +160,7 @@
   <ItemGroup>
     <Resource Include="Images\info.png" />
     <Resource Include="Images\LargeIcon.png" />
+    <Resource Include="Images\logo.ico" />
     <Resource Include="Images\SmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -170,9 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Priority\high.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\RibbonTab1\close.png" />

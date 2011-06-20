@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// a class representing a resource that serves as link to another resource
     /// inherits from ResourceBase
     /// </summary>
-    class LinkResource : ResourceBase
+    public sealed class LinkResource : ResourceBase
     {
         /// <summary>
         /// creates a new instance of the LinkResource class
@@ -56,7 +56,7 @@ namespace ChameleonCoder.Resources
                 catch (NullReferenceException) { }
                 return result;
             }
-            protected set { base.Name = value; }
+            private set { base.Name = value; }
         }
 
         public new string Description
@@ -78,7 +78,7 @@ namespace ChameleonCoder.Resources
                 catch (NullReferenceException) { }
                 return result;
             }
-            protected set { base.Description = value; }
+            private set { base.Description = value; }
         }
 
         #endregion
@@ -99,15 +99,6 @@ namespace ChameleonCoder.Resources
         {
             base.Save();
             this.Resolve().Save();
-        }
-
-        internal override SortedList ToSortedList()
-        {
-            SortedList list = base.ToSortedList();
-
-            list.Add("Destination", this.Destination);
-
-            return list;
         }
 
         #endregion

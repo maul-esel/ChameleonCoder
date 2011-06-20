@@ -19,7 +19,7 @@ namespace ChameleonCoder.Resources.Base
         /// in which the resource is defined.</param>
         /// <param name="xpath">the XPath to the root element of the resource</param>
         /// <param name="datafile">the file in which the resource is defined</param>
-        public ResourceBase(ref XmlDocument xml, string xpath, string datafile)
+        internal ResourceBase(ref XmlDocument xml, string xpath, string datafile)
         {
             this.XPath = xpath;
             this.DataFile = datafile;
@@ -53,7 +53,7 @@ namespace ChameleonCoder.Resources.Base
         /// <summary>
         /// the file that contains the resources definition
         /// </summary>
-        public string DataFile { get; protected set; }
+        internal string DataFile { get; private set; }
 
         /// <summary>
         /// the display name of the resource
@@ -68,28 +68,28 @@ namespace ChameleonCoder.Resources.Base
                 }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            protected set { this.XML.SelectSingleNode(this.XPath + "/@name").Value = value; }
+            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@name").Value = value; }
         }
 
         /// <summary>
         /// the GUID that uniquely identifies the resource
         /// </summary>
-        public Guid GUID { get; protected set; }
+        public Guid GUID { get; private set; }
 
         /// <summary>
         /// defines the resource's type
         /// </summary>
-        public ResourceType Type { get; protected set; }
+        public ResourceType Type { get; protected internal set; }
 
         /// <summary>
         /// the XPath to the resource's definition in the datafile
         /// </summary>
-        public string XPath { get; protected set; }
+        internal string XPath { get; private set; }
 
         /// <summary>
         /// contains the metadata marked as default
         /// </summary>
-        protected Metadata DefaultData { get; set; }
+        protected internal Metadata DefaultData { get; set; }
 
         /// <summary>
         /// a short description of the resource
@@ -97,7 +97,7 @@ namespace ChameleonCoder.Resources.Base
         public string Description
         {
             get { return this.XML.SelectSingleNode(this.XPath + "/@description").Value; }
-            protected set { this.XML.SelectSingleNode(this.XPath + "/@description").Value = value; }
+            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@description").Value = value; }
         }
 
         /// <summary>
@@ -121,12 +121,12 @@ namespace ChameleonCoder.Resources.Base
         /// <summary>
         /// the XmlDocument used to navigat through the resource's contents
         /// </summary>
-        protected XmlDocument XML { get; set; }
+        protected internal XmlDocument XML { get; set; }
 
         /// <summary>
         /// a ResourceCollection containing the children resources
         /// </summary>
-        public Resources.Collections.ResourceCollection children { get; protected set; }
+        public Resources.Collections.ResourceCollection children { get; protected internal set; }
 
         #endregion
 
@@ -138,7 +138,6 @@ namespace ChameleonCoder.Resources.Base
         internal virtual void Open()
         {
             App.Gui.PropertyGrid.Items.Clear();
-            //App.Gui.MetadataGrid.Items.Clear();
 
             // maybe this could be done with binding and several data templates.
             // Currently it doesn't work because the contents are not added (see comments).
@@ -257,25 +256,6 @@ namespace ChameleonCoder.Resources.Base
         internal virtual void Delete()
         {
             
-        }
-
-        /// <summary>
-        /// compiles a resource object into a SortedList which can be given to plugins
-        /// </summary>
-        /// <returns>the SortedList representing the resource</returns>
-        internal virtual SortedList ToSortedList()
-        {
-            SortedList list = new SortedList();
-
-            list.Add("Description", this.Description);
-            list.Add("GUID", this.GUID);
-            list.Add("MetaData", this.MetaData);
-            list.Add("Name", this.Name);
-            list.Add("Notes", this.Notes);
-            list.Add("Type", this.Type);
-            list.Add("XPath", this.XPath);
-
-            return list;
         }
 
         /// <summary>

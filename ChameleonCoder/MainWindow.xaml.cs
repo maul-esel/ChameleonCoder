@@ -6,6 +6,7 @@ using System.Windows.Data;
 using Microsoft.Windows.Controls.Ribbon;
 using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder
 {
@@ -14,12 +15,14 @@ namespace ChameleonCoder
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
-        public MainWindow()
+        internal MainWindow()
         {
             InitializeComponent();
 
             this.Grid2.Visibility = System.Windows.Visibility.Hidden;
             this.Grid3.Visibility = System.Windows.Visibility.Hidden;
+
+            Image i = new Image();
 
             ResourceManager.FlatList = (ResourceCollection)this.Resources["resources"];
             ResourceManager.children = (ResourceCollection)this.Resources["resourceHierarchy"];
@@ -64,6 +67,8 @@ namespace ChameleonCoder
 
         private void GoHome(object sender, EventArgs e)
         {
+            ResourceManager.ActiveItem = null;
+
             this.Grid1.Visibility = System.Windows.Visibility.Visible;
             this.Grid2.Visibility = System.Windows.Visibility.Hidden;
             this.Grid3.Visibility = System.Windows.Visibility.Hidden;
@@ -80,10 +85,37 @@ namespace ChameleonCoder
             if (resource != null)
             {
                 resource.Open();
+
+                ResourceManager.ActiveItem = resource;
                 
                 this.Grid1.Visibility = System.Windows.Visibility.Hidden;
                 this.Grid2.Visibility = System.Windows.Visibility.Hidden;
                 this.Grid3.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void EditAResource(object sender, EventArgs e)
+        {
+            if (ResourceManager.ActiveItem != null)
+            {
+                FileResource resource = null;
+
+                if (ResourceManager.ActiveItem is FileResource)
+                    resource = (FileResource)ResourceManager.ActiveItem;
+                else if (ResourceManager.ActiveItem is LinkResource && ((LinkResource)ResourceManager.ActiveItem).Resolve() is FileResource)
+                    resource = (FileResource)((LinkResource)ResourceManager.ActiveItem).Resolve();
+
+                if (resource != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(resource.Path) && System.IO.File.Exists(resource.Path))
+                    {
+                        this.Editor.Load(resource.Path);
+
+                        this.Grid1.Visibility = System.Windows.Visibility.Hidden;
+                        this.Grid2.Visibility = System.Windows.Visibility.Visible;
+                        this.Grid3.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                }
             }
         }
 

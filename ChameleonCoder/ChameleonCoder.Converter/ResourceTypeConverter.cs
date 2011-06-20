@@ -27,15 +27,6 @@ namespace ChameleonCoder.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string name = (string)value;
-
-            switch (name)
-            {
-                case "file": break;
-                case "code": break;
-                // todo: get language names, return the right value
-            }
-
             return null;
         }
     }

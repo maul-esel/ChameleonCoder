@@ -21,7 +21,7 @@ namespace ChameleonCoder.Resources.Collections
         /// adds a new instance to the collection
         /// </summary>
         /// <param name="instance">the instance to add</param>
-        public new void Add(ResourceBase instance)
+        internal new void Add(ResourceBase instance)
         {
             try
             {

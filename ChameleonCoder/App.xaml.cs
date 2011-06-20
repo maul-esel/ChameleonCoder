@@ -17,7 +17,7 @@ namespace ChameleonCoder
 
         internal static Plugins.PluginHost Host;
 
-        public void Init(Object sender, StartupEventArgs e)
+        internal void Init(Object sender, StartupEventArgs e)
         {
             Gui = new MainWindow();
 
@@ -28,7 +28,7 @@ namespace ChameleonCoder
             Gui.Show();
         }
 
-        internal static void ListData()
+        private static void ListData()
         {
             if (Directory.Exists(Environment.CurrentDirectory + "\\#Data"))
             {
@@ -77,7 +77,7 @@ namespace ChameleonCoder
                     throw new Exception("parsing error in file " + file + " at position " + xpath + ".\ncase:" + type);
             }
 
-            ResourceManager.Add((ResourceBase)resource, parent);
+            ResourceManager.Add(resource, parent);
 
             i = 0;
             foreach (XmlNode xmlnav2 in xmlnav.SelectNodes(xpath + "/resource"))

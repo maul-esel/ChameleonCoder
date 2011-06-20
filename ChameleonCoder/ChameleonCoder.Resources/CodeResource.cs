@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// represents a file containing code,
     /// inherits from FileResource
     /// </summary>
-    class CodeResource : FileResource
+    public class CodeResource : FileResource
     {
         /// <summary>
         /// creates a new instance of the CodeResource class
@@ -29,16 +29,16 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// contains the languages to which the file is compatible
         /// </summary>
-        internal Guid Language
+        public Guid Language
         {
             get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@language").Value); }
-            set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
+            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
         }
 
         /// <summary>
         /// the path to save the file if it is compiled.
         /// </summary>
-        internal string CompilationPath
+        public string CompilationPath
         {
             get
             {
@@ -48,7 +48,7 @@ namespace ChameleonCoder.Resources
                     result = this.Path + ".exe";
                 return result;
             }
-            set { this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value = value; }
+            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value = value; }
         }
 
         #endregion
@@ -65,20 +65,6 @@ namespace ChameleonCoder.Resources
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("CompilePath"), this.CompilationPath}));
 
             //App.Gui.listView2.Groups[1].Header = Localization.get_string("info_code");
-        }
-
-        /// <summary>
-        /// compiles the instance into a SortedList which can be given to plugins
-        /// </summary>
-        /// <returns>the SortedList representing the resource</returns>
-        internal override SortedList ToSortedList()
-        {
-            SortedList list = base.ToSortedList();
-
-            list.Add("CompilationPath", this.CompilationPath);
-            list.Add("Language", this.Language);
-
-            return list;
         }
 
         /// <summary>

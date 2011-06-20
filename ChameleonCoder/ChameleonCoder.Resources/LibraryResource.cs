@@ -12,7 +12,7 @@ namespace ChameleonCoder.Resources
     /// represents a library resource,
     /// inherits from CodeResource
     /// </summary>
-    sealed class LibraryResource : CodeResource
+    public sealed class LibraryResource : CodeResource
     {
         /// <summary>
         /// creates a new instance of the LibraryResource class
@@ -62,17 +62,6 @@ namespace ChameleonCoder.Resources
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Version"), this.Version }));
 
             //App.Gui.listView2.Groups[1].Header = Localization.get_string("info_lib");
-        }
-
-        internal override SortedList ToSortedList()
-        {
-            SortedList list = base.ToSortedList();
-
-            list.Add("Author", this.Author);
-            list.Add("License", this.License);
-            list.Add("Version", this.Version);
-
-            return list;
         }
 
         internal static void Create(object sender, EventArgs e)

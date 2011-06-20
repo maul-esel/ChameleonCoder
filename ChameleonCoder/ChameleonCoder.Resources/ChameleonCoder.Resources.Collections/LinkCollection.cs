@@ -6,25 +6,25 @@ using System.ComponentModel;
 
 namespace ChameleonCoder.Resources.Collections
 {
-    [Obsolete("binding should make this unnecessary, using the new ResourceCollection class", false)]
+    [Obsolete("binding should make this unnecessary, using the new ResourceCollection class", true)]
     class LinkCollection : ObservableCollection<Guid>
     {
         private Dictionary<int, Guid> identifiers = new Dictionary<int, Guid>();
 
-        public void Add(int hash, Guid ID)
+        internal void Add(int hash, Guid ID)
         {
             this.identifiers.Add(hash, ID);
             base.Add(ID);
         }
 
-        public void Remove(int hash)
+        internal void Remove(int hash)
         {
             Guid ID = this.GetGUID(hash);
             this.identifiers.Remove(hash);
             base.Remove(ID);
         }
 
-        public Guid GetGUID(int hash)
+        internal Guid GetGUID(int hash)
         {
             Guid link;
             this.identifiers.TryGetValue(hash, out link);

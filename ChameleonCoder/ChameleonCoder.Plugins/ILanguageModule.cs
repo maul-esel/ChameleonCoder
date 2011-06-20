@@ -3,20 +3,35 @@
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
-    /// defines the interface all plugins must implement
+    /// defines the interface all language modules must implement
     /// </summary>
     public interface ILanguageModule
     {
         /// <summary>
-        /// called when the app starts and loads all plugins
-        /// </summary>
-        /// <param name="Host">the instance of the IPluginHost interface the plugin can use to communicate.</param>
-        void Initalize(IPluginHost Host);
-
-        /// <summary>
         /// called when the app is closed, allows plugins to save unfinished work
         /// </summary>
         void Shutdown();
+
+        /// <summary>
+        /// the author of the Language Module
+        /// </summary>
+        string Author { get; }
+
+        /// <summary>
+        /// the custom module version
+        /// </summary>
+        string Version { get; }
+
+        /// <summary>
+        /// an about text displayed in an About Box. This may include credits, copyright, ...
+        /// </summary>
+        string About { get; }
+
+        /// <summary>
+        /// called when the app starts and loads all plugins
+        /// </summary>
+        /// <param name="Host">the instance of the ILanguageModuleHost interface the plugin can use to communicate.</param>
+        void Initialize(ILanguageModuleHost host);
 
         /// <summary>
         /// called when the user requests to compile a resource
@@ -73,21 +88,6 @@ namespace ChameleonCoder.Plugins
         /// <param name="resource"></param>
         /// <param name="TypedChar"></param>
         void CharTyped(Guid resource, char TypedChar);
-
-        /// <summary>
-        /// the author of the Language Module
-        /// </summary>
-        string Author { get; }
-        
-        /// <summary>
-        /// the custom module version
-        /// </summary>
-        string Version { get; }
-        
-        /// <summary>
-        /// an about text displayed in an About Box. This may include credits, copyright, ...
-        /// </summary>
-        string About { get; }
 
         /// <summary>
         /// the API version the plugin uses. Current is "1".
