@@ -23,6 +23,16 @@
 
         <col:ResourceCollection x:Key="resources"/>
         <col:ResourceCollection x:Key="resourceHierarchy"/>
+
+        <CollectionViewSource Source="{StaticResource resources}" Filter="CollectionViewSource_Filter" x:Key="ResListSource">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Type"/>
+            </CollectionViewSource.GroupDescriptions>
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Type"/>
+                <scm:SortDescription PropertyName="Name"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </Window.Resources>
     
     <Grid>
@@ -89,7 +99,6 @@
                                                    LargeImageSource="Images\LargeIcon.png"
                                                    Unchecked="FilterChanged" Checked="FilterChanged"
                                                    IsChecked="False"/>
-
                     <ribbon:RibbonCheckBox x:Name="HideCodes"
                                                    Label="hide codes"
                                                    LargeImageSource="Images\LargeIcon.png"
@@ -277,7 +286,7 @@
                       HorizontalContentAlignment="Stretch">
             <TreeView.ItemTemplate>
                 <win:HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
-                    <Grid Margin="3,3,0,3">
+                    <Grid Margin="3,3,3,3" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -298,7 +307,8 @@
 
         <ListBox x:Name="ResourceList" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
                  IsSynchronizedWithCurrentItem="True"
-                 HorizontalContentAlignment="Stretch">
+                 HorizontalContentAlignment="Stretch"
+                 ItemsSource="{Binding Source={StaticResource ResListSource}}">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -363,21 +373,6 @@
                     </DataTemplate.Triggers>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <ListBox.ItemsSource>
-                <Binding Mode="OneWay">
-                    <Binding.Source>
-                        <CollectionViewSource Source="{StaticResource resources}" Filter="CollectionViewSource_Filter">
-                            <CollectionViewSource.GroupDescriptions>
-                                <PropertyGroupDescription PropertyName="Type"/>
-                            </CollectionViewSource.GroupDescriptions>
-                            <CollectionViewSource.SortDescriptions>
-                                <scm:SortDescription PropertyName="Type"/>
-                                <scm:SortDescription PropertyName="Name"/>
-                            </CollectionViewSource.SortDescriptions>
-                        </CollectionViewSource>
-                    </Binding.Source>
-                </Binding>
-            </ListBox.ItemsSource>
         </ListBox>
         
         <avalon:TextEditor x:Name="Editor" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"/>
@@ -425,10 +420,7 @@
             </StatusBarItem>
             <Separator Height="15" Background="Gray" Width="1"/>
             <StatusBarItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Uid="CurrentModuleLabel" MinWidth="150"/>
-                    <TextBlock x:Name="CurrentModule" MinWidth="250"/>
-                </StackPanel>
+                <TextBlock x:Name="CurrentModule" MinWidth="250"/>
             </StatusBarItem>
             <Separator Height="15" Background="Gray" Width="1"/>
         </StatusBar>

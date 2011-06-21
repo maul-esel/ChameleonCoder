@@ -92,6 +92,7 @@
     <Compile Include="ChameleonCoder.Plugins\IPluginHost.cs" />
     <Compile Include="ChameleonCoder.Plugins\IService.cs" />
     <Compile Include="ChameleonCoder.Plugins\IServiceHost.cs" />
+    <Compile Include="ChameleonCoder.Plugins\LexingType.cs" />
     <Compile Include="ChameleonCoder.Plugins\PluginHost.cs" />
     <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\Metadata.cs" />
     <Compile Include="ChameleonCoder.Resources\ChameleonCoder.Resources.Base\ResourceManager.cs" />
