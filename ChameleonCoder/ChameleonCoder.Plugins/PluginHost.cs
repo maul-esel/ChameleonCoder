@@ -154,12 +154,12 @@ namespace ChameleonCoder.Plugins
 
         internal void Shutdown()
         {
-            App.Host.UnloadModule();
-            foreach (ILanguageModule module in App.Host.LanguageModules.Values)
+            this.UnloadModule();
+            foreach (ILanguageModule module in this.LanguageModules.Values)
             {
                 module.Shutdown();
             }
-            foreach (IService service in App.Host.Services.Values)
+            foreach (IService service in this.Services.Values)
             {
                 service.Shutdown();
             }
