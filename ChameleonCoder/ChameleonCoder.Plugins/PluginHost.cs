@@ -167,7 +167,7 @@ namespace ChameleonCoder.Plugins
 
         internal void UnloadModule()
         {
-            if (ActiveLanguageModule != null)
+            if (ActiveLanguageModule != Guid.Empty)
             {
                 ILanguageModule module;
                 if (this.LanguageModules.TryGetValue(ActiveLanguageModule, out module))
@@ -177,6 +177,8 @@ namespace ChameleonCoder.Plugins
                     App.Gui.CustomGroup2.Items.Clear();
                     App.Gui.CustomGroup3.Items.Clear();
                 }
+                this.ActiveLanguageModule = Guid.Empty;
+                App.Gui.CurrentModule.Text = string.Empty;
             }
         }
 
