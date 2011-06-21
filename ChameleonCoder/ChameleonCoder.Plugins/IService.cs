@@ -52,5 +52,15 @@ namespace ChameleonCoder.Plugins
         /// a brief description of what the service does
         /// </summary>
         string Description { get; }
+
+        /// <summary>
+        /// a image representing the service
+        /// </summary>
+        System.Windows.Media.ImageSource Icon { get; }
+
+        /// <summary>
+        /// defines whether the service is busy or not
+        /// </summary>
+        bool IsBusy { get; }
     }
 }

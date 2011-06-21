@@ -31,7 +31,11 @@ namespace ChameleonCoder.Resources
         /// </summary>
         public Guid Language
         {
-            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@language").Value); }
+            get
+            {
+                try { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@language").Value); }
+                catch (NullReferenceException) { return Guid.Empty; }
+            }
             protected internal set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
         }
 

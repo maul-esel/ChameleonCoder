@@ -117,8 +117,6 @@ namespace ChameleonCoder.Plugins
 
         internal PluginHost()
         {
-            App.Current.Exit += PluginHost.Shutdown;
-
             // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
             var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Plugins", "*.dll")
                          let a = Assembly.LoadFrom(dll)
@@ -130,12 +128,10 @@ namespace ChameleonCoder.Plugins
             foreach (ILanguageModule module in result)
             {
                 if (module != null)
+                {
                     LanguageModules.Add(module.Language, module);
-            }
-
-            foreach (ILanguageModule module in LanguageModules.Values)
-            {
-                module.Initialize(this as ILanguageModuleHost);
+                    module.Initialize(this as ILanguageModuleHost);
+                }
             }
 
             // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
@@ -149,16 +145,14 @@ namespace ChameleonCoder.Plugins
             foreach (IService service in result2)
             {
                 if (service != null)
+                {
                     Services.Add(service.Service, service);
-            }
-
-            foreach (IService service in Services.Values)
-            {
-                service.Initialize(this as IServiceHost);
+                    service.Initialize(this as IServiceHost);
+                }
             }
         }
 
-        internal static void Shutdown(object sender, EventArgs e)
+        internal void Shutdown()
         {
             App.Host.UnloadModule();
             foreach (ILanguageModule module in App.Host.LanguageModules.Values)
@@ -193,7 +187,28 @@ namespace ChameleonCoder.Plugins
             {
                 module.Load();
                 ActiveLanguageModule = language;
+
+                App.Gui.CurrentModule.Text = string.Format(Localization.Language.ModuleInfo,
+                    module.LanguageName, module.Version, module.Author);
             }
+        }
+
+        internal IList<IService> GetServices()
+        {
+            return this.Services.Values;
+        }
+
+        internal IList<ILanguageModule> GetModules()
+        {
+            return this.LanguageModules.Values;
+        }
+
+        internal ILanguageModule GetModule(Guid language)
+        {
+            ILanguageModule module;
+            if (this.LanguageModules.TryGetValue(language, out module))
+                return module;
+            return null;
         }
 
         #endregion

@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.Windows.Controls.Ribbon;
-using ChameleonCoder.Resources.Collections;
-using ChameleonCoder.Resources.Base;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources.Collections;
+using Microsoft.Windows.Controls.Ribbon;
 
 namespace ChameleonCoder
 {
@@ -19,8 +19,11 @@ namespace ChameleonCoder
         {
             InitializeComponent();
 
-            this.Grid2.Visibility = System.Windows.Visibility.Hidden;
-            this.Grid3.Visibility = System.Windows.Visibility.Hidden;
+            this.Editor.Visibility = System.Windows.Visibility.Hidden;
+
+            this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
 
             Image i = new Image();
 
@@ -29,6 +32,21 @@ namespace ChameleonCoder
 
             this.TreeView.Items.SortDescriptions.Clear();
             this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
+
+            if (App.Host.GetServices().Count != 0)
+            {
+                foreach (ChameleonCoder.Plugins.IService service in App.Host.GetServices())
+                {
+                    RibbonApplicationMenuItem item = new RibbonApplicationMenuItem();
+                    item.Header = service.ServiceName;
+                    item.ImageSource = service.Icon;
+                    this.MenuServices.Items.Add(item);
+                }
+            }
+            else
+            {
+                this.MenuServices.IsEnabled = false;
+            }
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
@@ -69,9 +87,13 @@ namespace ChameleonCoder
         {
             ResourceManager.ActiveItem = null;
 
-            this.Grid1.Visibility = System.Windows.Visibility.Visible;
-            this.Grid2.Visibility = System.Windows.Visibility.Hidden;
-            this.Grid3.Visibility = System.Windows.Visibility.Hidden;
+            this.ResourceList.Visibility = System.Windows.Visibility.Visible;
+
+            this.Editor.Visibility = System.Windows.Visibility.Hidden;
+
+            this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
+            this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void OpenAResource(object sender, RoutedPropertyChangedEventArgs<Object> e)
@@ -84,13 +106,26 @@ namespace ChameleonCoder
 
             if (resource != null)
             {
+                App.Host.UnloadModule();
+
                 resource.Open();
 
                 ResourceManager.ActiveItem = resource;
+
+                if (resource is CodeResource)
+                {
+                    App.Host.LoadModule((resource as CodeResource).Language);
+                }
+                else if (resource is ProjectResource)
+                    App.Host.LoadModule((resource as ProjectResource).Language);
                 
-                this.Grid1.Visibility = System.Windows.Visibility.Hidden;
-                this.Grid2.Visibility = System.Windows.Visibility.Hidden;
-                this.Grid3.Visibility = System.Windows.Visibility.Visible;
+                this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
+
+                this.Editor.Visibility = System.Windows.Visibility.Hidden;
+
+                this.PropertyGrid.Visibility = System.Windows.Visibility.Visible;
+                this.MetadataGrid.Visibility = System.Windows.Visibility.Visible;
+                this.NotesBox.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -111,9 +146,13 @@ namespace ChameleonCoder
                     {
                         this.Editor.Load(resource.Path);
 
-                        this.Grid1.Visibility = System.Windows.Visibility.Hidden;
-                        this.Grid2.Visibility = System.Windows.Visibility.Visible;
-                        this.Grid3.Visibility = System.Windows.Visibility.Hidden;
+                        this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
+
+                        this.Editor.Visibility = System.Windows.Visibility.Visible;
+
+                        this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
+                        this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
+                        this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
                     }
                 }
             }
@@ -123,13 +162,13 @@ namespace ChameleonCoder
         {
             if (this.EnableGroups.IsChecked == false)
             {
-                CollectionViewSource.GetDefaultView(this.listView1.ItemsSource).GroupDescriptions.Clear();
+                CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).GroupDescriptions.Clear();
             }
             else if (this.EnableGroups.IsChecked == true)
             {
-                if (this.listView1 != null)
+                if (this.ResourceList != null)
                 {
-                    object source = this.listView1.ItemsSource;
+                    object source = this.ResourceList.ItemsSource;
                     if (source != null)
                         CollectionViewSource.GetDefaultView(source).GroupDescriptions.Add(new PropertyGroupDescription("Type"));
                 }
@@ -139,7 +178,7 @@ namespace ChameleonCoder
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(this.listView1.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
         }
 
         private void Close(object sender, RoutedEventArgs e)

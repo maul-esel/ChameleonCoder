@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Xml;
@@ -19,13 +20,23 @@ namespace ChameleonCoder
 
         internal void Init(Object sender, StartupEventArgs e)
         {
-            Gui = new MainWindow();
+            //Localization.Localizer.UpdateLanguage(ChameleonCoder.Properties.Settings.Default.Language);
+            Localization.Language.Culture = new CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
+
+            App.Current.Exit += ExitHandler;
 
             App.Host = new Plugins.PluginHost();
+
+            Gui = new MainWindow();
 
             ListData();
 
             Gui.Show();
+        }
+
+        internal static void ExitHandler(object sender, EventArgs e)
+        {
+            App.Host.Shutdown();
         }
 
         private static void ListData()

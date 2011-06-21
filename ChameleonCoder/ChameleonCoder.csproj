@@ -112,6 +112,7 @@
     <Compile Include="ChameleonCoder.Converter\ResourceTypeConverter.cs" />
     <Compile Include="ChameleonCoder.Resources\TaskResource.cs" />
     <Compile Include="ChameleonCoder.Converter\ResourceTypeImageConverter.cs" />
+    <Compile Include="ChameleonCoder.Converter\ModuleIconConverter.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -144,7 +145,6 @@
     <EmbeddedResource Include="Localization\Language.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
