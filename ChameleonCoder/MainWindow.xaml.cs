@@ -86,6 +86,7 @@ namespace ChameleonCoder
         private void GoHome(object sender, EventArgs e)
         {
             ResourceManager.ActiveItem = null;
+            App.Host.UnloadModule();
 
             this.ResourceList.Visibility = System.Windows.Visibility.Visible;
 
