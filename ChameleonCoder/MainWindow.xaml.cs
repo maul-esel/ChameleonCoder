@@ -114,9 +114,7 @@ namespace ChameleonCoder
                 ResourceManager.ActiveItem = resource;
 
                 if (resource is CodeResource)
-                {
                     App.Host.LoadModule((resource as CodeResource).Language);
-                }
                 else if (resource is ProjectResource)
                     App.Host.LoadModule((resource as ProjectResource).Language);
                 

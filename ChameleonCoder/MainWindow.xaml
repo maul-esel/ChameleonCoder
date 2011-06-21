@@ -19,6 +19,7 @@
         <conv:ResourceTypeConverter x:Key="TypeConverter"/><!--converts language-specific-->
         <conv:ResourceTypeImageConverter x:Key="ImageConverter"/><!--converts type to image-->
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
+        <conv:PriorityConverter x:Key="PriorityConverter"/>
 
         <col:ResourceCollection x:Key="resources"/>
         <col:ResourceCollection x:Key="resourceHierarchy"/>
@@ -282,15 +283,14 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Border Background="Chocolate" Grid.Row="0" Grid.Column="1"
-                                BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
+                        <Image Source="{Binding Converter={StaticResource PriorityConverter}}" Grid.Column="0" />
+                        <Border Background="Chocolate" Grid.Column="1"
+                                BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20"
+                                Margin="5,0,0,0">
                             <Image Source="{Binding Path=Type, Converter={StaticResource ImageConverter}}"
                                    Width="19" Height="19"/>
                         </Border>
-                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
                     </Grid>
                 </win:HierarchicalDataTemplate>
             </TreeView.ItemTemplate>

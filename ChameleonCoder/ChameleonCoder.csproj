@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -113,6 +114,12 @@
     <Compile Include="ChameleonCoder.Resources\TaskResource.cs" />
     <Compile Include="ChameleonCoder.Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="ChameleonCoder.Converter\ModuleIconConverter.cs" />
+    <Compile Include="ChameleonCoder.Converter\PriorityConverter.cs" />
+    <Compile Include="Priority.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Priority.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +152,10 @@
     <EmbeddedResource Include="Localization\Language.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Priority.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Priority.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
