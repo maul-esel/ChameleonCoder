@@ -178,15 +178,6 @@
     <Resource Include="Images\RibbonTab1\home.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Priority\low.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Priority\middle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Priority\high.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\RibbonTab1\close.png" />
   </ItemGroup>
   <ItemGroup>
