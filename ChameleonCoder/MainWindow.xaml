@@ -276,22 +276,21 @@
                       HorizontalContentAlignment="Stretch">
             <TreeView.ItemTemplate>
                 <win:HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
-                    <Grid>
+                    <Grid Margin="3,3,0,3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="5"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="3"/>
                             <RowDefinition/>
-                            <RowDefinition Height="3"/>
                         </Grid.RowDefinitions>
-                        <Border Background="Chocolate" Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
-                            <Image Source="{Binding Path=Type, Converter={StaticResource ImageConverter}}" Width="19" Height="19"/>
+                        <Border Background="Chocolate" Grid.Row="0" Grid.Column="1"
+                                BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
+                            <Image Source="{Binding Path=Type, Converter={StaticResource ImageConverter}}"
+                                   Width="19" Height="19"/>
                         </Border>
-                        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding Path=Name}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
                     </Grid>
                 </win:HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
@@ -380,7 +379,7 @@
                 </Binding>
             </ListBox.ItemsSource>
         </ListBox>
-
+        
         <avalon:TextEditor x:Name="Editor" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"/>
 
         <DataGrid x:Name="PropertyGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1"
