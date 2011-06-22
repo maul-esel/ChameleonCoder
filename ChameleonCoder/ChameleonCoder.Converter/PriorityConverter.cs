@@ -14,7 +14,12 @@ namespace ChameleonCoder.Converter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            ProjectResource project = value as ProjectResource;
+            ResourceBase resource = value as ResourceBase;
+
+            while (resource is LinkResource)
+                resource = (resource as LinkResource).Resolve();
+
+            ProjectResource project = resource as ProjectResource;
 
             if (project != null)
             {
