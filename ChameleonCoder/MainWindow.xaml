@@ -293,12 +293,11 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Border Background="Chocolate" Grid.Column="0"
-                                BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20"
-                                Margin="5,0,0,0">
+                                BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
                             <Image Source="{Binding Converter={StaticResource ImageConverter}}"
                                    Width="19" Height="19"/>
                         </Border>
-                        <Image Source="{Binding Converter={StaticResource PriorityConverter}}" Grid.Column="1" />
+                        <Image Margin="5,0,0,0" Source="{Binding Converter={StaticResource PriorityConverter}}" Grid.Column="1" />
                         <TextBlock Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
                     </Grid>
                 </win:HierarchicalDataTemplate>
