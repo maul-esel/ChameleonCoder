@@ -121,6 +121,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Priority.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyConverter.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

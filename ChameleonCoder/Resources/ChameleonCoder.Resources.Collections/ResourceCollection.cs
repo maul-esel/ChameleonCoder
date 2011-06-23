@@ -27,10 +27,10 @@ namespace ChameleonCoder.Resources.Collections
             {
                 this.instances.Add(instance.GUID, instance);
             }
-            catch (System.ArgumentException e)
+            catch (System.ArgumentException)
             {
                 System.Windows.MessageBox.Show("duplicate resource GUID!");
-                throw e;
+                throw;
             }
 
             base.Add(instance);

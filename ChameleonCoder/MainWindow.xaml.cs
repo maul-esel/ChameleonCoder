@@ -29,7 +29,6 @@ namespace ChameleonCoder
 
             ResourceManager.FlatList = (ResourceCollection)this.Resources["resources"];
             ResourceManager.children = (ResourceCollection)this.Resources["resourceHierarchy"];
-            this.Resources["Services"] = App.Host.GetServices();
 
             this.TreeView.Items.SortDescriptions.Clear();
             this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
