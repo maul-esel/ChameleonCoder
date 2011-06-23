@@ -213,6 +213,13 @@ namespace ChameleonCoder.Plugins
             return null;
         }
 
+        internal void CallService(Guid ID)
+        {
+            IService service;
+            if (this.Services.TryGetValue(ID, out service))
+                service.Call();
+        }
+
         #endregion
     }
 }
