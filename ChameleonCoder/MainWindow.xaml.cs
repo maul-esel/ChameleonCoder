@@ -29,24 +29,30 @@ namespace ChameleonCoder
 
             ResourceManager.FlatList = (ResourceCollection)this.Resources["resources"];
             ResourceManager.children = (ResourceCollection)this.Resources["resourceHierarchy"];
+            this.Resources["Services"] = App.Host.GetServices();
 
             this.TreeView.Items.SortDescriptions.Clear();
             this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
 
-            if (App.Host.GetServices().Count != 0)
+            
+            foreach (ChameleonCoder.Plugins.IService service in App.Host.GetServices())
             {
-                foreach (ChameleonCoder.Plugins.IService service in App.Host.GetServices())
-                {
-                    RibbonApplicationMenuItem item = new RibbonApplicationMenuItem();
-                    item.Header = service.ServiceName;
-                    item.ImageSource = service.Icon;
-                    this.MenuServices.Items.Add(item);
-                }
+                RibbonApplicationMenuItem item = new RibbonApplicationMenuItem();
+                item.Header = service.ServiceName; item.ImageSource = service.Icon;
+                item.Click += LaunchService;
+                this.MenuServices.Items.Add(item);
             }
-            else
+
+            if (App.Host.GetServices().Count == 0)
             {
                 this.MenuServices.IsEnabled = false;
             }
+            
+        }
+
+        private void LaunchService(object sender, RoutedEventArgs e)
+        {
+            App.Host.CallService(new Guid());
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
@@ -109,7 +115,7 @@ namespace ChameleonCoder
             {
                 App.Host.UnloadModule();
 
-                resource.Open();
+                //resource.Open();
 
                 ResourceManager.ActiveItem = resource;
 

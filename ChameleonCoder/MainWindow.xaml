@@ -20,6 +20,7 @@
         <conv:ResourceTypeImageConverter x:Key="ImageConverter"/><!--converts type to image-->
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
         <conv:PriorityConverter x:Key="PriorityConverter"/>
+        <conv:PropertyConverter x:Key="PropConv"/>
 
         <col:ResourceCollection x:Key="resources"/>
         <col:ResourceCollection x:Key="resourceHierarchy"/>
@@ -63,7 +64,8 @@
                                          Header="Home"  Click="GoHome" />
                     <ribbon:RibbonApplicationSplitMenuItem x:Name="MenuServices"
                                          ImageSource="Images\LargeIcon.png"
-                                         Header="Services">
+                                         Header="Services"
+                                         StaysOpenOnClick="True">
                     </ribbon:RibbonApplicationSplitMenuItem>
                     <ribbon:RibbonSeparator/>
                     <ribbon:RibbonApplicationMenuItem x:Name="MenuCreate"
@@ -302,7 +304,7 @@
                     </Grid>
                 </win:HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
-        </TreeView>
+        </TreeView> 
 
         <ListBox x:Name="ResourceList" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
                  IsSynchronizedWithCurrentItem="True"
@@ -376,14 +378,28 @@
         
         <avalon:TextEditor x:Name="Editor" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"/>
 
-        <DataGrid x:Name="PropertyGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1"
-                  HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" HeadersVisibility="None">
-            <!-- todo: add binding-->
-            <DataGrid.Columns>
-                <DataGridTextColumn CanUserResize="False" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn CanUserResize="False" IsReadOnly="False" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListView x:Name="PropertyGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1"
+                  ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem, Converter={StaticResource PropConv}}"
+                  HorizontalContentAlignment="Stretch" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=Value}" HorizontalAlignment="Stretch"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView><!--possible alternative to datagrid - not yet working though...-->
         
         <DataGrid x:Name="MetadataGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1"
                           ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem.MetaData}"
