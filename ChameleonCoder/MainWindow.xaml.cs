@@ -25,8 +25,6 @@ namespace ChameleonCoder
             this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
             this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
 
-            Image i = new Image();
-
             ResourceManager.FlatList = (ResourceCollection)this.Resources["resources"];
             ResourceManager.children = (ResourceCollection)this.Resources["resourceHierarchy"];
 
