@@ -24,7 +24,7 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.code;
         }
 
-        #region cCodeFile properties
+        #region CodeResource properties
 
         /// <summary>
         /// contains the languages to which the file is compatible

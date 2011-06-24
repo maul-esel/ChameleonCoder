@@ -192,5 +192,10 @@ namespace ChameleonCoder
             System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
             Application.Current.Shutdown(0);
         }
+
+        private void CreateResource(object sender, RoutedEventArgs e)
+        {
+            ResourceCreator creator = new ResourceCreator();
+        }
     }
 }
