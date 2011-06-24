@@ -401,7 +401,7 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView><!--possible alternative to datagrid - not yet working though...-->
+        </ListView>
         
         <DataGrid x:Name="MetadataGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1"
                           ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem.MetaData}"

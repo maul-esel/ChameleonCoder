@@ -30,7 +30,6 @@ namespace ChameleonCoder
 
             this.TreeView.Items.SortDescriptions.Clear();
             this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
-
             
             foreach (ChameleonCoder.Plugins.IService service in App.Host.GetServices())
             {
