@@ -28,47 +28,6 @@ namespace ChameleonCoder.Resources.Base
         }
 
         /// <summary>
-        /// defines if this metadata can be used for configuration
-        /// </summary>
-        public bool IsNoConfig
-        {
-            get
-            {
-                try
-                {
-                    return this.XML.CreateNavigator().SelectSingleNode(this.XPath + "/@noconfig").ValueAsBoolean;
-                }
-                catch (NullReferenceException) { return false; }
-            }
-            private set
-            {
-                int i;
-                if (value)
-                    i = 1;
-                else
-                    i = 0;
-                this.XML.SelectSingleNode(this.XPath + "/@noconfig").Value = i.ToString();
-            }
-        }
-
-        /// <summary>
-        /// defines if this metadata is used as default
-        /// </summary>
-        public bool IsDefault
-        {
-            get { return this.XML.CreateNavigator().SelectSingleNode(this.XPath + "/@default").ValueAsBoolean; }
-            private set
-            {
-                int i;
-                if (value)
-                    i = 1;
-                else
-                    i = 0;
-                this.XML.SelectSingleNode(this.XPath + "/@default").Value = i.ToString();
-            }
-        }
-
-        /// <summary>
         /// contains the xpath to the element
         /// </summary>
         private string XPath { get; set; }
@@ -96,22 +55,6 @@ namespace ChameleonCoder.Resources.Base
         internal void Save()
         {
 
-        }
-
-        /// <summary>
-        /// converts the instance to a SortedList
-        /// </summary>
-        /// <returns>the SortedList containing the instance</returns>
-        internal SortedList ToSortedList()
-        {
-            SortedList list = new SortedList();
-
-            list.Add("name", this.Name);
-            list.Add("value", this.Value);
-            list.Add("noconfig", this.IsNoConfig);
-            list.Add("standard", this.IsDefault);
-
-            return list;
         }
     }
 }
