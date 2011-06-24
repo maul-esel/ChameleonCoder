@@ -285,7 +285,9 @@
         <TreeView x:Name="TreeView" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
                       SelectedItemChanged="OpenAResource"
                       ItemsSource="{StaticResource resourceHierarchy}"
-                      HorizontalContentAlignment="Stretch">
+                      HorizontalContentAlignment="Stretch"
+                      VirtualizingStackPanel.IsVirtualizing="True"
+                      VirtualizingStackPanel.VirtualizationMode="Recycling">
             <TreeView.ItemTemplate>
                 <win:HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
                     <Grid Margin="3,3,3,3" HorizontalAlignment="Stretch">
