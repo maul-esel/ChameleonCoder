@@ -94,9 +94,9 @@
     <Compile Include="Plugins\IServiceHost.cs" />
     <Compile Include="Plugins\LexingType.cs" />
     <Compile Include="Plugins\PluginHost.cs" />
-    <Compile Include="Resources\ChameleonCoder.Resources.Base\Metadata.cs" />
-    <Compile Include="Resources\ChameleonCoder.Resources.Base\ResourceManager.cs" />
-    <Compile Include="Resources\ChameleonCoder.Resources.Collections\MetadataCollection.cs" />
+    <Compile Include="Resources\Base\Metadata.cs" />
+    <Compile Include="Resources\Base\ResourceManager.cs" />
+    <Compile Include="Resources\Collections\MetadataCollection.cs" />
     <Compile Include="Resources\LibraryResource.cs" />
     <Compile Include="Localization\Language.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -104,12 +104,12 @@
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ProjectResource.cs" />
-    <Compile Include="Resources\ChameleonCoder.Resources.Base\ResourceBase.cs" />
+    <Compile Include="Resources\Base\ResourceBase.cs" />
     <Compile Include="Resources\CodeResource.cs" />
-    <Compile Include="Resources\ChameleonCoder.Resources.Collections\ResourceCollection.cs" />
+    <Compile Include="Resources\Collections\ResourceCollection.cs" />
     <Compile Include="Resources\FileResource.cs" />
     <Compile Include="Resources\LinkResource.cs" />
-    <Compile Include="Resources\ChameleonCoder.Resources.Base\ResourceType.cs" />
+    <Compile Include="Resources\Base\ResourceType.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
     <Compile Include="Resources\TaskResource.cs" />
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
