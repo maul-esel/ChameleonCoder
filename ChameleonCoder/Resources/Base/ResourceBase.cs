@@ -37,10 +37,6 @@ namespace ChameleonCoder.Resources.Base
                 {
                     i++;
                     this.MetaData.Add(data = new Metadata(ref xml, this.XPath + "/metadata[" + i + "]"));
-                    if (data.IsDefault)
-                    {
-                        this.DefaultData = data;
-                    }
                 }
             }
             catch { }
@@ -85,11 +81,6 @@ namespace ChameleonCoder.Resources.Base
         /// the XPath to the resource's definition in the datafile
         /// </summary>
         internal string XPath { get; private set; }
-
-        /// <summary>
-        /// contains the metadata marked as default
-        /// </summary>
-        protected internal Metadata DefaultData { get; set; }
 
         /// <summary>
         /// a short description of the resource
@@ -148,9 +139,6 @@ namespace ChameleonCoder.Resources.Base
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Tree"), "/" + this.Node.FullPath }));
 
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Description"), this.Description }));
-
-            if (this.DefaultData != null)
-                App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { this.DefaultData.GetName(), this.DefaultData.GetValue() }));
 
             App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("DataFile"), this.DataFile }));
 
