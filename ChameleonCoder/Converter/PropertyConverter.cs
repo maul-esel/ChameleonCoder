@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Data;
-using System.Text;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Base;
 
