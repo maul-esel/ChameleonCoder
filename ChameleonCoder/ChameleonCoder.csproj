@@ -88,7 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CustomGroupConverter.cs" />
+    <Compile Include="Converter\CustomGroupConverter.cs" />
     <Compile Include="Plugins\ILanguageModule.cs" />
     <Compile Include="Plugins\ILanguageModuleHost.cs" />
     <Compile Include="Plugins\IPluginHost.cs" />
