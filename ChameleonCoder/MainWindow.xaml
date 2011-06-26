@@ -17,17 +17,19 @@
     
     <Window.Resources>
         <conv:ResourceTypeConverter x:Key="TypeConverter"/><!--converts language-specific-->
-        <conv:ResourceTypeImageConverter x:Key="ImageConverter"/><!--converts type to image-->
+        <conv:ResourceImageConverter x:Key="ImageConverter"/><!--converts type to image-->
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
         <conv:PriorityConverter x:Key="PriorityConverter"/>
         <conv:PropertyConverter x:Key="PropConv"/>
+        <conv:ResourceTypeImageConverter x:Key="TypeImageConverter"/>
+        <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>
 
         <col:ResourceCollection x:Key="resources"/>
         <col:ResourceCollection x:Key="resourceHierarchy"/>
 
         <CollectionViewSource Source="{StaticResource resources}" Filter="CollectionViewSource_Filter" x:Key="ResListSource">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Type"/>
+                <PropertyGroupDescription Converter="{StaticResource CustomGroupConverter}"/>
             </CollectionViewSource.GroupDescriptions>
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Type"/>
@@ -321,10 +323,18 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <Border CornerRadius="10" BorderBrush="#4989FF" BorderThickness="3">
-                                            <Expander IsExpanded="True" Margin="0,0,0,0">
+                                        <Border CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2,2,2,2">
+                                            <Expander IsExpanded="True">
                                                 <Expander.Header>
-                                                    <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="0,0,0,0"/>
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Border Background="Peru" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20" Margin="5,0,0,0">
+                                                                <Image Source="{Binding Path=Name, Converter={StaticResource TypeImageConverter}}" Width="20"/>
+                                                            </Border>
+                                                            <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+                                                        </StackPanel>
+                                                        <Border BorderBrush="#4989FF" Margin="2,2,2,2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/><!--bit ugly way :)-->
+                                                    </StackPanel>
                                                 </Expander.Header>
                                                 <Expander.Content>
                                                     <ItemsPresenter/>

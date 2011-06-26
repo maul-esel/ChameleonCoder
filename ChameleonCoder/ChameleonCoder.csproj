@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomGroupConverter.cs" />
     <Compile Include="Plugins\ILanguageModule.cs" />
     <Compile Include="Plugins\ILanguageModuleHost.cs" />
     <Compile Include="Plugins\IPluginHost.cs" />
@@ -116,7 +117,7 @@
     <Compile Include="Resources\Base\ResourceType.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
     <Compile Include="Resources\TaskResource.cs" />
-    <Compile Include="Converter\ResourceTypeImageConverter.cs" />
+    <Compile Include="Converter\ResourceImageConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
     <Compile Include="Converter\PriorityConverter.cs" />
     <Compile Include="Priority.Designer.cs">
@@ -125,6 +126,7 @@
       <DependentUpon>Priority.resx</DependentUpon>
     </Compile>
     <Compile Include="Converter\PropertyConverter.cs" />
+    <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
