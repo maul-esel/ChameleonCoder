@@ -14,8 +14,8 @@ namespace ChameleonCoder.Converter
 
             if (resource != null)
             {
-                while (resource is LinkResource)
-                    resource = (resource as LinkResource).Resolve();
+                while (resource is IResolvable)
+                    resource = (resource as IResolvable).Resolve();
 
                 return resource.Type;
             }

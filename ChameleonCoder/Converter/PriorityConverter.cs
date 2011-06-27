@@ -16,8 +16,8 @@ namespace ChameleonCoder.Converter
         {
             ResourceBase resource = value as ResourceBase;
 
-            while (resource is LinkResource)
-                resource = (resource as LinkResource).Resolve();
+            while (resource is IResolvable)
+                resource = (resource as IResolvable).Resolve();
 
             ProjectResource project = resource as ProjectResource;
 

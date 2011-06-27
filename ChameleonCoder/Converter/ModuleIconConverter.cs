@@ -13,8 +13,8 @@ namespace ChameleonCoder.Converter
         {
             Resources.Base.ResourceBase resource = value as Resources.Base.ResourceBase;
 
-            while (resource is LinkResource)
-                resource = (resource as LinkResource).Resolve();
+            while (resource is IResolvable)
+                resource = (resource as IResolvable).Resolve();
 
             if (resource is CodeResource)
             {
