@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Plugins;
+using ChameleonCoder.Plugins.Services;
 
 namespace GuidCreator
 {

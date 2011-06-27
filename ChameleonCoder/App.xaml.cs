@@ -16,16 +16,12 @@ namespace ChameleonCoder
     {
         internal static MainWindow Gui;
 
-        internal static Plugins.PluginHost Host;
-
         internal void Init(Object sender, StartupEventArgs e)
         {
             //Localization.Localizer.UpdateLanguage(ChameleonCoder.Properties.Settings.Default.Language);
             Localization.Language.Culture = new CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
             App.Current.Exit += ExitHandler;
-
-            App.Host = new Plugins.PluginHost();
 
             Gui = new MainWindow();
 
@@ -36,7 +32,8 @@ namespace ChameleonCoder
 
         internal static void ExitHandler(object sender, EventArgs e)
         {
-            App.Host.Shutdown();
+            Plugins.LanguageModules.LanguageModuleHost.Shutdown();
+            Plugins.Services.ServiceHost.Shutdown();
         }
 
         private static void ListData()

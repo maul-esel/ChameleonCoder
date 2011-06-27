@@ -6,6 +6,8 @@ using System.Windows.Data;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Base;
 using ChameleonCoder.Resources.Collections;
+using ChameleonCoder.Plugins.LanguageModules;
+using ChameleonCoder.Plugins.Services;
 using Microsoft.Windows.Controls.Ribbon;
 
 namespace ChameleonCoder
@@ -31,7 +33,7 @@ namespace ChameleonCoder
             this.TreeView.Items.SortDescriptions.Clear();
             this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
             
-            foreach (ChameleonCoder.Plugins.IService service in App.Host.GetServices())
+            foreach (IService service in ServiceHost.GetServices())
             {
                 RibbonApplicationMenuItem item = new RibbonApplicationMenuItem();
                 item.Header = service.ServiceName; item.ImageSource = service.Icon;
@@ -39,7 +41,7 @@ namespace ChameleonCoder
                 this.MenuServices.Items.Add(item);
             }
 
-            if (App.Host.GetServices().Count == 0)
+            if (ServiceHost.GetServiceCount() == 0)
             {
                 this.MenuServices.IsEnabled = false;
             }
@@ -48,7 +50,7 @@ namespace ChameleonCoder
 
         private void LaunchService(object sender, RoutedEventArgs e)
         {
-            App.Host.CallService(new Guid());
+            ServiceHost.CallService(new Guid());
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
@@ -88,7 +90,7 @@ namespace ChameleonCoder
         private void GoHome(object sender, EventArgs e)
         {
             ResourceManager.ActiveItem = null;
-            App.Host.UnloadModule();
+            LanguageModuleHost.UnloadModule();
 
             this.ResourceList.Visibility = System.Windows.Visibility.Visible;
 
@@ -109,16 +111,16 @@ namespace ChameleonCoder
 
             if (resource != null)
             {
-                App.Host.UnloadModule();
+                LanguageModuleHost.UnloadModule();
 
                 //resource.Open();
 
                 ResourceManager.ActiveItem = resource;
 
                 if (resource is CodeResource)
-                    App.Host.LoadModule((resource as CodeResource).Language);
+                    LanguageModuleHost.LoadModule((resource as CodeResource).Language);
                 else if (resource is ProjectResource)
-                    App.Host.LoadModule((resource as ProjectResource).Language);
+                    LanguageModuleHost.LoadModule((resource as ProjectResource).Language);
                 
                 this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
 

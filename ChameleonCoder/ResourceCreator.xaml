@@ -20,7 +20,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
             </Grid>
         </Border>
         

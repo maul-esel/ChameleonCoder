@@ -2,6 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Plugins.LanguageModules;
 
 namespace ChameleonCoder.Converter
 {
@@ -17,13 +18,13 @@ namespace ChameleonCoder.Converter
 
             if (resource is CodeResource)
             {
-                try { return App.Host.GetModule((resource as CodeResource).Language).Icon; }
+                try { return LanguageModuleHost.GetModule((resource as CodeResource).Language).Icon; }
                 catch (NullReferenceException) { }
             }
 
             else if (resource is ProjectResource)
             {
-                try { return App.Host.GetModule((resource as ProjectResource).Language).Icon; }
+                try { return LanguageModuleHost.GetModule((resource as ProjectResource).Language).Icon; }
                 catch (NullReferenceException) { }
             }
 

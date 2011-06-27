@@ -333,7 +333,7 @@
                                                             </Border>
                                                             <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                         </StackPanel>
-                                                        <Border BorderBrush="#4989FF" Margin="2,2,2,2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/><!--bit ugly way :)-->
+                                                        <Border x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2,2,2,2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/><!--bit ugly way :)-->
                                                     </StackPanel>
                                                 </Expander.Header>
                                                 <Expander.Content>
