@@ -7,7 +7,6 @@
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
         xmlns:conv="clr-namespace:ChameleonCoder.Converter"
-        xmlns:plugin="clr-namespace:ChameleonCoder.Plugins"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="CC - ChameleonCoder alpha 1"
         WindowState="Maximized"

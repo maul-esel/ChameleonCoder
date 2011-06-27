@@ -89,14 +89,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\CustomGroupConverter.cs" />
-    <Compile Include="Plugins\IPluginHost.cs" />
-    <Compile Include="Plugins\LanguageModules\ILanguageModule.cs" />
-    <Compile Include="Plugins\LanguageModules\ILanguageModuleHost.cs" />
-    <Compile Include="Plugins\LanguageModules\LanguageModuleHost.cs" />
-    <Compile Include="Plugins\Services\IService.cs" />
-    <Compile Include="Plugins\Services\IServiceHost.cs" />
-    <Compile Include="Plugins\LanguageModules\LexingType.cs" />
-    <Compile Include="Plugins\Services\ServiceHost.cs" />
+    <Compile Include="IPluginHost.cs" />
+    <Compile Include="LanguageModules\ILanguageModule.cs" />
+    <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
+    <Compile Include="LanguageModules\LanguageModuleHost.cs" />
+    <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\IServiceHost.cs" />
+    <Compile Include="LanguageModules\LexingType.cs" />
+    <Compile Include="Services\ServiceHost.cs" />
     <Compile Include="ResourceCreator.xaml.cs">
       <DependentUpon>ResourceCreator.xaml</DependentUpon>
     </Compile>
@@ -279,9 +279,7 @@
   <ItemGroup>
     <Resource Include="Images\ResourceType\task.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\RichContent\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 
-namespace ChameleonCoder.Plugins.Services
+namespace ChameleonCoder.Services
 {
     internal sealed class ServiceHost : IServiceHost
     {

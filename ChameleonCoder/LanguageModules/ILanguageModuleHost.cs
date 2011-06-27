@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace ChameleonCoder.Plugins.LanguageModules
+namespace ChameleonCoder.LanguageModules
 {
     public interface ILanguageModuleHost : IPluginHost
     {

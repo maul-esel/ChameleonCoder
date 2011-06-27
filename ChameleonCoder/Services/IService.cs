@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.Plugins.Services
+namespace ChameleonCoder.Services
 {
     public interface IService
     {

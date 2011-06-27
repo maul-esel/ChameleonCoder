@@ -6,8 +6,8 @@ using System.Windows.Data;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Base;
 using ChameleonCoder.Resources.Collections;
-using ChameleonCoder.Plugins.LanguageModules;
-using ChameleonCoder.Plugins.Services;
+using ChameleonCoder.LanguageModules;
+using ChameleonCoder.Services;
 using Microsoft.Windows.Controls.Ribbon;
 
 namespace ChameleonCoder

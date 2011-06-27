@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.Plugins.LanguageModules
+namespace ChameleonCoder.LanguageModules
 {
     public enum LexingType
     {

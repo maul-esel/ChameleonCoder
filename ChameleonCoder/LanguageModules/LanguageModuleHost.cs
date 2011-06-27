@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Linq;
 using System.Text;
 
-namespace ChameleonCoder.Plugins.LanguageModules
+namespace ChameleonCoder.LanguageModules
 {
     internal sealed class LanguageModuleHost : ILanguageModuleHost //, IEnumerable<ILanguageModule>
     {

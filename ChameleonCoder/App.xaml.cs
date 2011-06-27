@@ -32,8 +32,8 @@ namespace ChameleonCoder
 
         internal static void ExitHandler(object sender, EventArgs e)
         {
-            Plugins.LanguageModules.LanguageModuleHost.Shutdown();
-            Plugins.Services.ServiceHost.Shutdown();
+            LanguageModules.LanguageModuleHost.Shutdown();
+            Services.ServiceHost.Shutdown();
         }
 
         private static void ListData()
