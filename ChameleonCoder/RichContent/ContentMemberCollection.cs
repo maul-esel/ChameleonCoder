@@ -2,14 +2,14 @@
 
 namespace ChameleonCoder.RichContent
 {
-    public class ContentMemberCollection : ComponentCollection<string, IContentMember>
+    public class ContentMemberCollection : ComponentCollection<string, Type>
     {
-        public void RegisterMember(IContentMember member)
+        public void RegisterMember(string alias, Type member)
         {
-            base.RegisterComponent(member.Alias, member);
+            base.RegisterComponent(alias, member);
         }
 
-        public IContentMember GetMember(string alias)
+        public Type GetMember(string alias)
         {
             return base.GetComponent(alias);
         }
