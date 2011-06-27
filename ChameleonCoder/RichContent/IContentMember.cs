@@ -6,14 +6,8 @@ using System.Text;
 
 namespace ChameleonCoder.RichContent
 {
-    interface IContentMember
+    public interface IContentMember
     {
-        /// <summary>
-        /// creates a new instance of the content member
-        /// </summary>
-        /// <param name="definition">the xml node containing the definition</param>
-        //IContentMember(string definition);
-
         /// <summary>
         /// the alias thnat is used as key-name in XML
         /// </summary>
