@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// a class representing a resource that serves as link to another resource
     /// inherits from ResourceBase
     /// </summary>
-    public sealed class LinkResource : ResourceBase
+    public sealed class LinkResource : ResourceBase, IResolvable
     {
         /// <summary>
         /// creates a new instance of the LinkResource class

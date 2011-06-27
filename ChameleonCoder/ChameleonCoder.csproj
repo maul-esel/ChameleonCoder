@@ -89,9 +89,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\CustomGroupConverter.cs" />
+    <Compile Include="Plugins\IPluginHost.cs" />
     <Compile Include="Plugins\LanguageModules\ILanguageModule.cs" />
     <Compile Include="Plugins\LanguageModules\ILanguageModuleHost.cs" />
-    <Compile Include="Plugins\IPluginHost.cs" />
     <Compile Include="Plugins\LanguageModules\LanguageModuleHost.cs" />
     <Compile Include="Plugins\Services\IService.cs" />
     <Compile Include="Plugins\Services\IServiceHost.cs" />
@@ -103,6 +103,7 @@
     <Compile Include="Resources\Base\Metadata.cs" />
     <Compile Include="Resources\Base\ResourceManager.cs" />
     <Compile Include="Resources\Collections\MetadataCollection.cs" />
+    <Compile Include="Resources\IResolvable.cs" />
     <Compile Include="Resources\LibraryResource.cs" />
     <Compile Include="Localization\Language.Designer.cs">
       <AutoGen>True</AutoGen>
