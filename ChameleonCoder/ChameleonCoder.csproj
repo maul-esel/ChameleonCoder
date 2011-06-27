@@ -130,7 +130,6 @@
     <Compile Include="Converter\PropertyConverter.cs" />
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="RichContent\FunctionMember.cs" />
-    <Compile Include="RichContent\ICodeMember.cs" />
     <Compile Include="RichContent\IContentMember.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
