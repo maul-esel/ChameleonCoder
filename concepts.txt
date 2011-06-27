@@ -1,0 +1,51 @@
+TODO:
+
+=== The RichContent concept ===
+	- each resource can have "rich content"
+	- "rich content" describes what a resource contains
+	- e.g. for a library:
+	<RichContent>
+		<function>
+			<param type="bool">showWindow</param>
+			<returnValue type="int">contentNumber</returnValue>
+		</function>
+		...
+	</RichContent>
+	
+	= IContentMember
+		= MemberBase
+		
+			= FileMemberBase
+				- Resource
+					- icon
+					- bitmap
+					- ...
+			
+			= CodeMemberBase
+				- function
+					- method
+				- variable
+					- param
+					- returnValue
+					- classField
+					- classProperty
+				- directive
+				- command
+					
+			= ProjectMemberBase
+				- component
+				
+	- new ContentMembers could be introduced by plugins
+		- calling MemberManager.RegisterAlias("param", typeof(ParamMember))
+			-> Activator.CreateInstance(type) as IContentMember
+	- based on this, auto-generated documentation would be possible, ...
+
+=== The ResourceData concept - REWRITE? ===
+	- maybe use inline-data for non-binary resources (especially codefiles)
+	- directives
+		- #CC UseCommentString(;)
+		- #CC UseMultiLineComment(/*, \n*/) -> RegEx
+		- #CC BeginIgnore ... #CC EndIgnore
+		
+		-> parse file, reduce to comments
+		=> parse comments for ResourceData
