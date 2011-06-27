@@ -130,7 +130,7 @@
     <Compile Include="Converter\PropertyConverter.cs" />
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="ComponentManager.cs" />
-    <Compile Include="RichContent\ContentMemberManager.cs" />
+    <Compile Include="RichContent\ContentMemberCollection.cs" />
     <Compile Include="RichContent\FunctionMember.cs" />
     <Compile Include="RichContent\IContentMember.cs" />
     <Compile Include="Settings.cs" />

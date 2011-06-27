@@ -2,7 +2,7 @@
 
 namespace ChameleonCoder.RichContent
 {
-    public class ContentMemberManager : ComponentManager<string, IContentMember>
+    public class ContentMemberCollection : ComponentCollection<string, IContentMember>
     {
         public void RegisterMember(IContentMember member)
         {
