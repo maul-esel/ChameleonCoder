@@ -17,7 +17,5 @@ namespace ChameleonCoder.Plugins
         int GetCurrentView();
 
         Resources.Base.ResourceBase GetResource(Guid id);
-
-        System.Windows.Window GetWindow();
     }
 }
