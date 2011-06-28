@@ -20,6 +20,9 @@ namespace ChameleonCoder
         {
             Localization.Language.Culture = new CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
+            LanguageModules.LanguageModuleHost.Load();
+            Services.ServiceHost.Load();
+
             App.Current.Exit += ExitHandler;
 
             Gui = new MainWindow();
