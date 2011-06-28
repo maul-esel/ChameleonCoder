@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ChameleonCoder.LanguageModules
 {
-    internal sealed class LanguageModuleHost : ILanguageModuleHost //, IEnumerable<ILanguageModule>
+    internal sealed class LanguageModuleHost : ILanguageModuleHost
     {
         #region infrastructure
 
@@ -128,6 +128,7 @@ namespace ChameleonCoder.LanguageModules
         }
 
         #endregion
+
         #region IPluginHost
 
         void IPluginHost.AddMetadata(Guid resource, string name, string value)
@@ -165,7 +166,6 @@ namespace ChameleonCoder.LanguageModules
             return ChameleonCoder.Resources.Base.ResourceManager.FlatList.GetInstance(ID);
         }
         #endregion
-
 
     }
 }
