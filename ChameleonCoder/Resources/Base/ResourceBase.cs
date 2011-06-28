@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Collections;
