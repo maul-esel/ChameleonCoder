@@ -94,6 +94,8 @@
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleCollection.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
+    <Compile Include="Resources\IResource.cs" />
+    <Compile Include="Resources\ResourceTypeManager.cs" />
     <Compile Include="Resources\ResourceTypeCollection.cs" />
     <Compile Include="RichContent\ContentMemberManager.cs" />
     <Compile Include="Services\IService.cs" />
