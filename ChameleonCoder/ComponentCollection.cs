@@ -7,7 +7,7 @@ namespace ChameleonCoder
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public abstract class ComponentCollection<TKey, TValue>
+    internal abstract class ComponentCollection<TKey, TValue>
     {
         private Dictionary<TKey, TValue> components = new Dictionary<TKey, TValue>();
 

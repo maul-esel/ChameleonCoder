@@ -2,14 +2,14 @@
 
 namespace ChameleonCoder.LanguageModules
 {
-    public sealed class LanguageModuleCollection : ComponentCollection<Guid, ILanguageModule>
+    internal sealed class LanguageModuleCollection : ComponentCollection<Guid, ILanguageModule>
     {
-        public void RegisterModule(ILanguageModule module)
+        internal void RegisterModule(ILanguageModule module)
         {
             base.RegisterComponent(module.Language, module);
         }
 
-        public ILanguageModule GetModule(Guid language)
+        internal ILanguageModule GetModule(Guid language)
         {
             return base.GetComponent(language);
         }
