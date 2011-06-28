@@ -18,7 +18,7 @@ namespace ChameleonCoder.LanguageModules
         internal static void Load()
         {
             // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
-            var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Plugins", "*.dll")
+            var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Components", "*.dll")
                          let a = Assembly.LoadFrom(dll)
                          from t in a.GetTypes()
                          where t.GetInterface(typeof(ILanguageModule).ToString()) != null

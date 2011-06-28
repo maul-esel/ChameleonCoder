@@ -15,7 +15,7 @@ namespace ChameleonCoder.RichContent
                          where type.GetInterface(typeof(IContentMember).FullName) != null
                          select type;
 
-            var externMembers = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Plugins", "*.dll")
+            var externMembers = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Components", "*.dll")
                          let assembly = Assembly.LoadFrom(dll)
                          from type in assembly.GetTypes()
                          where type.GetInterface(typeof(IContentMember).FullName) != null

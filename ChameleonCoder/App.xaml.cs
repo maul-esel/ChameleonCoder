@@ -18,7 +18,6 @@ namespace ChameleonCoder
 
         internal void Init(Object sender, StartupEventArgs e)
         {
-            //Localization.Localizer.UpdateLanguage(ChameleonCoder.Properties.Settings.Default.Language);
             Localization.Language.Culture = new CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
             App.Current.Exit += ExitHandler;
@@ -38,9 +37,9 @@ namespace ChameleonCoder
 
         private static void ListData()
         {
-            if (Directory.Exists(Environment.CurrentDirectory + "\\#Data"))
+            if (Directory.Exists(Environment.CurrentDirectory + "\\Data"))
             {
-                string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\#Data", "*.xml");
+                string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\Data", "*.xml");
 
                 foreach (string file in files)
                 {
