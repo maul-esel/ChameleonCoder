@@ -37,6 +37,8 @@ namespace ChameleonCoder.Resources
 
         #region properties
 
+        public override string Alias { get { return "task"; } }
+
         internal DateTime EndTime
         {
             get

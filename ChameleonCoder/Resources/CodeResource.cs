@@ -26,6 +26,8 @@ namespace ChameleonCoder.Resources
 
         #region CodeResource properties
 
+        public override string Alias { get { return "code"; } }
+
         /// <summary>
         /// contains the languages to which the file is compatible
         /// </summary>

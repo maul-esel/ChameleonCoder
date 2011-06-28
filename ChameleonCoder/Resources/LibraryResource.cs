@@ -28,6 +28,8 @@ namespace ChameleonCoder.Resources
 
         #region properties
 
+        public override string Alias { get {  return "library"; } }
+
         internal string Author
         {
             get { return this.XML.SelectSingleNode(this.XPath + "/@author").Value; }

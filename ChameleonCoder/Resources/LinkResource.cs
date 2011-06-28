@@ -25,6 +25,8 @@ namespace ChameleonCoder.Resources
 
         #region properties
 
+        public override string Alias { get { return "link"; } }
+
         /// <summary>
         /// the GUID of the resource the link points to
         /// </summary>

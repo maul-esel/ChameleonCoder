@@ -21,6 +21,8 @@ namespace ChameleonCoder.Resources
 
         #region properties
 
+        public override string Alias { get { return "file"; } }
+
         /// <summary>
         /// the path to the file represented by the resource
         /// </summary>

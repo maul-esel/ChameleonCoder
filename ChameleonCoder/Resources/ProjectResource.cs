@@ -27,6 +27,8 @@ namespace ChameleonCoder.Resources
 
         #region properties
 
+        public override string Alias { get { return "project"; } }
+
         /// <summary>
         /// contains the project's priority (int from 0 to 2)
         /// </summary>
