@@ -27,7 +27,7 @@ namespace ChameleonCoder.RichContent
 
             foreach (Type member in members)
             {
-                ContentMembers.RegisterMember((Activator.CreateInstance(member) as IContentMember).Alias, member);
+                ContentMembers.RegisterMember(member);
             }
         }
     }
