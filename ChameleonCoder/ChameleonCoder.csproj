@@ -92,6 +92,7 @@
     <Compile Include="IPluginHost.cs" />
     <Compile Include="LanguageModules\ILanguageModule.cs" />
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
+    <Compile Include="LanguageModules\LanguageModuleCollection.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
     <Compile Include="RichContent\ContentMemberManager.cs" />
     <Compile Include="Services\IService.cs" />
