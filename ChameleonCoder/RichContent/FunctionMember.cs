@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChameleonCoder.RichContent
 {
-    class FunctionMember : IContentMember
+    public class FunctionMember : IContentMember
     {
         #region ICodeMember
 
@@ -33,7 +33,7 @@ namespace ChameleonCoder.RichContent
 
         string _code;
 
-        FunctionMember()
+        public FunctionMember()
         {
             this.childMembers = new List<IContentMember>();
         }
