@@ -313,7 +313,9 @@
         <ListBox x:Name="ResourceList" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
                  IsSynchronizedWithCurrentItem="True"
                  HorizontalContentAlignment="Stretch"
-                 ItemsSource="{Binding Source={StaticResource ResListSource}}">
+                 ItemsSource="{Binding Source={StaticResource ResListSource}}"
+                 VirtualizingStackPanel.IsVirtualizing="True"
+                 VirtualizingStackPanel.VirtualizationMode="Recycling">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
