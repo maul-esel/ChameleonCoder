@@ -26,7 +26,10 @@ namespace ChameleonCoder.Resources
             var types = internTypes.Concat(externTypes);
 
             foreach (Type type in types)
-                ResourceTypes.RegisterResourceType(type);
+            {
+                if (!type.IsAbstract && !type.IsInterface && !type.IsNotPublic)
+                    ResourceTypes.RegisterResourceType(type);
+            }
         }
 
         internal static Type GetResourceType(string alias)

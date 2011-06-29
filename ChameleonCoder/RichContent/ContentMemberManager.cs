@@ -25,7 +25,8 @@ namespace ChameleonCoder.RichContent
 
             foreach (Type member in members)
             {
-                ContentMembers.RegisterMember(member);
+                if (!member.IsAbstract && !member.IsInterface && !member.IsNotPublic)
+                    ContentMembers.RegisterMember(member);
             }
         }
     }
