@@ -349,7 +349,7 @@
             </ListBox.GroupStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="ItemBorder" BorderBrush="Red" BorderThickness="2" CornerRadius="10"  Margin="5,5,5,5" Padding="2,2,2,2">
+                    <Border x:Name="ItemBorder" CornerRadius="10"  Margin="5,5,5,5" Padding="2,2,2,2">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -369,19 +369,22 @@
                     </Border>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Path=Type}" Value="1">
-                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Blue"/>
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#CCD3FF"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="2">
-                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Orange"/>
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#FFAC38"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="3">
-                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Green"/>
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#99FFA4"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="4">
-                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Aquamarine"/>
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#B2FFFF"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=Type}" Value="5">
-                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="Yellow"/>
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#FFEE99"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Type}" Value="6">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="#FF947F"/>
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
