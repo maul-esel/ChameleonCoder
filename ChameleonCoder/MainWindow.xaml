@@ -397,7 +397,9 @@
 
         <ListView x:Name="PropertyGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1"
                   ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem, Converter={StaticResource PropConv}}"
-                  HorizontalContentAlignment="Stretch" >
+                  HorizontalContentAlignment="Stretch"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="Auto">
@@ -421,7 +423,9 @@
         <DataGrid x:Name="MetadataGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1"
                           ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem.MetaData}"
                           HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray"
-                          HeadersVisibility="Column">
+                          HeadersVisibility="Column"
+                          VirtualizingStackPanel.IsVirtualizing="True"
+                          VirtualizingStackPanel.VirtualizationMode="Recycling">
             <!--DataGrid.RowDetailsTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
