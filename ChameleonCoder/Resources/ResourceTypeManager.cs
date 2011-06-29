@@ -27,7 +27,16 @@ namespace ChameleonCoder.Resources
 
             foreach (Type type in types)
                 ResourceTypes.RegisterResourceType(type);
+        }
 
+        internal static Type GetResourceType(string alias)
+        {
+            return ResourceTypes.GetResourceType(alias);
+        }
+
+        internal static IResource CreateInstanceOf(string alias)
+        {
+            return (IResource)Activator.CreateInstance(ResourceTypes.GetResourceType(alias));
         }
     }
 }
