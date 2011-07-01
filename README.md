@@ -41,6 +41,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 * RichContent model for describing the content of a resource
 * possibility to add custom resource types
 * Generating documentation from RichContent, maybe exporting to HTML
+* maybe a "breadcrumb" control for easy navigation
 
 ## Extensibility model
 It is planned to support different models to extend CC.
