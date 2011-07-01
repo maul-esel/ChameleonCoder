@@ -1,0 +1,12 @@
+LanguageModules can implement a lot of different tools to provide language support.
+Here's a checklist for inspiration, which might later be used to rate them:
+
+# Compiler
+# Execution
+# syntax highlighting
+# code folding
+# auto-indentation of code
+# "stub creation" for functions, classes, labels, switchCase, ...
+# UI creator etc. (code generators)
+# intellisense
+# debugging execution
