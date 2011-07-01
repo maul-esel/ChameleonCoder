@@ -10,3 +10,4 @@ Here's a checklist for inspiration, which might later be used to rate them:
 # UI creator etc. (code generators)
 # intellisense
 # debugging execution
+# Localization
