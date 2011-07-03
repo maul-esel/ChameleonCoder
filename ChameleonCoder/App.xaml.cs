@@ -22,7 +22,7 @@ namespace ChameleonCoder
 
             LanguageModules.LanguageModuleHost.Load();
             Services.ServiceHost.Load();
-            ResourceTypeManager.Load();
+            //ResourceTypeManager.Load();
             RichContent.ContentMemberManager.Load();
 
 
