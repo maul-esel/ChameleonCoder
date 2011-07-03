@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Windows.Controls;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 
@@ -26,9 +23,11 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.library;
         }
 
-        #region properties
+        #region IResource
 
         public override string Alias { get {  return "library"; } }
+
+        #endregion
 
         internal string Author
         {
@@ -47,8 +46,6 @@ namespace ChameleonCoder.Resources
             get { return this.XML.SelectSingleNode(this.XPath + "/@version").Value; }
             private set { this.XML.SelectSingleNode(this.XPath + "/@version").Value = value; }
         }
-
-        #endregion
 
         /// <summary>
         /// opens the resource, using the CodeResource method + adding special information
