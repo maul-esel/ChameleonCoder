@@ -118,9 +118,9 @@ namespace ChameleonCoder
                 ResourceManager.ActiveItem = resource;
 
                 if (resource is CodeResource)
-                    LanguageModuleHost.LoadModule((resource as CodeResource).Language);
+                    LanguageModuleHost.LoadModule((resource as CodeResource).language);
                 else if (resource is ProjectResource)
-                    LanguageModuleHost.LoadModule((resource as ProjectResource).Language);
+                    LanguageModuleHost.LoadModule((resource as ProjectResource).language);
                 
                 this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
 

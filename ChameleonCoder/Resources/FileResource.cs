@@ -19,9 +19,11 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.file;
         }
 
-        #region properties
+        #region IResource
 
         public override string Alias { get { return "file"; } }
+
+        #endregion
 
         /// <summary>
         /// the path to the file represented by the resource
@@ -40,8 +42,6 @@ namespace ChameleonCoder.Resources
             }
             protected internal set { this.XML.SelectSingleNode(this.XPath + "/@path").Value = value; }
         }
-
-        #endregion
 
         #region methods
 

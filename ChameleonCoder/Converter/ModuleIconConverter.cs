@@ -18,13 +18,13 @@ namespace ChameleonCoder.Converter
 
             if (resource is CodeResource)
             {
-                try { return LanguageModuleHost.GetModule((resource as CodeResource).Language).Icon; }
+                try { return LanguageModuleHost.GetModule((resource as CodeResource).language).Icon; }
                 catch (NullReferenceException) { }
             }
 
             else if (resource is ProjectResource)
             {
-                try { return LanguageModuleHost.GetModule((resource as ProjectResource).Language).Icon; }
+                try { return LanguageModuleHost.GetModule((resource as ProjectResource).language).Icon; }
                 catch (NullReferenceException) { }
             }
 

@@ -12,7 +12,8 @@
         WindowState="Maximized"
 		x:Name="RibbonWindow"
 		Width="1200" Height="800"
-        Icon="Images\logo.ico">
+        Icon="Images\logo.ico"
+        xml:lang="en-US">
     
     <Window.Resources>
         <conv:ResourceTypeConverter x:Key="TypeConverter"/><!--converts language-specific-->
