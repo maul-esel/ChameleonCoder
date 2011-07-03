@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 
@@ -23,18 +21,26 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.link;
         }
 
-        #region properties
+        #region IResource
 
         public override string Alias { get { return "link"; } }
 
+        #endregion
+
+        #region IResolvable
+
         /// <summary>
-        /// the GUID of the resource the link points to
+        /// gets the destination instance
         /// </summary>
-        public Guid Destination
+        /// <returns>the Resource object the link points to</returns>
+        public ResourceBase Resolve()
         {
-            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@destination").Value); }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@destination").Value = value.ToString(); }
+            return ResourceManager.FlatList.GetInstance(this.Destination);
         }
+
+        public bool shouldResolve { get { return true; } }
+
+        #endregion
 
         /// <summary>
         /// the name of the link which can either be an own, independant name or the destination's name
@@ -83,7 +89,7 @@ namespace ChameleonCoder.Resources
             private set { base.Description = value; }
         }
 
-        #endregion
+        
 
         #region methods
 
@@ -105,13 +111,16 @@ namespace ChameleonCoder.Resources
 
         #endregion
 
+        
+
         /// <summary>
-        /// gets the destination instance
+        /// the GUID of the resource the link points to
         /// </summary>
-        /// <returns>the Resource object the link points to</returns>
-        public ResourceBase Resolve()
+        [Obsolete("use Resolve() only")]
+        public Guid Destination
         {
-            return ResourceManager.FlatList.GetInstance(this.Destination);
+            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@destination").Value); }
+            private set { this.XML.SelectSingleNode(this.XPath + "/@destination").Value = value.ToString(); }
         }
     }
 }
