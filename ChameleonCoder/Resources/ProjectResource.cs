@@ -89,7 +89,6 @@ namespace ChameleonCoder.Resources
             high
         }
 
-        #region methods
         /// <summary>
         /// opens the project
         /// </summary>
@@ -105,8 +104,6 @@ namespace ChameleonCoder.Resources
 
             //App.Gui.listView2.Groups[1].Header = Localization.get_string("info_project");
         }
-
-        #endregion
 
         /// <summary>
         /// asks the user to enter a new priority and saves it
