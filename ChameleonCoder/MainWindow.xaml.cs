@@ -103,11 +103,11 @@ namespace ChameleonCoder
 
         private void OpenAResource(object sender, RoutedPropertyChangedEventArgs<Object> e)
         {
-            ResourceBase old = e.OldValue as ResourceBase;
+            IResource old = e.OldValue as IResource;
             if (old != null)
                 old.Save();
 
-            ResourceBase resource = e.NewValue as ResourceBase;
+            IResource resource = e.NewValue as IResource;
 
             if (resource != null)
             {
@@ -117,10 +117,8 @@ namespace ChameleonCoder
 
                 ResourceManager.ActiveItem = resource;
 
-                if (resource is CodeResource)
-                    LanguageModuleHost.LoadModule((resource as CodeResource).language);
-                else if (resource is ProjectResource)
-                    LanguageModuleHost.LoadModule((resource as ProjectResource).language);
+                if (resource is ILanguageResource)
+                    LanguageModuleHost.LoadModule((resource as ILanguageResource).language);
                 
                 this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
 

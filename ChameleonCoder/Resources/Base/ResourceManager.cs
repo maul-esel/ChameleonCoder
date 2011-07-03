@@ -18,7 +18,7 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         internal static ResourceCollection FlatList;
 
-        internal static ResourceBase ActiveItem;
+        internal static IResource ActiveItem;
 
 
         /// <summary>
