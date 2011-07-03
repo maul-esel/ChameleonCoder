@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
@@ -10,7 +11,7 @@ namespace ChameleonCoder.Resources
     /// represents a file containing code,
     /// inherits from FileResource
     /// </summary>
-    public class CodeResource : FileResource
+    public class CodeResource : FileResource, ICompilable
     {
         /// <summary>
         /// creates a new instance of the CodeResource class
@@ -24,14 +25,18 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.code;
         }
 
-        #region CodeResource properties
+        #region IResource
 
         public override string Alias { get { return "code"; } }
+
+        #endregion
+
+        #region ILanguageResource
 
         /// <summary>
         /// contains the languages to which the file is compatible
         /// </summary>
-        public Guid Language
+        public Guid language
         {
             get
             {
@@ -41,10 +46,16 @@ namespace ChameleonCoder.Resources
             protected internal set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
         }
 
+        public List<Guid> compatibleLanguages { get; set; }
+
+        #endregion
+
+        #region ICompilable
+
         /// <summary>
         /// the path to save the file if it is compiled.
         /// </summary>
-        public string CompilationPath
+        public string compilationPath
         {
             get
             {
@@ -80,6 +91,5 @@ namespace ChameleonCoder.Resources
         {
 
         }
-
     }
 }
