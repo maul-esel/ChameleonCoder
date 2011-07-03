@@ -8,7 +8,7 @@ namespace ChameleonCoder.Resources.Base
     /// <summary>
     /// an abstract class for resources
     /// </summary>
-    public abstract partial class ResourceBase
+    public abstract partial class ResourceBase : IResource
     {
         /// <summary>
         /// serves as base constructor for inherited classes and sets general properties
@@ -42,14 +42,18 @@ namespace ChameleonCoder.Resources.Base
             this.children = new Collections.ResourceCollection();
         }
 
-        #region properties
+        #region IResource
+
+        public abstract string Alias { get; }
+
+        #endregion 
 
         /// <summary>
         /// the file that contains the resources definition
         /// </summary>
         internal string DataFile { get; private set; }
 
-        public abstract string Alias { get; }
+        
 
         /// <summary>
         /// the display name of the resource
@@ -119,7 +123,6 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         public Resources.Collections.ResourceCollection children { get; protected internal set; }
 
-        #endregion
 
         #region methods
 
