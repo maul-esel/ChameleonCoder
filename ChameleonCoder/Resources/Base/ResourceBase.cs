@@ -53,8 +53,6 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         internal string DataFile { get; private set; }
 
-        
-
         /// <summary>
         /// the display name of the resource
         /// </summary>
