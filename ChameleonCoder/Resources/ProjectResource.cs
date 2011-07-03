@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// represents a project resource,
     /// inherits from ResourceBase
     /// </summary>
-    public sealed class ProjectResource : ResourceBase
+    public sealed class ProjectResource : ResourceBase, ICompilable
     {
         /// <summary>
         /// instantiates a new instance of the ProjectResource class
@@ -25,9 +25,39 @@ namespace ChameleonCoder.Resources
             //this.Node.StateImageIndex = (int)this.Priority;
         }
 
-        #region properties
+        #region IResource
 
         public override string Alias { get { return "project"; } }
+
+        #endregion
+
+        #region ILanguageResource
+
+        /// <summary>
+        /// the GUID of the language in which the project is written
+        /// </summary>
+        public Guid language
+        {
+            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@language").Value); }
+            private set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
+        }
+
+        public List<Guid> compatibleLanguages { get; set; }
+
+        #endregion
+
+        #region ICompilable
+
+        /// <summary>
+        /// the path to which the project would be compiled
+        /// </summary>
+        public string compilationPath
+        {
+            get { return this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value; }
+            private set { this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value = value; }
+        }
+
+        #endregion
 
         /// <summary>
         /// contains the project's priority (int from 0 to 2)
@@ -37,26 +67,6 @@ namespace ChameleonCoder.Resources
             get { return (ProjectPriority)Int32.Parse(this.XML.SelectSingleNode(this.XPath + "/@priority").Value); }
             private set { this.XML.SelectSingleNode(this.XPath + "/@priority").Value = ((int)value).ToString(); }
         }
-
-        /// <summary>
-        /// the GUID of the language in which the project is written
-        /// </summary>
-        internal Guid Language
-        {
-            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@language").Value); }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
-        }
-
-        /// <summary>
-        /// the path to which the project would be compiled
-        /// </summary>
-        internal string CompilationPath
-        {
-            get { return this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value; }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value = value; }
-        }
-
-        #endregion
 
         /// <summary>
         /// defines a project's priority
