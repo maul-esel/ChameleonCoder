@@ -46,6 +46,21 @@ namespace ChameleonCoder.Resources.Base
 
         public abstract string Alias { get; }
 
+        /// <summary>
+        /// saves the information changed through the UI to the current instance and its XML representation
+        /// </summary>
+        public virtual void Save()
+        {
+            this.XML.SelectSingleNode(this.XPath + "/@data-type").Value = ((int)this.Type).ToString();
+
+            foreach (Metadata data in this.MetaData)
+            {
+                data.Save(); // changes through the UI should be saved when they occur or through binding
+            }
+
+            System.IO.File.WriteAllText(this.DataFile, this.XML.DocumentElement.OuterXml);
+        }
+
         #endregion 
 
         /// <summary>
@@ -157,20 +172,7 @@ namespace ChameleonCoder.Resources.Base
 
         }
 
-        /// <summary>
-        /// saves the information changed through the UI to the current instance and its XML representation
-        /// </summary>
-        internal virtual void Save()
-        {
-            this.XML.SelectSingleNode(this.XPath + "/@data-type").Value = ((int)this.Type).ToString();
-
-            foreach (Metadata data in this.MetaData)
-            {
-                data.Save(); // changes through the UI should be saved when they occur or through binding
-            }
-
-            System.IO.File.WriteAllText(this.DataFile, this.XML.DocumentElement.OuterXml);
-        }
+        
 
         /// <summary>
         /// adds a metadata element, given any changes through the UI
