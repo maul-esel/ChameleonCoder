@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
@@ -18,6 +17,12 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.task;
         }
 
+        #region IResource
+
+        public override string Alias { get { return "task"; } }
+
+        #endregion
+
         /// <summary>
         /// opens the resource in the user interface
         /// </summary>
@@ -35,10 +40,6 @@ namespace ChameleonCoder.Resources
 
         }
 
-        #region properties
-
-        public override string Alias { get { return "task"; } }
-
         internal DateTime EndTime
         {
             get
@@ -48,7 +49,5 @@ namespace ChameleonCoder.Resources
             }
             private set { this.XML.SelectSingleNode(this.XPath + "/@enddate").Value = value.ToString(); }
         }
-
-        #endregion
     }
 }
