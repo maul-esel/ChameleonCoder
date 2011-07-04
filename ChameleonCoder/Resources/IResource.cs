@@ -9,6 +9,8 @@ namespace ChameleonCoder.Resources
     {
         string Alias { get; }
 
+        string DisplayName { get; }
+
         Guid GUID { get; }
 
         void Save();

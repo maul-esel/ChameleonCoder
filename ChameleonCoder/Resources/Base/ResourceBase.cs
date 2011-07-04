@@ -48,6 +48,8 @@ namespace ChameleonCoder.Resources.Base
 
         public abstract string Alias { get; }
 
+        public string DisplayName { get { return this.Alias; } }
+
         /// <summary>
         /// saves the information changed through the UI to the current instance and its XML representation
         /// </summary>
