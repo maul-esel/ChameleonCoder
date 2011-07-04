@@ -123,11 +123,10 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// the GUID of the resource the link points to
         /// </summary>
-        [Obsolete("use Resolve() only")]
-        public Guid Destination
+        private Guid Destination
         {
             get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@destination").Value); }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@destination").Value = value.ToString(); }
+            set { this.XML.SelectSingleNode(this.XPath + "/@destination").Value = value.ToString(); }
         }
     }
 }
