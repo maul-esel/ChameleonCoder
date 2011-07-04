@@ -17,6 +17,8 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.task;
         }
 
+        public TaskResource() { }
+
         #region IResource
 
         public override string Alias { get { return "task"; } }

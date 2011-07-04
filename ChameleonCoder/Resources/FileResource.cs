@@ -19,6 +19,8 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.file;
         }
 
+        public FileResource() { }
+
         #region IResource
 
         public override string Alias { get { return "file"; } }

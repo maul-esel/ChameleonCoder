@@ -21,6 +21,8 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.link;
         }
 
+        public LinkResource() { }
+
         #region IResource
 
         public override string Alias { get { return "link"; } }

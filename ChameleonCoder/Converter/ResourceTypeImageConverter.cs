@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
@@ -12,17 +12,7 @@ namespace ChameleonCoder.Converter
             Type type = value as Type;
 
             if (type != null)
-            {
-                /*switch (type)
-                {
-                    case ResourceType.link: return null;
-                    case ResourceType.file: return @"Images\ResourceType\file.png";
-                    case ResourceType.code: return @"Images\ResourceType\code.png";
-                    case ResourceType.library: return @"Images\ResourceType\library.png";
-                    case ResourceType.project: return @"Images\ResourceType\project.png";
-                    case ResourceType.task: return @"Images\ResourceType\task.png";
-                }*/
-            }
+                return (Activator.CreateInstance(type) as IResource).Alias;
 
             return null;
         }

@@ -23,6 +23,8 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.library;
         }
 
+        public LibraryResource() { }
+
         #region IResource
 
         public override string Alias { get {  return "library"; } }

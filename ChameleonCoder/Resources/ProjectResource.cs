@@ -25,6 +25,8 @@ namespace ChameleonCoder.Resources
             //this.Node.StateImageIndex = (int)this.Priority;
         }
 
+        public ProjectResource() { }
+
         #region IResource
 
         public override string Alias { get { return "project"; } }

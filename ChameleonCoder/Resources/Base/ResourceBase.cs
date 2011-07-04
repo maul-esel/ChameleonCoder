@@ -42,6 +42,8 @@ namespace ChameleonCoder.Resources.Base
             this.children = new Collections.ResourceCollection();
         }
 
+        public ResourceBase() { }
+
         #region IResource
 
         public abstract string Alias { get; }

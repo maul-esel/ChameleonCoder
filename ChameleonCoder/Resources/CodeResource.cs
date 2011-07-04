@@ -24,6 +24,8 @@ namespace ChameleonCoder.Resources
             this.Type = ResourceType.code;
         }
 
+        public CodeResource() { }
+
         #region IResource
 
         public override string Alias { get { return "code"; } }
