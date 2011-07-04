@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
@@ -9,19 +9,12 @@ namespace ChameleonCoder.Converter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            /*
-            ResourceType type = (ResourceType)(int)value;
+            Type type = value as Type;
 
-            switch (type)
+            if (type != null)
             {
-                case ResourceType.resource: return "resource";
-                case ResourceType.link: return "link";
-                case ResourceType.file: return "file";
-                case ResourceType.code: return "code";
-                case ResourceType.library: return "library";
-                case ResourceType.project: return "project"; // todo: return language names
-                case ResourceType.task: return "task";
-            }  */         
+                return (Activator.CreateInstance(type) as IResource).DisplayName;
+            }
 
             return null;
         }
