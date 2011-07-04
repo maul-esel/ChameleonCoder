@@ -1,8 +1,11 @@
-﻿namespace ChameleonCoder.Resources.Base
+﻿using System;
+
+namespace ChameleonCoder.Resources.Base
 {
     /// <summary>
     /// defines the resource's type
     /// </summary>
+    [Obsolete("use Type instead to be more flexible")]
     public enum ResourceType
     {
         /// <summary>
