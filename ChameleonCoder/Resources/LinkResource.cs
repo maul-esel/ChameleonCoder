@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
+using System.Windows.Media;
 
 namespace ChameleonCoder.Resources
 {
@@ -26,6 +27,10 @@ namespace ChameleonCoder.Resources
         #region IResource
 
         public override string Alias { get { return "link"; } }
+
+        public override ImageSource Icon { get { return this.Resolve().Icon; } }
+
+        public override ImageSource TypeIcon { get { return this.Resolve().TypeIcon; } }
 
         #endregion
 

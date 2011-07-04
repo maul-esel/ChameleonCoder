@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
+using System.Windows.Media;
 using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
@@ -24,6 +22,10 @@ namespace ChameleonCoder.Resources
         #region IResource
 
         public override string Alias { get { return "file"; } }
+
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")); } }
+
+        public override ImageSource TypeIcon { get { return this.Icon; } }
 
         #endregion
 

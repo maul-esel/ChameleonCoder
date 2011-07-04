@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
+using System.Windows.Media;
 
 namespace ChameleonCoder.Resources
 {
@@ -30,6 +31,10 @@ namespace ChameleonCoder.Resources
         #region IResource
 
         public override string Alias { get { return "project"; } }
+
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")); } }
+
+        public override ImageSource TypeIcon { get { return this.Icon; } }
 
         #endregion
 

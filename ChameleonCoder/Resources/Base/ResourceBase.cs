@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Xml;
+using System.Windows.Media;
 using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Base
@@ -49,6 +50,10 @@ namespace ChameleonCoder.Resources.Base
         public abstract string Alias { get; }
 
         public string DisplayName { get { return this.Alias; } }
+
+        public abstract ImageSource Icon { get; }
+
+        public abstract ImageSource TypeIcon { get; }
 
         /// <summary>
         /// saves the information changed through the UI to the current instance and its XML representation

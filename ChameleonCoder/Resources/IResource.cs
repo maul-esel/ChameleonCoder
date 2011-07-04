@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
 using System.Text;
 
 namespace ChameleonCoder.Resources
@@ -12,6 +13,10 @@ namespace ChameleonCoder.Resources
         string DisplayName { get; }
 
         Guid GUID { get; }
+
+        ImageSource TypeIcon { get; }
+
+        ImageSource Icon { get; }
 
         void Save();
     }
