@@ -103,7 +103,7 @@ namespace ChameleonCoder.Resources
             this.Resolve().Package();
         }
 
-        internal override void Save()
+        public override void Save()
         {
             base.Save();
             this.Resolve().Save();

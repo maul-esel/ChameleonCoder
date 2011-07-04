@@ -7,7 +7,7 @@ namespace ChameleonCoder.Resources
     {
         internal void RegisterResourceType(Type resourceType)
         {
-            base.RegisterComponent((Activator.CreateInstance(resourceType) as ResourceBase).Alias, resourceType);
+            base.RegisterComponent((Activator.CreateInstance(resourceType) as IResource).Alias, resourceType);
         }
 
         internal Type GetResourceType(string alias)

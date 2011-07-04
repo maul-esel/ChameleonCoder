@@ -5,26 +5,27 @@ using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
-    [ValueConversion(typeof(ResourceBase), typeof(string))]
+    [ValueConversion(typeof(IResource), typeof(string))]
     class ResourceImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            ResourceBase resource = value as ResourceBase;
+            IResource resource = value as IResource;
+            IResolvable link;
 
             if (resource != null)
             {
-                while (resource is IResolvable)
-                    resource = (resource as IResolvable).Resolve();
+                while ((link = (resource as IResolvable)) != null && link.shouldResolve)
+                    resource = link.Resolve();
 
-                switch (resource.Type)
+                /*switch (resource.GetType())
                 {
                     case ResourceType.file: return @"Images\ResourceType\file.png";
                     case ResourceType.code: return @"Images\ResourceType\code.png";
                     case ResourceType.library: return @"Images\ResourceType\library.png";
                     case ResourceType.project: return @"Images\ResourceType\project.png";
                     case ResourceType.task: return @"Images\ResourceType\task.png";
-                }
+                }*/
             }
 
             

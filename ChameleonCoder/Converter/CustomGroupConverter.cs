@@ -5,19 +5,19 @@ using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Converter
 {
-    [ValueConversion(typeof(ResourceBase), typeof(ResourceType))]
+    [ValueConversion(typeof(IResource), typeof(Type))]
     class CustomGroupConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            ResourceBase resource = value as ResourceBase;
+            IResource resource = value as IResource;
 
             if (resource != null)
             {
                 while (resource is IResolvable)
                     resource = (resource as IResolvable).Resolve();
 
-                return resource.Type;
+                return resource.GetType();
             }
 
             return null;
