@@ -12,9 +12,7 @@ namespace ChameleonCoder.Converter
             Type type = value as Type;
 
             if (type != null)
-            {
                 return (Activator.CreateInstance(type) as IResource).DisplayName;
-            }
 
             return null;
         }

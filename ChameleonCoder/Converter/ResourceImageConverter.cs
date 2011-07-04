@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Data;
 using ChameleonCoder.Resources.Base;
+using System.Windows.Media;
 using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
-    [ValueConversion(typeof(IResource), typeof(string))]
+    [ValueConversion(typeof(IResource), typeof(ImageSource))]
     class ResourceImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -18,14 +19,7 @@ namespace ChameleonCoder.Converter
                 while ((link = (resource as IResolvable)) != null && link.shouldResolve)
                     resource = link.Resolve();
 
-                /*switch (resource.GetType())
-                {
-                    case ResourceType.file: return @"Images\ResourceType\file.png";
-                    case ResourceType.code: return @"Images\ResourceType\code.png";
-                    case ResourceType.library: return @"Images\ResourceType\library.png";
-                    case ResourceType.project: return @"Images\ResourceType\project.png";
-                    case ResourceType.task: return @"Images\ResourceType\task.png";
-                }*/
+                return resource.Icon;
             }
 
             

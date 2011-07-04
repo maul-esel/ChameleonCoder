@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources;
+using System.Windows.Media;
 
 namespace ChameleonCoder.Converter
 {
-    [ValueConversion(typeof(Type), typeof(string))]
+    [ValueConversion(typeof(Type), typeof(ImageSource))]
     sealed class ResourceTypeImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             Type type = value as Type;
+            IResolvable link;
+            IResource resource;
 
             if (type != null)
             {
-                /*switch (type)
-                {
-                    case ResourceType.link: return null;
-                    case ResourceType.file: return @"Images\ResourceType\file.png";
-                    case ResourceType.code: return @"Images\ResourceType\code.png";
-                    case ResourceType.library: return @"Images\ResourceType\library.png";
-                    case ResourceType.project: return @"Images\ResourceType\project.png";
-                    case ResourceType.task: return @"Images\ResourceType\task.png";
-                }*/
+                while ((link = (resource = Activator.CreateInstance(type) as IResource) as IResolvable) != null && link.shouldResolve)
+                    type = link.Resolve().GetType();
+
+                return (Activator.CreateInstance(type) as IResource).TypeIcon;
             }
 
             return null;
