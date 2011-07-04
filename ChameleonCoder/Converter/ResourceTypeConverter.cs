@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Converter
 {

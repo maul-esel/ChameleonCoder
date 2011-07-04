@@ -1,5 +1,5 @@
 ﻿using System;
-using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources
 {

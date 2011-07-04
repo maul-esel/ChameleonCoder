@@ -5,6 +5,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Converter
@@ -14,7 +15,7 @@ namespace ChameleonCoder.Converter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            ResourceBase resource = value as ResourceBase;
+            IResource resource = value as IResource;
 
             while (resource is IResolvable)
                 resource = (resource as IResolvable).Resolve();

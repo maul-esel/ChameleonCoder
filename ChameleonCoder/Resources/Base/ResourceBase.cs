@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Xml;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Collections;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Base
 {
@@ -151,7 +152,7 @@ namespace ChameleonCoder.Resources.Base
         /// <summary>
         /// opens a resource
         /// </summary>
-        internal virtual void Open()
+        public virtual void Open()
         {
             App.Gui.PropertyGrid.Items.Clear();
 
@@ -176,7 +177,7 @@ namespace ChameleonCoder.Resources.Base
         /// all data files,
         /// any file a resource points to (FileResource, CodeResource, LibraryResource)
         /// </summary>
-        internal virtual void Package()
+        public virtual void Package()
         {
 
         }

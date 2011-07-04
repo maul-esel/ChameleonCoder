@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 using System.Windows.Media;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources
 {
@@ -99,7 +100,7 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// opens the project
         /// </summary>
-        internal override void Open()
+        public override void Open()
         {
             base.Open();
 

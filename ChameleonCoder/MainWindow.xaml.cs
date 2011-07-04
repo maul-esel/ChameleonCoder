@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Base;
 using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.LanguageModules;

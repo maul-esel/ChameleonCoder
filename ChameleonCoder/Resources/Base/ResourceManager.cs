@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Base

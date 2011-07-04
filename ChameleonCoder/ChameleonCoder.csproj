@@ -94,10 +94,10 @@
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleCollection.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
-    <Compile Include="Resources\ICompilable.cs" />
-    <Compile Include="Resources\IExecutable.cs" />
-    <Compile Include="Resources\ILanguageResource.cs" />
-    <Compile Include="Resources\IResource.cs" />
+    <Compile Include="Resources\Interfaces\ICompilable.cs" />
+    <Compile Include="Resources\Interfaces\IExecutable.cs" />
+    <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
+    <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\ResourceTypeManager.cs" />
     <Compile Include="Resources\ResourceTypeCollection.cs" />
     <Compile Include="RichContent\ContentMemberManager.cs" />
@@ -111,7 +111,7 @@
     <Compile Include="Resources\Base\Metadata.cs" />
     <Compile Include="Resources\Base\ResourceManager.cs" />
     <Compile Include="Resources\Collections\MetadataCollection.cs" />
-    <Compile Include="Resources\IResolvable.cs" />
+    <Compile Include="Resources\Interfaces\IResolvable.cs" />
     <Compile Include="Resources\LibraryResource.cs" />
     <Compile Include="Localization\Language.Designer.cs">
       <AutoGen>True</AutoGen>

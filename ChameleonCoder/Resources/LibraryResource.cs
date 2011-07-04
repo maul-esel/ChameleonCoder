@@ -57,7 +57,7 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// opens the resource, using the CodeResource method + adding special information
         /// </summary>
-        internal override void Open()
+        public override void Open()
         {
             base.Open(); // as well as the base method, this currently doesn't work and should be done with data binding
 

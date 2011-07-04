@@ -2,6 +2,7 @@
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 using System.Windows.Media;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources
 {
@@ -40,7 +41,7 @@ namespace ChameleonCoder.Resources
         /// gets the destination instance
         /// </summary>
         /// <returns>the Resource object the link points to</returns>
-        public ResourceBase Resolve()
+        public IResource Resolve()
         {
             return ResourceManager.FlatList.GetInstance(this.Destination);
         }
@@ -100,12 +101,12 @@ namespace ChameleonCoder.Resources
 
         #region methods
 
-        internal override void Open()
+        public override void Open()
         {
             this.Resolve().Open();
         }
 
-        internal override void Package()
+        public override void Package()
         {
             this.Resolve().Package();
         }

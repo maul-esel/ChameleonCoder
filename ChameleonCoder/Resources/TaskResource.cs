@@ -33,7 +33,7 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// opens the resource in the user interface
         /// </summary>
-        internal override void Open()
+        public override void Open()
         {
             base.Open();
 

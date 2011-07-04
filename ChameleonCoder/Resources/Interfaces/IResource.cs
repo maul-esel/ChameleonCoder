@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Media;
 using System.Text;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Resources.Interfaces
 {
     public interface IResource
     {
@@ -19,5 +19,13 @@ namespace ChameleonCoder.Resources
         ImageSource Icon { get; }
 
         void Save();
+
+        void Open();
+
+        void Package();
+
+        string Name { get; }
+
+        string Description { get; }
     }
 }

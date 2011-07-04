@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Base;
 using System.Windows.Media;
-using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Converter
 {
