@@ -1,4 +1,5 @@
 ﻿using System;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder
 {
@@ -16,6 +17,6 @@ namespace ChameleonCoder
 
         int GetCurrentView();
 
-        Resources.Base.ResourceBase GetResource(Guid id);
+        IResource GetResource(Guid id);
     }
 }
