@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
+using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
@@ -7,6 +9,8 @@ namespace ChameleonCoder.Resources.Interfaces
         StaticInfo Info { get; }
 
         ImageSource Icon { get; }
+
+        Guid GUID { get; }
 
         void Save();
 
@@ -17,5 +21,7 @@ namespace ChameleonCoder.Resources.Interfaces
         string Name { get; }
 
         string Description { get; }
+
+        ResourceCollection children { get; }
     }
 }
