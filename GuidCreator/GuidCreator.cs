@@ -39,7 +39,7 @@ namespace GuidCreator
         {
             this.Host = host;
 
-            this._icon = new BitmapImage(new Uri("pack://application:,,,/Images/icon.png"));
+            this._icon = new BitmapImage(new Uri("/icon.png", UriKind.Relative));
 
             System.Windows.Forms.TextBox outbox = new System.Windows.Forms.TextBox();
             outbox.Width = 250; outbox.Margin = new System.Windows.Forms.Padding(10);
