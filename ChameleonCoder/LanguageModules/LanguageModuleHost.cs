@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
+using ChameleonCoder.Resources.Interfaces;
 using System.Linq;
 using System.Text;
 
@@ -161,7 +162,7 @@ namespace ChameleonCoder.LanguageModules
             throw new NotImplementedException();
         }
 
-        Resources.Base.ResourceBase IPluginHost.GetResource(Guid ID)
+        IResource IPluginHost.GetResource(Guid ID)
         {
             return ChameleonCoder.Resources.Base.ResourceManager.FlatList.GetInstance(ID);
         }
