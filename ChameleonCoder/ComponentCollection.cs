@@ -23,5 +23,10 @@ namespace ChameleonCoder
                 return value;
             return default(TValue);
         }
+
+        public IEnumerable<TValue> GetList()
+        {
+            return this.components.Values;
+        }
     }
 }

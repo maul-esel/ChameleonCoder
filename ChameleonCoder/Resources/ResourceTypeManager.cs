@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
 using System.Linq;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -39,6 +40,11 @@ namespace ChameleonCoder.Resources
         internal static IResource CreateInstanceOf(string alias)
         {
             return (IResource)Activator.CreateInstance(ResourceTypes.GetResourceType(alias));
+        }
+
+        internal static IEnumerable<Type> GetResourceTypes()
+        {
+            return ResourceTypes.GetList();
         }
     }
 }

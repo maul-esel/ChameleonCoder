@@ -80,7 +80,7 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// opens the resource, using the FileResource method + adding special information
         /// </summary>
-        public override void Open()
+        public  override void Open()
         {
             base.Open(); // as well as the base method, this currently doesn't work and should be done with data binding
 
