@@ -45,6 +45,10 @@ namespace ChameleonCoder
             {
                 this.MenuServices.IsEnabled = false;
             }
+            foreach (Type t in ResourceTypeManager.GetResourceTypes())
+            {
+                this.ShowTypesList.Items.Add(t);
+            }
             
         }
 

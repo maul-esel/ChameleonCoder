@@ -134,6 +134,16 @@
                                                    LargeImageSource="Images\LargeIcon.png"
                                                    Unchecked="GroupsChanged" Checked="GroupsChanged"
                                                    IsChecked="True"/>
+                    <ribbon:RibbonComboBox x:Name="ShowTypesList">
+                        <ribbon:RibbonComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="TChecked" Margin="1,1,5,1"/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ribbon:RibbonComboBox.ItemTemplate>
+                    </ribbon:RibbonComboBox>
 
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="CustomGroup1" Header="custom"/>
