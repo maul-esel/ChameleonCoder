@@ -34,21 +34,13 @@ namespace ChameleonCoder
             this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
             
             foreach (IService service in ServiceHost.GetServices())
-            {
-                RibbonApplicationMenuItem item = new RibbonApplicationMenuItem();
-                item.Header = service.ServiceName; item.ImageSource = service.Icon;
-                item.Click += LaunchService;
-                this.MenuServices.Items.Add(item);
-            }
+                this.MenuServices.Items.Add(service);
 
             if (ServiceHost.GetServiceCount() == 0)
-            {
                 this.MenuServices.IsEnabled = false;
-            }
+
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
-            {
                 this.ShowTypesList.Items.Add(t);
-            }
             
         }
 

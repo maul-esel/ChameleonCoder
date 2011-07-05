@@ -8,6 +8,7 @@
         xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
         xmlns:conv="clr-namespace:ChameleonCoder.Converter"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:service="clr-namespace:ChameleonCoder.Services"
         Title="CC - ChameleonCoder alpha 1"
         WindowState="Maximized"
 		x:Name="RibbonWindow"
@@ -68,6 +69,14 @@
                                          ImageSource="Images\LargeIcon.png"
                                          Header="Services"
                                          StaysOpenOnClick="True">
+                        <ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
+                            <DataTemplate DataType="{x:Type service:IService}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Path=Icon}"/>
+                                    <TextBlock Text="{Binding Path=ServiceName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
                     </ribbon:RibbonApplicationSplitMenuItem>
                     <ribbon:RibbonSeparator/>
                     <ribbon:RibbonApplicationMenuItem x:Name="MenuCreate"
