@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using ChameleonCoder.Resources.Base;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Collections
 {
     /// <summary>
     /// represents a flat collection of resources.
     /// </summary>
-    public class ResourceCollection : ObservableCollection<ResourceBase>
+    public class ResourceCollection : ObservableCollection<IResource>
     {
         /// <summary>
         /// contains all added instances, identified by their GUID
         /// </summary>
-        private Dictionary<Guid, ResourceBase> instances = new Dictionary<Guid, ResourceBase>();
+        private Dictionary<Guid, IResource> instances = new Dictionary<Guid, IResource>();
 
         /// <summary>
         /// adds a new instance to the collection
         /// </summary>
         /// <param name="instance">the instance to add</param>
-        internal new void Add(ResourceBase instance)
+        internal new void Add(IResource instance)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace ChameleonCoder.Resources.Collections
         /// <param name="key">the GUID of the instance to remove</param>
         internal void Remove(Guid key)
         {
-            ResourceBase instance = this.GetInstance(key);
+            IResource instance = this.GetInstance(key);
             this.instances.Remove(key);
             base.Remove(instance);
         }
@@ -52,9 +52,9 @@ namespace ChameleonCoder.Resources.Collections
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>the Resource object</returns>
-        internal ResourceBase GetInstance(Guid ID)
+        internal IResource GetInstance(Guid ID)
         {
-            ResourceBase instance;
+            IResource instance;
             this.instances.TryGetValue(ID, out instance);
             return instance;
         }

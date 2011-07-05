@@ -26,7 +26,7 @@ namespace ChameleonCoder.Resources.Base
         /// <param name="instance">the resource to add</param>
         /// <param name="parentlist">the parent list to add the resource to.
         /// If this is null, it will be added to the list of top-level resources</param>
-        internal static void Add(ResourceBase instance, ResourceCollection parentlist)
+        internal static void Add(IResource instance, ResourceCollection parentlist)
         {
             FlatList.Add(instance);
 
