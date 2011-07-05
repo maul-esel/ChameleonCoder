@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
-using System.Text;
+﻿using System.Windows.Media;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
     public interface IResource
     {
-        string Alias { get; }
-
-        string DisplayName { get; }
-
-        Guid GUID { get; }
-
-        ImageSource TypeIcon { get; }
+        StaticInfo Info { get; }
 
         ImageSource Icon { get; }
 
