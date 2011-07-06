@@ -15,17 +15,12 @@ namespace ChameleonCoder.Resources.Base
         /// <summary>
         /// serves as base constructor for inherited classes and sets general properties
         /// </summary>
-        /// <param name="xml">a XmlDocument object containing the entire document
-        /// in which the resource is defined.</param>
-        /// <param name="xpath">the XPath to the root element of the resource</param>
-        /// <param name="datafile">the file in which the resource is defined</param>
-        internal ResourceBase(ref XmlDocument xml, string xpath, string datafile)
+        /// <param name="node">the XmlNode that contains the resource</param>
+        public ResourceBase(XmlNode node)
         {
-            this.XPath = xpath;
-            this.DataFile = datafile;
-            this.XML = xml;
+            this.XMLNode = node;
 
-            this.GUID = new Guid(this.XML.SelectSingleNode(this.XPath + "/@guid").Value);
+            this.GUID = new Guid(node.Attributes["guid"].Value);
 
             this.MetaData = new MetadataCollection();
 
@@ -33,10 +28,11 @@ namespace ChameleonCoder.Resources.Base
             Metadata data;
             try
             {
-                foreach (XmlNode node in this.XML.SelectNodes(this.XPath + "/metadata"))
+                foreach (XmlNode meta in node.SelectNodes("/metadata")) //this.XML.SelectNodes(this.XPath + "/metadata"))
                 {
                     i++;
-                    this.MetaData.Add(data = new Metadata(ref xml, this.XPath + "/metadata[" + i + "]"));
+                    System.Windows.MessageBox.Show(meta.Attributes["name"] + " = " + meta.Value);
+                    //this.MetaData.Add(data = new Metadata(ref xml, this.XPath + "/metadata[" + i + "]"));
                 }
             }
             catch { }
@@ -46,15 +42,13 @@ namespace ChameleonCoder.Resources.Base
 
         public ResourceBase() { }
 
+        XmlNode XMLNode;
+
         #region IResource
-
-        public abstract string Alias { get; }
-
-        public string DisplayName { get { return this.Alias; } }
 
         public abstract ImageSource Icon { get; }
 
-        public abstract ImageSource TypeIcon { get; }
+        public abstract StaticInfo Info { get; }
 
         /// <summary>
         /// saves the information changed through the UI to the current instance and its XML representation
@@ -68,7 +62,7 @@ namespace ChameleonCoder.Resources.Base
                 data.Save(); // changes through the UI should be saved when they occur or through binding
             }
 
-            System.IO.File.WriteAllText(this.DataFile, this.XML.DocumentElement.OuterXml);
+            System.IO.File.WriteAllText(this.DataFile, this.XMLNode.OwnerDocument.DocumentElement.OuterXml);
         }
 
         #endregion 
@@ -87,11 +81,11 @@ namespace ChameleonCoder.Resources.Base
             {
                 try
                 {
-                    return this.XML.SelectSingleNode(this.XPath + "/@name").Value;
+                    return this.XMLNode.Attributes["name"].Value;
                 }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@name").Value = value; }
+            protected internal set { this.XMLNode.Attributes["name"].Value = value; }
         }
 
         /// <summary>
@@ -102,11 +96,13 @@ namespace ChameleonCoder.Resources.Base
         /// <summary>
         /// defines the resource's type
         /// </summary>
+        [Obsolete()]
         public ResourceType Type { get; protected internal set; }
 
         /// <summary>
         /// the XPath to the resource's definition in the datafile
         /// </summary>
+        [Obsolete()]
         internal string XPath { get; private set; }
 
         /// <summary>
@@ -114,8 +110,15 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         public string Description
         {
-            get { return this.XML.SelectSingleNode(this.XPath + "/@description").Value; }
-            protected internal set { this.XML.SelectSingleNode(this.XPath + "/@description").Value = value; }
+            get
+            {
+                try
+                {
+                    return this.XMLNode.Attributes["description"].Value;
+                }
+                catch (NullReferenceException) { return null; }
+            }
+            protected internal set { this.XMLNode.Attributes["description"].Value = value; }
         }
 
         /// <summary>
@@ -130,10 +133,10 @@ namespace ChameleonCoder.Resources.Base
         {
             get
             {
-                try { return this.XML.SelectSingleNode(this.XPath + "/@notes").Value; }
+                try { return this.XMLNode.Attributes["notes"].Value; }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            set { this.XML.SelectSingleNode(this.XPath + "/@notes").Value = value; }
+            set { this.XMLNode.Attributes["notes"].Value = value; }
         }
 
         /// <summary>
