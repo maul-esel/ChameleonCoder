@@ -14,6 +14,11 @@ namespace ChameleonCoder.RichContent
             return false;
         }
 
+        bool IContentMember.ValidateParent(IContentMember parent)
+        {
+            return false;
+        }
+
         void IContentMember.AddChild(IContentMember child)
         {
             this.childMembers.Add(child);

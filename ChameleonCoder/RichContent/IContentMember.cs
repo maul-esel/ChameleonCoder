@@ -24,6 +24,8 @@ namespace ChameleonCoder.RichContent
         /// <returns>true if the child would be accepted, false otherwise</returns>
         bool ValidateChild(IContentMember child);
 
+        bool ValidateParent(IContentMember parent);
+
         /// <summary>
         /// adds a child to the childMember collection.
         /// The content member should not validate it, as this is done using Validate()
