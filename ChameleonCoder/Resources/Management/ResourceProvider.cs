@@ -7,10 +7,10 @@ namespace ChameleonCoder.Resources.Management
 {
     public sealed class ResourceProvider : IComponentProvider
     {
-        public void Init(Action<Type, string> registerContentMember, Action<Type, StaticInfo> registerResourceType)
+        public void Init(Action<Type, string> registerContentMember, Action<Type, Base.StaticInfo> registerResourceType)
         {
             registerResourceType(typeof(LinkResource),
-                new StaticInfo()
+                new Base.StaticInfo()
                 {
                     Alias = "link",
                     Background = Brushes.CadetBlue,
@@ -18,31 +18,41 @@ namespace ChameleonCoder.Resources.Management
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")) });
 
             registerResourceType(typeof(FileResource),
-                new StaticInfo() { Alias = "file",
+                new Base.StaticInfo()
+                {
+                    Alias = "file",
                     Background = Brushes.Azure,
                     DisplayName = "file",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")) });
 
             registerResourceType(typeof(CodeResource),
-                new StaticInfo() { Alias = "code",
+                new Base.StaticInfo()
+                {
+                    Alias = "code",
                     Background = Brushes.AliceBlue,
                     DisplayName = "code",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/code.png")) });
 
             registerResourceType(typeof(LibraryResource),
-                new StaticInfo() { Alias = "library",
+                new Base.StaticInfo()
+                {
+                    Alias = "library",
                     Background = Brushes.Beige,
                     DisplayName = "library",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/library.png")) });
 
             registerResourceType(typeof(ProjectResource),
-                new StaticInfo() { Alias = "project",
+                new Base.StaticInfo()
+                {
+                    Alias = "project",
                     Background = Brushes.BurlyWood,
                     DisplayName = "project",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")) });
 
             registerResourceType(typeof(TaskResource),
-                new StaticInfo() { Alias = "task",
+                new Base.StaticInfo()
+                {
+                    Alias = "task",
                     Background = Brushes.Coral,
                     DisplayName = "task",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/task.png")) });

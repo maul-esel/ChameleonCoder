@@ -4,6 +4,6 @@ namespace ChameleonCoder
 {
     interface IComponentProvider
     {
-        void Init(Action<Type, string> registerContentMember, Action<Type, Resources.StaticInfo> registerResourceType);
+        void Init(Action<Type, string> registerContentMember, Action<Type, Resources.Base.StaticInfo> registerResourceType);
     }
 }

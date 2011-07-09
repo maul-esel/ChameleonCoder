@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Resources.Base
 {
     public struct StaticInfo
     {

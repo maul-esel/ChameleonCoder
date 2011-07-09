@@ -103,7 +103,7 @@
     <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\Management\ResourceTypeManager.cs" />
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
-    <Compile Include="Resources\StaticInfo.cs" />
+    <Compile Include="Resources\Base\StaticInfo.cs" />
     <Compile Include="RichContent\ContentMemberManager.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceHost.cs" />
