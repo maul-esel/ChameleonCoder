@@ -95,6 +95,7 @@
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleCollection.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
+    <Compile Include="Resources\Implementations\GroupResource.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Management\ResourceProvider.cs" />
     <Compile Include="Resources\Interfaces\ICompilable.cs" />
@@ -286,6 +287,9 @@
     <Resource Include="Images\Priority\high.png" />
     <Resource Include="Images\Priority\low.png" />
     <Resource Include="Images\Priority\middle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ResourceType\group.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

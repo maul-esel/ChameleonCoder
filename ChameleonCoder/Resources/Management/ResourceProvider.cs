@@ -56,6 +56,14 @@ namespace ChameleonCoder.Resources.Management
                     Background = Brushes.Coral,
                     DisplayName = "task",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/task.png")) });
+
+            registerResourceType(typeof(GroupResource),
+                new Base.StaticInfo()
+                {
+                    Alias = "group",
+                    Background = Brushes.Chocolate,
+                    DisplayName = "group",
+                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/group.png")) });
         }
     }
 }
