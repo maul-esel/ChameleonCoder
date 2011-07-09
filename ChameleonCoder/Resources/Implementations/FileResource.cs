@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Media;
-using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 
@@ -40,7 +39,7 @@ namespace ChameleonCoder.Resources.Implementations
                     return ChameleonCoder.Properties.Settings.Default.ScriptDir + path;
                 return path;
             }
-            protected internal set { this.XMLNode.Attributes["path"].Value = value; }
+            protected set { this.XMLNode.Attributes["path"].Value = value; }
         }
     }
 }

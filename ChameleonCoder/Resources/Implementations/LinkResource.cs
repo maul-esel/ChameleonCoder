@@ -11,7 +11,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// a class representing a resource that serves as link to another resource
     /// inherits from ResourceBase
     /// </summary>
-    public sealed class LinkResource : ResourceBase, IResolvable
+    public class LinkResource : ResourceBase, IResolvable
     {
         /// <summary>
         /// creates a new instance of the LinkResource class
@@ -27,37 +27,6 @@ namespace ChameleonCoder.Resources.Implementations
         #region IResource
 
         public override ImageSource Icon { get { return this.Resolve().Icon; } }
-
-        public override ImageSource SpecialVisualProperty
-        {
-            get
-            {
-                IResource resource = this;
-                IResolvable link;
-
-                while ((link = resource as IResolvable) != null && link.shouldResolve)
-                    resource = link.Resolve();
-
-                return resource.SpecialVisualProperty;
-            }
-        }
-
-        #endregion
-
-        #region IResolvable
-
-        /// <summary>
-        /// gets the destination instance
-        /// </summary>
-        /// <returns>the Resource object the link points to</returns>
-        public IResource Resolve()
-        {
-            return ResourceManager.FlatList.GetInstance(this.Destination);
-        }
-
-        public bool shouldResolve { get { return true; } }
-
-        #endregion
 
         /// <summary>
         /// the name of the link which can either be an own, independant name or the destination's name
@@ -104,32 +73,44 @@ namespace ChameleonCoder.Resources.Implementations
             protected set { base.Description = value; }
         }
 
-        
-
-        #region methods
-
-        public override void Package()
+        public override ImageSource SpecialVisualProperty
         {
-            this.Resolve().Package();
-        }
+            get
+            {
+                IResource resource = this;
+                IResolvable link;
 
-        public override void Save()
-        {
-            base.Save();
-            this.Resolve().Save();
+                while ((link = resource as IResolvable) != null && link.shouldResolve)
+                    resource = link.Resolve();
+
+                return resource.SpecialVisualProperty;
+            }
         }
 
         #endregion
 
-        
+        #region IResolvable
+
+        /// <summary>
+        /// gets the destination instance
+        /// </summary>
+        /// <returns>the Resource object the link points to</returns>
+        public IResource Resolve()
+        {
+            return ResourceManager.FlatList.GetInstance(this.Destination);
+        }
+
+        public bool shouldResolve { get { return true; } }
+
+        #endregion
 
         /// <summary>
         /// the GUID of the resource the link points to
         /// </summary>
-        private Guid Destination
+        public Guid Destination
         {
             get { return new Guid(this.XMLNode.Attributes["destination"].Value); }
-            set { this.XMLNode.Attributes["destination"].Value = value.ToString(); }
+            protected set { this.XMLNode.Attributes["destination"].Value = value.ToString(); }
         }
     }
 }

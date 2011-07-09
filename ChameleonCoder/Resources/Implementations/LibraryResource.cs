@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
-using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Resources.Implementations
 {
@@ -10,7 +8,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// represents a library resource,
     /// inherits from CodeResource
     /// </summary>
-    public sealed class LibraryResource : CodeResource
+    public class LibraryResource : CodeResource
     {
         /// <summary>
         /// creates a new instance of the LibraryResource class
@@ -29,22 +27,22 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
-        internal string Author
+        public string Author
         {
             get { return this.XMLNode.Attributes["author"].Value; }
-            private set { this.XMLNode.Attributes["author"].Value = value; }
+            protected set { this.XMLNode.Attributes["author"].Value = value; }
         }
 
-        internal string License
+        public string License
         {
             get { return this.XMLNode.Attributes["license"].Value; }
-            private set { this.XMLNode.Attributes["license"].Value = value; }
+            protected set { this.XMLNode.Attributes["license"].Value = value; }
         }
 
-        internal string Version
+        public string Version
         {
             get { return this.XMLNode.Attributes["version"].Value; }
-            private set { this.XMLNode.Attributes["version"].Value = value; }
+            protected set { this.XMLNode.Attributes["version"].Value = value; }
         }
     }
 }

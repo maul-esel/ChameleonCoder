@@ -12,7 +12,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// represents a project resource,
     /// inherits from ResourceBase
     /// </summary>
-    public sealed class ProjectResource : ResourceBase, ICompilable
+    public class ProjectResource : ResourceBase, ICompilable
     {
         /// <summary>
         /// instantiates a new instance of the ProjectResource class
@@ -76,10 +76,10 @@ namespace ChameleonCoder.Resources.Implementations
         /// <summary>
         /// contains the project's priority (int from 0 to 2)
         /// </summary>
-        internal ProjectPriority Priority
+        public ProjectPriority Priority
         {
             get { return (ProjectPriority)Int32.Parse(this.XMLNode.Attributes["priority"].Value); }
-            private set { this.XMLNode.Attributes["priority"].Value = ((int)value).ToString(); }
+            protected set { this.XMLNode.Attributes["priority"].Value = ((int)value).ToString(); }
         }
 
         /// <summary>
@@ -101,14 +101,6 @@ namespace ChameleonCoder.Resources.Implementations
             /// the project has a high priority
             /// </summary>
             high
-        }
-
-        /// <summary>
-        /// asks the user to enter a new priority and saves it
-        /// </summary>
-        internal void SetPriority()
-        {
-
-        }        
+        }      
     }
 }
