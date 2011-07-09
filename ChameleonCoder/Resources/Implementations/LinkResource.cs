@@ -110,7 +110,11 @@ namespace ChameleonCoder.Resources.Implementations
         public Guid Destination
         {
             get { return new Guid(this.XMLNode.Attributes["destination"].Value); }
-            protected set { this.XMLNode.Attributes["destination"].Value = value.ToString(); }
+            protected set
+            {
+                this.XMLNode.Attributes["destination"].Value = value.ToString();
+                this.OnPropertyChanged("Destination");
+            }
         }
     }
 }

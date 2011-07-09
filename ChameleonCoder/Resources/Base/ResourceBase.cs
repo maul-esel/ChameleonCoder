@@ -50,7 +50,11 @@ namespace ChameleonCoder.Resources.Base
                 }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            protected set { this.XMLNode.Attributes["name"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["name"].Value = value;
+                this.OnPropertyChanged("Name");
+            }
         }
 
         public virtual string Description
@@ -63,7 +67,11 @@ namespace ChameleonCoder.Resources.Base
                 }
                 catch (NullReferenceException) { return null; }
             }
-            protected set { this.XMLNode.Attributes["description"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["description"].Value = value;
+                this.OnPropertyChanged("Description");
+            }
         }
 
         public virtual string Notes
@@ -73,7 +81,11 @@ namespace ChameleonCoder.Resources.Base
                 try { return this.XMLNode.Attributes["notes"].Value; }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            set { this.XMLNode.Attributes["notes"].Value = value; }
+            set
+            {
+                this.XMLNode.Attributes["notes"].Value = value;
+                this.OnPropertyChanged("Notes");
+            }
         }
 
         public virtual MetadataCollection MetaData { get; protected internal set; }

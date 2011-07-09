@@ -43,7 +43,11 @@ namespace ChameleonCoder.Resources.Implementations
                 try { return new Guid(this.XMLNode.Attributes["language"].Value); }
                 catch (NullReferenceException) { return Guid.Empty; }
             }
-            protected internal set { this.XMLNode.Attributes["language"].Value = value.ToString(); }
+            protected set
+            {
+                this.XMLNode.Attributes["language"].Value = value.ToString();
+                this.OnPropertyChanged("language");
+            }
         }
 
         public List<Guid> compatibleLanguages { get; set; }
@@ -65,7 +69,11 @@ namespace ChameleonCoder.Resources.Implementations
                     result = this.Path + ".exe";
                 return result;
             }
-            protected internal set { this.XMLNode.Attributes["compilation-path"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["compilation-path"].Value = value;
+                this.OnPropertyChanged("compilationPath");
+            }
         }
 
         #endregion

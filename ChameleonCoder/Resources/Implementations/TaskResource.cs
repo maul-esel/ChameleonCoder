@@ -31,7 +31,11 @@ namespace ChameleonCoder.Resources.Implementations
                 catch (ArgumentNullException) { return DateTime.MaxValue; }
                 catch (FormatException) { return DateTime.MaxValue; }
             }
-            protected set { this.XMLNode.Attributes["enddate"].Value = value.ToString(); }
+            protected set
+            {
+                this.XMLNode.Attributes["enddate"].Value = value.ToString();
+                this.OnPropertyChanged("EndTime");
+            }
         }
     }
 }

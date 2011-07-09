@@ -39,7 +39,11 @@ namespace ChameleonCoder.Resources.Implementations
                     return ChameleonCoder.Properties.Settings.Default.ScriptDir + path;
                 return path;
             }
-            protected set { this.XMLNode.Attributes["path"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["path"].Value = value;
+                this.OnPropertyChanged("Path");
+            }
         }
     }
 }

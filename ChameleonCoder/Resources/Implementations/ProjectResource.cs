@@ -53,7 +53,11 @@ namespace ChameleonCoder.Resources.Implementations
         public Guid language
         {
             get { return new Guid(this.XMLNode.Attributes["language"].Value); }
-            private set { this.XMLNode.Attributes["language"].Value = value.ToString(); }
+            protected set
+            {
+                this.XMLNode.Attributes["language"].Value = value.ToString();
+                this.OnPropertyChanged("language");
+            }
         }
 
         public List<Guid> compatibleLanguages { get; set; }
@@ -68,7 +72,11 @@ namespace ChameleonCoder.Resources.Implementations
         public string compilationPath
         {
             get { return this.XMLNode.Attributes["compilation-path"].Value; }
-            private set { this.XMLNode.Attributes["compilation-path"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["compilation-path"].Value = value;
+                this.OnPropertyChanged("compilationPath");
+            }
         }
 
         #endregion
@@ -79,7 +87,11 @@ namespace ChameleonCoder.Resources.Implementations
         public ProjectPriority Priority
         {
             get { return (ProjectPriority)Int32.Parse(this.XMLNode.Attributes["priority"].Value); }
-            protected set { this.XMLNode.Attributes["priority"].Value = ((int)value).ToString(); }
+            protected set
+            {
+                this.XMLNode.Attributes["priority"].Value = ((int)value).ToString();
+                this.OnPropertyChanged("Priority");
+            }
         }
 
         /// <summary>

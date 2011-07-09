@@ -30,19 +30,31 @@ namespace ChameleonCoder.Resources.Implementations
         public string Author
         {
             get { return this.XMLNode.Attributes["author"].Value; }
-            protected set { this.XMLNode.Attributes["author"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["author"].Value = value;
+                this.OnPropertyChanged("Author");
+            }
         }
 
         public string License
         {
             get { return this.XMLNode.Attributes["license"].Value; }
-            protected set { this.XMLNode.Attributes["license"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["license"].Value = value;
+                this.OnPropertyChanged("License");
+            }
         }
 
         public string Version
         {
             get { return this.XMLNode.Attributes["version"].Value; }
-            protected set { this.XMLNode.Attributes["version"].Value = value; }
+            protected set
+            {
+                this.XMLNode.Attributes["version"].Value = value;
+                this.OnPropertyChanged("Version");
+            }
         }
     }
 }
