@@ -89,17 +89,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\CustomGroupConverter.cs" />
+    <Compile Include="IComponentProvider.cs" />
     <Compile Include="IPluginHost.cs" />
     <Compile Include="LanguageModules\ILanguageModule.cs" />
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleCollection.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
+    <Compile Include="Resources\Interfaces\IEditable.cs" />
+    <Compile Include="Resources\Management\ResourceProvider.cs" />
     <Compile Include="Resources\Interfaces\ICompilable.cs" />
     <Compile Include="Resources\Interfaces\IExecutable.cs" />
     <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
     <Compile Include="Resources\Interfaces\IResource.cs" />
-    <Compile Include="Resources\ResourceTypeManager.cs" />
-    <Compile Include="Resources\ResourceTypeCollection.cs" />
+    <Compile Include="Resources\Management\ResourceTypeManager.cs" />
+    <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
+    <Compile Include="Resources\StaticInfo.cs" />
     <Compile Include="RichContent\ContentMemberManager.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceHost.cs" />
@@ -109,33 +113,25 @@
       <DependentUpon>ResourceCreator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\Base\Metadata.cs" />
-    <Compile Include="Resources\Base\ResourceManager.cs" />
+    <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\Collections\MetadataCollection.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
-    <Compile Include="Resources\LibraryResource.cs" />
+    <Compile Include="Resources\Implementations\LibraryResource.cs" />
     <Compile Include="Localization\Language.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ProjectResource.cs" />
+    <Compile Include="Resources\Implementations\ProjectResource.cs" />
     <Compile Include="Resources\Base\ResourceBase.cs" />
-    <Compile Include="Resources\CodeResource.cs" />
+    <Compile Include="Resources\Implementations\CodeResource.cs" />
     <Compile Include="Resources\Collections\ResourceCollection.cs" />
-    <Compile Include="Resources\FileResource.cs" />
-    <Compile Include="Resources\LinkResource.cs" />
-    <Compile Include="Resources\Base\ResourceType.cs" />
+    <Compile Include="Resources\Implementations\FileResource.cs" />
+    <Compile Include="Resources\Implementations\LinkResource.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
-    <Compile Include="Resources\TaskResource.cs" />
+    <Compile Include="Resources\Implementations\TaskResource.cs" />
     <Compile Include="Converter\ResourceImageConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
-    <Compile Include="Converter\PriorityConverter.cs" />
-    <Compile Include="Priority.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Priority.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Converter\PropertyConverter.cs" />
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="RichContent\ContentMemberCollection.cs" />
@@ -177,10 +173,6 @@
     <EmbeddedResource Include="Localization\Language.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Priority.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Priority.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -287,7 +279,14 @@
   <ItemGroup>
     <Resource Include="Images\ResourceType\task.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\ResourceType\link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Priority\high.png" />
+    <Resource Include="Images\Priority\low.png" />
+    <Resource Include="Images\Priority\middle.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

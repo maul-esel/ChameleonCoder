@@ -6,7 +6,7 @@ using ChameleonCoder.Resources.Base;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Resources.Implementations
 {
     /// <summary>
     /// represents a project resource,
@@ -20,22 +20,28 @@ namespace ChameleonCoder.Resources
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the xpath to the resource's main element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        internal ProjectResource(ref XmlDocument xml, string xpath, string datafile)
-            : base(ref xml, xpath, datafile)
+        public ProjectResource(XmlNode node)
+            : base(node)
         {
-            this.Type = ResourceType.project;
-            //this.Node.StateImageIndex = (int)this.Priority;
         }
-
-        public ProjectResource() { }
 
         #region IResource
 
-        public override string Alias { get { return "project"; } }
-
         public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")); } }
 
-        public override ImageSource TypeIcon { get { return this.Icon; } }
+        public override ImageSource SpecialVisualProperty
+        {
+            get
+            {
+                switch (this.Priority)
+                {
+                    case ProjectPriority.basic: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/Priority/low.png"));
+                    case ProjectPriority.middle: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/Priority/middle.png"));
+                    case ProjectPriority.high: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/Priority/high.png"));
+                }
+                return base.SpecialVisualProperty;
+            }
+        }
 
         #endregion
 
@@ -46,8 +52,8 @@ namespace ChameleonCoder.Resources
         /// </summary>
         public Guid language
         {
-            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@language").Value); }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@language").Value = value.ToString(); }
+            get { return new Guid(this.XMLNode.Attributes["language"].Value); }
+            private set { this.XMLNode.Attributes["language"].Value = value.ToString(); }
         }
 
         public List<Guid> compatibleLanguages { get; set; }
@@ -61,8 +67,8 @@ namespace ChameleonCoder.Resources
         /// </summary>
         public string compilationPath
         {
-            get { return this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value; }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@compilation-path").Value = value; }
+            get { return this.XMLNode.Attributes["compilation-path"].Value; }
+            private set { this.XMLNode.Attributes["compilation-path"].Value = value; }
         }
 
         #endregion
@@ -72,8 +78,8 @@ namespace ChameleonCoder.Resources
         /// </summary>
         internal ProjectPriority Priority
         {
-            get { return (ProjectPriority)Int32.Parse(this.XML.SelectSingleNode(this.XPath + "/@priority").Value); }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@priority").Value = ((int)value).ToString(); }
+            get { return (ProjectPriority)Int32.Parse(this.XMLNode.Attributes["priority"].Value); }
+            private set { this.XMLNode.Attributes["priority"].Value = ((int)value).ToString(); }
         }
 
         /// <summary>
@@ -98,32 +104,11 @@ namespace ChameleonCoder.Resources
         }
 
         /// <summary>
-        /// opens the project
-        /// </summary>
-        public override void Open()
-        {
-            base.Open();
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Priority"), ToString(this.Priority) }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("CodeLanguage"), Plugins.PluginManager.GetLanguageName(this.Language) }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("CompilePath"), this.CompilationPath }));
-
-            //App.Gui.listView2.Groups[1].Header = Localization.get_string("info_project");
-        }
-
-        /// <summary>
         /// asks the user to enter a new priority and saves it
         /// </summary>
         internal void SetPriority()
         {
 
-        }
-
-        internal static void Create(object sender, EventArgs e)
-        {
-
-        }              
+        }        
     }
 }

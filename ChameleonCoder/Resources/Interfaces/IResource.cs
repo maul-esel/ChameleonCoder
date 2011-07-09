@@ -6,15 +6,15 @@ namespace ChameleonCoder.Resources.Interfaces
 {
     public interface IResource
     {
-        StaticInfo Info { get; }
-
         ImageSource Icon { get; }
 
         Guid GUID { get; }
 
         void Save();
 
-        void Open();
+        IResource Create();
+
+        bool AddRichContentMember(ChameleonCoder.RichContent.IContentMember member);
 
         void Package();
 
@@ -23,5 +23,7 @@ namespace ChameleonCoder.Resources.Interfaces
         string Description { get; }
 
         ResourceCollection children { get; }
+
+        ImageSource SpecialVisualProperty { get; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Converter
 {
@@ -11,13 +10,15 @@ namespace ChameleonCoder.Converter
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IResource resource = value as IResource;
+            IResolvable link;
 
             if (resource != null)
             {
-                while (resource is IResolvable)
-                    resource = (resource as IResolvable).Resolve();
+                while ((link = (resource as IResolvable)) != null && link.shouldResolve)
+                    resource = link.Resolve();
 
-                return resource.GetType();
+                try { return resource.GetType(); }
+                catch { }
             }
 
             return null;

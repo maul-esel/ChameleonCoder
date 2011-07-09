@@ -56,33 +56,6 @@ namespace ChameleonCoder.LanguageModules
         void Unload();
 
         /// <summary>
-        /// called when the user requests a new function in edit mode.
-        /// Plugins can disable such calls by setting "SupportsFunctions" to false.
-        /// </summary>
-        /// <param name="resource">the GUID of the resource which is being edited</param>
-        /// <param name="code">the code to insert</param>
-        /// <returns>true to insert code, false if code is being inserted in a custom way (such as a new file)</returns>
-        bool NewFunction(Guid resource, out string code);
-
-        /// <summary>
-        /// called when the user requests to create a new class in edit mode.
-        /// Plugins can disable such calls by setting "SupportsClasses" to false.
-        /// </summary>
-        /// <param name="resource">the GUID of the resource which is being edited</param>
-        /// <param name="code">the code to insert</param>
-        /// <returns>true to insert code, false if code is being inserted in a custom way (such as a new file)</returns>
-        bool NewClass(Guid resource, out string code);
-
-        /// <summary>
-        /// called when the user requests to create a new (goto-) label in edit mode.
-        /// Plugins can disable such calls by setting "SupportsLabels" to false.
-        /// </summary>
-        /// <param name="resource">the GUID of the resource which is being edited</param>
-        /// <param name="code">the code to insert</param>
-        /// <returns>true to insert code, false if code is being inserted in a custom way (such as a new file)</returns>
-        bool NewLabel(Guid resource, out string code);
-
-        /// <summary>
         /// called when the user types a char in edit mode.
         /// </summary>
         /// <param name="resource"></param>
@@ -104,24 +77,6 @@ namespace ChameleonCoder.LanguageModules
         /// the name of the language, which is displayed to the user
         /// </summary>
         string LanguageName { get; }
-
-        /// <summary>
-        /// true if the language (and the module) support the creation uf user-defined functions,
-        /// false otherwise.
-        /// </summary>
-        bool SupportsFunctions { get; }
-
-        /// <summary>
-        /// true if the language (and the module) support the creation uf user-defined classes,
-        /// false otherwise.
-        /// </summary>
-        bool SupportsClasses { get; }
-
-        /// <summary>
-        /// true if the language (and the module) support the creation uf user-defined (goto-) labels,
-        /// false otherwise.
-        /// </summary>
-        bool SupportsLabels { get; }
 
         /// <summary>
         /// a image representing the service

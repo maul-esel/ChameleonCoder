@@ -2,6 +2,8 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
 using System.Linq;
 using System.Text;
@@ -16,23 +18,13 @@ namespace ChameleonCoder.LanguageModules
         private static Guid ActiveModule = Guid.Empty;
         private static LanguageModuleHost instance = new LanguageModuleHost();
 
-        internal static void Load()
+        internal static void Add(Type type)
         {
-            // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
-            var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Components", "*.dll")
-                         let a = Assembly.LoadFrom(dll)
-                         from t in a.GetTypes()
-                         where t.GetInterface(typeof(ILanguageModule).ToString()) != null
-                         select Activator.CreateInstance(t) as ILanguageModule;
-            // ... up to here ;-)
-
-            foreach (ILanguageModule module in result)
+            ILanguageModule module = Activator.CreateInstance(type) as ILanguageModule;
+            if (module != null)
             {
-                if (module != null)
-                {
-                    Modules.Add(module.Language, module);
-                    module.Initialize(instance as ILanguageModuleHost);
-                }
+                Modules.Add(module.Language, module);
+                module.Initialize(instance as ILanguageModuleHost);
             }
         }
 
@@ -88,7 +80,27 @@ namespace ChameleonCoder.LanguageModules
         int ILanguageModuleHost.MinSupportedAPIVersion { get { return 1; } }
         int ILanguageModuleHost.MaxSupportedAPIVersion { get { return 1; } }
 
-        void ILanguageModuleHost.AddButton(string text, System.Windows.Media.ImageSource Image, System.Windows.RoutedEventHandler clickHandler, int Panel)
+        void ILanguageModuleHost.RegisterTool()
+        {
+        }
+
+        void ILanguageModuleHost.RegisterCodeGenerator(Func<Guid, string> clicked, ImageSource image)
+        {
+        }
+
+        void ILanguageModuleHost.RegisterStubCreator(int index, Action<Guid> clicked)
+        {
+        }
+
+        void ILanguageModuleHost.RegisterStubCreator(ImageSource custom, Action<Guid> clicked)
+        {
+        }
+
+        void ILanguageModuleHost.RegisterEditTool()
+        {
+        }
+        
+        /*void ILanguageModuleHost.AddButton(string text, System.Windows.Media.ImageSource Image, System.Windows.RoutedEventHandler clickHandler, int Panel)
         {
             Microsoft.Windows.Controls.Ribbon.RibbonButton button = new Microsoft.Windows.Controls.Ribbon.RibbonButton();
 
@@ -103,7 +115,7 @@ namespace ChameleonCoder.LanguageModules
                 case 3: App.Gui.CustomGroup3.Items.Add(button); break;
                 default: throw new InvalidOperationException("invalid ribbon panel number: " + Panel);
             }
-        }
+        }*/
 
         string ILanguageModuleHost.GetCurrentEditText()
         {
@@ -142,19 +154,19 @@ namespace ChameleonCoder.LanguageModules
             throw new NotImplementedException();
         }
 
-        void IPluginHost.AddResource(Resources.Base.ResourceBase resource)
+        void IPluginHost.AddResource(IResource resource)
         {
             throw new NotImplementedException();
         }
 
-        void IPluginHost.AddResource(Resources.Base.ResourceBase resource, Guid parent)
+        void IPluginHost.AddResource(IResource resource, Guid parent)
         {
             throw new NotImplementedException();
         }
 
         Guid IPluginHost.GetCurrentResource()
         {
-            return ChameleonCoder.Resources.Base.ResourceManager.ActiveItem.GUID;
+            return ChameleonCoder.Resources.Management.ResourceManager.ActiveItem.GUID;
         }
 
         int IPluginHost.GetCurrentView()
@@ -164,7 +176,7 @@ namespace ChameleonCoder.LanguageModules
 
         IResource IPluginHost.GetResource(Guid ID)
         {
-            return ChameleonCoder.Resources.Base.ResourceManager.FlatList.GetInstance(ID);
+            return ChameleonCoder.Resources.Management.ResourceManager.FlatList.GetInstance(ID);
         }
         #endregion
 

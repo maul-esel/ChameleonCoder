@@ -14,8 +14,8 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         public string Name
         {
-            get { return this.XML.SelectSingleNode(this.XPath + "/@name").Value; }
-            private set { this.XML.SelectSingleNode(this.XPath + "/@name").Value = value; }
+            get { return this.XML.Attributes["name"].Value; }
+            private set { this.XML.Attributes["name"].Value = value; }
         }
 
         /// <summary>
@@ -23,28 +23,22 @@ namespace ChameleonCoder.Resources.Base
         /// </summary>
         public string Value
         {
-            get { return this.XML.SelectSingleNode(this.XPath).InnerText; }
-            private set { this.XML.SelectSingleNode(this.XPath).InnerText = value; }
+            get { return this.XML.InnerText; }
+            private set { this.XML.InnerText = value; }
         }
-
-        /// <summary>
-        /// contains the xpath to the element
-        /// </summary>
-        private string XPath { get; set; }
 
         /// <summary>
         /// the XmlDocument containing the definition of the metadata
         /// </summary>
-        private XmlDocument XML;
+        private XmlNode XML;
 
         /// <summary>
         /// creates a new instance of the Metadata class
         /// </summary>
         /// <param name="xmlnav">the XmlDocument that contains the element</param>
         /// <param name="xpath">the xpath to the element</param>
-        internal Metadata(ref XmlDocument xml, string xpath)
+        internal Metadata(XmlNode xml)
         {
-            this.XPath = xpath;
             this.XML = xml;
         }
 

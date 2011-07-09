@@ -20,8 +20,6 @@
         <conv:ResourceTypeConverter x:Key="TypeConverter"/><!--converts language-specific-->
         <conv:ResourceImageConverter x:Key="ImageConverter"/><!--converts type to image-->
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
-        <conv:PriorityConverter x:Key="PriorityConverter"/>
-        <conv:PropertyConverter x:Key="PropConv"/>
         <conv:ResourceTypeImageConverter x:Key="TypeImageConverter"/>
         <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>
 
@@ -33,7 +31,6 @@
                 <PropertyGroupDescription Converter="{StaticResource CustomGroupConverter}"/>
             </CollectionViewSource.GroupDescriptions>
             <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Type"/>
                 <scm:SortDescription PropertyName="Name"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
@@ -79,6 +76,20 @@
                         </ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
                     </ribbon:RibbonApplicationSplitMenuItem>
                     <ribbon:RibbonSeparator/>
+                    <ribbon:RibbonApplicationSplitMenuItem x:Name="MenuCreators"
+                                         ImageSource="Images\RibbonTab1\create.png"
+                                         Header="Create resource"
+                                         StaysOpenOnClick="True"
+                                         Click="CreateResource">
+                        <ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
+                    </ribbon:RibbonApplicationSplitMenuItem>
                     <ribbon:RibbonApplicationMenuItem x:Name="MenuCreate"
                                          ImageSource="Images\RibbonTab1\create.png"
                                          Header="Create resource"
@@ -108,51 +119,30 @@
             </ribbon:Ribbon.QuickAccessToolBar>
             <ribbon:RibbonTab x:Name="HomeTab" Header="Home">
                 <ribbon:RibbonGroup>
-                    <ribbon:RibbonCheckBox x:Name="HideFiles"
-                                                   Label="hide files"
-                                                   LargeImageSource="Images\LargeIcon.png"
-                                                   Unchecked="FilterChanged" Checked="FilterChanged"
-                                                   IsChecked="False"/>
-                    <ribbon:RibbonCheckBox x:Name="HideCodes"
-                                                   Label="hide codes"
-                                                   LargeImageSource="Images\LargeIcon.png"
-                                                   Unchecked="FilterChanged" Checked="FilterChanged"
-                                                   IsChecked="False"/>
-                    <ribbon:RibbonCheckBox x:Name="HideLibraries"
-                                                   Label="hide libraries"
-                                                   LargeImageSource="Images\LargeIcon.png"
-                                                   Unchecked="FilterChanged" Checked="FilterChanged"
-                                                   IsChecked="False"/>
-                    <ribbon:RibbonCheckBox x:Name="HideProjects"
-                                                   Label="hide projects"
-                                                   LargeImageSource="Images\LargeIcon.png"
-                                                   Unchecked="FilterChanged" Checked="FilterChanged"
-                                                   IsChecked="False"/>
-                    <ribbon:RibbonCheckBox x:Name="HideTasks"
-                                                   Label="hide tasks"
-                                                   LargeImageSource="Images\LargeIcon.png"
-                                                   Unchecked="FilterChanged" Checked="FilterChanged"
-                                                   IsChecked="False"/>
-                    <ribbon:RibbonToggleButton x:Name="ShowLinks"
-                                                   Label="show links"
-                                                   SmallImageSource="Images\SmallIcon.png"
-                                                   Unchecked="FilterChanged" Checked="FilterChanged"
-                                                   IsChecked="False"/>
                     <ribbon:RibbonToggleButton x:Name="EnableGroups"
                                                    Label="enable grouping"
                                                    LargeImageSource="Images\LargeIcon.png"
                                                    Unchecked="GroupsChanged" Checked="GroupsChanged"
                                                    IsChecked="True"/>
-                    <ribbon:RibbonComboBox x:Name="ShowTypesList">
-                        <ribbon:RibbonComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox x:Name="TChecked" Margin="1,1,5,1"/>
-                                    <TextBlock Text="{Binding Path=Name}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ribbon:RibbonComboBox.ItemTemplate>
-                    </ribbon:RibbonComboBox>
+                    <ribbon:RibbonMenuButton Label="show and hide" SmallImageSource="Images\LargeIcon.png" Margin="5,5,5,5">
+                        <ribbon:RibbonGallery>
+                            <ribbon:RibbonGalleryCategory x:Name="ShowTypesList">
+                                <ribbon:RibbonGalleryCategory.ItemTemplate>
+                                    <DataTemplate>
+                                        <ribbon:RibbonGalleryItem>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ribbon:RibbonCheckBox Margin="1,1,5,1"/>
+                                                <TextBlock Text="{Binding Path=Name}"/>
+                                            </StackPanel>
+                                        </ribbon:RibbonGalleryItem>
+                                    </DataTemplate>
+                                </ribbon:RibbonGalleryCategory.ItemTemplate>
+                            </ribbon:RibbonGalleryCategory>
+                        </ribbon:RibbonGallery>
+                    </ribbon:RibbonMenuButton>
+                    <ribbon:RibbonToggleButton x:Name="ShowLinks"
+                            Label="show links" SmallImageSource="Images\SmallIcon.png"
+                            Unchecked="FilterChanged" Checked="FilterChanged" IsChecked="False" Margin="5,5,5,5"/>
 
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="CustomGroup1" Header="custom"/>
@@ -323,7 +313,7 @@
                             <Image Source="{Binding Converter={StaticResource ImageConverter}}"
                                    Width="19" Height="19"/>
                         </Border>
-                        <Image Margin="5,0,0,0" Source="{Binding Converter={StaticResource PriorityConverter}}" Grid.Column="1" />
+                        <Image Source="{Binding Path=SpecialVisualProperty}" Margin="5,0,0,0" Grid.Column="1" MaxWidth="20" MaxHeight="20"/>
                         <TextBlock Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
                     </Grid>
                 </win:HierarchicalDataTemplate>
@@ -337,7 +327,7 @@
                  VirtualizingStackPanel.IsVirtualizing="True"
                  VirtualizingStackPanel.VirtualizationMode="Recycling">
             <ListBox.GroupStyle>
-                <GroupStyle>
+                <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
                             <Setter Property="Margin" Value="0,0,0,0"/>
@@ -371,7 +361,7 @@
             </ListBox.GroupStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="ItemBorder" CornerRadius="10"  Margin="5,5,5,5" Padding="2,2,2,2">
+                    <Border x:Name="ItemBorder" Background="{Binding Path=Info.Background}" CornerRadius="10"  Margin="5,5,5,5" Padding="2,2,2,2">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -389,26 +379,6 @@
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Description}"/>
                         </Grid>
                     </Border>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Path=Type}" Value="1">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#CCD3FF"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=Type}" Value="2">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#FFAC38"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=Type}" Value="3">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#99FFA4"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=Type}" Value="4">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#B2FFFF"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=Type}" Value="5">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#FFEE99"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=Type}" Value="6">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="#FF947F"/>
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -416,7 +386,6 @@
         <avalon:TextEditor x:Name="Editor" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"/>
 
         <ListView x:Name="PropertyGrid" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1"
-                  ItemsSource="{Binding ElementName=TreeView, Path=SelectedItem, Converter={StaticResource PropConv}}"
                   HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling">

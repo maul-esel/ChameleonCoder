@@ -28,5 +28,15 @@ namespace ChameleonCoder
         {
             return this.components.Values;
         }
+
+        public bool IsRegistered(TKey key)
+        {
+            return this.components.ContainsKey(key);
+        }
+
+        public bool IsRegistered(TValue value)
+        {
+            return this.components.ContainsValue(value);
+        }
     }
 }

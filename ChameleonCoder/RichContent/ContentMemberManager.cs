@@ -9,24 +9,12 @@ namespace ChameleonCoder.RichContent
     {
         private static ContentMemberCollection ContentMembers = new ContentMemberCollection();
 
-        internal static void Load()
+        internal static void RegisterComponent(Type component, string alias)
         {
-            var internMembers = from type in Assembly.GetEntryAssembly().GetTypes()
-                         where type.GetInterface(typeof(IContentMember).FullName) != null
-                         select type;
-
-            var externMembers = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Components", "*.dll")
-                         let assembly = Assembly.LoadFrom(dll)
-                         from type in assembly.GetTypes()
-                         where type.GetInterface(typeof(IContentMember).FullName) != null
-                         select type;
-
-            var members = internMembers.Concat(externMembers);
-
-            foreach (Type member in members)
+            if (component.GetInterface(typeof(IContentMember).FullName) != null
+                && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic)
             {
-                if (!member.IsAbstract && !member.IsInterface && !member.IsNotPublic)
-                    ContentMembers.RegisterMember(member);
+                ContentMembers.RegisterMember(alias, component);
             }
         }
     }

@@ -96,14 +96,7 @@ namespace ChameleonCoder
             this.IsEnabled = false;
             if (this.Validate())
             {
-                var properties = new
-                {
-                    DataFile = string.Empty,
-                    Name = ResourceName.Text,
-                    ResourceType = (Resources.Base.ResourceType)ResourceType.SelectedIndex + 1,
-                    GUID = new Guid(this.ResourceGUID.Text),
-                    Description = this.ResourceDescription
-                };
+                
             }
             this.IsEnabled = true;
         }

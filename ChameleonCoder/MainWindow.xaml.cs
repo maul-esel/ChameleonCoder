@@ -1,12 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
-using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Base;
-using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.LanguageModules;
+using ChameleonCoder.Resources.Collections;
+using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Services;
 using Microsoft.Windows.Controls.Ribbon;
 
@@ -22,6 +20,7 @@ namespace ChameleonCoder
             InitializeComponent();
 
             this.Editor.Visibility = System.Windows.Visibility.Hidden;
+            this.CurrentActionProgress.IsEnabled = false;
 
             this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
             this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
@@ -29,9 +28,6 @@ namespace ChameleonCoder
 
             ResourceManager.FlatList = (ResourceCollection)this.Resources["resources"];
             ResourceManager.children = (ResourceCollection)this.Resources["resourceHierarchy"];
-
-            this.TreeView.Items.SortDescriptions.Clear();
-            this.TreeView.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
             
             foreach (IService service in ServiceHost.GetServices())
                 this.MenuServices.Items.Add(service);
@@ -40,46 +36,33 @@ namespace ChameleonCoder
                 this.MenuServices.IsEnabled = false;
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
+            {
                 this.ShowTypesList.Items.Add(t);
-            
+                this.MenuCreators.Items.Add(t);
+            }
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)
         {
+            this.CurrentActionProgress.IsEnabled = true;
             ServiceHost.CallService(new Guid());
+            
+            // sleep while (service.IsBusy)
+            this.CurrentActionProgress.IsEnabled = false;
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {
-            ResourceBase resource = e.Item as ResourceBase;
+            IResource resource = e.Item as IResource;
             e.Accepted = true;
 
-            switch (resource.Type)
+            if (resource is IResolvable && !this.ShowLinks.IsChecked == true)
             {
-                case ResourceType.link:
-                    if (this.ShowLinks.IsChecked == false)
-                        e.Accepted = false;
-                    break;
-                case ResourceType.file:
-                    if (this.HideFiles.IsChecked == true)
-                        e.Accepted = false;
-                    break;
-                case ResourceType.code:
-                    if (this.HideCodes.IsChecked == true)
-                        e.Accepted = false;
-                    break;
-                case ResourceType.library:
-                    if (this.HideLibraries.IsChecked == true)
-                        e.Accepted = false;
-                    break;
-                case ResourceType.project:
-                    if (this.HideProjects.IsChecked == true)
-                        e.Accepted = false;
-                    break;
-                case ResourceType.task:
-                    if (this.HideTasks.IsChecked == true)
-                        e.Accepted = false;
-                    break;
+                e.Accepted = false;
+            }
+            else
+            {
+                // check if corresponding type is checked in ShowTypesList
             }
         }
 
@@ -109,12 +92,11 @@ namespace ChameleonCoder
             {
                 LanguageModuleHost.UnloadModule();
 
-                //resource.Open();
-
                 ResourceManager.ActiveItem = resource;
 
-                if (resource is ILanguageResource)
-                    LanguageModuleHost.LoadModule((resource as ILanguageResource).language);
+                ILanguageResource languageResource;
+                if ((languageResource = resource as ILanguageResource) != null)
+                    LanguageModuleHost.LoadModule(languageResource.language);
                 
                 this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
 
@@ -130,27 +112,25 @@ namespace ChameleonCoder
         {
             if (ResourceManager.ActiveItem != null)
             {
-                FileResource resource = null;
+                IResource resource = ResourceManager.ActiveItem;
+                IResolvable link;
 
-                if (ResourceManager.ActiveItem is FileResource)
-                    resource = (FileResource)ResourceManager.ActiveItem;
-                else if (ResourceManager.ActiveItem is LinkResource && ((LinkResource)ResourceManager.ActiveItem).Resolve() is FileResource)
-                    resource = (FileResource)((LinkResource)ResourceManager.ActiveItem).Resolve();
+                while ((link = resource as IResolvable) != null && link.shouldResolve)
+                    resource = link.Resolve();
 
-                if (resource != null)
+                IEditable editResource = resource as IEditable;
+
+                if (editResource != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(resource.Path) && System.IO.File.Exists(resource.Path))
-                    {
-                        this.Editor.Load(resource.Path);
+                    this.Editor.Text = editResource.GetText();
 
-                        this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
+                    this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
 
-                        this.Editor.Visibility = System.Windows.Visibility.Visible;
+                    this.Editor.Visibility = System.Windows.Visibility.Visible;
 
-                        this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
-                        this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
-                        this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
-                    }
+                    this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
+                    this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
+                    this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
                 }
             }
         }
@@ -158,19 +138,10 @@ namespace ChameleonCoder
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (this.EnableGroups.IsChecked == false)
-            {
                 CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).GroupDescriptions.Clear();
-            }
-            else if (this.EnableGroups.IsChecked == true)
-            {
-                if (this.ResourceList != null)
-                {
-                    object source = this.ResourceList.ItemsSource;
-                    if (source != null)
-                        CollectionViewSource.GetDefaultView(source).GroupDescriptions.Add(new PropertyGroupDescription("Type"));
-                }
-            }
 
+            else if (this.EnableGroups.IsChecked == true && this.IsInitialized)
+                CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter()));
         }
 
         private void FilterChanged(object sender, RoutedEventArgs e)
@@ -191,7 +162,7 @@ namespace ChameleonCoder
 
         private void CreateResource(object sender, RoutedEventArgs e)
         {
-            ResourceCreator creator = new ResourceCreator();
+            //(this.MenuCreators.Items.CurrentItem as IResource).Create(); // NullRefException
         }
     }
 }

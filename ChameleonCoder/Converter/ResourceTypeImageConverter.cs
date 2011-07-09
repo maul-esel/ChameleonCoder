@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Interfaces;
 using System.Windows.Media;
+using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Converter
 {
@@ -10,19 +11,7 @@ namespace ChameleonCoder.Converter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            Type type = value as Type;
-            IResolvable link;
-            IResource resource;
-
-            if (type != null)
-            {
-                while ((link = (resource = Activator.CreateInstance(type) as IResource) as IResolvable) != null && link.shouldResolve)
-                    type = link.Resolve().GetType();
-
-                return (Activator.CreateInstance(type) as IResource).TypeIcon;
-            }
-
-            return null;
+            return ResourceTypeManager.GetInfo(value as Type).TypeIcon;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

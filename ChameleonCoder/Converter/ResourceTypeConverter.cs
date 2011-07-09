@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
 {
@@ -12,7 +12,7 @@ namespace ChameleonCoder.Converter
             Type type = value as Type;
 
             if (type != null)
-                return (Activator.CreateInstance(type) as IResource).DisplayName;
+                return ResourceTypeManager.GetInfo(type).DisplayName;
 
             return null;
         }

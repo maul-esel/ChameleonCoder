@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Services
@@ -16,23 +12,13 @@ namespace ChameleonCoder.Services
         private static Guid ActiveService = Guid.Empty;
         private static ServiceHost instance = new ServiceHost();
 
-        internal static void Load()
+        internal static void Add(Type type)
         {
-            // code from http://dotnet-snippets.de/dns/c-search-plugin-dlls-with-one-line-SID1089.aspx, slightly modified
-            var result = from dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Components", "*.dll")
-                          let a = Assembly.LoadFrom(dll)
-                          from t in a.GetTypes()
-                          where t.GetInterface(typeof(IService).ToString()) != null
-                          select Activator.CreateInstance(t) as IService;
-            // ... up to here ;-)
-
-            foreach (IService service in result)
+            IService service = Activator.CreateInstance(type) as IService;
+            if (service != null)
             {
-                if (service != null)
-                {
-                    Services.Add(service.Service, service);
-                    service.Initialize(instance as IServiceHost);
-                }
+                Services.Add(service.Service, service);
+                service.Initialize(instance as IServiceHost);
             }
         }
 
@@ -84,19 +70,19 @@ namespace ChameleonCoder.Services
             throw new NotImplementedException();
         }
 
-        void IPluginHost.AddResource(Resources.Base.ResourceBase resource)
+        void IPluginHost.AddResource(IResource resource)
         {
             throw new NotImplementedException();
         }
 
-        void IPluginHost.AddResource(Resources.Base.ResourceBase resource, Guid parent)
+        void IPluginHost.AddResource(IResource resource, Guid parent)
         {
             throw new NotImplementedException();
         }
 
         Guid IPluginHost.GetCurrentResource()
         {
-            return ChameleonCoder.Resources.Base.ResourceManager.ActiveItem.GUID;
+            return ChameleonCoder.Resources.Management.ResourceManager.ActiveItem.GUID;
         }
 
         int IPluginHost.GetCurrentView()
@@ -106,7 +92,7 @@ namespace ChameleonCoder.Services
 
         IResource IPluginHost.GetResource(Guid ID)
         {
-            return ChameleonCoder.Resources.Base.ResourceManager.FlatList.GetInstance(ID);
+            return ChameleonCoder.Resources.Management.ResourceManager.FlatList.GetInstance(ID);
         }
         #endregion
     }

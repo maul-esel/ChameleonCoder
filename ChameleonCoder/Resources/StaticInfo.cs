@@ -9,8 +9,8 @@ namespace ChameleonCoder.Resources
 
         public string DisplayName;
 
-        public Guid GUID;
-
         public ImageSource TypeIcon;
+
+        public Brush Background;
     }
 }

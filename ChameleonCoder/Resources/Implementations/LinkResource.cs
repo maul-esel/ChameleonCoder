@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Windows.Media;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
-using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Resources.Implementations
 {
     /// <summary>
     /// a class representing a resource that serves as link to another resource
@@ -18,20 +19,28 @@ namespace ChameleonCoder.Resources
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        internal LinkResource(ref XmlDocument xml, string xpath, string datafile) : base(ref xml, xpath, datafile)
+        public LinkResource(XmlNode node)
+            : base(node)
         {
-            this.Type = ResourceType.link;
         }
-
-        public LinkResource() { }
 
         #region IResource
 
-        public override string Alias { get { return "link"; } }
-
         public override ImageSource Icon { get { return this.Resolve().Icon; } }
 
-        public override ImageSource TypeIcon { get { return this.Resolve().TypeIcon; } }
+        public override ImageSource SpecialVisualProperty
+        {
+            get
+            {
+                IResource resource = this;
+                IResolvable link;
+
+                while ((link = resource as IResolvable) != null && link.shouldResolve)
+                    resource = link.Resolve();
+
+                return resource.SpecialVisualProperty;
+            }
+        }
 
         #endregion
 
@@ -53,29 +62,27 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// the name of the link which can either be an own, independant name or the destination's name
         /// </summary>
-        public new string Name
+        public override string Name
         {
             get
             {
                 string result = string.Empty;
-                try
-                {
-                    result = base.Name;
-                }
+
+                try { result = base.Name; }
                 catch (NullReferenceException) { }
+
                 if (!string.IsNullOrWhiteSpace(result))
                     return result;
-                try
-                {
-                    result = this.Resolve().Name;
-                }
+
+                try { result = this.Resolve().Name; }
                 catch (NullReferenceException) { }
+
                 return result;
             }
-            private set { base.Name = value; }
+            protected set { base.Name = value; }
         }
 
-        public new string Description
+        public override string Description
         {
             get
             {
@@ -94,17 +101,12 @@ namespace ChameleonCoder.Resources
                 catch (NullReferenceException) { }
                 return result;
             }
-            private set { base.Description = value; }
+            protected set { base.Description = value; }
         }
 
         
 
         #region methods
-
-        public override void Open()
-        {
-            this.Resolve().Open();
-        }
 
         public override void Package()
         {
@@ -126,8 +128,8 @@ namespace ChameleonCoder.Resources
         /// </summary>
         private Guid Destination
         {
-            get { return new Guid(this.XML.SelectSingleNode(this.XPath + "/@destination").Value); }
-            set { this.XML.SelectSingleNode(this.XPath + "/@destination").Value = value.ToString(); }
+            get { return new Guid(this.XMLNode.Attributes["destination"].Value); }
+            set { this.XMLNode.Attributes["destination"].Value = value.ToString(); }
         }
     }
 }

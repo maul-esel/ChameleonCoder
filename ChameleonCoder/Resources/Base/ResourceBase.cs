@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Controls;
-using System.Xml;
+using System.ComponentModel;
 using System.Windows.Media;
+using System.Xml;
 using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Base
 {
     /// <summary>
-    /// an abstract class for resources
+    /// an abstract base class for resources
     /// </summary>
-    public abstract partial class ResourceBase : IResource
+    public abstract partial class ResourceBase : IResource, INotifyPropertyChanged
     {
         /// <summary>
         /// serves as base constructor for inherited classes and sets general properties
@@ -23,59 +25,58 @@ namespace ChameleonCoder.Resources.Base
             this.GUID = new Guid(node.Attributes["guid"].Value);
 
             this.MetaData = new MetadataCollection();
-
-            int i = 0;
-            Metadata data;
-            try
-            {
-                foreach (XmlNode meta in node.SelectNodes("/metadata")) //this.XML.SelectNodes(this.XPath + "/metadata"))
-                {
-                    i++;
-                    System.Windows.MessageBox.Show(meta.Attributes["name"] + " = " + meta.Value);
-                    //this.MetaData.Add(data = new Metadata(ref xml, this.XPath + "/metadata[" + i + "]"));
-                }
-            }
-            catch { }
+            foreach (XmlNode meta in (from XmlNode meta in node.ChildNodes
+                                      where meta.Name == "metadata"
+                                      select meta))
+                this.MetaData.Add(new Metadata(meta));
 
             this.children = new Collections.ResourceCollection();
         }
 
-        public ResourceBase() { }
-
-        XmlNode XMLNode;
+        protected XmlNode XMLNode;
 
         #region IResource
 
         public abstract ImageSource Icon { get; }
 
-        public abstract StaticInfo Info { get; }
+        /// <summary>
+        /// the GUID that uniquely identifies the resource
+        /// </summary>
+        public Guid GUID { get; protected set; }
+
+        public virtual ImageSource SpecialVisualProperty { get { return null; } }
 
         /// <summary>
         /// saves the information changed through the UI to the current instance and its XML representation
         /// </summary>
         public virtual void Save()
         {
-            this.XML.SelectSingleNode(this.XPath + "/@data-type").Value = ((int)this.Type).ToString();
-
             foreach (Metadata data in this.MetaData)
             {
                 data.Save(); // changes through the UI should be saved when they occur or through binding
             }
-
-            System.IO.File.WriteAllText(this.DataFile, this.XMLNode.OwnerDocument.DocumentElement.OuterXml);
+            this.XMLNode.OwnerDocument.Save(new System.Uri(this.XMLNode.BaseURI).LocalPath);
         }
 
         #endregion 
 
-        /// <summary>
-        /// the file that contains the resources definition
-        /// </summary>
-        internal string DataFile { get; private set; }
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            System.ComponentModel.PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(name));
+        }
+
+        #endregion
 
         /// <summary>
         /// the display name of the resource
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -85,30 +86,15 @@ namespace ChameleonCoder.Resources.Base
                 }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            protected internal set { this.XMLNode.Attributes["name"].Value = value; }
+            protected set { this.XMLNode.Attributes["name"].Value = value; }
         }
 
-        /// <summary>
-        /// the GUID that uniquely identifies the resource
-        /// </summary>
-        public Guid GUID { get; private set; }
-
-        /// <summary>
-        /// defines the resource's type
-        /// </summary>
-        [Obsolete()]
-        public ResourceType Type { get; protected internal set; }
-
-        /// <summary>
-        /// the XPath to the resource's definition in the datafile
-        /// </summary>
-        [Obsolete()]
-        internal string XPath { get; private set; }
+        
 
         /// <summary>
         /// a short description of the resource
         /// </summary>
-        public string Description
+        public virtual string Description
         {
             get
             {
@@ -118,18 +104,18 @@ namespace ChameleonCoder.Resources.Base
                 }
                 catch (NullReferenceException) { return null; }
             }
-            protected internal set { this.XMLNode.Attributes["description"].Value = value; }
+            protected set { this.XMLNode.Attributes["description"].Value = value; }
         }
 
         /// <summary>
         /// the associated metadata as Metadata class instances
         /// </summary>
-        public MetadataCollection MetaData { get; protected internal set; }
+        public virtual MetadataCollection MetaData { get; protected internal set; }
 
         /// <summary>
         /// any notes related to the resource
         /// </summary>
-        public string Notes
+        public virtual string Notes
         {
             get
             {
@@ -140,39 +126,12 @@ namespace ChameleonCoder.Resources.Base
         }
 
         /// <summary>
-        /// the XmlDocument used to navigat through the resource's contents
-        /// </summary>
-        protected internal XmlDocument XML { get; set; }
-
-        /// <summary>
         /// a ResourceCollection containing the children resources
         /// </summary>
-        public Resources.Collections.ResourceCollection children { get; protected internal set; }
+        public virtual ResourceCollection children { get; protected set; }
 
 
         #region methods
-
-        /// <summary>
-        /// opens a resource
-        /// </summary>
-        public virtual void Open()
-        {
-            App.Gui.PropertyGrid.Items.Clear();
-
-            // maybe this could be done with binding and several data templates.
-            // Currently it doesn't work because the contents are not added (see comments).
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Name"), this.Name }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("ResourceType"), ToString(this.Type) }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Tree"), "/" + this.Node.FullPath }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("Description"), this.Description }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("DataFile"), this.DataFile }));
-
-            App.Gui.PropertyGrid.Items.Add(new ListViewItem()); //new string[] { Localization.get_string("GUID"), this.GUID.ToString() }));
-        }
 
         /// <summary>
         /// packages a resource into a zip file,
@@ -261,6 +220,9 @@ namespace ChameleonCoder.Resources.Base
         {
             
         }
+
+        public IResource Create() { System.Windows.MessageBox.Show("creation..."); return null; }
+        public bool AddRichContentMember(ChameleonCoder.RichContent.IContentMember member) { return false; }
 
         /// <summary>
         /// overrides object.ToString()

@@ -1,7 +1,7 @@
 ﻿using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Collections;
 
-namespace ChameleonCoder.Resources.Base
+namespace ChameleonCoder.Resources.Management
 {
     internal class ResourceManager
     {

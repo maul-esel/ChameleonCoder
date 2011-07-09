@@ -27,9 +27,9 @@ namespace ChameleonCoder.Resources.Collections
             {
                 this.instances.Add(instance.GUID, instance);
             }
-            catch (System.ArgumentException)
+            catch (System.ArgumentException e)
             {
-                System.Windows.MessageBox.Show("duplicate resource GUID!");
+                System.Windows.MessageBox.Show("duplicate resource GUID!\n\n" + e.Message);
                 throw;
             }
 
@@ -55,8 +55,9 @@ namespace ChameleonCoder.Resources.Collections
         internal IResource GetInstance(Guid ID)
         {
             IResource instance;
-            this.instances.TryGetValue(ID, out instance);
-            return instance;
+            if (this.instances.TryGetValue(ID, out instance))
+                return instance;
+            return null;
         }
     }
 }

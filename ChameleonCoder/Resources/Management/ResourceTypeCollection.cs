@@ -1,13 +1,12 @@
 ﻿using System;
-using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Resources.Management
 {
     internal sealed class ResourceTypeCollection : ComponentCollection<string, Type>
     {
-        internal void RegisterResourceType(Type resourceType)
+        internal void RegisterResourceType(string key, Type resourceType)
         {
-            base.RegisterComponent((Activator.CreateInstance(resourceType) as IResource).Alias, resourceType);
+            base.RegisterComponent(key, resourceType);
         }
 
         internal Type GetResourceType(string alias)
