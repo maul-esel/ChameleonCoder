@@ -23,6 +23,7 @@ namespace ChameleonCoder.Resources.Implementations
         public CodeResource(XmlNode node)
             : base(node)
         {
+            this.compatibleLanguages = new List<Guid>();
         }
 
         #region IResource
@@ -63,8 +64,11 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                string result;
-                result = this.XMLNode.Attributes["compilation-path"].Value;
+                string result = null;
+
+                try { result = this.XMLNode.Attributes["compilation-path"].Value; }
+                catch (NullReferenceException) { }
+
                 if (string.IsNullOrWhiteSpace(result))
                     result = this.Path + ".exe";
                 return result;
@@ -88,6 +92,35 @@ namespace ChameleonCoder.Resources.Implementations
         public void SaveText(string text)
         {
             System.IO.File.WriteAllText(this.Path, text);
+        }
+
+        #endregion
+
+        #region IEnumerable
+
+        System.Collections.IEnumerator baseEnum;
+
+        public override System.Collections.IEnumerator GetEnumerator()
+        {
+            this.baseEnum = base.GetEnumerator();
+            while (baseEnum.MoveNext())
+                yield return baseEnum.Current;
+
+            string langName = null;
+            try { langName = LanguageModules.LanguageModuleHost.GetModule(this.language).LanguageName; }
+            catch (NullReferenceException) { }
+
+            yield return new { Name = "language", Value = langName, Group = "source code" };
+
+            string list = string.Empty;
+            foreach (Guid lang in this.compatibleLanguages)
+            {
+                try { list += LanguageModules.LanguageModuleHost.GetModule(lang).LanguageName + "; "; }
+                catch (NullReferenceException) { }
+            }
+
+            yield return new { Name = "compatible languages", Value = list, Group = "source code" };
+            yield return new { Name = "compilation path", Value = this.compilationPath, Group = "source code" };
         }
 
         #endregion

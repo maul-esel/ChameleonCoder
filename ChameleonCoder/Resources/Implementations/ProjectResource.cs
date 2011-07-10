@@ -23,6 +23,7 @@ namespace ChameleonCoder.Resources.Implementations
         public ProjectResource(XmlNode node)
             : base(node)
         {
+            this.compatibleLanguages = new List<Guid>();
         }
 
         #region IResource
@@ -71,12 +72,46 @@ namespace ChameleonCoder.Resources.Implementations
         /// </summary>
         public string compilationPath
         {
-            get { return this.XMLNode.Attributes["compilation-path"].Value; }
+            get
+            {
+                try { return this.XMLNode.Attributes["compilation-path"].Value; }
+                catch (NullReferenceException) { return null; }
+            }
             protected set
             {
                 this.XMLNode.Attributes["compilation-path"].Value = value;
                 this.OnPropertyChanged("compilationPath");
             }
+        }
+
+        #endregion
+
+        #region IEnumerable
+
+        System.Collections.IEnumerator baseEnum;
+
+        public override System.Collections.IEnumerator GetEnumerator()
+        {
+            this.baseEnum = base.GetEnumerator();
+            while (baseEnum.MoveNext())
+                yield return baseEnum.Current;
+
+            string langName = null;
+            try { langName = LanguageModules.LanguageModuleHost.GetModule(this.language).LanguageName; }
+            catch(NullReferenceException) { }
+
+            yield return new { Name = "language", Value = langName, Group = "project" };
+
+            string list = string.Empty;
+            foreach (Guid lang in this.compatibleLanguages)
+            {
+                try { list += LanguageModules.LanguageModuleHost.GetModule(lang).LanguageName + "; "; }
+                catch (NullReferenceException) { }
+            }
+
+            yield return new { Name = "compatible languages", Value = list, Group = "project" };
+
+            yield return new { Name = "compilation path", Value = this.compilationPath, Group = "project" };
         }
 
         #endregion

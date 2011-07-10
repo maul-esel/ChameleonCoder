@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
@@ -11,7 +12,7 @@ namespace ChameleonCoder.Resources.Base
     /// <summary>
     /// an abstract base class for resources
     /// </summary>
-    public abstract partial class ResourceBase : IResource, INotifyPropertyChanged
+    public abstract partial class ResourceBase : IResource, INotifyPropertyChanged, IEnumerable
     {
         /// <summary>
         /// serves as base constructor for inherited classes and sets general properties
@@ -142,6 +143,17 @@ namespace ChameleonCoder.Resources.Base
             System.ComponentModel.PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(name));
+        }
+
+        #endregion
+
+        #region IEnumerable
+
+        public virtual IEnumerator GetEnumerator()
+        {
+            yield return new { Name = "name", Value = this.Name, Group = "General" };
+            yield return new { Name = "GUID", Value = this.GUID.ToString("b"), Group = "General" };
+            yield return new { Name = "Description", Value = this.Description, Group = "General" };
         }
 
         #endregion

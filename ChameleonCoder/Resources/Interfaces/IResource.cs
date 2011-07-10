@@ -4,7 +4,7 @@ using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IResource
+    public interface IResource : System.Collections.IEnumerable
     {
         /// <summary>
         /// the resource's icon in the main treeview

@@ -21,6 +21,21 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
+        #region IEnumerable
+
+        System.Collections.IEnumerator baseEnum;
+
+        public override System.Collections.IEnumerator GetEnumerator()
+        {
+            this.baseEnum = base.GetEnumerator();
+            while (baseEnum.MoveNext())
+                yield return baseEnum.Current;
+
+            yield return new { Name = "path", Value = this.Path, Group = "File" };
+        }
+
+        #endregion
+
         /// <summary>
         /// the path to the file represented by the resource
         /// </summary>

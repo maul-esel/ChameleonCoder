@@ -104,6 +104,21 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
+        #region IEnumerable
+
+        System.Collections.IEnumerator baseEnum;
+
+        public override System.Collections.IEnumerator GetEnumerator()
+        {
+            this.baseEnum = base.GetEnumerator();
+            while (baseEnum.MoveNext())
+                yield return baseEnum.Current;
+
+            yield return new { Name = "Destination", Value = this.Destination.ToString("b"), Group = "link" };
+        }
+
+        #endregion
+
         /// <summary>
         /// the GUID of the resource the link points to
         /// </summary>

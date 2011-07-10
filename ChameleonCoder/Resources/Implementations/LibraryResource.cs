@@ -27,9 +27,30 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
+        System.Collections.IEnumerator baseEnum;
+
+        #region IEnumerable
+
+        public override System.Collections.IEnumerator GetEnumerator()
+        {
+            this.baseEnum = base.GetEnumerator();
+            while (baseEnum.MoveNext())
+                yield return baseEnum.Current;
+
+            yield return new { Name = "author", Value = this.Author, Group = "library" };
+            yield return new { Name = "license", Value = this.License, Group = "library" };
+            yield return new { Name = "version", Value = this.Version, Group = "library" };
+        }
+
+        #endregion
+
         public string Author
         {
-            get { return this.XMLNode.Attributes["author"].Value; }
+            get
+            {
+                try { return this.XMLNode.Attributes["author"].Value; }
+                catch (NullReferenceException) { return null; }
+            }
             protected set
             {
                 this.XMLNode.Attributes["author"].Value = value;
@@ -39,7 +60,11 @@ namespace ChameleonCoder.Resources.Implementations
 
         public string License
         {
-            get { return this.XMLNode.Attributes["license"].Value; }
+            get
+            {
+                try { return this.XMLNode.Attributes["license"].Value; }
+                catch (NullReferenceException) { return null; }
+            }
             protected set
             {
                 this.XMLNode.Attributes["license"].Value = value;
@@ -49,7 +74,11 @@ namespace ChameleonCoder.Resources.Implementations
 
         public string Version
         {
-            get { return this.XMLNode.Attributes["version"].Value; }
+            get
+            {
+                try { return this.XMLNode.Attributes["version"].Value; }
+                catch (NullReferenceException) { return null; }
+            }
             protected set
             {
                 this.XMLNode.Attributes["version"].Value = value;
