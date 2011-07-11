@@ -8,6 +8,7 @@ namespace ChameleonCoder.RichContent
         /// <summary>
         /// the alias thnat is used as key-name in XML
         /// </summary>
+        [Obsolete]
         string Alias { get; }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace ChameleonCoder.RichContent
         /// This is intended for language-specific types such as "XmlNode" or "IniSection".
         /// To allow all languages, use Guid.Empty.
         /// </summary>
+        [Obsolete]
         Guid RequiredLanguage { get; }
     }
 }
