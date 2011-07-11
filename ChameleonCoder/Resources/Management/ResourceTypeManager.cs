@@ -17,7 +17,10 @@ namespace ChameleonCoder.Resources.Management
 
         internal static IResource CreateInstanceOf(string alias, params object[] parameters)
         {
-            return (IResource)Activator.CreateInstance(ResourceTypes.GetResourceType(alias), parameters);
+            Type type = ResourceTypes.GetResourceType(alias);
+            if (type == null)
+                return null;
+            return (IResource)Activator.CreateInstance(type, parameters);
         }
 
         internal static IEnumerable<Type> GetResourceTypes()

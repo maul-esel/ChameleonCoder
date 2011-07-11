@@ -108,6 +108,13 @@
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
     <Compile Include="Resources\Base\StaticInfo.cs" />
     <Compile Include="RichContent\ContentMemberManager.cs" />
+    <Compile Include="RichContent\Implementations\ClassMember.cs" />
+    <Compile Include="RichContent\Implementations\FieldMember.cs" />
+    <Compile Include="RichContent\Implementations\MethodMember.cs" />
+    <Compile Include="RichContent\Implementations\ParameterMember.cs" />
+    <Compile Include="RichContent\Implementations\PropertyMember.cs" />
+    <Compile Include="RichContent\Implementations\ReturnValueMember.cs" />
+    <Compile Include="RichContent\Implementations\VariableMember.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceHost.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
@@ -138,7 +145,7 @@
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="RichContent\ContentMemberCollection.cs" />
-    <Compile Include="RichContent\FunctionMember.cs" />
+    <Compile Include="RichContent\Implementations\FunctionMember.cs" />
     <Compile Include="RichContent\IContentMember.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">

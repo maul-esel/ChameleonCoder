@@ -51,7 +51,6 @@ namespace ChameleonCoder
                 foreach (string file in files)
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.PreserveWhitespace = true;
 
                     try { doc.Load(file); }
                     catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); continue; }
@@ -65,8 +64,11 @@ namespace ChameleonCoder
         {
             IResource resource;
 
-            try { resource = ResourceTypeManager.CreateInstanceOf(node.LocalName, node); }
-            catch (ArgumentNullException) { return false; }
+            resource = ResourceTypeManager.CreateInstanceOf(node.Name, node);
+            if (resource == null)
+                resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
+            if (resource == null)
+                return false;
 
             ResourceManager.Add(resource, parent);
 

@@ -10,19 +10,6 @@
             <TextBlock Text="Fill in all the fields and then click 'create the resource'" Margin="5,5,15,5"/>
         </Border>
 
-        <Border Name="LinkProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid Margin="50,0,50,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-            </Grid>
-        </Border>
-        
         <Border Name="ResourceProperties" BorderBrush="Black" BorderThickness="0.25">
             <Grid Margin="50,0,50,0">
                 <Grid.ColumnDefinitions>
@@ -102,6 +89,19 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Description:" VerticalAlignment="Top"/>
                 <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Name="ResourceDescription" Margin="5,5,5,5" VerticalAlignment="Top"/>
+            </Grid>
+        </Border>
+
+        <Border Name="LinkProperties" BorderBrush="Black" BorderThickness="0.25">
+            <Grid Margin="50,0,50,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
             </Grid>
         </Border>
 

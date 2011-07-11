@@ -164,6 +164,7 @@ namespace ChameleonCoder
         private void CreateResource(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(MenuCreators.Items.CurrentPosition.ToString());
+            MessageBox.Show(e.OriginalSource.ToString());
             //(this.MenuCreators.Items.CurrentItem as IResource).Create(); // NullRefException
         }
     }
