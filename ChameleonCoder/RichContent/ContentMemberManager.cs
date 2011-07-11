@@ -17,5 +17,13 @@ namespace ChameleonCoder.RichContent
                 ContentMembers.RegisterMember(alias, component);
             }
         }
+
+        internal static IContentMember CreateInstanceOf(string alias, params object[] parameters)
+        {
+            Type member = ContentMembers.GetMember(alias);
+            if (member == null)
+                return null;
+            return (IContentMember)Activator.CreateInstance(member, parameters);
+        }
     }
 }

@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="IPluginHost.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleCollection.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
+    <Compile Include="Resources\Base\PropertyDescription.cs" />
     <Compile Include="Resources\Implementations\GroupResource.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Management\ResourceProvider.cs" />

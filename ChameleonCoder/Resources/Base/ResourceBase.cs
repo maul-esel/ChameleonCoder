@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
@@ -12,7 +12,7 @@ namespace ChameleonCoder.Resources.Base
     /// <summary>
     /// an abstract base class for resources
     /// </summary>
-    public abstract partial class ResourceBase : IResource, INotifyPropertyChanged, IEnumerable
+    public abstract partial class ResourceBase : IResource, INotifyPropertyChanged
     {
         /// <summary>
         /// serves as base constructor for inherited classes and sets general properties
@@ -147,13 +147,18 @@ namespace ChameleonCoder.Resources.Base
 
         #endregion
 
-        #region IEnumerable
+        #region IEnumerable<T>
 
-        public virtual IEnumerator GetEnumerator()
+        public virtual IEnumerator<PropertyDescription> GetEnumerator()
         {
-            yield return new { Name = "name", Value = this.Name, Group = "General" };
-            yield return new { Name = "GUID", Value = this.GUID.ToString("b"), Group = "General" };
-            yield return new { Name = "Description", Value = this.Description, Group = "General" };
+            yield return new PropertyDescription("name", this.Name, "General");
+            yield return new PropertyDescription("GUID", this.GUID.ToString("b"), "General");
+            yield return new PropertyDescription("Description", this.Description, "General");
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return (System.Collections.IEnumerator)this.GetEnumerator();
         }
 
         #endregion

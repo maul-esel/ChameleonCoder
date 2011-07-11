@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
-using ChameleonCoder.Resources.Base;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Resources.Implementations
 {
@@ -98,11 +97,9 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IEnumerable
 
-        System.Collections.IEnumerator baseEnum;
-
-        public override System.Collections.IEnumerator GetEnumerator()
+        public override IEnumerator<PropertyDescription> GetEnumerator()
         {
-            this.baseEnum = base.GetEnumerator();
+            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
@@ -110,7 +107,7 @@ namespace ChameleonCoder.Resources.Implementations
             try { langName = LanguageModules.LanguageModuleHost.GetModule(this.language).LanguageName; }
             catch (NullReferenceException) { }
 
-            yield return new { Name = "language", Value = langName, Group = "source code" };
+            yield return new PropertyDescription("language", langName, "source code");
 
             string list = string.Empty;
             foreach (Guid lang in this.compatibleLanguages)
@@ -119,8 +116,8 @@ namespace ChameleonCoder.Resources.Implementations
                 catch (NullReferenceException) { }
             }
 
-            yield return new { Name = "compatible languages", Value = list, Group = "source code" };
-            yield return new { Name = "compilation path", Value = this.compilationPath, Group = "source code" };
+            yield return new PropertyDescription("compatible languages", list, "source code");
+            yield return new PropertyDescription("compilation path", this.compilationPath, "source code");
         }
 
         #endregion

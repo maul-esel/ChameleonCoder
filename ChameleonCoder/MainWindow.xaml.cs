@@ -37,7 +37,8 @@ namespace ChameleonCoder
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
-                this.ShowTypesList.Items.Add(t);
+                //this.ShowTypesList.Items.Add(t);
+                this.visTypes.Items.Add(t);
                 this.MenuCreators.Items.Add(t);
             }
         }
@@ -162,6 +163,7 @@ namespace ChameleonCoder
 
         private void CreateResource(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show(MenuCreators.Items.CurrentPosition.ToString());
             //(this.MenuCreators.Items.CurrentItem as IResource).Create(); // NullRefException
         }
     }

@@ -13,7 +13,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "link",
-                    Background = Brushes.CadetBlue,
+                    Background = Brushes.LightGreen,
                     DisplayName = "link",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")) });
 
@@ -21,7 +21,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "file",
-                    Background = Brushes.Azure,
+                    Background = Brushes.BurlyWood,
                     DisplayName = "file",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")) });
 
@@ -29,7 +29,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "code",
-                    Background = Brushes.AliceBlue,
+                    Background = Brushes.LightSalmon,
                     DisplayName = "code",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/code.png")) });
 
@@ -37,7 +37,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "library",
-                    Background = Brushes.Beige,
+                    Background = Brushes.SandyBrown,
                     DisplayName = "library",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/library.png")) });
 
@@ -45,7 +45,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "project",
-                    Background = Brushes.BurlyWood,
+                    Background = Brushes.Khaki,
                     DisplayName = "project",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")) });
 
@@ -53,7 +53,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "task",
-                    Background = Brushes.Coral,
+                    Background = Brushes.LightCoral,
                     DisplayName = "task",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/task.png")) });
 
@@ -61,7 +61,7 @@ namespace ChameleonCoder.Resources.Management
                 new Base.StaticInfo()
                 {
                     Alias = "group",
-                    Background = Brushes.Chocolate,
+                    Background = Brushes.DodgerBlue,
                     DisplayName = "group",
                     TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/group.png")) });
         }

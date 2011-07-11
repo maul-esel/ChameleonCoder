@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
+using System.Collections.Generic;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 
@@ -23,15 +24,13 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IEnumerable
 
-        System.Collections.IEnumerator baseEnum;
-
-        public override System.Collections.IEnumerator GetEnumerator()
+        public override IEnumerator<PropertyDescription> GetEnumerator()
         {
-            this.baseEnum = base.GetEnumerator();
+            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
-            yield return new { Name = "path", Value = this.Path, Group = "File" };
+            yield return new PropertyDescription("path", this.Path, "File");
         }
 
         #endregion

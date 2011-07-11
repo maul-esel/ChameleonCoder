@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml;
@@ -70,8 +71,21 @@ namespace ChameleonCoder
             ResourceManager.Add(resource, parent);
 
             foreach (XmlNode child in node.ChildNodes)
-                if (child.LocalName != "metadata")
+            {
+                if (child.Name == "metadata")
+                    continue;
+                else if (child.Name == "RichContent")
+                    foreach (XmlNode member in child.ChildNodes)
+                    {
+                        RichContent.IContentMember richContent = RichContent.ContentMemberManager.CreateInstanceOf(member.Name);
+                        if (richContent == null)
+                            richContent = RichContent.ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
+                        if (richContent != null)
+                            resource.AddRichContentMember(richContent);
+                    }
+                else
                     AddResource(child, resource.children);
+            }
 
             return true;
         }

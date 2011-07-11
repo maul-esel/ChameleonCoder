@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Xml;
 using ChameleonCoder.Resources.Base;
 using System.Windows.Media;
@@ -74,8 +73,12 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                try { return this.XMLNode.Attributes["compilation-path"].Value; }
-                catch (NullReferenceException) { return null; }
+                string result = null;
+
+                try { result = this.XMLNode.Attributes["compilation-path"].Value; }
+                catch (NullReferenceException) { }
+
+                return result;
             }
             protected set
             {
@@ -88,19 +91,17 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IEnumerable
 
-        System.Collections.IEnumerator baseEnum;
-
-        public override System.Collections.IEnumerator GetEnumerator()
+        public override IEnumerator<PropertyDescription> GetEnumerator()
         {
-            this.baseEnum = base.GetEnumerator();
+            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
-            string langName = null;
+            string langName = string.Empty;
             try { langName = LanguageModules.LanguageModuleHost.GetModule(this.language).LanguageName; }
             catch(NullReferenceException) { }
 
-            yield return new { Name = "language", Value = langName, Group = "project" };
+            yield return new PropertyDescription("language", langName, "project");
 
             string list = string.Empty;
             foreach (Guid lang in this.compatibleLanguages)
@@ -109,9 +110,9 @@ namespace ChameleonCoder.Resources.Implementations
                 catch (NullReferenceException) { }
             }
 
-            yield return new { Name = "compatible languages", Value = list, Group = "project" };
+            yield return new PropertyDescription("compatible languages", list, "project");
 
-            yield return new { Name = "compilation path", Value = this.compilationPath, Group = "project" };
+            yield return new PropertyDescription("compilation path", this.compilationPath, "project");
         }
 
         #endregion

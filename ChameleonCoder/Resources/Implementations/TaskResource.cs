@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
+using System.Collections.Generic;
 using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Resources.Implementations
@@ -25,15 +25,13 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IEnumerable
 
-        System.Collections.IEnumerator baseEnum;
-
-        public override System.Collections.IEnumerator GetEnumerator()
+        public override IEnumerator<PropertyDescription> GetEnumerator()
         {
-            this.baseEnum = base.GetEnumerator();
+            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
-            yield return new { Name = "end-time", Value = this.EndTime.ToString(), Group = "task" };
+            yield return new PropertyDescription("end-time", this.EndTime.ToString(), "task");
         }
 
         #endregion

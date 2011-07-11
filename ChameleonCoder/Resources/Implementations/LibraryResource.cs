@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
+using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Resources.Implementations
 {
@@ -27,19 +29,17 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
-        System.Collections.IEnumerator baseEnum;
-
         #region IEnumerable
 
-        public override System.Collections.IEnumerator GetEnumerator()
+        public override IEnumerator<PropertyDescription> GetEnumerator()
         {
-            this.baseEnum = base.GetEnumerator();
+            IEnumerator<PropertyDescription>  baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
-            yield return new { Name = "author", Value = this.Author, Group = "library" };
-            yield return new { Name = "license", Value = this.License, Group = "library" };
-            yield return new { Name = "version", Value = this.Version, Group = "library" };
+            yield return new PropertyDescription("author", this.Author, "library");
+            yield return new PropertyDescription("license", this.License, "library");
+            yield return new PropertyDescription("version", this.Version, "library");
         }
 
         #endregion
