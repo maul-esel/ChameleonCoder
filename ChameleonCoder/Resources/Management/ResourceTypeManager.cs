@@ -8,7 +8,7 @@ namespace ChameleonCoder.Resources.Management
     {
         private static ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
-        private static Dictionary<Type, Base.StaticInfo> ResourceTypesStatic = new Dictionary<Type, Base.StaticInfo>();
+        private static Dictionary<Type, Base.ResourceTypeInfo> ResourceTypesStatic = new Dictionary<Type, Base.ResourceTypeInfo>();
 
         internal static Type GetResourceType(string alias)
         {
@@ -28,12 +28,12 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.GetList();
         }
 
-        public static Base.StaticInfo GetInfo(Type t)
+        public static Base.ResourceTypeInfo GetInfo(Type t)
         {
-            Base.StaticInfo i;
+            Base.ResourceTypeInfo i;
             if (ResourceTypesStatic.TryGetValue(t, out i))
                 return i;
-            return default(Base.StaticInfo);
+            return null;
         }
 
         public static bool IsRegistered(string alias)
@@ -45,7 +45,7 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.IsRegistered(resourceType);
         }
 
-        internal static void RegisterComponent(Type component, Base.StaticInfo info)
+        internal static void RegisterComponent(Type component, Base.ResourceTypeInfo info)
         {
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic

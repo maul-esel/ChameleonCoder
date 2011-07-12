@@ -7,63 +7,28 @@ namespace ChameleonCoder.Resources.Management
 {
     public sealed class ResourceProvider : IComponentProvider
     {
-        public void Init(Action<Type, string> registerContentMember, Action<Type, Base.StaticInfo> registerResourceType)
+        public void Init(Action<Type, string> registerContentMember, Action<Type, Base.ResourceTypeInfo> registerResourceType)
         {
             registerResourceType(typeof(LinkResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "link",
-                    Background = Brushes.LightGreen,
-                    DisplayName = "link",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")) });
+                new Base.ResourceTypeInfo("link", "link", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")), Brushes.LightGreen));
 
             registerResourceType(typeof(FileResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "file",
-                    Background = Brushes.BurlyWood,
-                    DisplayName = "file",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")) });
+                new Base.ResourceTypeInfo("file", "file", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")), Brushes.BurlyWood));
 
             registerResourceType(typeof(CodeResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "code",
-                    Background = Brushes.LightSalmon,
-                    DisplayName = "code",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/code.png")) });
+                new Base.ResourceTypeInfo("code", "source code", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/code.png")), Brushes.LightSalmon));
 
             registerResourceType(typeof(LibraryResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "library",
-                    Background = Brushes.SandyBrown,
-                    DisplayName = "library",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/library.png")) });
+                new Base.ResourceTypeInfo("library", "library", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/library.png")), Brushes.SandyBrown));
 
             registerResourceType(typeof(ProjectResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "project",
-                    Background = Brushes.Khaki,
-                    DisplayName = "project",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")) });
+                new Base.ResourceTypeInfo("project", "project", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")), Brushes.Khaki));
 
             registerResourceType(typeof(TaskResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "task",
-                    Background = Brushes.LightCoral,
-                    DisplayName = "task",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/task.png")) });
+                new Base.ResourceTypeInfo("task", "task", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/task.png")), Brushes.LightCoral));
 
             registerResourceType(typeof(GroupResource),
-                new Base.StaticInfo()
-                {
-                    Alias = "group",
-                    Background = Brushes.DodgerBlue,
-                    DisplayName = "group",
-                    TypeIcon = new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/group.png")) });
+                new Base.ResourceTypeInfo("group", "group", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/group.png")), Brushes.DodgerBlue));
         }
     }
 }
