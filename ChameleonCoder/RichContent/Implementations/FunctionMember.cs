@@ -9,24 +9,24 @@ namespace ChameleonCoder.RichContent.Implementations
     {
         #region IContentMember
 
-        virtual bool IContentMember.ValidateChild(IContentMember child)
+        public virtual bool ValidateChild(IContentMember child)
         {
             if (child is ParameterMember || child is ReturnValueMember)
                 return true;
             return false;
         }
 
-        virtual bool IContentMember.ValidateParent(IContentMember parent)
+        public virtual bool ValidateParent(IContentMember parent)
         {
             return false;
         }
 
-        virtual void IContentMember.AddChild(IContentMember child)
+        public virtual void AddChild(IContentMember child)
         {
             this.childMembers.Add(child);
         }
 
-        virtual Guid IContentMember.RequiredLanguage { get { return Guid.Empty; } }
+        public virtual Guid RequiredLanguage { get { return Guid.Empty; } }
 
         public List<IContentMember> childMembers
         {
@@ -34,7 +34,7 @@ namespace ChameleonCoder.RichContent.Implementations
             private set;
         }
 
-        virtual string IContentMember.Alias { get { return "function"; } }
+        public virtual string Alias { get { return "function"; } }
 
         #endregion
 
