@@ -97,10 +97,6 @@
                             </DataTemplate>
                         </ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
                     </ribbon:RibbonApplicationSplitMenuItem>
-                    <ribbon:RibbonApplicationMenuItem x:Name="MenuCreate"
-                                         ImageSource="Images\RibbonTab1\create.png"
-                                         Header="Create resource"
-                                         Click="CreateResource"/>
                     <ribbon:RibbonApplicationMenuItem x:Name="MenuImport"
                                          ImageSource="Images\LargeIcon.png"
                                          Header="Import resource" />
