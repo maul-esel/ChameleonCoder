@@ -160,19 +160,5 @@ namespace ChameleonCoder.Resources.Base
         }
 
         #endregion
-
-        /// <summary>
-        /// overrides object.ToString()
-        /// </summary>
-        /// <returns>the name of the resource</returns>
-        public string qToString()
-        {
-            return this.Name;
-        }
-
-        public static IResource Create(Type type)
-        {
-            return null;
-        }
     }
 }

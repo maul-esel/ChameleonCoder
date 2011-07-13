@@ -9,216 +9,100 @@
         <Border Background="#D8E7FF" BorderBrush="Black" BorderThickness="0.5">
             <TextBlock Text="Fill in all the fields and then click 'create the resource'" Margin="5,5,15,5"/>
         </Border>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>                
+            </Grid.RowDefinitions>
+            
+            <!--IResource-->
+            <TextBlock Margin="5,5,5,5" Text="Name:" Grid.Column="0" Grid.Row="0"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceName" Grid.Column="1" Grid.Row="0"/>
 
-        <Border Name="ResourceProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid Margin="50,0,50,0">
+            <TextBlock Margin="5,5,5,5" Text="Type:" Grid.Column="0" Grid.Row="1"/>
+            <TextBlock Margin="5,5,5,5" Name="ResourceType" Grid.Column="1" Grid.Row="1"/>
+
+            <TextBlock Margin="5,5,5,5" Text="GUID:" Grid.Column="0" Grid.Row="2"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceGUID" Grid.Column="1" Grid.Row="2" IsReadOnly="True"/>
+
+            <TextBlock Margin="5,5,5,5" Text="Description:" Grid.Column="0" Grid.Row="3"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceDescription" Grid.Column="1" Grid.Row="3"/>
+            
+            <!--LinkResource-->
+            <TextBlock Margin="5,5,5,5" Text="Destination:" Grid.Column="0" Grid.Row="4" Name="_Destination"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceDestination" Grid.Column="1" Grid.Row="4"/>
+            
+            <!--FileResource-->
+            <TextBlock Margin="5,5,5,5" Text="Path:" Grid.Column="0" Grid.Row="5" Name="_Path1"/>
+            <Grid Grid.Column="1" Grid.Row="5" Name="_Path2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Name:" VerticalAlignment="Top"/>
-                <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Margin="5,5,5,5" VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Border CornerRadius="100" Background="Red" Width="15" Height="15" Grid.Column="0" Name="NameError" Visibility="Collapsed">
-                        <TextBlock Text="!" FontWeight="ExtraBold" FontSize="12" FontFamily="Comic Sans MS" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock.ToolTip>
-                                <ToolTip>
-                                    <TextBlock Text="Name must not be empty!"/>
-                                </ToolTip>
-                            </TextBlock.ToolTip>
-                        </TextBlock>
-                    </Border>
-                    <TextBox Name="ResourceName" Grid.Column="1" Grid.ColumnSpan="1"/>
-                </Grid>
-                
-
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Type:" VerticalAlignment="Top"/>
-                <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Name="ResourceType" Margin="5,5,5,5" MinHeight="22" VerticalAlignment="Top" SelectionChanged="TypeChanged">
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="3,3,0,3">
-                            <Image Source="Images\info.png" Width="15"/>
-                            <TextBlock Text="link"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="3,3,0,3">
-                            <Image Source="Images\ResourceType\file.png" Width="15"/>
-                            <TextBlock Text="file"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="3,3,0,3">
-                            <Image Source="Images\ResourceType\code.png" Width="15"/>
-                            <TextBlock Text="code"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="3,3,0,3">
-                            <Image Source="Images\ResourceType\library.png" Width="15"/>
-                            <TextBlock Text="libray"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="3,3,0,3">
-                            <Image Source="Images\ResourceType\project.png" Width="15"/>
-                            <TextBlock Text="project"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="3,3,0,3">
-                            <Image Source="Images\ResourceType\task.png" Width="15"/>
-                            <TextBlock Text="task"/>
-                        </StackPanel>
-                    </ComboBoxItem>
-                </ComboBox>
-
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="GUID:" VerticalAlignment="Top"/>
-                <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Name="ResourceGUID" Margin="5,5,5,5" IsReadOnly="True" VerticalAlignment="Top"/>
-
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="Description:" VerticalAlignment="Top"/>
-                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1" Name="ResourceDescription" Margin="5,5,5,5" VerticalAlignment="Top"/>
+                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourcePath" HorizontalAlignment="Stretch"/>
+                <Button Margin="5,5,5,5" Grid.Column="1" Click="SearchFile" Height="25" Content="Select path"/>
             </Grid>
-        </Border>
+            
+            <!--ILanguageResource-->
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="6" Text="Language:" Name="_Language"/>
+            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="1" Name="ResourceLanguage">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=LanguageName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
-        <Border Name="LinkProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid Margin="50,0,50,0">
+            <!--ICompilable-->
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="7" Text="Compilation path:" Name="_CompilePath1"/>
+            <Grid Grid.Column="1" Grid.Row="7" Name="_CompilePath2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourceCompilePath"/>
+                <Button Margin="5,5,5,5" Grid.Column="1" Height="25" Content="Select compilation path"/>
             </Grid>
-        </Border>
+            
+            <!--LibraryResource-->
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="8" Text="Author:" Name="_Author"/>
+            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="1" Name="ResourceAuthor"/>
 
-        <Border Name="FileProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid  Margin="50,0,50,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="9" Text="Version:" Name="_Version"/>
+            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Name="ResourceVersion"/>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Path:"/>
-                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Name="ResourcePath" Margin="5,5,5,5"/>
-                <Button Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Click="SearchFile" Height="25" Margin="5,5,5,5" Content="Select path"/>
-            </Grid>
-        </Border>
-
-        <Border Name="CodeProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid  Margin="50,0,50,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Language:"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Name="ResourceLanguage1" Margin="5,5,5,5">
-
-                </ComboBox>
-
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Compilation path:"/>
-                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Name="ResourceCompilePath1" Margin="5,5,5,5"/>
-                <Button Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Height="25" Margin="5,5,5,5" Content="Select compilation path"/>
-
-            </Grid>
-        </Border>
-
-        <Border Name="LibraryProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid Margin="50,0,50,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Author:"/>
-                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Name="ResourceAuthor" Margin="5,5,5,5"/>
-                
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Version:"/>
-                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Name="ResourceVersion" Margin="5,5,5,5"/>
-                
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="License:"/>
-                <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Name="ResourceLicense" Margin="5,5,5,5"/>
-            </Grid>
-        </Border>
-
-        <Border Name="ProjectProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid Margin="50,0,50,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Priority"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Name="ResourcePriority" Margin="5,5,5,5">
-                    
-                </ComboBox>
-                
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="Language:"/>
-                <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Name="ResourceLanguage2" Margin="5,5,5,5">
-                    
-                </ComboBox>
-                
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="Compilation path:"/>
-                <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Name="ResourceCompilePath2" Margin="5,5,5,5"/>
-                <Button Grid.Column="1" Grid.Row="3" Height="25" Margin="5,5,5,5" Content="Select compilation path"/>
-                
-            </Grid>
-        </Border>
-
-        <Border Name="TaskProperties" BorderBrush="Black" BorderThickness="0.25">
-            <Grid Margin="50,0,50,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="End date:"/>
-                <DatePicker Grid.Column="1" Grid.Row="0" Name="ResourceEnddate" Margin="5,5,5,5"
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="10" Text="License:" Name="_License"/>
+            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Name="ResourceLicense"/>
+            
+            <!--ProjectResource-->
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="11" Text="Priority" Name="_Priority"/>
+            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="1" Name="ResourcePriority"></ComboBox>
+            
+            <!--TaskResource-->
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="12" Text="End date:" Name="_Enddate"/>
+            <DatePicker Margin="5,5,5,5" Grid.Column="1" Grid.Row="12" Name="ResourceEnddate"
                  SelectedDateFormat="Long"/>
-            </Grid>
-        </Border>
+
+        </Grid>
 
         <Border Background="#D8E7FF" BorderBrush="Black" BorderThickness="0.25">
             <Button HorizontalAlignment="Right" Width="75" Margin="5,5,5,5" Click="CreateResource" MinHeight="25"/>

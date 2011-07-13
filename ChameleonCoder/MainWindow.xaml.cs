@@ -165,8 +165,9 @@ namespace ChameleonCoder
         {
             Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
             Resources.Base.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
+
             if (prop != null)
-                prop.Creator(resourceType);
+                prop.Creator(resourceType, ResourceManager.Add);
         }
     }
 }

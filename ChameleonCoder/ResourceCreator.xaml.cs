@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows;
+using ChameleonCoder.Resources.Implementations;
+using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
 {
@@ -8,22 +11,68 @@ namespace ChameleonCoder
     /// </summary>
     public partial class ResourceCreator : Window
     {
-        public ResourceCreator()
+        Type target;
+        System.Collections.Generic.Dictionary<string, Func<string>> customAttributes = new System.Collections.Generic.Dictionary<string, Func<string>>();
+
+        public ResourceCreator(Type target)
         {
             InitializeComponent();
 
-            this.LinkProperties.Visibility = System.Windows.Visibility.Collapsed;
-            this.FileProperties.Visibility = System.Windows.Visibility.Collapsed;
-            this.CodeProperties.Visibility = System.Windows.Visibility.Collapsed;
-            this.LibraryProperties.Visibility = System.Windows.Visibility.Collapsed;
-            this.ProjectProperties.Visibility = System.Windows.Visibility.Collapsed;
-            this.TaskProperties.Visibility = System.Windows.Visibility.Collapsed;
-
             this.ResourceGUID.Text = Guid.NewGuid().ToString("B");
+            this.ResourceType.Text = ResourceTypeManager.GetInfo(target).DisplayName;
+
+            if (target != typeof(LinkResource))
+                _Destination.Visibility = ResourceDestination.Visibility = Visibility.Collapsed;
+            else
+                customAttributes.Add("destination", delegate() { return ResourceDestination.Text; });
+
+
+            if (target != typeof(FileResource))
+                _Path1.Visibility = _Path2.Visibility = Visibility.Collapsed;
+            else
+                customAttributes.Add("path", delegate() { return ResourcePath.Text; });
+
+            if (target.GetInterface(typeof(ILanguageResource).FullName) == null)
+                _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
+            else
+            {
+                this.ResourceLanguage.ItemsSource = LanguageModules.LanguageModuleHost.GetList();
+                customAttributes.Add("language", delegate() { return ResourceLanguage.Text; });
+            }
+
+            if (target.GetInterface(typeof(ICompilable).FullName) == null)
+                _CompilePath1.Visibility = _CompilePath2.Visibility = Visibility.Collapsed;
+            else
+                customAttributes.Add("compilation-path", delegate() { return ResourceCompilePath.Text; });
+
+            if (target != typeof(LibraryResource))
+                _Author.Visibility = _Version.Visibility = _License.Visibility
+                    = ResourceAuthor.Visibility = ResourceVersion.Visibility = ResourceLicense.Visibility
+                    = Visibility.Hidden;
+            else
+            {
+                customAttributes.Add("author", delegate() { return ResourceAuthor.Text; });
+                customAttributes.Add("version", delegate() { return ResourceVersion.Text; });
+                customAttributes.Add("license", delegate() { return ResourceLicense.Text; });
+            }
+
+            if (target != typeof(ProjectResource))
+                _Priority.Visibility = ResourcePriority.Visibility = Visibility.Collapsed;
+            else
+                customAttributes.Add("priority", delegate
+                {
+                    return ((int)Enum.Parse(typeof(ProjectResource.ProjectPriority), ResourcePriority.Text, true)).ToString();
+                });
+
+            if (target != typeof(TaskResource))
+                _Enddate.Visibility = ResourceEnddate.Visibility = Visibility.Collapsed;
+            else
+                customAttributes.Add("enddate", delegate() { return ResourceEnddate.Text; });
+
+            this.target = target;
 
             this.Owner = App.Gui;
             this.ShowInTaskbar = false;
-            this.ShowDialog();
         }
 
         private void SearchFile(object sender, EventArgs e)
@@ -42,52 +91,8 @@ namespace ChameleonCoder
             dialog.ShowDialog();
         }
 
-        private void TypeChanged(object sender, EventArgs e)
-        {
-            if (this.ResourceType.SelectedIndex == 0)
-                this.LinkProperties.Visibility = System.Windows.Visibility.Visible;
-            else
-                this.LinkProperties.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (this.ResourceType.SelectedIndex > 0 && this.ResourceType.SelectedIndex < 4)
-                this.FileProperties.Visibility = System.Windows.Visibility.Visible;
-            else
-                this.FileProperties.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (this.ResourceType.SelectedIndex > 1 && this.ResourceType.SelectedIndex < 4)
-                this.CodeProperties.Visibility = System.Windows.Visibility.Visible;
-            else
-                this.CodeProperties.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (this.ResourceType.SelectedIndex == 3)
-                this.LibraryProperties.Visibility = System.Windows.Visibility.Visible;
-            else
-                this.LibraryProperties.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (this.ResourceType.SelectedIndex == 4)
-                this.ProjectProperties.Visibility = System.Windows.Visibility.Visible;
-            else
-                this.ProjectProperties.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (this.ResourceType.SelectedIndex == 5)
-                this.TaskProperties.Visibility = System.Windows.Visibility.Visible;
-            else
-                this.TaskProperties.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
         private bool Validate()
         {
-            if (this.ResourceType.SelectedIndex == -1)
-                return false;
-
-            if (string.IsNullOrWhiteSpace(this.ResourceName.Text))
-            {
-                this.NameError.Visibility = System.Windows.Visibility.Visible;
-                return false;
-            }
-            else
-                this.NameError.Visibility = System.Windows.Visibility.Collapsed;
-
             return true;
         }
 
@@ -96,9 +101,29 @@ namespace ChameleonCoder
             this.IsEnabled = false;
             if (this.Validate())
             {
-                
+                //this.Close();
+                this.DialogResult = true;
             }
+
             this.IsEnabled = true;
+        }
+
+        public System.Xml.XmlNode GetXmlNode()
+        {
+            string attributes = string.Empty;
+            foreach (System.Collections.Generic.KeyValuePair<string, Func<string>> pair in customAttributes)
+                attributes += " " + pair.Key + "=\"" + pair.Value() + "\"";
+
+            string xml = "<{0} name=\"{1}\" guid=\"{2}\" description=\"{3}\" notes=\"\" {4}>\n</{0}>";
+            xml = string.Format(xml, ResourceTypeManager.GetInfo(target).Alias,
+                                        ResourceName.Text,
+                                        ResourceGUID.Text,
+                                        ResourceDescription.Text,
+                                        attributes); // todo: custom attributes {4}
+
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.LoadXml(xml);
+            return doc.DocumentElement;
         }
     }
 }

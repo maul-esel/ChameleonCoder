@@ -73,6 +73,11 @@ namespace ChameleonCoder.LanguageModules
             return null;
         }
 
+        public static IEnumerable<ILanguageModule> GetList()
+        {
+            return Modules.Values;
+        }
+
         #endregion
 
         #region ILanguageModuleHost

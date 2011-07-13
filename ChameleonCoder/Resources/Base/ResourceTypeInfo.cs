@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows.Media;
+using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Base
 {
     public sealed class ResourceTypeInfo
     {
         public ResourceTypeInfo(string Alias, string DisplayName, ImageSource TypeIcon, Brush Background,
-            Func<Type, Interfaces.IResource> Creator, Action<Interfaces.IResource> Loader)
+            Action<Type, Action<Interfaces.IResource, ResourceCollection>> Creator, Action<Interfaces.IResource> Loader)
         {
             this.Alias = Alias;
             this.DisplayName = DisplayName;
@@ -24,7 +25,7 @@ namespace ChameleonCoder.Resources.Base
 
         public Brush Background { get; private set; }
 
-        public Func<Type, Interfaces.IResource> Creator { get; private set; }
+        public Action<Type, Action<Interfaces.IResource, ResourceCollection>> Creator { get; private set; }
 
         public Action<Interfaces.IResource> Loader { get; private set; }
     }
