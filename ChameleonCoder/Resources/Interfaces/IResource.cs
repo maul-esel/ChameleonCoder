@@ -55,12 +55,6 @@ namespace ChameleonCoder.Resources.Interfaces
         void Save();
 
         /// <summary>
-        /// creates a new instance of the resource type + saves it to XML
-        /// </summary>
-        /// <returns></returns>
-        IResource Create();
-
-        /// <summary>
         /// adds a new RichContentMember to the resource
         /// the resource can validate it beforehand and is "allowed" to refuse
         /// return false in such cases

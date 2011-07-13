@@ -104,8 +104,6 @@ namespace ChameleonCoder.Resources.Base
             this.XMLNode.OwnerDocument.Save(new Uri(this.XMLNode.BaseURI).LocalPath);
         }
 
-        public IResource Create() { return null; }
-
         public bool AddRichContentMember(ChameleonCoder.RichContent.IContentMember member) { return false; }
 
         public virtual void AttachResource(IResource newChild) { }
@@ -167,9 +165,14 @@ namespace ChameleonCoder.Resources.Base
         /// overrides object.ToString()
         /// </summary>
         /// <returns>the name of the resource</returns>
-        public override string ToString()
+        public string qToString()
         {
             return this.Name;
+        }
+
+        public static IResource Create(Type type)
+        {
+            return null;
         }
     }
 }
