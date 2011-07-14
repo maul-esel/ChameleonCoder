@@ -20,6 +20,11 @@ namespace ChameleonCoder.Resources.Implementations
 
         public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")); } }
 
+        public override bool ValidateRichContent(RichContent.IContentMember member)
+        {
+            return false;
+        }
+
         #endregion
 
         #region IEnumerable

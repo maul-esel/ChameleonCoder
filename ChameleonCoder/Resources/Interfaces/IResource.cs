@@ -57,18 +57,11 @@ namespace ChameleonCoder.Resources.Interfaces
         void Save();
 
         /// <summary>
-        /// adds a new RichContentMember to the resource
-        /// the resource can validate it beforehand and is "allowed" to refuse
-        /// return false in such cases
+        /// validates whether a RichContent member can be applied to this resource or not
         /// </summary>
-        /// <param name="member">the RichContentMember to add</param>
-        /// <returns>true if the member was added, false otherwise</returns>
-        bool AddRichContentMember(ChameleonCoder.RichContent.IContentMember member);
-
-        /// <summary>
-        /// attaches a new resource to the running instance
-        /// </summary>
-        void AttachResource(IResource newChild);
+        /// <param name="member">the RichContentMember to validate</param>
+        /// <returns>true if the member can be added, false otherwise</returns>
+        bool ValidateRichContent(RichContent.IContentMember member);
 
         /// <summary>
         /// adds a metadata element, given any changes through the UI

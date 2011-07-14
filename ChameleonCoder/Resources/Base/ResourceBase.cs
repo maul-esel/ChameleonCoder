@@ -104,9 +104,7 @@ namespace ChameleonCoder.Resources.Base
             this.Xml.OwnerDocument.Save(new Uri(this.Xml.BaseURI).LocalPath);
         }
 
-        public bool AddRichContentMember(ChameleonCoder.RichContent.IContentMember member) { return false; }
-
-        public virtual void AttachResource(IResource newChild) { }
+        public abstract bool ValidateRichContent(ChameleonCoder.RichContent.IContentMember member);
 
         public virtual void AddMetadata()
         {

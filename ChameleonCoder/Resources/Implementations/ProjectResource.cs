@@ -43,6 +43,11 @@ namespace ChameleonCoder.Resources.Implementations
             }
         }
 
+        public override bool ValidateRichContent(RichContent.IContentMember member)
+        {
+            return false;
+        }
+
         #endregion
 
         #region ILanguageResource

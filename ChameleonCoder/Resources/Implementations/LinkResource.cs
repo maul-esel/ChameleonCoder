@@ -88,6 +88,11 @@ namespace ChameleonCoder.Resources.Implementations
             }
         }
 
+        public override bool ValidateRichContent(RichContent.IContentMember member)
+        {
+            return this.Resolve().ValidateRichContent(member);
+        }
+
         #endregion
 
         #region IResolvable
