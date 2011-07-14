@@ -41,6 +41,7 @@
                 <PropertyGroupDescription PropertyName="Group"/>
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
+        
     </Window.Resources>
     
     <Grid>
