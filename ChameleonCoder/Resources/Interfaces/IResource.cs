@@ -49,6 +49,8 @@ namespace ChameleonCoder.Resources.Interfaces
         /// </summary>
         ImageSource SpecialVisualProperty { get; }
 
+        System.Xml.XmlNode Xml { get; }
+
         /// <summary>
         /// saves the information changed through the UI to the XML representation
         /// </summary>

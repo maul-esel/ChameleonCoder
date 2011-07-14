@@ -40,12 +40,12 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                try { return new Guid(this.XMLNode.Attributes["language"].Value); }
+                try { return new Guid(this.Xml.Attributes["language"].Value); }
                 catch (NullReferenceException) { return Guid.Empty; }
             }
             protected set
             {
-                this.XMLNode.Attributes["language"].Value = value.ToString();
+                this.Xml.Attributes["language"].Value = value.ToString();
                 this.OnPropertyChanged("language");
             }
         }
@@ -65,7 +65,7 @@ namespace ChameleonCoder.Resources.Implementations
             {
                 string result = null;
 
-                try { result = this.XMLNode.Attributes["compilation-path"].Value; }
+                try { result = this.Xml.Attributes["compilation-path"].Value; }
                 catch (NullReferenceException) { }
 
                 if (string.IsNullOrWhiteSpace(result))
@@ -74,7 +74,7 @@ namespace ChameleonCoder.Resources.Implementations
             }
             protected set
             {
-                this.XMLNode.Attributes["compilation-path"].Value = value;
+                this.Xml.Attributes["compilation-path"].Value = value;
                 this.OnPropertyChanged("compilationPath");
             }
         }

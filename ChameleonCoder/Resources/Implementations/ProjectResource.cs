@@ -52,10 +52,10 @@ namespace ChameleonCoder.Resources.Implementations
         /// </summary>
         public Guid language
         {
-            get { return new Guid(this.XMLNode.Attributes["language"].Value); }
+            get { return new Guid(this.Xml.Attributes["language"].Value); }
             protected set
             {
-                this.XMLNode.Attributes["language"].Value = value.ToString();
+                this.Xml.Attributes["language"].Value = value.ToString();
                 this.OnPropertyChanged("language");
             }
         }
@@ -75,14 +75,14 @@ namespace ChameleonCoder.Resources.Implementations
             {
                 string result = null;
 
-                try { result = this.XMLNode.Attributes["compilation-path"].Value; }
+                try { result = this.Xml.Attributes["compilation-path"].Value; }
                 catch (NullReferenceException) { }
 
                 return result;
             }
             protected set
             {
-                this.XMLNode.Attributes["compilation-path"].Value = value;
+                this.Xml.Attributes["compilation-path"].Value = value;
                 this.OnPropertyChanged("compilationPath");
             }
         }
@@ -122,10 +122,10 @@ namespace ChameleonCoder.Resources.Implementations
         /// </summary>
         public ProjectPriority Priority
         {
-            get { return (ProjectPriority)Int32.Parse(this.XMLNode.Attributes["priority"].Value); }
+            get { return (ProjectPriority)Int32.Parse(this.Xml.Attributes["priority"].Value); }
             protected set
             {
-                this.XMLNode.Attributes["priority"].Value = ((int)value).ToString();
+                this.Xml.Attributes["priority"].Value = ((int)value).ToString();
                 this.OnPropertyChanged("Priority");
             }
         }

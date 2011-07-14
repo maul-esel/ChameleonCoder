@@ -48,12 +48,12 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                try { return this.XMLNode.Attributes["author"].Value; }
+                try { return this.Xml.Attributes["author"].Value; }
                 catch (NullReferenceException) { return null; }
             }
             protected set
             {
-                this.XMLNode.Attributes["author"].Value = value;
+                this.Xml.Attributes["author"].Value = value;
                 this.OnPropertyChanged("Author");
             }
         }
@@ -62,12 +62,12 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                try { return this.XMLNode.Attributes["license"].Value; }
+                try { return this.Xml.Attributes["license"].Value; }
                 catch (NullReferenceException) { return null; }
             }
             protected set
             {
-                this.XMLNode.Attributes["license"].Value = value;
+                this.Xml.Attributes["license"].Value = value;
                 this.OnPropertyChanged("License");
             }
         }
@@ -76,12 +76,12 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                try { return this.XMLNode.Attributes["version"].Value; }
+                try { return this.Xml.Attributes["version"].Value; }
                 catch (NullReferenceException) { return null; }
             }
             protected set
             {
-                this.XMLNode.Attributes["version"].Value = value;
+                this.Xml.Attributes["version"].Value = value;
                 this.OnPropertyChanged("Version");
             }
         }

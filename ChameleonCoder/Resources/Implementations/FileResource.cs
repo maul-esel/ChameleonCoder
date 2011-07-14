@@ -44,7 +44,7 @@ namespace ChameleonCoder.Resources.Implementations
             {
                 string path = string.Empty;
 
-                try { path = this.XMLNode.Attributes["path"].Value; }
+                try { path = this.Xml.Attributes["path"].Value; }
                 catch (NullReferenceException) { }
 
                 if (!System.IO.Path.IsPathRooted(path) && path != string.Empty
@@ -55,7 +55,7 @@ namespace ChameleonCoder.Resources.Implementations
             }
             protected set
             {
-                this.XMLNode.Attributes["path"].Value = value;
+                this.Xml.Attributes["path"].Value = value;
                 this.OnPropertyChanged("Path");
             }
         }

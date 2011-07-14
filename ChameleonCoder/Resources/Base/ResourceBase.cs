@@ -20,7 +20,7 @@ namespace ChameleonCoder.Resources.Base
         /// <param name="node">the XmlNode that contains the resource</param>
         public ResourceBase(XmlNode node)
         {
-            this.XMLNode = node;
+            this.Xml = node;
 
             this.GUID = new Guid(node.Attributes["guid"].Value);
 
@@ -33,9 +33,9 @@ namespace ChameleonCoder.Resources.Base
             this.children = new Collections.ResourceCollection();
         }
 
-        protected XmlNode XMLNode;
-
         #region IResource
+
+        public XmlNode Xml { get; private set; }
 
         public abstract ImageSource Icon { get; }
 
@@ -47,13 +47,13 @@ namespace ChameleonCoder.Resources.Base
             {
                 try
                 {
-                    return this.XMLNode.Attributes["name"].Value;
+                    return this.Xml.Attributes["name"].Value;
                 }
                 catch (NullReferenceException) { return string.Empty; }
             }
             protected set
             {
-                this.XMLNode.Attributes["name"].Value = value;
+                this.Xml.Attributes["name"].Value = value;
                 this.OnPropertyChanged("Name");
             }
         }
@@ -64,13 +64,13 @@ namespace ChameleonCoder.Resources.Base
             {
                 try
                 {
-                    return this.XMLNode.Attributes["description"].Value;
+                    return this.Xml.Attributes["description"].Value;
                 }
                 catch (NullReferenceException) { return null; }
             }
             protected set
             {
-                this.XMLNode.Attributes["description"].Value = value;
+                this.Xml.Attributes["description"].Value = value;
                 this.OnPropertyChanged("Description");
             }
         }
@@ -79,12 +79,12 @@ namespace ChameleonCoder.Resources.Base
         {
             get
             {
-                try { return this.XMLNode.Attributes["notes"].Value; }
+                try { return this.Xml.Attributes["notes"].Value; }
                 catch (NullReferenceException) { return string.Empty; }
             }
             set
             {
-                this.XMLNode.Attributes["notes"].Value = value;
+                this.Xml.Attributes["notes"].Value = value;
                 this.OnPropertyChanged("Notes");
             }
         }
@@ -101,7 +101,7 @@ namespace ChameleonCoder.Resources.Base
             {
                 data.Save(); // changes through the UI should be saved when they occur or through binding
             }
-            this.XMLNode.OwnerDocument.Save(new Uri(this.XMLNode.BaseURI).LocalPath);
+            this.Xml.OwnerDocument.Save(new Uri(this.Xml.BaseURI).LocalPath);
         }
 
         public bool AddRichContentMember(ChameleonCoder.RichContent.IContentMember member) { return false; }

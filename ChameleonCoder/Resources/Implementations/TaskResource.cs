@@ -40,14 +40,14 @@ namespace ChameleonCoder.Resources.Implementations
         {
             get
             {
-                try { return DateTime.Parse(this.XMLNode.Attributes["enddate"].Value); }
+                try { return DateTime.Parse(this.Xml.Attributes["enddate"].Value); }
                 catch (ArgumentNullException) { return DateTime.MaxValue; }
                 catch (FormatException) { return DateTime.MaxValue; }
                 catch (NullReferenceException) { return DateTime.MaxValue; }
             }
             protected set
             {
-                this.XMLNode.Attributes["enddate"].Value = value.ToString();
+                this.Xml.Attributes["enddate"].Value = value.ToString();
                 this.OnPropertyChanged("EndTime");
             }
         }
