@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IResolvable
+    public interface IResolvable : IResource
     {
         IResource Resolve();
 

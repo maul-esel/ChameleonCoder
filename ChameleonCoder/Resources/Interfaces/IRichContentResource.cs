@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IRichContentResource
+    public interface IRichContentResource : IResource
     {
         /// <summary>
         /// validates whether a RichContent member can be applied to this resource or not
@@ -12,6 +12,6 @@
         /// <summary>
         /// the collection holding the RichContent
         /// </summary>
-        RichContent.ContentMemberCollection RichContent { get; }
+        //RichContent.ContentMemberCollection RichContent { get; } //wrong collection
     }
 }

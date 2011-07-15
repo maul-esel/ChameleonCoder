@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IEditable
+    public interface IEditable : IResource
     {
         string GetText();
 

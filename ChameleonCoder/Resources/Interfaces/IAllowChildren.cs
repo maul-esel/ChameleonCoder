@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IAllowChildren
+    public interface IAllowChildren : IResource
     {
         /// <summary>
         /// a ResourceCollection containing the (direct) child resources
