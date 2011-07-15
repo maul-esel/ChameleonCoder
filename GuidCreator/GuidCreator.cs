@@ -30,7 +30,7 @@ namespace GuidCreator
         string IService.Version { get { return "1.0"; } }
         string IService.About { get { return "small example service to create a \n Globally Unique IDentifier.\n Coded by maul.esel 2011"; } }
         Guid IService.Service { get { return new Guid("{fa55bce0-5341-4007-83c6-e5e985bd3f22}"); } }
-        string IService.ServiceName { get { return "GuidCreator"; } }
+        public string ServiceName { get { return "GuidCreator"; } }
         string IService.Description { get { return "creates a GUID"; } }
         bool IService.IsBusy { get { return _busy; } }
         System.Windows.Media.ImageSource IService.Icon { get { return _icon; } }

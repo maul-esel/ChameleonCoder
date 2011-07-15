@@ -73,7 +73,8 @@
                     <ribbon:RibbonApplicationSplitMenuItem x:Name="MenuServices"
                                          ImageSource="Images\LargeIcon.png"
                                          Header="Services"
-                                         StaysOpenOnClick="True">
+                                         StaysOpenOnClick="True"
+                                         Click="LaunchService">
                         <ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -482,7 +483,7 @@
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock x:Name="CurrentAction" MinWidth="150"/>
-                    <ProgressBar x:Name="CurrentActionProgress" IsIndeterminate="True" Width="100"/>
+                    <ProgressBar x:Name="CurrentActionProgress" Width="100"/>
                 </StackPanel>
             </StatusBarItem>
             <Separator Height="15" Background="Gray" Width="1"/>

@@ -19,11 +19,12 @@ namespace ChameleonCoder
             InitializeComponent();
 
             this.Editor.Visibility = System.Windows.Visibility.Hidden;
-            this.CurrentActionProgress.IsEnabled = false;
 
             this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
             this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
             this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
+
+            this.CurrentActionProgress.IsEnabled = false;
 
             ResourceManager.FlatList = (Resources.ResourceCollection)this.Resources["resources"];
             ResourceManager.children = (Resources.ResourceCollection)this.Resources["resourceHierarchy"];
@@ -44,11 +45,13 @@ namespace ChameleonCoder
 
         private void LaunchService(object sender, RoutedEventArgs e)
         {
-            this.CurrentActionProgress.IsEnabled = true;
-            ServiceHost.CallService(new Guid());
+            this.CurrentActionProgress.IsIndeterminate = true;
 
-            // sleep while (service.IsBusy)
-            this.CurrentActionProgress.IsEnabled = false;
+            IService service = (e.OriginalSource as RibbonApplicationMenuItem).Header as IService;
+            service.Call();
+            while (service.IsBusy);
+
+            this.CurrentActionProgress.IsIndeterminate = false;
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
