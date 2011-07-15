@@ -8,6 +8,7 @@ using System.Windows;
 using System.Xml;
 using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.RichContent;
 using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
@@ -63,12 +64,15 @@ namespace ChameleonCoder
         private static bool AddResource(XmlNode node, ResourceCollection parent)
         {
             IResource resource;
-
+            
             resource = ResourceTypeManager.CreateInstanceOf(node.Name, node);
             if (resource == null)
                 resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
             if (resource == null)
                 return false;
+
+            IRichContentResource richResource = resource as IRichContentResource;
+            IAllowChildren parentResource = resource as IAllowChildren;
 
             ResourceManager.Add(resource, parent);
 
@@ -76,20 +80,20 @@ namespace ChameleonCoder
             {
                 if (child.Name == "metadata")
                     continue;
-                else if (child.Name == "RichContent")
+                else if (child.Name == "RichContent" && richResource != null)
                     foreach (XmlNode member in child.ChildNodes)
                     {
-                        RichContent.IContentMember richContent = RichContent.ContentMemberManager.CreateInstanceOf(member.Name);
+                        IContentMember richContent = ContentMemberManager.CreateInstanceOf(member.Name);
                         if (richContent == null)
-                            richContent = RichContent.ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
+                            richContent = ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
                         if (richContent != null)
                         {
-                            if (resource.ValidateRichContent(richContent))
+                            if (richResource.ValidateRichContent(richContent))
                                 resource.ToString(); // add to RichContentCollection
                         }
                     }
-                else
-                    AddResource(child, resource.children);
+                else if (parentResource != null)
+                    AddResource(child, parentResource.children);
             }
 
             return true;
@@ -107,7 +111,7 @@ namespace ChameleonCoder
                     continue;
 
                 if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
-                    (Activator.CreateInstance(component) as IComponentProvider).Init(RichContent.ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
+                    (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
 
                 if (component.GetInterface(typeof(LanguageModules.ILanguageModule).FullName) != null)
                     LanguageModules.LanguageModuleHost.Add(component);

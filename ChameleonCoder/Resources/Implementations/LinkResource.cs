@@ -90,7 +90,12 @@ namespace ChameleonCoder.Resources.Implementations
 
         public override bool ValidateRichContent(RichContent.IContentMember member)
         {
-            return this.Resolve().ValidateRichContent(member);
+            IResource res = this.Resolve();
+            
+            IRichContentResource richRes = res as IRichContentResource;
+            if (richRes != null)
+                return richRes.ValidateRichContent(member);
+            return false;
         }
 
         #endregion
