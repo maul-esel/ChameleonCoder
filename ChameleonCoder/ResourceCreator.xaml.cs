@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Collections.Generic;
 using ChameleonCoder.Resources.Implementations;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
@@ -12,14 +13,30 @@ namespace ChameleonCoder
     public partial class ResourceCreator : Window
     {
         Type target;
-        System.Collections.Generic.Dictionary<string, Func<string>> customAttributes = new System.Collections.Generic.Dictionary<string, Func<string>>();
+        Dictionary<string, Func<string>> customAttributes = new Dictionary<string, Func<string>>();
 
-        public ResourceCreator(Type target)
+        public string ResName { get; set; }
+        public Guid ResGuid { get; set; }
+        public string ResDescription { get; set; }
+        public Guid ResDestination { get; set; }
+        public string ResPath { get; set; }
+        public LanguageModules.ILanguageModule ResLanguage { get; set; }
+        public string ResCompilationPath { get; set; }
+        public string ResAuthor { get; set; }
+        public string ResVersion { get; set; }
+        public string ResLicense { get; set; }
+        public ProjectResource.ProjectPriority ResPriority { get; set; }
+        public DateTime ResDate { get; set; }
+
+        public ResourceCreator(Type target, string parent)
         {
             InitializeComponent();
+            this.DataContext = this;
 
-            this.ResourceGUID.Text = Guid.NewGuid().ToString("B");
+            this.ResourceParent.Text = parent;
             this.ResourceType.Text = ResourceTypeManager.GetInfo(target).DisplayName;
+
+            this.ResGuid = Guid.NewGuid();
 
             if (target != typeof(LinkResource))
                 _Destination.Visibility = ResourceDestination.Visibility = Visibility.Collapsed;
@@ -84,9 +101,8 @@ namespace ChameleonCoder
             dialog.FileOk += delegate(object sender2, System.ComponentModel.CancelEventArgs e2)
                 {
                     if (!string.IsNullOrWhiteSpace((sender2 as System.Windows.Forms.OpenFileDialog).FileName))
-                        this.ResourcePath.Text = (sender2 as System.Windows.Forms.OpenFileDialog).FileName;
+                        this.ResPath = (sender2 as System.Windows.Forms.OpenFileDialog).FileName;
                 };
-
 
             dialog.ShowDialog();
         }
@@ -100,10 +116,7 @@ namespace ChameleonCoder
         {
             this.IsEnabled = false;
             if (this.Validate())
-            {
-                //this.Close();
                 this.DialogResult = true;
-            }
 
             this.IsEnabled = true;
         }
@@ -111,19 +124,19 @@ namespace ChameleonCoder
         public System.Xml.XmlNode GetXmlNode()
         {
             string attributes = string.Empty;
-            foreach (System.Collections.Generic.KeyValuePair<string, Func<string>> pair in customAttributes)
+            foreach (KeyValuePair<string, Func<string>> pair in customAttributes)
                 attributes += " " + pair.Key + "=\"" + pair.Value() + "\"";
 
-            string xml = "<{0} name=\"{1}\" guid=\"{2}\" description=\"{3}\" notes=\"\" {4}>\n</{0}>";
-            xml = string.Format(xml, ResourceTypeManager.GetInfo(target).Alias,
-                                        ResourceName.Text,
-                                        ResourceGUID.Text,
-                                        ResourceDescription.Text,
+            string xml = string.Format("<{0} name=\"{1}\" guid=\"{2}\" description=\"{3}\" notes=\"\" {4}>\n</{0}>",
+                                        ResourceTypeManager.GetInfo(target).Alias,
+                                        ResName,
+                                        ResGuid.ToString("b"),
+                                        ResDescription,
                                         attributes); // todo: custom attributes {4}
 
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.LoadXml(xml);
-            return doc.DocumentElement;
+            return doc;
         }
     }
 }

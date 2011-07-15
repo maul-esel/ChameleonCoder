@@ -29,41 +29,52 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>                
             </Grid.RowDefinitions>
             
+            <TextBlock Margin="5,5,5,5" Text="Parent:" Grid.Column="0" Grid.Row="0"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceParent" Grid.Column="1" Grid.Row="0"
+                     IsReadOnly="True"/>
+            
             <!--IResource-->
-            <TextBlock Margin="5,5,5,5" Text="Name:" Grid.Column="0" Grid.Row="0"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceName" Grid.Column="1" Grid.Row="0"/>
+            <TextBlock Margin="5,5,5,5" Text="Name:" Grid.Column="0" Grid.Row="1"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceName" Grid.Column="1" Grid.Row="1"
+                     Text="{Binding Path=ResName}"/>
 
-            <TextBlock Margin="5,5,5,5" Text="Type:" Grid.Column="0" Grid.Row="1"/>
-            <TextBlock Margin="5,5,5,5" Name="ResourceType" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock Margin="5,5,5,5" Text="Type:" Grid.Column="0" Grid.Row="2"/>
+            <TextBlock Margin="5,5,5,5" Name="ResourceType" Grid.Column="1" Grid.Row="2"/>
 
-            <TextBlock Margin="5,5,5,5" Text="GUID:" Grid.Column="0" Grid.Row="2"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceGUID" Grid.Column="1" Grid.Row="2" IsReadOnly="True"/>
+            <TextBlock Margin="5,5,5,5" Text="GUID:" Grid.Column="0" Grid.Row="3"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceGUID" Grid.Column="1" Grid.Row="3" IsReadOnly="True"
+                       Text="{Binding Path=ResGuid}"/>
 
-            <TextBlock Margin="5,5,5,5" Text="Description:" Grid.Column="0" Grid.Row="3"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceDescription" Grid.Column="1" Grid.Row="3"/>
+            <TextBlock Margin="5,5,5,5" Text="Description:" Grid.Column="0" Grid.Row="4"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceDescription" Grid.Column="1" Grid.Row="4"
+                     Text="{Binding Path=ResDescription}"/>
             
             <!--LinkResource-->
-            <TextBlock Margin="5,5,5,5" Text="Destination:" Grid.Column="0" Grid.Row="4" Name="_Destination"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceDestination" Grid.Column="1" Grid.Row="4"/>
+            <TextBlock Margin="5,5,5,5" Text="Destination:" Grid.Column="0" Grid.Row="5" Name="_Destination"/>
+            <TextBox Margin="5,5,5,5" Name="ResourceDestination" Grid.Column="1" Grid.Row="5"
+                     Text="{Binding Path=ResDestination}"/>
             
             <!--FileResource-->
-            <TextBlock Margin="5,5,5,5" Text="Path:" Grid.Column="0" Grid.Row="5" Name="_Path1"/>
-            <Grid Grid.Column="1" Grid.Row="5" Name="_Path2">
+            <TextBlock Margin="5,5,5,5" Text="Path:" Grid.Column="0" Grid.Row="6" Name="_Path1"/>
+            <Grid Grid.Column="1" Grid.Row="6" Name="_Path2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourcePath" HorizontalAlignment="Stretch"/>
+                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourcePath" HorizontalAlignment="Stretch"
+                         Text="{Binding Path=ResPath}"/>
                 <Button Margin="5,5,5,5" Grid.Column="1" Click="SearchFile" Height="25" Content="Select path"/>
             </Grid>
             
             <!--ILanguageResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="6" Text="Language:" Name="_Language"/>
-            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="1" Name="ResourceLanguage">
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="7" Text="Language:" Name="_Language"/>
+            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="1" Name="ResourceLanguage"
+                      SelectedItem="{Binding Path=ResLanguage}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=LanguageName}"/>
@@ -72,35 +83,40 @@
             </ComboBox>
 
             <!--ICompilable-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="7" Text="Compilation path:" Name="_CompilePath1"/>
-            <Grid Grid.Column="1" Grid.Row="7" Name="_CompilePath2">
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="8" Text="Compilation path:" Name="_CompilePath1"/>
+            <Grid Grid.Column="1" Grid.Row="8" Name="_CompilePath2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourceCompilePath"/>
+                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourceCompilePath"
+                         Text="{Binding Path=ResCompilationPath}"/>
                 <Button Margin="5,5,5,5" Grid.Column="1" Height="25" Content="Select compilation path"/>
             </Grid>
             
             <!--LibraryResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="8" Text="Author:" Name="_Author"/>
-            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="1" Name="ResourceAuthor"/>
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="9" Text="Author:" Name="_Author"/>
+            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Name="ResourceAuthor"
+                     Text="{Binding Path=ResAuthor}"/>
 
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="9" Text="Version:" Name="_Version"/>
-            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Name="ResourceVersion"/>
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="10" Text="Version:" Name="_Version"/>
+            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Name="ResourceVersion"
+                     Text="{Binding Path=ResVersion}"/>
 
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="10" Text="License:" Name="_License"/>
-            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Name="ResourceLicense"/>
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="11" Text="License:" Name="_License"/>
+            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="1" Name="ResourceLicense"
+                     Text="{Binding Path=ResLicense}"/>
             
             <!--ProjectResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="11" Text="Priority" Name="_Priority"/>
-            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="1" Name="ResourcePriority"></ComboBox>
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="12" Text="Priority" Name="_Priority"/>
+            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="1" Name="ResourcePriority"
+                      SelectedItem="{Binding Path=ResPriority}"/>
             
             <!--TaskResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="12" Text="End date:" Name="_Enddate"/>
-            <DatePicker Margin="5,5,5,5" Grid.Column="1" Grid.Row="12" Name="ResourceEnddate"
-                 SelectedDateFormat="Long"/>
+            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="13" Text="End date:" Name="_Enddate"/>
+            <DatePicker Margin="5,5,5,5" Grid.Column="1" Grid.Row="13" Name="ResourceEnddate"
+                 SelectedDateFormat="Long" SelectedDate="{Binding Path=ResDate}"/>
 
         </Grid>
 

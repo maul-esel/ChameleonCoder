@@ -39,7 +39,12 @@ namespace ChameleonCoder
             {
                 this.visTypes.Items.Add(t);
                 this.MenuCreators.Items.Add(t);
-                this.AddChildResource.Items.Add(t);
+
+                RibbonMenuItem item = new RibbonMenuItem();
+                item.Click += this.CreateChild;
+                item.Header = t; // ResourceTypeManager.GetInfo(t).DisplayName;
+                item.ImageSource = ResourceTypeManager.GetInfo(t).TypeIcon;
+                this.AddChildResource.Items.Add(item);
             }
         }
 
@@ -169,12 +174,18 @@ namespace ChameleonCoder
             Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
 
             if (prop != null)
-                prop.Creator(resourceType, ResourceManager.Add);
+                prop.Creator(resourceType, null, ResourceManager.Add);
         }
 
         private void CreateChild(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("...");
+            MessageBox.Show(((e.OriginalSource as RibbonMenuItem).Header as Type != null).ToString());
+
+            Type resourceType = (e.OriginalSource as RibbonMenuItem).Header as Type;
+            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
+
+            if (info != null)
+                info.Creator(resourceType, ResourceManager.ActiveItem, ResourceManager.Add);
         }
 
         private void DeleteResource(object sender, RoutedEventArgs e)

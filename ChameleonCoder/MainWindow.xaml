@@ -288,8 +288,7 @@
                 <ribbon:RibbonGroup x:Name="Group8">
                     <ribbon:RibbonMenuButton LargeImageSource="Images\LargeIcon.png"
                                          Label="Add child resource"
-                                         x:Name="AddChildResource"
-                                         MouseUp="CreateChild">
+                                         x:Name="AddChildResource">
                         <ribbon:RibbonMenuButton.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

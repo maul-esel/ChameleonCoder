@@ -43,14 +43,38 @@ namespace ChameleonCoder.Resources.Management
 
         }
 
-        public static void Create(Type target, Action<Interfaces.IResource, ResourceCollection> register)
+        public static void Create(Type target, Interfaces.IResource parent, Action<Interfaces.IResource, ResourceCollection> register)
         {
-            ResourceCreator creator = new ResourceCreator(target);
-            creator.ShowDialog();
-            if (creator.DialogResult != false)
+            if (parent == null || parent is Interfaces.IAllowChildren)
             {
-                Interfaces.IResource resource = Activator.CreateInstance(target, creator.GetXmlNode()) as Interfaces.IResource;
-                register(resource, null);
+                string s = string.Empty;
+                if (parent != null)
+                    s = parent.ToString();
+
+                ResourceCreator creator = new ResourceCreator(target, s);
+                creator.ShowDialog();
+
+                if (creator.DialogResult != false)
+                {
+                    System.Xml.XmlNode node = creator.GetXmlNode();
+
+                    if (parent == null)
+                    {
+                        string path = Environment.CurrentDirectory + @"\Data\" + node.Attributes["name"].Value;
+                        while (System.IO.File.Exists(path + ".xml"))
+                            path = "_" + path;
+                        node.OwnerDocument.Save(path + ".xml");
+
+                        System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                        doc.Load(path + ".xml");
+                        node = doc.DocumentElement;
+                    }
+                    else
+                        parent.Xml.AppendChild(node.CloneNode(false));
+
+                    Interfaces.IResource resource = Activator.CreateInstance(target, node) as Interfaces.IResource;
+                    register(resource, parent == null ? null : (parent as Interfaces.IAllowChildren).children);
+                }
             }
         }
     }
