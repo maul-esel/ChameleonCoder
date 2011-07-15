@@ -7,7 +7,7 @@ using System.Xml;
 using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Base
+namespace ChameleonCoder.Resources.Implementations
 {
     /// <summary>
     /// an abstract base class for resources

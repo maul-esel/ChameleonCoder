@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Base;
 
 namespace ChameleonCoder.Resources.Implementations
 {

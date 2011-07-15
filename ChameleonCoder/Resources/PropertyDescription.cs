@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.Resources.Base
+namespace ChameleonCoder.Resources
 {
     public sealed class PropertyDescription
     {

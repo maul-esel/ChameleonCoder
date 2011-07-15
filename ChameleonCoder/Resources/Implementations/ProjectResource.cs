@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
-using ChameleonCoder.Resources.Base;
 using System.Windows.Media;
+using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Implementations

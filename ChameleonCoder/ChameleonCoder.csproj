@@ -95,7 +95,7 @@
     <Compile Include="LanguageModules\ILanguageModule.cs" />
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
-    <Compile Include="Resources\Base\PropertyDescription.cs" />
+    <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Implementations\GroupResource.cs" />
     <Compile Include="Resources\Interfaces\IAllowChildren.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
@@ -107,7 +107,7 @@
     <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\Management\ResourceTypeManager.cs" />
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
-    <Compile Include="Resources\Base\ResourceTypeInfo.cs" />
+    <Compile Include="Resources\ResourceTypeInfo.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
     <Compile Include="Resources\RichContent\Implementations\ClassMember.cs" />
     <Compile Include="Resources\RichContent\Implementations\FieldMember.cs" />
@@ -123,7 +123,7 @@
     <Compile Include="ResourceCreator.xaml.cs">
       <DependentUpon>ResourceCreator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Base\Metadata.cs" />
+    <Compile Include="Resources\Metadata.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\Collections\MetadataCollection.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
@@ -134,7 +134,7 @@
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Implementations\ProjectResource.cs" />
-    <Compile Include="Resources\Base\ResourceBase.cs" />
+    <Compile Include="Resources\Implementations\ResourceBase.cs" />
     <Compile Include="Resources\Implementations\CodeResource.cs" />
     <Compile Include="Resources\Collections\ResourceCollection.cs" />
     <Compile Include="Resources\Implementations\FileResource.cs" />

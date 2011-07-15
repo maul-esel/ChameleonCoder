@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Xml;
 
-namespace ChameleonCoder.Resources.Base
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// represents a resource's metadata

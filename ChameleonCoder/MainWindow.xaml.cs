@@ -163,7 +163,7 @@ namespace ChameleonCoder
         private void CreateResource(object sender, RoutedEventArgs e)
         {
             Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
-            Resources.Base.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
+            Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
 
             if (prop != null)
                 prop.Creator(resourceType, ResourceManager.Add);

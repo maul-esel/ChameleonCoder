@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using ChameleonCoder.Resources.Collections;
 
-namespace ChameleonCoder.Resources.Base
+namespace ChameleonCoder.Resources
 {
     public sealed class ResourceTypeInfo
     {

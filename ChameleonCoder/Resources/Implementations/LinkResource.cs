@@ -2,7 +2,6 @@
 using System.Windows.Media;
 using System.Xml;
 using System.Collections.Generic;
-using ChameleonCoder.Resources.Base;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
