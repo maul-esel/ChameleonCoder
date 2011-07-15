@@ -179,5 +179,30 @@ namespace ChameleonCoder
         {
             ResourceManager.ActiveItem.Delete();
         }
+
+        private void DroppedFile(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+
+                foreach (string file in files)
+                {
+                    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                    try { doc.Load(file); }
+                    catch (System.Xml.XmlException ex)
+                    {
+                        // check if it is a package file
+                        MessageBox.Show(ex.Message + ex.Source);
+                    }
+
+                    App.AddResource(doc.DocumentElement, null);
+                    System.IO.File.Copy(file,
+                        System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
+                        + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
+                        + System.IO.Path.GetFileName(file));
+                }
+            }
+        }
     }
 }

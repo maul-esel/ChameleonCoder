@@ -61,7 +61,7 @@ namespace ChameleonCoder
             }
         }
 
-        private static bool AddResource(XmlNode node, ResourceCollection parent)
+        internal static bool AddResource(XmlNode node, ResourceCollection parent)
         {
             IResource resource;
             

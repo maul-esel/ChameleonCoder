@@ -320,7 +320,9 @@
                       ItemsSource="{StaticResource resourceHierarchy}"
                       HorizontalContentAlignment="Stretch"
                       VirtualizingStackPanel.IsVirtualizing="True"
-                      VirtualizingStackPanel.VirtualizationMode="Recycling">
+                      VirtualizingStackPanel.VirtualizationMode="Recycling"
+                      AllowDrop="True"
+                      Drop="DroppedFile">
             <TreeView.ItemTemplate>
                 <win:HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
                     <Grid Margin="3,3,3,3" HorizontalAlignment="Stretch">
@@ -346,7 +348,9 @@
                  HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding Source={StaticResource ResListSource}}"
                  VirtualizingStackPanel.IsVirtualizing="True"
-                 VirtualizingStackPanel.VirtualizationMode="Recycling">
+                 VirtualizingStackPanel.VirtualizationMode="Recycling"
+                 AllowDrop="True"
+                 Drop="DroppedFile">
             <ListBox.GroupStyle>
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.ContainerStyle>
