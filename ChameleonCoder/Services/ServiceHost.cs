@@ -28,16 +28,6 @@ namespace ChameleonCoder.Services
                 service.Shutdown();
         }
 
-        internal static void CallService(Guid ID)
-        {
-            IService service;
-            if (Services.TryGetValue(ID, out service))
-            {
-                ActiveService = ID;
-                service.Call();
-            }
-        }
-
         internal static int GetServiceCount()
         {
             return Services.Count;
