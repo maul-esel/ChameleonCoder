@@ -1,3 +1,5 @@
+Note: more information can be found in the help file: ```Documentation\Documentation.chm```.
+
 ## Introduction
 This program called 'ChameleonCoder' (CC) is intended to be an IDE for every programming or scripting language.
 It makes it possible to interoperate between different languages easily, providing a lot of other features useful for programmers.
@@ -25,6 +27,7 @@ Other implementations such as MONO do not work as CC requires WPF.
     * projects
     * tasks
 * user-defined metadata for a resource
+* possibility to add custom resource types
 
 ### planned
 * creation, moving, copying and deleting of resources
@@ -39,7 +42,6 @@ Other implementations such as MONO do not work as CC requires WPF.
 * multiple language support
 * of course rich editing component using the AvalonEdit control
 * RichContent model for describing the content of a resource
-* possibility to add custom resource types
 * Generating documentation from RichContent, maybe exporting to HTML
 * maybe a "breadcrumb" control for easy navigation
 
@@ -60,7 +62,7 @@ When it comes to ***static components***, the following 2 types are planned:
 To add an extension to CC, simply place it in the ```Components\``` folder.
 
 ## Resources model
-Resources are described by XML files in the ```Data\``` folder. A resource can have several child resource. For more information see the wiki.
+Resources are described by XML files in the ```Data\``` folder. A resource can have several child resource. For more information see the help file.
 You can interact with these resources in a lot of different ways such as copying, moving, editing or compiling them.
 
 ## RichContent model
