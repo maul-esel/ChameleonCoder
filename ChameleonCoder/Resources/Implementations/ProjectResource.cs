@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// represents a project resource,
     /// inherits from ResourceBase
     /// </summary>
-    public class ProjectResource : ResourceBase, ICompilable
+    public class ProjectResource : ResourceBase, ICompilable, IAllowChildren
     {
         /// <summary>
         /// instantiates a new instance of the ProjectResource class
@@ -22,6 +22,7 @@ namespace ChameleonCoder.Resources.Implementations
             : base(node)
         {
             this.compatibleLanguages = new List<Guid>();
+            this.children = new Collections.ResourceCollection();
         }
 
         #region IResource
@@ -113,6 +114,12 @@ namespace ChameleonCoder.Resources.Implementations
 
             yield return new PropertyDescription("compilation path", this.compilationPath, "project");
         }
+
+        #endregion
+
+        #region
+
+        public Collections.ResourceCollection children { get; protected set; }
 
         #endregion
 
