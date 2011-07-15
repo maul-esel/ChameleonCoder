@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml;
-using ChameleonCoder.Resources.Collections;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
 using ChameleonCoder.Resources.Management;

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Collections
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// represents a flat collection of resources.

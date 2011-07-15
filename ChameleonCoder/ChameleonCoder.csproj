@@ -126,7 +126,7 @@
     </Compile>
     <Compile Include="Resources\Metadata.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
-    <Compile Include="Resources\Collections\MetadataCollection.cs" />
+    <Compile Include="Resources\MetadataCollection.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
     <Compile Include="Resources\Implementations\LibraryResource.cs" />
     <Compile Include="Localization\Language.Designer.cs">
@@ -137,7 +137,7 @@
     <Compile Include="Resources\Implementations\ProjectResource.cs" />
     <Compile Include="Resources\Implementations\ResourceBase.cs" />
     <Compile Include="Resources\Implementations\CodeResource.cs" />
-    <Compile Include="Resources\Collections\ResourceCollection.cs" />
+    <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Resources\Implementations\FileResource.cs" />
     <Compile Include="Resources\Implementations\LinkResource.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
