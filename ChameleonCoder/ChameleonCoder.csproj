@@ -107,6 +107,7 @@
     <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\Management\ResourceTypeManager.cs" />
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
+    <Compile Include="Resources\ResourceHelper.cs" />
     <Compile Include="Resources\ResourceTypeInfo.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
     <Compile Include="Resources\RichContent\Implementations\ClassMember.cs" />

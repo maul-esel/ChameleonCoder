@@ -117,7 +117,7 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
-        #region
+        #region IAllowChildren
 
         public Collections.ResourceCollection children { get; protected set; }
 

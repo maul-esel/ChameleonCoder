@@ -48,11 +48,6 @@ namespace ChameleonCoder.Resources.Interfaces
         System.Xml.XmlNode Xml { get; }
 
         /// <summary>
-        /// saves the information changed through the UI to the XML representation
-        /// </summary>
-        void Save();
-
-        /// <summary>
         /// adds a metadata element, given any changes through the UI
         /// it directly manipulates
         /// 1) the Xml-Document
@@ -66,10 +61,5 @@ namespace ChameleonCoder.Resources.Interfaces
         /// moves a resource to another parent resource
         /// </summary>
         void Move();
-
-        /// <summary>
-        /// deletes a resource
-        /// </summary>
-        void Delete();
     }
 }

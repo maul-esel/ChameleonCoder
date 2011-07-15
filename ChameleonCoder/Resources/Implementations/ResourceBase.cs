@@ -91,15 +91,6 @@ namespace ChameleonCoder.Resources.Implementations
 
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
 
-        public virtual void Save()
-        {
-            foreach (Metadata data in this.MetaData)
-            {
-                data.Save(); // changes through the UI should be saved when they occur or through binding
-            }
-            this.Xml.OwnerDocument.Save(new Uri(this.Xml.BaseURI).LocalPath);
-        }
-
         public virtual void AddMetadata()
         {
             // ...
