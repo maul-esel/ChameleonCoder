@@ -32,6 +32,12 @@
           <param name="Name" value="Developers">
           <param name="Local" value="topics\Developers.htm">
         </OBJECT>
+        <UL>
+            <LI><OBJECT type="text/sitemap">
+              <param name="Name" value="Resource syntax">
+              <param name="Local" value="topics\resource syntax.htm">
+            </OBJECT>
+        </UL>
         <LI><OBJECT type="text/sitemap">
           <param name="Name" value="Extensibility">
           <param name="Local" value="topics\Extensibility.htm">
