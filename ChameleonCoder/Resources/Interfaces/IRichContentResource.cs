@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChameleonCoder.Resources.Interfaces
+﻿namespace ChameleonCoder.Resources.Interfaces
 {
     public interface IRichContentResource
     {
-        
+        /// <summary>
+        /// validates whether a RichContent member can be applied to this resource or not
+        /// </summary>
+        /// <param name="member">the RichContentMember to validate</param>
+        /// <returns>true if the member can be added, false otherwise</returns>
+        bool ValidateRichContent(RichContent.IContentMember member);
+
+        /// <summary>
+        /// the collection holding the RichContent
+        /// </summary>
+        RichContent.ContentMemberCollection RichContent { get; }
     }
 }
