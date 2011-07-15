@@ -39,6 +39,7 @@ namespace ChameleonCoder
             {
                 this.visTypes.Items.Add(t);
                 this.MenuCreators.Items.Add(t);
+                this.AddChildResource.Items.Add(t);
             }
         }
 
@@ -167,6 +168,16 @@ namespace ChameleonCoder
 
             if (prop != null)
                 prop.Creator(resourceType, ResourceManager.Add);
+        }
+
+        private void CreateChild(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("...");
+        }
+
+        private void DeleteResource(object sender, RoutedEventArgs e)
+        {
+            ResourceManager.ActiveItem.Delete();
         }
     }
 }

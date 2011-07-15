@@ -284,12 +284,32 @@
             </ribbon:RibbonTab>
             <ribbon:RibbonTab x:Name="ResourceViewTab"
                               Header="Resource">
-                <ribbon:RibbonGroup x:Name="Group8"
-                                        Header="Common">
+                <ribbon:RibbonGroup x:Name="Group8">
+                    <ribbon:RibbonMenuButton LargeImageSource="Images\LargeIcon.png"
+                                         Label="Add child resource"
+                                         x:Name="AddChildResource"
+                                         MouseUp="CreateChild">
+                        <ribbon:RibbonMenuButton.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ribbon:RibbonMenuButton.ItemTemplate>
+                    </ribbon:RibbonMenuButton>
+                    <ribbon:RibbonButton SmallImageSource="Images\SmallIcon.png"
+                                         Label="Move"/>
+                    <ribbon:RibbonButton SmallImageSource="Images\SmallIcon.png"
+                                         Label="Delete"
+                                         Click="DeleteResource"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup>
                     <ribbon:RibbonButton x:Name="OpenEdit"
-                                             Label="Edit"
-                                             LargeImageSource="Images\RibbonTab3\edit.png"
-                                             Click="EditAResource"/>
+                                         Label="Edit"
+                                         LargeImageSource="Images\RibbonTab3\edit.png"
+                                         Click="EditAResource"/>
+                    
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="CustomGroup3" Header="custom"/>
             </ribbon:RibbonTab>
