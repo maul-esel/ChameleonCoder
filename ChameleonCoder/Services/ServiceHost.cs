@@ -8,7 +8,7 @@ namespace ChameleonCoder.Services
     {
         #region infrastructure
 
-        private static SortedList<Guid, IService> Services = new SortedList<Guid, IService>();
+        private static Dictionary<Guid, IService> Services = new Dictionary<Guid, IService>();
         private static Guid ActiveService = Guid.Empty;
         private static ServiceHost instance = new ServiceHost();
 
