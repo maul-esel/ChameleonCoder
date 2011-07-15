@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.Services;
 
@@ -10,49 +8,41 @@ namespace GuidCreator
     {
         #region infrastructure
 
-        IServiceHost Host;
+        IServiceHost host;
 
-        bool _busy;
+        bool busy;
 
-        System.Windows.Media.ImageSource _icon;
-
-        System.Windows.Forms.Form _presenter;
+        System.Windows.Media.ImageSource icon;
 
         #endregion
 
         #region IService
 
-        void IService.Shutdown()
+        public void Shutdown()
         {
         }
 
-        string IService.Author { get { return "maul.esel"; } }
-        string IService.Version { get { return "1.0"; } }
-        string IService.About { get { return "small example service to create a \n Globally Unique IDentifier.\n Coded by maul.esel 2011"; } }
-        Guid IService.Service { get { return new Guid("{fa55bce0-5341-4007-83c6-e5e985bd3f22}"); } }
+        public string Author { get { return "maul.esel"; } }
+        public string Version { get { return "1.0"; } }
+        public string About { get { return "small example service to create a \n Globally Unique IDentifier.\n Coded by maul.esel 2011"; } }
+        public Guid Service { get { return new Guid("{fa55bce0-5341-4007-83c6-e5e985bd3f22}"); } }
         public string ServiceName { get { return "GuidCreator"; } }
-        string IService.Description { get { return "creates a GUID"; } }
-        bool IService.IsBusy { get { return _busy; } }
-        System.Windows.Media.ImageSource IService.Icon { get { return _icon; } }
+        public string Description { get { return "creates a GUID"; } }
+        public bool IsBusy { get { return busy; } }
+        public System.Windows.Media.ImageSource Icon { get { return icon; } }
 
-        void IService.Initialize(IServiceHost host)
+        public void Initialize(IServiceHost host)
         {
-            this.Host = host;
+            this.host = host;
 
-            this._icon = new BitmapImage(new Uri("/icon.png", UriKind.Relative));
-
-            System.Windows.Forms.TextBox outbox = new System.Windows.Forms.TextBox();
-            outbox.Width = 250; outbox.Margin = new System.Windows.Forms.Padding(10);
-            outbox.Name = "OutputBox";
-
-            _presenter = new System.Windows.Forms.Form();
-            _presenter.Controls.Add(outbox);
+            this.icon = null; // new BitmapImage(new Uri("pack://application:,,,/icon.png"));
         }
 
-        void IService.Call()
+        public void Call()
         {
-            _presenter.Controls[_presenter.Controls.IndexOfKey("OutputBox")].Text = Guid.NewGuid().ToString("b");
-            _presenter.ShowDialog();
+            busy = true;
+            CreatorView viewer = new CreatorView();
+            busy = false;
         }
 
         #endregion
