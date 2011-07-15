@@ -100,8 +100,6 @@ namespace ChameleonCoder.Resources.Implementations
             this.Xml.OwnerDocument.Save(new Uri(this.Xml.BaseURI).LocalPath);
         }
 
-        public abstract bool ValidateRichContent(RichContent.IContentMember member);
-
         public virtual void AddMetadata()
         {
             // ...

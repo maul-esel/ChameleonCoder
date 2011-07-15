@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// represents a file containing code,
     /// inherits from FileResource
     /// </summary>
-    public class CodeResource : FileResource, ICompilable, IEditable
+    public class CodeResource : FileResource, ICompilable, IEditable, IRichContentResource
     {
         /// <summary>
         /// creates a new instance of the CodeResource class
@@ -117,6 +117,15 @@ namespace ChameleonCoder.Resources.Implementations
 
             yield return new PropertyDescription("compatible languages", list, "source code");
             yield return new PropertyDescription("compilation path", this.compilationPath, "source code");
+        }
+
+        #endregion
+
+        #region IRichContentResource
+
+        public bool ValidateRichContent(RichContent.IContentMember member)
+        {
+            return true;
         }
 
         #endregion
