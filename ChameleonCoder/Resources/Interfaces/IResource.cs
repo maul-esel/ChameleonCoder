@@ -46,20 +46,5 @@ namespace ChameleonCoder.Resources.Interfaces
         /// Any changes to the resource should be immediately saved to this XmlNode.
         /// </summary>
         System.Xml.XmlNode Xml { get; }
-
-        /// <summary>
-        /// adds a metadata element, given any changes through the UI
-        /// it directly manipulates
-        /// 1) the Xml-Document
-        /// 2) the MetadataCollection
-        /// </summary>
-        void AddMetadata();
-
-        void DeleteMetadata();
-
-        /// <summary>
-        /// moves a resource to another parent resource
-        /// </summary>
-        void Move();
     }
 }

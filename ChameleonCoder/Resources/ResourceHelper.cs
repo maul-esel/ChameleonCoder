@@ -37,5 +37,27 @@ namespace ChameleonCoder
                 resource.Xml.OwnerDocument.Save(new Uri(resource.Xml.BaseURI).LocalPath);
             }
         }
+
+        public static void Move(this IResource resource, IAllowChildren newParent)
+        {
+            newParent.children.Add(resource);
+            newParent.Xml.AppendChild(resource.Xml.Clone());
+            resource.Xml.RemoveAll();
+
+            // remove from old parent collection - how to find?
+        }
+
+        public static void AddMetadata(this IResource resource, Resources.Metadata meta)
+        {
+            System.Xml.XmlNode node = resource.Xml.SelectSingleNode("metadata");
+            //if (node != null)
+                //node.AppendChild(meta.node);
+        }
+
+        public static void DeleteMetadata(this IResource resource, Resources.Metadata meta)
+        {
+            //resource.Xml.RemoveChild(meta.Xml);
+            resource.MetaData.Remove(meta);
+        }
     }
 }

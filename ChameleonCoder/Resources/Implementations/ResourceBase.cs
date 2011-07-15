@@ -87,31 +87,9 @@ namespace ChameleonCoder.Resources.Implementations
             }
         }
 
-        public virtual MetadataCollection MetaData { get; protected internal set; }
+        public virtual MetadataCollection MetaData { get; protected set; }
 
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
-
-        public virtual void AddMetadata()
-        {
-            // ...
-
-            this.Save();
-        }
-
-        public virtual void DeleteMetadata()
-        {
-
-        }
-
-        public virtual void Move()
-        {
-
-        }
-
-        public virtual void Delete()
-        {
-
-        }
 
         #endregion 
 
