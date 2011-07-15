@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Data;
 using ChameleonCoder.LanguageModules;
-using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Services;
@@ -26,8 +25,8 @@ namespace ChameleonCoder
             this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
             this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
 
-            ResourceManager.FlatList = (ResourceCollection)this.Resources["resources"];
-            ResourceManager.children = (ResourceCollection)this.Resources["resourceHierarchy"];
+            ResourceManager.FlatList = (Resources.ResourceCollection)this.Resources["resources"];
+            ResourceManager.children = (Resources.ResourceCollection)this.Resources["resourceHierarchy"];
             
             foreach (IService service in ServiceHost.GetServices())
                 this.MenuServices.Items.Add(service);
@@ -47,7 +46,7 @@ namespace ChameleonCoder
         {
             this.CurrentActionProgress.IsEnabled = true;
             ServiceHost.CallService(new Guid());
-            
+
             // sleep while (service.IsBusy)
             this.CurrentActionProgress.IsEnabled = false;
         }

@@ -43,7 +43,7 @@ namespace ChameleonCoder.Resources.Management
 
         }
 
-        public static void Create(Type target, Action<Interfaces.IResource, Resources.Collections.ResourceCollection> register)
+        public static void Create(Type target, Action<Interfaces.IResource, ResourceCollection> register)
         {
             ResourceCreator creator = new ResourceCreator(target);
             creator.ShowDialog();

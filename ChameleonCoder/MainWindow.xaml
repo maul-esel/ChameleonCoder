@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
         xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-        xmlns:col="clr-namespace:ChameleonCoder.Resources.Collections"
+        xmlns:res="clr-namespace:ChameleonCoder.Resources"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
         xmlns:conv="clr-namespace:ChameleonCoder.Converter"
@@ -24,8 +24,8 @@
         <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>
         <conv:ColorConverter x:Key="ColorConverter"/>
 
-        <col:ResourceCollection x:Key="resources"/>
-        <col:ResourceCollection x:Key="resourceHierarchy"/>
+        <res:ResourceCollection x:Key="resources"/>
+        <res:ResourceCollection x:Key="resourceHierarchy"/>
 
         <CollectionViewSource Source="{StaticResource resources}" Filter="CollectionViewSource_Filter" x:Key="ResListSource">
             <CollectionViewSource.GroupDescriptions>

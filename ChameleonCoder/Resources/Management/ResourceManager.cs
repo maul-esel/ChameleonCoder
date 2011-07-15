@@ -1,5 +1,4 @@
 ﻿using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources.Management
 {

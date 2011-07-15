@@ -34,7 +34,7 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// the associated metadata as Metadata class instances
         /// </summary>
-        Collections.MetadataCollection MetaData { get; }
+        MetadataCollection MetaData { get; }
 
         /// <summary>
         /// an image representing an important information related to the resource

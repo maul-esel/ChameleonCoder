@@ -9,11 +9,11 @@ namespace ChameleonCoder.Resources.Implementations
         public GroupResource(XmlNode node)
             : base(node)
         {
-            this.children = new Collections.ResourceCollection();
+            this.children = new ResourceCollection();
         }
 
         public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/group.png")); } }
 
-        public Collections.ResourceCollection children { get; protected set; }
+        public ResourceCollection children { get; protected set; }
     }
 }

@@ -22,7 +22,7 @@ namespace ChameleonCoder.Resources.Implementations
             : base(node)
         {
             this.compatibleLanguages = new List<Guid>();
-            this.children = new Collections.ResourceCollection();
+            this.children = new ResourceCollection();
         }
 
         #region IResource
@@ -119,7 +119,7 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IAllowChildren
 
-        public Collections.ResourceCollection children { get; protected set; }
+        public ResourceCollection children { get; protected set; }
 
         #endregion
 

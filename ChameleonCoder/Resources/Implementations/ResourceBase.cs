@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using System.Xml;
-using ChameleonCoder.Resources.Collections;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Implementations

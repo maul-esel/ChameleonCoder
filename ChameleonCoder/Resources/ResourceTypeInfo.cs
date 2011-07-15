@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Media;
-using ChameleonCoder.Resources.Collections;
 
 namespace ChameleonCoder.Resources
 {
