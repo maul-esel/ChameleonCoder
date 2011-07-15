@@ -50,7 +50,9 @@ namespace ChameleonCoder.Resources.Management
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic
                 && !IsRegistered(info.Alias)
-                && !IsRegistered(component))
+                && !IsRegistered(component)
+                && !string.Equals(info.Alias, "metadata", StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(info.Alias, "RichContent", StringComparison.OrdinalIgnoreCase))
             {
                 ResourceTypes.RegisterResourceType(info.Alias, component);
                 ResourceTypesStatic.Add(component, info);
