@@ -3,9 +3,6 @@ using System.Windows;
 
 namespace GuidCreator
 {
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
     public partial class CreatorView : Window
     {
         public CreatorView()
