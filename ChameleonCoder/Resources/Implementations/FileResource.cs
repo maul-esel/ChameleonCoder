@@ -46,7 +46,7 @@ namespace ChameleonCoder.Resources.Implementations
                 try { path = this.Xml.Attributes["path"].Value; }
                 catch (NullReferenceException) { }
 
-                if (!System.IO.Path.IsPathRooted(path) && path != string.Empty
+                if (!System.IO.Path.IsPathRooted(path) && !string.IsNullOrWhiteSpace(path)
                     && System.IO.File.Exists(Properties.Settings.Default.ScriptDir + path))
 
                     return ChameleonCoder.Properties.Settings.Default.ScriptDir + path;

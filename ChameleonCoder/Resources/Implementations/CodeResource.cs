@@ -67,7 +67,7 @@ namespace ChameleonCoder.Resources.Implementations
                 try { result = this.Xml.Attributes["compilation-path"].Value; }
                 catch (NullReferenceException) { }
 
-                if (string.IsNullOrWhiteSpace(result))
+                if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(this.Path))
                     result = this.Path + ".exe";
                 return result;
             }
