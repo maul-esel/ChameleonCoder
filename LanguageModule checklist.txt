@@ -11,3 +11,4 @@ Here's a checklist for inspiration, which might later be used to rate them:
 # intellisense
 # debugging execution
 # Localization
+# Auto-creation of RichContent from source code or others

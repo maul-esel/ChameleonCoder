@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ChameleonCoder.RichContent
+namespace ChameleonCoder.Resources.RichContent
 {
     public interface IContentMember
     {

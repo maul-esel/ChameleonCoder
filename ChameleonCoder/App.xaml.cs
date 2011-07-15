@@ -83,7 +83,10 @@ namespace ChameleonCoder
                         if (richContent == null)
                             richContent = RichContent.ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
                         if (richContent != null)
-                            resource.AddRichContentMember(richContent);
+                        {
+                            if (resource.ValidateRichContent(richContent))
+                                resource.ToString(); // add to RichContentCollection
+                        }
                     }
                 else
                     AddResource(child, resource.children);

@@ -3,7 +3,7 @@ using System.Reflection;
 using System.IO;
 using System.Linq;
 
-namespace ChameleonCoder.RichContent
+namespace ChameleonCoder.Resources.RichContent
 {
     internal static class ContentMemberManager
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChameleonCoder.RichContent.Implementations
+namespace ChameleonCoder.Resources.RichContent.Implementations
 {
-    public class ClassMember : IContentMember
+    public class VariableMember : IContentMember
     {
         [Obsolete]
         public virtual string Alias { get { return null; } }

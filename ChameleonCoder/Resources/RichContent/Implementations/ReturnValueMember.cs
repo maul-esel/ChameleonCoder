@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChameleonCoder.RichContent.Implementations
+namespace ChameleonCoder.Resources.RichContent.Implementations
 {
     public class ReturnValueMember : VariableMember
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.RichContent
+namespace ChameleonCoder.Resources.RichContent
 {
     internal sealed class ContentMemberCollection : ComponentCollection<string, Type>
     {

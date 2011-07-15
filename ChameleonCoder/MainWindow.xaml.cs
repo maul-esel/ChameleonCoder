@@ -37,7 +37,6 @@ namespace ChameleonCoder
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
-                //this.ShowTypesList.Items.Add(t);
                 this.visTypes.Items.Add(t);
                 this.MenuCreators.Items.Add(t);
             }
