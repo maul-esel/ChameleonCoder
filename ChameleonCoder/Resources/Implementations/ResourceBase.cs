@@ -29,8 +29,6 @@ namespace ChameleonCoder.Resources.Implementations
                                       where meta.Name == "metadata"
                                       select meta))
                 this.MetaData.Add(new Metadata(meta));
-
-            this.children = new Collections.ResourceCollection();
         }
 
         #region IResource
@@ -90,8 +88,6 @@ namespace ChameleonCoder.Resources.Implementations
         }
 
         public virtual MetadataCollection MetaData { get; protected internal set; }
-
-        public virtual ResourceCollection children { get; protected set; }
 
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
 
