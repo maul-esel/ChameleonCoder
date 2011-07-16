@@ -31,7 +31,7 @@ namespace ChameleonCoder
             return default(TValue);
         }
 
-        public new TValue this[TKey key]
+        public TValue this[TKey key]
         {
             get
             {
