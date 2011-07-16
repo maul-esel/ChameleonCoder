@@ -7,7 +7,7 @@ namespace ChameleonCoder.Resources.Management
 {
     public sealed class ResourceProvider : IComponentProvider
     {
-        public void Init(Action<Type, string> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
+        public void Init(Action<Type, RichContent.ContentMemberTypeInfo> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
         {
             registerResourceType(typeof(LinkResource),
                 new ResourceTypeInfo("link", "link", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")), Brushes.LightGreen,

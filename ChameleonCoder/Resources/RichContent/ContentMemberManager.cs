@@ -9,12 +9,14 @@ namespace ChameleonCoder.Resources.RichContent
     {
         private static ContentMemberCollection ContentMembers = new ContentMemberCollection();
 
-        internal static void RegisterComponent(Type component, string alias)
+        internal static void RegisterComponent(Type component, ContentMemberTypeInfo info)
         {
             if (component.GetInterface(typeof(IContentMember).FullName) != null
-                && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic)
+                && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic
+                && !ContentMembers.IsRegistered(info.Alias)
+                && !ContentMembers.IsRegistered(component))
             {
-                ContentMembers.RegisterMember(alias, component);
+                ContentMembers.RegisterMember(info, component);
             }
         }
 

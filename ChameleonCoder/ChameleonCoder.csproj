@@ -92,6 +92,7 @@
     <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
     <Compile Include="IComponentProvider.cs" />
+    <Compile Include="InstanceCollection.cs" />
     <Compile Include="IPluginHost.cs" />
     <Compile Include="LanguageModules\ILanguageModule.cs" />
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Resources\ResourceHelper.cs" />
     <Compile Include="Resources\ResourceTypeInfo.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
+    <Compile Include="Resources\RichContent\ContentMemberTypeInfo.cs" />
     <Compile Include="Resources\RichContent\Implementations\ClassMember.cs" />
     <Compile Include="Resources\RichContent\Implementations\FieldMember.cs" />
     <Compile Include="Resources\RichContent\Implementations\MethodMember.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Resources\RichContent\Implementations\PropertyMember.cs" />
     <Compile Include="Resources\RichContent\Implementations\ReturnValueMember.cs" />
     <Compile Include="Resources\RichContent\Implementations\VariableMember.cs" />
+    <Compile Include="Resources\RichContent\RichContentCollection.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceHost.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />

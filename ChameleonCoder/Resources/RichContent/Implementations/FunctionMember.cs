@@ -26,21 +26,17 @@ namespace ChameleonCoder.Resources.RichContent.Implementations
             this.childMembers.Add(child);
         }
 
-        public virtual Guid RequiredLanguage { get { return Guid.Empty; } }
-
-        public List<IContentMember> childMembers
+        public RichContentCollection childMembers
         {
             get;
             private set;
         }
 
-        public virtual string Alias { get { return "function"; } }
-
         #endregion
 
         public FunctionMember()
         {
-            this.childMembers = new List<IContentMember>();
+            this.childMembers = new RichContentCollection();
         }
     }
 }

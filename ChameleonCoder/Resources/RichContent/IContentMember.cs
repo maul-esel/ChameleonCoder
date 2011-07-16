@@ -6,15 +6,9 @@ namespace ChameleonCoder.Resources.RichContent
     public interface IContentMember
     {
         /// <summary>
-        /// the alias thnat is used as key-name in XML
-        /// </summary>
-        [Obsolete]
-        string Alias { get; }
-
-        /// <summary>
         /// the list of childMembers the content member has
         /// </summary>
-        List<IContentMember> childMembers { get; }
+        RichContentCollection childMembers { get; }
 
         /// <summary>
         /// asks the content member for permission to add a child to its childMember list.
@@ -26,20 +20,5 @@ namespace ChameleonCoder.Resources.RichContent
         bool ValidateChild(IContentMember child);
 
         bool ValidateParent(IContentMember parent);
-
-        /// <summary>
-        /// adds a child to the childMember collection.
-        /// The content member should not validate it, as this is done using Validate()
-        /// </summary>
-        /// <param name="child">the child to add</param>
-        void AddChild(IContentMember child);
-
-        /// <summary>
-        /// a language that is required for the content member.
-        /// This is intended for language-specific types such as "XmlNode" or "IniSection".
-        /// To allow all languages, use Guid.Empty.
-        /// </summary>
-        [Obsolete]
-        Guid RequiredLanguage { get; }
     }
 }
