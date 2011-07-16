@@ -89,7 +89,7 @@ namespace ChameleonCoder.LanguageModules
         {
         }
 
-        void ILanguageModuleHost.RegisterCodeGenerator(Func<Guid, string> clicked, ImageSource image)
+        void ILanguageModuleHost.RegisterCodeGenerator(Action<Guid, CodeGeneratorEventArgs> clicked, ImageSource image)
         {
         }
 

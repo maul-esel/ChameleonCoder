@@ -14,7 +14,7 @@ namespace ChameleonCoder.LanguageModules
 
         void InsertCode(string code, int position);
 
-        void RegisterCodeGenerator(Func<Guid, string> clicked, ImageSource image); // not complete / definitive
+        void RegisterCodeGenerator(Action<Guid, CodeGeneratorEventArgs> clicked, ImageSource image);
 
         void RegisterTool(); // not complete
 

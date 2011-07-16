@@ -96,6 +96,7 @@
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="InstanceCollection.cs" />
     <Compile Include="IPluginHost.cs" />
+    <Compile Include="LanguageModules\CodeGeneratorEventArgs.cs" />
     <Compile Include="LanguageModules\ILanguageModule.cs" />
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
