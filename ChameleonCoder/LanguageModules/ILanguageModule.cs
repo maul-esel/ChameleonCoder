@@ -37,13 +37,13 @@ namespace ChameleonCoder.LanguageModules
         /// called when the user requests to compile a resource
         /// </summary>
         /// <param name="resource">the GUID of the resource to be compiled</param>
-        void Compile(Guid resource);
+        void Compile(Resources.Interfaces.ICompilable resource);
 
         /// <summary>
         /// called when the user requests to execute a resource
         /// </summary>
         /// <param name="resource">the GUID of the resource to be executed</param>
-        void Execute(Guid resource);
+        void Execute(Resources.Interfaces.IExecutable resource);
 
         /// <summary>
         /// called when the user opens a resource or switches to the editing panel
@@ -54,13 +54,6 @@ namespace ChameleonCoder.LanguageModules
         /// called when the user leaves a resource or switches away from the editing panel
         /// </summary>
         void Unload();
-
-        /// <summary>
-        /// called when the user types a char in edit mode.
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <param name="TypedChar"></param>
-        void CharTyped(Guid resource, char TypedChar);
 
         /// <summary>
         /// the API version the plugin uses. Current is "1".
