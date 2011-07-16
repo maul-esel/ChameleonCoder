@@ -35,7 +35,7 @@ namespace GuidCreator
         {
             this.host = host;
 
-            this.icon = null; // new BitmapImage(new Uri("pack://application:,,,/icon.png"));
+            this.icon = new BitmapImage(new Uri("pack://application:,,,/GuidCreator;component/icon.png"));
         }
 
         public void Call()
