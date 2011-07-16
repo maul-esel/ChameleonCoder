@@ -12,6 +12,6 @@
         /// <summary>
         /// the collection holding the RichContent
         /// </summary>
-        //RichContent.ContentMemberCollection RichContent { get; } //wrong collection
+        RichContent.RichContentCollection RichContent { get; }
     }
 }

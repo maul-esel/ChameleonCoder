@@ -22,6 +22,7 @@ namespace ChameleonCoder.Resources.Implementations
             : base(node)
         {
             this.compatibleLanguages = new List<Guid>();
+            this.RichContent = new RichContent.RichContentCollection();
         }
 
         #region IResource
@@ -127,6 +128,8 @@ namespace ChameleonCoder.Resources.Implementations
         {
             return true;
         }
+
+        public RichContent.RichContentCollection RichContent { get; protected set; }
 
         #endregion
     }
