@@ -204,77 +204,19 @@
                             ToolTipImageSource="Images\info.png">
 
                         <ribbon:RibbonGallery MaxHeight="250" MaxColumnCount="8">
-                            <ribbon:RibbonGalleryCategory HorizontalContentAlignment="Stretch" MinColumnCount="3">
-                                <ribbon:RibbonGalleryItem Width="75" Height="75" x:Name="NewFunc">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
-                                        <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
-                                <ribbon:RibbonGalleryItem Width="75" Height="75">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\class.png"/>
-                                        <TextBlock Grid.Row="1" Text="class" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
-                                <ribbon:RibbonGalleryItem Width="75" Height="75">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
-                                        <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
-                                <ribbon:RibbonGalleryItem Width="75" Height="75">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
-                                        <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
-                                <ribbon:RibbonGalleryItem Width="75" Height="75">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
-                                        <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
-                                <ribbon:RibbonGalleryItem Width="75" Height="75">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
-                                        <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
-                                <ribbon:RibbonGalleryItem Width="75" Height="75">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="Images\RibbonTab2\function.png"/>
-                                        <TextBlock Grid.Row="1" Text="function" HorizontalAlignment="Center"/>
-                                    </Grid>
-                                </ribbon:RibbonGalleryItem>
+                            <ribbon:RibbonGalleryCategory HorizontalContentAlignment="Stretch" MinColumnCount="3" x:Name="StubCreators">
+                                <ribbon:RibbonGalleryCategory.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Width="75" Height="75">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Source="{Binding Path=Value}"/>
+                                            <TextBlock Grid.Row="1" Text="{Binding Path=Key}" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ribbon:RibbonGalleryCategory.ItemTemplate>
                             </ribbon:RibbonGalleryCategory>
                         </ribbon:RibbonGallery>
                     </ribbon:RibbonMenuButton>

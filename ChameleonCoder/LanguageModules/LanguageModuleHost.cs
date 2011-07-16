@@ -106,10 +106,12 @@ namespace ChameleonCoder.LanguageModules
 
         void ILanguageModuleHost.RegisterStubCreator(int index, Action<Guid> clicked)
         {
+            App.Gui.ToString();
         }
 
-        void ILanguageModuleHost.RegisterStubCreator(ImageSource custom, Action<Guid> clicked)
+        void ILanguageModuleHost.RegisterStubCreator(string name, ImageSource custom, Action<Guid> clicked)
         {
+            App.Gui.StubCreators.Items.Add(new KeyValuePair<string, ImageSource>(name, custom));
         }
 
         void ILanguageModuleHost.RegisterEditTool()

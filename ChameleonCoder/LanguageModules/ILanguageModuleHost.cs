@@ -20,7 +20,7 @@ namespace ChameleonCoder.LanguageModules
 
         void RegisterStubCreator(int index, Action<Guid> clicked); // maybe an enum instead?
 
-        void RegisterStubCreator(ImageSource pic, Action<Guid> clicked); // not complete
+        void RegisterStubCreator(string name, ImageSource pic, Action<Guid> clicked);
 
         void RegisterEditTool(); // not complete
 
