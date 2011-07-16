@@ -89,8 +89,19 @@ namespace ChameleonCoder.LanguageModules
         {
         }
 
-        void ILanguageModuleHost.RegisterCodeGenerator(Action<Guid, CodeGeneratorEventArgs> clicked, ImageSource image)
+        void ILanguageModuleHost.RegisterCodeGenerator(Action<Guid, CodeGeneratorEventArgs> clicked, ImageSource image, string text)
         {
+            Microsoft.Windows.Controls.Ribbon.RibbonButton button = new Microsoft.Windows.Controls.Ribbon.RibbonButton();
+            button.Click += delegate
+            {
+                CodeGeneratorEventArgs e = new CodeGeneratorEventArgs();
+                clicked(Resources.Management.ResourceManager.ActiveItem.GUID, e);
+                if (!e.Handled)
+                    (this as ILanguageModuleHost).InsertCode(e.Code);
+            };
+            button.Label = text;
+            button.LargeImageSource = image;
+            App.Gui.CustomGroup2.Items.Add(button);
         }
 
         void ILanguageModuleHost.RegisterStubCreator(int index, Action<Guid> clicked)
@@ -136,7 +147,6 @@ namespace ChameleonCoder.LanguageModules
         {
             // App.Gui.Editor.Document.Insert(0, code);
             // todo: find current cursor position
-            throw new NotImplementedException();
         }
 
         void ILanguageModuleHost.InsertCode(string code, int position)
