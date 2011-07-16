@@ -5,7 +5,7 @@ namespace ChameleonCoder
 {
     public abstract class InstanceCollection<TKey, TValue> : ObservableCollection<TValue>
     {
-        Dictionary<TKey, TValue> instances = new Dictionary<TKey, TValue>();
+        SortedList<TKey, TValue> instances = new SortedList<TKey, TValue>();
 
         public void Add(TKey key, TValue value)
         {
@@ -29,6 +29,18 @@ namespace ChameleonCoder
             if (instances.TryGetValue(key, out instance))
                 return instance;
             return default(TValue);
+        }
+
+        public new TValue this[TKey key]
+        {
+            get
+            {
+                return this.GetInstance(key);
+            }
+            set
+            {
+                instances.Values[instances.IndexOfKey(key)] = value;
+            }
         }
     }
 }
