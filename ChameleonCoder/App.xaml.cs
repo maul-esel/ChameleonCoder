@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.RichContent;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder
 {
@@ -30,16 +31,17 @@ namespace ChameleonCoder
 
             string[] args = Environment.GetCommandLineArgs();
 
-            for (int i = 1; i <= args.Length; i++)
+            for (int i = 1; i < args.Length; i++)
             {
-                if (args[i] == "--file")
+                if (File.Exists(args[i]))
                 {
                     no_data = true;
-                    AddResource(args[i + 1]);
+                    ParseFile(args[i]);
                 }
-                else if (args[i] == "--dir")
+                else if (Directory.Exists(args[i]))
                 {
                     no_data = true;
+                    ParseDir(args[i]);
                 }
                 else if (args[i] == "--data")
                 {
@@ -78,7 +80,7 @@ namespace ChameleonCoder
             ResourceManager.children = (Resources.ResourceCollection)this.Resources["resourceHierarchy"];
 
             if (!no_data)
-                ListData();
+                ParseDir(AppDir + "\\Data");
 
             Gui.Show();
         }
@@ -89,31 +91,43 @@ namespace ChameleonCoder
             Services.ServiceHost.Shutdown();
         }
 
-        private static void ListData()
+        private static void ParseFile(string file)
         {
-            if (Directory.Exists(AppDir + "\\Data"))
+            bool error = false;
+
+            XmlDocument doc = new XmlDocument();
+
+            try { doc.Load(file); }
+            catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); error = true; }
+
+            if (!error && doc.DocumentElement.Name == "cc-project-map")
             {
-                string[] files = Directory.GetFiles(AppDir + "\\Data", "*.xml");
-
-                foreach (string file in files)
+                foreach (XmlNode file_ref in (from XmlNode _ref in doc.DocumentElement.ChildNodes
+                                              where _ref.Name == "file" && File.Exists(_ref.Value)
+                                              select _ref))
                 {
-                    XmlDocument doc = new XmlDocument();
-
-                    try { doc.Load(file); }
-                    catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); continue; }
-
-                    AddResource(doc.DocumentElement, null, null);
+                    ParseFile(file_ref.Value);
+                }
+                foreach (XmlNode dir_ref in (from XmlNode _ref in doc.DocumentElement.ChildNodes
+                                             where _ref.Name == "dir" && Directory.Exists(_ref.Value)
+                                             select _ref))
+                {
+                    ParseDir(dir_ref.Value);
                 }
             }
+            else if (!error)
+                AddResource(doc.DocumentElement, null, null);
         }
 
-        internal static bool AddResource(string file)
+        private static void ParseDir(string dir)
         {
-            XmlDocument doc = new XmlDocument();
-            try { doc.Load(file); }
-            catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); }
+            var files = (Directory.GetFiles(dir, "*.ccp", SearchOption.AllDirectories))
+                .Concat(Directory.GetFiles(dir, "*.ccm", SearchOption.AllDirectories));
 
-            return AddResource(doc.DocumentElement, null, null);
+            foreach (string file in files)
+            {
+                ParseFile(file);
+            }
         }
 
         internal static bool AddResource(XmlNode node, ResourceCollection parentCol, IAllowChildren parent)
