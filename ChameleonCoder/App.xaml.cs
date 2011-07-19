@@ -21,9 +21,50 @@ namespace ChameleonCoder
 
         internal void Init(Object sender, StartupEventArgs e)
         {
+            #region command line
+            bool no_data = false;
+            bool plus_data = false;
+            bool noplugin = false;
+
+            string[] args = Environment.GetCommandLineArgs();
+
+            for (int i = 1; i <= args.Length; i++)
+            {
+                if (args[i] == "--file")
+                {
+                    no_data = true;
+                    AddResource(args[i + 1]);
+                }
+                else if (args[i] == "--dir")
+                {
+                    no_data = true;
+                }
+                else if (args[i] == "--data")
+                {
+                    plus_data = true;
+                }
+                else if (args[i] == "--noplugin")
+                {
+                    noplugin = true;
+                }
+                else if (args[i] == "--install_ext")
+                {
+
+                }
+                else if (args[i] == "--install_COM")
+                {
+
+                }
+            }
+
+            if (plus_data)
+                no_data = false;
+            #endregion
+
             Localization.Language.Culture = new CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
-            LoadPlugins();
+            if (!noplugin)
+                LoadPlugins();
 
             App.Current.Exit += ExitHandler;
 
@@ -31,7 +72,11 @@ namespace ChameleonCoder
 
             Gui.Resources.Add("ResourceTypes", ResourceTypeManager.GetResourceTypes());
 
-            ListData();
+            ResourceManager.FlatList = (Resources.ResourceCollection)this.Resources["resources"];
+            ResourceManager.children = (Resources.ResourceCollection)this.Resources["resourceHierarchy"];
+
+            if (!no_data)
+                ListData();
 
             Gui.Show();
         }
@@ -55,25 +100,36 @@ namespace ChameleonCoder
                     try { doc.Load(file); }
                     catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); continue; }
 
-                    AddResource(doc.DocumentElement, null);
+                    AddResource(doc.DocumentElement, null, null);
                 }
             }
         }
 
-        internal static bool AddResource(XmlNode node, ResourceCollection parent)
+        internal static bool AddResource(string file)
+        {
+            XmlDocument doc = new XmlDocument();
+            try { doc.Load(file); }
+            catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); }
+
+            return AddResource(doc.DocumentElement, null, null);
+        }
+
+        internal static bool AddResource(XmlNode node, ResourceCollection parentCol, IAllowChildren parent)
         {
             IResource resource;
             
-            resource = ResourceTypeManager.CreateInstanceOf(node.Name, node);
+            resource = ResourceTypeManager.CreateInstanceOf(node.Name, node, parent);
             if (resource == null)
                 resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
             if (resource == null)
                 return false;
 
+            MessageBox.Show(resource.GetPath());
+
             IRichContentResource richResource = resource as IRichContentResource;
             IAllowChildren parentResource = resource as IAllowChildren;
 
-            ResourceManager.Add(resource, parent);
+            ResourceManager.Add(resource, parentCol);
 
             foreach (XmlNode child in node.ChildNodes)
             {
@@ -92,7 +148,7 @@ namespace ChameleonCoder
                         }
                     }
                 else if (parentResource != null)
-                    AddResource(child, parentResource.children);
+                    AddResource(child, parentResource.children, parentResource);
             }
 
             return true;
