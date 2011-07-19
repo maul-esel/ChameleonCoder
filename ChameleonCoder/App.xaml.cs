@@ -19,6 +19,8 @@ namespace ChameleonCoder
     {
         internal static MainWindow Gui;
 
+        public static string AppDir { get { return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); } }
+
         internal void Init(Object sender, StartupEventArgs e)
         {
             #region command line
@@ -89,9 +91,9 @@ namespace ChameleonCoder
 
         private static void ListData()
         {
-            if (Directory.Exists(Environment.CurrentDirectory + "\\Data"))
+            if (Directory.Exists(AppDir + "\\Data"))
             {
-                string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\Data", "*.xml");
+                string[] files = Directory.GetFiles(AppDir + "\\Data", "*.xml");
 
                 foreach (string file in files)
                 {
@@ -157,7 +159,7 @@ namespace ChameleonCoder
         private static void LoadPlugins()
         {
             List<Type> components = new List<Type>(Assembly.GetEntryAssembly().GetTypes());
-            foreach (string dll in Directory.GetFiles(Environment.CurrentDirectory + "\\Components", "*.dll"))
+            foreach (string dll in Directory.GetFiles(AppDir + "\\Components", "*.dll"))
                 components.AddRange(Assembly.LoadFrom(dll).GetTypes());
 
             foreach (Type component in components)
