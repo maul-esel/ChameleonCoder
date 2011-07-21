@@ -24,15 +24,14 @@ namespace ChameleonCoder.Navigation
                 if (((KeyValuePair<string, Page>)o).Value.GetType() == typeof(ResourceListPage))
                 {
                     found = true;
-                    App.Gui.Tabs.SelectedIndex = i;
                     break;
                 }
             }
             if (!found)
             {
-                int after = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.ResourceListPage()));
-                App.Gui.Tabs.SelectedIndex = after;
+                i = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.ResourceListPage()));
             }
+            App.Gui.Tabs.SelectedIndex = i;
         }
 
         private void CreateResource(object sender, EventArgs e)
