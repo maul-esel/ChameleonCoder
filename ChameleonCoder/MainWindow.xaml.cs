@@ -71,16 +71,23 @@ namespace ChameleonCoder
 
         private void GoHome(object sender, EventArgs e)
         {
-            /*ResourceManager.ActiveItem = null;
-            LanguageModuleHost.UnloadModule();
-
-            this.ResourceList.Visibility = System.Windows.Visibility.Visible;
-
-            this.Editor.Visibility = System.Windows.Visibility.Hidden;
-
-            this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
-            this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
-            this.NotesBox.Visibility = System.Windows.Visibility.Hidden;*/
+            bool found = false;
+            int i = -1;
+            foreach (object o in App.Gui.Tabs.Items)
+            {
+                i++;
+                if (((KeyValuePair<string, Page>)o).Value.GetType() == typeof(Navigation.WelcomePage))
+                {
+                    found = true;
+                    App.Gui.Tabs.SelectedIndex = i;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                int after = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
+                App.Gui.Tabs.SelectedIndex = after;
+            }
         }
 
         private void OpenAResource(object sender, RoutedPropertyChangedEventArgs<Object> e)
