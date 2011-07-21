@@ -10,4 +10,6 @@ namespace ChameleonCoder.LanguageModules
         public bool Handled { get; set; }
         public string Code { get; set; }
     }
+
+    public delegate void CodeGeneratorEventHandler(Resources.Interfaces.IResource sender, CodeGeneratorEventArgs e);
 }

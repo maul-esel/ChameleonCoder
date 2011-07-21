@@ -89,13 +89,13 @@ namespace ChameleonCoder.LanguageModules
         {
         }
 
-        void ILanguageModuleHost.RegisterCodeGenerator(Action<Guid, CodeGeneratorEventArgs> clicked, ImageSource image, string text)
+        void ILanguageModuleHost.RegisterCodeGenerator(CodeGeneratorEventHandler clicked, ImageSource image, string text)
         {
             Microsoft.Windows.Controls.Ribbon.RibbonButton button = new Microsoft.Windows.Controls.Ribbon.RibbonButton();
             button.Click += delegate
             {
-                CodeGeneratorEventArgs e = new CodeGeneratorEventArgs();
-                clicked(Resources.Management.ResourceManager.ActiveItem.GUID, e);
+                CodeGeneratorEventArgs e = new CodeGeneratorEventArgs(); // todo: add information
+                clicked(Resources.Management.ResourceManager.ActiveItem, e);
                 if (!e.Handled)
                     (this as ILanguageModuleHost).InsertCode(e.Code);
             };
