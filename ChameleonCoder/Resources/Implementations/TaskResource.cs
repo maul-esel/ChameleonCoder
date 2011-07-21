@@ -11,8 +11,8 @@ namespace ChameleonCoder.Resources.Implementations
     /// </summary>
     public class TaskResource : ResourceBase
     {
-        public TaskResource(XmlNode node)
-            : base(node)
+        public TaskResource(XmlNode node, Interfaces.IAllowChildren parent)
+            : base(node, parent)
         {
         }
 

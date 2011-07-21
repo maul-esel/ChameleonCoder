@@ -18,8 +18,8 @@ namespace ChameleonCoder.Resources.Implementations
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the xpath to the resource's main element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public ProjectResource(XmlNode node)
-            : base(node)
+        public ProjectResource(XmlNode node, IAllowChildren parent)
+            : base(node, parent)
         {
             this.compatibleLanguages = new List<Guid>();
             this.children = new ResourceCollection();
@@ -89,7 +89,7 @@ namespace ChameleonCoder.Resources.Implementations
 
         #endregion
 
-        #region IEnumerable
+        #region IEnumerable<T>
 
         public override IEnumerator<PropertyDescription> GetEnumerator()
         {
@@ -101,7 +101,7 @@ namespace ChameleonCoder.Resources.Implementations
             try { langName = LanguageModules.LanguageModuleHost.GetModule(this.language).LanguageName; }
             catch(NullReferenceException) { }
 
-            yield return new PropertyDescription("language", langName, "project");
+            yield return new PropertyDescription("language", langName, "project") { IsReadOnly = true };
 
             string list = string.Empty;
             foreach (Guid lang in this.compatibleLanguages)
@@ -110,7 +110,7 @@ namespace ChameleonCoder.Resources.Implementations
                 catch (NullReferenceException) { }
             }
 
-            yield return new PropertyDescription("compatible languages", list, "project");
+            yield return new PropertyDescription("compatible languages", list, "project") { IsReadOnly = true };
 
             yield return new PropertyDescription("compilation path", this.compilationPath, "project");
         }

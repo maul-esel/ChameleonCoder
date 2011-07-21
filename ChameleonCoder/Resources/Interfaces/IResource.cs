@@ -46,5 +46,10 @@ namespace ChameleonCoder.Resources.Interfaces
         /// Any changes to the resource should be immediately saved to this XmlNode.
         /// </summary>
         System.Xml.XmlNode Xml { get; }
+
+        /// <summary>
+        /// holds a reference to the resource's parent
+        /// </summary>
+        IAllowChildren Parent { get; }
     }
 }

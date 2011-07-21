@@ -62,6 +62,9 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BreadcrumbLib">
+      <HintPath>..\..\Breadcrumb_V1\BreadcrumbLib.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
@@ -91,8 +94,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CCResourceCatalog.xaml.cs">
+      <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
+    <Compile Include="Navigation\EditPage.xaml.cs">
+      <DependentUpon>EditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="InstanceCollection.cs" />
     <Compile Include="IPluginHost.cs" />
@@ -100,6 +109,9 @@
     <Compile Include="LanguageModules\ILanguageModule.cs" />
     <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
+    <Compile Include="Navigation\ResourceListPage.xaml.cs">
+      <DependentUpon>ResourceListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Implementations\GroupResource.cs" />
     <Compile Include="Resources\Interfaces\IAllowChildren.cs" />
@@ -124,6 +136,9 @@
     <Compile Include="Resources\RichContent\Implementations\ReturnValueMember.cs" />
     <Compile Include="Resources\RichContent\Implementations\VariableMember.cs" />
     <Compile Include="Resources\RichContent\RichContentCollection.cs" />
+    <Compile Include="Navigation\ResourceViewPage.xaml.cs">
+      <DependentUpon>ResourceViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceHost.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
@@ -157,6 +172,17 @@
     <Compile Include="Resources\RichContent\Implementations\FunctionMember.cs" />
     <Compile Include="Resources\RichContent\IContentMember.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Navigation\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CCResourceCatalog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Navigation\EditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -170,6 +196,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Navigation\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Navigation\ResourceListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Navigation\ResourceViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +346,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ResourceType\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

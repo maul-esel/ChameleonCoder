@@ -7,7 +7,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
-        internal static ResourceCollection children;
+        internal static ResourceCollection children = new ResourceCollection();
 
         /// <summary>
         /// contains a list of ALL resources

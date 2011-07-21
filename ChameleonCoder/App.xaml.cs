@@ -53,7 +53,7 @@ namespace ChameleonCoder
                 }
                 else if (args[i] == "--install_ext")
                 {
-
+                    
                 }
                 else if (args[i] == "--install_COM")
                 {
@@ -105,15 +105,12 @@ namespace ChameleonCoder
                 foreach (XmlNode file_ref in (from XmlNode _ref in doc.DocumentElement.ChildNodes
                                               where _ref.Name == "file" && File.Exists(_ref.Value)
                                               select _ref))
-                {
                     ParseFile(file_ref.Value);
-                }
+
                 foreach (XmlNode dir_ref in (from XmlNode _ref in doc.DocumentElement.ChildNodes
                                              where _ref.Name == "dir" && Directory.Exists(_ref.Value)
                                              select _ref))
-                {
                     ParseDir(dir_ref.Value);
-                }
             }
             else if (!error)
                 AddResource(doc.DocumentElement, null, null);
@@ -139,8 +136,6 @@ namespace ChameleonCoder
                 resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
             if (resource == null)
                 return false;
-
-            MessageBox.Show(resource.GetPath());
 
             IRichContentResource richResource = resource as IRichContentResource;
             IAllowChildren parentResource = resource as IAllowChildren;

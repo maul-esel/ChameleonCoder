@@ -6,8 +6,8 @@ namespace ChameleonCoder.Resources.Implementations
 {
     public class GroupResource : ResourceBase, Interfaces.IAllowChildren
     {
-        public GroupResource(XmlNode node)
-            : base(node)
+        public GroupResource(XmlNode node, Interfaces.IAllowChildren parent)
+            : base(node, parent)
         {
             this.children = new ResourceCollection();
         }

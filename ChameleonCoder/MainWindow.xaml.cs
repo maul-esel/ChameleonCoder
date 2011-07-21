@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using ChameleonCoder.LanguageModules;
 using ChameleonCoder.Resources.Interfaces;
@@ -18,16 +20,7 @@ namespace ChameleonCoder
         {
             InitializeComponent();
 
-            this.Editor.Visibility = System.Windows.Visibility.Hidden;
-
-            this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
-            this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
-            this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
-
             this.CurrentActionProgress.IsEnabled = false;
-
-            ResourceManager.FlatList = (Resources.ResourceCollection)this.Resources["resources"];
-            ResourceManager.children = (Resources.ResourceCollection)this.Resources["resourceHierarchy"];
             
             foreach (IService service in ServiceHost.GetServices())
                 this.MenuServices.Items.Add(service);
@@ -42,10 +35,12 @@ namespace ChameleonCoder
 
                 RibbonMenuItem item = new RibbonMenuItem();
                 item.Click += this.CreateChild;
-                item.Header = t; // ResourceTypeManager.GetInfo(t).DisplayName;
+                item.Header = ResourceTypeManager.GetInfo(t).DisplayName;
                 item.ImageSource = ResourceTypeManager.GetInfo(t).TypeIcon;
                 this.AddChildResource.Items.Add(item);
             }
+
+            this.Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new Navigation.WelcomePage()));
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)
@@ -76,7 +71,7 @@ namespace ChameleonCoder
 
         private void GoHome(object sender, EventArgs e)
         {
-            ResourceManager.ActiveItem = null;
+            /*ResourceManager.ActiveItem = null;
             LanguageModuleHost.UnloadModule();
 
             this.ResourceList.Visibility = System.Windows.Visibility.Visible;
@@ -85,7 +80,7 @@ namespace ChameleonCoder
 
             this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
             this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
-            this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
+            this.NotesBox.Visibility = System.Windows.Visibility.Hidden;*/
         }
 
         private void OpenAResource(object sender, RoutedPropertyChangedEventArgs<Object> e)
@@ -93,7 +88,7 @@ namespace ChameleonCoder
             IResource old = e.OldValue as IResource;
             if (old != null)
                 old.Save();
-
+            
             IResource resource = e.NewValue as IResource;
 
             if (resource != null)
@@ -105,14 +100,9 @@ namespace ChameleonCoder
                 ILanguageResource languageResource;
                 if ((languageResource = resource as ILanguageResource) != null)
                     LanguageModuleHost.LoadModule(languageResource.language);
-                
-                this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
 
-                this.Editor.Visibility = System.Windows.Visibility.Hidden;
-
-                this.PropertyGrid.Visibility = System.Windows.Visibility.Visible;
-                this.MetadataGrid.Visibility = System.Windows.Visibility.Visible;
-                this.NotesBox.Visibility = System.Windows.Visibility.Visible;
+                int i = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
+                Tabs.SelectedIndex = i;
             }
         }
 
@@ -127,34 +117,20 @@ namespace ChameleonCoder
                     resource = link.Resolve();
 
                 IEditable editResource = resource as IEditable;
-
                 if (editResource != null)
-                {
-                    this.Editor.Text = editResource.GetText();
-
-                    this.ResourceList.Visibility = System.Windows.Visibility.Hidden;
-
-                    this.Editor.Visibility = System.Windows.Visibility.Visible;
-
-                    this.PropertyGrid.Visibility = System.Windows.Visibility.Hidden;
-                    this.MetadataGrid.Visibility = System.Windows.Visibility.Hidden;
-                    this.NotesBox.Visibility = System.Windows.Visibility.Hidden;
-                }
+                    Tabs.SelectedItem = new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource));
             }
         }
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
-            if (this.EnableGroups.IsChecked == false)
-                CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).GroupDescriptions.Clear();
-
-            else if (this.EnableGroups.IsChecked == true && this.IsInitialized)
-                CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter()));
+            if (this.IsInitialized)
+                (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceListPage).GroupingChanged(this.EnableGroups.IsChecked);
         }
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
+            //CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
         }
 
         private void Close(object sender, RoutedEventArgs e)
@@ -209,13 +185,43 @@ namespace ChameleonCoder
                         MessageBox.Show(ex.Message + ex.Source);
                     }
 
-                    App.AddResource(doc.DocumentElement, null);
+                    App.AddResource(doc.DocumentElement, null, null);
                     System.IO.File.Copy(file,
                         System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
                         + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
                         + System.IO.Path.GetFileName(file));
                 }
             }
+        }
+
+        private void CloseTab(object sender, EventArgs e)
+        {
+        }
+
+        private void TabChanged(object sender, EventArgs e)
+        {
+            Type selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType();
+
+            if (selected == typeof(Navigation.ResourceListPage))
+                this.contextResourceList.Visibility = Visibility.Visible;
+            else
+                this.contextResourceList.Visibility = Visibility.Collapsed;
+
+            if (selected == typeof(Navigation.ResourceViewPage))
+            {
+                this.contextResourceView.Visibility = Visibility.Visible;
+                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceViewPage).Resource;
+            }
+            else
+                this.contextResourceView.Visibility = Visibility.Collapsed;
+
+            if (selected == typeof(Navigation.EditPage))
+            {
+                this.contextEditing.Visibility = Visibility.Visible;
+                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.EditPage).Resource;
+            }
+            else
+                this.contextEditing.Visibility = Visibility.Collapsed;
         }
     }
 }

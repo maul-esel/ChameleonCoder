@@ -19,8 +19,8 @@ namespace ChameleonCoder.Resources.Implementations
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public LinkResource(XmlNode node)
-            : base(node)
+        public LinkResource(XmlNode node, IAllowChildren parent)
+            : base(node, parent)
         {
         }
 

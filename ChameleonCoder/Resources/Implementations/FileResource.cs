@@ -10,8 +10,8 @@ namespace ChameleonCoder.Resources.Implementations
     /// </summary>
     public class FileResource : ResourceBase
     {
-        public FileResource(XmlNode node)
-            : base(node)
+        public FileResource(XmlNode node, Interfaces.IAllowChildren parent)
+            : base(node, parent)
         {
         }
 

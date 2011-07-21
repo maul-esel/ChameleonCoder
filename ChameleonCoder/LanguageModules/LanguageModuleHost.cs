@@ -137,12 +137,12 @@ namespace ChameleonCoder.LanguageModules
 
         string ILanguageModuleHost.GetCurrentEditText()
         {
-            return App.Gui.Editor.Text;
+            return null; // App.Gui.Editor.Text;
         }
 
         ICSharpCode.AvalonEdit.TextEditor ILanguageModuleHost.GetEditControl()
         {
-            return App.Gui.Editor;
+            return null; // App.Gui.Editor;
         }
 
         void ILanguageModuleHost.InsertCode(string code)
@@ -154,7 +154,7 @@ namespace ChameleonCoder.LanguageModules
         void ILanguageModuleHost.InsertCode(string code, int position)
         {
             // should check for current view before
-            App.Gui.Editor.Document.Insert(position, code);
+            //App.Gui.Editor.Document.Insert(position, code);
         }
 
         #endregion

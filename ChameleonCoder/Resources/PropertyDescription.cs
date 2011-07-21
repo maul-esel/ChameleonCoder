@@ -10,6 +10,8 @@ namespace ChameleonCoder.Resources
 
         public string Group { get; private set; }
 
+        public bool IsReadOnly { get; set; }
+
         public PropertyDescription(string name, object value, string group)
         {
             this.Name = name;

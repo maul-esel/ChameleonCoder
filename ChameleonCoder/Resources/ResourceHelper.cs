@@ -40,11 +40,16 @@ namespace ChameleonCoder
 
         public static void Move(this IResource resource, IAllowChildren newParent)
         {
-            newParent.children.Add(resource);
-            newParent.Xml.AppendChild(resource.Xml.Clone());
-            resource.Xml.RemoveAll();
+            System.Xml.XmlNode node;
 
-            // remove from old parent collection - how to find?
+            resource.Parent.children.Remove(resource.GUID);
+            resource.Parent.Xml.RemoveChild(resource.Xml);
+
+            newParent.children.Add(resource);
+            newParent.Xml.AppendChild(node = resource.Xml.CloneNode(true));
+
+            //resource.Xml = node;
+            //resource.Parent = newParent;
         }
 
         public static void AddMetadata(this IResource resource, Resources.Metadata meta)
@@ -58,6 +63,23 @@ namespace ChameleonCoder
         {
             //resource.Xml.RemoveChild(meta.Xml);
             resource.MetaData.Remove(meta);
+        }
+
+        public static string GetPath(this IResource resource, char delimiter)
+        {
+            string path = string.Empty;
+
+            while (resource != null)
+            {
+                path += delimiter + resource.Name + path;
+                resource = resource.Parent;
+            }
+            return path;
+        }
+
+        public static string GetPath(this IResource resource)
+        {
+            return resource.GetPath('\\');
         }
     }
 }

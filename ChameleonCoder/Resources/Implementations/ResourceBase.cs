@@ -17,9 +17,10 @@ namespace ChameleonCoder.Resources.Implementations
         /// serves as base constructor for inherited classes and sets general properties
         /// </summary>
         /// <param name="node">the XmlNode that contains the resource</param>
-        public ResourceBase(XmlNode node)
+        public ResourceBase(XmlNode node, IAllowChildren parent)
         {
             this.Xml = node;
+            this.Parent = parent;
 
             this.GUID = new Guid(node.Attributes["guid"].Value);
 
@@ -90,6 +91,8 @@ namespace ChameleonCoder.Resources.Implementations
 
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
 
+        public virtual IAllowChildren Parent { get; private set; }
+
         #endregion 
 
         #region INotifyPropertyChanged
@@ -110,7 +113,7 @@ namespace ChameleonCoder.Resources.Implementations
         public virtual IEnumerator<PropertyDescription> GetEnumerator()
         {
             yield return new PropertyDescription("name", this.Name, "General");
-            yield return new PropertyDescription("GUID", this.GUID.ToString("b"), "General");
+            yield return new PropertyDescription("GUID", this.GUID.ToString("b"), "General") { IsReadOnly = true };
             yield return new PropertyDescription("Description", this.Description, "General");
         }
 
