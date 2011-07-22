@@ -7,6 +7,7 @@ using ChameleonCoder.LanguageModules;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Services;
+using ChameleonCoder.Navigation;
 using Microsoft.Windows.Controls.Ribbon;
 
 namespace ChameleonCoder
@@ -28,6 +29,9 @@ namespace ChameleonCoder
             if (ServiceHost.GetServiceCount() == 0)
                 this.MenuServices.IsEnabled = false;
 
+            foreach (var item in ResourceManager.GetChildren())
+                this.breadcrumb.Items.Add(item);
+
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
                 this.visTypes.Items.Add(t);
@@ -40,7 +44,7 @@ namespace ChameleonCoder
                 this.AddChildResource.Items.Add(item);
             }
 
-            this.Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new Navigation.WelcomePage()));
+            this.Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new WelcomePage()));
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)

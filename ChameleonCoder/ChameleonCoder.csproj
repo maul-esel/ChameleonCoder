@@ -68,6 +68,9 @@
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
+    <Reference Include="Odyssey">
+      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+    </Reference>
     <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Deploy\RibbonControlsLibrary.dll</HintPath>

@@ -97,7 +97,7 @@ namespace ChameleonCoder.Resources.Implementations
         /// <returns>the Resource object the link points to</returns>
         public IResource Resolve()
         {
-            return ResourceManager.FlatList.GetInstance(this.Destination);
+            return ResourceManager.GetList().GetInstance(this.Destination);
         }
 
         public bool shouldResolve { get { return true; } }

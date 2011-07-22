@@ -82,7 +82,7 @@ namespace ChameleonCoder.Services
 
         IResource IPluginHost.GetResource(Guid ID)
         {
-            return ChameleonCoder.Resources.Management.ResourceManager.FlatList.GetInstance(ID);
+            return ChameleonCoder.Resources.Management.ResourceManager.GetList().GetInstance(ID);
         }
         #endregion
     }

@@ -24,6 +24,10 @@ namespace ChameleonCoder
 
         internal void Init(Object sender, StartupEventArgs e)
         {
+            ResourceTypeManager.SetCollection(this.Resources["ResourceTypes"] as ResourceTypeCollection);
+            ResourceManager.SetCollections(this.Resources["resources"] as ResourceCollection,
+                                           this.Resources["resourceHierarchy"] as ResourceCollection);
+
             #region command line
             bool no_data = false;
             bool plus_data = false;
@@ -73,11 +77,6 @@ namespace ChameleonCoder
             App.Current.Exit += ExitHandler;
 
             Gui = new MainWindow();
-
-            Gui.Resources.Add("ResourceTypes", ResourceTypeManager.GetResourceTypes());
-
-            ResourceManager.FlatList = (Resources.ResourceCollection)this.Resources["resources"];
-            ResourceManager.children = (Resources.ResourceCollection)this.Resources["resourceHierarchy"];
 
             if (!no_data)
                 ParseDir(AppDir + "\\Data");

@@ -58,5 +58,15 @@ namespace ChameleonCoder.Resources.Management
                 ResourceTypesStatic.Add(component, info);
             }
         }
+
+        internal static void SetCollection(ResourceTypeCollection collection)
+        {
+            ResourceTypes = collection;
+        }
+
+        internal static ResourceTypeCollection GetCollection()
+        {
+            return ResourceTypes;
+        }
     }
 }
