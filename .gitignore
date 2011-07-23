@@ -1,4 +1,7 @@
 /ChameleonCoder/AHK.ScriptsMan_TemporaryKey.pfx
+/ChameleonCoder/obj/
+/ChameleonCoder.ResourceCore/obj/
+GuidCreator/obj/
 /Deploy/Data/
 /Deploy/*.pdb
 /Deploy/*.xml
