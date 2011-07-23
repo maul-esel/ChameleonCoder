@@ -3,9 +3,10 @@ using System.Windows.Media;
 using System.Xml;
 using System.Collections.Generic;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Management;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// a class representing a resource that serves as link to another resource

@@ -2,8 +2,10 @@
 using System.Windows.Media;
 using System.Xml;
 using System.Collections.Generic;
+using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// represents a task,
@@ -11,7 +13,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// </summary>
     public class TaskResource : ResourceBase
     {
-        public TaskResource(XmlNode node, Interfaces.IResource parent)
+        public TaskResource(XmlNode node, IResource parent)
             : base(node, parent)
         {
         }

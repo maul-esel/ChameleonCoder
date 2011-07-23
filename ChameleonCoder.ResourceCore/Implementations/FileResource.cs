@@ -2,15 +2,16 @@
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Xml;
+using CC = ChameleonCoder.Resources;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// represents a file resource
     /// </summary>
     public class FileResource : ResourceBase
     {
-        public FileResource(XmlNode node, Interfaces.IResource parent)
+        public FileResource(XmlNode node, CC.Interfaces.IResource parent)
             : base(node, parent)
         {
         }
@@ -23,13 +24,13 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IEnumerable
 
-        public override IEnumerator<PropertyDescription> GetEnumerator()
+        public override IEnumerator<CC.PropertyDescription> GetEnumerator()
         {
-            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
+            IEnumerator<CC.PropertyDescription> baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
-            yield return new PropertyDescription("path", this.Path, "File");
+            yield return new CC.PropertyDescription("path", this.Path, "File");
         }
 
         #endregion
@@ -47,9 +48,9 @@ namespace ChameleonCoder.Resources.Implementations
                 catch (NullReferenceException) { }
 
                 if (!System.IO.Path.IsPathRooted(path) && !string.IsNullOrWhiteSpace(path)
-                    && System.IO.File.Exists(Properties.Settings.Default.ScriptDir + path))
+                    && System.IO.File.Exists(ChameleonCoder.InformationProvider.ProgrammingDirectory + path))
+                    return ChameleonCoder.InformationProvider.ProgrammingDirectory + path;
 
-                    return ChameleonCoder.Properties.Settings.Default.ScriptDir + path;
                 return path;
             }
             protected set

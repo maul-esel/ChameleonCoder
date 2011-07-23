@@ -4,13 +4,13 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
 {
-    internal sealed class ResourceTypeManager
+    public static class ResourceTypeManager
     {
         private static ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
         private static Dictionary<Type, ResourceTypeInfo> ResourceTypesStatic = new Dictionary<Type, ResourceTypeInfo>();
 
-        internal static Type GetResourceType(string alias)
+        public static Type GetResourceType(string alias)
         {
             return ResourceTypes.GetResourceType(alias);
         }
@@ -23,7 +23,7 @@ namespace ChameleonCoder.Resources.Management
             return (IResource)Activator.CreateInstance(type, parameters);
         }
 
-        internal static IEnumerable<Type> GetResourceTypes()
+        public static IEnumerable<Type> GetResourceTypes()
         {
             return ResourceTypes.GetList();
         }

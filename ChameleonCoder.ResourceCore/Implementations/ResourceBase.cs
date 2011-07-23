@@ -4,9 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using System.Xml;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// an abstract base class for resources

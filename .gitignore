@@ -4,7 +4,12 @@
 /ChameleonCoder/wiki/
 /GuidCreator/bin/
 /GuidCreator/obj/
+/ChameleonCoder.ResourceCore/bin/
+/ChameleonCoder.ResourceCore/obj/
 /Deploy/Data/
+/Deploy/*.pdb
+/Deploy/*.xml
+/Deploy/ICSharpCode.AvalonEdit.xml
 /#AHK/
 /#Extern/
 /#Temp/
@@ -13,3 +18,4 @@
 /docs/
 /wiki/
 *.pdb
+*.xml

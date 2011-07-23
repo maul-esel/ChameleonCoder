@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.RichContent;
+using ChameleonCoder.LanguageModules;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// represents a file containing code,
@@ -22,7 +25,7 @@ namespace ChameleonCoder.Resources.Implementations
             : base(node, parent)
         {
             this.compatibleLanguages = new List<Guid>();
-            this.RichContent = new RichContent.RichContentCollection();
+            this.RichContent = new RichContentCollection();
         }
 
         #region IResource
@@ -104,7 +107,7 @@ namespace ChameleonCoder.Resources.Implementations
                 yield return baseEnum.Current;
 
             string langName = null;
-            try { langName = LanguageModules.LanguageModuleHost.GetModule(this.language).LanguageName; }
+            try { langName = LanguageModuleHost.GetModule(this.language).LanguageName; }
             catch (NullReferenceException) { }
 
             yield return new PropertyDescription("language", langName, "source code") { IsReadOnly = true };
@@ -112,7 +115,7 @@ namespace ChameleonCoder.Resources.Implementations
             string list = string.Empty;
             foreach (Guid lang in this.compatibleLanguages)
             {
-                try { list += LanguageModules.LanguageModuleHost.GetModule(lang).LanguageName + "; "; }
+                try { list += LanguageModuleHost.GetModule(lang).LanguageName + "; "; }
                 catch (NullReferenceException) { }
             }
 
@@ -124,12 +127,12 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IRichContentResource
 
-        public bool ValidateRichContent(RichContent.IContentMember member)
+        public bool ValidateRichContent(IContentMember member)
         {
             return true;
         }
 
-        public RichContent.RichContentCollection RichContent { get; protected set; }
+        public RichContentCollection RichContent { get; protected set; }
 
         #endregion
     }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Xml;
+using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     public class GroupResource : ResourceBase
     {
-        public GroupResource(XmlNode node, Interfaces.IResource parent)
+        public GroupResource(XmlNode node, IResource parent)
             : base(node, parent)
         {
         }

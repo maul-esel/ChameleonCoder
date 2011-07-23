@@ -37,7 +37,7 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="xmlnav">the XmlDocument that contains the element</param>
         /// <param name="xpath">the xpath to the element</param>
-        internal Metadata(XmlNode xml)
+        public Metadata(XmlNode xml)
         {
             this.XML = xml;
         }

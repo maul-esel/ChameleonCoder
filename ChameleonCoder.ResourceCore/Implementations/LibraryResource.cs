@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
+using CC = ChameleonCoder.Resources;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// represents a library resource,
@@ -17,7 +18,7 @@ namespace ChameleonCoder.Resources.Implementations
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public LibraryResource(XmlNode node, Interfaces.IResource parent)
+        public LibraryResource(XmlNode node, CC.Interfaces.IResource parent)
             : base(node, parent)
         {
         }
@@ -30,15 +31,15 @@ namespace ChameleonCoder.Resources.Implementations
 
         #region IEnumerable
 
-        public override IEnumerator<PropertyDescription> GetEnumerator()
+        public override IEnumerator<CC.PropertyDescription> GetEnumerator()
         {
-            IEnumerator<PropertyDescription>  baseEnum = base.GetEnumerator();
+            IEnumerator<CC.PropertyDescription>  baseEnum = base.GetEnumerator();
             while (baseEnum.MoveNext())
                 yield return baseEnum.Current;
 
-            yield return new PropertyDescription("author", this.Author, "library");
-            yield return new PropertyDescription("license", this.License, "library");
-            yield return new PropertyDescription("version", this.Version, "library");
+            yield return new CC.PropertyDescription("author", this.Author, "library");
+            yield return new CC.PropertyDescription("license", this.License, "library");
+            yield return new CC.PropertyDescription("version", this.Version, "library");
         }
 
         #endregion

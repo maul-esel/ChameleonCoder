@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChameleonCoder", "Chameleon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidCreator", "GuidCreator\GuidCreator.csproj", "{A0949735-7B31-4192-9102-BD64C16C19C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChameleonCoder.ResourceCore", "ChameleonCoder.ResourceCore\ChameleonCoder.ResourceCore.csproj", "{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71} = {D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +40,16 @@ Global
 		{A0949735-7B31-4192-9102-BD64C16C19C8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A0949735-7B31-4192-9102-BD64C16C19C8}.Release|x86.ActiveCfg = Release|x86
 		{A0949735-7B31-4192-9102-BD64C16C19C8}.Release|x86.Build.0 = Release|x86
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
+    <Compile Include="InformationProvider.cs" />
     <Compile Include="Navigation\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
@@ -116,10 +117,8 @@
       <DependentUpon>ResourceListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\PropertyDescription.cs" />
-    <Compile Include="Resources\Implementations\GroupResource.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
-    <Compile Include="Resources\Management\ResourceProvider.cs" />
     <Compile Include="Resources\Interfaces\ICompilable.cs" />
     <Compile Include="Resources\Interfaces\IExecutable.cs" />
     <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
@@ -145,27 +144,17 @@
     <Compile Include="Services\IServiceHost.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
     <Compile Include="Services\ServiceHost.cs" />
-    <Compile Include="ResourceCreator.xaml.cs">
-      <DependentUpon>ResourceCreator.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\Metadata.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\MetadataCollection.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
-    <Compile Include="Resources\Implementations\LibraryResource.cs" />
     <Compile Include="Localization\Language.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Implementations\ProjectResource.cs" />
-    <Compile Include="Resources\Implementations\ResourceBase.cs" />
-    <Compile Include="Resources\Implementations\CodeResource.cs" />
     <Compile Include="Resources\ResourceCollection.cs" />
-    <Compile Include="Resources\Implementations\FileResource.cs" />
-    <Compile Include="Resources\Implementations\LinkResource.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
-    <Compile Include="Resources\Implementations\TaskResource.cs" />
     <Compile Include="Converter\ResourceImageConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
@@ -173,7 +162,6 @@
     <Compile Include="Resources\RichContent\ContentMemberCollection.cs" />
     <Compile Include="Resources\RichContent\Implementations\FunctionMember.cs" />
     <Compile Include="Resources\RichContent\IContentMember.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
@@ -197,10 +185,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ResourceCreator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Navigation\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

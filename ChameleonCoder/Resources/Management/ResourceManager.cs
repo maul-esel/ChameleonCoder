@@ -1,8 +1,9 @@
 ﻿using ChameleonCoder.Resources.Interfaces;
+using System.Collections.Generic;
 
 namespace ChameleonCoder.Resources.Management
 {
-    internal class ResourceManager
+    public static class ResourceManager
     {
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
@@ -44,12 +45,12 @@ namespace ChameleonCoder.Resources.Management
             }
         }
 
-        internal static ResourceCollection GetChildren()
+        public static ResourceCollection GetChildren()
         {
             return children;
         }
 
-        internal static ResourceCollection GetList()
+        public static ResourceCollection GetList()
         {
             return FlatList;
         }

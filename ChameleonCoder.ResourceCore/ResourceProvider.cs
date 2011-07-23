@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Resources.Implementations;
+using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.RichContent;
 
-namespace ChameleonCoder.Resources.Management
+namespace ChameleonCoder.ResourceCore
 {
-    public sealed class ResourceProvider : IComponentProvider
+    public sealed class ResourceProvider : ChameleonCoder.IComponentProvider
     {
-        public void Init(Action<Type, RichContent.ContentMemberTypeInfo> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
+        public void Init(Action<Type, ContentMemberTypeInfo> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
         {
             registerResourceType(typeof(LinkResource),
                 new ResourceTypeInfo("link", "link", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")), Brushes.LightGreen,
@@ -38,12 +40,12 @@ namespace ChameleonCoder.Resources.Management
                     ResourceProvider.Create, ResourceProvider.Load));
         }
 
-        public static void Load(Interfaces.IResource resource)
+        public static void Load(IResource resource)
         {
 
         }
 
-        public static void Create(Type target, Interfaces.IResource parent, Action<Interfaces.IResource, Interfaces.IResource> register)
+        public static void Create(Type target, IResource parent, Action<IResource, IResource> register)
         {
             if (parent == null)
             {
@@ -72,7 +74,7 @@ namespace ChameleonCoder.Resources.Management
                     else
                         parent.Xml.AppendChild(node.CloneNode(false));
 
-                    Interfaces.IResource resource = Activator.CreateInstance(target, node) as Interfaces.IResource;
+                    IResource resource = Activator.CreateInstance(target, node) as IResource;
                     register(resource, parent);
                 }
             }

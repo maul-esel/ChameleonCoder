@@ -10,7 +10,7 @@ using System.Text;
 
 namespace ChameleonCoder.LanguageModules
 {
-    internal sealed class LanguageModuleHost : ILanguageModuleHost
+    public sealed class LanguageModuleHost : ILanguageModuleHost
     {
         #region infrastructure
 
@@ -52,7 +52,7 @@ namespace ChameleonCoder.LanguageModules
             }
         }
 
-        internal static ILanguageModule GetActiveModule()
+        public static ILanguageModule GetActiveModule()
         {
             return GetModule(ActiveModule);
         }
@@ -70,7 +70,7 @@ namespace ChameleonCoder.LanguageModules
             }
         }
 
-        internal static ILanguageModule GetModule(Guid language)
+        public static ILanguageModule GetModule(Guid language)
         {
             ILanguageModule module;
             if (Modules.TryGetValue(language, out module))

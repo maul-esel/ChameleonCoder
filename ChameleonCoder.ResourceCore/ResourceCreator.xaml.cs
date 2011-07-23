@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Collections.Generic;
-using ChameleonCoder.Resources.Implementations;
+using ChameleonCoder.ResourceCore;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
@@ -88,14 +88,13 @@ namespace ChameleonCoder
 
             this.target = target;
 
-            this.Owner = App.Gui;
             this.ShowInTaskbar = false;
         }
 
         private void SearchFile(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
-            dialog.InitialDirectory = ChameleonCoder.Properties.Settings.Default.ScriptDir;
+            dialog.InitialDirectory = ChameleonCoder.InformationProvider.ProgrammingDirectory;
             dialog.DereferenceLinks = false;
 
             dialog.FileOk += delegate(object sender2, System.ComponentModel.CancelEventArgs e2)

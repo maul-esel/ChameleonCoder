@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Implementations
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// represents a project resource,
