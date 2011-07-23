@@ -1,1 +1,0 @@
-C:\Programming\C#\ChameleonCoder\CC.Resource.Core\obj\Debug\ResolveAssemblyReference.cache
