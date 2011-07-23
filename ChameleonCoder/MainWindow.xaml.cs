@@ -35,7 +35,7 @@ namespace ChameleonCoder
                 this.MenuCreators.Items.Add(t);
 
                 RibbonMenuItem item = new RibbonMenuItem();
-                item.Click += this.CreateChild;
+                item.Click += this.ResourceCreateChild;
                 item.Header = ResourceTypeManager.GetInfo(t).DisplayName;
                 item.ImageSource = ResourceTypeManager.GetInfo(t).TypeIcon;
                 this.AddChildResource.Items.Add(item);
@@ -64,32 +64,6 @@ namespace ChameleonCoder
             }
         }
 
-        private void CreateChild(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(((e.OriginalSource as RibbonMenuItem).Header as Type != null).ToString());
-
-            Type resourceType = (e.OriginalSource as RibbonMenuItem).Header as Type;
-            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
-
-            if (info != null)
-                info.Creator(resourceType, ResourceManager.ActiveItem, ResourceManager.Add);
-        }
-
-        private void CreateResource(object sender, RoutedEventArgs e)
-        {
-            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
-            Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
-
-            if (prop != null)
-                prop.Creator(resourceType, null, ResourceManager.Add);
-        }
-
-        private void DeleteResource(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("are you sure you want to delete this resource?", "CC - deleting resource...", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                ResourceManager.ActiveItem.Delete();
-        }
-
         private void DroppedFile(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -115,7 +89,66 @@ namespace ChameleonCoder
             }
         }
 
-        private void EditResource(object sender, EventArgs e)
+        private void FilterChanged(object sender, RoutedEventArgs e)
+        {
+            //CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
+        }
+
+        private void GoHome(object sender, EventArgs e)
+        {
+            int i;
+            if ((i = FindPageTab(typeof(WelcomePage))) != -1)
+                Tabs.SelectedIndex = i;
+            else
+                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new WelcomePage()));
+        }
+
+        private void GroupsChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.IsInitialized)
+                (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceListPage).GroupingChanged(this.EnableGroups.IsChecked);
+        }
+
+        private void LaunchService(object sender, RoutedEventArgs e)
+        {
+            this.CurrentActionProgress.IsIndeterminate = true;
+
+            IService service = (e.OriginalSource as RibbonApplicationMenuItem).Header as IService;
+            service.Call();
+            while (service.IsBusy) ;
+
+            this.CurrentActionProgress.IsIndeterminate = false;
+        }
+
+        #region resources
+
+        private void ResourceCreate(object sender, RoutedEventArgs e)
+        {
+            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
+            Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
+
+            if (prop != null)
+                prop.Creator(resourceType, null, ResourceManager.Add);
+        }
+
+        private void ResourceCreateChild(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(((e.OriginalSource as RibbonMenuItem).Header as Type != null).ToString());
+
+            Type resourceType = (e.OriginalSource as RibbonMenuItem).Header as Type;
+            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
+
+            if (info != null)
+                info.Creator(resourceType, ResourceManager.ActiveItem, ResourceManager.Add);
+        }
+
+        private void ResourceDelete(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("are you sure you want to delete this resource?", "CC - deleting resource...", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                ResourceManager.ActiveItem.Delete();
+        }
+
+        private void ResourceEdit(object sender, EventArgs e)
         {
             if (ResourceManager.ActiveItem != null)
             {
@@ -140,43 +173,12 @@ namespace ChameleonCoder
             }
         }
 
-        private void FilterChanged(object sender, RoutedEventArgs e)
+        private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            //CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
+            ResourceOpen(TreeView.SelectedItem as IResource);
         }
 
-        private void GoHome(object sender, EventArgs e)
-        {
-            int i;
-            if ((i = FindPageTab(typeof(WelcomePage))) != -1)
-                Tabs.SelectedIndex = i;
-            else
-                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
-        }
-
-        private void GroupsChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.IsInitialized)
-                (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceListPage).GroupingChanged(this.EnableGroups.IsChecked);
-        }
-
-        private void LaunchService(object sender, RoutedEventArgs e)
-        {
-            this.CurrentActionProgress.IsIndeterminate = true;
-
-            IService service = (e.OriginalSource as RibbonApplicationMenuItem).Header as IService;
-            service.Call();
-            while (service.IsBusy) ;
-
-            this.CurrentActionProgress.IsIndeterminate = false;
-        }
-
-        private void OpenResource(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            OpenResource(TreeView.SelectedItem as IResource);
-        }
-
-        internal void OpenResource(IResource resource)
+        internal void ResourceOpen(IResource resource)
         {
             if (ResourceManager.ActiveItem != null)
                 ResourceManager.ActiveItem.Save();
@@ -196,6 +198,8 @@ namespace ChameleonCoder
             }
         }
 
+        #endregion
+
         private void Restart(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
@@ -209,35 +213,35 @@ namespace ChameleonCoder
                 System.Windows.Media.VisualTreeHelper.GetParent(
                 System.Windows.Media.VisualTreeHelper.GetParent(
                 System.Windows.Media.VisualTreeHelper.GetParent((e.OriginalSource as Button).Parent as StackPanel)))) as TabItem).DataContext);
+            TabChanged(null, null);
         }
 
         private void TabChanged(object sender, EventArgs e)
         {
-            if (Tabs.SelectedItem != null)
+            Type selected;
+            try { selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType(); }
+            catch (NullReferenceException) { selected = null; }
+
+            if (selected == typeof(Navigation.ResourceListPage))
+                this.contextResourceList.Visibility = Visibility.Visible;
+            else
+                this.contextResourceList.Visibility = Visibility.Collapsed;
+
+            if (selected == typeof(Navigation.ResourceViewPage))
             {
-                Type selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType();
-
-                if (selected == typeof(Navigation.ResourceListPage))
-                    this.contextResourceList.Visibility = Visibility.Visible;
-                else
-                    this.contextResourceList.Visibility = Visibility.Collapsed;
-
-                if (selected == typeof(Navigation.ResourceViewPage))
-                {
-                    this.contextResourceView.Visibility = Visibility.Visible;
-                    ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceViewPage).Resource;
-                }
-                else
-                    this.contextResourceView.Visibility = Visibility.Collapsed;
-
-                if (selected == typeof(Navigation.EditPage))
-                {
-                    this.contextEditing.Visibility = Visibility.Visible;
-                    ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.EditPage).Resource;
-                }
-                else
-                    this.contextEditing.Visibility = Visibility.Collapsed;
+                this.contextResourceView.Visibility = Visibility.Visible;
+                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceViewPage).Resource;
             }
+            else
+                this.contextResourceView.Visibility = Visibility.Collapsed;
+
+            if (selected == typeof(Navigation.EditPage))
+            {
+                this.contextEditing.Visibility = Visibility.Visible;
+                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.EditPage).Resource;
+            }
+            else
+                this.contextEditing.Visibility = Visibility.Collapsed;
         }
 
         private int FindResourceTab(IResource resource, bool useEdit)

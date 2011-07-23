@@ -18,9 +18,11 @@
     
     <Window.Resources>
         <ControlTemplate x:Key="CloseButton">
-            <Border Width="10" Height="10" CornerRadius="2.5">
-                <TextBlock FontSize="12" Foreground="DarkGray" Text="x" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            </Border>
+            <Grid>
+                <Ellipse Width="12" Height="12" Stroke="DarkGray"/>
+                <TextBlock FontSize="12" FontWeight="DemiBold"  Foreground="DarkGray" Text="x" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
+            </Grid>
+
         </ControlTemplate>
         
        <Style TargetType="TabItem">
@@ -108,7 +110,7 @@
                                          ImageSource="Images\RibbonTab1\create.png"
                                          Header="Create resource"
                                          StaysOpenOnClick="True"
-                                         Click="CreateResource">
+                                         Click="ResourceCreate">
                         <ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -279,13 +281,13 @@
                                          Label="Move"/>
                     <ribbon:RibbonButton SmallImageSource="Images\SmallIcon.png"
                                          Label="Delete"
-                                         Click="DeleteResource"/>
+                                         Click="ResourceDelete"/>
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup>
                     <ribbon:RibbonButton x:Name="OpenEdit"
                                          Label="Edit"
                                          LargeImageSource="Images\RibbonTab3\edit.png"
-                                         Click="EditResource"/>
+                                         Click="ResourceEdit"/>
                     
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="CustomGroup3" Header="custom"/>
@@ -293,7 +295,7 @@
         </ribbon:Ribbon>
 
         <cc:CCResourceCatalog Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
-                              x:Name="TreeView" MouseDoubleClick="OpenResource"
+                              x:Name="TreeView" MouseDoubleClick="ResourceOpen"
                               ImportDropped="True"/>
         
         <bc:Breadcrumb Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5"
