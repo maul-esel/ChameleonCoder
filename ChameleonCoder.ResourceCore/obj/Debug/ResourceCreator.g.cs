@@ -251,7 +251,7 @@ namespace ChameleonCoder {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CC.Resource.Core;component/resourcecreator.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ChameleonCoder.ResourceCore;component/resourcecreator.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\ResourceCreator.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

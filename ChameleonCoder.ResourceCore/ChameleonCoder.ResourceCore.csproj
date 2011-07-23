@@ -8,8 +8,8 @@
     <ProjectGuid>{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CC.Resource.Core</RootNamespace>
-    <AssemblyName>CC.Resource.Core</AssemblyName>
+    <RootNamespace>ChameleonCoder.ResourceCore</RootNamespace>
+    <AssemblyName>ChameleonCoder.ResourceCore</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -68,6 +68,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\library.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\project.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\task.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

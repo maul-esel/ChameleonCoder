@@ -12,31 +12,31 @@ namespace ChameleonCoder.ResourceCore
         public void Init(Action<Type, ContentMemberTypeInfo> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
         {
             registerResourceType(typeof(LinkResource),
-                new ResourceTypeInfo("link", "link", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/link.png")), Brushes.LightGreen,
+                new ResourceTypeInfo("link", "link", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png")), Brushes.LightGreen,
                     ResourceProvider.Create, ResourceProvider.Load));
 
             registerResourceType(typeof(FileResource),
-                new ResourceTypeInfo("file", "file", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/file.png")), Brushes.BurlyWood,
+                new ResourceTypeInfo("file", "file", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")), Brushes.BurlyWood,
                     ResourceProvider.Create, ResourceProvider.Load));
 
             registerResourceType(typeof(CodeResource),
-                new ResourceTypeInfo("code", "source code", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/code.png")), Brushes.LightSalmon,
+                new ResourceTypeInfo("code", "source code", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/code.png")), Brushes.LightSalmon,
                     ResourceProvider.Create, ResourceProvider.Load));
 
             registerResourceType(typeof(LibraryResource),
-                new ResourceTypeInfo("library", "library", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/library.png")), Brushes.SandyBrown,
+                new ResourceTypeInfo("library", "library", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/library.png")), Brushes.SandyBrown,
                     ResourceProvider.Create, ResourceProvider.Load));
 
             registerResourceType(typeof(ProjectResource),
-                new ResourceTypeInfo("project", "project", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/project.png")), Brushes.Khaki,
+                new ResourceTypeInfo("project", "project", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")), Brushes.Khaki,
                     ResourceProvider.Create, ResourceProvider.Load));
 
             registerResourceType(typeof(TaskResource),
-                new ResourceTypeInfo("task", "task", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/task.png")), Brushes.LightCoral,
+                new ResourceTypeInfo("task", "task", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/task.png")), Brushes.LightCoral,
                     ResourceProvider.Create, ResourceProvider.Load));
 
             registerResourceType(typeof(GroupResource),
-                new ResourceTypeInfo("group", "group", new BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/group.png")), Brushes.DodgerBlue,
+                new ResourceTypeInfo("group", "group", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/group.png")), Brushes.DodgerBlue,
                     ResourceProvider.Create, ResourceProvider.Load));
         }
 

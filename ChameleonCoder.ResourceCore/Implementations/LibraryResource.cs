@@ -25,7 +25,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/ResourceType/library.png")); } }
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/library.png")); } }
 
         #endregion
 

@@ -308,30 +308,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ResourceType\file.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ResourceType\code.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ResourceType\library.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ResourceType\project.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ResourceType\task.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ResourceType\link.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Priority\high.png" />
     <Resource Include="Images\Priority\low.png" />
     <Resource Include="Images\Priority\middle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ResourceType\group.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo.png" />
