@@ -44,15 +44,9 @@ namespace ChameleonCoder
             this.Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new WelcomePage()));
         }
 
-        private void LaunchService(object sender, RoutedEventArgs e)
+        private void Close(object sender, RoutedEventArgs e)
         {
-            this.CurrentActionProgress.IsIndeterminate = true;
-
-            IService service = (e.OriginalSource as RibbonApplicationMenuItem).Header as IService;
-            service.Call();
-            while (service.IsBusy);
-
-            this.CurrentActionProgress.IsIndeterminate = false;
+            App.Current.Shutdown(0);
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
@@ -70,37 +64,54 @@ namespace ChameleonCoder
             }
         }
 
-        private void GoHome(object sender, EventArgs e)
+        private void CreateChild(object sender, RoutedEventArgs e)
         {
-            int i;
-            if ((i = FindPageTab(typeof(WelcomePage))) != -1)
-                Tabs.SelectedIndex = i;
-            else
-                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
+            MessageBox.Show(((e.OriginalSource as RibbonMenuItem).Header as Type != null).ToString());
+
+            Type resourceType = (e.OriginalSource as RibbonMenuItem).Header as Type;
+            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
+
+            if (info != null)
+                info.Creator(resourceType, ResourceManager.ActiveItem, ResourceManager.Add);
         }
 
-        private void OpenResource(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void CreateResource(object sender, RoutedEventArgs e)
         {
-            OpenResource(TreeView.SelectedItem as IResource);
+            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
+            Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
+
+            if (prop != null)
+                prop.Creator(resourceType, null, ResourceManager.Add);
         }
 
-        internal void OpenResource(IResource resource)
+        private void DeleteResource(object sender, RoutedEventArgs e)
         {
-            if (ResourceManager.ActiveItem != null)
-                ResourceManager.ActiveItem.Save();
+            if (MessageBox.Show("are you sure you want to delete this resource?", "CC - deleting resource...", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                ResourceManager.ActiveItem.Delete();
+        }
 
-            if (resource != null)
+        private void DroppedFile(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                ResourceManager.Open(resource);
+                string[] files = e.Data.GetData(DataFormats.FileDrop, true) as string[];
 
-                int i = FindResourceTab(resource, false);
-                if (i == -1)
+                foreach (string file in files)
                 {
-                    Tabs.Items.Insert(Tabs.SelectedIndex + 1, new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
-                    Tabs.SelectedIndex++;
+                    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                    try { doc.Load(file); }
+                    catch (System.Xml.XmlException ex)
+                    {
+                        // check if it is a package file
+                        MessageBox.Show(ex.Message + ex.Source);
+                    }
+
+                    App.AddResource(doc.DocumentElement, null);
+                    System.IO.File.Copy(file,
+                        System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
+                        + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
+                        + System.IO.Path.GetFileName(file));
                 }
-                else
-                    Tabs.SelectedIndex = i;
             }
         }
 
@@ -129,20 +140,60 @@ namespace ChameleonCoder
             }
         }
 
+        private void FilterChanged(object sender, RoutedEventArgs e)
+        {
+            //CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
+        }
+
+        private void GoHome(object sender, EventArgs e)
+        {
+            int i;
+            if ((i = FindPageTab(typeof(WelcomePage))) != -1)
+                Tabs.SelectedIndex = i;
+            else
+                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
+        }
+
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (this.IsInitialized)
                 (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceListPage).GroupingChanged(this.EnableGroups.IsChecked);
         }
 
-        private void FilterChanged(object sender, RoutedEventArgs e)
+        private void LaunchService(object sender, RoutedEventArgs e)
         {
-            //CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
+            this.CurrentActionProgress.IsIndeterminate = true;
+
+            IService service = (e.OriginalSource as RibbonApplicationMenuItem).Header as IService;
+            service.Call();
+            while (service.IsBusy) ;
+
+            this.CurrentActionProgress.IsIndeterminate = false;
         }
 
-        private void Close(object sender, RoutedEventArgs e)
+        private void OpenResource(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Application.Current.Shutdown(0);
+            OpenResource(TreeView.SelectedItem as IResource);
+        }
+
+        internal void OpenResource(IResource resource)
+        {
+            if (ResourceManager.ActiveItem != null)
+                ResourceManager.ActiveItem.Save();
+
+            if (resource != null)
+            {
+                ResourceManager.Open(resource);
+
+                int i = FindResourceTab(resource, false);
+                if (i == -1)
+                {
+                    Tabs.Items.Insert(Tabs.SelectedIndex + 1, new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
+                    Tabs.SelectedIndex++;
+                }
+                else
+                    Tabs.SelectedIndex = i;
+            }
         }
 
         private void Restart(object sender, RoutedEventArgs e)
@@ -151,58 +202,13 @@ namespace ChameleonCoder
             Application.Current.Shutdown(0);
         }
 
-        private void CreateResource(object sender, RoutedEventArgs e)
+        private void TabClosed(object sender, RoutedEventArgs e)
         {
-            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
-            Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
-
-            if (prop != null)
-                prop.Creator(resourceType, null, ResourceManager.Add);
-        }
-
-        private void CreateChild(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(((e.OriginalSource as RibbonMenuItem).Header as Type != null).ToString());
-
-            Type resourceType = (e.OriginalSource as RibbonMenuItem).Header as Type;
-            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
-
-            if (info != null)
-                info.Creator(resourceType, ResourceManager.ActiveItem, ResourceManager.Add);
-        }
-
-        private void DeleteResource(object sender, RoutedEventArgs e)
-        {
-            ResourceManager.ActiveItem.Delete();
-        }
-
-        private void DroppedFile(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = e.Data.GetData(DataFormats.FileDrop, true) as string[];
-
-                foreach (string file in files)
-                {
-                    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-                    try { doc.Load(file); }
-                    catch (System.Xml.XmlException ex)
-                    {
-                        // check if it is a package file
-                        MessageBox.Show(ex.Message + ex.Source);
-                    }
-
-                    App.AddResource(doc.DocumentElement, null);
-                    System.IO.File.Copy(file,
-                        System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
-                        + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
-                        + System.IO.Path.GetFileName(file));
-                }
-            }
-        }
-
-        private void CloseTab(object sender, EventArgs e)
-        {
+            Tabs.Items.Remove((KeyValuePair<string, Page>)(
+                System.Windows.Media.VisualTreeHelper.GetParent(
+                System.Windows.Media.VisualTreeHelper.GetParent(
+                System.Windows.Media.VisualTreeHelper.GetParent(
+                System.Windows.Media.VisualTreeHelper.GetParent((e.OriginalSource as Button).Parent as StackPanel)))) as TabItem).DataContext);
         }
 
         private void TabChanged(object sender, EventArgs e)

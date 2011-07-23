@@ -18,8 +18,8 @@
     
     <Window.Resources>
         <ControlTemplate x:Key="CloseButton">
-            <Border Width="10" Height="10" Background="Red" CornerRadius="2.5" Margin="2,2,2,2">
-                <TextBlock FontSize="12" Foreground="White" Text="x" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Border Width="10" Height="10" CornerRadius="2.5">
+                <TextBlock FontSize="12" Foreground="DarkGray" Text="x" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </Border>
         </ControlTemplate>
         
@@ -28,9 +28,9 @@
                 <Setter.Value>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Key}" VerticalAlignment="Center" Margin="2,2,2,2"/>
+                            <TextBlock Text="{Binding Path=Key}" VerticalAlignment="Center" Margin="2"/>
                             <Button Template="{StaticResource CloseButton}" HorizontalAlignment="Right"
-                                    Click="CloseTab"/>
+                                    Click="TabClosed" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </Setter.Value>
@@ -305,7 +305,8 @@
             </bc:Breadcrumb.Buttons>
         </bc:Breadcrumb>
         
-        <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"/>
+        <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"
+                    IsSynchronizedWithCurrentItem="True"/>
 
         <StatusBar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Grid.RowSpan="1">
             <StatusBarItem>
