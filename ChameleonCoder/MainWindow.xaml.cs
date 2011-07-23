@@ -93,7 +93,11 @@ namespace ChameleonCoder
             if (resource != null)
             {
                 ResourceManager.Open(resource);
-                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
+
+                int i = FindResourceTab(resource, false);
+                if (i == -1)
+                    i = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
+                Tabs.SelectedIndex = i;
             }
         }
 
