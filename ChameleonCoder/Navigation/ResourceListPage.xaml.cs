@@ -33,14 +33,7 @@ namespace ChameleonCoder.Navigation
 
         private void OpenResource(object sender, EventArgs e)
         {
-            if (this.ResourceList.SelectedItem != null)
-            {
-                IResource resource = this.ResourceList.SelectedItem as IResource;
-                int tab = App.Gui.Tabs.Items.Add(new System.Collections.Generic.KeyValuePair<string, Page>(resource.Name,
-                    new ResourceViewPage(resource)));
-                App.Gui.Tabs.SelectedIndex = tab;
-            }
-            
+            App.Gui.OpenResource(ResourceList.SelectedItem as IResource);
         }
 
         private void DroppedFile(object sender, DragEventArgs e)

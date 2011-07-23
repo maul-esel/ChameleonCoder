@@ -292,7 +292,7 @@
         </ribbon:Ribbon>
 
         <cc:CCResourceCatalog Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
-                              SelectedItemChanged="OpenAResource" x:Name="TreeView"
+                              x:Name="TreeView" MouseDoubleClick="OpenResource"
                               ImportDropped="True"/>
         
         <bc:Breadcrumb Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5"

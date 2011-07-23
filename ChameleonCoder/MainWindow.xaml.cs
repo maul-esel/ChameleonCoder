@@ -80,13 +80,15 @@ namespace ChameleonCoder
                 Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
         }
 
-        private void OpenAResource(object sender, RoutedPropertyChangedEventArgs<Object> e)
+        private void OpenResource(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            IResource old = e.OldValue as IResource;
-            if (old != null)
-                old.Save();
-            
-            IResource resource = e.NewValue as IResource;
+            OpenResource(TreeView.SelectedItem as IResource);
+        }
+
+        internal void OpenResource(IResource resource)
+        {
+            if (ResourceManager.ActiveItem != null)
+                ResourceManager.ActiveItem.Save();
 
             if (resource != null)
             {
