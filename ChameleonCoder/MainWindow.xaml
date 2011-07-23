@@ -136,6 +136,7 @@
                                          Header="About" />
                 </ribbon:RibbonApplicationMenu>
             </ribbon:Ribbon.ApplicationMenu>
+            
             <ribbon:Ribbon.QuickAccessToolBar>
                 <ribbon:RibbonQuickAccessToolBar>
                     <ribbon:RibbonButton SmallImageSource="Images\RibbonTab1\home.png" Click="GoHome"/>
@@ -268,8 +269,8 @@
                         <ribbon:RibbonMenuButton.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image/>
-                                    <TextBlock Text="{Binding Path=Name}"/>
+                                    <Image Source="{Binding Converter={StaticResource TypeImageConverter}}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ribbon:RibbonMenuButton.ItemTemplate>
@@ -304,8 +305,7 @@
             </bc:Breadcrumb.Buttons>
         </bc:Breadcrumb>
         
-        <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged">
-        </TabControl>
+        <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"/>
 
         <StatusBar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Grid.RowSpan="1">
             <StatusBarItem>

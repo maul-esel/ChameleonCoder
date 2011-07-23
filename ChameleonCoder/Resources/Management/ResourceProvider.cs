@@ -43,9 +43,9 @@ namespace ChameleonCoder.Resources.Management
 
         }
 
-        public static void Create(Type target, Interfaces.IResource parent, Action<Interfaces.IResource, ResourceCollection> register)
+        public static void Create(Type target, Interfaces.IResource parent, Action<Interfaces.IResource, Interfaces.IResource> register)
         {
-            if (parent == null || parent is Interfaces.IAllowChildren)
+            if (parent == null)
             {
                 string s = string.Empty;
                 if (parent != null)
@@ -73,7 +73,7 @@ namespace ChameleonCoder.Resources.Management
                         parent.Xml.AppendChild(node.CloneNode(false));
 
                     Interfaces.IResource resource = Activator.CreateInstance(target, node) as Interfaces.IResource;
-                    register(resource, parent == null ? null : (parent as Interfaces.IAllowChildren).children);
+                    register(resource, parent);
                 }
             }
         }

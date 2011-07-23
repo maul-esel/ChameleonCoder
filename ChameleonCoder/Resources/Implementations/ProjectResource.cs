@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources.Implementations
     /// represents a project resource,
     /// inherits from ResourceBase
     /// </summary>
-    public class ProjectResource : ResourceBase, ICompilable, IAllowChildren
+    public class ProjectResource : ResourceBase, ICompilable
     {
         /// <summary>
         /// instantiates a new instance of the ProjectResource class
@@ -18,11 +18,10 @@ namespace ChameleonCoder.Resources.Implementations
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the xpath to the resource's main element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public ProjectResource(XmlNode node, IAllowChildren parent)
+        public ProjectResource(XmlNode node, IResource parent)
             : base(node, parent)
         {
             this.compatibleLanguages = new List<Guid>();
-            this.children = new ResourceCollection();
         }
 
         #region IResource
@@ -114,12 +113,6 @@ namespace ChameleonCoder.Resources.Implementations
 
             yield return new PropertyDescription("compilation path", this.compilationPath, "project");
         }
-
-        #endregion
-
-        #region IAllowChildren
-
-        public ResourceCollection children { get; protected set; }
 
         #endregion
 

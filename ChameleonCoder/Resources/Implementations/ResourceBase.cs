@@ -17,10 +17,11 @@ namespace ChameleonCoder.Resources.Implementations
         /// serves as base constructor for inherited classes and sets general properties
         /// </summary>
         /// <param name="node">the XmlNode that contains the resource</param>
-        public ResourceBase(XmlNode node, IAllowChildren parent)
+        public ResourceBase(XmlNode node, IResource parent)
         {
             this.Xml = node;
             this.Parent = parent;
+            this.children = new ResourceCollection();
 
             this.GUID = new Guid(node.Attributes["guid"].Value);
 
@@ -91,7 +92,9 @@ namespace ChameleonCoder.Resources.Implementations
 
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
 
-        public virtual IAllowChildren Parent { get; private set; }
+        public virtual IResource Parent { get; private set; }
+
+        public virtual ResourceCollection children { get; private set; }
 
         #endregion 
 

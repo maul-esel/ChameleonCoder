@@ -17,7 +17,7 @@ namespace ChameleonCoder.Resources.Implementations
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public LibraryResource(XmlNode node, Interfaces.IAllowChildren parent)
+        public LibraryResource(XmlNode node, Interfaces.IResource parent)
             : base(node, parent)
         {
         }

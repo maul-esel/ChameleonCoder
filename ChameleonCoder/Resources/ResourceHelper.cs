@@ -7,9 +7,8 @@ namespace ChameleonCoder
     {
         public static void Save(this IResource resource)
         {
-            IAllowChildren parentResource = resource as IAllowChildren;
-            if (parentResource != null)
-                foreach (IResource child in parentResource.children)
+            if (resource != null)
+                foreach (IResource child in resource.children)
                     child.Save();
 
             IResolvable link = resource as IResolvable;
@@ -28,9 +27,8 @@ namespace ChameleonCoder
         {
             if (System.Windows.MessageBox.Show("all child resources will be deleted!", "deleting resource...", System.Windows.MessageBoxButton.OKCancel) != System.Windows.MessageBoxResult.Cancel)
             {
-                IAllowChildren parentResource = resource as IAllowChildren;
-                if (parentResource != null)
-                    foreach (IResource child in parentResource.children)
+                if (resource != null)
+                    foreach (IResource child in resource.children)
                         child.Delete();
 
                 resource.Xml.RemoveAll();
@@ -38,7 +36,7 @@ namespace ChameleonCoder
             }
         }
 
-        public static void Move(this IResource resource, IAllowChildren newParent)
+        public static void Move(this IResource resource, IResource newParent)
         {
             System.Xml.XmlNode node;
 

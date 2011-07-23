@@ -16,12 +16,12 @@ namespace ChameleonCoder
             this.Init(top);
         }
 
-        public CCResourceCatalog(Resources.Interfaces.IAllowChildren parent) : this(parent, true) { }
+        public CCResourceCatalog(Resources.Interfaces.IResource parent) : this(parent, true) { }
 
-        public CCResourceCatalog(Resources.Interfaces.IAllowChildren parent, bool includeSelf)
+        public CCResourceCatalog(Resources.Interfaces.IResource parent, bool includeSelf)
         {
             if (parent == null)
-                throw new ArgumentNullException("parent", "the parent collection must not be null!");
+                throw new ArgumentNullException("parent", "the parent resource must not be null!");
 
             Resources.ResourceCollection top;
             if (!includeSelf)
@@ -80,7 +80,7 @@ namespace ChameleonCoder
                         MessageBox.Show(ex.Message + ex.Source);
                     }
 
-                    App.AddResource(doc.DocumentElement, null, null);
+                    App.AddResource(doc.DocumentElement, null);
                     System.IO.File.Copy(file,
                         System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
                         + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar

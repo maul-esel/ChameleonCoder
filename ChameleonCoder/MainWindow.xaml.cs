@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using ChameleonCoder.LanguageModules;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Services;
@@ -193,7 +192,7 @@ namespace ChameleonCoder
                         MessageBox.Show(ex.Message + ex.Source);
                     }
 
-                    App.AddResource(doc.DocumentElement, null, null);
+                    App.AddResource(doc.DocumentElement, null);
                     System.IO.File.Copy(file,
                         System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
                         + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar

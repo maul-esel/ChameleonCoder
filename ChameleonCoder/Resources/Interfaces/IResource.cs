@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IResource : System.Collections.Generic.IEnumerable<Resources.PropertyDescription>
+    public interface IResource : IEnumerable<PropertyDescription>
     {
         /// <summary>
         /// the resource's icon in the main treeview
@@ -50,6 +51,11 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// holds a reference to the resource's parent
         /// </summary>
-        IAllowChildren Parent { get; }
+        IResource Parent { get; }
+
+        /// <summary>
+        /// a ResourceCollection containing the (direct) child resources
+        /// </summary>
+        ResourceCollection children { get; }
     }
 }

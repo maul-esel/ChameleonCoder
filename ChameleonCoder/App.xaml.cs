@@ -112,7 +112,7 @@ namespace ChameleonCoder
                     ParseDir(dir_ref.Value);
             }
             else if (!error)
-                AddResource(doc.DocumentElement, null, null);
+                AddResource(doc.DocumentElement, null);
         }
 
         private static void ParseDir(string dir)
@@ -126,7 +126,7 @@ namespace ChameleonCoder
             }
         }
 
-        internal static bool AddResource(XmlNode node, ResourceCollection parentCol, IAllowChildren parent)
+        internal static bool AddResource(XmlNode node, IResource parent)
         {
             IResource resource;
             
@@ -137,9 +137,8 @@ namespace ChameleonCoder
                 return false;
 
             IRichContentResource richResource = resource as IRichContentResource;
-            IAllowChildren parentResource = resource as IAllowChildren;
 
-            ResourceManager.Add(resource, parentCol);
+            ResourceManager.Add(resource, parent);
 
             foreach (XmlNode child in node.ChildNodes)
             {
@@ -152,13 +151,11 @@ namespace ChameleonCoder
                         if (richContent == null)
                             richContent = ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
                         if (richContent != null)
-                        {
                             if (richResource.ValidateRichContent(richContent))
-                                resource.ToString(); // add to RichContentCollection
-                        }
+                                richResource.RichContent.Add(richContent);
                     }
-                else if (parentResource != null)
-                    AddResource(child, parentResource.children, parentResource);
+                else
+                    AddResource(child, resource);
             }
 
             return true;

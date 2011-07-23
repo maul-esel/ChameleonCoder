@@ -117,7 +117,6 @@
     </Compile>
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Implementations\GroupResource.cs" />
-    <Compile Include="Resources\Interfaces\IAllowChildren.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
     <Compile Include="Resources\Management\ResourceProvider.cs" />
