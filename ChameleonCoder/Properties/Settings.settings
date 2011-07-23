@@ -5,8 +5,8 @@
     <Setting Name="Language" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1031</Value>
     </Setting>
-    <Setting Name="ScriptDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Programming\AutoHotkey\</Value>
+    <Setting Name="ProgrammingDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Programming\</Value>
     </Setting>
     <Setting Name="EnableUpdates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

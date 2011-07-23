@@ -37,13 +37,13 @@ namespace ChameleonCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Programming\\AutoHotkey\\")]
-        public string ScriptDir {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Programming\\")]
+        public string ProgrammingDir {
             get {
-                return ((string)(this["ScriptDir"]));
+                return ((string)(this["ProgrammingDir"]));
             }
             set {
-                this["ScriptDir"] = value;
+                this["ProgrammingDir"] = value;
             }
         }
         

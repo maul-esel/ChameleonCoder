@@ -7,7 +7,7 @@ namespace ChameleonCoder
         {
             get
             {
-                return Properties.Settings.Default.ScriptDir;
+                return Properties.Settings.Default.ProgrammingDir;
             }
         }
     }
