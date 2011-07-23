@@ -96,8 +96,12 @@ namespace ChameleonCoder
 
                 int i = FindResourceTab(resource, false);
                 if (i == -1)
-                    i = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
-                Tabs.SelectedIndex = i;
+                {
+                    Tabs.Items.Insert(Tabs.SelectedIndex + 1, new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
+                    Tabs.SelectedIndex++;
+                }
+                else
+                    Tabs.SelectedIndex = i;
             }
         }
 
@@ -117,8 +121,8 @@ namespace ChameleonCoder
                     int i = FindResourceTab(resource, true);
                     if (i == -1)
                     {
-                        Tabs.Items.Insert(Tabs.SelectedIndex, new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
-                        Tabs.Items.RemoveAt(Tabs.SelectedIndex);
+                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
+                        Tabs.SelectedIndex++;
                     }
                     else
                         Tabs.SelectedIndex = i;
