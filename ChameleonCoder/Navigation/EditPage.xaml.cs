@@ -24,7 +24,6 @@ namespace ChameleonCoder.Navigation
         {
             InitializeComponent();
             this.Resource = resource;
-            MessageBox.Show(resource.Name);
             this.Editor.Text = resource.GetText();
         }
 
