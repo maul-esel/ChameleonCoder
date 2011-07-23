@@ -88,7 +88,10 @@ namespace ChameleonCoder.ResourceCore
 
         public string GetText()
         {
-            return System.IO.File.ReadAllText(this.Path);
+            try { return System.IO.File.ReadAllText(this.Path); }
+            catch (System.IO.DirectoryNotFoundException) { }
+            catch (System.IO.FileNotFoundException) { }
+            return string.Empty;
         }
 
         public void SaveText(string text)
