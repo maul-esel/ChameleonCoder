@@ -290,20 +290,10 @@
                 <ribbon:RibbonGroup x:Name="CustomGroup3" Header="custom"/>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
-        
-        <TreeView x:Name="TreeView" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
-                      SelectedItemChanged="OpenAResource"
-                      ItemsSource="{StaticResource resourceHierarchy}"
-                      HorizontalContentAlignment="Stretch"
-                      VirtualizingStackPanel.IsVirtualizing="True"
-                      VirtualizingStackPanel.VirtualizationMode="Recycling"
-                      AllowDrop="True"
-                      Drop="DroppedFile"
-                  ItemTemplate="{StaticResource resourceTemplate}">
-        </TreeView>
-        <!--cc:CCResourceCatalog Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
+
+        <cc:CCResourceCatalog Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
                               SelectedItemChanged="OpenAResource" x:Name="TreeView"
-                              ImportDropped="True"/-->
+                              ImportDropped="True"/>
         
         <bc:Breadcrumb Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5"
                        ItemTemplate="{StaticResource resourceTemplate}" Name="breadcrumb">

@@ -6,7 +6,8 @@
     <TreeView x:Name="TreeView" HorizontalContentAlignment="Stretch" VirtualizingStackPanel.IsVirtualizing="True"
                       VirtualizingStackPanel.VirtualizationMode="Recycling" AllowDrop="True"
                       Width="{Binding ElementName=hostControl, Path=ActualWidth}"
-                      Height="{Binding ElementName=hostControl, Path=ActualHeight}">
+                      Height="{Binding ElementName=hostControl, Path=ActualHeight}"
+                      ItemsSource="{Binding}">
         <TreeView.Resources>
             <conv:ResourceImageConverter x:Key="ImageConverter"/>
         </TreeView.Resources>

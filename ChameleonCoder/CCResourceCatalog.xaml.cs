@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -41,7 +42,7 @@ namespace ChameleonCoder
         protected void Init(Resources.ResourceCollection top)
         {
             InitializeComponent();
-            this.TreeView.ItemsSource = top;
+            this.TreeView.DataContext = top;
         }
 
         bool isImporting;
