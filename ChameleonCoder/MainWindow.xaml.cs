@@ -90,14 +90,7 @@ namespace ChameleonCoder
 
             if (resource != null)
             {
-                LanguageModuleHost.UnloadModule();
-
-                ResourceManager.ActiveItem = resource;
-
-                ILanguageResource languageResource;
-                if ((languageResource = resource as ILanguageResource) != null)
-                    LanguageModuleHost.LoadModule(languageResource.language);
-
+                ResourceManager.Open(resource);
                 Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
             }
         }

@@ -52,6 +52,11 @@ namespace ChameleonCoder.LanguageModules
             }
         }
 
+        internal static ILanguageModule GetActiveModule()
+        {
+            return GetModule(ActiveModule);
+        }
+
         internal static void LoadModule(Guid language)
         {
             ILanguageModule module;

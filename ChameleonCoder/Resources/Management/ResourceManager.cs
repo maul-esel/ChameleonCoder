@@ -54,6 +54,22 @@ namespace ChameleonCoder.Resources.Management
             return FlatList;
         }
 
+        internal static void Open(IResource resource)
+        {
+            ActiveItem = resource;
+
+            ILanguageResource langRes;
+
+            if ((langRes = resource as ILanguageResource) != null)
+            {
+                if (langRes.language != LanguageModules.LanguageModuleHost.GetActiveModule().Language)
+                {
+                    LanguageModules.LanguageModuleHost.UnloadModule();
+                    LanguageModules.LanguageModuleHost.LoadModule(langRes.language);
+                }
+            }
+        }
+
         // needed: remove methods
     }
 }
