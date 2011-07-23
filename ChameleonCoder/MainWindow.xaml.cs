@@ -101,7 +101,7 @@ namespace ChameleonCoder
             }
         }
 
-        private void EditAResource(object sender, EventArgs e)
+        private void EditResource(object sender, EventArgs e)
         {
             if (ResourceManager.ActiveItem != null)
             {
@@ -114,8 +114,14 @@ namespace ChameleonCoder
                 IEditable editResource = resource as IEditable;
                 if (editResource != null)
                 {
-                    Tabs.Items.Insert(Tabs.SelectedIndex, new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
-                    Tabs.Items.RemoveAt(Tabs.SelectedIndex);
+                    int i = FindResourceTab(resource, true);
+                    if (i == -1)
+                    {
+                        Tabs.Items.Insert(Tabs.SelectedIndex, new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
+                        Tabs.Items.RemoveAt(Tabs.SelectedIndex);
+                    }
+                    else
+                        Tabs.SelectedIndex = i;
                 }
             }
         }

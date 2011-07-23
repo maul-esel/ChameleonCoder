@@ -284,7 +284,7 @@
                     <ribbon:RibbonButton x:Name="OpenEdit"
                                          Label="Edit"
                                          LargeImageSource="Images\RibbonTab3\edit.png"
-                                         Click="EditAResource"/>
+                                         Click="EditResource"/>
                     
                 </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="CustomGroup3" Header="custom"/>
