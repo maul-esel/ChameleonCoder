@@ -233,10 +233,10 @@ namespace ChameleonCoder
             int i = 0;
             foreach (KeyValuePair<string, Page> page in Tabs.Items)
             {
-                if ((rvPage = page.Value as ResourceViewPage) != null)
+                if ((rvPage = page.Value as ResourceViewPage) != null && !useEdit)
                     if (rvPage.Resource == resource)
                         return i;
-                if ((edPage = page.Value as EditPage) != null)
+                if ((edPage = page.Value as EditPage) != null && useEdit)
                     if (edPage.Resource as IResource == resource)
                         return i;
                 i++;
