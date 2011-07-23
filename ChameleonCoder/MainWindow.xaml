@@ -113,7 +113,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Image/>
-                                    <TextBlock Text="{Binding Path=Name}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ribbon:RibbonApplicationSplitMenuItem.ItemTemplate>
@@ -166,7 +166,7 @@
                                     <ribbon:RibbonGalleryItem>
                                         <StackPanel Orientation="Horizontal">
                                             <ribbon:RibbonCheckBox Margin="1,1,5,1" Checked="FilterChanged" Unchecked="FilterChanged"/>
-                                            <TextBlock Text="{Binding Path=Name}"/>
+                                            <TextBlock Text="{Binding Converter={StaticResource TypeConverter}}"/>
                                         </StackPanel>
                                     </ribbon:RibbonGalleryItem>
                                 </DataTemplate>
