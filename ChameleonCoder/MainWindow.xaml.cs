@@ -20,8 +20,6 @@ namespace ChameleonCoder
         internal MainWindow()
         {
             InitializeComponent();
-
-            this.CurrentActionProgress.IsEnabled = false;
             
             foreach (IService service in ServiceHost.GetServices())
                 this.MenuServices.Items.Add(service);
@@ -75,23 +73,11 @@ namespace ChameleonCoder
 
         private void GoHome(object sender, EventArgs e)
         {
-            bool found = false;
-            int i = -1;
-            foreach (object o in App.Gui.Tabs.Items)
-            {
-                i++;
-                if (((KeyValuePair<string, Page>)o).Value.GetType() == typeof(Navigation.WelcomePage))
-                {
-                    found = true;
-                    App.Gui.Tabs.SelectedIndex = i;
-                    break;
-                }
-            }
-            if (!found)
-            {
-                int after = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
-                App.Gui.Tabs.SelectedIndex = after;
-            }
+            int i;
+            if ((i = FindPageTab(typeof(WelcomePage))) != -1)
+                Tabs.SelectedIndex = i;
+            else
+                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new Navigation.WelcomePage()));
         }
 
         private void OpenAResource(object sender, RoutedPropertyChangedEventArgs<Object> e)
@@ -112,8 +98,7 @@ namespace ChameleonCoder
                 if ((languageResource = resource as ILanguageResource) != null)
                     LanguageModuleHost.LoadModule(languageResource.language);
 
-                int i = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
-                Tabs.SelectedIndex = i;
+                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>(resource.Name, new Navigation.ResourceViewPage(resource)));
             }
         }
 
@@ -129,7 +114,10 @@ namespace ChameleonCoder
 
                 IEditable editResource = resource as IEditable;
                 if (editResource != null)
-                    Tabs.SelectedItem = new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource));
+                {
+                    Tabs.Items.Insert(Tabs.SelectedIndex, new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
+                    Tabs.Items.RemoveAt(Tabs.SelectedIndex);
+                }
             }
         }
 
@@ -211,28 +199,61 @@ namespace ChameleonCoder
 
         private void TabChanged(object sender, EventArgs e)
         {
-            Type selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType();
-
-            if (selected == typeof(Navigation.ResourceListPage))
-                this.contextResourceList.Visibility = Visibility.Visible;
-            else
-                this.contextResourceList.Visibility = Visibility.Collapsed;
-
-            if (selected == typeof(Navigation.ResourceViewPage))
+            if (Tabs.SelectedItem != null)
             {
-                this.contextResourceView.Visibility = Visibility.Visible;
-                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceViewPage).Resource;
-            }
-            else
-                this.contextResourceView.Visibility = Visibility.Collapsed;
+                Type selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType();
 
-            if (selected == typeof(Navigation.EditPage))
-            {
-                this.contextEditing.Visibility = Visibility.Visible;
-                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.EditPage).Resource;
+                if (selected == typeof(Navigation.ResourceListPage))
+                    this.contextResourceList.Visibility = Visibility.Visible;
+                else
+                    this.contextResourceList.Visibility = Visibility.Collapsed;
+
+                if (selected == typeof(Navigation.ResourceViewPage))
+                {
+                    this.contextResourceView.Visibility = Visibility.Visible;
+                    ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceViewPage).Resource;
+                }
+                else
+                    this.contextResourceView.Visibility = Visibility.Collapsed;
+
+                if (selected == typeof(Navigation.EditPage))
+                {
+                    this.contextEditing.Visibility = Visibility.Visible;
+                    ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.EditPage).Resource;
+                }
+                else
+                    this.contextEditing.Visibility = Visibility.Collapsed;
             }
-            else
-                this.contextEditing.Visibility = Visibility.Collapsed;
+        }
+
+        private int FindResourceTab(IResource resource, bool useEdit)
+        {
+            ResourceViewPage rvPage;
+            EditPage edPage;
+
+            int i = 0;
+            foreach (KeyValuePair<string, Page> page in Tabs.Items)
+            {
+                if ((rvPage = page.Value as ResourceViewPage) != null)
+                    if (rvPage.Resource == resource)
+                        return i;
+                if ((edPage = page.Value as EditPage) != null)
+                    if (edPage.Resource as IResource == resource)
+                        return i;
+                i++;
+            }
+            return -1;
+        }
+
+        private int FindPageTab(Type type)
+        {
+            int i = 0;
+            foreach (KeyValuePair<string, Page> page in Tabs.Items)
+            {
+                if (page.Value.GetType() == type)
+                    return i;
+            }
+            return -1;
         }
     }
 }
