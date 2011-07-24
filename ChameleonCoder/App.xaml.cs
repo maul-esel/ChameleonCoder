@@ -10,6 +10,7 @@ using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources.RichContent;
+using Microsoft.Win32;
 
 namespace ChameleonCoder
 {
@@ -21,6 +22,8 @@ namespace ChameleonCoder
         internal static MainWindow Gui;
 
         public static string AppDir { get { return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); } }
+
+        public static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
         internal void Init(Object sender, StartupEventArgs e)
         {
@@ -57,7 +60,12 @@ namespace ChameleonCoder
                 }
                 else if (args[i] == "--install_ext")
                 {
-                    
+                    if (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
+                    && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null)
+                        UnRegisterExtensions();
+                    else
+                        RegisterExtensions();
+                    App.Current.Shutdown();
                 }
                 else if (args[i] == "--install_COM")
                 {
@@ -131,7 +139,7 @@ namespace ChameleonCoder
             IResource resource;
             
             resource = ResourceTypeManager.CreateInstanceOf(node.Name, node, parent);
-            if (resource == null)
+            if (resource == null && node.Attributes["fallback"] != null)
                 resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
             if (resource == null)
                 return false;
@@ -182,5 +190,38 @@ namespace ChameleonCoder
                     Services.ServiceHost.Add(component);
             }
         }
+
+        
+        internal static void RegisterExtensions()
+        {
+                RegistryKey regMap = Registry.ClassesRoot.CreateSubKey(".ccm", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey regRes = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
+
+                regMap.SetValue("", "CC resource map");
+                regRes.SetValue("", "CC resource file");
+
+                regMap.Close();
+                regRes.Close();
+
+                regMap = Registry.ClassesRoot.CreateSubKey(".ccm\\Shell\\Open\\command");
+                regRes = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
+
+                regMap.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+                regRes.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+
+                regMap.Close();
+                regRes.Close();
+
+                regMap = Registry.ClassesRoot.CreateSubKey(".ccm\\DefaultIcon");
+                regRes = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
+
+                regMap.SetValue("", App.AppPath + ", 0");
+                regRes.SetValue("", App.AppPath + ", 1");
+
+                regMap.Close();
+                regRes.Close();
+        }
+
+        internal static void UnRegisterExtensions() { }
     }
 }

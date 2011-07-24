@@ -7,7 +7,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="WelcomePage" ShowsNavigationUI="False">
 
-    <StackPanel Background="AliceBlue" HorizontalAlignment="Stretch">
+    <StackPanel Background="AliceBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
             <Image Source="..\Images\logo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
             <Border CornerRadius="15" Background="Aquamarine" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5">
@@ -20,7 +20,7 @@
         <ListBox VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10, 0, 10, 10" HorizontalContentAlignment="Center">
             <Hyperlink Click="OpenResourceView">go to resource list</Hyperlink>
             <Hyperlink>create a new resource</Hyperlink>
-            <Hyperlink>change the configuration</Hyperlink>
+            <Hyperlink Click="OpenConfiguration">change the configuration</Hyperlink>
         </ListBox>
         
     </StackPanel>

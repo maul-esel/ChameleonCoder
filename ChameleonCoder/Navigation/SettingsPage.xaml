@@ -7,8 +7,8 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="SettingsPage">
 
-    <StackPanel>
-        <Border CornerRadius="10" Background="LightBlue" Height="25" BorderBrush="Blue" BorderThickness="2">
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BgBrush}">
+        <Border CornerRadius="10" Background="LightBlue" Height="25" BorderBrush="Blue" BorderThickness="2" Margin="5">
             <TextBlock Text="settings" FontFamily="Comic Sans MS" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
 
@@ -38,8 +38,8 @@
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Programming directory:" Margin="5"/>
             <TextBox Grid.Column="1" Grid.Row="2" Margin="5" x:Name="progDir"/>
             <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="select directory" Margin="5,0,5,5"/>
-            
-            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="install extensions" Margin="5"/>
+
+            <CheckBox IsChecked="{Binding Path=IsExtensionsInstalled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="install extensions" Margin="5"/>
             
             <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Content="install COM" Margin="5"/>
         </Grid>

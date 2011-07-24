@@ -41,7 +41,7 @@ namespace ChameleonCoder.Navigation
 
         private void OpenConfiguration(object sender, EventArgs e)
         {
-
+            App.Gui.Tabs.SelectedIndex = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("settings", new SettingsPage()));
         }
     }
 }
