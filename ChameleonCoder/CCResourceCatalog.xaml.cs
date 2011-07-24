@@ -108,7 +108,7 @@ namespace ChameleonCoder
             while (item == null && i < parent.Items.Count)
             {
                 child = parent.ItemContainerGenerator.ContainerFromIndex(i) as ItemsControl;
-                //if (child != null)
+                if (child != null)
                     item = Find(child);
                 i++;
             }
