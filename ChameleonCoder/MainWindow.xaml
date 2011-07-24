@@ -219,6 +219,13 @@
                                          SmallImageSource="Images\RibbonTab2\redo.png"
                                          Label="Redo"/>
                 </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup>
+                    <ribbon:RibbonButton Label="Save"
+                                         LargeImageSource="Images\RibbonTab2\filesave.png"
+                                         Click="ResourceSave"/>
+                </ribbon:RibbonGroup>
+                
+                
                 <ribbon:RibbonGroup x:Name="Group6"
                                     Header="Search and Replace">
                     <ribbon:RibbonButton x:Name="SearchButton"

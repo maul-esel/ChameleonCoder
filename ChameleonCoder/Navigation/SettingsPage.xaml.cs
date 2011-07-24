@@ -12,8 +12,9 @@ namespace ChameleonCoder.Navigation
         public SettingsPage()
         {
             InitializeComponent();
-            extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
-                    && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
+            extInstCheck.SetCurrentValue(CheckBox.IsCheckedProperty, true);
+            //extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
+            //        && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
         }
 
         private void InstallExtensions(object sender, EventArgs e)

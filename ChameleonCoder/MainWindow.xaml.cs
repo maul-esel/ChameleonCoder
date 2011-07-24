@@ -173,6 +173,22 @@ namespace ChameleonCoder
             }
         }
 
+        private void ResourceSave(object sender, EventArgs e)
+        {
+            ResourceSave((KeyValuePair<string, Page>)Tabs.SelectedItem);
+        }
+
+        private void ResourceSave(KeyValuePair<string, Page> page)
+        {
+            ResourceSave(page.Value as EditPage);
+        }
+
+        private void ResourceSave(EditPage page)
+        {
+            if (page != null)
+                page.Save();
+        }
+
         private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             ResourceOpen(TreeView.SelectedItem as IResource);
@@ -208,6 +224,7 @@ namespace ChameleonCoder
 
         private void TabClosed(object sender, RoutedEventArgs e)
         {
+            ResourceSave((KeyValuePair<string, Page>)Tabs.SelectedItem);
             Tabs.Items.Remove((KeyValuePair<string, Page>)(
                 System.Windows.Media.VisualTreeHelper.GetParent(
                 System.Windows.Media.VisualTreeHelper.GetParent(
@@ -238,7 +255,7 @@ namespace ChameleonCoder
             if (selected == typeof(Navigation.EditPage))
             {
                 this.contextEditing.Visibility = Visibility.Visible;
-                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.EditPage).Resource;
+                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as EditPage).Resource;
             }
             else
                 this.contextEditing.Visibility = Visibility.Collapsed;

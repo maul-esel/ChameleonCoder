@@ -330,10 +330,7 @@
     <Resource Include="Images\view.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\icon_ccr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\icon_ccm.png" />
+    <Resource Include="Images\RibbonTab2\filesave.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
