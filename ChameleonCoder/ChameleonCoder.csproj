@@ -58,9 +58,13 @@
     <ApplicationIcon>
     </ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <Win32Resource>
+    </Win32Resource>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="BreadcrumbLib">
       <HintPath>..\..\Breadcrumb_V1\BreadcrumbLib.dll</HintPath>
@@ -325,7 +329,17 @@
   <ItemGroup>
     <Resource Include="Images\view.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\icon_ccr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\icon_ccm.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

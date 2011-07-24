@@ -222,6 +222,10 @@ namespace ChameleonCoder
                 regRes.Close();
         }
 
-        internal static void UnRegisterExtensions() { }
+        internal static void UnRegisterExtensions()
+        {
+            Registry.ClassesRoot.DeleteSubKeyTree(".ccm");
+            Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
+        }
     }
 }
