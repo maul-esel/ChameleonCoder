@@ -308,7 +308,20 @@
         </bc:Breadcrumb>
         
         <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"
-                    IsSynchronizedWithCurrentItem="True"/>
+                    IsSynchronizedWithCurrentItem="True">
+            <TabControl.Background>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.Background>
+                                <SolidColorBrush Color="Aqua"/>
+                            </Grid.Background>
+                            <TextBlock Text="no tabs opened" FontSize="16pt" MaxHeight="200" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TabControl.Background>
+        </TabControl>
 
         <StatusBar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Grid.RowSpan="1">
             <StatusBarItem>

@@ -89,6 +89,33 @@ namespace ChameleonCoder
             }
         }
 
+        private void Expand(object sender, RoutedEventArgs e)
+        {
+            if (TreeView.SelectedItem != null)
+            {
+                TreeViewItem item = Find(TreeView);
+                if (item != null)
+                    item.IsExpanded = !item.IsExpanded;
+            }
+        }
+
+        private TreeViewItem Find(ItemsControl parent)
+        {
+            ItemsControl child;
+            TreeViewItem item = parent.ItemContainerGenerator.ContainerFromItem(TreeView.SelectedItem) as TreeViewItem;
+
+            int i = 0;
+            while (item == null && i < parent.Items.Count)
+            {
+                child = parent.ItemContainerGenerator.ContainerFromIndex(i) as ItemsControl;
+                //if (child != null)
+                    item = Find(child);
+                i++;
+            }
+
+            return item;
+        }
+
         public new event DragEventHandler Drop
         {
             add
@@ -132,6 +159,11 @@ namespace ChameleonCoder
             {
                 return this.TreeView.SelectedItem;
             }
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
         }
     }
 }

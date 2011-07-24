@@ -18,5 +18,24 @@
         <conv:ResourceTypeImageConverter x:Key="TypeImageConverter"/>
         <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>
         <conv:ColorConverter x:Key="ColorConverter"/>
+
+        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5" x:Key="radialBrush1"
+                             SpreadMethod="Repeat">
+            <RadialGradientBrush.GradientStops>
+                <GradientStop Offset="0.0" Color="White"/>
+                <GradientStop Offset="0.1" Color="LightBlue"/>
+                <GradientStop Offset="0.2" Color="White"/>
+                <GradientStop Offset="0.3" Color="LightBlue"/>
+                <GradientStop Offset="0.4" Color="White"/>
+                <GradientStop Offset="0.5" Color="LightBlue"/>
+                <GradientStop Offset="0.6" Color="White"/>
+                <GradientStop Offset="0.7" Color="LightBlue"/>
+                <GradientStop Offset="0.8" Color="White"/>
+                <GradientStop Offset="0.9" Color="LightBlue"/>
+                <GradientStop Offset="1.0" Color="White"/>
+                <GradientStop Offset="1.1" Color="LightBlue"/>
+                <GradientStop Offset="1.2" Color="White"/>
+            </RadialGradientBrush.GradientStops>
+        </RadialGradientBrush>
     </Application.Resources>
 </Application>
