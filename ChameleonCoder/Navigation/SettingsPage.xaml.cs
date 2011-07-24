@@ -29,10 +29,5 @@ namespace ChameleonCoder.Navigation
                 System.Diagnostics.Process.Start(info); 
             }
         }
-
-        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
     }
 }
