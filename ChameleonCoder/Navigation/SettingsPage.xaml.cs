@@ -12,16 +12,23 @@ namespace ChameleonCoder.Navigation
         public SettingsPage()
         {
             InitializeComponent();
-            extInstCheck.SetCurrentValue(CheckBox.IsCheckedProperty, true);
-            //extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
-            //        && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
+            ignoreChecking = true;
+            extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
+                    && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
         }
+
+        bool ignoreChecking = false;
 
         private void InstallExtensions(object sender, EventArgs e)
         {
-            System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(App.AppPath, "--install_ext") { UseShellExecute = true, Verb = "runAs" };
-            try { System.Diagnostics.Process.Start(info); }
-            catch (System.ComponentModel.Win32Exception) { }
+            if (ignoreChecking)
+                ignoreChecking = false;
+            else
+            {
+                System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(App.AppPath, "--install_ext") { UseShellExecute = true, Verb = "runAs" };
+                try { System.Diagnostics.Process.Start(info); }
+                catch (System.ComponentModel.Win32Exception) { }
+            }
         }
     }
 }
