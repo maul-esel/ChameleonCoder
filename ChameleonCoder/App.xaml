@@ -37,5 +37,10 @@
                 <GradientStop Offset="1.2" Color="White"/>
             </RadialGradientBrush.GradientStops>
         </RadialGradientBrush>
+        
+        <LinearGradientBrush x:Key="BgBrush" EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect" Opacity="200">
+            <GradientStop Offset="0" Color="Orange"/>
+            <GradientStop Offset="1" Color="White"/>
+        </LinearGradientBrush>
     </Application.Resources>
 </Application>
