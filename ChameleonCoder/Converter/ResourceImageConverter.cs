@@ -11,6 +11,7 @@ namespace ChameleonCoder.Converter
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IResource resource = value as IResource;
+            IResource original = resource;
             IResolvable link;
 
             if (resource != null)
@@ -18,10 +19,11 @@ namespace ChameleonCoder.Converter
                 while ((link = (resource as IResolvable)) != null && link.shouldResolve)
                     resource = link.Resolve();
 
-                return resource.Icon;
+                if (resource != null)
+                    return resource.Icon;
+                else
+                    return original.Icon;
             }
-
-            
             return null;
         }
 

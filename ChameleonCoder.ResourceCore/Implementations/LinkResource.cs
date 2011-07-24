@@ -27,7 +27,16 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return this.Resolve().Icon; } }
+        public override ImageSource Icon
+        {
+            get
+            {
+                IResource resource = this.Resolve();
+                if (resource != null)
+                    return resource.Icon;
+                return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png"));
+            }
+        }
 
         /// <summary>
         /// the name of the link which can either be an own, independant name or the destination's name
@@ -84,7 +93,9 @@ namespace ChameleonCoder.ResourceCore
                 while ((link = resource as IResolvable) != null && link.shouldResolve)
                     resource = link.Resolve();
 
-                return resource.SpecialVisualProperty;
+                if (resource != null)
+                    return resource.SpecialVisualProperty;
+                return null;
             }
         }
 
