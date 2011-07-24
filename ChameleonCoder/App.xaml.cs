@@ -36,6 +36,9 @@ namespace ChameleonCoder
             bool plus_data = false;
             bool noplugin = false;
 
+            List<string> files = new List<string>();
+            List<string> dirs = new List<string>();
+
             string[] args = Environment.GetCommandLineArgs();
 
             for (int i = 1; i < args.Length; i++)
@@ -43,12 +46,12 @@ namespace ChameleonCoder
                 if (File.Exists(args[i]))
                 {
                     no_data = true;
-                    ParseFile(args[i]);
+                    files.Add(args[i]);
                 }
                 else if (Directory.Exists(args[i]))
                 {
                     no_data = true;
-                    ParseDir(args[i]);
+                    dirs.Add(args[i]);
                 }
                 else if (args[i] == "--data")
                 {
@@ -69,7 +72,7 @@ namespace ChameleonCoder
                 }
                 else if (args[i] == "--install_COM")
                 {
-
+                    App.Current.Shutdown();
                 }
             }
 
@@ -85,6 +88,11 @@ namespace ChameleonCoder
             App.Current.Exit += ExitHandler;
 
             Gui = new MainWindow();
+
+            foreach (string file in files)
+                ParseFile(file);
+            foreach (string dir in dirs)
+                ParseDir(dir);
 
             if (!no_data)
                 ParseDir(AppDir + "\\Data");
