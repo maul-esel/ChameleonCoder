@@ -35,9 +35,9 @@ namespace ChameleonCoder.ResourceCore
             {
                 switch (this.Priority)
                 {
-                    case ProjectPriority.basic: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/Priority/low.png"));
-                    case ProjectPriority.middle: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/Priority/middle.png"));
-                    case ProjectPriority.high: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/Priority/high.png"));
+                    case ProjectPriority.basic: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/low.png"));
+                    case ProjectPriority.middle: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/middle.png"));
+                    case ProjectPriority.high: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/high.png"));
                 }
                 return base.SpecialVisualProperty;
             }

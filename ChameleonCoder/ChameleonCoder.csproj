@@ -319,11 +319,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Priority\high.png" />
-    <Resource Include="Images\Priority\low.png" />
-    <Resource Include="Images\Priority\middle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
