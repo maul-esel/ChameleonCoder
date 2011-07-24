@@ -117,7 +117,7 @@ namespace ChameleonCoder
 
         private static void ParseDir(string dir)
         {
-            var files = (Directory.GetFiles(dir, "*.ccp", SearchOption.AllDirectories))
+            var files = (Directory.GetFiles(dir, "*.ccr", SearchOption.AllDirectories))
                 .Concat(Directory.GetFiles(dir, "*.ccm", SearchOption.AllDirectories));
 
             foreach (string file in files)
