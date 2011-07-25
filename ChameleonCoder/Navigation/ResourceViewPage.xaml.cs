@@ -12,6 +12,7 @@ namespace ChameleonCoder.Navigation
     {
         public ResourceViewPage(IResource resource)
         {
+            this.DataContext = resource;
             InitializeComponent();
             (this.Resources["ResPropList"] as CollectionViewSource).Source = resource;
             this.MetadataGrid.ItemsSource = resource.MetaData;
