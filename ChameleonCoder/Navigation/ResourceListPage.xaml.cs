@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Data;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -20,15 +21,32 @@ namespace ChameleonCoder.Navigation
         {
             IResource resource = e.Item as IResource;
             e.Accepted = true;
+            Type resType = resource.GetType();
 
             if (resource is IResolvable && !App.Gui.ShowLinks.IsChecked == true)
             {
                 e.Accepted = false;
             }
-            else
+            else if (this.IsInitialized)
             {
-                // check if corresponding type is checked in ShowTypesList
+                int i = 0;
+                foreach (Type t in App.Gui.visTypes.Items)
+                {
+                    if (t == resType)
+                    {
+                        DependencyObject item = App.Gui.visTypes.ItemContainerGenerator.ContainerFromIndex(i);
+                        for (int id = 0; id < 10; id++)
+                            item = VisualTreeHelper.GetChild(item, 0);
+
+                        if ((item as Microsoft.Windows.Controls.Ribbon.RibbonCheckBox).IsChecked == true)
+                            e.Accepted = false;
+                        break;
+                    }
+                    i++;
+                }
+                    
             }
+                // check if corresponding type is checked in ShowTypesList
         }
 
         private void OpenResource(object sender, EventArgs e)

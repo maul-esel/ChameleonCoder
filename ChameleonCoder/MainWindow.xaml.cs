@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
+using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Services;
-using ChameleonCoder.Navigation;
 using Microsoft.Windows.Controls.Ribbon;
 
 namespace ChameleonCoder
@@ -25,8 +26,7 @@ namespace ChameleonCoder
 
             foreach (IService service in ServiceHost.GetServices())
                 this.MenuServices.Items.Add(service);
-            /*foreach (var item in ResourceManager.GetChildren())
-                this.breadcrumb.Items.Add(item);*/
+
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
                 this.visTypes.Items.Add(t);
@@ -47,21 +47,6 @@ namespace ChameleonCoder
             App.Current.Shutdown(0);
         }
 
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
-        {
-            IResource resource = e.Item as IResource;
-            e.Accepted = true;
-
-            if (resource is IResolvable && !this.ShowLinks.IsChecked == true)
-            {
-                e.Accepted = false;
-            }
-            else
-            {
-                // check if corresponding type is checked in ShowTypesList
-            }
-        }
-
         internal void DroppedFile(object sender, DragEventArgs e)
         {
             App.ImportDroppedResource(e);
@@ -69,7 +54,7 @@ namespace ChameleonCoder
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            //CollectionViewSource.GetDefaultView(this.ResourceList.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView((((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as ResourceListPage).ResourceList.ItemsSource).Refresh();
         }
 
         private void GoHome(object sender, EventArgs e)
@@ -210,10 +195,10 @@ namespace ChameleonCoder
         {
             ResourceSave((KeyValuePair<string, Page>)Tabs.SelectedItem);
             Tabs.Items.Remove((KeyValuePair<string, Page>)(
-                System.Windows.Media.VisualTreeHelper.GetParent(
-                System.Windows.Media.VisualTreeHelper.GetParent(
-                System.Windows.Media.VisualTreeHelper.GetParent(
-                System.Windows.Media.VisualTreeHelper.GetParent((e.OriginalSource as Button).Parent as StackPanel)))) as TabItem).DataContext);
+                VisualTreeHelper.GetParent(
+                VisualTreeHelper.GetParent(
+                VisualTreeHelper.GetParent(
+                VisualTreeHelper.GetParent((e.OriginalSource as Button).Parent as StackPanel)))) as TabItem).DataContext);
             TabChanged(null, null);
         }
 
