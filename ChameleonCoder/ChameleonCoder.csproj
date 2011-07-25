@@ -69,8 +69,8 @@
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\SharpZip\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\DotNetZip\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Odyssey">
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>

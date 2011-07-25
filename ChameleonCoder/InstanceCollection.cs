@@ -7,12 +7,16 @@ namespace ChameleonCoder
     {
         System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue> instances = new System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>();
 
+        object lock_add = new object();
         public void Add(TKey key, TValue value)
         {
-            if (!instances.ContainsKey(key))
+            lock (lock_add)
             {
-                instances.TryAdd(key, value);
-                base.Add(value);
+                if (!instances.ContainsKey(key))
+                {
+                    instances.TryAdd(key, value);
+                    base.Add(value);
+                }
             }
         }
 

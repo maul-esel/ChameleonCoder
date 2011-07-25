@@ -127,7 +127,10 @@ namespace ChameleonCoder
                                        dir_ref => ParseDir(dir_ref.Value)));
             }
             else if (!error)
+            {
+                //MessageBox.Show(file);
                 AddResource(doc.DocumentElement, null);
+            }
         }
 
         private static void ParseDir(string dir)
@@ -245,22 +248,41 @@ namespace ChameleonCoder
 
         static object lock_drop = new object();
 
-        internal static void ImportDroppedResource(DragEventArgs e)
+        internal static void ImportDroppedResource(DragEventArgs dragged)
         {
             lock (lock_drop)
             {
-                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                if (dragged.Data.GetDataPresent(DataFormats.FileDrop))
                 {
-                    string[] files = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+                    string[] files = dragged.Data.GetData(DataFormats.FileDrop, true) as string[];
 
                     foreach (string file in files)
                     {
                         System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
                         try { doc.Load(file); }
-                        catch (System.Xml.XmlException ex)
+                        catch (System.Xml.XmlException)
                         {
-                            // check if it is a package file
-                            MessageBox.Show(ex.Message + ex.Source);
+                            if (!Ionic.Zip.ZipFile.IsZipFile(file))
+                                return;
+
+                            using (Ionic.Zip.ZipFile zip = new Ionic.Zip.ZipFile())
+                            {
+                                zip.FullScan = true;
+                                zip.Initialize(file);
+
+                                Parallel.For(0, zip.Count,
+                                    i => {
+                                        int index = (int)i;
+                                        zip[index].Extract(AppDir + "\\Data", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+                                        if (zip[index].IsDirectory)
+                                            ParseDir(AppDir + "\\Data" + "\\" + zip[index].FileName);
+                                        else
+                                            ParseFile(AppDir + "\\Data" + "\\" + zip[index].FileName);
+                                        });
+                            }
+
+                            return;
                         }
 
                         App.AddResource(doc.DocumentElement, null);
