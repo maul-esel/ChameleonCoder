@@ -18,8 +18,9 @@ namespace ChameleonCoder.Converter
 
             if (resource is ILanguageResource)
             {
-                try { return LanguageModuleHost.GetModule((resource as ILanguageResource).language).Icon; }
-                catch (NullReferenceException) { }
+                ILanguageModule module = LanguageModuleHost.GetModule((resource as ILanguageResource).language);
+                if (module != null)
+                    return module.Icon.GetAsFrozen();
             }
 
             return null;

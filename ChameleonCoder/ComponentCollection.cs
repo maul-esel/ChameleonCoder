@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 
 namespace ChameleonCoder
 {
@@ -9,11 +9,11 @@ namespace ChameleonCoder
     /// <typeparam name="TValue"></typeparam>
     internal abstract class ComponentCollection<TKey, TValue>
     {
-        private Dictionary<TKey, TValue> components = new Dictionary<TKey, TValue>();
+        private ConcurrentDictionary<TKey, TValue> components = new ConcurrentDictionary<TKey, TValue>();
 
         protected void RegisterComponent(TKey key, TValue member)
         {
-            components.Add(key, member);
+            components.TryAdd(key, member);
         }
 
         protected TValue GetComponent(TKey key)
@@ -24,7 +24,7 @@ namespace ChameleonCoder
             return default(TValue);
         }
 
-        public IEnumerable<TValue> GetList()
+        public System.Collections.Generic.IEnumerable<TValue> GetList()
         {
             return this.components.Values;
         }
@@ -32,11 +32,6 @@ namespace ChameleonCoder
         public bool IsRegistered(TKey key)
         {
             return this.components.ContainsKey(key);
-        }
-
-        public bool IsRegistered(TValue value)
-        {
-            return this.components.ContainsValue(value);
         }
     }
 }

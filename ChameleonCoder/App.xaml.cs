@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -36,12 +37,12 @@ namespace ChameleonCoder
             bool plus_data = false;
             bool noplugin = false;
 
-            List<string> files = new List<string>();
-            List<string> dirs = new List<string>();
+            ConcurrentBag<string> files = new ConcurrentBag<string>();
+            ConcurrentBag<string> dirs = new ConcurrentBag<string>();
 
             string[] args = Environment.GetCommandLineArgs();
 
-            for (int i = 1; i < args.Length; i++)
+            Parallel.For(1, args.Length, i =>
             {
                 if (File.Exists(args[i]))
                 {
@@ -74,7 +75,7 @@ namespace ChameleonCoder
                 {
                     App.Current.Shutdown();
                 }
-            }
+            });
 
             if (plus_data)
                 no_data = false;
@@ -89,10 +90,8 @@ namespace ChameleonCoder
 
             Gui = new MainWindow();
 
-            foreach (string file in files)
-                ParseFile(file);
-            foreach (string dir in dirs)
-                ParseDir(dir);
+            Parallel.Invoke(() => Parallel.ForEach(files, file => ParseFile(file)),
+                            () => Parallel.ForEach(dirs, dir => ParseDir(dir)));
 
             if (!no_data)
                 ParseDir(AppDir + "\\Data");
@@ -117,15 +116,15 @@ namespace ChameleonCoder
 
             if (!error && doc.DocumentElement.Name == "cc-project-map")
             {
-                foreach (XmlNode file_ref in (from XmlNode _ref in doc.DocumentElement.ChildNodes
-                                              where _ref.Name == "file" && File.Exists(_ref.Value)
-                                              select _ref))
-                    ParseFile(file_ref.Value);
-
-                foreach (XmlNode dir_ref in (from XmlNode _ref in doc.DocumentElement.ChildNodes
-                                             where _ref.Name == "dir" && Directory.Exists(_ref.Value)
-                                             select _ref))
-                    ParseDir(dir_ref.Value);
+                Parallel.Invoke(
+                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes
+                                      where _ref.Name == "file" && File.Exists(_ref.Value)
+                                      select _ref),
+                                      file_ref => ParseFile(file_ref.Value)),
+                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes
+                                       where _ref.Name == "dir" && Directory.Exists(_ref.Value)
+                                       select _ref),
+                                       dir_ref => ParseDir(dir_ref.Value)));
             }
             else if (!error)
                 AddResource(doc.DocumentElement, null);
@@ -133,13 +132,11 @@ namespace ChameleonCoder
 
         private static void ParseDir(string dir)
         {
-            var files = (Directory.GetFiles(dir, "*.ccr", SearchOption.AllDirectories))
-                .Concat(Directory.GetFiles(dir, "*.ccm", SearchOption.AllDirectories));
-
-            foreach (string file in files)
-            {
-                ParseFile(file);
-            }
+            Parallel.ForEach(
+                new ConcurrentBag<string>(
+                    (Directory.GetFiles(dir, "*.ccr", SearchOption.AllDirectories)).Concat(
+                     Directory.GetFiles(dir, "*.ccm", SearchOption.AllDirectories))),
+               file => ParseFile(file));
         }
 
         internal static bool AddResource(XmlNode node, IResource parent)
@@ -150,7 +147,10 @@ namespace ChameleonCoder
             if (resource == null && node.Attributes["fallback"] != null)
                 resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
             if (resource == null)
+            {
+                MessageBox.Show(ResourceTypeManager.IsRegistered(node.Name).ToString() + " [ " + node.Name + "]");
                 return false;
+            }
 
             IRichContentResource richResource = resource as IRichContentResource;
 
@@ -179,29 +179,32 @@ namespace ChameleonCoder
 
         private static void LoadPlugins()
         {
-            List<Type> components = new List<Type>(Assembly.GetEntryAssembly().GetTypes());
-            foreach (string dll in Directory.GetFiles(AppDir + "\\Components", "*.dll"))
-                components.AddRange(Assembly.LoadFrom(dll).GetTypes());
+            ConcurrentBag<Type> components = new ConcurrentBag<Type>();
+            Parallel.ForEach(Directory.GetFiles(AppDir + "\\Components", "*.dll"), dll =>
+                Parallel.ForEach(Assembly.LoadFrom(dll).GetTypes(), type => components.Add(type)));
 
-            foreach (Type component in components)
+            Parallel.ForEach(components, component =>
             {
-                if (component.IsAbstract || component.IsInterface || component.IsNotPublic)
-                    continue;
+                if (!component.IsAbstract && !component.IsInterface && !component.IsNotPublic)
+                {
+                    if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
+                        (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
 
-                if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
-                    (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
+                    if (component.GetInterface(typeof(LanguageModules.ILanguageModule).FullName) != null)
+                        LanguageModules.LanguageModuleHost.Add(component);
 
-                if (component.GetInterface(typeof(LanguageModules.ILanguageModule).FullName) != null)
-                    LanguageModules.LanguageModuleHost.Add(component);
-
-                if (component.GetInterface(typeof(Services.IService).FullName) != null)
-                    Services.ServiceHost.Add(component);
-            }
+                    if (component.GetInterface(typeof(Services.IService).FullName) != null)
+                        Services.ServiceHost.Add(component);
+                }
+            });
         }
 
-        
+        static object lock_ext = new object();
+ 
         internal static void RegisterExtensions()
         {
+            lock (lock_ext)
+            {
                 RegistryKey regMap = Registry.ClassesRoot.CreateSubKey(".ccm", RegistryKeyPermissionCheck.ReadWriteSubTree);
                 RegistryKey regRes = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
 
@@ -228,12 +231,46 @@ namespace ChameleonCoder
 
                 regMap.Close();
                 regRes.Close();
+            }
         }
 
         internal static void UnRegisterExtensions()
         {
-            Registry.ClassesRoot.DeleteSubKeyTree(".ccm");
-            Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
+            lock (lock_ext)
+            {
+                Registry.ClassesRoot.DeleteSubKeyTree(".ccm");
+                Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
+            }
+        }
+
+        static object lock_drop = new object();
+
+        internal static void ImportDroppedResource(DragEventArgs e)
+        {
+            lock (lock_drop)
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    string[] files = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+
+                    foreach (string file in files)
+                    {
+                        System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                        try { doc.Load(file); }
+                        catch (System.Xml.XmlException ex)
+                        {
+                            // check if it is a package file
+                            MessageBox.Show(ex.Message + ex.Source);
+                        }
+
+                        App.AddResource(doc.DocumentElement, null);
+                        System.IO.File.Copy(file,
+                            System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
+                            + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
+                            + System.IO.Path.GetFileName(file));
+                    }
+                }
+            }
         }
     }
 }

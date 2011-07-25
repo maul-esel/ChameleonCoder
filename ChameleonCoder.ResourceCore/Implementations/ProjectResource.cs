@@ -27,19 +27,23 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")); } }
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")).GetAsFrozen() as ImageSource; } }
 
+        object lock_special = new object();
         public override ImageSource SpecialVisualProperty
         {
             get
             {
-                switch (this.Priority)
+                lock (lock_special)
                 {
-                    case ProjectPriority.basic: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/low.png"));
-                    case ProjectPriority.middle: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/middle.png"));
-                    case ProjectPriority.high: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/high.png"));
+                    switch (this.Priority)
+                    {
+                        case ProjectPriority.basic: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/low.png"));
+                        case ProjectPriority.middle: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/middle.png"));
+                        case ProjectPriority.high: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/high.png"));
+                    }
+                    return base.SpecialVisualProperty;
                 }
-                return base.SpecialVisualProperty;
             }
         }
 
@@ -47,16 +51,26 @@ namespace ChameleonCoder.ResourceCore
 
         #region ILanguageResource
 
+        object lock_lang = new object();
         /// <summary>
         /// the GUID of the language in which the project is written
         /// </summary>
         public Guid language
         {
-            get { return new Guid(this.Xml.Attributes["language"].Value); }
+            get
+            {
+                lock (lock_lang)
+                {
+                    return new Guid(this.Xml.Attributes["language"].Value);
+                }
+            }
             protected set
             {
-                this.Xml.Attributes["language"].Value = value.ToString();
-                this.OnPropertyChanged("language");
+                lock (lock_lang)
+                {
+                    this.Xml.Attributes["language"].Value = value.ToString();
+                    this.OnPropertyChanged("language");
+                }
             }
         }
 

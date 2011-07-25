@@ -34,7 +34,7 @@ namespace ChameleonCoder.ResourceCore
                 IResource resource = this.Resolve();
                 if (resource != null)
                     return resource.Icon;
-                return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png"));
+                return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png")).GetAsFrozen() as ImageSource;
             }
         }
 

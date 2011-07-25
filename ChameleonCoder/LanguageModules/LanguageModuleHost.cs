@@ -70,11 +70,15 @@ namespace ChameleonCoder.LanguageModules
             }
         }
 
+        static object lock_getmodule = new object();
         public static ILanguageModule GetModule(Guid language)
         {
-            ILanguageModule module;
-            if (Modules.TryGetValue(language, out module))
-                return module;
+            lock (lock_getmodule)
+            {
+                ILanguageModule module;
+                if (Modules.TryGetValue(language, out module))
+                    return module;
+            }
             return null;
         }
 

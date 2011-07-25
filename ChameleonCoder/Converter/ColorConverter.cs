@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Windows.Data;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
     class ColorConverter : IValueConverter
     {
+        object lock_ = new object();
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return Resources.Management.ResourceTypeManager.GetInfo(value.GetType()).Background;
+            lock (lock_)
+            {
+                if (value != null)
+                {
+                    ResourceTypeInfo info = Resources.Management.ResourceTypeManager.GetInfo(value.GetType());
+
+                    if (info != null)
+                        return info.Background.GetAsFrozen();
+                }
+                return null;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

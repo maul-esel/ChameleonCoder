@@ -19,16 +19,14 @@ namespace ChameleonCoder
         internal MainWindow()
         {
             InitializeComponent();
-            
-            foreach (IService service in ServiceHost.GetServices())
-                this.MenuServices.Items.Add(service);
 
             if (ServiceHost.GetServiceCount() == 0)
                 this.MenuServices.IsEnabled = false;
 
+            foreach (IService service in ServiceHost.GetServices())
+                this.MenuServices.Items.Add(service);
             foreach (var item in ResourceManager.GetChildren())
                 this.breadcrumb.Items.Add(item);
-
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
                 this.visTypes.Items.Add(t);
@@ -64,29 +62,9 @@ namespace ChameleonCoder
             }
         }
 
-        private void DroppedFile(object sender, DragEventArgs e)
+        internal void DroppedFile(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = e.Data.GetData(DataFormats.FileDrop, true) as string[];
-
-                foreach (string file in files)
-                {
-                    System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-                    try { doc.Load(file); }
-                    catch (System.Xml.XmlException ex)
-                    {
-                        // check if it is a package file
-                        MessageBox.Show(ex.Message + ex.Source);
-                    }
-
-                    App.AddResource(doc.DocumentElement, null);
-                    System.IO.File.Copy(file,
-                        System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
-                        + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
-                        + System.IO.Path.GetFileName(file));
-                }
-            }
+            App.ImportDroppedResource(e);
         }
 
         private void FilterChanged(object sender, RoutedEventArgs e)
@@ -113,8 +91,14 @@ namespace ChameleonCoder
         {
             this.CurrentActionProgress.IsIndeterminate = true;
 
-            IService service = (e.OriginalSource as RibbonApplicationMenuItem).Header as IService;
-            service.Call();
+            IService service;
+            RibbonApplicationMenuItem item = e.OriginalSource as RibbonApplicationMenuItem;
+
+            if (item != null)
+                (service = item.Header as IService).Call();
+            else
+                (service = MenuServices.Items[0] as IService).Call();
+
             while (service.IsBusy) ;
 
             this.CurrentActionProgress.IsIndeterminate = false;
@@ -266,9 +250,10 @@ namespace ChameleonCoder
             ResourceViewPage rvPage;
             EditPage edPage;
 
-            int i = 0;
+            int i = -1;
             foreach (KeyValuePair<string, Page> page in Tabs.Items)
             {
+                i++;
                 if ((rvPage = page.Value as ResourceViewPage) != null && !useEdit)
                     if (rvPage.Resource == resource)
                         return i;
@@ -280,11 +265,12 @@ namespace ChameleonCoder
             return -1;
         }
 
-        private int FindPageTab(Type type)
+        internal int FindPageTab(Type type)
         {
-            int i = 0;
+            int i = -1;
             foreach (KeyValuePair<string, Page> page in Tabs.Items)
             {
+                i++;
                 if (page.Value.GetType() == type)
                     return i;
             }

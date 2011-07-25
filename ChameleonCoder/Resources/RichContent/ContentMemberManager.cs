@@ -13,8 +13,7 @@ namespace ChameleonCoder.Resources.RichContent
         {
             if (component.GetInterface(typeof(IContentMember).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic
-                && !ContentMembers.IsRegistered(info.Alias)
-                && !ContentMembers.IsRegistered(component))
+                && !ContentMembers.IsRegistered(info.Alias))
             {
                 ContentMembers.RegisterMember(info, component);
             }

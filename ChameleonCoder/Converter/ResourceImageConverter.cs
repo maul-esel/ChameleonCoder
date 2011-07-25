@@ -20,9 +20,9 @@ namespace ChameleonCoder.Converter
                     resource = link.Resolve();
 
                 if (resource != null)
-                    return resource.Icon;
+                    return resource.Icon.GetAsFrozen();
                 else
-                    return original.Icon;
+                    return original.Icon.GetAsFrozen();
             }
             return null;
         }

@@ -10,17 +10,25 @@ namespace ChameleonCoder.Resources.Management
 
         private static Dictionary<Type, ResourceTypeInfo> ResourceTypesStatic = new Dictionary<Type, ResourceTypeInfo>();
 
+        static object lock_gettype = new object();
         public static Type GetResourceType(string alias)
         {
-            return ResourceTypes.GetResourceType(alias);
+            lock (lock_gettype)
+            {
+                return ResourceTypes.GetResourceType(alias);
+            }
         }
 
+        static object lock_create = new object();
         internal static IResource CreateInstanceOf(string alias, params object[] parameters)
         {
-            Type type = ResourceTypes.GetResourceType(alias);
-            if (type == null)
-                return null;
-            return (IResource)Activator.CreateInstance(type, parameters);
+            lock (lock_create)
+            {
+                Type type = ResourceTypes.GetResourceType(alias);
+                if (type == null)
+                    return null;
+                return (IResource)Activator.CreateInstance(type, parameters);
+            }
         }
 
         public static IEnumerable<Type> GetResourceTypes()
@@ -28,21 +36,24 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.GetList();
         }
 
+        static object lock_info = new object();
         public static ResourceTypeInfo GetInfo(Type t)
         {
-            ResourceTypeInfo i;
-            if (ResourceTypesStatic.TryGetValue(t, out i))
-                return i;
-            return null;
+            lock (lock_info)
+            {
+                if (t != null)
+                {
+                    ResourceTypeInfo i;
+                    if (ResourceTypesStatic.TryGetValue(t, out i))
+                        return i;
+                }
+                return null;
+            }
         }
 
         public static bool IsRegistered(string alias)
         {
             return ResourceTypes.IsRegistered(alias);
-        }
-        public static bool IsRegistered(Type resourceType)
-        {
-            return ResourceTypes.IsRegistered(resourceType);
         }
 
         internal static void RegisterComponent(Type component, ResourceTypeInfo info)
@@ -50,7 +61,6 @@ namespace ChameleonCoder.Resources.Management
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic
                 && !IsRegistered(info.Alias)
-                && !IsRegistered(component)
                 && !string.Equals(info.Alias, "metadata", StringComparison.OrdinalIgnoreCase)
                 && !string.Equals(info.Alias, "RichContent", StringComparison.OrdinalIgnoreCase))
             {
@@ -64,9 +74,13 @@ namespace ChameleonCoder.Resources.Management
             ResourceTypes = collection;
         }
 
+        static object lock_col = new object();
         internal static ResourceTypeCollection GetCollection()
         {
-            return ResourceTypes;
+            lock (lock_col)
+            {
+                return ResourceTypes;
+            }
         }
     }
 }

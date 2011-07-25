@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
@@ -11,7 +11,10 @@ namespace ChameleonCoder.Converter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return ResourceTypeManager.GetInfo(value as Type).TypeIcon;
+            ResourceTypeInfo info = ResourceTypeManager.GetInfo(value as Type);
+            if (info != null)
+                return info.TypeIcon.GetAsFrozen();
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

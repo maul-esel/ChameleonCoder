@@ -18,7 +18,7 @@ namespace ChameleonCoder.Converter
                     resource = link.Resolve();
 
                 try { return resource.GetType(); }
-                catch { }
+                catch (NullReferenceException) { }
             }
 
             return null;

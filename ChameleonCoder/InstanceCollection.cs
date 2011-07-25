@@ -5,21 +5,21 @@ namespace ChameleonCoder
 {
     public abstract class InstanceCollection<TKey, TValue> : ObservableCollection<TValue>
     {
-        SortedList<TKey, TValue> instances = new SortedList<TKey, TValue>();
+        System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue> instances = new System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>();
 
         public void Add(TKey key, TValue value)
         {
             if (!instances.ContainsKey(key))
             {
-                instances.Add(key, value);
+                instances.TryAdd(key, value);
                 base.Add(value);
             }
         }
 
         public void Remove(TKey key)
         {
-            TValue instance = this.GetInstance(key);
-            instances.Remove(key);
+            TValue instance;
+            instances.TryRemove(key, out instance);
             base.Remove(instance);
         }
 
@@ -39,7 +39,7 @@ namespace ChameleonCoder
             }
             set
             {
-                instances.Values[instances.IndexOfKey(key)] = value;
+                instances.TryUpdate(key, value, value);
             }
         }
     }
