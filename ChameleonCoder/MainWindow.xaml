@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
         xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-        xmlns:res="clr-namespace:ChameleonCoder.Resources"
+        xmlns:res="clr-namespace:ChameleonCoder.Resources.Management"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        xmlns:bc="clr-namespace:BreadcrumbLib;assembly=BreadcrumbLib"
+        xmlns:bc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:service="clr-namespace:ChameleonCoder.Services"
         xmlns:cc="clr-namespace:ChameleonCoder"
@@ -305,14 +305,15 @@
                               x:Name="TreeView" MouseDoubleClick="ResourceOpen"
                               ImportDropped="True"/>
         
-        <bc:Breadcrumb Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5"
-                       ItemTemplate="{StaticResource resourceTemplate}" Name="breadcrumb">
-            <bc:Breadcrumb.Buttons>
+        <bc:BreadcrumbBar Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" x:Name="breadcrumb"
+                          Root="{x:Type res:ResourceManager}"
+                          Path="CC\">
+            <bc:BreadcrumbBar.Buttons>
                 <Button>
-                    <Image Source="Images\view.png"/>
+                    <Image Source="Images\view.png" Width="20"/>
                 </Button>
-            </bc:Breadcrumb.Buttons>
-        </bc:Breadcrumb>
+            </bc:BreadcrumbBar.Buttons>
+        </bc:BreadcrumbBar>
         
         <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"
                     IsSynchronizedWithCurrentItem="True">

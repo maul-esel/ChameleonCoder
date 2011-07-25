@@ -66,11 +66,11 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="BreadcrumbLib">
-      <HintPath>..\..\Breadcrumb_V1\BreadcrumbLib.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\SharpZip\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Odyssey">
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>

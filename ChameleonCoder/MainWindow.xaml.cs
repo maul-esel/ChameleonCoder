@@ -25,8 +25,8 @@ namespace ChameleonCoder
 
             foreach (IService service in ServiceHost.GetServices())
                 this.MenuServices.Items.Add(service);
-            foreach (var item in ResourceManager.GetChildren())
-                this.breadcrumb.Items.Add(item);
+            /*foreach (var item in ResourceManager.GetChildren())
+                this.breadcrumb.Items.Add(item);*/
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
                 this.visTypes.Items.Add(t);
