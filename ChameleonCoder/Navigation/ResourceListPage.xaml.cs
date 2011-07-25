@@ -43,10 +43,8 @@ namespace ChameleonCoder.Navigation
                         break;
                     }
                     i++;
-                }
-                    
+                }   
             }
-                // check if corresponding type is checked in ShowTypesList
         }
 
         private void OpenResource(object sender, EventArgs e)

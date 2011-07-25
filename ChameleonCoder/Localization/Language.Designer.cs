@@ -68,5 +68,14 @@ namespace ChameleonCoder.Localization {
                 return ResourceManager.GetString("ModuleInfo", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die running service: {0}... ähnelt.
+        /// </summary>
+        internal static string ServiceInfo {
+            get {
+                return ResourceManager.GetString("ServiceInfo", resourceCulture);
+            }
+        }
     }
 }
