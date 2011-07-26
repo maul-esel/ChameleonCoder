@@ -83,8 +83,8 @@ namespace ChameleonCoder.ResourceCore
                 catch (NullReferenceException) { }
 
                 if (!System.IO.Path.IsPathRooted(path) && !string.IsNullOrWhiteSpace(path)
-                    && File.Exists(ChameleonCoder.InformationProvider.ProgrammingDirectory + path))
-                    return ChameleonCoder.InformationProvider.ProgrammingDirectory + path;
+                    && File.Exists(ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory + path))
+                    return ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory + path;
 
                 return path;
             }

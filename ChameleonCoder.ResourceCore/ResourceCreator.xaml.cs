@@ -94,7 +94,7 @@ namespace ChameleonCoder
         private void SearchFile(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
-            dialog.InitialDirectory = ChameleonCoder.InformationProvider.ProgrammingDirectory;
+            dialog.InitialDirectory = ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory;
             dialog.DereferenceLinks = false;
 
             dialog.FileOk += delegate(object sender2, System.ComponentModel.CancelEventArgs e2)

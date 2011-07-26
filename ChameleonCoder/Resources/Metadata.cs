@@ -46,7 +46,7 @@ namespace ChameleonCoder.Resources
         /// saves any UI changes to the XmlDocument.
         /// Should better be handled through data binding.
         /// </summary>
-        internal void Save()
+        public void Save()
         {
 
         }

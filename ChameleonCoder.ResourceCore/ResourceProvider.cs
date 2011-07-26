@@ -56,7 +56,7 @@ namespace ChameleonCoder.ResourceCore
                 ResourceCreator creator = new ResourceCreator(target, s);
                 creator.ShowDialog();
 
-                if (creator.DialogResult != false)
+                if (creator.DialogResult == true)
                 {
                     System.Xml.XmlNode node = creator.GetXmlNode();
 
