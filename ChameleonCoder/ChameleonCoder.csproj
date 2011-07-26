@@ -147,6 +147,9 @@
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResourceTypeSelector.xaml.cs">
+      <DependentUpon>ResourceTypeSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\IServiceHost.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
@@ -205,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Navigation\ResourceViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceTypeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
