@@ -13,7 +13,7 @@ namespace ChameleonCoder.ResourceCore
     /// represents a file containing code,
     /// inherits from FileResource
     /// </summary>
-    public class CodeResource : FileResource, ICompilable, IEditable, IRichContentResource
+    public class CodeResource : FileResource, ICompilable, IRichContentResource
     {
         /// <summary>
         /// creates a new instance of the CodeResource class
@@ -80,23 +80,6 @@ namespace ChameleonCoder.ResourceCore
                 this.Xml.Attributes["compilation-path"].Value = value;
                 this.OnPropertyChanged("compilationPath");
             }
-        }
-
-        #endregion
-
-        #region IEditable
-
-        public string GetText()
-        {
-            try { return System.IO.File.ReadAllText(this.Path); }
-            catch (System.IO.DirectoryNotFoundException) { }
-            catch (System.IO.FileNotFoundException) { }
-            return string.Empty;
-        }
-
-        public void SaveText(string text)
-        {
-            System.IO.File.WriteAllText(this.Path, text);
         }
 
         #endregion
