@@ -19,7 +19,7 @@
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10">How do you want to start?</TextBlock>
         <ListBox VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10, 0, 10, 10" HorizontalContentAlignment="Center">
             <Hyperlink Click="OpenResourceView">go to resource list</Hyperlink>
-            <Hyperlink>create a new resource</Hyperlink>
+            <Hyperlink Click="CreateResource">create a new resource</Hyperlink>
             <Hyperlink Click="OpenConfiguration">change the configuration</Hyperlink>
         </ListBox>
         

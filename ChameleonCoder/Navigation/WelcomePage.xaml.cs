@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Navigation
 {
@@ -26,7 +27,10 @@ namespace ChameleonCoder.Navigation
 
         private void CreateResource(object sender, EventArgs e)
         {
+            ResourceTypeSelector selector = new ResourceTypeSelector();
 
+            if (selector.ShowDialog() == true)
+                ResourceTypeManager.GetInfo(selector.SelectedResult).Creator(selector.SelectedResult, null, ResourceManager.Add);
         }
 
         private void OpenConfiguration(object sender, EventArgs e)
