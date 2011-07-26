@@ -60,6 +60,6 @@
             <TextBlock Grid.Column="0" Grid.Row="7" Text="Class:" Margin="2" HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Path=Class}" Margin="2"/>
         </Grid>
-        <Button Content="select this resource type" Margin="5"/>
+        <Button Content="select this resource type" Margin="5" IsDefault="True" Click="FinishDialog"/>
     </StackPanel>
 </Window>

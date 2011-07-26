@@ -58,5 +58,11 @@ namespace ChameleonCoder
             else
                 Info.DataContext = null;
         }
+
+        private void FinishDialog(object sender, EventArgs e)
+        {
+            DialogResult = true;
+            Close();
+        }
     }
 }
