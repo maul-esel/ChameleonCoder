@@ -1,0 +1,65 @@
+﻿<Window x:Class="ChameleonCoder.ResourceTypeSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase" SizeToContent="Height"
+        Title="ChameleonCoder - resource types" Height="400" Width="450" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Images\logo.png">
+    <StackPanel>
+        <StackPanel.Resources>
+            <CollectionViewSource x:Key="listSource" Source="{Binding}">
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="Name"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+        </StackPanel.Resources>
+        <ListBox Margin="5" MaxHeight="175" MinHeight="125" ItemsSource="{Binding Source={StaticResource listSource}}"
+                 SelectionChanged="UpdateInfo" HorizontalContentAlignment="Stretch" x:Name="typeList">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="1" Background="{Binding Path=Key}" Padding="4">
+                        <TextBlock Foreground="Black" Text="{Binding Path=Value, Converter={StaticResource TypeConverter}}" HorizontalAlignment="Center"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid x:Name="Info" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Name:" Margin="2" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Name}" Margin="2"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Author:" Margin="2" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Author}" Margin="2"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Icon &amp; Color:" Margin="2" HorizontalAlignment="Center"/>
+            <Border Grid.Column="1" Grid.Row="2" Height="15" Background="{Binding Path=Color}" Margin="2">
+                <Image Grid.Column="1" Grid.Row="2" Width="15" Source="{Binding Path=Icon}"/>
+            </Border>
+
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="XML-Alias:" Margin="2" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Path=Alias}" Margin="2"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Plugin File:" Margin="2" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Path=File}" Margin="2"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Plugin Assembly (name):" Margin="2" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Path=Assembly}" Margin="2"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="7" Text="Class:" Margin="2" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Path=Class}" Margin="2"/>
+        </Grid>
+        <Button Content="select this resource type" Margin="5"/>
+    </StackPanel>
+</Window>
