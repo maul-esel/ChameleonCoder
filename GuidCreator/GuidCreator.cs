@@ -12,8 +12,6 @@ namespace GuidCreator
 
         bool busy;
 
-        System.Windows.Media.ImageSource icon;
-
         #endregion
 
         #region IService
@@ -29,13 +27,11 @@ namespace GuidCreator
         public string ServiceName { get { return "GuidCreator"; } }
         public string Description { get { return "creates a GUID"; } }
         public bool IsBusy { get { return busy; } }
-        public System.Windows.Media.ImageSource Icon { get { return icon; } }
+        public System.Windows.Media.ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/GuidCreator;component/icon.png")).GetAsFrozen() as BitmapImage; } }
 
         public void Initialize(IServiceHost host)
         {
             this.host = host;
-
-            this.icon = new BitmapImage(new Uri("pack://application:,,,/GuidCreator;component/icon.png"));
         }
 
         public void Call()
