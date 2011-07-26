@@ -193,12 +193,15 @@ namespace ChameleonCoder
 
         private void TabClosed(object sender, RoutedEventArgs e)
         {
-            ResourceSave((KeyValuePair<string, Page>)Tabs.SelectedItem);
-            Tabs.Items.Remove((KeyValuePair<string, Page>)(
-                VisualTreeHelper.GetParent(
-                VisualTreeHelper.GetParent(
-                VisualTreeHelper.GetParent(
-                VisualTreeHelper.GetParent((e.OriginalSource as Button).Parent as StackPanel)))) as TabItem).DataContext);
+            DependencyObject ctrl = (e.OriginalSource as Button).Parent;
+
+            for (int i = 0; i < 4; i++)
+                ctrl = VisualTreeHelper.GetParent(ctrl);
+
+            KeyValuePair<string, Page> item = (KeyValuePair<string, Page>)(ctrl as TabItem).DataContext;
+            ResourceSave(item);
+            Tabs.Items.Remove(item);
+
             TabChanged(null, null);
         }
 
