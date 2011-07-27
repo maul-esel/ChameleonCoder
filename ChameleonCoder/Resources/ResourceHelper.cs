@@ -83,27 +83,20 @@ namespace ChameleonCoder
             string[] segments = path.Split(new char[1] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;
-            int i = 1;
+            int i = 0;
             foreach (string segment in segments)
             {
+                i++;
                 foreach (IResource res in collection)
                 {
-                    System.Windows.MessageBox.Show(segment + "==" + res.Name);
-                    if (res.Name == segment && segments.Length > i)
-                    {
+                    if (res.Name != segment)
+                        continue;
+                    if (segments.Length > i)
                         collection = res.children;
-                        break;
-                    }
-                    else if (res.Name == segment && segments.Length == i)
-                    {
+                    else if (segments.Length == i)
                         result = res;
-                        System.Windows.MessageBox.Show("result!");
-                        break;
-                    }
-                    else
-                        System.Windows.MessageBox.Show("no match");
+                    break;
                 }
-                i++;
             }
             return result;
         }
