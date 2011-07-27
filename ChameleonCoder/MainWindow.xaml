@@ -105,7 +105,7 @@
                        Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable)">
             
             <odc:RibbonBar.ApplicationMenu>
-                <odc:RibbonApplicationMenu x:Uid="ribbon:RibbonApplicationMenu_1" Localization.Attributes="$Content(Unreadable Unmodifiable)">
+                <odc:RibbonApplicationMenu x:Uid="ribbon:RibbonApplicationMenu_1" Localization.Attributes="$Content(Unreadable Unmodifiable)" MenuButtonImage="Images\logo.ico">
                     
                     <odc:RibbonApplicationMenu.Footer>
                         
