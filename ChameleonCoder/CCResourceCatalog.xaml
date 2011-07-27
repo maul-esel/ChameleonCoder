@@ -5,7 +5,7 @@
              x:Name="hostControl" Cursor="Hand"
              Localization.Attributes="$Content(Unreadable Unmodifiable) Cursor(Unreadable Unmodifiable)">
     
-    <TreeView x:Uid="TreeView" x:Name="TreeView" HorizontalContentAlignment="Stretch" VirtualizingStackPanel.IsVirtualizing="True"
+    <TreeView x:Uid="TreeView" x:Name="TreeView" VirtualizingStackPanel.IsVirtualizing="True"
               VirtualizingStackPanel.VirtualizationMode="Recycling" AllowDrop="True"
               Width="{Binding ElementName=hostControl, Path=ActualWidth}"
               Height="{Binding ElementName=hostControl, Path=ActualHeight}"
@@ -21,13 +21,13 @@
         <TreeView.ItemTemplate>
             <HierarchicalDataTemplate x:Uid="HierarchicalDataTemplate_1" ItemsSource="{Binding Path=children}">
                 
-                <Grid x:Uid="Grid_1" Margin="3" HorizontalAlignment="Stretch"
+                <Grid x:Uid="Grid_1" Margin="3"
                       Localization.Attributes="Margin(Unreadable Unmodifiable) HorizontalAlignment(Unreadable Unmodifiable)">
                     
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition x:Uid="ColumnDefinition_1"/>
-                        <ColumnDefinition x:Uid="ColumnDefinition_2"/>
-                        <ColumnDefinition x:Uid="ColumnDefinition_3"/>
+                        <ColumnDefinition x:Uid="ColumnDefinition_1" Width="Auto"/>
+                        <ColumnDefinition x:Uid="ColumnDefinition_2" Width="Auto"/>
+                        <ColumnDefinition x:Uid="ColumnDefinition_3" Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     
                     <Border x:Uid="Border_1" Background="Chocolate" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20"

@@ -43,9 +43,9 @@ namespace ChameleonCoder.LanguageModules
                 if (Modules.TryGetValue(ActiveModule, out module))
                 {
                     module.Unload();
-                    App.Gui.CustomGroup1.Items.Clear();
-                    App.Gui.CustomGroup2.Items.Clear();
-                    App.Gui.CustomGroup3.Items.Clear();
+                    App.Gui.CustomGroup1.Controls.Clear();
+                    App.Gui.CustomGroup2.Controls.Clear();
+                    App.Gui.CustomGroup3.Controls.Clear();
                 }
                 ActiveModule = Guid.Empty;
                 App.Gui.CurrentModule.Text = string.Empty;
@@ -100,7 +100,8 @@ namespace ChameleonCoder.LanguageModules
 
         void ILanguageModuleHost.RegisterCodeGenerator(CodeGeneratorEventHandler clicked, ImageSource image, string text)
         {
-            Microsoft.Windows.Controls.Ribbon.RibbonButton button = new Microsoft.Windows.Controls.Ribbon.RibbonButton();
+            Odyssey.Controls.RibbonButton button = new Odyssey.Controls.RibbonButton();
+             
             button.Click += delegate
             {
                 CodeGeneratorEventArgs e = new CodeGeneratorEventArgs(); // todo: add information
@@ -108,9 +109,9 @@ namespace ChameleonCoder.LanguageModules
                 if (!e.Handled)
                     (this as ILanguageModuleHost).InsertCode(e.Code);
             };
-            button.Label = text;
-            button.LargeImageSource = image;
-            App.Gui.CustomGroup2.Items.Add(button);
+            button.Content = text;
+            button.LargeImage = image;
+            App.Gui.CustomGroup2.Controls.Add(button);
         }
 
         void ILanguageModuleHost.RegisterStubCreator(int index, Action<Guid> clicked)

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -24,10 +25,9 @@ namespace ChameleonCoder.Navigation
             Type resType = resource.GetType();
 
             if (resource is IResolvable && !App.Gui.ShowLinks.IsChecked == true)
-            {
                 e.Accepted = false;
-            }
-            else if (this.IsInitialized)
+
+            else if (IsInitialized)
             {
                 int i = 0;
                 foreach (Type t in App.Gui.visTypes.Items)
@@ -35,11 +35,13 @@ namespace ChameleonCoder.Navigation
                     if (t == resType)
                     {
                         DependencyObject item = App.Gui.visTypes.ItemContainerGenerator.ContainerFromIndex(i);
-                        for (int id = 0; id < 10; id++)
-                            item = VisualTreeHelper.GetChild(item, 0);
-
-                        if ((item as Microsoft.Windows.Controls.Ribbon.RibbonCheckBox).IsChecked == true)
-                            e.Accepted = false;
+                        if (item != null)
+                        {
+                            for (int index = 0; index < 14; index++)
+                                item = VisualTreeHelper.GetChild(item, index == 6 ? 1 : index == 3 || index == 8 || index == 11 ? 3 : 0); /* /0/0/0/3/0/0/1/0/3/0/0/3/0/0 */
+                            if ((item as CheckBox).IsChecked == true)
+                                e.Accepted = false;
+                        }
                         break;
                     }
                     i++;

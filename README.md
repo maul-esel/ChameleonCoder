@@ -12,8 +12,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 ## Credits & Related
 * CC is licensed under GPL which can be found in license.txt.
 * CC makes use of the great ***AvalonEdit*** control. It is licensed under GPL, too. [more...](http://www.icsharpcode.net/OpenSource/SD/)
-* CC also uses the ***Windows Ribbon Control for WPF October*** by Microsoft. The license can be found in ribbon_license.txt.
-
+* CC also uses the ***Odyssey WPF Controls*** by Thomas Gerber. They're licensed under the Microsoft Public License. [more...](http://odyssey.codeplex.com/)
 
 ## Features
 ### realized

@@ -8,7 +8,7 @@ using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Services;
-using Microsoft.Windows.Controls.Ribbon;
+using Odyssey.Controls;
 
 namespace ChameleonCoder
 {
@@ -35,7 +35,7 @@ namespace ChameleonCoder
                 RibbonMenuItem item = new RibbonMenuItem();
                 item.Click += this.ResourceCreateChild;
                 item.Header = ResourceTypeManager.GetInfo(t).DisplayName;
-                item.ImageSource = ResourceTypeManager.GetInfo(t).TypeIcon;
+                item.Image = ResourceTypeManager.GetInfo(t).TypeIcon;
                 this.AddChildResource.Items.Add(item);
             }
 
@@ -207,30 +207,28 @@ namespace ChameleonCoder
 
         private void TabChanged(object sender, EventArgs e)
         {
-            Type selected;
-            try { selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType(); }
-            catch (NullReferenceException) { selected = null; }
+            if (Tabs.SelectedItem == null)
+                return;
 
-            if (selected == typeof(Navigation.ResourceListPage))
-                this.contextResourceList.Visibility = Visibility.Visible;
-            else
-                this.contextResourceList.Visibility = Visibility.Collapsed;
+            Type selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType();
 
-            if (selected == typeof(Navigation.ResourceViewPage))
+            if (selected == typeof(ResourceListPage))
+                Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
+
+            else if (selected == typeof(EditPage))
             {
-                this.contextResourceView.Visibility = Visibility.Visible;
-                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceViewPage).Resource;
-            }
-            else
-                this.contextResourceView.Visibility = Visibility.Collapsed;
-
-            if (selected == typeof(Navigation.EditPage))
-            {
-                this.contextEditing.Visibility = Visibility.Visible;
+                Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
                 ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as EditPage).Resource;
             }
-            else
-                this.contextEditing.Visibility = Visibility.Collapsed;
+
+            else if (selected == typeof(ResourceViewPage))
+            {
+                Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
+                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as ResourceViewPage).Resource;
+            }
+
+            else if (selected == typeof(WelcomePage))
+                Ribbon.ContextualTabSet = null;
         }
 
         private int FindResourceTab(IResource resource, bool useEdit)
