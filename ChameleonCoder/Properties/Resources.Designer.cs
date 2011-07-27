@@ -59,5 +59,23 @@ namespace ChameleonCoder.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} module (version {1}) by {2} ähnelt.
+        /// </summary>
+        internal static string ModuleInfo {
+            get {
+                return ResourceManager.GetString("ModuleInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die running service: {0}... ähnelt.
+        /// </summary>
+        internal static string ServiceInfo {
+            get {
+                return ResourceManager.GetString("ServiceInfo", resourceCulture);
+            }
+        }
     }
 }

@@ -117,4 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ModuleInfo" xml:space="preserve">
+    <value>{0} module (version {1}) by {2}</value>
+    <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
+  </data>
+  <data name="ServiceInfo" xml:space="preserve">
+    <value>running service: {0}...</value>
+    <comment>{0} is the name, {1} is the version, {2} the author, {3} the about text</comment>
+  </data>
 </root>

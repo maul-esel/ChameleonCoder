@@ -1,4 +1,4 @@
-﻿<Page x:Class="ChameleonCoder.Navigation.WelcomePage"
+﻿<Page x:Uid="Page_1" x:Class="ChameleonCoder.Navigation.WelcomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,20 +7,20 @@
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="WelcomePage" ShowsNavigationUI="False">
 
-    <StackPanel Background="AliceBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <Image Source="..\Images\logo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
-            <Border CornerRadius="15" Background="Aquamarine" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5">
-                <TextBlock Text="Welcome!" HorizontalAlignment="Center" VerticalAlignment="Center"
+    <StackPanel x:Uid="StackPanel_1" Background="AliceBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <StackPanel x:Uid="StackPanel_2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Image x:Uid="Image_1" Source="..\Images\logo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+            <Border x:Uid="Border_1" CornerRadius="15" Background="Aquamarine" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5">
+                <TextBlock x:Uid="TextBlock_1" Text="Welcome!" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontFamily="Comic Sans MS" FontSize="18" Foreground="Red"/>
             </Border>
-            <Image Source="..\Images\logo.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100"/>
+            <Image x:Uid="Image_2" Source="..\Images\logo.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100"/>
         </StackPanel>
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10">How do you want to start?</TextBlock>
-        <ListBox VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10, 0, 10, 10" HorizontalContentAlignment="Center">
-            <Hyperlink Click="OpenResourceView">go to resource list</Hyperlink>
-            <Hyperlink Click="CreateResource">create a new resource</Hyperlink>
-            <Hyperlink Click="OpenConfiguration">change the configuration</Hyperlink>
+        <TextBlock x:Uid="TextBlock_2" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10">How do you want to start?</TextBlock>
+        <ListBox x:Uid="ListBox_1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10, 0, 10, 10" HorizontalContentAlignment="Center">
+            <Hyperlink x:Uid="Hyperlink_1" Click="OpenResourceView">go to resource list</Hyperlink>
+            <Hyperlink x:Uid="Hyperlink_2" Click="CreateResource">create a new resource</Hyperlink>
+            <Hyperlink x:Uid="Hyperlink_3" Click="OpenConfiguration">change the configuration</Hyperlink>
         </ListBox>
         
     </StackPanel>

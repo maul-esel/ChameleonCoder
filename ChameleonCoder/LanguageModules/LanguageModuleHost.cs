@@ -65,8 +65,8 @@ namespace ChameleonCoder.LanguageModules
                 module.Load();
                 ActiveModule = language;
 
-                App.Gui.CurrentModule.Text = string.Format(Localization.Language.ModuleInfo,
-                    module.LanguageName, module.Version, module.Author);
+                App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                    module.LanguageName, module.Version, module.Author, module.About);
             }
         }
 

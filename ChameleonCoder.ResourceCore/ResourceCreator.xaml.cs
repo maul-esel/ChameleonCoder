@@ -97,10 +97,10 @@ namespace ChameleonCoder
             dialog.InitialDirectory = ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory;
             dialog.DereferenceLinks = false;
 
-            dialog.FileOk += delegate(object sender2, System.ComponentModel.CancelEventArgs e2)
+            dialog.FileOk += (s, e2) =>
                 {
-                    if (!string.IsNullOrWhiteSpace((sender2 as System.Windows.Forms.OpenFileDialog).FileName))
-                        this.ResPath = (sender2 as System.Windows.Forms.OpenFileDialog).FileName;
+                    if (!string.IsNullOrWhiteSpace((s as System.Windows.Forms.OpenFileDialog).FileName))
+                        this.ResPath = (s as System.Windows.Forms.OpenFileDialog).FileName;
                 };
 
             dialog.ShowDialog();

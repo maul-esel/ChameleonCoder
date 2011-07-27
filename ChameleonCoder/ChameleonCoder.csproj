@@ -158,11 +158,6 @@
     <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\MetadataCollection.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
-    <Compile Include="Localization\Language.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Language.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
     <Compile Include="Converter\ResourceImageConverter.cs" />
@@ -230,11 +225,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Localization\Language.de-DE.resx" />
-    <EmbeddedResource Include="Localization\Language.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Language.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -81,8 +81,6 @@ namespace ChameleonCoder
                 no_data = false;
             #endregion
 
-            Localization.Language.Culture = new CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
-
             if (!noplugin)
                 LoadPlugins();
 
