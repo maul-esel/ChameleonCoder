@@ -57,10 +57,6 @@ namespace ChameleonCoder
                 {
                     plus_data = true;
                 }
-                else if (args[i] == "--noplugin")
-                {
-                    noplugin = true;
-                }
                 else if (args[i] == "--install_ext")
                 {
                     if (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
