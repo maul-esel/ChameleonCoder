@@ -239,9 +239,6 @@
     <Resource Include="Images\SmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\RibbonTab1\home.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\RibbonTab1\close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\RibbonTab2\copy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab3\edit.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\RibbonTab2\cut.png" />
@@ -319,6 +313,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\RibbonTab2\filesave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit.png" />
+    <Resource Include="Images\home.png" />
+    <Resource Include="Images\list.png" />
+    <Resource Include="Images\overview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

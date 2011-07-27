@@ -121,7 +121,7 @@
                         
                     </odc:RibbonApplicationMenu.Footer>
 
-                    <odc:RibbonApplicationMenuItem x:Uid="MenuHome" x:Name="MenuHome" Image="Images\RibbonTab1\home.png" Header="Home" Click="GoHome"
+                    <odc:RibbonApplicationMenuItem x:Uid="MenuHome" x:Name="MenuHome" Image="Images\home.png" Header="Home" Click="GoHome"
                                                    Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuServices" x:Name="MenuServices" Image="Images\LargeIcon.png"
@@ -191,7 +191,7 @@
             <odc:RibbonBar.QAToolBar>
                 <odc:RibbonQAToolBar x:Uid="ribbon:RibbonQuickAccessToolBar_1" Localization.Attributes="$Content(Unreadable Unmodifiable)">
                     
-                    <odc:RibbonButton x:Uid="ribbon:RibbonButton_3" SmallImage="Images\RibbonTab1\home.png" Click="GoHome"
+                    <odc:RibbonButton x:Uid="ribbon:RibbonButton_3" SmallImage="Images\home.png" Click="GoHome"
                                          Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImageSource(Unreadable Unmodifiable)"/>
 
                 </odc:RibbonQAToolBar>
@@ -388,7 +388,7 @@
                         <odc:RibbonGroup x:Uid="ribbon:RibbonGroup_3">
                             <odc:RibbonButton x:Uid="OpenEdit" x:Name="OpenEdit"
                                          Content="Edit"
-                                         LargeImage="Images\RibbonTab3\edit.png"
+                                         LargeImage="Images\edit.png"
                                          Click="ResourceEdit"/>
 
                         </odc:RibbonGroup>
@@ -413,46 +413,22 @@
                               ImportDropped="True"/>
         
         <odc:BreadcrumbBar x:Uid="breadcrumb" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" x:Name="breadcrumb"
-                          Root="{x:Type res:ResourceManager}"
-                          Path="CC\"
-                          Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Path(Unreadable Unmodifiable) Margin(Unreadable Unmodifiable)">
-
-            <odc:BreadcrumbBar.Buttons>
-
-                <Button x:Uid="Button_2" Localization.Attributes="$Content(Unreadable Unmodifiable)">
+                           IsEditable="False" ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}"
+                           SelectedBreadcrumbChanged="ResourceOpen"
+                           Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Path(Unreadable Unmodifiable) Margin(Unreadable Unmodifiable)">
+            
+            <odc:BreadcrumbBar.BreadcrumbItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
                     
-                    <Image x:Uid="Image_7" Source="Images\view.png" Width="20"
-                           Localization.Attributes="$Content(Unreadable Unmodifiable) Source(Unreadable Unmodifiable) Width(Unreadable Unmodifiable)"/>
-                    
-                </Button>
+                    <TextBlock Text="{Binding Path=Name}"/>
 
-            </odc:BreadcrumbBar.Buttons>
+                </HierarchicalDataTemplate>
+            </odc:BreadcrumbBar.BreadcrumbItemTemplate>
 
         </odc:BreadcrumbBar>
         
         <TabControl x:Uid="Tabs" x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"
-                    IsSynchronizedWithCurrentItem="True">
-            <TabControl.Background>
-                
-                <VisualBrush x:Uid="VisualBrush_1" Stretch="None">
-                    <VisualBrush.Visual>
-                        
-                        <Grid x:Uid="Grid_5" HorizontalAlignment="Stretch"
-                              Localization.Attributes="HorizontalAlignment(Unreadable Unmodifiable)">
-                            
-                            <Grid.Background>
-                                <SolidColorBrush x:Uid="SolidColorBrush_1" Color="Aqua"/>
-                            </Grid.Background>
-                            
-                            <TextBlock x:Uid="TextBlock_9" Text="no tabs opened" FontSize="16pt" MaxHeight="200" HorizontalAlignment="Center"/>
-                            
-                        </Grid>
-                        
-                    </VisualBrush.Visual>
-                </VisualBrush>
-                
-            </TabControl.Background>
-        </TabControl>
+                    IsSynchronizedWithCurrentItem="True"/>
 
         <StatusBar x:Uid="StatusBar_1" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Grid.RowSpan="1">
             

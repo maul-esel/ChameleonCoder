@@ -51,7 +51,7 @@ namespace ChameleonCoder.Navigation
 
         private void OpenResource(object sender, EventArgs e)
         {
-            App.Gui.ResourceOpen(ResourceList.SelectedItem as IResource);
+            App.Gui.ResourceOpen(ResourceList.SelectedItem as IResource, true);
         }
 
         private void DroppedFile(object sender, DragEventArgs e)

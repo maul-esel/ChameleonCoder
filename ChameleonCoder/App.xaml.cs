@@ -88,7 +88,7 @@ namespace ChameleonCoder
 
             if (!no_data)
                 ParseDir(AppDir + "\\Data");
-
+            Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren() };
             Gui.Show();
         }
 
