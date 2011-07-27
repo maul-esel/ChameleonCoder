@@ -77,25 +77,27 @@ namespace ChameleonCoder
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
-            if (this.IsInitialized)
-                (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as Navigation.ResourceListPage).GroupingChanged(this.EnableGroups.IsChecked);
+            if (IsInitialized)
+                (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as ResourceListPage).GroupingChanged(EnableGroups.IsChecked);
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)
         {
-            this.CurrentActionProgress.IsIndeterminate = true;
-
-            IService service;
             RibbonApplicationMenuItem item = e.OriginalSource as RibbonApplicationMenuItem;
-
+            IService service;
             if (item != null)
-                (service = item.Header as IService).Call();
+                service = item.Header as IService; //).Call();
             else
-                (service = MenuServices.Items[0] as IService).Call();
+                service = MenuServices.Items[0] as IService; //).Call();
 
+            CurrentActionProgress.IsIndeterminate = true;
+            CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.ServiceName, service.Version, service.Author, service.About);
+
+            service.Call();
             while (service.IsBusy) ;
 
-            this.CurrentActionProgress.IsIndeterminate = false;
+            CurrentActionProgress.IsIndeterminate = false;
+            CurrentAction.Text = string.Empty;
         }
 
         #region resources
