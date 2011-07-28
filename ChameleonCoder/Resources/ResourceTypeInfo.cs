@@ -17,10 +17,6 @@ namespace ChameleonCoder.Resources
             this.Author = author;
         }
 
-        public ResourceTypeInfo(ResourceTypeInfo previous)
-            : this(previous.Alias, previous.DisplayName, previous.TypeIcon, previous.Background,
-            previous.Creator, previous.Loader, previous.Author) { }
-
         public string Alias { get; private set; }
 
         public string DisplayName { get; private set; }

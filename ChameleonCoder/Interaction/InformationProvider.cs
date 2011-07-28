@@ -17,7 +17,7 @@ namespace ChameleonCoder.Interaction
 
         public static ResourceTypeInfo GetInfo(Type type)
         {
-            return new ResourceTypeInfo(ResourceTypeManager.GetInfo(type));
+            return ResourceTypeManager.GetInfo(type);
         }
     }
 }
