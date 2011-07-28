@@ -21,7 +21,7 @@ namespace ChameleonCoder
     {
         internal static MainWindow Gui;
 
-        public static string AppDir { get { return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); } }
+        public static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
 
         public static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
@@ -68,6 +68,12 @@ namespace ChameleonCoder
                 }
                 else if (args[i] == "--install_COM")
                 {
+                    App.Current.Shutdown();
+                }
+                else if (args[i] == "--install_full")
+                {
+                    System.Diagnostics.Process.Start(AppPath, "--install_ext");
+                    System.Diagnostics.Process.Start(AppPath, "--install_COM");
                     App.Current.Shutdown();
                 }
             });
