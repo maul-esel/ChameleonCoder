@@ -119,11 +119,11 @@ namespace ChameleonCoder
             if (!error && doc.DocumentElement.Name == "cc-project-map")
             {
                 Parallel.Invoke(
-                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes
+                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
                                       where _ref.Name == "file" && File.Exists(_ref.Value)
                                       select _ref),
                                       file_ref => ParseFile(file_ref.Value)),
-                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes
+                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
                                        where _ref.Name == "dir" && Directory.Exists(_ref.Value)
                                        select _ref),
                                        dir_ref => ParseDir(dir_ref.Value)));
