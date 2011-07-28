@@ -19,7 +19,7 @@ namespace ChameleonCoder
     /// </summary>
     public partial class App : Application
     {
-        internal static MainWindow Gui;
+        internal static MainWindow Gui { get { return Application.Current.MainWindow as MainWindow; } }
 
         internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
 
@@ -94,7 +94,7 @@ namespace ChameleonCoder
                     ParseDir(AppDir + "\\Data");
             });
 
-            Gui = new MainWindow();
+            new MainWindow();
             Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren() };
 
             parallelTask.Wait();
