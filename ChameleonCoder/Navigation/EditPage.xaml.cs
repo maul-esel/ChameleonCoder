@@ -8,14 +8,14 @@ namespace ChameleonCoder.Navigation
     /// </summary>
     public partial class EditPage : Page
     {
-        public EditPage(IEditable resource)
+        internal EditPage(IEditable resource)
         {
             InitializeComponent();
             this.Resource = resource;
             this.Editor.Text = resource.GetText();
         }
 
-        public IEditable Resource { get; private set; }
+        internal IEditable Resource { get; private set; }
 
         internal void Save() // to be called from ribbon
         {

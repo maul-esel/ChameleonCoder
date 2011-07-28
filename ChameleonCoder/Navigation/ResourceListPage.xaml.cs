@@ -13,7 +13,7 @@ namespace ChameleonCoder.Navigation
     /// </summary>
     public partial class ResourceListPage : Page
     {
-        public ResourceListPage()
+        internal ResourceListPage()
         {
             InitializeComponent();
         }

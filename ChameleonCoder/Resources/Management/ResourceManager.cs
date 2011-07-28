@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ChameleonCoder.Resources.Management
 {
-    public static class ResourceManager
+    internal static class ResourceManager
     {
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
@@ -15,7 +15,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         private static ResourceCollection FlatList;
 
-        public static IResource ActiveItem;
+        internal static IResource ActiveItem;
 
         internal static void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
         {
@@ -45,12 +45,12 @@ namespace ChameleonCoder.Resources.Management
             }
         }
 
-        public static ResourceCollection GetChildren()
+        internal static ResourceCollection GetChildren()
         {
             return children;
         }
 
-        public static ResourceCollection GetList()
+        internal static ResourceCollection GetList()
         {
             return FlatList;
         }

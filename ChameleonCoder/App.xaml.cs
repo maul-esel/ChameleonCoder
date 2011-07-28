@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 using ChameleonCoder.Resources;
@@ -21,9 +21,9 @@ namespace ChameleonCoder
     {
         internal static MainWindow Gui;
 
-        public static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
+        internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
 
-        public static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
+        internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
         internal void Init(Object sender, StartupEventArgs e)
         {
@@ -84,7 +84,7 @@ namespace ChameleonCoder
 
             App.Current.Exit += ExitHandler;
 
-            Task pT = new Task(() =>
+            Task parallelTask = Task.Factory.StartNew(() =>
             {
                 if (!noplugin)
                     LoadPlugins();
@@ -93,12 +93,11 @@ namespace ChameleonCoder
                 if (!no_data)
                     ParseDir(AppDir + "\\Data");
             });
-            pT.Start();
 
             Gui = new MainWindow();
             Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren() };
 
-            pT.Wait();
+            parallelTask.Wait();
             Gui.Show();
         }
 

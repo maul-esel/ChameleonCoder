@@ -4,25 +4,21 @@ using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Converter
 {
-    class ColorConverter : IValueConverter
+    internal sealed class ColorConverter : IValueConverter
     {
-        object lock_ = new object();
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        internal object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            lock (lock_)
+            if (value != null)
             {
-                if (value != null)
-                {
-                    ResourceTypeInfo info = Resources.Management.ResourceTypeManager.GetInfo(value.GetType());
+                ResourceTypeInfo info = Resources.Management.ResourceTypeManager.GetInfo(value.GetType());
 
-                    if (info != null)
-                        return info.Background.GetAsFrozen();
-                }
-                return null;
+                if (info != null)
+                    return info.Background.GetAsFrozen();
             }
+            return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        internal object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }

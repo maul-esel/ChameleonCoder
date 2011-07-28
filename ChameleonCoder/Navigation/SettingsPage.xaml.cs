@@ -9,7 +9,7 @@ namespace ChameleonCoder.Navigation
     /// </summary>
     public partial class SettingsPage : Page
     {
-        public SettingsPage()
+        internal SettingsPage()
         {
             InitializeComponent();
             ignoreChecking = true;

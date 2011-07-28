@@ -7,9 +7,9 @@ using ChameleonCoder.Resources.Interfaces;
 namespace ChameleonCoder.Converter
 {
     [ValueConversion(typeof(IResource), typeof(ImageSource))]
-    class ModuleIconConverter : IValueConverter
+    internal sealed class ModuleIconConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        internal object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IResource resource = value as IResource;
 
@@ -26,7 +26,7 @@ namespace ChameleonCoder.Converter
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        internal object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }

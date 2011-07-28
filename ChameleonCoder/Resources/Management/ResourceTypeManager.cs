@@ -4,14 +4,14 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
 {
-    public static class ResourceTypeManager
+    internal static class ResourceTypeManager
     {
         private static ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
         private static Dictionary<Type, ResourceTypeInfo> ResourceTypesStatic = new Dictionary<Type, ResourceTypeInfo>();
 
         static object lock_gettype = new object();
-        public static Type GetResourceType(string alias)
+        internal static Type GetResourceType(string alias)
         {
             lock (lock_gettype)
             {
@@ -31,13 +31,13 @@ namespace ChameleonCoder.Resources.Management
             }
         }
 
-        public static IEnumerable<Type> GetResourceTypes()
+        internal static IEnumerable<Type> GetResourceTypes()
         {
             return ResourceTypes.GetList();
         }
 
         static object lock_info = new object();
-        public static ResourceTypeInfo GetInfo(Type t)
+        internal static ResourceTypeInfo GetInfo(Type t)
         {
             lock (lock_info)
             {
@@ -51,7 +51,7 @@ namespace ChameleonCoder.Resources.Management
             }
         }
 
-        public static bool IsRegistered(string alias)
+        internal static bool IsRegistered(string alias)
         {
             return ResourceTypes.IsRegistered(alias);
         }

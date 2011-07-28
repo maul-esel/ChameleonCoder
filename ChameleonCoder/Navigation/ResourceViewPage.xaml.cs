@@ -10,12 +10,12 @@ namespace ChameleonCoder.Navigation
     /// </summary>
     public partial class ResourceViewPage : Page
     {
-        public ResourceViewPage(IResource resource)
+        internal ResourceViewPage(IResource resource)
         {
             this.DataContext = this.Resource = ResourceManager.ActiveItem = resource;
             InitializeComponent();
         }
 
-        public IResource Resource { get; private set; }
+        internal IResource Resource { get; private set; }
     }
 }

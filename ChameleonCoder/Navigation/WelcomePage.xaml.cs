@@ -10,7 +10,7 @@ namespace ChameleonCoder.Navigation
     /// </summary>
     public partial class WelcomePage : Page
     {
-        public WelcomePage()
+        internal WelcomePage()
         {
             InitializeComponent();
         }
