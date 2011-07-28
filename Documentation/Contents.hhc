@@ -17,6 +17,10 @@
           <param name="Local" value="topics\Introduction.htm">
         </OBJECT>
         <LI><OBJECT type="text/sitemap">
+          <param name="Name" value="Portability & command line">
+          <param name="Local" value="topics\Portability & command line.htm">
+        </OBJECT>
+        <LI><OBJECT type="text/sitemap">
           <param name="Name" value="QuickStart">
           <param name="Local" value="topics\QuickStart.htm">
         </OBJECT>

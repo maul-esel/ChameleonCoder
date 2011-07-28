@@ -6,21 +6,22 @@ img\logo.png
 topics\Introduction.htm
 Contents.hhc
 Index.hhk
+topics\Portability & command line.htm
 topics\QuickStart.htm
 topics\Requirements.htm
 topics\Concepts.htm
 topics\Developers.htm
+topics\resource syntax.htm
 topics\Extensibility.htm
-topics\Resource syntax.htm
 img\WelcomePicture.jpg
 css\styles_standard.css
 
 Compile time: 0 minutes, 0 seconds
-9	Topics
-18	Local links
+10	Topics
+22	Local links
 0	Internet links
 1	Graphic
 
 
-Created c:\Programming\C#\ChameleonCoder\Documentation\Documentation.chm, 177,279 bytes
-Compression decreased file by 53,472 bytes.
+Created c:\Programming\C#\ChameleonCoder\Documentation\Documentation.chm, 179,555 bytes
+Compression decreased file by 55,670 bytes.
