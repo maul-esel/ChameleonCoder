@@ -1,5 +1,5 @@
-﻿using ChameleonCoder.Resources.Interfaces;
-using System.Collections.Generic;
+﻿using System;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
 {
