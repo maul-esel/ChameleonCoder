@@ -4,6 +4,7 @@ using System.Xml;
 using System.Collections.Generic;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.ResourceCore
@@ -109,7 +110,7 @@ namespace ChameleonCoder.ResourceCore
         /// <returns>the Resource object the link points to</returns>
         public IResource Resolve()
         {
-            return ResourceManager.GetList().GetInstance(this.Destination);
+            return InformationProvider.GetInstance(Destination);
         }
 
         public bool shouldResolve { get { return true; } }

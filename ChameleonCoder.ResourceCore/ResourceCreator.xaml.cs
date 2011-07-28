@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Windows;
 using System.Collections.Generic;
+using System.Windows;
+using ChameleonCoder.Interaction;
 using ChameleonCoder.ResourceCore;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
 {
@@ -34,33 +34,32 @@ namespace ChameleonCoder
             this.DataContext = this;
 
             this.ResourceParent.Text = parent;
-            this.ResourceType.Text = ResourceTypeManager.GetInfo(target).DisplayName;
+            this.ResourceType.Text = InformationProvider.GetInfo(target).DisplayName;
 
             this.ResGuid = Guid.NewGuid();
 
             if (target != typeof(LinkResource))
                 _Destination.Visibility = ResourceDestination.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("destination", delegate() { return ResourceDestination.Text; });
-
+                customAttributes.Add("destination",() => ResourceDestination.Text);
 
             if (target != typeof(FileResource))
                 _Path1.Visibility = _Path2.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("path", delegate() { return ResourcePath.Text; });
+                customAttributes.Add("path", () => ResourcePath.Text);
 
             if (target.GetInterface(typeof(ILanguageResource).FullName) == null)
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
                 this.ResourceLanguage.ItemsSource = LanguageModules.LanguageModuleHost.GetList();
-                customAttributes.Add("language", delegate() { return ResourceLanguage.Text; });
+                customAttributes.Add("language", () => ResourceLanguage.Text);
             }
 
             if (target.GetInterface(typeof(ICompilable).FullName) == null)
                 _CompilePath1.Visibility = _CompilePath2.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("compilation-path", delegate() { return ResourceCompilePath.Text; });
+                customAttributes.Add("compilation-path", () => ResourceCompilePath.Text);
 
             if (target != typeof(LibraryResource))
                 _Author.Visibility = _Version.Visibility = _License.Visibility
@@ -68,23 +67,21 @@ namespace ChameleonCoder
                     = Visibility.Hidden;
             else
             {
-                customAttributes.Add("author", delegate() { return ResourceAuthor.Text; });
-                customAttributes.Add("version", delegate() { return ResourceVersion.Text; });
-                customAttributes.Add("license", delegate() { return ResourceLicense.Text; });
+                customAttributes.Add("author", () => ResourceAuthor.Text);
+                customAttributes.Add("version", () => ResourceVersion.Text);
+                customAttributes.Add("license", () => ResourceLicense.Text);
             }
 
             if (target != typeof(ProjectResource))
                 _Priority.Visibility = ResourcePriority.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("priority", delegate
-                {
-                    return ((int)Enum.Parse(typeof(ProjectResource.ProjectPriority), ResourcePriority.Text, true)).ToString();
-                });
+                customAttributes.Add("priority",
+                    () => ((int)Enum.Parse(typeof(ProjectResource.ProjectPriority), ResourcePriority.Text, true)).ToString());
 
             if (target != typeof(TaskResource))
                 _Enddate.Visibility = ResourceEnddate.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("enddate", delegate() { return ResourceEnddate.Text; });
+                customAttributes.Add("enddate", () => ResourceEnddate.Text);
 
             this.target = target;
 
@@ -127,11 +124,11 @@ namespace ChameleonCoder
                 attributes += " " + pair.Key + "=\"" + pair.Value() + "\"";
 
             string xml = string.Format("<{0} name=\"{1}\" guid=\"{2}\" description=\"{3}\" notes=\"\" {4}>\n</{0}>",
-                                        ResourceTypeManager.GetInfo(target).Alias,
+                                        InformationProvider.GetInfo(target).Alias,
                                         ResName,
                                         ResGuid.ToString("b"),
                                         ResDescription,
-                                        attributes); // todo: custom attributes {4}
+                                        attributes);
 
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.LoadXml(xml);
