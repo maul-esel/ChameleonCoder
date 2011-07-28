@@ -76,19 +76,23 @@ namespace ChameleonCoder
                 no_data = false;
             #endregion
 
-            if (!noplugin)
-                LoadPlugins();
-
             App.Current.Exit += ExitHandler;
 
+            Task pT = new Task(() =>
+            {
+                if (!noplugin)
+                    LoadPlugins();
+                Parallel.Invoke(() => Parallel.ForEach(files, file => ParseFile(file)),
+                                () => Parallel.ForEach(dirs, dir => ParseDir(dir)));
+                if (!no_data)
+                    ParseDir(AppDir + "\\Data");
+            });
+            pT.Start();
+
             Gui = new MainWindow();
-
-            Parallel.Invoke(() => Parallel.ForEach(files, file => ParseFile(file)),
-                            () => Parallel.ForEach(dirs, dir => ParseDir(dir)));
-
-            if (!no_data)
-                ParseDir(AppDir + "\\Data");
             Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren() };
+
+            pT.Wait();
             Gui.Show();
         }
 
