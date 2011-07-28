@@ -28,6 +28,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 * user-defined metadata for a resource
 * possibility to add custom resource types
 * super-easy importing of resources
+* a "breadcrumb" control for easy navigation
 
 ### planned
 * creation, moving, copying and deleting of resources
@@ -42,7 +43,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 * of course rich editing component using the AvalonEdit control
 * RichContent model for describing the content of a resource
 * Generating documentation from RichContent, maybe exporting to HTML
-* maybe a "breadcrumb" control for easy navigation
+
 
 ## Extensibility model
 It is planned to support different models to extend CC.
