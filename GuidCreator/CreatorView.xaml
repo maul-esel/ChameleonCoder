@@ -1,23 +1,15 @@
 ﻿<Window x:Class="GuidCreator.CreatorView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525" ShowInTaskbar="False">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="A new GUID was created." Grid.Row="0" HorizontalAlignment="Center"/>
-        <TextBox x:Name="GuidN" IsReadOnly="True" Width="450" Height="25" Grid.Row="1" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="GuidD" IsReadOnly="True" Width="450" Height="25" Grid.Row="2" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="GuidP" IsReadOnly="True" Width="450" Height="25" Grid.Row="3" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="GuidB" IsReadOnly="True" Width="450" Height="25" Grid.Row="4" HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="GuidX" IsReadOnly="True" Width="450" Height="25" Grid.Row="5" HorizontalContentAlignment="Center"/>
-        <Button Content="create a new GUID" Width="250" Height="25" Grid.Row="6" Click="Invoke"/>
-    </Grid>
+        Title="MainWindow" Width="525" ShowInTaskbar="False" SizeToContent="Height">
+    <StackPanel>
+        <TextBlock Text="A new GUID was created." HorizontalAlignment="Center"/>
+        <TextBox x:Name="GuidN" Margin="10" IsReadOnly="True" Width="450" Height="25" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="GuidD" Margin="10" IsReadOnly="True" Width="450" Height="25" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="GuidP" Margin="10" IsReadOnly="True" Width="450" Height="25" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="GuidB" Margin="10" IsReadOnly="True" Width="450" Height="25" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="GuidX" Margin="10" IsReadOnly="True" Width="450" Height="25" HorizontalContentAlignment="Center"/>
+        <Button Margin="10" Content="create a new GUID" Width="250" Height="25" Click="Invoke"/>
+        <Button Margin="10" Content="enter a GUID" Width="250" Height="25" Click="Enter"/>
+    </StackPanel>
 </Window>
