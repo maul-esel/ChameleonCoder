@@ -123,6 +123,7 @@
     <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
     <Compile Include="Interaction\InformationProvider.cs" />
+    <Compile Include="Interaction\InvalidInputAdorner.cs" />
     <Compile Include="Navigation\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
