@@ -149,14 +149,15 @@ namespace ChameleonCoder
         {
             IResource resource;
             
-            resource = ResourceTypeManager.CreateInstanceOf(node.Name, node, parent);
+            resource = ResourceTypeManager.CreateInstanceOf(node.Name);
             if (resource == null && node.Attributes["fallback"] != null)
-                resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value, node);
+                resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value);
             if (resource == null)
             {
                 MessageBox.Show(ResourceTypeManager.IsRegistered(node.Name).ToString() + " [ " + node.Name + "]");
                 return false;
             }
+            resource.Init(node, parent);
 
             IRichContentResource richResource = resource as IRichContentResource;
 

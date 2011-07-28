@@ -14,11 +14,14 @@ namespace ChameleonCoder.ResourceCore
     /// </summary>
     public abstract partial class ResourceBase : IResource, INotifyPropertyChanged
     {
+        #region IResource
+
         /// <summary>
-        /// serves as base constructor for inherited classes and sets general properties
+        /// serves as base initializer for inherited classes and sets general properties
         /// </summary>
         /// <param name="node">the XmlNode that contains the resource</param>
-        public ResourceBase(XmlNode node, IResource parent)
+        /// <param name="parent">the parent resource</param>
+        public virtual void Init(XmlNode node, IResource parent)
         {
             this.Xml = node;
             this.Parent = parent;
@@ -32,8 +35,6 @@ namespace ChameleonCoder.ResourceCore
                                       select meta))
                 this.MetaData.Add(new Metadata(meta));
         }
-
-        #region IResource
 
         public XmlNode Xml { get; private set; }
 

@@ -14,9 +14,9 @@ namespace ChameleonCoder.ResourceCore
     /// </summary>
     public class FileResource : ResourceBase, IEditable
     {
-        public FileResource(XmlNode node, IResource parent)
-            : base(node, parent)
+        public override void Init(XmlNode node, IResource parent)
         {
+            base.Init(node, parent);
         }
 
         #region IResource

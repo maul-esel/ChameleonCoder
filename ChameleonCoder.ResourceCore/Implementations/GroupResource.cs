@@ -7,9 +7,9 @@ namespace ChameleonCoder.ResourceCore
 {
     public class GroupResource : ResourceBase
     {
-        public GroupResource(XmlNode node, IResource parent)
-            : base(node, parent)
+        public override void Init(XmlNode node, IResource parent)
         {
+            base.Init(node, parent);
         }
 
         public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/group.png")).GetAsFrozen() as ImageSource; } }

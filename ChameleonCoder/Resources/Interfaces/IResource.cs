@@ -57,5 +57,12 @@ namespace ChameleonCoder.Resources.Interfaces
         /// a ResourceCollection containing the (direct) child resources
         /// </summary>
         ResourceCollection children { get; }
+
+        /// <summary>
+        /// initializes the resource
+        /// </summary>
+        /// <param name="data">the XmlNode containing the resource data.</param>
+        /// <param name="parent">the parent resource for the resource</param>
+        void Init(System.Xml.XmlNode data, IResource parent);
     }
 }

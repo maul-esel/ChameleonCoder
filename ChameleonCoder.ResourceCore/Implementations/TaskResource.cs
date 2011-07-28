@@ -13,9 +13,9 @@ namespace ChameleonCoder.ResourceCore
     /// </summary>
     public class TaskResource : ResourceBase
     {
-        public TaskResource(XmlNode node, IResource parent)
-            : base(node, parent)
+        public override void Init(XmlNode node, IResource parent)
         {
+            base.Init(node, parent);
         }
 
         #region IResource

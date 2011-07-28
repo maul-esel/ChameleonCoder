@@ -20,9 +20,9 @@ namespace ChameleonCoder.ResourceCore
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public LinkResource(XmlNode node, IResource parent)
-            : base(node, parent)
+        public override void Init(XmlNode node, IResource parent)
         {
+            base.Init(node, parent);
         }
 
         #region IResource

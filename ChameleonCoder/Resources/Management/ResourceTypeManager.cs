@@ -20,14 +20,14 @@ namespace ChameleonCoder.Resources.Management
         }
 
         static object lock_create = new object();
-        internal static IResource CreateInstanceOf(string alias, params object[] parameters)
+        internal static IResource CreateInstanceOf(string alias)
         {
             lock (lock_create)
             {
                 Type type = ResourceTypes.GetResourceType(alias);
                 if (type == null)
                     return null;
-                return (IResource)Activator.CreateInstance(type, parameters);
+                return (IResource)Activator.CreateInstance(type);
             }
         }
 
