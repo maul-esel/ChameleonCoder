@@ -5,7 +5,7 @@ using System.Windows;
 using ChameleonCoder.Resources.Management;
 using System.Windows.Media;
 
-namespace ChameleonCoder
+namespace ChameleonCoder.Interaction
 {
     /// <summary>
     /// Interaktionslogik für ResourceTypeSelector.xaml

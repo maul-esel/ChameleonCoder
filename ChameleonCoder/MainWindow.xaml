@@ -8,6 +8,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:service="clr-namespace:ChameleonCoder.Services"
         xmlns:cc="clr-namespace:ChameleonCoder"
+        xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
         Title="CC - ChameleonCoder alpha 1" IsGlassEnabled="True"
         WindowState="Maximized" x:Name="RibbonWindow" Width="1200" Height="800" Icon="Images\logo.ico" xml:lang="en-US"
         Localization.Attributes="$Content(Unreadable Unmodifiable) Language(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Height(Unreadable Unmodifiable) Width(Unreadable Unmodifiable) Icon(Unreadable Unmodifiable)">
@@ -408,7 +409,7 @@
             
         </odc:RibbonBar>
 
-        <cc:CCResourceCatalog x:Uid="TreeView" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
+        <inter:CCResourceCatalog x:Uid="TreeView" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
                               x:Name="TreeView" MouseDoubleClick="ResourceOpen"
                               ImportDropped="True"/>
         

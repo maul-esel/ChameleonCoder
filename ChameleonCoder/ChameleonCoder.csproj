@@ -117,7 +117,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CCResourceCatalog.xaml.cs">
+    <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\ColorConverter.cs" />
@@ -164,7 +164,7 @@
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceTypeSelector.xaml.cs">
+    <Compile Include="Interaction\ResourceTypeSelector.xaml.cs">
       <DependentUpon>ResourceTypeSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\IService.cs" />
@@ -187,7 +187,7 @@
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
-    <Page Include="CCResourceCatalog.xaml">
+    <Page Include="Interaction\CCResourceCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,7 +223,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceTypeSelector.xaml">
+    <Page Include="Interaction\ResourceTypeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

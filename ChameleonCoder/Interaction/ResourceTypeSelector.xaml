@@ -1,8 +1,8 @@
-﻿<Window x:Uid="Window_1" x:Class="ChameleonCoder.ResourceTypeSelector"
+﻿<Window x:Uid="Window_1" x:Class="ChameleonCoder.Interaction.ResourceTypeSelector"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase" SizeToContent="Height"
-        Title="ChameleonCoder - resource types" Height="400" Width="450" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Images\logo.png">
+        Title="ChameleonCoder - resource types" Height="400" Width="450" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="..\Images\logo.png">
     <StackPanel x:Uid="StackPanel_1">
         <StackPanel.Resources>
             <CollectionViewSource x:Uid="CollectionViewSource_1" x:Key="listSource" Source="{Binding}">

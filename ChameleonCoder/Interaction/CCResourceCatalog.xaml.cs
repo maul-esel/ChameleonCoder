@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading.Tasks;
 
-namespace ChameleonCoder
+namespace ChameleonCoder.Interaction
 {
     /// <summary>
     /// Interaktionslogik für CCResourceCatalog.xaml

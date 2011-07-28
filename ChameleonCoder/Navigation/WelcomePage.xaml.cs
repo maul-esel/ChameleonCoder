@@ -27,7 +27,7 @@ namespace ChameleonCoder.Navigation
 
         private void CreateResource(object sender, EventArgs e)
         {
-            ResourceTypeSelector selector = new ResourceTypeSelector();
+            Interaction.ResourceTypeSelector selector = new Interaction.ResourceTypeSelector();
 
             if (selector.ShowDialog() == true)
                 ResourceTypeManager.GetInfo(selector.SelectedResult).Creator(selector.SelectedResult, null, ResourceManager.Add);
