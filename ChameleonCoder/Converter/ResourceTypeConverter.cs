@@ -7,7 +7,7 @@ namespace ChameleonCoder.Converter
     [ValueConversion(typeof(Type), typeof(string))]
     internal sealed class ResourceTypeConverter : IValueConverter
     {
-        internal object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             Type type = value as Type;
 
@@ -17,7 +17,7 @@ namespace ChameleonCoder.Converter
             return null;
         }
 
-        internal object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }

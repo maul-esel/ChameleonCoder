@@ -7,7 +7,7 @@ namespace ChameleonCoder.Converter
     [ValueConversion(typeof(IResource), typeof(Type))]
     internal sealed class CustomGroupConverter : IValueConverter
     {
-        internal object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IResource resource = value as IResource;
             IResolvable link;
@@ -24,7 +24,7 @@ namespace ChameleonCoder.Converter
             return null;
         }
 
-        internal object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }

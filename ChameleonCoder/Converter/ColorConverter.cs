@@ -6,7 +6,7 @@ namespace ChameleonCoder.Converter
 {
     internal sealed class ColorConverter : IValueConverter
     {
-        internal object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value != null)
             {
@@ -18,7 +18,7 @@ namespace ChameleonCoder.Converter
             return null;
         }
 
-        internal object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }

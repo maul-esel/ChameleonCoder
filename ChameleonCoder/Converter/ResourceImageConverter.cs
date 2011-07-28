@@ -8,7 +8,7 @@ namespace ChameleonCoder.Converter
     [ValueConversion(typeof(IResource), typeof(ImageSource))]
     internal sealed class ResourceImageConverter : IValueConverter
     {
-        internal object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IResource resource = value as IResource;
             IResource original = resource;
@@ -27,7 +27,7 @@ namespace ChameleonCoder.Converter
             return null;
         }
 
-        internal object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }
