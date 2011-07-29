@@ -85,7 +85,7 @@ namespace ChameleonCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Package_IncludeTarget {
             get {
                 return ((bool)(this["Package_IncludeTarget"]));
