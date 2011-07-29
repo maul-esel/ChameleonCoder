@@ -25,17 +25,17 @@ namespace ChameleonCoder
                 this.MenuServices.IsEnabled = false;
 
             foreach (IService service in ServiceHost.GetServices())
-                this.MenuServices.Items.Add(service);
+                MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.ServiceName, DataContext = service });
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
-                this.visTypes.Items.Add(t);
-                this.MenuCreators.Items.Add(t);
+                Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(t);
 
-                RibbonMenuItem item = new RibbonMenuItem();
-                item.Click += this.ResourceCreateChild;
-                item.Header = ResourceTypeManager.GetInfo(t).DisplayName;
-                item.Image = ResourceTypeManager.GetInfo(t).TypeIcon;
+                this.visTypes.Items.Add(t);
+                this.MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = info.TypeIcon, Header = info.DisplayName, DataContext = t });
+
+                RibbonMenuItem item = new RibbonMenuItem(){ Header = info.DisplayName, Image = info.TypeIcon, DataContext = t };
+                item.Click += ResourceCreateChild;
                 this.AddChildResource.Items.Add(item);
             }
 
@@ -84,27 +84,26 @@ namespace ChameleonCoder
         private void LaunchService(object sender, RoutedEventArgs e)
         {
             RibbonApplicationMenuItem item = e.OriginalSource as RibbonApplicationMenuItem;
-            IService service;
             if (item != null)
-                service = item.Header as IService; //).Call();
-            else
-                service = MenuServices.Items[0] as IService; //).Call();
+            {
+                IService service = item.DataContext as IService;
 
-            CurrentActionProgress.IsIndeterminate = true;
-            CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.ServiceName, service.Version, service.Author, service.About);
+                CurrentActionProgress.IsIndeterminate = true;
+                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.ServiceName, service.Version, service.Author, service.About);
 
-            service.Call();
-            while (service.IsBusy) ;
+                service.Call();
+                while (service.IsBusy) ;
 
-            CurrentActionProgress.IsIndeterminate = false;
-            CurrentAction.Text = string.Empty;
+                CurrentActionProgress.IsIndeterminate = false;
+                CurrentAction.Text = string.Empty;
+            }
         }
 
         #region resources
 
         private void ResourceCreate(object sender, RoutedEventArgs e)
         {
-            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).Header as Type;
+            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).DataContext as Type;
             Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
 
             if (prop != null)
@@ -113,9 +112,7 @@ namespace ChameleonCoder
 
         private void ResourceCreateChild(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(((e.OriginalSource as RibbonMenuItem).Header as Type != null).ToString());
-
-            Type resourceType = (e.OriginalSource as RibbonMenuItem).Header as Type;
+            Type resourceType = (e.OriginalSource as RibbonMenuItem).DataContext as Type;
             Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
 
             if (info != null)

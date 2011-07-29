@@ -127,47 +127,13 @@
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuServices" x:Name="MenuServices" Image="Images\LargeIcon.png"
                                                         Header="Services" StaysOpenOnClick="True" Click="LaunchService"
-                                                        Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)">
-                        
-                        <odc:RibbonApplicationMenuItem.ItemTemplate>
-                            <DataTemplate x:Uid="DataTemplate_3">
-                                
-                                <StackPanel x:Uid="StackPanel_3" Orientation="Horizontal">
-                                    
-                                    <Image x:Uid="Image_3" Source="{Binding Path=Icon}"
-                                           Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
-                                    
-                                    <TextBlock x:Uid="TextBlock_4" Text="{Binding Path=ServiceName}"/>
-                                    
-                                </StackPanel>
-                                
-                            </DataTemplate>
-                        </odc:RibbonApplicationMenuItem.ItemTemplate>
-                        
-                    </odc:RibbonApplicationMenuItem>
+                                                        Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonSeparator x:Uid="ribbon:RibbonSeparator_1" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuCreators" x:Name="MenuCreators" Image="Images\RibbonTab1\create.png"
                                                            Header="Create resource" StaysOpenOnClick="True" Click="ResourceCreate" SubMenuTitle="available types"
-                                                           Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)">
-                        
-                        <odc:RibbonApplicationMenuItem.ItemTemplate>
-                            <DataTemplate x:Uid="DataTemplate_4">
-                                
-                                <StackPanel x:Uid="StackPanel_4" Orientation="Horizontal">
-                                    
-                                    <Image x:Uid="Image_4" Source="{Binding Converter={StaticResource TypeImageConverter}}" Width="25"
-                                           Localization.Attributes="$Content(Unreadable Unmodifiable) Width(Unreadable Unmodifiable)"/>
-                                    
-                                    <TextBlock x:Uid="TextBlock_5" Text="{Binding Converter={StaticResource TypeConverter}}" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                                    
-                                </StackPanel>
-                                
-                            </DataTemplate>
-                        </odc:RibbonApplicationMenuItem.ItemTemplate>
-                        
-                    </odc:RibbonApplicationMenuItem>
+                                                           Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuImport" x:Name="MenuImport" Image="Images\LargeIcon.png" Header="Import resource"
                                                       Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
@@ -357,25 +323,7 @@
 
                             <odc:RibbonDropDownButton x:Uid="AddChildResource" x:Name="AddChildResource" Content="Add child resource" LargeImage="Images\LargeIcon.png"
                                              Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) LargeImageSource(Unreadable Unmodifiable)"
-                                             Localization.Comments="Label(the button text for adding a child resource)">
-
-                                <odc:RibbonDropDownButton.ItemTemplate>
-                                    <DataTemplate x:Uid="DataTemplate_7">
-
-                                        <StackPanel x:Uid="StackPanel_6" Orientation="Horizontal"
-                                            Localization.Attributes="$Orientation(Unreadable Unmodifiable)">
-
-                                            <Image x:Uid="Image_6" Source="{Binding Converter={StaticResource TypeImageConverter}}"
-                                           Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
-
-                                            <TextBlock x:Uid="TextBlock_8" Text="{Binding Converter={StaticResource TypeConverter}}"
-                                               Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
-                                        </StackPanel>
-
-                                    </DataTemplate>
-                                </odc:RibbonDropDownButton.ItemTemplate>
-
-                            </odc:RibbonDropDownButton>
+                                             Localization.Comments="Label(the button text for adding a child resource)"/>
 
                             <odc:RibbonButton x:Uid="ribbon:RibbonButton_5" SmallImage="Images\SmallIcon.png" Content="Move"
                                          Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImageSource(Unreadable Unmodifiable) Label(Readable Modifiable)"
