@@ -123,34 +123,36 @@
                     </odc:RibbonApplicationMenu.Footer>
 
                     <odc:RibbonApplicationMenuItem x:Uid="MenuHome" x:Name="MenuHome" Image="Images\home.png" Header="Home" Click="GoHome"
-                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuServices" x:Name="MenuServices" Image="Images\LargeIcon.png"
-                                                        Header="Services" StaysOpenOnClick="True" Click="LaunchService"
-                                                        Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)"/>
+                                                   Header="Services" StaysOpenOnClick="True" Click="LaunchService"
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonSeparator x:Uid="ribbon:RibbonSeparator_1" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuCreators" x:Name="MenuCreators" Image="Images\RibbonTab1\create.png"
-                                                           Header="Create resource" StaysOpenOnClick="True" Click="ResourceCreate" SubMenuTitle="available types"
-                                                           Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)"/>
+                                                   Header="Create resource" StaysOpenOnClick="True" Click="ResourceCreate" SubMenuTitle="available types"
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuImport" x:Name="MenuImport" Image="Images\LargeIcon.png" Header="Import resource"
-                                                      Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
+                    
+                    <odc:RibbonApplicationMenuItem x:Uid="MenuPack" x:Name="MenuPack" Image="Images\LargeIcon.png" Header="package resources" Click="ResourcesPackage"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuUnpack" x:Name="MenuUnpack" Image="Images\LargeIcon.png" Header="Unpack resource"
-                                                      Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonSeparator x:Uid="ribbon:RibbonSeparator_2" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonApplicationMenuItem x:Uid="MenuHelp" x:Name="MenuHelp" Image="Images\RibbonTab1\help.jpg" Header="Help"
-                                                      Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonApplicationMenuItem x:Uid="MenuSettings" x:Name="MenuSettings" Image="Images\RibbonTab1\settings.png" Header="Settings" Click="GoSettings"
-                                                      Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonApplicationMenuItem x:Uid="MenuAbout" x:Name="MenuAbout" Image="Images\RibbonTab1\info.png" Header="About"
-                                                      Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
+                                                   Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
                     
                 </odc:RibbonApplicationMenu>
             </odc:RibbonBar.ApplicationMenu>

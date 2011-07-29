@@ -216,6 +216,19 @@ namespace ChameleonCoder
             }
         }
 
+        private void ResourcesPackage(object sender, EventArgs e)
+        {
+            CurrentAction.Text = Properties.Resources.PackagerInfo;
+            CurrentActionProgress.IsIndeterminate = true;
+
+            Interaction.ResourceSelector selector = new Interaction.ResourceSelector();
+            if (selector.ShowDialog() == true)
+                App.PackageResources(selector.resources);
+
+            CurrentAction.Text = string.Empty;
+            CurrentActionProgress.IsIndeterminate = false;
+        }
+
         #endregion
 
         private void Restart(object sender, RoutedEventArgs e)
