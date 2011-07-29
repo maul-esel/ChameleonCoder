@@ -7,6 +7,6 @@ namespace ChameleonCoder.Resources.Interfaces
 {
     public interface IFSComponent : IResource
     {
-        string GetPath();
+        string GetFSPath();
     }
 }
