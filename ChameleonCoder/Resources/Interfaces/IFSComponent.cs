@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
-    interface IFSComponent : IResource
+    public interface IFSComponent : IResource
     {
         string GetPath();
     }
