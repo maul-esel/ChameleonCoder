@@ -70,6 +70,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die packaging resources... ähnelt.
+        /// </summary>
+        internal static string PackagerInfo {
+            get {
+                return ResourceManager.GetString("PackagerInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die running service: {0}... ähnelt.
         /// </summary>
         internal static string ServiceInfo {

@@ -121,6 +121,9 @@
     <value>{0} module (version {1}) by {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
   </data>
+  <data name="PackagerInfo" xml:space="preserve">
+    <value>packaging resources...</value>
+  </data>
   <data name="ServiceInfo" xml:space="preserve">
     <value>running service: {0}...</value>
     <comment>{0} is the name, {1} is the version, {2} the author, {3} the about text</comment>
