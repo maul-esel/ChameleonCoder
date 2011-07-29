@@ -74,18 +74,6 @@ namespace ChameleonCoder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Package_IncludeChildren {
-            get {
-                return ((bool)(this["Package_IncludeChildren"]));
-            }
-            set {
-                this["Package_IncludeChildren"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Package_IncludeFSComponent {
             get {
                 return ((bool)(this["Package_IncludeFSComponent"]));
