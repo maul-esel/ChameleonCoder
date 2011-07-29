@@ -381,9 +381,12 @@ namespace ChameleonCoder
 
                     string mapPath = FindFreePath(AppDir + "\\Temp", "package.ccm", true);
                     currentMap.Save(mapPath);
+
                     PackagePart mapPart = GetPackagePart(zip, mapPath);
                     zip.CreateRelationship(mapPart.Uri, TargetMode.Internal, "ChameleonCoder.Package.ResourceMap");
+
                     currentMap = null;
+                    File.Delete(mapPath);
                 }
                 
                 File.Move(tempzip, FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "pack.zip", true));
@@ -408,9 +411,12 @@ namespace ChameleonCoder
                 doc.Save(path);
             }
             PackagePart newPart = GetPackagePart(zip, path);
+
             if (newPart != null)
                 collection.Add(newPart);
             currentMap.DocumentElement.InnerXml += "<file>" + Path.GetFileName(path) + "</file>";
+
+            File.Delete(path);
 
             GetRequiredParts(zip, resource, collection);
         }
@@ -419,7 +425,6 @@ namespace ChameleonCoder
         {
             Uri target = PackUriHelper.CreatePartUri(
                             new Uri(Path.GetFileName(path), UriKind.Relative));
-            MessageBox.Show(path + "\n" + Path.GetFileName(path));
 
             if (!zip.PartExists(target))
             {
