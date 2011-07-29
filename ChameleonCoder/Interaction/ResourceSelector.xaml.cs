@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Interaction
 {
@@ -10,21 +11,39 @@ namespace ChameleonCoder.Interaction
     /// </summary>
     public partial class ResourceSelector : Window
     {
-        int maxCount = -1;
-
-        public List<IResource> resources = new List<IResource>();
-
-        public ResourceSelector()
-        {
-            InitializeComponent();
-            Catalog.SelectedItemChanged += ValidateButtons;
+        #region constructors
+        public ResourceSelector() : this(ResourceManager.GetChildren(), -1)
+        {            
         }
 
         public ResourceSelector(int maxResources)
-            : this()
+            : this(ResourceManager.GetChildren(), -1)
         {
             maxCount = maxResources;
         }
+
+        public ResourceSelector(Resources.ResourceCollection resources)
+            : this(resources, -1)
+        {
+        }
+
+        public ResourceSelector(Resources.ResourceCollection resources, int maxResources)
+        {
+            InitializeComponent();
+            Catalog.Collection = resources;
+            Catalog.SelectedItemChanged += ValidateButtons;
+
+            OKButton.Click += (sender, e) =>
+            {
+                DialogResult = true;
+                Close();
+            };
+        }
+        #endregion
+
+        int maxCount = -1;
+
+        public List<IResource> resources = new List<IResource>();
 
         private void AddResource(object sender, EventArgs e)
         {
@@ -63,12 +82,6 @@ namespace ChameleonCoder.Interaction
                 RemButton.Visibility = Visibility.Hidden;
             }
             DataContext = Catalog.SelectedItem;
-        }
-
-        private void FinishDialog(object sender, EventArgs e)
-        {
-            DialogResult = true;
-            Close();
         }
     }
 }
