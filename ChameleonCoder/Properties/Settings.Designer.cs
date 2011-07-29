@@ -58,5 +58,53 @@ namespace ChameleonCoder.Properties {
                 this["EnableUpdates"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseDefaultPackageSettings {
+            get {
+                return ((bool)(this["UseDefaultPackageSettings"]));
+            }
+            set {
+                this["UseDefaultPackageSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Package_IncludeChildren {
+            get {
+                return ((bool)(this["Package_IncludeChildren"]));
+            }
+            set {
+                this["Package_IncludeChildren"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Package_IncludeFSComponent {
+            get {
+                return ((bool)(this["Package_IncludeFSComponent"]));
+            }
+            set {
+                this["Package_IncludeFSComponent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Package_IncludeTarget {
+            get {
+                return ((bool)(this["Package_IncludeTarget"]));
+            }
+            set {
+                this["Package_IncludeTarget"] = value;
+            }
+        }
     }
 }
