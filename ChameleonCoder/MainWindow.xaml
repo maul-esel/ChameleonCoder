@@ -111,12 +111,12 @@
                     <odc:RibbonApplicationMenu.Footer>
                         
                         <StackPanel x:Uid="StackPanel_2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            
-                            <odc:RibbonButton x:Uid="ribbon:RibbonButton_1" Content="Exit" Click="Close" SmallImage="Images\RibbonTab1\close.png" MinWidth="100" Height="25"
-                                                 Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImageSource(Unreadable Unmodifiable) MinWidth(Unreadable Unmodifiable) Height(Unreadable Unmodifiable)"/>
 
-                            <odc:RibbonButton x:Uid="ribbon:RibbonButton_2" Content="Restart" Click="Restart" SmallImage="Images\RibbonTab1\restart.png" MinWidth="100" Height="25"
-                                                 Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImageSource(Unreadable Unmodifiable) MinWidth(Unreadable Unmodifiable) Height(Unreadable Unmodifiable)"/>
+                            <odc:RibbonButton x:Uid="ribbon:RibbonButton_2" Foreground="Black" Content="Restart" Click="Restart" SmallImage="Images\RibbonTab1\restart.png" MinWidth="100"
+                                              odc:RibbonBar.Size="Medium" Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImage(Unreadable Unmodifiable) MinWidth(Unreadable Unmodifiable)"/>
+                            
+                            <odc:RibbonButton x:Uid="ribbon:RibbonButton_1" Foreground="Black" Content="Exit" Click="Close" SmallImage="Images\RibbonTab1\close.png" MinWidth="100"
+                                              odc:RibbonBar.Size="Medium" Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImage(Unreadable Unmodifiable) MinWidth(Unreadable Unmodifiable)"/>
                             
                         </StackPanel>
                         
@@ -149,7 +149,7 @@
                     <odc:RibbonSeparator x:Uid="ribbon:RibbonSeparator_1" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
                     
                     <odc:RibbonApplicationMenuItem x:Uid="MenuCreators" x:Name="MenuCreators" Image="Images\RibbonTab1\create.png"
-                                                           Header="Create resource" StaysOpenOnClick="True" Click="ResourceCreate"
+                                                           Header="Create resource" StaysOpenOnClick="True" Click="ResourceCreate" SubMenuTitle="available types"
                                                            Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable) StaysOpenOnClick(Unreadable Unmodifiable)">
                         
                         <odc:RibbonApplicationMenuItem.ItemTemplate>
