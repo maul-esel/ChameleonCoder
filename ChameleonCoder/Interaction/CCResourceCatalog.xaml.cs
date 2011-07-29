@@ -45,7 +45,7 @@ namespace ChameleonCoder.Interaction
             this.TreeView.DataContext = top;
         }
 
-        bool isImporting;
+        bool isImporting = false;
 
         public bool ImportDropped
         {
@@ -61,6 +61,10 @@ namespace ChameleonCoder.Interaction
                     this.Drop -= this.ImportDroppedResource;
                     isImporting = false;
                 }
+            }
+            get
+            {
+                return isImporting;
             }
         }
 
