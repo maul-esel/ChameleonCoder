@@ -20,7 +20,7 @@ namespace ChameleonCoder
                 //foreach(RichContent.IContentMember content in richResource.RichContent)
                 richResource.ToString(); // todo!
 
-            resource.Xml.OwnerDocument.Save(new Uri(resource.Xml.BaseURI).LocalPath);
+            resource.Xml.OwnerDocument.Save(resource.GetResourceFile());
         }
 
         public static void Delete(this IResource resource)
@@ -104,6 +104,11 @@ namespace ChameleonCoder
         public static string GetPath(this IResource resource)
         {
             return resource.GetPath('\\');
+        }
+
+        public static string GetResourceFile(this IResource resource)
+        {
+            return new Uri(resource.Xml.BaseURI).LocalPath;
         }
     }
 }
