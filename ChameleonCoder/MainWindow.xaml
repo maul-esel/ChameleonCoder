@@ -146,7 +146,7 @@
                     <odc:RibbonApplicationMenuItem x:Uid="MenuHelp" x:Name="MenuHelp" Image="Images\RibbonTab1\help.jpg" Header="Help"
                                                       Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
 
-                    <odc:RibbonApplicationMenuItem x:Uid="MenuSettings" x:Name="MenuSettings" Image="Images\RibbonTab1\settings.png" Header="Settings"
+                    <odc:RibbonApplicationMenuItem x:Uid="MenuSettings" x:Name="MenuSettings" Image="Images\RibbonTab1\settings.png" Header="Settings" Click="GoSettings"
                                                       Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ImageSource(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonApplicationMenuItem x:Uid="MenuAbout" x:Name="MenuAbout" Image="Images\RibbonTab1\info.png" Header="About"
@@ -178,7 +178,7 @@
                                                Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) LargeImageSource(Unreadable Unmodifiable) IsChecked(Unreadable Unmodifiable)"/>
 
                             <odc:RibbonDropDownButton x:Uid="ribbon:RibbonMenuButton_1" Content="hidden resource types" SmallImage="Images\LargeIcon.png" Margin="5"
-                                             Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImageSource(Unreadable Unmodifiable) Margin(Unreadable Unmodifiable)"
+                                             Localization.Attributes="$Content(Unreadable Unmodifiable) SmallImage(Unreadable Unmodifiable) Margin(Unreadable Unmodifiable)"
                                              x:Name="visTypes">
 
                                 <odc:RibbonDropDownButton.ItemTemplate>

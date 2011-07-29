@@ -75,6 +75,15 @@ namespace ChameleonCoder
                 Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resource list", new ResourceListPage()));
         }
 
+        private void GoSettings(object sender, EventArgs e)
+        {
+            int i;
+            if ((i = FindPageTab(typeof(SettingsPage))) != -1)
+                Tabs.SelectedIndex = i;
+            else
+                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("settings", new SettingsPage()));
+        }
+
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (IsInitialized)
