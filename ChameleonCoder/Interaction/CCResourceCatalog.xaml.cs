@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Threading.Tasks;
+using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Interaction
 {
@@ -11,40 +13,51 @@ namespace ChameleonCoder.Interaction
     /// </summary>
     public partial class CCResourceCatalog : UserControl
     {
-        public CCResourceCatalog(Resources.ResourceCollection top)
+        #region constructors
+        public CCResourceCatalog(ResourceCollection top)
         {
-            this.Init(top);
-        }
+            Init(top);
+        }        
 
-        public CCResourceCatalog(Resources.Interfaces.IResource parent) : this(parent, true) { }
+        public CCResourceCatalog(IResource parent) : this(parent, true) { }
 
-        public CCResourceCatalog(Resources.Interfaces.IResource parent, bool includeSelf)
+        public CCResourceCatalog(IResource parent, bool includeSelf)
         {
             if (parent == null)
                 throw new ArgumentNullException("parent", "the parent resource must not be null!");
 
-            Resources.ResourceCollection top;
+            ResourceCollection top;
+
             if (!includeSelf)
                 top = parent.children;
             else
             {
-                top = new Resources.ResourceCollection();
+                top = new ResourceCollection();
                 top.Add(parent);
             }
-            this.Init(top);
+
+            Init(top);
         }
 
-        public CCResourceCatalog()
-        {
-            this.Init(ChameleonCoder.Resources.Management.ResourceManager.GetChildren());
-        }
+        public CCResourceCatalog() : this(ResourceManager.GetChildren()) { }
 
-        protected void Init(Resources.ResourceCollection top)
+        private void Init(ResourceCollection top)
         {
             InitializeComponent();
-            this.TreeView.DataContext = top;
+            Collection = top;
         }
 
+        #endregion
+
+        public ResourceCollection Collection
+        {
+            set
+            {
+                TreeView.DataContext = value;
+            }
+        }
+
+        #region OnResourceDropped
         bool isImporting = false;
 
         public bool ImportDropped
@@ -53,12 +66,12 @@ namespace ChameleonCoder.Interaction
             {
                 if (value && !isImporting)
                 {
-                    this.Drop += this.ImportDroppedResource;
+                    Drop += ImportDroppedResource;
                     isImporting = true;
                 }
                 else if (!value && isImporting)
                 {
-                    this.Drop -= this.ImportDroppedResource;
+                    Drop -= ImportDroppedResource;
                     isImporting = false;
                 }
             }
@@ -68,10 +81,23 @@ namespace ChameleonCoder.Interaction
             }
         }
 
+        public new event DragEventHandler Drop
+        {
+            add
+            {
+                TreeView.Drop += value;
+            }
+            remove
+            {
+                TreeView.Drop -= value;
+            }
+        }
+
         private void ImportDroppedResource(object sender, DragEventArgs e)
         {
             App.ImportDroppedResource(e);
         }
+        #endregion
 
         private void Expand(object sender, RoutedEventArgs e)
         {
@@ -100,27 +126,15 @@ namespace ChameleonCoder.Interaction
             return item;
         }
 
-        public new event DragEventHandler Drop
-        {
-            add
-            {
-                this.TreeView.Drop += value;
-            }
-            remove
-            {
-                this.TreeView.Drop -= value;
-            }
-        }
-
         public event RoutedPropertyChangedEventHandler<Object> SelectedItemChanged
         {
             add
             {
-                this.TreeView.SelectedItemChanged += value;
+                TreeView.SelectedItemChanged += value;
             }
             remove
             {
-                this.TreeView.SelectedItemChanged -= value;
+                TreeView.SelectedItemChanged -= value;
             }
         }
 
@@ -128,20 +142,20 @@ namespace ChameleonCoder.Interaction
         {
             add
             {
-                this.TreeView.MouseDoubleClick += value;
+                TreeView.MouseDoubleClick += value;
             }
             remove
             {
-                this.TreeView.MouseDoubleClick -= value;
+                TreeView.MouseDoubleClick -= value;
             }
         }
 
         [System.ComponentModel.BindableAttribute(true)]
-        public Object SelectedItem
+        public IResource SelectedItem
         {
             get
             {
-                return this.TreeView.SelectedItem;
+                return TreeView.SelectedItem as IResource;
             }
         }
     }
