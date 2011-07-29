@@ -95,7 +95,8 @@ namespace ChameleonCoder
             });
 
             new MainWindow();
-            Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren() };
+            Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren(),
+                Icon = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/home.png")) };
 
             parallelTask.Wait();
             Gui.Show();
