@@ -321,7 +321,7 @@ namespace ChameleonCoder
 
             using (Package zip = Package.Open(file, FileMode.Open, FileAccess.Read))
             {
-                foreach (PackageRelationship relation in zip.GetRelationshipsByType("ChameleonCoder.Resources.Package"))
+                foreach (PackageRelationship relation in zip.GetRelationshipsByType("ChameleonCoder.Package.Resource").Concat(zip.GetRelationshipsByType("ChameleonCoder.Package.ResourceMap")))
                 {
                     Uri source = PackUriHelper.ResolvePartUri(new Uri("/", UriKind.Relative), relation.TargetUri);
                     PackagePart part = zip.GetPart(source);
