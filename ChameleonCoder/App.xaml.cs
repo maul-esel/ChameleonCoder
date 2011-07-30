@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -97,8 +98,19 @@ namespace ChameleonCoder
             });
 
             new MainWindow();
-            Gui.breadcrumb.Root = new { Name="Home", children = ResourceManager.GetChildren(),
-                Icon = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/home.png")) };
+            Gui.breadcrumb.Root = new BreadcrumbContext("Home",
+                new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
+                new BreadcrumbContext[]
+                    {
+                    new BreadcrumbContext("Resources",
+                        new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
+                        ResourceManager.GetChildren(),
+                        true, false),
+                    new BreadcrumbContext("Settings",
+                        new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
+                        null,
+                        false, true)
+                    });
 
             parallelTask.Wait();
             Gui.Show();
@@ -389,7 +401,7 @@ namespace ChameleonCoder
                     File.Delete(mapPath);
                 }
                 
-                File.Move(tempzip, FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "pack.zip", true));
+                File.Move(tempzip, FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
                 MessageBox.Show("mission complete!");
             }
         }

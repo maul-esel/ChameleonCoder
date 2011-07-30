@@ -111,6 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
     </Compile>
@@ -185,6 +186,7 @@
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TabContext.cs" />
     <Page Include="Interaction\CCResourceCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

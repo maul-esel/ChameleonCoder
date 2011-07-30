@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -39,7 +38,7 @@ namespace ChameleonCoder
                 this.AddChildResource.Items.Add(item);
             }
 
-            this.Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new WelcomePage()));
+            this.Tabs.Items.Add(new TabContext("Home", new WelcomePage()));
         }
 
         private void Close(object sender, RoutedEventArgs e)
@@ -54,40 +53,40 @@ namespace ChameleonCoder
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView((((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as ResourceListPage).ResourceList.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(((Tabs.SelectedItem as TabContext).Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
         }
 
         private void GoHome(object sender, EventArgs e)
         {
             int i;
-            if ((i = FindPageTab(typeof(WelcomePage))) != -1)
+            if ((i = FindPageTab<WelcomePage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("welcome", new WelcomePage()));
+                TabReplace(new TabContext("Home", new WelcomePage()), Tabs.SelectedIndex);
         }
 
-        private void GoList(object sender, EventArgs e)
+        internal void GoList(object sender, EventArgs e)
         {
             int i;
-            if ((i = FindPageTab(typeof(ResourceListPage))) != -1)
+            if ((i = FindPageTab<ResourceListPage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("resource list", new ResourceListPage()));
+                TabReplace(new TabContext("resource list", new ResourceListPage()), Tabs.SelectedIndex);
         }
 
-        private void GoSettings(object sender, EventArgs e)
+        internal void GoSettings(object sender, EventArgs e)
         {
             int i;
-            if ((i = FindPageTab(typeof(SettingsPage))) != -1)
+            if ((i = FindPageTab<SettingsPage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                Tabs.SelectedIndex = Tabs.Items.Add(new KeyValuePair<string, Page>("settings", new SettingsPage()));
+                TabReplace(new TabContext("settings", new SettingsPage()), Tabs.SelectedIndex);
         }
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (IsInitialized)
-                (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as ResourceListPage).GroupingChanged(EnableGroups.IsChecked);
+                ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked);
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)
@@ -150,7 +149,7 @@ namespace ChameleonCoder
                     int i = FindResourceTab(resource, true);
                     if (i == -1)
                     {
-                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new KeyValuePair<string, Page>(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
+                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new TabContext(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
                         Tabs.SelectedIndex++;
                     }
                     else
@@ -161,12 +160,12 @@ namespace ChameleonCoder
 
         private void ResourceSave(object sender, EventArgs e)
         {
-            ResourceSave((KeyValuePair<string, Page>)Tabs.SelectedItem);
+            ResourceSave(Tabs.SelectedItem as TabContext);
         }
 
-        private void ResourceSave(KeyValuePair<string, Page> page)
+        private void ResourceSave(TabContext page)
         {
-            ResourceSave(page.Value as EditPage);
+            ResourceSave(page.Content as EditPage);
         }
 
         private void ResourceSave(EditPage page)
@@ -177,18 +176,23 @@ namespace ChameleonCoder
 
         private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ResourceOpen(TreeView.SelectedItem as IResource, true);
+            ResourceOpen(TreeView.SelectedItem as IResource);
         }
 
         private void ResourceOpen(object sender, RoutedPropertyChangedEventArgs<BreadcrumbItem> e)
         {
+            BreadcrumbContext context = e.NewValue.DataContext as BreadcrumbContext;
             if (e.NewValue.IsRoot)
                 GoHome(null, null);
+            else if (context != null && context.IsResourceList)
+                GoList(null, null);
+            else if (context != null && context.IsSettingsPage)
+                GoSettings(null, null);
             else
-                ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue)), e.OldValue.IsRoot);
+                ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));
         }
 
-        internal void ResourceOpen(IResource resource, bool createNew)
+        internal void ResourceOpen(IResource resource)
         {
             if (ResourceManager.ActiveItem != null)
                 ResourceManager.ActiveItem.Save();
@@ -200,16 +204,8 @@ namespace ChameleonCoder
                 int i = FindResourceTab(resource, false);
                 if (i == -1)
                 {
-                    if (createNew || Tabs.SelectedIndex == -1)
-                    {
-                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new KeyValuePair<string, Page>(resource.Name, new ResourceViewPage(resource)));
-                        Tabs.SelectedIndex++;
-                    }
-                    else
-                    {
-                        Tabs.Items.Insert(Tabs.SelectedIndex, new KeyValuePair<string, Page>(resource.Name, new ResourceViewPage(resource)));
-                        Tabs.Items.RemoveAt(Tabs.SelectedIndex);
-                    }
+                    Tabs.Items.Insert(Tabs.SelectedIndex, new TabContext(resource.Name, new ResourceViewPage(resource)));
+                    Tabs.Items.RemoveAt(Tabs.SelectedIndex);
                 }
                 else
                     Tabs.SelectedIndex = i;
@@ -238,6 +234,11 @@ namespace ChameleonCoder
         }
 
         #region Tabs
+        private void TabOpen(object sender, EventArgs e)
+        {
+            Tabs.SelectedIndex = Tabs.Items.Add(new TabContext("Home", new WelcomePage()));
+        }
+
         private void TabClosed(object sender, RoutedEventArgs e)
         {
             DependencyObject ctrl = (e.OriginalSource as Button).Parent;
@@ -245,7 +246,7 @@ namespace ChameleonCoder
             for (int i = 0; i < 4; i++)
                 ctrl = VisualTreeHelper.GetParent(ctrl);
 
-            KeyValuePair<string, Page> item = (KeyValuePair<string, Page>)(ctrl as TabItem).DataContext;
+            TabContext item = (ctrl as TabItem).DataContext as TabContext;
             ResourceSave(item);
             Tabs.Items.Remove(item);
 
@@ -254,11 +255,15 @@ namespace ChameleonCoder
 
         private void TabChanged(object sender, EventArgs e)
         {
+            if (Tabs.Items.Count == 0)
+            {
+                Tabs.Items.Add(new TabContext("Home", new WelcomePage()));
+                return;
+            }
             if (Tabs.SelectedItem == null)
                 return;
 
-            Type selected = ((KeyValuePair<string, Page>)Tabs.SelectedItem).Value.GetType();
-            breadcrumb.Visibility = Visibility.Visible;
+            Type selected = (Tabs.SelectedItem as TabContext).Content.GetType();
 
             if (selected == typeof(WelcomePage))
             {
@@ -271,29 +276,38 @@ namespace ChameleonCoder
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
                 ResourceManager.ActiveItem = null;
-                breadcrumb.Visibility = Visibility.Hidden;
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Resources";
             }
 
             else if (selected == typeof(EditPage))
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
-                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as EditPage).Resource;
-                breadcrumb.Path = ResourceManager.ActiveItem.GetPath();
+                ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as EditPage).Resource;
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Resources" + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
             else if (selected == typeof(ResourceViewPage))
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
-                ResourceManager.ActiveItem = (((KeyValuePair<string, Page>)Tabs.SelectedItem).Value as ResourceViewPage).Resource;
-                breadcrumb.Path = ResourceManager.ActiveItem.GetPath();
+                ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).Resource;
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Resources" + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
             else if (selected == typeof(SettingsPage))
             {
                 Ribbon.ContextualTabSet = null;
                 ResourceManager.ActiveItem = null;
-                breadcrumb.Visibility = Visibility.Hidden;
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Settings";
             }
+        }
+
+        private void TabReplace(TabContext newTab, int oldTab)
+        {
+            Tabs.Items.RemoveAt(oldTab);
+            if (oldTab > Tabs.Items.Count)
+                oldTab = -1;
+            Tabs.Items.Insert(oldTab, newTab);
+            Tabs.SelectedIndex = oldTab;
         }
 
         private int FindResourceTab(IResource resource, bool useEdit)
@@ -302,13 +316,13 @@ namespace ChameleonCoder
             EditPage edPage;
 
             int i = -1;
-            foreach (KeyValuePair<string, Page> page in Tabs.Items)
+            foreach (TabContext page in Tabs.Items)
             {
                 i++;
-                if ((rvPage = page.Value as ResourceViewPage) != null && !useEdit)
+                if ((rvPage = page.Content as ResourceViewPage) != null && !useEdit)
                     if (rvPage.Resource == resource)
                         return i;
-                if ((edPage = page.Value as EditPage) != null && useEdit)
+                if ((edPage = page.Content as EditPage) != null && useEdit)
                     if (edPage.Resource as IResource == resource)
                         return i;
                 i++;
@@ -316,13 +330,13 @@ namespace ChameleonCoder
             return -1;
         }
 
-        internal int FindPageTab(Type type)
+        internal int FindPageTab<T>() where T : Page
         {
             int i = -1;
-            foreach (KeyValuePair<string, Page> page in Tabs.Items)
+            foreach (TabContext page in Tabs.Items)
             {
                 i++;
-                if (page.Value.GetType() == type)
+                if (page.Content.GetType() == typeof(T))
                     return i;
             }
             return -1;

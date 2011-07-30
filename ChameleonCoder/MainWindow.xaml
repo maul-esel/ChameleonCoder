@@ -32,7 +32,7 @@
                         
                         <StackPanel x:Uid="StackPanel_1" Orientation="Horizontal">
                             
-                            <TextBlock x:Uid="TextBlock_2" Text="{Binding Path=Key}" VerticalAlignment="Center" Margin="2"/>
+                            <TextBlock x:Uid="TextBlock_2" Text="{Binding Path=Title}" VerticalAlignment="Center" Margin="2"/>
                             
                             <Button x:Uid="Button_1" Template="{StaticResource CloseButton}" HorizontalAlignment="Right"
                                     Click="TabClosed" VerticalAlignment="Center"
@@ -48,7 +48,7 @@
             <Setter x:Uid="Setter_2" Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate x:Uid="DataTemplate_2">
-                        <Frame x:Uid="Frame_1" Content="{Binding Path=Value}" NavigationUIVisibility="Hidden"></Frame>
+                        <Frame x:Uid="Frame_1" Content="{Binding Path=Content}" NavigationUIVisibility="Hidden"></Frame>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -365,7 +365,7 @@
         
         <odc:BreadcrumbBar x:Uid="breadcrumb" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" x:Name="breadcrumb"
                            IsEditable="False" ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}"
-                           SelectedBreadcrumbChanged="ResourceOpen"
+                           SelectedBreadcrumbChanged="ResourceOpen" SeparatorString="/"
                            Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Path(Unreadable Unmodifiable) Margin(Unreadable Unmodifiable)">
             
             <odc:BreadcrumbBar.BreadcrumbItemTemplate>
@@ -380,6 +380,10 @@
         
         <TabControl x:Uid="Tabs" x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"
                     IsSynchronizedWithCurrentItem="True"/>
+        
+        <Button Margin="2" VerticalContentAlignment="Center" Width="20" Height="20" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TabOpen">
+            <TextBlock Text="+" FontWeight="Bold"/>
+        </Button>
 
         <StatusBar x:Uid="StatusBar_1" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Grid.RowSpan="1">
             

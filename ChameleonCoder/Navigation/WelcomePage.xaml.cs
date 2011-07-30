@@ -17,12 +17,7 @@ namespace ChameleonCoder.Navigation
 
         private void OpenResourceView(object sender, EventArgs e)
         {
-            int i = App.Gui.FindPageTab(typeof(ResourceListPage));
-
-            if (i == -1)
-                i = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("resources", new ResourceListPage()));
-
-            App.Gui.Tabs.SelectedIndex = i; 
+            App.Gui.GoList(null, null);
         }
 
         private void CreateResource(object sender, EventArgs e)
@@ -35,11 +30,7 @@ namespace ChameleonCoder.Navigation
 
         private void OpenConfiguration(object sender, EventArgs e)
         {
-            int i = App.Gui.FindPageTab(typeof(SettingsPage));
-
-            if (i == -1)
-                i = App.Gui.Tabs.Items.Add(new KeyValuePair<string, Page>("settings", new SettingsPage()));
-            App.Gui.Tabs.SelectedIndex = i;
+            App.Gui.GoSettings(null, null);
         }
     }
 }
