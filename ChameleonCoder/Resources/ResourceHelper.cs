@@ -75,12 +75,17 @@ namespace ChameleonCoder
             return path;
         }
 
-        public static IResource GetResourceFromPath(string path)
+        public static string GetPath(this IResource resource)
         {
-            if (path.StartsWith("CC\\"))
+            return resource.GetPath('\\');
+        }
+
+        public static IResource GetResourceFromPath(string path, char separator)
+        {
+            if (path.StartsWith("CC" + separator))
                 path.Remove(0, 3);
             Resources.ResourceCollection collection = Resources.Management.ResourceManager.GetChildren();
-            string[] segments = path.Split(new char[1] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] segments = path.Split(new char[1] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;
             int i = 0;
@@ -101,9 +106,9 @@ namespace ChameleonCoder
             return result;
         }
 
-        public static string GetPath(this IResource resource)
+        public static IResource GetResourceFromPath(string path)
         {
-            return resource.GetPath('\\');
+            return GetResourceFromPath(path, '\\');
         }
 
         public static string GetResourceFile(this IResource resource)
