@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using System.Windows.Media;
-using System.Text;
 
 namespace ChameleonCoder
 {

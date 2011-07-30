@@ -303,10 +303,8 @@ namespace ChameleonCoder
 
         private void TabReplace(TabContext newTab, int oldTab)
         {
+            Tabs.Items.Insert(oldTab + 1, newTab);
             Tabs.Items.RemoveAt(oldTab);
-            if (oldTab > Tabs.Items.Count)
-                oldTab = -1;
-            Tabs.Items.Insert(oldTab, newTab);
             Tabs.SelectedIndex = oldTab;
         }
 
