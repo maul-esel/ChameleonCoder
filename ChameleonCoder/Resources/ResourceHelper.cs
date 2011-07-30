@@ -85,7 +85,7 @@ namespace ChameleonCoder
             if (path.StartsWith("CC" + separator))
                 path.Remove(0, 3);
             Resources.ResourceCollection collection = Resources.Management.ResourceManager.GetChildren();
-            string[] segments = path.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;
             int i = 0;
