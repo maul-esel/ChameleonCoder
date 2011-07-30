@@ -63,7 +63,7 @@ namespace ChameleonCoder
             resource.MetaData.Remove(meta);
         }
 
-        public static string GetPath(this IResource resource, char delimiter)
+        public static string GetPath(this IResource resource, string delimiter)
         {
             string path = string.Empty;
 
@@ -77,15 +77,15 @@ namespace ChameleonCoder
 
         public static string GetPath(this IResource resource)
         {
-            return resource.GetPath('\\');
+            return resource.GetPath("\\");
         }
 
-        public static IResource GetResourceFromPath(string path, char separator)
+        public static IResource GetResourceFromPath(string path, string separator)
         {
             if (path.StartsWith("CC" + separator))
                 path.Remove(0, 3);
             Resources.ResourceCollection collection = Resources.Management.ResourceManager.GetChildren();
-            string[] segments = path.Split(new char[1] { separator }, StringSplitOptions.RemoveEmptyEntries);
+            string[] segments = path.Split(separator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;
             int i = 0;
@@ -108,7 +108,7 @@ namespace ChameleonCoder
 
         public static IResource GetResourceFromPath(string path)
         {
-            return GetResourceFromPath(path, '\\');
+            return GetResourceFromPath(path, "\\");
         }
 
         public static string GetResourceFile(this IResource resource)
