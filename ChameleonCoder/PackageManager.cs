@@ -19,7 +19,9 @@ namespace ChameleonCoder
         {
             lock (thislock)
             {
-                string packName = FindFreePath(App.AppDir + "\\Data\\", Path.GetFileNameWithoutExtension(file), false);
+                string packName = FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
+                if (!Directory.Exists(packName))
+                    Directory.CreateDirectory(packName);
 
                 using (Package zip = Package.Open(file, FileMode.Open, FileAccess.Read))
                 {
@@ -32,15 +34,15 @@ namespace ChameleonCoder
 
                         Uri source = PackUriHelper.ResolvePartUri(new Uri("/", UriKind.Relative), relation.TargetUri);
                         PackagePart part = zip.GetPart(source);
-                        Uri targetPath = new Uri(new Uri(App.AppDir + "\\Data\\" + packName, UriKind.Absolute),
+
+                        Uri targetPath = new Uri(new Uri(packName + "\\", UriKind.Absolute),
                             new Uri(part.Uri.ToString().TrimStart('/'), UriKind.Relative));
-                        Directory.CreateDirectory(Path.GetDirectoryName(targetPath.LocalPath));
+
                         using (FileStream fileStream = new FileStream(targetPath.LocalPath, FileMode.Create))
-                        {
                             CopyStream(part.GetStream(), fileStream);
-                        }
                     }
                 }
+                App.ParseDir(packName);
             }
         }
 
@@ -157,11 +159,10 @@ namespace ChameleonCoder
 
         private static void CopyStream(Stream source, Stream target)
         {
-            const int bufSize = 0x1000;
-            byte[] buf = new byte[bufSize];
+            byte[] buffer = new byte[4096];
             int bytesRead = 0;
-            while ((bytesRead = source.Read(buf, 0, bufSize)) > 0)
-                target.Write(buf, 0, bytesRead);
+            while ((bytesRead = source.Read(buffer, 0, 4096)) > 0)
+                target.Write(buffer, 0, bytesRead);
         }
 
         private static string FindFreePath(string directory, string baseName, bool isFile)
