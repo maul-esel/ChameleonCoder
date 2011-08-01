@@ -26,6 +26,8 @@ namespace ChameleonCoder
 
         internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
 
+        internal static string DataDir { get { return AppDir + "\\Data"; } }
+
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
         internal void Init(Object sender, StartupEventArgs e)
@@ -94,7 +96,7 @@ namespace ChameleonCoder
                 Parallel.Invoke(() => Parallel.ForEach(files, file => ParseFile(file)),
                                 () => Parallel.ForEach(dirs, dir => ParseDir(dir)));
                 if (!no_data)
-                    ParseDir(AppDir + "\\Data");
+                    ParseDir(DataDir);
             });
 
             new MainWindow();
@@ -122,7 +124,7 @@ namespace ChameleonCoder
             Services.ServiceHost.Shutdown();
         }
 
-        private static void ParseFile(string file)
+        internal static void ParseFile(string file)
         {
             bool error = false;
 
@@ -161,7 +163,7 @@ namespace ChameleonCoder
             }
         }
 
-        private static void ParseDir(string dir)
+        internal static void ParseDir(string dir)
         {
             Parallel.ForEach(
                 new ConcurrentBag<string>(
@@ -170,7 +172,7 @@ namespace ChameleonCoder
                file => ParseFile(file));
         }
 
-        internal static bool AddResource(XmlNode node, IResource parent)
+        private static bool AddResource(XmlNode node, IResource parent)
         {
             IResource resource;
             
@@ -294,12 +296,8 @@ namespace ChameleonCoder
                             PackageManager.UnpackResources(file);
                             return;
                         }
-
-                        App.AddResource(doc.DocumentElement, null);
-                        System.IO.File.Copy(file,
-                            System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)
-                            + System.IO.Path.DirectorySeparatorChar + "Data" + System.IO.Path.DirectorySeparatorChar
-                            + System.IO.Path.GetFileName(file));
+                        File.Copy(file, DataDir + Path.GetFileName(file));
+                        App.ParseFile(DataDir + Path.GetFileName(file));
                     }
                 }
             }
