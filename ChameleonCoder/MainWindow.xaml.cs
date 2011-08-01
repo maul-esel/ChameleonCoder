@@ -203,10 +203,7 @@ namespace ChameleonCoder
 
                 int i = FindResourceTab(resource, false);
                 if (i == -1)
-                {
-                    Tabs.Items.Insert(Tabs.SelectedIndex, new TabContext(resource.Name, new ResourceViewPage(resource)));
-                    Tabs.Items.RemoveAt(Tabs.SelectedIndex);
-                }
+                    TabReplace(new TabContext(resource.Name, new ResourceViewPage(resource)), Tabs.SelectedIndex);
                 else
                     Tabs.SelectedIndex = i;
             }
