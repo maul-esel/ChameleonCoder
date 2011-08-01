@@ -61,11 +61,119 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to delete the {0}-resource and all its child resources? ähnelt.
+        /// </summary>
+        internal static string Del_Confirm {
+            get {
+                return ResourceManager.GetString("Del_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC resource map ähnelt.
+        /// </summary>
+        internal static string Ext_CCM {
+            get {
+                return ResourceManager.GetString("Ext_CCM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC resource package ähnelt.
+        /// </summary>
+        internal static string Ext_CCP {
+            get {
+                return ResourceManager.GetString("Ext_CCP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC resource file ähnelt.
+        /// </summary>
+        internal static string Ext_CCR {
+            get {
+                return ResourceManager.GetString("Ext_CCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Home ähnelt.
+        /// </summary>
+        internal static string Item_Home {
+            get {
+                return ResourceManager.GetString("Item_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Resources ähnelt.
+        /// </summary>
+        internal static string Item_List {
+            get {
+                return ResourceManager.GetString("Item_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} [editing] ähnelt.
+        /// </summary>
+        internal static string Item_ResourceEdit {
+            get {
+                return ResourceManager.GetString("Item_ResourceEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} ähnelt.
+        /// </summary>
+        internal static string Item_ResourceView {
+            get {
+                return ResourceManager.GetString("Item_ResourceView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
+        /// </summary>
+        internal static string Item_Settings {
+            get {
+                return ResourceManager.GetString("Item_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {0} module (version {1}) by {2} ähnelt.
         /// </summary>
         internal static string ModuleInfo {
             get {
                 return ResourceManager.GetString("ModuleInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Resources were successfully packaged! ähnelt.
+        /// </summary>
+        internal static string Pack_Finished {
+            get {
+                return ResourceManager.GetString("Pack_Finished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to include the file system equivalents for the packaged resources? ähnelt.
+        /// </summary>
+        internal static string Pack_IncludeFS {
+            get {
+                return ResourceManager.GetString("Pack_IncludeFS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to include the target resources for the packaged resources? ähnelt.
+        /// </summary>
+        internal static string Pack_IncludeResolve {
+            get {
+                return ResourceManager.GetString("Pack_IncludeResolve", resourceCulture);
             }
         }
         
@@ -79,11 +187,101 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Editing ähnelt.
+        /// </summary>
+        internal static string Ribbon_ContextualEdit_0 {
+            get {
+                return ResourceManager.GetString("Ribbon_ContextualEdit_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die View Utilities ähnelt.
+        /// </summary>
+        internal static string Ribbon_ContextualList_0 {
+            get {
+                return ResourceManager.GetString("Ribbon_ContextualList_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Resource ähnelt.
+        /// </summary>
+        internal static string Ribbon_ContextualResource_0 {
+            get {
+                return ResourceManager.GetString("Ribbon_ContextualResource_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die create a new resource ähnelt.
+        /// </summary>
+        internal static string Selection_CreateNew {
+            get {
+                return ResourceManager.GetString("Selection_CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die go to resource list ähnelt.
+        /// </summary>
+        internal static string Selection_List {
+            get {
+                return ResourceManager.GetString("Selection_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die change the configuration ähnelt.
+        /// </summary>
+        internal static string Selection_Settings {
+            get {
+                return ResourceManager.GetString("Selection_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die running service: {0}... ähnelt.
         /// </summary>
         internal static string ServiceInfo {
             get {
                 return ResourceManager.GetString("ServiceInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die How do you want to start? ähnelt.
+        /// </summary>
+        internal static string StartSelection {
+            get {
+                return ResourceManager.GetString("StartSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC - deleting resources... ähnelt.
+        /// </summary>
+        internal static string Status_DeleteResource {
+            get {
+                return ResourceManager.GetString("Status_DeleteResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC - packaging resources... ähnelt.
+        /// </summary>
+        internal static string Status_Pack {
+            get {
+                return ResourceManager.GetString("Status_Pack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Welcome! ähnelt.
+        /// </summary>
+        internal static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

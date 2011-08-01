@@ -117,6 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Del_Confirm" xml:space="preserve">
+    <value>Do you want to delete the {0}-resource and all its child resources?</value>
+  </data>
+  <data name="Ext_CCM" xml:space="preserve">
+    <value>CC resource map</value>
+  </data>
+  <data name="Ext_CCP" xml:space="preserve">
+    <value>CC resource package</value>
+  </data>
+  <data name="Ext_CCR" xml:space="preserve">
+    <value>CC resource file</value>
+  </data>
+  <data name="Item_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Item_List" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="Item_ResourceEdit" xml:space="preserve">
+    <value>{0} [editing]</value>
+    <comment>{0} is the resource's name</comment>
+  </data>
+  <data name="Item_ResourceView" xml:space="preserve">
+    <value>{0}</value>
+    <comment>{0} is the resource's name</comment>
+  </data>
+  <data name="Item_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="ModuleInfo" xml:space="preserve">
     <value>{0} module (version {1}) by {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
@@ -124,8 +153,47 @@
   <data name="PackagerInfo" xml:space="preserve">
     <value>packaging resources...</value>
   </data>
+  <data name="Pack_Finished" xml:space="preserve">
+    <value>Resources were successfully packaged!</value>
+  </data>
+  <data name="Pack_IncludeFS" xml:space="preserve">
+    <value>Do you want to include the file system equivalents for the packaged resources?</value>
+  </data>
+  <data name="Pack_IncludeResolve" xml:space="preserve">
+    <value>Do you want to include the target resources for the packaged resources?</value>
+  </data>
+  <data name="Ribbon_ContextualEdit_0" xml:space="preserve">
+    <value>Editing</value>
+  </data>
+  <data name="Ribbon_ContextualList_0" xml:space="preserve">
+    <value>View Utilities</value>
+  </data>
+  <data name="Ribbon_ContextualResource_0" xml:space="preserve">
+    <value>Resource</value>
+  </data>
+  <data name="Selection_CreateNew" xml:space="preserve">
+    <value>create a new resource</value>
+  </data>
+  <data name="Selection_List" xml:space="preserve">
+    <value>go to resource list</value>
+  </data>
+  <data name="Selection_Settings" xml:space="preserve">
+    <value>change the configuration</value>
+  </data>
   <data name="ServiceInfo" xml:space="preserve">
     <value>running service: {0}...</value>
     <comment>{0} is the name, {1} is the version, {2} the author, {3} the about text</comment>
+  </data>
+  <data name="StartSelection" xml:space="preserve">
+    <value>How do you want to start?</value>
+  </data>
+  <data name="Status_DeleteResource" xml:space="preserve">
+    <value>CC - deleting resources...</value>
+  </data>
+  <data name="Status_Pack" xml:space="preserve">
+    <value>CC - packaging resources...</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome!</value>
   </data>
 </root>

@@ -104,11 +104,11 @@ namespace ChameleonCoder
                 new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
                 new BreadcrumbContext[]
                     {
-                    new BreadcrumbContext("Resources",
+                    new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_List,
                         new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
                         ResourceManager.GetChildren(),
                         true, false),
-                    new BreadcrumbContext("Settings",
+                    new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Settings,
                         new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
                         null,
                         false, true)
@@ -116,8 +116,6 @@ namespace ChameleonCoder
 
             parallelTask.Wait();
             Gui.Show();
-
-            MessageBox.Show(ResourceManager.GetChildren().Count.ToString());
         }
 
         internal static void ExitHandler(object sender, EventArgs e)
@@ -246,8 +244,8 @@ namespace ChameleonCoder
                 RegistryKey regMap = Registry.ClassesRoot.CreateSubKey(".ccm", RegistryKeyPermissionCheck.ReadWriteSubTree);
                 RegistryKey regRes = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
 
-                regMap.SetValue("", "CC resource map");
-                regRes.SetValue("", "CC resource file");
+                regMap.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCM);
+                regRes.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
 
                 regMap.Close();
                 regRes.Close();

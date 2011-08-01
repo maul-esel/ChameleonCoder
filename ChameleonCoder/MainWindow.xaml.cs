@@ -37,8 +37,7 @@ namespace ChameleonCoder
                 item.Click += ResourceCreateChild;
                 this.AddChildResource.Items.Add(item);
             }
-
-            this.Tabs.Items.Add(new TabContext("Home", new WelcomePage()));
+            GoHome(null, null);
         }
 
         private void Close(object sender, RoutedEventArgs e)
@@ -62,7 +61,7 @@ namespace ChameleonCoder
             if ((i = FindPageTab<WelcomePage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext("Home", new WelcomePage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(Properties.Resources.Item_Home, new WelcomePage()), Tabs.SelectedIndex);
         }
 
         internal void GoList(object sender, EventArgs e)
@@ -71,7 +70,7 @@ namespace ChameleonCoder
             if ((i = FindPageTab<ResourceListPage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext("resource list", new ResourceListPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(Properties.Resources.Item_List, new ResourceListPage()), Tabs.SelectedIndex);
         }
 
         internal void GoSettings(object sender, EventArgs e)
@@ -80,7 +79,7 @@ namespace ChameleonCoder
             if ((i = FindPageTab<SettingsPage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext("settings", new SettingsPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(Properties.Resources.Item_Settings, new SettingsPage()), Tabs.SelectedIndex);
         }
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
@@ -129,7 +128,7 @@ namespace ChameleonCoder
 
         private void ResourceDelete(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("are you sure you want to delete this resource?", "CC - deleting resource...", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this resource?", "CC - deleting resource...", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 ResourceManager.ActiveItem.Delete();
         }
 
@@ -149,7 +148,7 @@ namespace ChameleonCoder
                     int i = FindResourceTab(resource, true);
                     if (i == -1)
                     {
-                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new TabContext(resource.Name + " [edit]", new Navigation.EditPage(editResource)));
+                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new TabContext(string.Format(Properties.Resources.Item_ResourceEdit, resource.Name), new Navigation.EditPage(editResource)));
                         Tabs.SelectedIndex++;
                     }
                     else
@@ -203,7 +202,7 @@ namespace ChameleonCoder
 
                 int i = FindResourceTab(resource, false);
                 if (i == -1)
-                    TabReplace(new TabContext(resource.Name, new ResourceViewPage(resource)), Tabs.SelectedIndex);
+                    TabReplace(new TabContext(string.Format(Properties.Resources.Item_ResourceView, resource.Name), new ResourceViewPage(resource)), Tabs.SelectedIndex);
                 else
                     Tabs.SelectedIndex = i;
             }
@@ -247,7 +246,7 @@ namespace ChameleonCoder
         #region Tabs
         private void TabOpen(object sender, EventArgs e)
         {
-            Tabs.SelectedIndex = Tabs.Items.Add(new TabContext("Home", new WelcomePage()));
+            Tabs.SelectedIndex = Tabs.Items.Add(new TabContext(Properties.Resources.Item_Home, new WelcomePage()));
         }
 
         private void TabClosed(object sender, RoutedEventArgs e)
@@ -268,7 +267,7 @@ namespace ChameleonCoder
         {
             if (Tabs.Items.Count == 0)
             {
-                Tabs.Items.Add(new TabContext("Home", new WelcomePage()));
+                GoHome(null, null);
                 return;
             }
             if (Tabs.SelectedItem == null)
@@ -287,35 +286,36 @@ namespace ChameleonCoder
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
                 ResourceManager.ActiveItem = null;
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Resources";
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List;
             }
 
             else if (selected == typeof(EditPage))
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
                 ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as EditPage).Resource;
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Resources" + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
             else if (selected == typeof(ResourceViewPage))
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
                 ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).Resource;
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Resources" + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
             else if (selected == typeof(SettingsPage))
             {
                 Ribbon.ContextualTabSet = null;
                 ResourceManager.ActiveItem = null;
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/Settings";
+                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_Settings;
             }
         }
 
         private void TabReplace(TabContext newTab, int oldTab)
         {
             Tabs.Items.Insert(oldTab + 1, newTab);
-            Tabs.Items.RemoveAt(oldTab);
+            if (oldTab >= 0 && oldTab < Tabs.Items.Count)
+                Tabs.Items.RemoveAt(oldTab);
             Tabs.SelectedIndex = oldTab;
         }
 

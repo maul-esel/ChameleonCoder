@@ -64,12 +64,12 @@ namespace ChameleonCoder
                 else
                 {
                     includeFS =
-                            MessageBox.Show("Do you want to include the file system equivalents for the packaged resources?",
-                                "CC - packaging...",
+                            MessageBox.Show(Properties.Resources.Pack_IncludeFS,
+                                Properties.Resources.Status_Pack,
                                 MessageBoxButton.YesNo) == MessageBoxResult.Yes;
                     includeTarget =
-                            MessageBox.Show("Do you want to include the target resources for the packaged resources?",
-                                "CC- packaging...",
+                            MessageBox.Show(Properties.Resources.Pack_IncludeResolve,
+                                Properties.Resources.Status_Pack,
                                 MessageBoxButton.YesNo) == MessageBoxResult.Yes;
                 }
                 #endregion
@@ -93,7 +93,7 @@ namespace ChameleonCoder
                 }
 
                 File.Move(tempzip, FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
-                MessageBox.Show("mission complete!");
+                MessageBox.Show(Properties.Resources.Pack_Finished);
             }
         }
 

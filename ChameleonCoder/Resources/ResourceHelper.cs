@@ -25,7 +25,7 @@ namespace ChameleonCoder
 
         public static void Delete(this IResource resource)
         {
-            if (System.Windows.MessageBox.Show("all child resources will be deleted!", "deleting resource...", System.Windows.MessageBoxButton.OKCancel) != System.Windows.MessageBoxResult.Cancel)
+            if (System.Windows.MessageBox.Show(Properties.Resources.Del_Confirm, Properties.Resources.Status_DeleteResource, System.Windows.MessageBoxButton.OKCancel) != System.Windows.MessageBoxResult.Cancel)
             {
                 if (resource != null)
                     foreach (IResource child in resource.children)
