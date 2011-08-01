@@ -187,33 +187,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Editing ähnelt.
-        /// </summary>
-        internal static string Ribbon_ContextualEdit_0 {
-            get {
-                return ResourceManager.GetString("Ribbon_ContextualEdit_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die View Utilities ähnelt.
-        /// </summary>
-        internal static string Ribbon_ContextualList_0 {
-            get {
-                return ResourceManager.GetString("Ribbon_ContextualList_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Resource ähnelt.
-        /// </summary>
-        internal static string Ribbon_ContextualResource_0 {
-            get {
-                return ResourceManager.GetString("Ribbon_ContextualResource_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die create a new resource ähnelt.
         /// </summary>
         internal static string Selection_CreateNew {

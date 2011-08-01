@@ -162,15 +162,6 @@
   <data name="Pack_IncludeResolve" xml:space="preserve">
     <value>Do you want to include the target resources for the packaged resources?</value>
   </data>
-  <data name="Ribbon_ContextualEdit_0" xml:space="preserve">
-    <value>Editing</value>
-  </data>
-  <data name="Ribbon_ContextualList_0" xml:space="preserve">
-    <value>View Utilities</value>
-  </data>
-  <data name="Ribbon_ContextualResource_0" xml:space="preserve">
-    <value>Resource</value>
-  </data>
   <data name="Selection_CreateNew" xml:space="preserve">
     <value>create a new resource</value>
   </data>
