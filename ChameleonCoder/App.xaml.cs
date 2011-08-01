@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -22,6 +20,8 @@ namespace ChameleonCoder
     /// </summary>
     public partial class App : Application
     {
+        public static readonly System.Windows.Threading.Dispatcher DispatcherObject = System.Windows.Threading.Dispatcher.CurrentDispatcher;
+
         internal static MainWindow Gui { get { return Application.Current.MainWindow as MainWindow; } }
 
         internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
@@ -156,7 +156,7 @@ namespace ChameleonCoder
                                            if (Directory.Exists(dir_ref.InnerText))
                                                ParseDir(dir_ref.InnerText);
                                            else if (File.Exists(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText))
-                                               ParseDir(Path.Combine(Path.GetDirectoryName(file), dir_ref.InnerText));
+                                               ParseDir(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText);
                                        }));
             }
             else if (!error)
