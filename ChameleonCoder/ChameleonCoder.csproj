@@ -138,6 +138,7 @@
     <Compile Include="Navigation\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PackageManager.cs" />
     <Compile Include="Resources\Interfaces\IFSComponent.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
