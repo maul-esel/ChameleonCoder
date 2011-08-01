@@ -116,6 +116,8 @@ namespace ChameleonCoder
 
             parallelTask.Wait();
             Gui.Show();
+
+            MessageBox.Show(ResourceManager.GetChildren().Count.ToString());
         }
 
         internal static void ExitHandler(object sender, EventArgs e)

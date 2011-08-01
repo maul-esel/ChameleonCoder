@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 
 namespace ChameleonCoder
 {
     public abstract class InstanceCollection<TKey, TValue> : ObservableCollection<TValue>
     {
-        System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue> instances = new System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue>();
+        ConcurrentDictionary<TKey, TValue> instances = new ConcurrentDictionary<TKey, TValue>();
 
-        object lock_add = new object();
         public void Add(TKey key, TValue value)
         {
-            lock (lock_add)
+            if (!instances.ContainsKey(key))
             {
-                if (!instances.ContainsKey(key))
-                {
-                    instances.TryAdd(key, value);
+                instances.TryAdd(key, value);
+                if (System.Threading.Thread.CurrentThread != App.DispatcherObject.Thread)
+                    App.DispatcherObject.BeginInvoke(new Action(() => base.Add(value)));
+                else
                     base.Add(value);
-                }
             }
         }
 
@@ -29,21 +29,18 @@ namespace ChameleonCoder
 
         public TValue GetInstance(TKey key)
         {
-            TValue instance;
-            if (instances.TryGetValue(key, out instance))
-                return instance;
-            return default(TValue);
+            return instances[key];
         }
 
         public TValue this[TKey key]
         {
             get
             {
-                return this.GetInstance(key);
+                return instances[key];
             }
             set
             {
-                instances.TryUpdate(key, value, value);
+                instances[key] = value;
             }
         }
     }
