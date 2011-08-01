@@ -138,9 +138,9 @@
                     <odc:RibbonApplicationMenuItem x:Uid="MenuImport" x:Name="MenuImport" Image="Images\LargeIcon.png" Header="Import resource"
                                                    Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
                     
-                    <odc:RibbonApplicationMenuItem x:Uid="MenuPack" x:Name="MenuPack" Image="Images\LargeIcon.png" Header="package resources" Click="ResourcesPackage"/>
+                    <odc:RibbonApplicationMenuItem x:Uid="MenuPack" x:Name="MenuPack" Image="Images\LargeIcon.png" Header="Package resources" Click="ResourcesPackage"/>
                     
-                    <odc:RibbonApplicationMenuItem x:Uid="MenuUnpack" x:Name="MenuUnpack" Image="Images\LargeIcon.png" Header="Unpack resource"
+                    <odc:RibbonApplicationMenuItem x:Uid="MenuUnpack" x:Name="MenuUnpack" Image="Images\LargeIcon.png" Header="Unpackage resources" Click="ResourcesUnpackage" 
                                                    Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) Image(Unreadable Unmodifiable)"/>
 
                     <odc:RibbonSeparator x:Uid="ribbon:RibbonSeparator_2" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>

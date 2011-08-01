@@ -222,6 +222,20 @@ namespace ChameleonCoder
             CurrentActionProgress.IsIndeterminate = false;
         }
 
+        private void ResourcesUnpackage(object sender, EventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
+            dialog.Filter = "CC Packages (*.ccp)|*.ccp";
+            dialog.InitialDirectory = Interaction.InformationProvider.ProgrammingDirectory;
+            dialog.FileOk += (s, args) =>
+                {
+                    if (!args.Cancel)
+                        PackageManager.UnpackResources((s as System.Windows.Forms.OpenFileDialog).FileName);
+                };
+
+            dialog.ShowDialog();
+        }
+
         #endregion
 
         private void Restart(object sender, RoutedEventArgs e)
