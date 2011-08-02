@@ -117,22 +117,18 @@ namespace ChameleonCoder
             this.IsEnabled = true;
         }
 
-        public System.Xml.XmlNode GetXmlNode()
+        public Dictionary<string, string> GetXmlAttributes()
         {
-            string attributes = string.Empty;
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("name", ResName);
+            dict.Add("guid", ResGuid.ToString("b"));
+            dict.Add("description", ResDescription);
+            dict.Add("notes", string.Empty);
+
             foreach (KeyValuePair<string, Func<string>> pair in customAttributes)
-                attributes += " " + pair.Key + "=\"" + pair.Value() + "\"";
+                dict.Add(pair.Key, pair.Value());
 
-            string xml = string.Format("<{0} name=\"{1}\" guid=\"{2}\" description=\"{3}\" notes=\"\" {4}>\n</{0}>",
-                                        InformationProvider.GetInfo(target).Alias,
-                                        ResName,
-                                        ResGuid.ToString("b"),
-                                        ResDescription,
-                                        attributes);
-
-            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-            doc.LoadXml(xml);
-            return doc;
+            return dict;
         }
     }
 }
