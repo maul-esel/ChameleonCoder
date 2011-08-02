@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Del_Confirm" xml:space="preserve">
-    <value>Do you want to delete the {0}-resource and all its child resources?</value>
+    <value>Wollen Sie diese Ressource ({0}) and alle untergeordneten Ressourcen löschen?</value>
   </data>
   <data name="Ext_CCM" xml:space="preserve">
-    <value>CC resource map</value>
+    <value>CC Ressourcen-Mappe</value>
   </data>
   <data name="Ext_CCP" xml:space="preserve">
-    <value>CC resource package</value>
+    <value>CC Ressourcen-Paket</value>
   </data>
   <data name="Ext_CCR" xml:space="preserve">
-    <value>CC resource file</value>
+    <value>CC Ressource-Datei</value>
   </data>
   <data name="Item_Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Startseite</value>
   </data>
   <data name="Item_List" xml:space="preserve">
-    <value>Resources</value>
+    <value>Ressourcen</value>
   </data>
   <data name="Item_ResourceEdit" xml:space="preserve">
-    <value>{0} [editing]</value>
+    <value>{0} [bearbeiten]</value>
     <comment>{0} is the resource's name</comment>
   </data>
   <data name="Item_ResourceView" xml:space="preserve">
@@ -144,44 +144,44 @@
     <comment>{0} is the resource's name</comment>
   </data>
   <data name="Item_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="ModuleInfo" xml:space="preserve">
-    <value>{0} module (version {1}) by {2}</value>
+    <value>{0}-Modul (Version {1}) von {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
   </data>
   <data name="Pack_Finished" xml:space="preserve">
-    <value>Resources were successfully packaged!</value>
+    <value>Die Ressourcen wurden erfolgreich gepackt!</value>
   </data>
   <data name="Pack_IncludeFS" xml:space="preserve">
-    <value>Do you want to include the file system equivalents for the packaged resources?</value>
+    <value>Wollen Sie die den Ressourcen entsprechenden Dateisystem-Objekte einschließen?</value>
   </data>
   <data name="Pack_IncludeResolve" xml:space="preserve">
-    <value>Do you want to include the target resources for the packaged resources?</value>
+    <value>Wollen Sie die Zielressourcen der gepackten Ressourcesn einschließen?</value>
   </data>
   <data name="Selection_CreateNew" xml:space="preserve">
-    <value>create a new resource</value>
+    <value>Eine neue Ressource erstellen</value>
   </data>
   <data name="Selection_List" xml:space="preserve">
-    <value>go to resource list</value>
+    <value>Zur Ressourcen-Liste gehen</value>
   </data>
   <data name="Selection_Settings" xml:space="preserve">
-    <value>change the configuration</value>
+    <value>Die Einstellungen bearbeiten</value>
   </data>
   <data name="ServiceInfo" xml:space="preserve">
     <value>running service: {0}...</value>
     <comment>{0} is the name, {1} is the version, {2} the author, {3} the about text</comment>
   </data>
   <data name="StartSelection" xml:space="preserve">
-    <value>How do you want to start?</value>
+    <value>Wie wollen Sie beginnen?</value>
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
-    <value>CC - deleting resources...</value>
+    <value>CC - lösche Ressourcen...</value>
   </data>
   <data name="Status_Pack" xml:space="preserve">
-    <value>CC - packaging resources...</value>
+    <value>CC - packe Ressourcen...</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome!</value>
+    <value>Willkommen!</value>
   </data>
 </root>

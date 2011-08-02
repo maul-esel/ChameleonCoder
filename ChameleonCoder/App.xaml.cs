@@ -35,6 +35,7 @@ namespace ChameleonCoder
         internal void Init(Object sender, StartupEventArgs e)
         {
             DispatcherObject = this.Dispatcher;
+            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
             ResourceTypeManager.SetCollection(this.Resources["ResourceTypes"] as ResourceTypeCollection);
             ResourceManager.SetCollections(this.Resources["resources"] as ResourceCollection,

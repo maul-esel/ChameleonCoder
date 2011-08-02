@@ -178,15 +178,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die packaging resources... ähnelt.
-        /// </summary>
-        internal static string PackagerInfo {
-            get {
-                return ResourceManager.GetString("PackagerInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die create a new resource ähnelt.
         /// </summary>
         internal static string Selection_CreateNew {
