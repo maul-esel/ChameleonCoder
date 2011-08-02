@@ -172,7 +172,7 @@ namespace ChameleonCoder
 
             if (File.Exists(path))
             {
-                PackagePart part = zip.CreatePart(target, contentType);
+                PackagePart part = zip.CreatePart(target, contentType, CompressionOption.Maximum);
 
                 using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
                     CopyStream(stream, part.GetStream());
