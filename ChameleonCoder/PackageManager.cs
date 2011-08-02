@@ -11,7 +11,188 @@ namespace ChameleonCoder
 {
     internal static class PackageManager
     {
-        static object thislock = new object();
+        #region internal methods
+        internal static void UnpackResources(string file)
+        {
+            lock (thisLock)
+            {
+                string packName = InformationProvider.FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
+                if (!Directory.Exists(packName))
+                    Directory.CreateDirectory(packName);
+
+                using (Package zip = Package.Open(file, FileMode.Open, FileAccess.Read))
+                {
+                    foreach (PackageRelationship relation in zip.GetRelationships())
+                    {
+                        string type = relation.RelationshipType;
+                        if (type != "ChameleonCoder://Package.Resource" && type != "ChameleonCoder://Package.Resource.Map"
+                            && type != "ChameleonCoder://Package.Resource.ResolvedResource" && type != "ChameleonCoder://Package.Resource.FSComponent")
+                            continue;
+
+                        Uri source = PackUriHelper.ResolvePartUri(new Uri("/", UriKind.Relative), relation.TargetUri);
+                        PackagePart part = zip.GetPart(source);
+
+                        Uri targetPath = new Uri(new Uri(packName + "\\", UriKind.Absolute),
+                            new Uri(part.Uri.ToString().TrimStart('/'), UriKind.Relative));
+
+                        using (FileStream fileStream = new FileStream(targetPath.LocalPath, FileMode.Create))
+                            CopyStream(part.GetStream(), fileStream);
+                    }
+                }
+                App.ParseDir(packName);
+            }
+        }
+
+        internal static void PackageResources(IEnumerable<IResource> resources)
+        {
+            lock (thisLock)
+            {
+                currentMap = new XmlDocument();
+                currentMap.LoadXml("<cc-resource-map/>");
+
+                string packPath = Path.GetTempFileName();
+                File.Delete(packPath);
+
+                using (zip = Package.Open(packPath, FileMode.CreateNew, FileAccess.ReadWrite))
+                {
+                    foreach (IResource resource in resources)
+                    {
+                        string path = GetPath(resource);
+                        PackagePart part = GetPackagePart(path, GetPartUri(resource), "ChameleonCoder/Resource");
+                        if (part != null)
+                        {
+                            zip.CreateRelationship(part.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource");
+                            (currentMap.DocumentElement.AppendChild(currentMap.CreateElement("file"))).InnerText = GetPartUri(resource).OriginalString.TrimStart('/');
+                        }
+
+                        AddFSComponent(resource as IFSComponent, part, part);
+                        AddResolved(resource as IResolvable, part, part);
+                        foreach (IResource child in resource.children)
+                            AddChild(child, part, part, path);
+
+                        File.Delete(path);
+                    }
+                    string mapPath = Path.GetTempFileName();
+                    currentMap.Save(mapPath);
+
+                    PackagePart mapPart = GetPackagePart(mapPath, GetPartUri("package.ccm"), "ChameleonCoder/ResourceMap");
+                    zip.CreateRelationship(mapPart.Uri, TargetMode.Internal, "ChameleonCoder://Package.ResourceMap");
+
+                    currentMap = null;
+                    File.Delete(mapPath);
+                }
+                File.Move(packPath, InformationProvider.FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
+                MessageBox.Show(Properties.Resources.Pack_Finished);
+            }
+        }
+        #endregion
+
+        #region URI & Path
+        private static Uri GetPartUri(IResource resource)
+        {
+            return PackUriHelper.CreatePartUri(new Uri(resource.Name + "." + resource.GUID.ToString("N") + ".ccr", UriKind.Relative));
+        }
+
+        private static Uri GetPartUri(string fsPath)
+        {
+            return PackUriHelper.CreatePartUri(new Uri(Path.GetFileName(fsPath), UriKind.Relative));
+        }
+
+        private static string GetPath(IResource resource)
+        {
+            string path = Path.GetTempFileName();
+            if (resource.Parent == null)
+                File.Copy(resource.GetResourceFile(), path, true);
+            else
+                File.WriteAllText(path, resource.Xml.OuterXml);
+            return path;
+        }
+        #endregion
+
+        #region Add~
+        private static void AddFSComponent(IFSComponent resource, PackagePart parent, PackagePart ancestor)
+        {
+            if (resource != null)
+            {
+                PackagePart fs = GetPackagePart(resource.GetFSPath(), GetPartUri(resource.GetFSPath()), "ChameleonCoder.FSComponent");
+
+                parent.CreateRelationship(fs.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.FSComponent");
+                fs.CreateRelationship(parent.Uri, TargetMode.Internal, "ChameleonCoder://Package.FSComponent.Resource");
+
+                ancestor.CreateRelationship(fs.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Descendant");
+                fs.CreateRelationship(ancestor.Uri, TargetMode.Internal, "ChameleonCoder://Package.FSComponent.Ancestor");
+            }
+        }
+
+        private static void AddResolved(IResolvable resource, PackagePart parent, PackagePart ancestor)
+        {
+            if (resource != null)
+            {
+                IResource target = resource.Resolve();
+
+                PackagePart res = GetPackagePart(GetPath(target), GetPartUri(target), "ChameleonCoder/Resource");
+
+                parent.CreateRelationship(res.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Resolved");
+                res.CreateRelationship(parent.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Origin");
+
+                ancestor.CreateRelationship(res.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Descendant");
+                res.CreateRelationship(ancestor.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Ancestor");
+
+                (currentMap.DocumentElement.AppendChild(currentMap.CreateElement("file"))).InnerText = GetPartUri(target).OriginalString.TrimStart('/');
+
+                AddFSComponent(target as IFSComponent, res, ancestor);
+                AddResolved(target as IResolvable, res, ancestor);
+                foreach (IResource child in target.children)
+                    AddChild(child, res, ancestor, GetPath(target));
+            }
+        }
+
+        private static void AddChild(IResource child, PackagePart parent, PackagePart ancestor, string path)
+        {
+            PackagePart ch = GetPackagePart(path, GetPartUri(child), "ChameleonCoder/Resource");
+
+            parent.CreateRelationship(ch.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Child");
+            ch.CreateRelationship(parent.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Parent");
+
+            ancestor.CreateRelationship(ch.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Descendant");
+            ch.CreateRelationship(ancestor.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Ancestor");
+
+            AddFSComponent(child as IFSComponent, ch, ancestor);
+            AddResolved(child as IResolvable, ch, ancestor);
+            foreach (IResource grandChild in child.children)
+                AddChild(grandChild, ch, ancestor, path);
+        }
+        #endregion
+
+        #region helper methods
+        private static PackagePart GetPackagePart(string path, Uri target, string contentType)
+        {
+            if (zip.PartExists(target))
+                return zip.GetPart(target);
+
+            if (File.Exists(path))
+            {
+                PackagePart part = zip.CreatePart(target, contentType);
+
+                using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
+                    CopyStream(stream, part.GetStream());
+
+                return part;
+            }
+            return null;
+        }
+
+        private static void CopyStream(Stream source, Stream target)
+        {
+            byte[] buffer = new byte[4096];
+            int bytesRead = 0;
+            while ((bytesRead = source.Read(buffer, 0, 4096)) > 0)
+                target.Write(buffer, 0, bytesRead);
+        }
+        #endregion
+
+        #region fields & properties
+        static object thisLock = new object();
         static XmlDocument currentMap;
         static bool? _includeFS = null;
         static bool? _includeTarget = null;
@@ -46,137 +227,7 @@ namespace ChameleonCoder
             }
         }
 
-        internal static void UnpackResources(string file)
-        {
-            lock (thislock)
-            {
-                string packName = InformationProvider.FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
-                if (!Directory.Exists(packName))
-                    Directory.CreateDirectory(packName);
-
-                using (Package zip = Package.Open(file, FileMode.Open, FileAccess.Read))
-                {
-                    foreach (PackageRelationship relation in zip.GetRelationships())
-                    {
-                        string type = relation.RelationshipType;
-                        if (type != "ChameleonCoder://Package.Resource" && type != "ChameleonCoder://Package.Resource.Map"
-                            && type != "ChameleonCoder://Package.Resource.ResolvedResource" && type != "ChameleonCoder://Package.Resource.FSComponent")
-                            continue;
-
-                        Uri source = PackUriHelper.ResolvePartUri(new Uri("/", UriKind.Relative), relation.TargetUri);
-                        PackagePart part = zip.GetPart(source);
-
-                        Uri targetPath = new Uri(new Uri(packName + "\\", UriKind.Absolute),
-                            new Uri(part.Uri.ToString().TrimStart('/'), UriKind.Relative));
-
-                        using (FileStream fileStream = new FileStream(targetPath.LocalPath, FileMode.Create))
-                            CopyStream(part.GetStream(), fileStream);
-                    }
-                }
-                App.ParseDir(packName);
-            }
-        }
-
-        internal static void PackageResources(IList<IResource> resources)
-        {
-            lock (thislock)
-            {
-                if (!Directory.Exists(App.AppDir + "\\Temp"))
-                    Directory.CreateDirectory(App.AppDir + "\\Temp");
-
-                string tempzip = InformationProvider.FindFreePath(App.AppDir + "\\Temp", "pack.tmp", true);
-
-                currentMap = new XmlDocument();
-                currentMap.LoadXml("<cc-project-map/>");
-
-                using (Package zip = Package.Open(tempzip, FileMode.CreateNew, FileAccess.ReadWrite))
-                {
-                    foreach (IResource resource in resources)
-                        AddPackagePart(zip, resource, "ChameleonCoder://Package.Resource");
-
-                    string mapPath = InformationProvider.FindFreePath(App.AppDir + "\\Temp", "package.ccm", true);
-                    currentMap.Save(mapPath);
-
-                    PackagePart mapPart = GetPackagePart(zip, mapPath, System.Net.Mime.MediaTypeNames.Text.Xml);
-                    zip.CreateRelationship(mapPart.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Map");
-
-                    currentMap = null;
-                    File.Delete(mapPath);
-                }
-
-                File.Move(tempzip, InformationProvider.FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
-                MessageBox.Show(Properties.Resources.Pack_Finished);
-            }
-        }
-
-        private static void AddPackagePart(Package zip, IResource resource, string relation)
-        {
-            #region 'path'
-            string path;
-            if (resource.Parent == null)
-            {
-                path = InformationProvider.FindFreePath(App.AppDir + "\\Temp",
-                    Path.GetFileNameWithoutExtension(resource.GetResourceFile()) + "." + resource.GUID.ToString("n") + Path.GetExtension(resource.GetResourceFile()), true);
-                File.Copy(resource.GetResourceFile(), path);
-            }
-            else
-            {
-                path = InformationProvider.FindFreePath(App.AppDir, resource.Name + "." + resource.GUID.ToString("n") + ".ccr", true);
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(resource.Xml.OuterXml);
-                doc.Save(path);
-            }
-            #endregion
-
-            PackagePart newPart = GetPackagePart(zip, path, System.Net.Mime.MediaTypeNames.Text.Xml);
-            if (newPart != null)
-            {
-                zip.CreateRelationship(newPart.Uri, TargetMode.Internal, relation);
-                currentMap.DocumentElement.InnerXml += "<file>" + Path.GetFileName(path) + "</file>";
-            }
-
-            File.Delete(path);
-
-            GetRequiredParts(zip, resource);
-        }
-
-        private static PackagePart GetPackagePart(Package zip, string path, string contentType)
-        {
-            Uri target = PackUriHelper.CreatePartUri(
-                            new Uri(Path.GetFileName(path), UriKind.Relative));
-
-            if (!zip.PartExists(target))
-            {
-                PackagePart part = zip.CreatePart(target, contentType);
-
-                using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
-                {
-                    CopyStream(stream, part.GetStream());
-                }
-                return part;
-            }
-            return null;
-        }
-
-        private static void GetRequiredParts(Package zip, IResource parent)
-        {
-            if (parent is IFSComponent && includeFS)
-                zip.CreateRelationship(GetPackagePart(zip, (parent as IFSComponent).GetFSPath(), "unknown").Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.FSComponent");
-            if (parent is IResolvable && includeTarget)
-                AddPackagePart(zip, (parent as IResolvable).Resolve(), "ChameleonCoder://Package.Resource.ResolvedResource");
-
-            foreach (IResource child in parent.children)
-                GetRequiredParts(zip, child);
-        }
-
-        private static void CopyStream(Stream source, Stream target)
-        {
-            byte[] buffer = new byte[4096];
-            int bytesRead = 0;
-            while ((bytesRead = source.Read(buffer, 0, 4096)) > 0)
-                target.Write(buffer, 0, bytesRead);
-        }
-
-        
+        static Package zip;
+        #endregion
     }
 }
