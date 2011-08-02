@@ -241,7 +241,7 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Package a resource ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Package resources ähnelt.
         /// </summary>
         internal static string ResourcePackage {
             get {

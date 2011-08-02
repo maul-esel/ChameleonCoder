@@ -181,7 +181,7 @@
     <value>Import a resource</value>
   </data>
   <data name="ResourcePackage" xml:space="preserve">
-    <value>Package a resource</value>
+    <value>Package resources</value>
   </data>
   <data name="ResourceUnpackage" xml:space="preserve">
     <value>Unpackage resources</value>

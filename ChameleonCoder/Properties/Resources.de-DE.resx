@@ -181,7 +181,7 @@
     <value>Eine Ressource importieren</value>
   </data>
   <data name="ResourcePackage" xml:space="preserve">
-    <value>Eine Ressource packen</value>
+    <value>Ressourcen packen</value>
   </data>
   <data name="ResourceUnpackage" xml:space="preserve">
     <value>Ressourcen entpacken</value>
