@@ -15,6 +15,8 @@ namespace ChameleonCoder.Navigation
     {
         internal ResourceListPage()
         {
+            this.Resources.Add("Name_", Properties.Resources.Name_Name);
+            this.Resources.Add("Description_",Properties.Resources.Name_Description);
             InitializeComponent();
         }
 

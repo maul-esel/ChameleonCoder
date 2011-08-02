@@ -162,6 +162,12 @@
     <value>{0}-Modul (Version {1}) von {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
   </data>
+  <data name="Name_Description" xml:space="preserve">
+    <value>Beschreibung:</value>
+  </data>
+  <data name="Name_Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
   <data name="Pack_Finished" xml:space="preserve">
     <value>Die Ressourcen wurden erfolgreich gepackt!</value>
   </data>

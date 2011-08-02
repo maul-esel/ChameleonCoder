@@ -187,6 +187,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Description: ähnelt.
+        /// </summary>
+        internal static string Name_Description {
+            get {
+                return ResourceManager.GetString("Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name: ähnelt.
+        /// </summary>
+        internal static string Name_Name {
+            get {
+                return ResourceManager.GetString("Name_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Resources were successfully packaged! ähnelt.
         /// </summary>
         internal static string Pack_Finished {

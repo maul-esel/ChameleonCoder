@@ -1,25 +1,26 @@
-﻿<Page x:Uid="Page_1" x:Class="ChameleonCoder.Navigation.ResourceListPage"
+﻿<Page x:Class="ChameleonCoder.Navigation.ResourceListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	  Title="ResourceListPage" ShowsNavigationUI="False">
+      d:DesignHeight="300" d:DesignWidth="300" ShowsNavigationUI="False">
     
     <Page.Resources>
-        <CollectionViewSource x:Uid="CollectionViewSource_1" Source="{StaticResource resources}" Filter="CollectionViewSource_Filter" x:Key="ResListSource">
+        <CollectionViewSource Source="{StaticResource resources}" Filter="CollectionViewSource_Filter" x:Key="ResListSource">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription x:Uid="PropertyGroupDescription_1" Converter="{StaticResource CustomGroupConverter}"/>
+                <PropertyGroupDescription Converter="{StaticResource CustomGroupConverter}"/>
             </CollectionViewSource.GroupDescriptions>
             <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription x:Uid="scm:SortDescription_1" PropertyName="Name"/>
+                <scm:SortDescription PropertyName="Name"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
+        
     </Page.Resources>
 
-    <ListBox x:Uid="ResourceList" x:Name="ResourceList" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3"
+    <ListBox x:Name="ResourceList" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3"
                  IsSynchronizedWithCurrentItem="True"
                  HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding Source={StaticResource ResListSource}}"
@@ -29,29 +30,29 @@
                  Drop="DroppedFile"
                  MouseDoubleClick="OpenResource">
         <ListBox.GroupStyle>
-            <GroupStyle x:Uid="GroupStyle_1" HidesIfEmpty="True">
+            <GroupStyle HidesIfEmpty="True">
                 <GroupStyle.ContainerStyle>
-                    <Style x:Uid="Style_1" TargetType="{x:Type GroupItem}">
-                        <Setter x:Uid="Setter_1" Property="Margin" Value="0,0,0,0"/>
-                        <Setter x:Uid="Setter_2" Property="Template">
+                    <Style TargetType="{x:Type GroupItem}">
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Template">
                             <Setter.Value>
-                                <ControlTemplate x:Uid="ControlTemplate_1" TargetType="{x:Type GroupItem}">
-                                    <Border x:Uid="Border_1" CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2,2,2,2">
-                                        <Expander x:Uid="Expander_1" IsExpanded="True">
+                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                    <Border CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2">
+                                        <Expander IsExpanded="True">
                                             <Expander.Header>
-                                                <StackPanel x:Uid="StackPanel_1">
-                                                    <StackPanel x:Uid="StackPanel_2" Orientation="Horizontal">
-                                                        <Border x:Uid="Border_2" Background="Peru" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20" Margin="5,0,0,0">
-                                                            <Image x:Uid="Image_1" Source="{Binding Path=Name, Converter={StaticResource TypeImageConverter}}" Width="20"/>
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border Background="Peru" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20" Margin="5,0,0,0">
+                                                            <Image Source="{Binding Path=Name, Converter={StaticResource TypeImageConverter}}" Width="20"/>
                                                         </Border>
-                                                        <TextBlock x:Uid="TextBlock_1" Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                     </StackPanel>
-                                                    <Border x:Uid="GroupBorder" x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2,2,2,2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
+                                                    <Border x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
                                                     <!--bit ugly way :)-->
                                                 </StackPanel>
                                             </Expander.Header>
                                             <Expander.Content>
-                                                <ItemsPresenter x:Uid="ItemsPresenter_1"/>
+                                                <ItemsPresenter/>
                                             </Expander.Content>
                                         </Expander>
                                     </Border>
@@ -63,23 +64,23 @@
             </GroupStyle>
         </ListBox.GroupStyle>
         <ListBox.ItemTemplate>
-            <DataTemplate x:Uid="DataTemplate_1">
-                <Border x:Uid="ItemBorder" x:Name="ItemBorder" Background="{Binding Converter={StaticResource ColorConverter}}" CornerRadius="10"  Margin="5,5,5,5" Padding="2,2,2,2">
-                    <Grid x:Uid="Grid_1">
+            <DataTemplate>
+                <Border x:Name="ItemBorder" Background="{Binding Converter={StaticResource ColorConverter}}" CornerRadius="10"  Margin="5" Padding="2">
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition x:Uid="RowDefinition_1"/>
-                            <RowDefinition x:Uid="RowDefinition_2"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Uid="ColumnDefinition_1" MaxWidth="50"/>
-                            <ColumnDefinition x:Uid="ColumnDefinition_2"/>
-                            <ColumnDefinition x:Uid="ColumnDefinition_3"/>
+                            <ColumnDefinition MaxWidth="50"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Image x:Uid="Image_2" Source="{Binding Converter={StaticResource ModuleIconConverter}}" MaxWidth="30" MaxHeight="30" Stretch="Fill" VerticalAlignment="Center" Grid.RowSpan="2"/>
-                        <TextBlock x:Uid="TextBlock_2" Grid.Row="0" Grid.Column="1" Text="Name:" Foreground="Black"/>
-                        <TextBlock x:Uid="TextBlock_3" Grid.Row="1" Grid.Column="1" Text="Description:" Foreground="Black"/>
-                        <TextBlock x:Uid="TextBlock_4" Grid.Row="0" Grid.Column="2" Text="{Binding Path=Name}" Foreground="Black"/>
-                        <TextBlock x:Uid="TextBlock_5" Grid.Row="1" Grid.Column="2" Text="{Binding Path=Description}" Foreground="Black"/>
+                        <Image Source="{Binding Converter={StaticResource ModuleIconConverter}}" MaxWidth="30" MaxHeight="30" Stretch="Fill" VerticalAlignment="Center" Grid.RowSpan="2"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{DynamicResource Name_}" Foreground="Black"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{DynamicResource Description_}" Foreground="Black"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Name}" Foreground="Black"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Description}" Foreground="Black"/>
                     </Grid>
                 </Border>
             </DataTemplate>
