@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Interaction;
-using System.Collections.Generic;
 using System.Xml;
+using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
+using Res = ChameleonCoder.ResourceCore.Properties.Resources;
 
 namespace ChameleonCoder.ResourceCore
 {
@@ -14,32 +15,33 @@ namespace ChameleonCoder.ResourceCore
     {
         public void Init(Action<Type, ContentMemberTypeInfo> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
         {
+            Res.Culture = new System.Globalization.CultureInfo(InformationProvider.Language);
             registerResourceType(typeof(LinkResource),
-                new ResourceTypeInfo("link", "link", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png")).GetAsFrozen() as ImageSource, Brushes.LightGreen.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("link", Res.Display_Link, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png")).GetAsFrozen() as ImageSource, Brushes.LightGreen.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
 
             registerResourceType(typeof(FileResource),
-                new ResourceTypeInfo("file", "file", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")).GetAsFrozen() as ImageSource, Brushes.BurlyWood.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("file", Res.Display_File, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")).GetAsFrozen() as ImageSource, Brushes.BurlyWood.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
 
             registerResourceType(typeof(CodeResource),
-                new ResourceTypeInfo("code", "source code", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/code.png")).GetAsFrozen() as ImageSource, Brushes.LightSalmon.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("code", Res.Display_Code, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/code.png")).GetAsFrozen() as ImageSource, Brushes.LightSalmon.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
 
             registerResourceType(typeof(LibraryResource),
-                new ResourceTypeInfo("library", "library", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/library.png")).GetAsFrozen() as ImageSource, Brushes.SandyBrown.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("library", Res.Display_Library, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/library.png")).GetAsFrozen() as ImageSource, Brushes.SandyBrown.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
 
             registerResourceType(typeof(ProjectResource),
-                new ResourceTypeInfo("project", "project", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")).GetAsFrozen() as ImageSource, Brushes.Khaki.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("project", Res.Display_Project, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")).GetAsFrozen() as ImageSource, Brushes.Khaki.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
 
             registerResourceType(typeof(TaskResource),
-                new ResourceTypeInfo("task", "task", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/task.png")).GetAsFrozen() as ImageSource, Brushes.LightCoral.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("task", Res.Display_Task, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/task.png")).GetAsFrozen() as ImageSource, Brushes.LightCoral.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
 
             registerResourceType(typeof(GroupResource),
-                new ResourceTypeInfo("group", "group", new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/group.png")).GetAsFrozen() as ImageSource, Brushes.DodgerBlue.GetAsFrozen() as Brush,
+                new ResourceTypeInfo("group", Res.Display_Group, new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/group.png")).GetAsFrozen() as ImageSource, Brushes.DodgerBlue.GetAsFrozen() as Brush,
                     ResourceProvider.Create, ResourceProvider.Load, "maul.esel"));
         }
 
