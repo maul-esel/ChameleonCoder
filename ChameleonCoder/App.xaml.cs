@@ -141,7 +141,7 @@ namespace ChameleonCoder
                 return;
             }
 
-            if (doc.DocumentElement.Name == "cc-project-map")
+            if (doc.DocumentElement.Name == "cc-resource-map")
             {
                 Parallel.Invoke(
                     () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
