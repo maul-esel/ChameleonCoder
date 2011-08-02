@@ -12,8 +12,38 @@ namespace ChameleonCoder
     {
         static object thislock = new object();
         static XmlDocument currentMap;
-        static bool includeFS;
-        static bool includeTarget;
+        static bool? _includeFS = null;
+        static bool? _includeTarget = null;
+
+        static bool includeFS
+        {
+            get
+            {
+                if (Properties.Settings.Default.UseDefaultPackageSettings)
+                    return Properties.Settings.Default.Package_IncludeFSComponent;
+
+                if (_includeFS == null)
+                    _includeFS = MessageBox.Show(Properties.Resources.Pack_IncludeFS,
+                                                Properties.Resources.Status_Pack,
+                                                MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+                return _includeFS == true;
+            }
+        }
+
+        static bool includeTarget
+        {
+            get
+            {
+                if (Properties.Settings.Default.UseDefaultPackageSettings)
+                    return Properties.Settings.Default.Package_IncludeTarget;
+
+                if (_includeTarget == null)
+                    _includeTarget = MessageBox.Show(Properties.Resources.Pack_IncludeResolve,
+                                                    Properties.Resources.Status_Pack,
+                                                    MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+                return _includeTarget == true;
+            }
+        }
 
         internal static void UnpackResources(string file)
         {
@@ -54,25 +84,6 @@ namespace ChameleonCoder
                     Directory.CreateDirectory(App.AppDir + "\\Temp");
 
                 string tempzip = FindFreePath(App.AppDir + "\\Temp", "pack.tmp", true);
-
-                #region settings
-                if (Properties.Settings.Default.UseDefaultPackageSettings)
-                {
-                    includeFS = Properties.Settings.Default.Package_IncludeFSComponent;
-                    includeTarget = Properties.Settings.Default.Package_IncludeTarget;
-                }
-                else
-                {
-                    includeFS =
-                            MessageBox.Show(Properties.Resources.Pack_IncludeFS,
-                                Properties.Resources.Status_Pack,
-                                MessageBoxButton.YesNo) == MessageBoxResult.Yes;
-                    includeTarget =
-                            MessageBox.Show(Properties.Resources.Pack_IncludeResolve,
-                                Properties.Resources.Status_Pack,
-                                MessageBoxButton.YesNo) == MessageBoxResult.Yes;
-                }
-                #endregion
 
                 currentMap = new XmlDocument();
                 currentMap.LoadXml("<cc-project-map/>");
