@@ -153,8 +153,6 @@ namespace ChameleonCoder
                                               ParseFile(file_ref.InnerText);
                                           else if (File.Exists(Path.Combine(Path.GetDirectoryName(file), file_ref.InnerText)))
                                               ParseFile(Path.GetDirectoryName(file) + "\\" + file_ref.InnerText);
-                                          else
-                                              MessageBox.Show(Path.Combine(Path.GetDirectoryName(file) + "\\", file_ref.InnerText));
                                       }),
                     () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
                                             where _ref.Name == "dir" && Directory.Exists(_ref.Value)
@@ -182,7 +180,7 @@ namespace ChameleonCoder
                file => ParseFile(file));
         }
 
-        private static bool AddResource(XmlNode node, IResource parent)
+        private static void AddResource(XmlNode node, IResource parent)
         {
             IResource resource;
             
@@ -190,10 +188,8 @@ namespace ChameleonCoder
             if (resource == null && node.Attributes["fallback"] != null)
                 resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value);
             if (resource == null)
-            {
-                MessageBox.Show(ResourceTypeManager.IsRegistered(node.Name).ToString() + " [ " + node.Name + "]");
-                return false;
-            }
+                return;
+
             resource.Init(node, parent);
 
             IRichContentResource richResource = resource as IRichContentResource;
@@ -218,7 +214,7 @@ namespace ChameleonCoder
                     AddResource(child, resource);
             }
 
-            return true;
+            return;
         }
 
         private static void LoadPlugins()
