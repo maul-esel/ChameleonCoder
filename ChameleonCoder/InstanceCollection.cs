@@ -13,7 +13,7 @@ namespace ChameleonCoder
             if (!instances.ContainsKey(key))
             {
                 instances.TryAdd(key, value);
-                if (System.Threading.Thread.CurrentThread != App.DispatcherObject.Thread)
+                if (!App.DispatcherObject.CheckAccess())
                     App.DispatcherObject.BeginInvoke(new Action(() => base.Add(value)));
                 else
                     base.Add(value);

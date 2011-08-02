@@ -20,7 +20,7 @@ namespace ChameleonCoder
     /// </summary>
     public partial class App : Application
     {
-        public static readonly System.Windows.Threading.Dispatcher DispatcherObject = System.Windows.Threading.Dispatcher.CurrentDispatcher;
+        public static System.Windows.Threading.Dispatcher DispatcherObject { get; private set; }
 
         internal static MainWindow Gui { get { return Application.Current.MainWindow as MainWindow; } }
 
@@ -32,6 +32,8 @@ namespace ChameleonCoder
 
         internal void Init(Object sender, StartupEventArgs e)
         {
+            DispatcherObject = this.Dispatcher;
+
             ResourceTypeManager.SetCollection(this.Resources["ResourceTypes"] as ResourceTypeCollection);
             ResourceManager.SetCollections(this.Resources["resources"] as ResourceCollection,
                                            this.Resources["resourceHierarchy"] as ResourceCollection);
