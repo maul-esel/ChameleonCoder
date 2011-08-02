@@ -6,6 +6,25 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="WelcomePage" ShowsNavigationUI="False">
+    <Page.Resources>
+
+        <Style x:Key="GoButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Cursor="Hand" CornerRadius="5" Background="White" BorderBrush="LightBlue" BorderThickness="3" Padding="10,5,5,5">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="25" CornerRadius="12.5" Background="LightBlue" Margin="2">
+                                    <Image Source="..\Images\Go.png" Margin="2.5,2,1,2"/>
+                                </Border>
+                                <ContentPresenter Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <StackPanel x:Uid="StackPanel_1" Background="AliceBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel x:Uid="StackPanel_2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
@@ -17,11 +36,9 @@
             <Image x:Uid="Image_2" Source="..\Images\logo.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100"/>
         </StackPanel>
         <TextBlock x:Uid="TextBlock_2" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10">How do you want to start?</TextBlock>
-        <ListBox x:Uid="ListBox_1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10, 0, 10, 10" HorizontalContentAlignment="Center">
-            <Hyperlink x:Uid="Hyperlink_1" Click="OpenResourceView">go to resource list</Hyperlink>
-            <Hyperlink x:Uid="Hyperlink_2" Click="CreateResource">create a new resource</Hyperlink>
-            <Hyperlink x:Uid="Hyperlink_3" Click="OpenConfiguration">change the configuration</Hyperlink>
-        </ListBox>
+        <Button Style="{StaticResource GoButton}" Margin="5" Click="OpenResourceList">go to resource list</Button>
+        <Button Style="{StaticResource GoButton}" Margin="5" Click="OpenConfiguration">change the configuration</Button>
+        <Button Style="{StaticResource GoButton}" Margin="5" Click="CreateResource">create a new resource</Button>
         
     </StackPanel>
 </Page>

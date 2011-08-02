@@ -15,7 +15,7 @@ namespace ChameleonCoder.Navigation
             InitializeComponent();
         }
 
-        private void OpenResourceView(object sender, EventArgs e)
+        private void OpenResourceList(object sender, EventArgs e)
         {
             App.Gui.GoList(null, null);
         }

@@ -191,6 +191,7 @@
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\ViewModel.cs" />
     <Compile Include="TabContext.cs" />
     <Page Include="Interaction\CCResourceCatalog.xaml">
       <SubType>Designer</SubType>
@@ -349,6 +350,9 @@
     <Resource Include="Images\home.png" />
     <Resource Include="Images\list.png" />
     <Resource Include="Images\overview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Go.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
