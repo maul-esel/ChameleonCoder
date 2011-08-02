@@ -29,18 +29,20 @@ namespace ChameleonCoder
 
         public TValue GetInstance(TKey key)
         {
-            return instances[key];
+            TValue value;
+            instances.TryGetValue(key, out value);
+            return value;
         }
 
         public TValue this[TKey key]
         {
             get
             {
-                return instances[key];
+                return GetInstance(key);
             }
             set
             {
-                instances[key] = value;
+                instances.AddOrUpdate(key, value, (k, v) => value);
             }
         }
     }
