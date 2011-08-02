@@ -151,8 +151,8 @@ namespace ChameleonCoder
                                       {
                                           if (File.Exists(file_ref.InnerText))
                                               ParseFile(file_ref.InnerText);
-                                          else if (File.Exists(Path.Combine(Path.GetDirectoryName(file), file_ref.InnerText)))
-                                              ParseFile(Path.GetDirectoryName(file) + "\\" + file_ref.InnerText);
+                                          else if (File.Exists(Path.Combine(Path.GetDirectoryName(file), file_ref.InnerText.TrimStart('\\'))))
+                                              ParseFile(Path.GetDirectoryName(file) + "\\" + file_ref.InnerText.TrimStart('\\'));
                                       }),
                     () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
                                             where _ref.Name == "dir" && Directory.Exists(_ref.Value)
@@ -161,8 +161,8 @@ namespace ChameleonCoder
                                        {
                                            if (Directory.Exists(dir_ref.InnerText))
                                                ParseDir(dir_ref.InnerText);
-                                           else if (File.Exists(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText))
-                                               ParseDir(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText);
+                                           else if (File.Exists(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText.TrimStart('\\')))
+                                               ParseDir(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText.TrimStart('\\'));
                                        }));
             }
             else
