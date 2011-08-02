@@ -20,6 +20,7 @@ namespace ChameleonCoder
     /// </summary>
     public partial class App : Application
     {
+        #region properties
         public static System.Windows.Threading.Dispatcher DispatcherObject { get; private set; }
 
         internal static MainWindow Gui { get { return Application.Current.MainWindow as MainWindow; } }
@@ -29,6 +30,7 @@ namespace ChameleonCoder
         internal static string DataDir { get { return AppDir + "\\Data"; } }
 
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
+        #endregion
 
         internal void Init(Object sender, StartupEventArgs e)
         {
@@ -66,8 +68,9 @@ namespace ChameleonCoder
                 }
                 else if (args[i] == "--install_ext")
                 {
-                    if (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
-                    && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null)
+                    if (Registry.ClassesRoot.OpenSubKey(".ccm") != null
+                        && Registry.ClassesRoot.OpenSubKey(".ccr") != null
+                        && Registry.ClassesRoot.OpenSubKey(".ccp") != null)
                         UnRegisterExtensions();
                     else
                         RegisterExtensions();
@@ -128,14 +131,16 @@ namespace ChameleonCoder
 
         internal static void ParseFile(string file)
         {
-            bool error = false;
-
             XmlDocument doc = new XmlDocument();
 
             try { doc.Load(file); }
-            catch (XmlException e) { MessageBox.Show(file + "\n\n" + e.Message); error = true; }
+            catch (XmlException)
+            {
+                PackageManager.UnpackResources(file);
+                return;
+            }
 
-            if (!error && doc.DocumentElement.Name == "cc-project-map")
+            if (doc.DocumentElement.Name == "cc-project-map")
             {
                 Parallel.Invoke(
                     () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
@@ -161,7 +166,7 @@ namespace ChameleonCoder
                                                ParseDir(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText);
                                        }));
             }
-            else if (!error)
+            else
             {
                 AddResource(doc.DocumentElement, null);
             }
@@ -243,32 +248,41 @@ namespace ChameleonCoder
         {
             lock (lock_ext)
             {
-                RegistryKey regMap = Registry.ClassesRoot.CreateSubKey(".ccm", RegistryKeyPermissionCheck.ReadWriteSubTree);
-                RegistryKey regRes = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey regCCM = Registry.ClassesRoot.CreateSubKey(".ccm", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey regCCP = Registry.ClassesRoot.CreateSubKey(".ccp", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                
+                regCCM.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCM);
+                regCCP.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCP);
+                regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
 
-                regMap.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCM);
-                regRes.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
+                regCCM.Close();
+                regCCP.Close();
+                regCCR.Close();
 
-                regMap.Close();
-                regRes.Close();
+                regCCM = Registry.ClassesRoot.CreateSubKey(".ccm\\Shell\\Open\\command");
+                regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\Shell\\Open\\command");
+                regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
 
-                regMap = Registry.ClassesRoot.CreateSubKey(".ccm\\Shell\\Open\\command");
-                regRes = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
+                regCCM.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+                regCCP.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+                regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
 
-                regMap.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
-                regRes.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+                regCCM.Close();
+                regCCP.Close();
+                regCCR.Close();
 
-                regMap.Close();
-                regRes.Close();
+                regCCM = Registry.ClassesRoot.CreateSubKey(".ccm\\DefaultIcon");
+                regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\DefaultIcon");
+                regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
 
-                regMap = Registry.ClassesRoot.CreateSubKey(".ccm\\DefaultIcon");
-                regRes = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
+                regCCM.SetValue("", AppPath + ", 0");
+                regCCP.SetValue("", AppPath + ", 1");
+                regCCR.SetValue("", AppPath + ", 2");
 
-                regMap.SetValue("", App.AppPath + ", 0");
-                regRes.SetValue("", App.AppPath + ", 1");
-
-                regMap.Close();
-                regRes.Close();
+                regCCM.Close();
+                regCCP.Close();
+                regCCR.Close();
             }
         }
 
@@ -277,6 +291,7 @@ namespace ChameleonCoder
             lock (lock_ext)
             {
                 Registry.ClassesRoot.DeleteSubKeyTree(".ccm");
+                Registry.ClassesRoot.DeleteSubKeyTree(".ccp");
                 Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
             }
         }
