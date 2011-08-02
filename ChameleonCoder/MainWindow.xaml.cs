@@ -216,7 +216,7 @@ namespace ChameleonCoder
             CurrentActionProgress.IsIndeterminate = true;
 
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector();
-            if (selector.ShowDialog() == true)
+            if (selector.ShowDialog() == true && selector.resources.Count > 0)
                 PackageManager.PackageResources(selector.resources);
 
             CurrentAction.Text = string.Empty;
