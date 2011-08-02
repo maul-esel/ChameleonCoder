@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Action_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Action_Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
   <data name="Del_Confirm" xml:space="preserve">
     <value>Do you want to delete the {0}-resource and all its child resources?</value>
   </data>
@@ -128,6 +137,9 @@
   </data>
   <data name="Ext_CCR" xml:space="preserve">
     <value>CC resource file</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="Item_Home" xml:space="preserve">
     <value>Home</value>
@@ -159,6 +171,15 @@
   <data name="Pack_IncludeResolve" xml:space="preserve">
     <value>Do you want to include the target resources for the packaged resources?</value>
   </data>
+  <data name="ResourceImport" xml:space="preserve">
+    <value>Import a resource</value>
+  </data>
+  <data name="ResourcePackage" xml:space="preserve">
+    <value>Package a resource</value>
+  </data>
+  <data name="ResourceUnpackage" xml:space="preserve">
+    <value>Unpackage resources</value>
+  </data>
   <data name="Selection_CreateNew" xml:space="preserve">
     <value>create a new resource</value>
   </data>
@@ -171,6 +192,27 @@
   <data name="ServiceInfo" xml:space="preserve">
     <value>running service: {0}...</value>
     <comment>{0} is the name, {1} is the version, {2} the author, {3} the about text</comment>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Setting_EnableUpdate" xml:space="preserve">
+    <value>Enable updates</value>
+  </data>
+  <data name="Setting_InstallCOM" xml:space="preserve">
+    <value>install COM support</value>
+  </data>
+  <data name="Setting_InstallExt" xml:space="preserve">
+    <value>install file extensions</value>
+  </data>
+  <data name="Setting_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="Setting_ProgrammingDir" xml:space="preserve">
+    <value>Programming directory:</value>
+  </data>
+  <data name="Setting_SelectProgDir" xml:space="preserve">
+    <value>select directory</value>
   </data>
   <data name="StartSelection" xml:space="preserve">
     <value>How do you want to start?</value>

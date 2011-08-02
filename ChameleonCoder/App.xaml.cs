@@ -106,7 +106,7 @@ namespace ChameleonCoder
             });
 
             new MainWindow();
-            Gui.breadcrumb.Root = new BreadcrumbContext("Home",
+            Gui.breadcrumb.Root = new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Home,
                 new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
                 new BreadcrumbContext[]
                     {

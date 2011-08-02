@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Data;
 using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Navigation
@@ -12,6 +12,7 @@ namespace ChameleonCoder.Navigation
     {
         internal WelcomePage()
         {
+            DataContext = App.Gui.DataContext;
             InitializeComponent();
         }
 

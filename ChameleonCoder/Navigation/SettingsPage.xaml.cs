@@ -11,6 +11,7 @@ namespace ChameleonCoder.Navigation
     {
         internal SettingsPage()
         {
+            DataContext = App.Gui.DataContext;
             InitializeComponent();
             ignoreChecking = true;
             extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null

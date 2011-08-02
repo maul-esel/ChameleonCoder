@@ -61,6 +61,33 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die About ähnelt.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Exit ähnelt.
+        /// </summary>
+        internal static string Action_Exit {
+            get {
+                return ResourceManager.GetString("Action_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Restart ähnelt.
+        /// </summary>
+        internal static string Action_Restart {
+            get {
+                return ResourceManager.GetString("Action_Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to delete the {0}-resource and all its child resources? ähnelt.
         /// </summary>
         internal static string Del_Confirm {
@@ -93,6 +120,15 @@ namespace ChameleonCoder.Properties {
         internal static string Ext_CCR {
             get {
                 return ResourceManager.GetString("Ext_CCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Help ähnelt.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
             }
         }
         
@@ -178,6 +214,33 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Import a resource ähnelt.
+        /// </summary>
+        internal static string ResourceImport {
+            get {
+                return ResourceManager.GetString("ResourceImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Package a resource ähnelt.
+        /// </summary>
+        internal static string ResourcePackage {
+            get {
+                return ResourceManager.GetString("ResourcePackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Unpackage resources ähnelt.
+        /// </summary>
+        internal static string ResourceUnpackage {
+            get {
+                return ResourceManager.GetString("ResourceUnpackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die create a new resource ähnelt.
         /// </summary>
         internal static string Selection_CreateNew {
@@ -210,6 +273,69 @@ namespace ChameleonCoder.Properties {
         internal static string ServiceInfo {
             get {
                 return ResourceManager.GetString("ServiceInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Services ähnelt.
+        /// </summary>
+        internal static string Services {
+            get {
+                return ResourceManager.GetString("Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enable updates ähnelt.
+        /// </summary>
+        internal static string Setting_EnableUpdate {
+            get {
+                return ResourceManager.GetString("Setting_EnableUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die install COM support ähnelt.
+        /// </summary>
+        internal static string Setting_InstallCOM {
+            get {
+                return ResourceManager.GetString("Setting_InstallCOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die install file extensions ähnelt.
+        /// </summary>
+        internal static string Setting_InstallExt {
+            get {
+                return ResourceManager.GetString("Setting_InstallExt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Language: ähnelt.
+        /// </summary>
+        internal static string Setting_Language {
+            get {
+                return ResourceManager.GetString("Setting_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Programming directory: ähnelt.
+        /// </summary>
+        internal static string Setting_ProgrammingDir {
+            get {
+                return ResourceManager.GetString("Setting_ProgrammingDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die select directory ähnelt.
+        /// </summary>
+        internal static string Setting_SelectProgDir {
+            get {
+                return ResourceManager.GetString("Setting_SelectProgDir", resourceCulture);
             }
         }
         

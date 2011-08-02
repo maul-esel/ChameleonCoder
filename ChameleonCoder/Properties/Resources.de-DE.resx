@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Über...</value>
+  </data>
+  <data name="Action_Exit" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="Action_Restart" xml:space="preserve">
+    <value>Neu starten</value>
+  </data>
   <data name="Del_Confirm" xml:space="preserve">
     <value>Wollen Sie diese Ressource ({0}) and alle untergeordneten Ressourcen löschen?</value>
   </data>
@@ -128,6 +137,9 @@
   </data>
   <data name="Ext_CCR" xml:space="preserve">
     <value>CC Ressource-Datei</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Hilfe</value>
   </data>
   <data name="Item_Home" xml:space="preserve">
     <value>Startseite</value>
@@ -159,6 +171,15 @@
   <data name="Pack_IncludeResolve" xml:space="preserve">
     <value>Wollen Sie die Zielressourcen der gepackten Ressourcesn einschließen?</value>
   </data>
+  <data name="ResourceImport" xml:space="preserve">
+    <value>Eine Ressource importieren</value>
+  </data>
+  <data name="ResourcePackage" xml:space="preserve">
+    <value>Eine Ressource packen</value>
+  </data>
+  <data name="ResourceUnpackage" xml:space="preserve">
+    <value>Ressourcen entpacken</value>
+  </data>
   <data name="Selection_CreateNew" xml:space="preserve">
     <value>Eine neue Ressource erstellen</value>
   </data>
@@ -169,8 +190,29 @@
     <value>Die Einstellungen bearbeiten</value>
   </data>
   <data name="ServiceInfo" xml:space="preserve">
-    <value>running service: {0}...</value>
+    <value>laufender Dienst: {0}...</value>
     <comment>{0} is the name, {1} is the version, {2} the author, {3} the about text</comment>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Dienste</value>
+  </data>
+  <data name="Setting_EnableUpdate" xml:space="preserve">
+    <value>Automatische Updates aktivieren</value>
+  </data>
+  <data name="Setting_InstallCOM" xml:space="preserve">
+    <value>Installiere COM-Support</value>
+  </data>
+  <data name="Setting_InstallExt" xml:space="preserve">
+    <value>Installiere Dateiendungen</value>
+  </data>
+  <data name="Setting_Language" xml:space="preserve">
+    <value>Sprache:</value>
+  </data>
+  <data name="Setting_ProgrammingDir" xml:space="preserve">
+    <value>Programmier-Ordner:</value>
+  </data>
+  <data name="Setting_SelectProgDir" xml:space="preserve">
+    <value>Suche Ordner</value>
   </data>
   <data name="StartSelection" xml:space="preserve">
     <value>Wie wollen Sie beginnen?</value>

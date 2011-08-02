@@ -16,6 +16,8 @@ namespace ChameleonCoder
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
+        internal ViewModel MVVM { get { return DataContext as ViewModel; } }
+
         internal MainWindow()
         {
             InitializeComponent();
@@ -57,11 +59,11 @@ namespace ChameleonCoder
 
         private void GoHome(object sender, EventArgs e)
         {
-            int i;
-            if ((i = FindPageTab<WelcomePage>()) != -1)
+            int i = FindPageTab<WelcomePage>();
+            if (i != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(Properties.Resources.Item_Home, new WelcomePage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(MVVM.Item_Home, new WelcomePage()), Tabs.SelectedIndex);
         }
 
         internal void GoList(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace ChameleonCoder
             if ((i = FindPageTab<ResourceListPage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(Properties.Resources.Item_List, new ResourceListPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(MVVM.Item_List, new ResourceListPage()), Tabs.SelectedIndex);
         }
 
         internal void GoSettings(object sender, EventArgs e)
@@ -79,7 +81,7 @@ namespace ChameleonCoder
             if ((i = FindPageTab<SettingsPage>()) != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(Properties.Resources.Item_Settings, new SettingsPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(MVVM.Item_Settings, new SettingsPage()), Tabs.SelectedIndex);
         }
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
@@ -210,7 +212,7 @@ namespace ChameleonCoder
 
         private void ResourcesPackage(object sender, EventArgs e)
         {
-            CurrentAction.Text = Properties.Resources.PackagerInfo;
+            CurrentAction.Text = Properties.Resources.Status_Pack;
             CurrentActionProgress.IsIndeterminate = true;
 
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector();
@@ -246,7 +248,8 @@ namespace ChameleonCoder
         #region Tabs
         private void TabOpen(object sender, EventArgs e)
         {
-            Tabs.SelectedIndex = Tabs.Items.Add(new TabContext(Properties.Resources.Item_Home, new WelcomePage()));
+            MVVM.Tabs.Add(new TabContext(Properties.Resources.Item_Home, new WelcomePage()));
+            Tabs.SelectedIndex = MVVM.Tabs.Count - 1;
         }
 
         private void TabClosed(object sender, RoutedEventArgs e)
@@ -313,10 +316,10 @@ namespace ChameleonCoder
 
         private void TabReplace(TabContext newTab, int oldTab)
         {
-            Tabs.Items.Insert(oldTab + 1, newTab);
-            if (oldTab >= 0 && oldTab < Tabs.Items.Count)
-                Tabs.Items.RemoveAt(oldTab);
-            Tabs.SelectedIndex = oldTab;
+            if (oldTab >= 0 && oldTab < MVVM.Tabs.Count && MVVM.Tabs.Count != 0)
+                MVVM.Tabs[oldTab] = newTab;
+            else
+                MVVM.Tabs.Add(newTab);
         }
 
         private int FindResourceTab(IResource resource, bool useEdit)
