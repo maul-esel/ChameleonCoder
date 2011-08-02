@@ -261,7 +261,7 @@ namespace ChameleonCoder
 
             TabContext item = (ctrl as TabItem).DataContext as TabContext;
             ResourceSave(item);
-            Tabs.Items.Remove(item);
+            MVVM.Tabs.Remove(item);
 
             TabChanged(null, null);
         }
