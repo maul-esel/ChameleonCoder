@@ -29,10 +29,10 @@ Other implementations such as MONO do not work as CC requires WPF.
 * possibility to add custom resource types
 * super-easy importing of resources
 * a "breadcrumb" control for easy navigation
+* packaging and unpackaging of resource into archives, with the possibility to include the corresponding data files
 
 ### planned
 * creation, moving, copying and deleting of resources
-* packaging and unpackaging of resource into archives, with the possibility to include the corresponding data files
 * support for coding languages using LanguageModules, which can allow
 	* compilation of resources,
 	* execution of resources,
