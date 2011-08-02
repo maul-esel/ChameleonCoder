@@ -321,5 +321,30 @@ namespace ChameleonCoder
                 }
             }
         }
+
+        internal static string FindFreePath(string directory, string baseName, bool isFile)
+        {
+            directory = directory[directory.Length - 1] == Path.DirectorySeparatorChar
+                ? directory : directory + Path.DirectorySeparatorChar;
+
+            baseName = baseName.TrimStart(Path.DirectorySeparatorChar);
+
+            string fileName = isFile
+                ? Path.GetFileNameWithoutExtension(baseName) : baseName;
+
+            string Extension = isFile
+                ? Path.GetExtension(baseName) : string.Empty;
+
+            string path = directory + fileName + Extension;
+            int i = 0;
+
+            while ((isFile ? File.Exists(path) : Directory.Exists(path)))
+            {
+                path = directory + fileName + "_" + i + Extension;
+                i++;
+            }
+
+            return path;
+        }
     }
 }

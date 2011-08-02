@@ -49,7 +49,7 @@ namespace ChameleonCoder
         {
             lock (thislock)
             {
-                string packName = FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
+                string packName = App.FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
                 if (!Directory.Exists(packName))
                     Directory.CreateDirectory(packName);
 
@@ -83,7 +83,7 @@ namespace ChameleonCoder
                 if (!Directory.Exists(App.AppDir + "\\Temp"))
                     Directory.CreateDirectory(App.AppDir + "\\Temp");
 
-                string tempzip = FindFreePath(App.AppDir + "\\Temp", "pack.tmp", true);
+                string tempzip = App.FindFreePath(App.AppDir + "\\Temp", "pack.tmp", true);
 
                 currentMap = new XmlDocument();
                 currentMap.LoadXml("<cc-project-map/>");
@@ -93,7 +93,7 @@ namespace ChameleonCoder
                     foreach (IResource resource in resources)
                         AddPackagePart(zip, resource, "ChameleonCoder://Package.Resource");
 
-                    string mapPath = FindFreePath(App.AppDir + "\\Temp", "package.ccm", true);
+                    string mapPath = App.FindFreePath(App.AppDir + "\\Temp", "package.ccm", true);
                     currentMap.Save(mapPath);
 
                     PackagePart mapPart = GetPackagePart(zip, mapPath, System.Net.Mime.MediaTypeNames.Text.Xml);
@@ -103,7 +103,7 @@ namespace ChameleonCoder
                     File.Delete(mapPath);
                 }
 
-                File.Move(tempzip, FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
+                File.Move(tempzip, App.FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
                 MessageBox.Show(Properties.Resources.Pack_Finished);
             }
         }
@@ -114,13 +114,13 @@ namespace ChameleonCoder
             string path;
             if (resource.Parent == null)
             {
-                path = FindFreePath(App.AppDir + "\\Temp",
+                path = App.FindFreePath(App.AppDir + "\\Temp",
                     Path.GetFileNameWithoutExtension(resource.GetResourceFile()) + "." + resource.GUID.ToString("n") + Path.GetExtension(resource.GetResourceFile()), true);
                 File.Copy(resource.GetResourceFile(), path);
             }
             else
             {
-                path = FindFreePath(App.AppDir, resource.Name + "." + resource.GUID.ToString("n") + ".ccr", true);
+                path = App.FindFreePath(App.AppDir, resource.Name + "." + resource.GUID.ToString("n") + ".ccr", true);
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(resource.Xml.OuterXml);
                 doc.Save(path);
@@ -176,29 +176,6 @@ namespace ChameleonCoder
                 target.Write(buffer, 0, bytesRead);
         }
 
-        private static string FindFreePath(string directory, string baseName, bool isFile)
-        {
-            directory = directory[directory.Length - 1] == Path.DirectorySeparatorChar
-                ? directory : directory + Path.DirectorySeparatorChar;
-
-            baseName = baseName.TrimStart(Path.DirectorySeparatorChar);
-
-            string fileName = isFile
-                ? Path.GetFileNameWithoutExtension(baseName) : baseName;
-
-            string Extension = isFile
-                ? Path.GetExtension(baseName) : string.Empty;
-
-            string path = directory + fileName + Extension;
-            int i = 0;
-
-            while ((isFile ? File.Exists(path) : Directory.Exists(path)))
-            {
-                path = directory + fileName + "_" + i + Extension;
-                i++;
-            }
-
-            return path;
-        }
+        
     }
 }
