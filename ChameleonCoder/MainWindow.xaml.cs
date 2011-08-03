@@ -297,6 +297,7 @@ namespace ChameleonCoder
                 return;
 
             Type selected = (Tabs.SelectedItem as TabContext).Content.GetType();
+            Ribbon.SelectedTabIndex = 0;
 
             if (selected == typeof(WelcomePage))
             {
@@ -332,6 +333,7 @@ namespace ChameleonCoder
                 ResourceManager.ActiveItem = null;
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_Settings;
             }
+            Ribbon.SelectedTabIndex = Ribbon.Tabs.Count;
         }
 
         private void TabReplace(TabContext newTab, int oldTab)
