@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -217,10 +218,21 @@ namespace ChameleonCoder
 
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector();
             if (selector.ShowDialog() == true && selector.resources.Count > 0)
-                PackageManager.PackageResources(selector.resources);
+            {
+                BackgroundWorker worker = new BackgroundWorker() { WorkerSupportsCancellation = false };
+                worker.DoWork += (bw, args) => PackageManager.PackageResources(selector.resources);
+                worker.RunWorkerCompleted += (bw, args) =>
+                    {
+                        if (args.Error != null)
+                            MessageBox.Show("An error occured during packaging: " + args.Error.ToString());
+                        else
+                            MessageBox.Show(Properties.Resources.Pack_Finished);
 
-            CurrentAction.Text = string.Empty;
-            CurrentActionProgress.IsIndeterminate = false;
+                        CurrentAction.Text = string.Empty;
+                        CurrentActionProgress.IsIndeterminate = false;
+                    };
+                worker.RunWorkerAsync();
+            }
         }
 
         private void ResourcesUnpackage(object sender, EventArgs e)
