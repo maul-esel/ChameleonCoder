@@ -50,7 +50,7 @@ namespace ChameleonCoder.ResourceCore
 
         }
 
-        public static void Create(Type target, IResource parent, Action<IResource, IResource> register)
+        public static IResource Create(Type target, IResource parent)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
             ResourceCreator creator = new ResourceCreator(target, parent_name);
@@ -83,8 +83,9 @@ namespace ChameleonCoder.ResourceCore
                     resource.Init(doc.DocumentElement, parent);
                 }
 
-                register(resource, parent);
+                return resource;
             }
+            return null;
         }
     }
 }

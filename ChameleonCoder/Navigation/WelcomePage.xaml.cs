@@ -26,7 +26,11 @@ namespace ChameleonCoder.Navigation
             Interaction.ResourceTypeSelector selector = new Interaction.ResourceTypeSelector();
 
             if (selector.ShowDialog() == true)
-                ResourceTypeManager.GetInfo(selector.SelectedResult).Creator(selector.SelectedResult, null, ResourceManager.Add);
+            {
+                Resources.Interfaces.IResource resource = ResourceTypeManager.GetInfo(selector.SelectedResult).Create(selector.SelectedResult, null);
+                if (resource != null)
+                    ResourceManager.Add(resource, null);
+            }
         }
 
         private void OpenConfiguration(object sender, EventArgs e)

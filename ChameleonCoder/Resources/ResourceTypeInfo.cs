@@ -6,13 +6,13 @@ namespace ChameleonCoder.Resources
     public sealed class ResourceTypeInfo
     {
         public ResourceTypeInfo(string Alias, string DisplayName, ImageSource TypeIcon, Brush Background,
-            Action<Type, Interfaces.IResource, Action<Interfaces.IResource, Interfaces.IResource>> Creator, Action<Interfaces.IResource> Loader, string author)
+            Func<Type, Interfaces.IResource, Interfaces.IResource> Create, Action<Interfaces.IResource> Loader, string author)
         {
             this.Alias = Alias;
             this.DisplayName = DisplayName;
             this.TypeIcon = TypeIcon;
             this.Background = Background;
-            this.Creator = Creator;
+            this.Create = Create;
             this.Loader = Loader;
             this.Author = author;
         }
@@ -25,7 +25,7 @@ namespace ChameleonCoder.Resources
 
         public Brush Background { get; private set; }
 
-        public Action<Type, Interfaces.IResource, Action<Interfaces.IResource, Interfaces.IResource>> Creator { get; private set; }
+        public Func<Type, Interfaces.IResource, Interfaces.IResource> Create { get; private set; }
 
         public Action<Interfaces.IResource> Loader { get; private set; }
 

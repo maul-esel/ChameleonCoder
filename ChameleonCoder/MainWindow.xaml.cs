@@ -117,7 +117,11 @@ namespace ChameleonCoder
             Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
 
             if (prop != null)
-                prop.Creator(resourceType, null, ResourceManager.Add);
+            {
+                Resources.Interfaces.IResource resource = prop.Create(resourceType, null);
+                if (resource != null)
+                    ResourceManager.Add(resource, null);
+            }
         }
 
         private void ResourceCreateChild(object sender, RoutedEventArgs e)
@@ -126,7 +130,11 @@ namespace ChameleonCoder
             Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
 
             if (info != null)
-                info.Creator(resourceType, ResourceManager.ActiveItem, ResourceManager.Add);
+            {
+                Resources.Interfaces.IResource resource = info.Create(resourceType, ResourceManager.ActiveItem);
+                if (resource != null)
+                    ResourceManager.Add(resource, ResourceManager.ActiveItem);
+            }
         }
 
         private void ResourceDelete(object sender, RoutedEventArgs e)
