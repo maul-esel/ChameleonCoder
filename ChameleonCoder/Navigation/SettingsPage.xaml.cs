@@ -13,6 +13,9 @@ namespace ChameleonCoder.Navigation
         {
             DataContext = App.Gui.DataContext;
             InitializeComponent();
+
+            langCombo.SelectedItem = Properties.Resources.Culture.LCID;
+
             ignoreChecking = true;
             extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
                     && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
@@ -30,6 +33,14 @@ namespace ChameleonCoder.Navigation
                 try { System.Diagnostics.Process.Start(info); }
                 catch (System.ComponentModel.Win32Exception) { }
             }
+        }
+
+        private void SetLanguage(object sender, EventArgs e)
+        {
+            int LCID = (int)langCombo.SelectedItem;
+            Properties.Resources.Culture = new System.Globalization.CultureInfo(LCID);
+            Properties.Settings.Default.Language = LCID;
+            Properties.Settings.Default.Save();
         }
     }
 }

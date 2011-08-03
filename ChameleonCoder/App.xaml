@@ -18,6 +18,7 @@
         <conv:ResourceTypeImageConverter x:Uid="conv:ResourceTypeImageConverter_1" x:Key="TypeImageConverter" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
         <conv:CustomGroupConverter x:Uid="conv:CustomGroupConverter_1" x:Key="CustomGroupConverter" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
         <conv:ColorConverter x:Uid="conv:ColorConverter_1" x:Key="ColorConverter" Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
+        <conv:CultureConverter x:Key="CultureConv"/>
 
         <LinearGradientBrush x:Uid="LinearGradientBrush_1" x:Key="BgBrush"
                              EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect" Opacity="200"

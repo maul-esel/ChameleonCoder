@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BreadcrumbContext.cs" />
+    <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
     </Compile>

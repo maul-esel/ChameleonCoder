@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Action_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="Action_Exit" xml:space="preserve">
     <value>Exit</value>
   </data>

@@ -15,6 +15,7 @@ namespace ChameleonCoder
 
         public ObservableCollection<TabContext> Tabs { get; set; }
 
+        public int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
         #region localization
         public string Item_Home { get { return Res.Item_Home; } }
         public string Item_List { get { return Res.Item_List; } }
@@ -24,6 +25,7 @@ namespace ChameleonCoder
 
         public string Action_Restart { get { return Res.Action_Restart; } }
         public string Action_Exit { get { return Res.Action_Exit; } }
+        public string Action_Apply { get { return Res.Action_Apply; } }
 
         public string ResourceImport { get { return Res.ResourceImport; } }
         public string ResourcePackage { get { return Res.ResourcePackage; } }

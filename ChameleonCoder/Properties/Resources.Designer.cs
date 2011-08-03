@@ -70,6 +70,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Apply ähnelt.
+        /// </summary>
+        internal static string Action_Apply {
+            get {
+                return ResourceManager.GetString("Action_Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Exit ähnelt.
         /// </summary>
         internal static string Action_Exit {

@@ -30,8 +30,17 @@
             </Grid.RowDefinitions>
             
             <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=Setting_Language}" Margin="5"/>
-            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="langCombo" Margin="5"/>
-
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                <ComboBox x:Name="langCombo" Margin="5" Width="250" ItemsSource="{Binding Path=availableTranslations}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource CultureConv}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Content="{Binding Path=Action_Apply}" Click="SetLanguage"/>
+            </StackPanel>
+            
             <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding Path=Setting_EnableUpdate}" Margin="5" x:Name="updateCheck"/>
 
             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=Setting_ProgrammingDir}" Margin="5"/>
