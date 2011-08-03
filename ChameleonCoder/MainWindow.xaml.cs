@@ -158,10 +158,7 @@ namespace ChameleonCoder
                 {
                     int i = FindResourceTab(resource, true);
                     if (i == -1)
-                    {
-                        Tabs.Items.Insert(Tabs.SelectedIndex + 1, new TabContext(string.Format(Properties.Resources.Item_ResourceEdit, resource.Name), new Navigation.EditPage(editResource)));
-                        Tabs.SelectedIndex++;
-                    }
+                        TabReplace(new TabContext(string.Format(Properties.Resources.Item_ResourceEdit, resource.Name), new Navigation.EditPage(editResource)), Tabs.SelectedIndex);
                     else
                         Tabs.SelectedIndex = i;
                 }
