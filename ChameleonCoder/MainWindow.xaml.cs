@@ -232,7 +232,7 @@ namespace ChameleonCoder
                 worker.RunWorkerCompleted += (bw, args) =>
                     {
                         if (args.Error != null)
-                            MessageBox.Show("An error occured during packaging: " + args.Error.ToString());
+                            MessageBox.Show(Properties.Resources.Error_Package + "\n\n" + args.Error.ToString());
                         else
                             MessageBox.Show(Properties.Resources.Pack_Finished);
 

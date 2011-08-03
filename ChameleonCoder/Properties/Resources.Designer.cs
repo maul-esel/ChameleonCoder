@@ -97,6 +97,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Beim Packen der Ressourcen ist folgender Fehler aufgetreten: ähnelt.
+        /// </summary>
+        internal static string Error_Package {
+            get {
+                return ResourceManager.GetString("Error_Package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die CC resource map ähnelt.
         /// </summary>
         internal static string Ext_CCM {
