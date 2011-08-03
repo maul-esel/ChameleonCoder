@@ -130,7 +130,7 @@
     <value>Do you want to delete the {0}-resource and all its child resources?</value>
   </data>
   <data name="Error_Package" xml:space="preserve">
-    <value>Beim Packen der Ressourcen ist folgender Fehler aufgetreten:</value>
+    <value>An error occured during packaging:</value>
   </data>
   <data name="Ext_CCM" xml:space="preserve">
     <value>CC resource map</value>
