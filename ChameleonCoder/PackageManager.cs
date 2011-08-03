@@ -64,13 +64,12 @@ namespace ChameleonCoder
                             zip.CreateRelationship(part.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource");
                             (currentMap.DocumentElement.AppendChild(currentMap.CreateElement("file"))).InnerText = GetPartUri(resource).OriginalString.TrimStart('/');
                         }
+                        File.Delete(path);
 
                         AddFSComponent(resource as IFSComponent, part, part);
                         AddResolved(resource as IResolvable, part, part);
                         foreach (IResource child in resource.children)
-                            AddChild(child, part, part, path);
-
-                        File.Delete(path);
+                            AddChild(child, part, part);
                     }
                     string mapPath = Path.GetTempFileName();
                     currentMap.Save(mapPath);
@@ -82,7 +81,6 @@ namespace ChameleonCoder
                     File.Delete(mapPath);
                 }
                 File.Move(packPath, InformationProvider.FindFreePath(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "new resource pack.ccp", true));
-                MessageBox.Show(Properties.Resources.Pack_Finished);
             }
         }
         #endregion
@@ -143,24 +141,16 @@ namespace ChameleonCoder
                 AddFSComponent(target as IFSComponent, res, ancestor);
                 AddResolved(target as IResolvable, res, ancestor);
                 foreach (IResource child in target.children)
-                    AddChild(child, res, ancestor, GetPath(target));
+                    AddChild(child, res, ancestor);
             }
         }
 
-        private static void AddChild(IResource child, PackagePart parent, PackagePart ancestor, string path)
+        private static void AddChild(IResource child, PackagePart parent, PackagePart ancestor)
         {
-            PackagePart ch = GetPackagePart(path, GetPartUri(child), "ChameleonCoder/Resource");
-
-            parent.CreateRelationship(ch.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Child");
-            ch.CreateRelationship(parent.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Parent");
-
-            ancestor.CreateRelationship(ch.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Descendant");
-            ch.CreateRelationship(ancestor.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.Ancestor");
-
-            AddFSComponent(child as IFSComponent, ch, ancestor);
-            AddResolved(child as IResolvable, ch, ancestor);
+            AddFSComponent(child as IFSComponent, parent, ancestor);
+            AddResolved(child as IResolvable, parent, ancestor);
             foreach (IResource grandChild in child.children)
-                AddChild(grandChild, ch, ancestor, path);
+                AddChild(grandChild, parent, ancestor);
         }
         #endregion
 
