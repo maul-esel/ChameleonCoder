@@ -97,6 +97,105 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Copy ähnelt.
+        /// </summary>
+        internal static string Edit_Copy {
+            get {
+                return ResourceManager.GetString("Edit_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cut ähnelt.
+        /// </summary>
+        internal static string Edit_Cut {
+            get {
+                return ResourceManager.GetString("Edit_Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die new element... ähnelt.
+        /// </summary>
+        internal static string Edit_NewCodeStub {
+            get {
+                return ResourceManager.GetString("Edit_NewCodeStub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Paste ähnelt.
+        /// </summary>
+        internal static string Edit_Paste {
+            get {
+                return ResourceManager.GetString("Edit_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Redo ähnelt.
+        /// </summary>
+        internal static string Edit_Redo {
+            get {
+                return ResourceManager.GetString("Edit_Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Replace ähnelt.
+        /// </summary>
+        internal static string Edit_Replace {
+            get {
+                return ResourceManager.GetString("Edit_Replace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save ähnelt.
+        /// </summary>
+        internal static string Edit_Save {
+            get {
+                return ResourceManager.GetString("Edit_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Search ähnelt.
+        /// </summary>
+        internal static string Edit_Search {
+            get {
+                return ResourceManager.GetString("Edit_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Undo ähnelt.
+        /// </summary>
+        internal static string Edit_Undo {
+            get {
+                return ResourceManager.GetString("Edit_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Zoom in ähnelt.
+        /// </summary>
+        internal static string Edit_ZoomIn {
+            get {
+                return ResourceManager.GetString("Edit_ZoomIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Zoom out ähnelt.
+        /// </summary>
+        internal static string Edit_ZoomOut {
+            get {
+                return ResourceManager.GetString("Edit_ZoomOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die An error occured during packaging: ähnelt.
         /// </summary>
         internal static string Error_Package {
@@ -187,6 +286,33 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enable grouping ähnelt.
+        /// </summary>
+        internal static string List_EnableGroups {
+            get {
+                return ResourceManager.GetString("List_EnableGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hidden resource types ähnelt.
+        /// </summary>
+        internal static string List_HiddenTypes {
+            get {
+                return ResourceManager.GetString("List_HiddenTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Show links ähnelt.
+        /// </summary>
+        internal static string List_ShowResolvable {
+            get {
+                return ResourceManager.GetString("List_ShowResolvable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {0} module (version {1}) by {2} ähnelt.
         /// </summary>
         internal static string ModuleInfo {
@@ -264,6 +390,87 @@ namespace ChameleonCoder.Properties {
         internal static string ResourceUnpackage {
             get {
                 return ResourceManager.GetString("ResourceUnpackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Editing ähnelt.
+        /// </summary>
+        internal static string RibbonContext_Edit {
+            get {
+                return ResourceManager.GetString("RibbonContext_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die View Utilities ähnelt.
+        /// </summary>
+        internal static string RibbonContext_List {
+            get {
+                return ResourceManager.GetString("RibbonContext_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Resource ähnelt.
+        /// </summary>
+        internal static string RibbonContext_View {
+            get {
+                return ResourceManager.GetString("RibbonContext_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Clipboard ähnelt.
+        /// </summary>
+        internal static string RibbonGroup_Clipboard {
+            get {
+                return ResourceManager.GetString("RibbonGroup_Clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Code ähnelt.
+        /// </summary>
+        internal static string RibbonGroup_Code {
+            get {
+                return ResourceManager.GetString("RibbonGroup_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save ähnelt.
+        /// </summary>
+        internal static string RibbonGroup_SaveOpen {
+            get {
+                return ResourceManager.GetString("RibbonGroup_SaveOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Search &amp; Replace ähnelt.
+        /// </summary>
+        internal static string RibbonGroup_Search {
+            get {
+                return ResourceManager.GetString("RibbonGroup_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Undo &amp; Redo ähnelt.
+        /// </summary>
+        internal static string RibbonGroup_UndoRedo {
+            get {
+                return ResourceManager.GetString("RibbonGroup_UndoRedo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die View ähnelt.
+        /// </summary>
+        internal static string RibbonGroup_View {
+            get {
+                return ResourceManager.GetString("RibbonGroup_View", resourceCulture);
             }
         }
         
@@ -390,6 +597,42 @@ namespace ChameleonCoder.Properties {
         internal static string Status_Pack {
             get {
                 return ResourceManager.GetString("Status_Pack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Add a child resource ähnelt.
+        /// </summary>
+        internal static string View_AddChild {
+            get {
+                return ResourceManager.GetString("View_AddChild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Delete ähnelt.
+        /// </summary>
+        internal static string View_Delete {
+            get {
+                return ResourceManager.GetString("View_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Edit ähnelt.
+        /// </summary>
+        internal static string View_Edit {
+            get {
+                return ResourceManager.GetString("View_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Move ähnelt.
+        /// </summary>
+        internal static string View_Move {
+            get {
+                return ResourceManager.GetString("View_Move", resourceCulture);
             }
         }
         

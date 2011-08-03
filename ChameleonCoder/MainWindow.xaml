@@ -153,14 +153,14 @@
             <odc:RibbonBar.ContextualTabSets>
                 
                 <odc:RibbonContextualTabSet>
-                    <odc:RibbonTabItem x:Name="ResourceListTab" Title="View Utilities">
+                    <odc:RibbonTabItem x:Name="ResourceListTab" Title="{Binding Path=RibbonContext_List}">
 
                         <odc:RibbonGroup>
 
-                            <odc:RibbonToggleButton x:Name="EnableGroups" Content="enable grouping" LargeImage="Images\LargeIcon.png"
+                            <odc:RibbonToggleButton x:Name="EnableGroups" Content="{Binding Path=List_EnableGroups}" LargeImage="Images\LargeIcon.png"
                                                Unchecked="GroupsChanged" Checked="GroupsChanged" IsChecked="True"/>
 
-                            <odc:RibbonDropDownButton Content="hidden resource types" SmallImage="Images\LargeIcon.png" Margin="5" x:Name="visTypes">
+                            <odc:RibbonDropDownButton Content="{Binding Path=List_HiddenTypes}" SmallImage="Images\LargeIcon.png" Margin="5" x:Name="visTypes">
 
                                 <odc:RibbonDropDownButton.ItemTemplate>
                                     <DataTemplate>
@@ -176,62 +176,60 @@
 
                             </odc:RibbonDropDownButton>
 
-                            <odc:RibbonToggleButton x:Name="ShowLinks" Content="show links" SmallImage="Images\SmallIcon.png"
+                            <odc:RibbonToggleButton x:Name="ShowLinks" Content="{Binding Path=List_ShowResolvable}" SmallImage="Images\SmallIcon.png"
                             Unchecked="FilterChanged" Checked="FilterChanged" IsChecked="False" Margin="5"/>
 
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="CustomGroup1" Title="custom"/>
+                        <odc:RibbonGroup x:Name="CustomGroup1"/>
 
                     </odc:RibbonTabItem>
                 </odc:RibbonContextualTabSet>
 
                 <odc:RibbonContextualTabSet x:Name="contextEditing">
-                    <odc:RibbonTabItem x:Name="EditTab" Title="Editing">
+                    <odc:RibbonTabItem x:Name="EditTab" Title="{Binding Path=RibbonContext_Edit}">
 
-                        <odc:RibbonGroup x:Name="Group3" Title="clipboard">
+                        <odc:RibbonGroup x:Name="Group3" Title="{Binding Path=RibbonGroup_Clipboard}">
 
-                            <odc:RibbonButton x:Name="PasteButton" LargeImage="Images\RibbonTab2\paste.png" Content="Insert" />
+                            <odc:RibbonButton x:Name="PasteButton" LargeImage="Images\RibbonTab2\paste.png" Content="{Binding Path=Edit_Paste}" />
 
-                            <odc:RibbonButton x:Name="CutButton" SmallImage="Images\RibbonTab2\cut.png" Content="Cut"/>
+                            <odc:RibbonButton x:Name="CutButton" SmallImage="Images\RibbonTab2\cut.png" Content="{Binding Path=Edit_Cut}"/>
 
-                            <odc:RibbonButton x:Name="CopyButton" SmallImage="Images\RibbonTab2\copy.png" Content="Copy"/>
-
-                            <odc:RibbonButton x:Name="DeleteButton" SmallImage="Images\RibbonTab2\delete.png" Content="Delete"/>
+                            <odc:RibbonButton x:Name="CopyButton" SmallImage="Images\RibbonTab2\copy.png" Content="{Binding Path=Edit_Copy}"/>
 
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group4" Title="View">
+                        <odc:RibbonGroup x:Name="Group4" Title="{Binding Path=RibbonGroup_View}">
 
                             <odc:RibbonButton x:Name="ViewPlusButton" SmallImage="Images\RibbonTab2\viewplus.png"
-                                             Content="plus"/>
+                                             Content="{Binding Path=Edit_ZoomIn}"/>
                             <odc:RibbonButton x:Name="ViewMinusButton" SmallImage="Images\RibbonTab2\viewminus.png"
-                                             Content="minus"/>
+                                             Content="{Binding Path=Edit_ZoomOut}"/>
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group5" Title="Undo and redo">
+                        <odc:RibbonGroup x:Name="Group5" Title="{Binding Path=RibbonGroup_UndoRedo}">
 
-                            <odc:RibbonButton x:Name="UndoButton" SmallImage="Images\RibbonTab2\undo.png" Content="Undo"/>
+                            <odc:RibbonButton x:Name="UndoButton" SmallImage="Images\RibbonTab2\undo.png" Content="{Binding Path=Edit_Undo}"/>
 
-                            <odc:RibbonButton x:Name="RedoButton" SmallImage="Images\RibbonTab2\redo.png" Content="Redo"/>
+                            <odc:RibbonButton x:Name="RedoButton" SmallImage="Images\RibbonTab2\redo.png" Content="{Binding Path=Edit_Redo}"/>
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup>
+                        <odc:RibbonGroup Title="{Binding Path=RibbonGroup_SaveOpen}">
 
-                            <odc:RibbonButton Content="Save" LargeImage="Images\RibbonTab2\filesave.png" Click="ResourceSave"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Save}" LargeImage="Images\RibbonTab2\filesave.png" Click="ResourceSave"/>
 
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group6" Title="Search and Replace">
+                        <odc:RibbonGroup x:Name="Group6" Title="{Binding Path=RibbonGroup_Search}">
 
-                            <odc:RibbonButton x:Name="SearchButton" Content="search" SmallImage="Images\RibbonTab2\search.png"/>
+                            <odc:RibbonButton x:Name="SearchButton" Content="{Binding Path=Edit_Search}" SmallImage="Images\RibbonTab2\search.png"/>
 
-                            <odc:RibbonButton x:Name="ReplaceButton" Content="replace" SmallImage="Images\RibbonTab2\search.png"/>
+                            <odc:RibbonButton x:Name="ReplaceButton" Content="{Binding Path=Edit_Replace}" SmallImage="Images\RibbonTab2\search.png"/>
                         </odc:RibbonGroup>
-                        
-                        <odc:RibbonGroup x:Name="Group7" Title="Code-specific">
 
-                            <odc:RibbonDropDownButton x:Name="StubCreators" LargeImage="Images\LargeIcon.png" Content="new element">
+                        <odc:RibbonGroup x:Name="Group7" Title="{Binding Path=RibbonGroup_Code}">
+
+                            <odc:RibbonDropDownButton x:Name="StubCreators" LargeImage="Images\LargeIcon.png" Content="{Binding Path=Edit_NewCodeStub}">
 
                                 <odc:RibbonDropDownButton.ItemTemplate>
                                     <DataTemplate>
@@ -256,28 +254,28 @@
 
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="CustomGroup2" Title="custom"/>
+                        <odc:RibbonGroup x:Name="CustomGroup2"/>
 
                     </odc:RibbonTabItem>
                 </odc:RibbonContextualTabSet>
 
                 <odc:RibbonContextualTabSet x:Name="contextResourceView">
-                    
-                    <odc:RibbonTabItem x:Name="ResourceViewTab" Title="Resource">
+
+                    <odc:RibbonTabItem x:Name="ResourceViewTab" Title="{Binding Path=RibbonContext_View}">
                         <odc:RibbonGroup x:Name="Group8">
 
-                            <odc:RibbonDropDownButton x:Name="AddChildResource" Content="Add child resource" LargeImage="Images\LargeIcon.png"/>
+                            <odc:RibbonDropDownButton x:Name="AddChildResource" Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"/>
 
-                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="Move"/>
+                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Move}"/>
 
-                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="Delete" Click="ResourceDelete"/>
+                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Delete}" Click="ResourceDelete"/>
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup>
-                            <odc:RibbonButton x:Name="OpenEdit" Content="Edit" LargeImage="Images\edit.png" Click="ResourceEdit"/>
+                            <odc:RibbonButton x:Name="OpenEdit" Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png" Click="ResourceEdit"/>
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="CustomGroup3" Title="custom"/>
+                        <odc:RibbonGroup x:Name="CustomGroup3"/>
 
                     </odc:RibbonTabItem>
                     

@@ -129,6 +129,39 @@
   <data name="Del_Confirm" xml:space="preserve">
     <value>Do you want to delete the {0}-resource and all its child resources?</value>
   </data>
+  <data name="Edit_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Edit_Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="Edit_NewCodeStub" xml:space="preserve">
+    <value>new element...</value>
+  </data>
+  <data name="Edit_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="Edit_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="Edit_Replace" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="Edit_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Edit_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Edit_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Edit_ZoomIn" xml:space="preserve">
+    <value>Zoom in</value>
+  </data>
+  <data name="Edit_ZoomOut" xml:space="preserve">
+    <value>Zoom out</value>
+  </data>
   <data name="Error_Package" xml:space="preserve">
     <value>An error occured during packaging:</value>
   </data>
@@ -161,6 +194,15 @@
   <data name="Item_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="List_EnableGroups" xml:space="preserve">
+    <value>Enable grouping</value>
+  </data>
+  <data name="List_HiddenTypes" xml:space="preserve">
+    <value>Hidden resource types</value>
+  </data>
+  <data name="List_ShowResolvable" xml:space="preserve">
+    <value>Show links</value>
+  </data>
   <data name="ModuleInfo" xml:space="preserve">
     <value>{0} module (version {1}) by {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
@@ -188,6 +230,33 @@
   </data>
   <data name="ResourceUnpackage" xml:space="preserve">
     <value>Unpackage resources</value>
+  </data>
+  <data name="RibbonContext_Edit" xml:space="preserve">
+    <value>Editing</value>
+  </data>
+  <data name="RibbonContext_List" xml:space="preserve">
+    <value>View Utilities</value>
+  </data>
+  <data name="RibbonContext_View" xml:space="preserve">
+    <value>Resource</value>
+  </data>
+  <data name="RibbonGroup_Clipboard" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="RibbonGroup_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="RibbonGroup_SaveOpen" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="RibbonGroup_Search" xml:space="preserve">
+    <value>Search &amp; Replace</value>
+  </data>
+  <data name="RibbonGroup_UndoRedo" xml:space="preserve">
+    <value>Undo &amp; Redo</value>
+  </data>
+  <data name="RibbonGroup_View" xml:space="preserve">
+    <value>View</value>
   </data>
   <data name="Selection_CreateNew" xml:space="preserve">
     <value>create a new resource</value>
@@ -231,6 +300,18 @@
   </data>
   <data name="Status_Pack" xml:space="preserve">
     <value>CC - packaging resources...</value>
+  </data>
+  <data name="View_AddChild" xml:space="preserve">
+    <value>Add a child resource</value>
+  </data>
+  <data name="View_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="View_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="View_Move" xml:space="preserve">
+    <value>Move</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome!</value>
