@@ -42,19 +42,23 @@ namespace ChameleonCoder.ResourceCore
 
         public string GetText()
         {
-            if (IsBinary(this.Path))
-                return "file is binary (contains null chars) and can't be loaded";
+            if (!string.IsNullOrWhiteSpace(Path))
+            {
+                if (IsBinary(this.Path))
+                    return "file is binary (contains null chars) and can't be loaded";
 
-            try { return File.ReadAllText(this.Path); }
-            catch (DirectoryNotFoundException) { }
-            catch (FileNotFoundException) { }
+                try { return File.ReadAllText(this.Path); }
+                catch (DirectoryNotFoundException) { }
+                catch (FileNotFoundException) { }
+            }
             return string.Empty;
         }
 
         public void SaveText(string text)
         {
-            if (!IsBinary(this.Path))
-                File.WriteAllText(this.Path, text);
+            if (!string.IsNullOrWhiteSpace(Path))
+                if (!IsBinary(this.Path))
+                    File.WriteAllText(this.Path, text);
         }
 
         #endregion
