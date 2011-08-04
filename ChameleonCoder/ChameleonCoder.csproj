@@ -128,14 +128,12 @@
     <Compile Include="Interaction\ResourceSelector.xaml.cs">
       <DependentUpon>ResourceSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LanguageModules\CodeGeneratorEventArgs.cs" />
     <Compile Include="Navigation\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="InstanceCollection.cs" />
-    <Compile Include="IPluginHost.cs" />
-    <Compile Include="LanguageModules\CodeGeneratorEventArgs.cs" />
     <Compile Include="LanguageModules\ILanguageModule.cs" />
-    <Compile Include="LanguageModules\ILanguageModuleHost.cs" />
     <Compile Include="LanguageModules\LanguageModuleHost.cs" />
     <Compile Include="Navigation\ResourceListPage.xaml.cs">
       <DependentUpon>ResourceListPage.xaml</DependentUpon>
@@ -173,7 +171,6 @@
       <DependentUpon>ResourceTypeSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\IService.cs" />
-    <Compile Include="Services\IServiceHost.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
     <Compile Include="Services\ServiceHost.cs" />
     <Compile Include="Resources\Metadata.cs" />
