@@ -34,7 +34,7 @@ namespace ChameleonCoder
             this.DataContext = this;
 
             this.ResourceParent.Text = parent;
-            this.ResourceType.Text = InformationProvider.GetInfo(target).DisplayName;
+            this.ResourceType.Text = InformationProvider.GetResourceTypeInfo(target).DisplayName;
 
             this.ResGuid = Guid.NewGuid();
 

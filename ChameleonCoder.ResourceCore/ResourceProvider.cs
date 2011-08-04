@@ -60,7 +60,7 @@ namespace ChameleonCoder.ResourceCore
                 #region Xml
 
                 XmlDocument doc = (parent == null) ? new XmlDocument() : parent.Xml.OwnerDocument;
-                XmlElement node = doc.CreateElement(InformationProvider.GetInfo(target).Alias);
+                XmlElement node = doc.CreateElement(InformationProvider.GetResourceTypeInfo(target).Alias);
 
                 foreach (KeyValuePair<string, string> pair in creator.GetXmlAttributes())
                 {
