@@ -150,7 +150,7 @@ namespace ChameleonCoder.Interaction
             }
         }
 
-        [System.ComponentModel.BindableAttribute(true)]
+        [System.ComponentModel.BindableAttribute(true, System.ComponentModel.BindingDirection.OneWay)]
         public IResource SelectedItem
         {
             get

@@ -21,11 +21,29 @@ namespace ChameleonCoder
         public string Item_List { get { return Res.Item_List; } }
         public string Item_Settings { get { return Res.Item_Settings; } }
 
+        public string Info_Name { get { return Res.Info_Name; } }
+        public string Info_Description { get { return Res.Info_Description; } }
+        public string Info_GUID { get { return Res.Info_GUID; } }
+        public string Info_Icon { get { return Res.Info_Icon; } }
+        public string Info_Special { get { return Res.Info_Special; } }
+        public string Info_Author { get { return Res.Info_Author; } }
+        public string Info_Visual { get { return Res.Info_Visual; } }
+        public string Info_Alias { get { return Res.Info_Alias; } }
+        public string Info_File { get { return Res.Info_File; } }
+        public string Info_Assembly { get { return Res.Info_Assembly; } }
+        public string Info_Class { get { return Res.Info_Class; } }
+
+        public string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
+
         public string Services { get { return Res.Services; } }
 
         public string Action_Restart { get { return Res.Action_Restart; } }
         public string Action_Exit { get { return Res.Action_Exit; } }
         public string Action_Apply { get { return Res.Action_Apply; } }
+        public string Action_Add { get { return Res.Action_Add; } }
+        public string Action_Remove { get { return Res.Action_Remove; } }
+        public string Action_OK { get { return Res.Action_OK; } }
+        public string Action_Cancel { get { return Res.Action_Cancel; } }
 
         public string ResourceImport { get { return Res.ResourceImport; } }
         public string ResourcePackage { get { return Res.ResourcePackage; } }

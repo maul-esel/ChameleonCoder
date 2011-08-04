@@ -70,6 +70,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Add ähnelt.
+        /// </summary>
+        internal static string Action_Add {
+            get {
+                return ResourceManager.GetString("Action_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Apply ähnelt.
         /// </summary>
         internal static string Action_Apply {
@@ -79,11 +88,38 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
+        /// </summary>
+        internal static string Action_Cancel {
+            get {
+                return ResourceManager.GetString("Action_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Exit ähnelt.
         /// </summary>
         internal static string Action_Exit {
             get {
                 return ResourceManager.GetString("Action_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die OK ähnelt.
+        /// </summary>
+        internal static string Action_OK {
+            get {
+                return ResourceManager.GetString("Action_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Remove ähnelt.
+        /// </summary>
+        internal static string Action_Remove {
+            get {
+                return ResourceManager.GetString("Action_Remove", resourceCulture);
             }
         }
         
@@ -250,6 +286,105 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die XML Alias: ähnelt.
+        /// </summary>
+        internal static string Info_Alias {
+            get {
+                return ResourceManager.GetString("Info_Alias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Plugin Name (Assembly): ähnelt.
+        /// </summary>
+        internal static string Info_Assembly {
+            get {
+                return ResourceManager.GetString("Info_Assembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Author: ähnelt.
+        /// </summary>
+        internal static string Info_Author {
+            get {
+                return ResourceManager.GetString("Info_Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Class: ähnelt.
+        /// </summary>
+        internal static string Info_Class {
+            get {
+                return ResourceManager.GetString("Info_Class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Description: ähnelt.
+        /// </summary>
+        internal static string Info_Description {
+            get {
+                return ResourceManager.GetString("Info_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Plugin file: ähnelt.
+        /// </summary>
+        internal static string Info_File {
+            get {
+                return ResourceManager.GetString("Info_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die GUID: ähnelt.
+        /// </summary>
+        internal static string Info_GUID {
+            get {
+                return ResourceManager.GetString("Info_GUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Icon: ähnelt.
+        /// </summary>
+        internal static string Info_Icon {
+            get {
+                return ResourceManager.GetString("Info_Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name: ähnelt.
+        /// </summary>
+        internal static string Info_Name {
+            get {
+                return ResourceManager.GetString("Info_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die special information: ähnelt.
+        /// </summary>
+        internal static string Info_Special {
+            get {
+                return ResourceManager.GetString("Info_Special", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Icon &amp; Color: ähnelt.
+        /// </summary>
+        internal static string Info_Visual {
+            get {
+                return ResourceManager.GetString("Info_Visual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Home ähnelt.
         /// </summary>
         internal static string Item_Home {
@@ -327,24 +462,6 @@ namespace ChameleonCoder.Properties {
         internal static string ModuleInfo {
             get {
                 return ResourceManager.GetString("ModuleInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Description: ähnelt.
-        /// </summary>
-        internal static string Name_Description {
-            get {
-                return ResourceManager.GetString("Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Name: ähnelt.
-        /// </summary>
-        internal static string Name_Name {
-            get {
-                return ResourceManager.GetString("Name_Name", resourceCulture);
             }
         }
         
@@ -606,6 +723,15 @@ namespace ChameleonCoder.Properties {
         internal static string Status_Pack {
             get {
                 return ResourceManager.GetString("Status_Pack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Select this resource type ähnelt.
+        /// </summary>
+        internal static string TypeSelector_Select {
+            get {
+                return ResourceManager.GetString("TypeSelector_Select", resourceCulture);
             }
         }
         

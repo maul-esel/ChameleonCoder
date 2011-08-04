@@ -25,7 +25,8 @@ namespace ChameleonCoder.Interaction
             foreach (Type t in types)
                 list.Add(ResourceTypeManager.GetInfo(t).Background, t);
 
-            DataContext = list.OrderBy(pair => ResourceTypeManager.GetInfo(pair.Value).DisplayName);
+            DataContext = App.Gui.DataContext;
+            (this.Resources["listSource"] as System.Windows.Data.CollectionViewSource).Source = list.OrderBy(pair => ResourceTypeManager.GetInfo(pair.Value).DisplayName);
         }
 
         private void UpdateInfo(object sender, EventArgs e)
@@ -45,7 +46,8 @@ namespace ChameleonCoder.Interaction
                     Alias = info.Alias,
                     File = System.IO.Path.GetFileName(type.Assembly.Location),
                     Assembly = type.Assembly.GetName().Name,
-                    Class = type.Name + " (" + type + ")"
+                    Class = type.Name + " (" + type + ")",
+                    Lang = App.Gui.DataContext
                 };
             }
             else

@@ -120,11 +120,23 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Action_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="Action_Apply" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="Action_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Action_Exit" xml:space="preserve">
     <value>Exit</value>
+  </data>
+  <data name="Action_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Action_Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="Action_Restart" xml:space="preserve">
     <value>Restart</value>
@@ -180,6 +192,39 @@
   <data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="Info_Alias" xml:space="preserve">
+    <value>XML Alias:</value>
+  </data>
+  <data name="Info_Assembly" xml:space="preserve">
+    <value>Plugin Name (Assembly):</value>
+  </data>
+  <data name="Info_Author" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="Info_Class" xml:space="preserve">
+    <value>Class:</value>
+  </data>
+  <data name="Info_Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="Info_File" xml:space="preserve">
+    <value>Plugin file:</value>
+  </data>
+  <data name="Info_GUID" xml:space="preserve">
+    <value>GUID:</value>
+  </data>
+  <data name="Info_Icon" xml:space="preserve">
+    <value>Icon:</value>
+  </data>
+  <data name="Info_Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="Info_Special" xml:space="preserve">
+    <value>special information:</value>
+  </data>
+  <data name="Info_Visual" xml:space="preserve">
+    <value>Icon &amp; Color:</value>
+  </data>
   <data name="Item_Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -209,12 +254,6 @@
   <data name="ModuleInfo" xml:space="preserve">
     <value>{0} module (version {1}) by {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
-  </data>
-  <data name="Name_Description" xml:space="preserve">
-    <value>Description:</value>
-  </data>
-  <data name="Name_Name" xml:space="preserve">
-    <value>Name:</value>
   </data>
   <data name="Pack_Finished" xml:space="preserve">
     <value>Resources were successfully packaged!</value>
@@ -303,6 +342,9 @@
   </data>
   <data name="Status_Pack" xml:space="preserve">
     <value>CC - packaging resources...</value>
+  </data>
+  <data name="TypeSelector_Select" xml:space="preserve">
+    <value>Select this resource type</value>
   </data>
   <data name="View_AddChild" xml:space="preserve">
     <value>Add a child resource</value>

@@ -32,6 +32,7 @@ namespace ChameleonCoder.Interaction
             InitializeComponent();
             Catalog.Collection = resources;
             Catalog.SelectedItemChanged += ValidateButtons;
+            DataContext = new { Lang = App.Gui.DataContext };
 
             OKButton.Click += (sender, e) =>
             {
@@ -81,7 +82,7 @@ namespace ChameleonCoder.Interaction
                 AddButton.Visibility = Visibility.Visible;
                 RemButton.Visibility = Visibility.Hidden;
             }
-            DataContext = Catalog.SelectedItem;
+            DataContext = new { Lang = App.Gui.DataContext, Res = Catalog.SelectedItem };
         }
     }
 }
