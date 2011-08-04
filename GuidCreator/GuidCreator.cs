@@ -8,8 +8,6 @@ namespace GuidCreator
     {
         #region infrastructure
 
-        IServiceHost host;
-
         bool busy;
 
         #endregion
@@ -29,9 +27,8 @@ namespace GuidCreator
         public bool IsBusy { get { return busy; } }
         public System.Windows.Media.ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/GuidCreator;component/icon.png")).GetAsFrozen() as BitmapImage; } }
 
-        public void Initialize(IServiceHost host)
+        public void Initialize()
         {
-            this.host = host;
         }
 
         public void Call()

@@ -28,7 +28,7 @@ namespace ChameleonCoder.Services
         /// called when the app starts and loads all plugins
         /// </summary>
         /// <param name="Host">the instance of the IServiceHost interface the plugin can use to communicate.</param>
-        void Initialize(IServiceHost host);
+        void Initialize();
 
         /// <summary>
         /// called when the user starts the service
