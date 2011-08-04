@@ -48,7 +48,6 @@ namespace ChameleonCoder.Interaction
 
         public static void RegisterStubCreator()
         {
-
         } // IStubCreator
 
         #endregion
@@ -189,6 +188,94 @@ namespace ChameleonCoder.Interaction
 
         public static event SettingsEventHandler LanguageChanged;
         public static event SettingsEventHandler ProgrammingDirChanged;
+
+        #endregion
+
+        #region event wrappers
+
+        internal static void OnResourceLoad(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceLoad;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnResourceLoaded(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceLoaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnResourceUnload(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceUnload;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnResourceUnloaded(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceUnloaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnModuleLoad(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleLoad;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnModuleLoaded(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleLoaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnModuleUnload(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleUnload;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleUnloaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnServiceExecute(Services.IService sender, EventArgs e)
+        {
+            ServiceEventHandler handler = ServiceExecute;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnServiceExecuted(Services.IService sender, EventArgs e)
+        {
+            ServiceEventHandler handler = ServiceExecuted;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        internal static void OnLanguageChanged()
+        {
+            SettingsEventHandler handler = LanguageChanged;
+            if (handler != null)
+                handler(Language);
+        }
+
+        internal static void OnProgrammingDirChanged()
+        {
+            SettingsEventHandler handler = ProgrammingDirChanged;
+            if (handler != null)
+                handler(Language);
+        }
 
         #endregion
     }
