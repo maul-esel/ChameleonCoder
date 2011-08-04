@@ -25,7 +25,7 @@ namespace ChameleonCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1031")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1033")]
         public int Language {
             get {
                 return ((int)(this["Language"]));

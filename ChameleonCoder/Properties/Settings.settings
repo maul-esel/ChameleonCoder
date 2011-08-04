@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Language" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1031</Value>
+      <Value Profile="(Default)">1033</Value>
     </Setting>
     <Setting Name="ProgrammingDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Programming\</Value>
