@@ -98,6 +98,8 @@ namespace ChameleonCoder
             {
                 IService service = item.DataContext as IService;
 
+                Interaction.InformationProvider.OnServiceExecute(service, new EventArgs());
+
                 CurrentActionProgress.IsIndeterminate = true;
                 CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.ServiceName, service.Version, service.Author, service.About);
 
@@ -106,6 +108,8 @@ namespace ChameleonCoder
 
                 CurrentActionProgress.IsIndeterminate = false;
                 CurrentAction.Text = string.Empty;
+
+                Interaction.InformationProvider.OnServiceExecuted(service, new EventArgs());
             }
         }
 

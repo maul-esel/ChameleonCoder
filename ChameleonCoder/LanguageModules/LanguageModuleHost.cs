@@ -35,17 +35,22 @@ namespace ChameleonCoder.LanguageModules
                 ILanguageModule module;
                 if (Modules.TryGetValue(ActiveModule, out module))
                 {
+                    Interaction.InformationProvider.OnModuleUnload(module, new EventArgs());
+
                     module.Unload();
                     if (App.Gui != null)
                     {
                         App.Gui.CustomGroup1.Controls.Clear();
                         App.Gui.CustomGroup2.Controls.Clear();
                         App.Gui.CustomGroup3.Controls.Clear();
+                        App.Gui.CurrentModule.Text = string.Empty;
                     }
+
+                    ActiveModule = Guid.Empty;
+
+                    Interaction.InformationProvider.OnModuleUnloaded(module, new EventArgs());
                 }
-                ActiveModule = Guid.Empty;
-                if (App.Gui != null)
-                    App.Gui.CurrentModule.Text = string.Empty;
+                
             }
         }
 
@@ -59,11 +64,15 @@ namespace ChameleonCoder.LanguageModules
             ILanguageModule module;
             if (Modules.TryGetValue(language, out module))
             {
+                Interaction.InformationProvider.OnModuleLoad(module, new EventArgs());
+
                 module.Load();
                 ActiveModule = language;
 
                 App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                     module.LanguageName, module.Version, module.Author, module.About);
+
+                Interaction.InformationProvider.OnModuleLoaded(module, new EventArgs());
             }
         }
 

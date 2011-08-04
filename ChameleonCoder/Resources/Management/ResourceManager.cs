@@ -57,6 +57,11 @@ namespace ChameleonCoder.Resources.Management
 
         internal static void Open(IResource resource)
         {
+            Interaction.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
+            Interaction.InformationProvider.OnResourceUnloaded(ActiveItem, new EventArgs());
+
+            Interaction.InformationProvider.OnResourceLoad(resource, new EventArgs());
+
             ActiveItem = resource;
 
             ILanguageResource langRes;
@@ -70,8 +75,7 @@ namespace ChameleonCoder.Resources.Management
                     LanguageModules.LanguageModuleHost.LoadModule(langRes.language);
                 }
             }
+            Interaction.InformationProvider.OnResourceLoaded(resource, new EventArgs());
         }
-
-        // needed: remove methods
     }
 }
