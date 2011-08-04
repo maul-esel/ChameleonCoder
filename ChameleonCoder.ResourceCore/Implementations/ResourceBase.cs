@@ -23,17 +23,22 @@ namespace ChameleonCoder.ResourceCore
         /// <param name="parent">the parent resource</param>
         public virtual void Init(XmlElement node, IResource parent)
         {
-            this.Xml = node;
-            this.Parent = parent;
-            this.children = new ResourceCollection();
+            Xml = node;
+            Parent = parent;
 
-            this.GUID = new Guid(node.Attributes["guid"].Value);
+            if (children == null)
+                children = new ResourceCollection();
 
-            this.MetaData = new MetadataCollection();
-            foreach (XmlNode meta in (from XmlNode meta in node.ChildNodes
-                                      where meta.Name == "metadata"
-                                      select meta))
-                this.MetaData.Add(new Metadata(meta));
+            GUID = new Guid(node.Attributes["guid"].Value);
+
+            if (MetaData == null)
+            {
+                MetaData = new MetadataCollection();
+                foreach (XmlNode meta in (from XmlNode meta in node.ChildNodes
+                                          where meta.Name == "metadata"
+                                          select meta))
+                    MetaData.Add(new Metadata(meta));
+            }
         }
 
         public XmlElement Xml { get; private set; }

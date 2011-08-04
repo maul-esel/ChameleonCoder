@@ -139,7 +139,7 @@ namespace ChameleonCoder
 
         private void ResourceDelete(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete this resource?", "CC - deleting resource...", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show(string.Format(Properties.Resources.Del_Confirm, ResourceManager.ActiveItem.Name), Properties.Resources.Status_DeleteResource, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 ResourceManager.ActiveItem.Delete();
         }
 
@@ -165,20 +165,13 @@ namespace ChameleonCoder
             }
         }
 
-        private void ResourceSave(object sender, EventArgs e)
+        private void ResourceMove(object sender, EventArgs e)
         {
-            ResourceSave(Tabs.SelectedItem as TabContext);
-        }
-
-        private void ResourceSave(TabContext page)
-        {
-            ResourceSave(page.Content as EditPage);
-        }
-
-        private void ResourceSave(EditPage page)
-        {
-            if (page != null)
-                page.Save();
+            Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
+            if (selector.ShowDialog() == true)
+            {
+                ResourceManager.ActiveItem.Move(selector.resources[0]);
+            }
         }
 
         private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -227,17 +220,33 @@ namespace ChameleonCoder
                 BackgroundWorker worker = new BackgroundWorker() { WorkerSupportsCancellation = false };
                 worker.DoWork += (bw, args) => PackageManager.PackageResources(selector.resources);
                 worker.RunWorkerCompleted += (bw, args) =>
-                    {
-                        if (args.Error != null)
-                            MessageBox.Show(Properties.Resources.Error_Package + "\n\n" + args.Error.ToString());
-                        else
-                            MessageBox.Show(Properties.Resources.Pack_Finished);
+                {
+                    if (args.Error != null)
+                        MessageBox.Show(Properties.Resources.Error_Package + "\n\n" + args.Error.ToString());
+                    else
+                        MessageBox.Show(Properties.Resources.Pack_Finished);
 
-                        CurrentAction.Text = string.Empty;
-                        CurrentActionProgress.IsIndeterminate = false;
-                    };
+                    CurrentAction.Text = string.Empty;
+                    CurrentActionProgress.IsIndeterminate = false;
+                };
                 worker.RunWorkerAsync();
             }
+        }
+
+        private void ResourceSave(object sender, EventArgs e)
+        {
+            ResourceSave(Tabs.SelectedItem as TabContext);
+        }
+
+        private void ResourceSave(TabContext page)
+        {
+            ResourceSave(page.Content as EditPage);
+        }
+
+        private void ResourceSave(EditPage page)
+        {
+            if (page != null)
+                page.Save();
         }
 
         private void ResourcesUnpackage(object sender, EventArgs e)

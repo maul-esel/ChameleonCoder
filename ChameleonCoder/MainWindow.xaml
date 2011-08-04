@@ -266,7 +266,7 @@
 
                             <odc:RibbonDropDownButton x:Name="AddChildResource" Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"/>
 
-                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Move}"/>
+                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Move}" Click="ResourceMove"/>
 
                             <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Delete}" Click="ResourceDelete"/>
                         </odc:RibbonGroup>

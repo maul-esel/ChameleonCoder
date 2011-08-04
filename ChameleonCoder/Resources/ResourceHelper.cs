@@ -1,55 +1,110 @@
 ﻿using System;
+using System.Xml;
+using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
 {
     internal static class ResourceHelper
     {
+        #region Save & Delete
         public static void Save(this IResource resource)
         {
             if (resource != null)
+            {
                 foreach (IResource child in resource.children)
                     child.Save();
 
-            IResolvable link = resource as IResolvable;
-            if (link != null)
-                link.Resolve().Save();
+                IResolvable link = resource as IResolvable;
+                if (link != null)
+                    link.Resolve().Save();
 
-            IRichContentResource richResource = resource as IRichContentResource;
-            if (richResource != null)
-                //foreach(RichContent.IContentMember content in richResource.RichContent)
-                richResource.ToString(); // todo!
+                IRichContentResource richResource = resource as IRichContentResource;
+                if (richResource != null)
+                    foreach (Resources.RichContent.IContentMember content in richResource.RichContent)
+                        content.Save();
 
-            resource.Xml.OwnerDocument.Save(resource.GetResourceFile());
+                resource.Xml.OwnerDocument.Save(resource.GetResourceFile());
+            }
         }
 
         public static void Delete(this IResource resource)
         {
-            if (System.Windows.MessageBox.Show(Properties.Resources.Del_Confirm, Properties.Resources.Status_DeleteResource, System.Windows.MessageBoxButton.OKCancel) != System.Windows.MessageBoxResult.Cancel)
+            if (resource != null)
             {
-                if (resource != null)
-                    foreach (IResource child in resource.children)
-                        child.Delete();
+                if (ResourceManager.ActiveItem == resource)
+                    ResourceManager.ActiveItem = null;
 
-                resource.Xml.RemoveAll();
-                resource.Xml.OwnerDocument.Save(new Uri(resource.Xml.BaseURI).LocalPath);
+                foreach (IResource child in resource.children)
+                    child.Delete();
+
+                string path = resource.GetResourceFile();
+                if (resource.Parent != null)
+                {
+                    resource.Parent.Xml.RemoveChild(resource.Xml);
+                    resource.Xml.OwnerDocument.Save(path);
+                }
+                else
+                    System.IO.File.Delete(path);                    
+
+                (resource.Parent == null ? ResourceManager.GetChildren() : resource.Parent.children).Remove(resource.GUID);
+                ResourceManager.GetList().Remove(resource.GUID);
             }
         }
+        #endregion
 
         public static void Move(this IResource resource, IResource newParent)
         {
-            System.Xml.XmlNode node;
+            if (resource != null)
+            {
+                XmlDocument newDoc = newParent == null ? new XmlDocument() : newParent.Xml.OwnerDocument;
 
-            resource.Parent.children.Remove(resource.GUID);
-            resource.Parent.Xml.RemoveChild(resource.Xml);
+                XmlElement node = InformationProvider.CloneElement(resource.Xml, newDoc);
 
-            newParent.children.Add(resource);
-            newParent.Xml.AppendChild(node = resource.Xml.CloneNode(true));
+                (resource.Parent == null ? ResourceManager.GetChildren() : resource.Parent.children).Remove(resource.GUID);
 
-            //resource.Xml = node;
-            //resource.Parent = newParent;
+                string path = resource.GetResourceFile();
+                if (resource.Parent != null)
+                {
+                    resource.Parent.Xml.RemoveChild(resource.Xml);
+                    resource.Xml.OwnerDocument.Save(path);
+                }
+                else
+                    System.IO.File.Delete(path);
+
+                (newParent == null ? ResourceManager.GetChildren() : newParent.children).Add(resource);
+                (newParent == null ? (XmlNode)newDoc : newParent.Xml).AppendChild(node);
+
+                resource.Init(node, newParent);
+                if (newParent == null)
+                {
+                    path = InformationProvider.FindFreePath(InformationProvider.DataDir, resource.Name + ".ccr", true);
+                    newDoc.Save(path);
+                    newDoc = new XmlDocument();
+                    newDoc.Load(path);
+                    resource.Init(newDoc.DocumentElement, newParent);
+                }
+                newDoc.Save(resource.GetResourceFile());
+            }
         }
 
+        public static void Copy(this IResource resource, IResource newParent)
+        {
+            if (resource != null)
+            {
+                XmlElement node = InformationProvider.CloneElement(resource.Xml, newParent.Xml.OwnerDocument);
+                node.Attributes["guid"].Value = Guid.NewGuid().ToString("b");
+
+                newParent.Xml.AppendChild(node);                
+
+                IResource copy = Activator.CreateInstance(resource.GetType()) as IResource;
+                copy.Init(node, newParent);
+                ResourceManager.Add(copy, newParent);
+            }
+        }
+
+        #region metadata
         public static void AddMetadata(this IResource resource, Resources.Metadata meta)
         {
             System.Xml.XmlNode node = resource.Xml.SelectSingleNode("metadata");
@@ -62,7 +117,9 @@ namespace ChameleonCoder
             //resource.Xml.RemoveChild(meta.Xml);
             resource.MetaData.Remove(meta);
         }
+        #endregion
 
+        #region path
         public static string GetPath(this IResource resource, string delimiter)
         {
             string path = string.Empty;
@@ -110,6 +167,7 @@ namespace ChameleonCoder
         {
             return GetResourceFromPath(path, "\\");
         }
+        #endregion
 
         public static string GetResourceFile(this IResource resource)
         {
