@@ -180,7 +180,7 @@ namespace ChameleonCoder
                file => ParseFile(file));
         }
 
-        private static void AddResource(XmlNode node, IResource parent)
+        private static void AddResource(XmlElement node, IResource parent)
         {
             IResource resource;
             
@@ -196,7 +196,7 @@ namespace ChameleonCoder
 
             ResourceManager.Add(resource, parent);
 
-            foreach (XmlNode child in node.ChildNodes)
+            foreach (XmlElement child in node.ChildNodes)
             {
                 if (child.Name == "metadata")
                     continue;
