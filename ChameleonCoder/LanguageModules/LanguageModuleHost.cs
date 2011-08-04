@@ -32,7 +32,8 @@ namespace ChameleonCoder.LanguageModules
         {
             UnloadModule();
             foreach (ILanguageModule module in Modules.Values)
-                module.Shutdown();
+                if (module != null)
+                    module.Shutdown();
         }
 
         internal static void UnloadModule()
@@ -43,12 +44,16 @@ namespace ChameleonCoder.LanguageModules
                 if (Modules.TryGetValue(ActiveModule, out module))
                 {
                     module.Unload();
-                    App.Gui.CustomGroup1.Controls.Clear();
-                    App.Gui.CustomGroup2.Controls.Clear();
-                    App.Gui.CustomGroup3.Controls.Clear();
+                    if (App.Gui != null)
+                    {
+                        App.Gui.CustomGroup1.Controls.Clear();
+                        App.Gui.CustomGroup2.Controls.Clear();
+                        App.Gui.CustomGroup3.Controls.Clear();
+                    }
                 }
                 ActiveModule = Guid.Empty;
-                App.Gui.CurrentModule.Text = string.Empty;
+                if (App.Gui != null)
+                    App.Gui.CurrentModule.Text = string.Empty;
             }
         }
 

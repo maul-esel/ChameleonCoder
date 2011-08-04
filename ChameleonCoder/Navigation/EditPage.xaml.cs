@@ -13,6 +13,9 @@ namespace ChameleonCoder.Navigation
             InitializeComponent();
             this.Resource = resource;
             this.Editor.Text = resource.GetText();
+            ILanguageResource langRes = resource as ILanguageResource;
+            if (langRes != null)
+                LanguageModules.LanguageModuleHost.LoadModule(langRes.language);
         }
 
         internal IEditable Resource { get; private set; }
