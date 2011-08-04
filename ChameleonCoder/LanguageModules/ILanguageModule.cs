@@ -31,7 +31,7 @@ namespace ChameleonCoder.LanguageModules
         /// called when the app starts and loads all plugins
         /// </summary>
         /// <param name="Host">the instance of the ILanguageModuleHost interface the plugin can use to communicate.</param>
-        void Initialize(ILanguageModuleHost host);
+        void Initialize();
 
         /// <summary>
         /// called when the user requests to compile a resource

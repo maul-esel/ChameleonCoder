@@ -5,13 +5,10 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.LanguageModules
 {
-    public sealed class LanguageModuleHost : ILanguageModuleHost
+    public static class LanguageModuleHost
     {
-        #region infrastructure
-
         private static SortedList<Guid, ILanguageModule> Modules = new SortedList<Guid, ILanguageModule>();
         private static Guid ActiveModule = Guid.Empty;
-        private static LanguageModuleHost instance = new LanguageModuleHost();
 
         internal static void Add(Type type)
         {
@@ -19,7 +16,7 @@ namespace ChameleonCoder.LanguageModules
             if (module != null)
             {
                 Modules.Add(module.Language, module);
-                module.Initialize(instance as ILanguageModuleHost);
+                module.Initialize();
             }
         }
 
@@ -86,126 +83,5 @@ namespace ChameleonCoder.LanguageModules
         {
             return Modules.Values;
         }
-
-        #endregion
-
-        #region ILanguageModuleHost
-
-        int ILanguageModuleHost.MinSupportedAPIVersion { get { return 1; } }
-        int ILanguageModuleHost.MaxSupportedAPIVersion { get { return 1; } }
-
-        void ILanguageModuleHost.RegisterTool()
-        {
-        }
-
-        void ILanguageModuleHost.RegisterCodeGenerator(CodeGeneratorEventHandler clicked, ImageSource image, string text)
-        {
-            Odyssey.Controls.RibbonButton button = new Odyssey.Controls.RibbonButton();
-             
-            button.Click += delegate
-            {
-                CodeGeneratorEventArgs e = new CodeGeneratorEventArgs(); // todo: add information
-                clicked(Resources.Management.ResourceManager.ActiveItem, e);
-                if (!e.Handled)
-                    (this as ILanguageModuleHost).InsertCode(e.Code);
-            };
-            button.Content = text;
-            button.LargeImage = image;
-            App.Gui.CustomGroup2.Controls.Add(button);
-        }
-
-        void ILanguageModuleHost.RegisterStubCreator(int index, Action<Guid> clicked)
-        {
-            App.Gui.ToString();
-        }
-
-        void ILanguageModuleHost.RegisterStubCreator(string name, ImageSource custom, Action<Guid> clicked)
-        {
-            App.Gui.StubCreators.Items.Add(new KeyValuePair<string, ImageSource>(name, custom));
-        }
-
-        void ILanguageModuleHost.RegisterEditTool()
-        {
-        }
-        
-        /*void ILanguageModuleHost.AddButton(string text, System.Windows.Media.ImageSource Image, System.Windows.RoutedEventHandler clickHandler, int Panel)
-        {
-            Microsoft.Windows.Controls.Ribbon.RibbonButton button = new Microsoft.Windows.Controls.Ribbon.RibbonButton();
-
-            button.Click += clickHandler;
-            button.Label = text;
-            button.LargeImageSource = Image;
-
-            switch (Panel)
-            {
-                case 1: App.Gui.CustomGroup1.Items.Add(button); break;
-                case 2: App.Gui.CustomGroup2.Items.Add(button); break;
-                case 3: App.Gui.CustomGroup3.Items.Add(button); break;
-                default: throw new InvalidOperationException("invalid ribbon panel number: " + Panel);
-            }
-        }*/
-
-        string ILanguageModuleHost.GetCurrentEditText()
-        {
-            return null; // App.Gui.Editor.Text;
-        }
-
-        ICSharpCode.AvalonEdit.TextEditor ILanguageModuleHost.GetEditControl()
-        {
-            return null; // App.Gui.Editor;
-        }
-
-        void ILanguageModuleHost.InsertCode(string code)
-        {
-            // App.Gui.Editor.Document.Insert(0, code);
-            // todo: find current cursor position
-        }
-
-        void ILanguageModuleHost.InsertCode(string code, int position)
-        {
-            // should check for current view before
-            //App.Gui.Editor.Document.Insert(position, code);
-        }
-
-        #endregion
-
-        #region IPluginHost
-
-        void IPluginHost.AddMetadata(Guid resource, string name, string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IPluginHost.AddMetadata(Guid resource, string name, string value, bool isDefault, bool noconfig)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IPluginHost.AddResource(IResource resource)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IPluginHost.AddResource(IResource resource, Guid parent)
-        {
-            throw new NotImplementedException();
-        }
-
-        Guid IPluginHost.GetCurrentResource()
-        {
-            return ChameleonCoder.Resources.Management.ResourceManager.ActiveItem.GUID;
-        }
-
-        int IPluginHost.GetCurrentView()
-        {
-            throw new NotImplementedException();
-        }
-
-        IResource IPluginHost.GetResource(Guid ID)
-        {
-            return ChameleonCoder.Resources.Management.ResourceManager.GetList().GetInstance(ID);
-        }
-        #endregion
-
     }
 }
