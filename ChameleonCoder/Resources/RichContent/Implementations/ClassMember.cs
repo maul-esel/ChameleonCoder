@@ -23,5 +23,7 @@ namespace ChameleonCoder.Resources.RichContent.Implementations
         {
 
         }
+        public virtual void Save() { }
+        public virtual void Init(System.Xml.XmlNode node) { }
     }
 }

@@ -20,5 +20,8 @@ namespace ChameleonCoder.Resources.RichContent
         bool ValidateChild(IContentMember child);
 
         bool ValidateParent(IContentMember parent);
+
+        void Save();
+        void Init(System.Xml.XmlNode node);
     }
 }

@@ -32,6 +32,9 @@ namespace ChameleonCoder.Resources.RichContent.Implementations
             private set;
         }
 
+        public virtual void Save() { }
+        public virtual void Init(System.Xml.XmlNode node) { }
+
         #endregion
 
         public FunctionMember()
