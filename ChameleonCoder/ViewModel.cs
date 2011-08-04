@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using System.Windows.Media.Imaging;
+using ChameleonCoder.Resources.Management;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
@@ -16,6 +16,27 @@ namespace ChameleonCoder
         public ObservableCollection<TabContext> Tabs { get; set; }
 
         public int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
+
+        public BreadcrumbContext BreadcrumbRoot
+        {
+            get
+            {
+                return new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Home,
+                    new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
+                    new BreadcrumbContext[]
+                        {
+                        new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_List,
+                            new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
+                            ResourceManager.GetChildren(),
+                            true, false),
+                        new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Settings,
+                            new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
+                            null,
+                            false, true)
+                        });
+            }
+        }
+
         #region localization
         public string Item_Home { get { return Res.Item_Home; } }
         public string Item_List { get { return Res.Item_List; } }

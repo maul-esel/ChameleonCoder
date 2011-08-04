@@ -292,7 +292,8 @@
         
         <odc:BreadcrumbBar Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" x:Name="breadcrumb"
                            IsEditable="False" ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}"
-                           SelectedBreadcrumbChanged="ResourceOpen" SeparatorString="/">
+                           SelectedBreadcrumbChanged="ResourceOpen" SeparatorString="/"
+                           Root="{Binding Path=BreadcrumbRoot}">
             
             <odc:BreadcrumbBar.BreadcrumbItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=children}">

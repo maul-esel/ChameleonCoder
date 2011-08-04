@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -106,19 +105,6 @@ namespace ChameleonCoder
             });
 
             new MainWindow();
-            Gui.breadcrumb.Root = new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Home,
-                new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
-                new BreadcrumbContext[]
-                    {
-                    new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_List,
-                        new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
-                        ResourceManager.GetChildren(),
-                        true, false),
-                    new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Settings,
-                        new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
-                        null,
-                        false, true)
-                    });
 
             parallelTask.Wait();
             Gui.Show();

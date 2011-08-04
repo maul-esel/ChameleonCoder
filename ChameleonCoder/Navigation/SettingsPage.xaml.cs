@@ -41,6 +41,10 @@ namespace ChameleonCoder.Navigation
             Properties.Resources.Culture = new System.Globalization.CultureInfo(LCID);
             Properties.Settings.Default.Language = LCID;
             Properties.Settings.Default.Save();
+
+            ViewModel model = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
+            App.Gui.DataContext = model;
+            App.Gui.breadcrumb.Path = App.Gui.breadcrumb.PathFromBreadcrumbItem(App.Gui.breadcrumb.RootItem) + "/" + model.Item_Settings;
         }
     }
 }

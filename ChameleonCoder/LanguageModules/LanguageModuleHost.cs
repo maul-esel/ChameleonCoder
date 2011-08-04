@@ -1,12 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Windows;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
-using System.Linq;
-using System.Text;
 
 namespace ChameleonCoder.LanguageModules
 {
