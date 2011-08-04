@@ -12,7 +12,7 @@ namespace ChameleonCoder.Converter
             {
                 ResourceTypeInfo info = Resources.Management.ResourceTypeManager.GetInfo(value.GetType());
 
-                if (info != null)
+                if (info != null && info.Background != null)
                     return info.Background.GetAsFrozen();
             }
             return null;

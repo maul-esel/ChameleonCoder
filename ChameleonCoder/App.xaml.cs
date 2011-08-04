@@ -225,6 +225,7 @@ namespace ChameleonCoder
             });
         }
 
+        #region Registry
         static object lock_ext = new object();
  
         internal static void RegisterExtensions()
@@ -278,6 +279,7 @@ namespace ChameleonCoder
                 Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
             }
         }
+        #endregion
 
         static object lock_drop = new object();
 

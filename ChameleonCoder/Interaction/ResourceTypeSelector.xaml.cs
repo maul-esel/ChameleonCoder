@@ -36,7 +36,6 @@ namespace ChameleonCoder.Interaction
                 Type type = ((KeyValuePair<Brush, Type>)typeList.SelectedItem).Value;
                 ChameleonCoder.Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(type);
 
-
                 Info.DataContext = new
                 {
                     Name = info.DisplayName,

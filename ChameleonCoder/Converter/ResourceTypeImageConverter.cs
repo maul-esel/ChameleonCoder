@@ -12,7 +12,7 @@ namespace ChameleonCoder.Converter
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             ResourceTypeInfo info = ResourceTypeManager.GetInfo(value as Type);
-            if (info != null)
+            if (info != null && info.TypeIcon != null)
                 return info.TypeIcon.GetAsFrozen();
             return null;
         }

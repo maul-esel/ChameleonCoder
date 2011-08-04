@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
@@ -8,7 +8,7 @@ namespace ChameleonCoder.Resources.Management
     {
         private static ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
-        private static Dictionary<Type, ResourceTypeInfo> ResourceTypesStatic = new Dictionary<Type, ResourceTypeInfo>();
+        private static ConcurrentDictionary<Type, ResourceTypeInfo> ResourceTypesStatic = new ConcurrentDictionary<Type, ResourceTypeInfo>();
 
         static object lock_gettype = new object();
         internal static Type GetResourceType(string alias)
@@ -31,7 +31,7 @@ namespace ChameleonCoder.Resources.Management
             }
         }
 
-        internal static IEnumerable<Type> GetResourceTypes()
+        internal static System.Collections.Generic.IEnumerable<Type> GetResourceTypes()
         {
             return ResourceTypes.GetList();
         }
@@ -65,7 +65,7 @@ namespace ChameleonCoder.Resources.Management
                 && !string.Equals(info.Alias, "RichContent", StringComparison.OrdinalIgnoreCase))
             {
                 ResourceTypes.RegisterResourceType(info.Alias, component);
-                ResourceTypesStatic.Add(component, info);
+                ResourceTypesStatic.TryAdd(component, info);
             }
         }
 

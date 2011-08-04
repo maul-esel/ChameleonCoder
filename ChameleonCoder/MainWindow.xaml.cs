@@ -114,11 +114,11 @@ namespace ChameleonCoder
         private void ResourceCreate(object sender, RoutedEventArgs e)
         {
             Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).DataContext as Type;
-            Resources.ResourceTypeInfo prop = ResourceTypeManager.GetInfo(resourceType);
+            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
 
-            if (prop != null)
+            if (info != null && info.Create != null)
             {
-                Resources.Interfaces.IResource resource = prop.Create(resourceType, null);
+                IResource resource = info.Create(resourceType, null);
                 if (resource != null)
                     ResourceManager.Add(resource, null);
             }
@@ -129,9 +129,9 @@ namespace ChameleonCoder
             Type resourceType = (e.OriginalSource as RibbonMenuItem).DataContext as Type;
             Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
 
-            if (info != null)
+            if (info != null && info.Create != null)
             {
-                Resources.Interfaces.IResource resource = info.Create(resourceType, ResourceManager.ActiveItem);
+                IResource resource = info.Create(resourceType, ResourceManager.ActiveItem);
                 if (resource != null)
                     ResourceManager.Add(resource, ResourceManager.ActiveItem);
             }
