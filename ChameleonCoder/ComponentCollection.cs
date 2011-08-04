@@ -33,5 +33,10 @@ namespace ChameleonCoder
         {
             return this.components.ContainsKey(key);
         }
+
+        public bool IsRegistered(TValue value)
+        {
+            return this.components.Values.Contains(value);
+        }
     }
 }

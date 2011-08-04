@@ -56,11 +56,16 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.IsRegistered(alias);
         }
 
+        internal static bool IsRegistered(Type type)
+        {
+            return ResourceTypes.IsRegistered(type);
+        }
+
         internal static void RegisterComponent(Type component, ResourceTypeInfo info)
         {
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic
-                && !IsRegistered(info.Alias)
+                && !IsRegistered(info.Alias) && !IsRegistered(component)
                 && !string.Equals(info.Alias, "metadata", StringComparison.OrdinalIgnoreCase)
                 && !string.Equals(info.Alias, "RichContent", StringComparison.OrdinalIgnoreCase))
             {
