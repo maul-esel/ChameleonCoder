@@ -7,7 +7,7 @@ namespace ChameleonCoder.ResourceCore
 {
     public class GroupResource : ResourceBase
     {
-        public override void Init(XmlNode node, IResource parent)
+        public override void Init(XmlElement node, IResource parent)
         {
             base.Init(node, parent);
         }

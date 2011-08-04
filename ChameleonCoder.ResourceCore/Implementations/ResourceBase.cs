@@ -21,7 +21,7 @@ namespace ChameleonCoder.ResourceCore
         /// </summary>
         /// <param name="node">the XmlNode that contains the resource</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Init(XmlNode node, IResource parent)
+        public virtual void Init(XmlElement node, IResource parent)
         {
             this.Xml = node;
             this.Parent = parent;
@@ -36,7 +36,7 @@ namespace ChameleonCoder.ResourceCore
                 this.MetaData.Add(new Metadata(meta));
         }
 
-        public XmlNode Xml { get; private set; }
+        public XmlElement Xml { get; private set; }
 
         public abstract ImageSource Icon { get; }
 

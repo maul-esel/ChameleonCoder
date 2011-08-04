@@ -68,7 +68,8 @@ namespace ChameleonCoder.ResourceCore
                     attr.Value = pair.Value;
                     node.SetAttributeNode(attr);
                 }
-                (parent == null ? doc : parent.Xml).AppendChild(node);
+                XmlNode parentNode = parent == null ? (XmlNode)doc : parent.Xml;
+                node.AppendChild(node);
                 #endregion
 
                 IResource resource = Activator.CreateInstance(target) as IResource;
