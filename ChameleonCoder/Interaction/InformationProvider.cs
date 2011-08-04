@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources;
@@ -46,6 +47,23 @@ namespace ChameleonCoder.Interaction
             }
 
             return path;
+        }
+
+        public static XmlElement CloneElement(XmlElement element, XmlDocument newOwner)
+        {
+            XmlElement newElement = newOwner.CreateElement(element.Name);
+            foreach (XmlAttribute attr in element.Attributes)
+            {
+                XmlAttribute newAttr = newOwner.CreateAttribute(attr.Name);
+                newAttr.Value = attr.Value;
+                newElement.SetAttributeNode(newAttr);
+            }
+            foreach (XmlElement child in element.ChildNodes)
+            {
+                XmlElement newChild = CloneElement(child, newOwner);
+                newElement.AppendChild(newChild);
+            }
+            return newElement;
         }
     }
 }
