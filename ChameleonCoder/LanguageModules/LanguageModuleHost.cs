@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Media;
-using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.LanguageModules
 {
