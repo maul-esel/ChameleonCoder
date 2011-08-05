@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BreadcrumbContext.cs" />
+    <Compile Include="CCPluginAttribute.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">

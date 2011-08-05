@@ -207,7 +207,12 @@ namespace ChameleonCoder
         {
             ConcurrentBag<Type> components = new ConcurrentBag<Type>();
             Parallel.ForEach(Directory.GetFiles(AppDir + "\\Components", "*.dll"), dll =>
-                Parallel.ForEach(Assembly.LoadFrom(dll).GetTypes(), type => components.Add(type)));
+                {
+                    Assembly plugin = Assembly.LoadFrom(dll);
+                    CCPluginAttribute attr = (CCPluginAttribute)Attribute.GetCustomAttribute(plugin, typeof(CCPluginAttribute));
+                    if (attr != null)
+                        Parallel.ForEach(plugin.GetTypes(), type => components.Add(type));
+                });
 
             Parallel.ForEach(components, component =>
             {
