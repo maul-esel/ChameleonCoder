@@ -222,6 +222,9 @@ namespace ChameleonCoder
 
                 if (component.GetInterface(typeof(Services.IService).FullName) != null)
                     Services.ServiceHost.Add(component);
+
+                if (component.GetInterface(typeof(ITemplate).FullName) != null)
+                    TemplateManager.Add(component);
             });
         }
 

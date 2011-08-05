@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="PackageManager.cs" />
     <Compile Include="Resources\Interfaces\IFSComponent.cs" />
+    <Compile Include="Resources\ITemplate.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Interaction\ResourceTypeSelector.xaml.cs">
       <DependentUpon>ResourceTypeSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\TemplateManager.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
     <Compile Include="Services\ServiceHost.cs" />
