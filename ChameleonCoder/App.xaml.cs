@@ -209,8 +209,7 @@ namespace ChameleonCoder
             Parallel.ForEach(Directory.GetFiles(AppDir + "\\Components", "*.dll"), dll =>
                 {
                     Assembly plugin = Assembly.LoadFrom(dll);
-                    CCPluginAttribute attr = (CCPluginAttribute)Attribute.GetCustomAttribute(plugin, typeof(CCPluginAttribute));
-                    if (attr != null)
+                    if (Attribute.IsDefined(plugin, typeof(CCPluginAttribute)))
                         Parallel.ForEach(plugin.GetTypes(), type => components.Add(type));
                 });
 
