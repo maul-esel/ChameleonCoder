@@ -27,7 +27,7 @@ namespace ChameleonCoder
                 this.MenuServices.IsEnabled = false;
 
             foreach (IService service in ServiceHost.GetServices())
-                MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.ServiceName, DataContext = service });
+                MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.Name, DataContext = service });
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
@@ -101,7 +101,7 @@ namespace ChameleonCoder
                 Interaction.InformationProvider.OnServiceExecute(service, new EventArgs());
 
                 CurrentActionProgress.IsIndeterminate = true;
-                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.ServiceName, service.Version, service.Author, service.About);
+                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
 
                 service.Call();
                 while (service.IsBusy) ;

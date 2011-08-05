@@ -15,7 +15,7 @@ namespace ChameleonCoder.LanguageModules
             ILanguageModule module = Activator.CreateInstance(type) as ILanguageModule;
             if (module != null)
             {
-                Modules.Add(module.Language, module);
+                Modules.Add(module.Identifier, module);
                 module.Initialize();
             }
         }
@@ -70,7 +70,7 @@ namespace ChameleonCoder.LanguageModules
                 ActiveModule = language;
 
                 App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
-                    module.LanguageName, module.Version, module.Author, module.About);
+                    module.Name, module.Version, module.Author, module.About);
 
                 Interaction.InformationProvider.OnModuleLoaded(module, new EventArgs());
             }

@@ -14,7 +14,7 @@ namespace ChameleonCoder.Services
             IService service = Activator.CreateInstance(type) as IService;
             if (service != null)
             {
-                Services.Add(service.Service, service);
+                Services.Add(service.Identifier, service);
                 service.Initialize();
             }
         }
