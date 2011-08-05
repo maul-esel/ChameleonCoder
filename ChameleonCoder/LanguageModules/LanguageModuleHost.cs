@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace ChameleonCoder.LanguageModules
 {
     public static class LanguageModuleHost
     {
-        private static SortedList<Guid, ILanguageModule> Modules = new SortedList<Guid, ILanguageModule>();
+        private static ConcurrentDictionary<Guid, ILanguageModule> Modules = new ConcurrentDictionary<Guid, ILanguageModule>();
         private static Guid ActiveModule = Guid.Empty;
 
         internal static void Add(Type type)
@@ -13,7 +13,7 @@ namespace ChameleonCoder.LanguageModules
             ILanguageModule module = Activator.CreateInstance(type) as ILanguageModule;
             if (module != null)
             {
-                Modules.Add(module.Identifier, module);
+                Modules.TryAdd(module.Identifier, module);
                 module.Initialize();
             }
         }
@@ -86,7 +86,7 @@ namespace ChameleonCoder.LanguageModules
             return null;
         }
 
-        public static IEnumerable<ILanguageModule> GetList()
+        public static System.Collections.Generic.IEnumerable<ILanguageModule> GetList()
         {
             return Modules.Values;
         }
