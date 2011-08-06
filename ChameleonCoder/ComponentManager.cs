@@ -2,9 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ChameleonCoder.LanguageModules;
-using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Resources.RichContent;
+using ChameleonCoder.Templates;
 using ChameleonCoder.Services;
 using IF = ChameleonCoder.Interaction.InformationProvider;
 
