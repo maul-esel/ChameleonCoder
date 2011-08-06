@@ -2,11 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-        xmlns:res="clr-namespace:ChameleonCoder.Resources.Management"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:service="clr-namespace:ChameleonCoder.Services"
         xmlns:cc="clr-namespace:ChameleonCoder"
         xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
         Title="{Binding Path=Title}" IsGlassEnabled="True"
@@ -17,11 +14,59 @@
     </Window.DataContext>
     
     <odc:RibbonWindow.Resources>
-        <ControlTemplate x:Key="CloseButton" Localization.Attributes="$Content(Unreadable Unmodifiable)">
-            <Grid>
-                <Ellipse Width="12" Height="12" Stroke="DarkGray"/>
-                <TextBlock FontSize="12" FontWeight="DemiBold"  Foreground="DarkGray" Text="x" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
-            </Grid>
+        <ControlTemplate TargetType="Button" x:Key="CloseButton">
+            <Border CornerRadius="2" BorderThickness="1" Width="12" Height="12">
+                <Border.BorderBrush>
+                    <RadialGradientBrush x:Name="borderBrush" Opacity="0.0" SpreadMethod="Reflect" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="Gray" Offset="1"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush x:Name="bgBrush" StartPoint="0,0" EndPoint="1,1" Opacity="0.0">
+                        <GradientStop Color="DarkRed" Offset="0"/>
+                        <GradientStop Color="Red" Offset="0.5"/>
+                        <GradientStop Color="DarkRed" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="X" FontWeight="DemiBold" FontFamily="Arial" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="Gray" x:Name="fgBrush"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </Border>
+            <ControlTemplate.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseDown">
+                    <BeginStoryboard>
+                        <Storyboard Duration="0:0:1">
+                            <DoubleAnimation To="1.0" Storyboard.TargetName="bgBrush" Storyboard.TargetProperty="Opacity"/>
+                            <ColorAnimation To="White" Storyboard.TargetName="fgBrush" Storyboard.TargetProperty="Color"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseUp">
+                    <BeginStoryboard>
+                        <Storyboard Duration="0:0:1">
+                            <DoubleAnimation To="0.0" Storyboard.TargetName="bgBrush" Storyboard.TargetProperty="Opacity"/>
+                            <ColorAnimation To="Gray" Storyboard.TargetName="fgBrush" Storyboard.TargetProperty="Color"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard Duration="0:0:0.5">
+                            <DoubleAnimation To="1.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard Duration="0:0:0.5">
+                            <DoubleAnimation To="0.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
         
        <Style TargetType="TabItem">
