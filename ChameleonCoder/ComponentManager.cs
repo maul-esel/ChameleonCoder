@@ -187,6 +187,11 @@ namespace ChameleonCoder
             }
         }
 
+        internal static IEnumerable<ITemplate> GetTemplates()
+        {
+            return Templates.Values;
+        }
+
         #endregion
     }
 }

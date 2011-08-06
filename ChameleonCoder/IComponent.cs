@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChameleonCoder
+﻿namespace ChameleonCoder
 {
     /// <summary>
     /// a base interface to be implemented by components
@@ -30,7 +28,7 @@ namespace ChameleonCoder
         /// <summary>
         /// a GUID that uniquely identifies the component. This should always be the same GUID.
         /// </summary>
-        Guid Identifier { get; }
+        System.Guid Identifier { get; }
 
         /// <summary>
         /// the component's display name

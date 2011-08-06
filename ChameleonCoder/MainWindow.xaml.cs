@@ -33,13 +33,16 @@ namespace ChameleonCoder
             {
                 Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(t);
 
-                this.visTypes.Items.Add(t);
-                this.MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = info.TypeIcon, Header = info.DisplayName, DataContext = t });
+                visTypes.Items.Add(t);
+                MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = info.TypeIcon, Header = info.DisplayName, DataContext = t });
 
                 RibbonMenuItem item = new RibbonMenuItem(){ Header = info.DisplayName, Image = info.TypeIcon, DataContext = t };
                 item.Click += ResourceCreateChild;
-                this.AddChildResource.Items.Add(item);
+                AddChildResource.Items.Add(item);
             }
+            foreach (var template in ComponentManager.GetTemplates())
+                MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = template.Icon, Header = template.Name, DataContext = template.Identifier });
+
             GoHome(null, null);
         }
 
@@ -103,13 +106,22 @@ namespace ChameleonCoder
         private void ResourceCreate(object sender, RoutedEventArgs e)
         {
             Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).DataContext as Type;
-            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
-
-            if (info != null && info.Create != null)
+            if (resourceType != null)
             {
-                IResource resource = info.Create(resourceType, null);
-                if (resource != null)
-                    ResourceManager.Add(resource, null);
+                Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
+
+                if (info != null && info.Create != null)
+                {
+                    IResource resource = info.Create(resourceType, null);
+                    if (resource != null)
+                        ResourceManager.Add(resource, null);
+                }
+            }
+            else
+            {
+                var template = (Guid)(e.OriginalSource as RibbonApplicationMenuItem).DataContext;
+                if (template != default(Guid))
+                    ComponentManager.Create(template, null);
             }
         }
 
