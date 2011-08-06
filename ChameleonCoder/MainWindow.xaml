@@ -9,7 +9,7 @@
         xmlns:service="clr-namespace:ChameleonCoder.Services"
         xmlns:cc="clr-namespace:ChameleonCoder"
         xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
-        Title="CC - ChameleonCoder alpha 1" IsGlassEnabled="True"
+        Title="{Binding Path=Title}" IsGlassEnabled="True"
         WindowState="Maximized" x:Name="RibbonWindow" Width="1200" Height="800" Icon="Images\logo.ico" xml:lang="en-US">
 
     <Window.DataContext>

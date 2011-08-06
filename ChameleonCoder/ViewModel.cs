@@ -38,6 +38,8 @@ namespace ChameleonCoder
         }
 
         #region localization
+        public string Title { get { return "CC - ChameleonCoder alpha 1"; } }
+
         public string Item_Home { get { return Res.Item_Home; } }
         public string Item_List { get { return Res.Item_List; } }
         public string Item_Settings { get { return Res.Item_Settings; } }
