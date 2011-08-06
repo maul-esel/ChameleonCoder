@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Templates
 {
     public interface ITemplate : IComponent
     {
@@ -22,7 +22,7 @@ namespace ChameleonCoder.Resources
         /// for example if it creates an ILanguageResource.
         /// If the template doesn't rely on a language, use null.
         /// </summary>
-        List<Guid> Languages { get; }
+        IEnumerable<Guid> Languages { get; }
 
         /// <summary>
         /// creates a new instance of the resource type and does additional operations
