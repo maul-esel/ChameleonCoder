@@ -12,14 +12,15 @@ namespace ChameleonCoder.Converter
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IResource resource = value as IResource;
+            IResolvable link;
 
-            while (resource is IResolvable)
-                resource = (resource as IResolvable).Resolve();
+            while ((link = resource as IResolvable) != null && link.shouldResolve)
+                resource = link.Resolve();
 
             if (resource is ILanguageResource)
             {
-                ILanguageModule module = LanguageModuleHost.GetModule((resource as ILanguageResource).language);
-                if (module != null)
+                ILanguageModule module;
+                if (ComponentManager.TryGetModule((resource as ILanguageResource).language, out module) && module.Icon != null)
                     return module.Icon.GetAsFrozen();
             }
 

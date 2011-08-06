@@ -93,7 +93,7 @@ namespace ChameleonCoder.ResourceCore
                 yield return baseEnum.Current;
 
             string langName = null;
-            try { langName = LanguageModuleHost.GetModule(this.language).Name; }
+            try { langName = ComponentManager.GetModule(this.language).Name; }
             catch (NullReferenceException) { }
 
             yield return new PropertyDescription("language", langName, "source code") { IsReadOnly = true };
@@ -101,7 +101,7 @@ namespace ChameleonCoder.ResourceCore
             string list = string.Empty;
             foreach (Guid lang in this.compatibleLanguages)
             {
-                try { list += LanguageModuleHost.GetModule(lang).Name + "; "; }
+                try { list += ComponentManager.GetModule(lang).Name + "; "; }
                 catch (NullReferenceException) { }
             }
 

@@ -52,7 +52,7 @@ namespace ChameleonCoder
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
-                this.ResourceLanguage.ItemsSource = LanguageModules.LanguageModuleHost.GetList();
+                this.ResourceLanguage.ItemsSource = ComponentManager.GetModules();
                 customAttributes.Add("language", () => ResourceLanguage.Text);
             }
 

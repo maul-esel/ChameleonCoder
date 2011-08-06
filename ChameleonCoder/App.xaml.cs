@@ -112,8 +112,7 @@ namespace ChameleonCoder
 
         internal static void ExitHandler(object sender, EventArgs e)
         {
-            LanguageModules.LanguageModuleHost.Shutdown();
-            Services.ServiceHost.Shutdown();
+            ComponentManager.Shutdown();
         }
 
         internal static void ParseFile(string file)
@@ -214,17 +213,18 @@ namespace ChameleonCoder
 
             Parallel.ForEach(components, component =>
             {
+                ComponentManager.TryAdd(component);
                 if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
                     (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
 
-                if (component.GetInterface(typeof(LanguageModules.ILanguageModule).FullName) != null)
+                /*if (component.GetInterface(typeof(LanguageModules.ILanguageModule).FullName) != null)
                     LanguageModules.LanguageModuleHost.Add(component);
 
                 if (component.GetInterface(typeof(Services.IService).FullName) != null)
                     Services.ServiceHost.Add(component);
 
                 if (component.GetInterface(typeof(ITemplate).FullName) != null)
-                    TemplateManager.Add(component);
+                    TemplateManager.Add(component);*/
             });
         }
 

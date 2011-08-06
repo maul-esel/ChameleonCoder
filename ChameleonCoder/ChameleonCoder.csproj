@@ -117,6 +117,7 @@
     </ApplicationDefinition>
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
+    <Compile Include="ComponentManager.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="IComponentProvider.cs" />
@@ -173,10 +174,8 @@
     <Compile Include="Interaction\ResourceTypeSelector.xaml.cs">
       <DependentUpon>ResourceTypeSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\TemplateManager.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
-    <Compile Include="Services\ServiceHost.cs" />
     <Compile Include="Resources\Metadata.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\MetadataCollection.cs" />

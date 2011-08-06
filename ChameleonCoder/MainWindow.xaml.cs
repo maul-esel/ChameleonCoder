@@ -23,11 +23,11 @@ namespace ChameleonCoder
         {
             InitializeComponent();
 
-            if (ServiceHost.GetServiceCount() == 0)
+            if (ComponentManager.ServiceCount == 0)
                 this.MenuServices.IsEnabled = false;
 
-            foreach (IService service in ServiceHost.GetServices())
-                MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.Name, DataContext = service });
+            foreach (IService service in ComponentManager.GetServices())
+                MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.Name, DataContext = service.Identifier });
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
             {
@@ -95,22 +95,7 @@ namespace ChameleonCoder
         {
             RibbonApplicationMenuItem item = e.OriginalSource as RibbonApplicationMenuItem;
             if (item != null)
-            {
-                IService service = item.DataContext as IService;
-
-                Interaction.InformationProvider.OnServiceExecute(service, new EventArgs());
-
-                CurrentActionProgress.IsIndeterminate = true;
-                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
-
-                service.Call();
-                while (service.IsBusy) ;
-
-                CurrentActionProgress.IsIndeterminate = false;
-                CurrentAction.Text = string.Empty;
-
-                Interaction.InformationProvider.OnServiceExecuted(service, new EventArgs());
-            }
+                ComponentManager.CallService((Guid)item.DataContext);
         }
 
         #region resources
