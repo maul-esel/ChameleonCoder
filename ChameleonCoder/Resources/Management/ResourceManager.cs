@@ -72,7 +72,8 @@ namespace ChameleonCoder.Resources.Management
                     && langRes.language != ComponentManager.ActiveModule.Identifier)
                 {
                     ComponentManager.UnloadModule();
-                    ComponentManager.LoadModule(langRes.language);
+                    if (ComponentManager.IsModuleRegistered(langRes.language))
+                        ComponentManager.LoadModule(langRes.language);
                 }
             }
             Interaction.InformationProvider.OnResourceLoaded(resource, new EventArgs());

@@ -122,5 +122,86 @@ namespace ChameleonCoder.ResourceCore.Properties {
                 return ResourceManager.GetString("Display_Task", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Author: ähnelt.
+        /// </summary>
+        internal static string Info_Author {
+            get {
+                return ResourceManager.GetString("Info_Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die targeted resource: ähnelt.
+        /// </summary>
+        internal static string Info_Destination {
+            get {
+                return ResourceManager.GetString("Info_Destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die end date: ähnelt.
+        /// </summary>
+        internal static string Info_EndDate {
+            get {
+                return ResourceManager.GetString("Info_EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die License: ähnelt.
+        /// </summary>
+        internal static string Info_License {
+            get {
+                return ResourceManager.GetString("Info_License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Priority: ähnelt.
+        /// </summary>
+        internal static string Info_Priority {
+            get {
+                return ResourceManager.GetString("Info_Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Version: ähnelt.
+        /// </summary>
+        internal static string Info_Version {
+            get {
+                return ResourceManager.GetString("Info_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die high ähnelt.
+        /// </summary>
+        internal static string Priority_High {
+            get {
+                return ResourceManager.GetString("Priority_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die low ähnelt.
+        /// </summary>
+        internal static string Priority_Low {
+            get {
+                return ResourceManager.GetString("Priority_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die middle ähnelt.
+        /// </summary>
+        internal static string Priority_Middle {
+            get {
+                return ResourceManager.GetString("Priority_Middle", resourceCulture);
+            }
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace ChameleonCoder.Navigation
             {
                 if (ComponentManager.ActiveModule != null)
                     ComponentManager.UnloadModule();
-                ComponentManager.LoadModule(langRes.language);
+                if (ComponentManager.IsModuleRegistered(langRes.language))
+                    ComponentManager.LoadModule(langRes.language);
             }
         }
 

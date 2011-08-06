@@ -24,20 +24,7 @@ namespace ChameleonCoder.ResourceCore
 
         #endregion
 
-        #region IEnumerable
-
-        public override IEnumerator<PropertyDescription> GetEnumerator()
-        {
-            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
-            while (baseEnum.MoveNext())
-                yield return baseEnum.Current;
-
-            yield return new PropertyDescription("end-time", this.EndTime.ToString(), "task");
-        }
-
-        #endregion
-
-        public DateTime EndTime
+        public DateTime EndDate
         {
             get
             {
@@ -52,5 +39,23 @@ namespace ChameleonCoder.ResourceCore
                 this.OnPropertyChanged("EndTime");
             }
         }
+
+        [ResourceProperty("nameof_EndDateName", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        public string EndDateName
+        {
+            get
+            {
+                return EndDate.ToLongDateString();
+            }
+        }
+
+        public string nameof_EndDateName
+        {
+            get
+            {
+                return Properties.Resources.Info_EndDate;
+            }
+        }
+
     }
 }

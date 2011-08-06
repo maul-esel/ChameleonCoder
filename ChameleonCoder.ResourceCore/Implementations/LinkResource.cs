@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Xml;
-using System.Collections.Generic;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources;
 using ChameleonCoder.Interaction;
 
 namespace ChameleonCoder.ResourceCore
@@ -58,7 +56,7 @@ namespace ChameleonCoder.ResourceCore
 
                 return result;
             }
-            protected set { base.Name = value; }
+            set { base.Name = value; }
         }
 
         public override string Description
@@ -80,7 +78,7 @@ namespace ChameleonCoder.ResourceCore
                 catch (NullReferenceException) { }
                 return result;
             }
-            protected set { base.Description = value; }
+            set { base.Description = value; }
         }
 
         public override ImageSource SpecialVisualProperty
@@ -116,19 +114,6 @@ namespace ChameleonCoder.ResourceCore
 
         #endregion
 
-        #region IEnumerable
-
-        public override IEnumerator<PropertyDescription> GetEnumerator()
-        {
-            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
-            while (baseEnum.MoveNext())
-                yield return baseEnum.Current;
-
-            yield return new PropertyDescription("Destination", this.Destination.ToString("b"), "link");
-        }
-
-        #endregion
-
         /// <summary>
         /// the GUID of the resource the link points to
         /// </summary>
@@ -139,6 +124,26 @@ namespace ChameleonCoder.ResourceCore
             {
                 this.Xml.Attributes["destination"].Value = value.ToString();
                 this.OnPropertyChanged("Destination");
+            }
+        }
+
+        [Resources.ResourceProperty("nameof_DestinationName", Resources.ResourcePropertyGroup.ThisClass, IsReadOnly = true, IsReferenceName = true)]
+        public string DestinationName
+        {
+            get
+            {
+                IResource resource = InformationProvider.GetResourceInstance(Destination);
+                if (resource != null)
+                    return resource.Name;
+                return string.Empty;
+            }
+        }
+
+        public string nameof_DestinationName
+        {
+            get
+            {
+                return Properties.Resources.Info_Destination;
             }
         }
     }

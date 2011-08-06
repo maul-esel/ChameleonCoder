@@ -118,6 +118,11 @@ namespace ChameleonCoder
             return Modules.TryGetValue(id, out module);
         }
 
+        public static bool IsModuleRegistered(Guid id)
+        {
+            return Modules.ContainsKey(id);
+        }
+
         public static IEnumerable<ILanguageModule> GetModules()
         {
             return Modules.Values;

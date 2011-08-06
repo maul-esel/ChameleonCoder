@@ -138,4 +138,31 @@
   <data name="Display_Task" xml:space="preserve">
     <value>Aufgabe</value>
   </data>
+  <data name="Info_Author" xml:space="preserve">
+    <value>Autor:</value>
+  </data>
+  <data name="Info_Destination" xml:space="preserve">
+    <value>Ziel-Ressource:</value>
+  </data>
+  <data name="Info_EndDate" xml:space="preserve">
+    <value>Auslaufdatum:</value>
+  </data>
+  <data name="Info_License" xml:space="preserve">
+    <value>Lizenz:</value>
+  </data>
+  <data name="Info_Priority" xml:space="preserve">
+    <value>Priorität:</value>
+  </data>
+  <data name="Info_Version" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>hoch</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>niedrig</value>
+  </data>
+  <data name="Priority_Middle" xml:space="preserve">
+    <value>mittel</value>
+  </data>
 </root>

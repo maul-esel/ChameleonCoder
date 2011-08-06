@@ -47,6 +47,7 @@ namespace ChameleonCoder.ResourceCore
 
         public Guid GUID { get; protected set; }
 
+        [ResourceProperty(CommonResourceProperty.Name, ResourcePropertyGroup.General)]
         public virtual string Name
         {
             get
@@ -57,13 +58,14 @@ namespace ChameleonCoder.ResourceCore
                 }
                 catch (NullReferenceException) { return string.Empty; }
             }
-            protected set
+            set
             {
                 this.Xml.Attributes["name"].Value = value;
                 this.OnPropertyChanged("Name");
             }
         }
 
+        [ResourceProperty(CommonResourceProperty.Description, ResourcePropertyGroup.General)]
         public virtual string Description
         {
             get
@@ -74,7 +76,7 @@ namespace ChameleonCoder.ResourceCore
                 }
                 catch (NullReferenceException) { return null; }
             }
-            protected set
+            set
             {
                 this.Xml.Attributes["description"].Value = value;
                 this.OnPropertyChanged("Description");
@@ -118,18 +120,26 @@ namespace ChameleonCoder.ResourceCore
 
         #endregion
 
-        #region IEnumerable<T>
+        #region PropertyAliases
 
-        public virtual IEnumerator<PropertyDescription> GetEnumerator()
+        [ResourceProperty(CommonResourceProperty.Parent, ResourcePropertyGroup.General, IsReadOnly = true, IsReferenceName = true)]
+        public string ParentName
         {
-            yield return new PropertyDescription("name", this.Name, "General");
-            yield return new PropertyDescription("GUID", this.GUID.ToString("b"), "General") { IsReadOnly = true };
-            yield return new PropertyDescription("Description", this.Description, "General");
+            get
+            {
+                if (Parent != null)
+                    return Parent.Name;
+                return string.Empty;
+            }
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        [ResourceProperty(CommonResourceProperty.GUID, ResourcePropertyGroup.General, IsReadOnly = true)]
+        public string GUIDName
         {
-            return (System.Collections.IEnumerator)this.GetEnumerator();
+            get
+            {
+                return GUID.ToString("B");
+            }
         }
 
         #endregion

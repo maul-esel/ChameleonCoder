@@ -204,11 +204,17 @@
   <data name="Info_Class" xml:space="preserve">
     <value>Klasse:</value>
   </data>
+  <data name="Info_CompilationPath" xml:space="preserve">
+    <value>kompilierter Pfad:</value>
+  </data>
   <data name="Info_Description" xml:space="preserve">
     <value>Beschreibung:</value>
   </data>
   <data name="Info_File" xml:space="preserve">
     <value>Plugin-Datei:</value>
+  </data>
+  <data name="Info_FSPath" xml:space="preserve">
+    <value>Pfad:</value>
   </data>
   <data name="Info_GUID" xml:space="preserve">
     <value>GUID:</value>
@@ -216,8 +222,14 @@
   <data name="Info_Icon" xml:space="preserve">
     <value>Symbol:</value>
   </data>
+  <data name="Info_Language" xml:space="preserve">
+    <value>Programmier-Sprache:</value>
+  </data>
   <data name="Info_Name" xml:space="preserve">
     <value>Name:</value>
+  </data>
+  <data name="Info_Parent" xml:space="preserve">
+    <value>Übergeordnete Ressource:</value>
   </data>
   <data name="Info_Special" xml:space="preserve">
     <value>Zusatzinformation:</value>
@@ -263,6 +275,9 @@
   </data>
   <data name="Pack_IncludeResolve" xml:space="preserve">
     <value>Wollen Sie die Zielressourcen der gepackten Ressourcesn einschließen?</value>
+  </data>
+  <data name="PropertyGroup_General" xml:space="preserve">
+    <value>Allgemein</value>
   </data>
   <data name="ResourceImport" xml:space="preserve">
     <value>Eine Ressource importieren</value>
@@ -360,5 +375,8 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Willkommen!</value>
+  </data>
+  <data name="Info_CompatibleLanguages" xml:space="preserve">
+    <value>kompatible Programmier-Sprachen:</value>
   </data>
 </root>

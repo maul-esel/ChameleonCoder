@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
 using CC = ChameleonCoder.Resources;
@@ -29,21 +28,7 @@ namespace ChameleonCoder.ResourceCore
 
         #endregion
 
-        #region IEnumerable
-
-        public override IEnumerator<CC.PropertyDescription> GetEnumerator()
-        {
-            IEnumerator<CC.PropertyDescription>  baseEnum = base.GetEnumerator();
-            while (baseEnum.MoveNext())
-                yield return baseEnum.Current;
-
-            yield return new CC.PropertyDescription("author", this.Author, "library");
-            yield return new CC.PropertyDescription("license", this.License, "library");
-            yield return new CC.PropertyDescription("version", this.Version, "library");
-        }
-
-        #endregion
-
+        [Resources.ResourceProperty("nameof_Author", CC.ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Author
         {
             get
@@ -51,13 +36,14 @@ namespace ChameleonCoder.ResourceCore
                 try { return this.Xml.Attributes["author"].Value; }
                 catch (NullReferenceException) { return null; }
             }
-            protected set
+            set
             {
                 this.Xml.Attributes["author"].Value = value;
                 this.OnPropertyChanged("Author");
             }
         }
 
+        [Resources.ResourceProperty("nameof_License", CC.ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string License
         {
             get
@@ -65,13 +51,14 @@ namespace ChameleonCoder.ResourceCore
                 try { return this.Xml.Attributes["license"].Value; }
                 catch (NullReferenceException) { return null; }
             }
-            protected set
+            set
             {
                 this.Xml.Attributes["license"].Value = value;
                 this.OnPropertyChanged("License");
             }
         }
 
+        [Resources.ResourceProperty("nameof_Version", CC.ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Version
         {
             get
@@ -79,11 +66,30 @@ namespace ChameleonCoder.ResourceCore
                 try { return this.Xml.Attributes["version"].Value; }
                 catch (NullReferenceException) { return null; }
             }
-            protected set
+            set
             {
                 this.Xml.Attributes["version"].Value = value;
                 this.OnPropertyChanged("Version");
             }
         }
+
+        #region Alias
+
+        public string nameof_Author
+        {
+            get { return Properties.Resources.Info_Author; }
+        }
+
+        public string nameof_License
+        {
+            get { return Properties.Resources.Info_License; }
+        }
+
+        public string nameof_Version
+        {
+            get { return Properties.Resources.Info_Version; }
+        }
+
+        #endregion
     }
 }

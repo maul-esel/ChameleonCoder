@@ -51,7 +51,6 @@ namespace ChameleonCoder.ResourceCore
 
         #region ILanguageResource
 
-        object lock_lang = new object();
         /// <summary>
         /// the GUID of the language in which the project is written
         /// </summary>
@@ -59,18 +58,12 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                lock (lock_lang)
-                {
-                    return new Guid(this.Xml.Attributes["language"].Value);
-                }
+                return new Guid(Xml.Attributes["language"].Value);
             }
             protected set
             {
-                lock (lock_lang)
-                {
-                    this.Xml.Attributes["language"].Value = value.ToString();
-                    this.OnPropertyChanged("language");
-                }
+                Xml.Attributes["language"].Value = value.ToString();
+                OnPropertyChanged("language");
             }
         }
 
@@ -83,50 +76,23 @@ namespace ChameleonCoder.ResourceCore
         /// <summary>
         /// the path to which the project would be compiled
         /// </summary>
+        [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
         public string compilationPath
         {
             get
             {
                 string result = null;
 
-                try { result = this.Xml.Attributes["compilation-path"].Value; }
+                try { result = Xml.Attributes["compilation-path"].Value; }
                 catch (NullReferenceException) { }
 
                 return result;
             }
             protected set
             {
-                this.Xml.Attributes["compilation-path"].Value = value;
-                this.OnPropertyChanged("compilationPath");
+                Xml.Attributes["compilation-path"].Value = value;
+                OnPropertyChanged("compilationPath");
             }
-        }
-
-        #endregion
-
-        #region IEnumerable<T>
-
-        public override IEnumerator<PropertyDescription> GetEnumerator()
-        {
-            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
-            while (baseEnum.MoveNext())
-                yield return baseEnum.Current;
-
-            string langName = string.Empty;
-            try { langName = ComponentManager.GetModule(this.language).Name; }
-            catch(NullReferenceException) { }
-
-            yield return new PropertyDescription("language", langName, "project") { IsReadOnly = true };
-
-            string list = string.Empty;
-            foreach (Guid lang in this.compatibleLanguages)
-            {
-                try { list += ComponentManager.GetModule(lang).Name + "; "; }
-                catch (NullReferenceException) { }
-            }
-
-            yield return new PropertyDescription("compatible languages", list, "project") { IsReadOnly = true };
-
-            yield return new PropertyDescription("compilation path", this.compilationPath, "project");
         }
 
         #endregion
@@ -139,8 +105,8 @@ namespace ChameleonCoder.ResourceCore
             get { return (ProjectPriority)Int32.Parse(this.Xml.Attributes["priority"].Value); }
             protected set
             {
-                this.Xml.Attributes["priority"].Value = ((int)value).ToString();
-                this.OnPropertyChanged("Priority");
+                Xml.Attributes["priority"].Value = ((int)value).ToString();
+                OnPropertyChanged("Priority");
             }
         }
 
@@ -163,6 +129,55 @@ namespace ChameleonCoder.ResourceCore
             /// the project has a high priority
             /// </summary>
             high
-        }      
+        }
+
+        [ResourceProperty(CommonResourceProperty.Language, ResourcePropertyGroup.ThisClass)]
+        public string LanguageName
+        {
+            get
+            {
+                LanguageModules.ILanguageModule module;
+                if (ComponentManager.TryGetModule(language, out module))
+                    return module.Name;
+                return "error: module could not be found";
+            }
+        }
+
+        [ResourceProperty(CommonResourceProperty.CompatibleLanguages, ResourcePropertyGroup.ThisClass, IsReadOnly = true)]
+        public string CompatibleLanguagesNames
+        {
+            get
+            {
+                string list = string.Empty;
+                foreach (Guid lang in compatibleLanguages)
+                {
+                    LanguageModules.ILanguageModule module;
+                    if (ComponentManager.TryGetModule(lang, out module))
+                        list += module.Name + "; ";
+
+                }
+                return list;
+            }
+        }
+
+        [ResourceProperty("nameof_PriorityName", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        public string PriorityName
+        {
+            get
+            {
+                switch (Priority)
+                {
+                    default:
+                    case ProjectPriority.basic: return Properties.Resources.Priority_Low;
+                    case ProjectPriority.middle: return Properties.Resources.Priority_Middle;
+                    case ProjectPriority.high: return Properties.Resources.Priority_High;
+                }
+            }
+        }
+
+        public string nameof_PriorityName
+        {
+            get { return Properties.Resources.Info_Priority; }
+        }
     }
 }

@@ -322,6 +322,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die compatible languages: ähnelt.
+        /// </summary>
+        internal static string Info_CompatibleLanguages {
+            get {
+                return ResourceManager.GetString("Info_CompatibleLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die compiled Path: ähnelt.
+        /// </summary>
+        internal static string Info_CompilationPath {
+            get {
+                return ResourceManager.GetString("Info_CompilationPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Description: ähnelt.
         /// </summary>
         internal static string Info_Description {
@@ -336,6 +354,15 @@ namespace ChameleonCoder.Properties {
         internal static string Info_File {
             get {
                 return ResourceManager.GetString("Info_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Path: ähnelt.
+        /// </summary>
+        internal static string Info_FSPath {
+            get {
+                return ResourceManager.GetString("Info_FSPath", resourceCulture);
             }
         }
         
@@ -358,11 +385,29 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Language: ähnelt.
+        /// </summary>
+        internal static string Info_Language {
+            get {
+                return ResourceManager.GetString("Info_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name: ähnelt.
         /// </summary>
         internal static string Info_Name {
             get {
                 return ResourceManager.GetString("Info_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Parent: ähnelt.
+        /// </summary>
+        internal static string Info_Parent {
+            get {
+                return ResourceManager.GetString("Info_Parent", resourceCulture);
             }
         }
         
@@ -489,6 +534,15 @@ namespace ChameleonCoder.Properties {
         internal static string Pack_IncludeResolve {
             get {
                 return ResourceManager.GetString("Pack_IncludeResolve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die General ähnelt.
+        /// </summary>
+        internal static string PropertyGroup_General {
+            get {
+                return ResourceManager.GetString("PropertyGroup_General", resourceCulture);
             }
         }
         

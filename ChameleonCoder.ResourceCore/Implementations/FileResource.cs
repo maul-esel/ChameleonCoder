@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,19 +21,6 @@ namespace ChameleonCoder.ResourceCore
         #region IResource
 
         public override ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")).GetAsFrozen() as ImageSource; } }
-
-        #endregion
-
-        #region IEnumerable
-
-        public override IEnumerator<PropertyDescription> GetEnumerator()
-        {
-            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
-            while (baseEnum.MoveNext())
-                yield return baseEnum.Current;
-
-            yield return new PropertyDescription("path", this.Path, "File");
-        }
 
         #endregion
 
@@ -75,6 +61,7 @@ namespace ChameleonCoder.ResourceCore
         /// <summary>
         /// the path to the file represented by the resource
         /// </summary>
+        [ResourceProperty(CommonResourceProperty.FSPath, ResourcePropertyGroup.ThisClass)]
         public string Path
         {
             get

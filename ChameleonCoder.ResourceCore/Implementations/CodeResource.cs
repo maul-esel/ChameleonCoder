@@ -62,6 +62,7 @@ namespace ChameleonCoder.ResourceCore
         /// <summary>
         /// the path to save the file if it is compiled.
         /// </summary>
+        [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
         public string compilationPath
         {
             get
@@ -75,38 +76,11 @@ namespace ChameleonCoder.ResourceCore
                     result = this.Path + ".exe";
                 return result;
             }
-            protected set
+            set
             {
                 this.Xml.Attributes["compilation-path"].Value = value;
                 this.OnPropertyChanged("compilationPath");
             }
-        }
-
-        #endregion
-
-        #region IEnumerable<T>
-
-        public override IEnumerator<PropertyDescription> GetEnumerator()
-        {
-            IEnumerator<PropertyDescription> baseEnum = base.GetEnumerator();
-            while (baseEnum.MoveNext())
-                yield return baseEnum.Current;
-
-            string langName = null;
-            try { langName = ComponentManager.GetModule(this.language).Name; }
-            catch (NullReferenceException) { }
-
-            yield return new PropertyDescription("language", langName, "source code") { IsReadOnly = true };
-
-            string list = string.Empty;
-            foreach (Guid lang in this.compatibleLanguages)
-            {
-                try { list += ComponentManager.GetModule(lang).Name + "; "; }
-                catch (NullReferenceException) { }
-            }
-
-            yield return new PropertyDescription("compatible languages", list, "source code") { IsReadOnly = true };
-            yield return new PropertyDescription("compilation path", this.compilationPath, "source code");
         }
 
         #endregion
@@ -119,6 +93,39 @@ namespace ChameleonCoder.ResourceCore
         }
 
         public RichContentCollection RichContent { get; protected set; }
+
+        #endregion
+
+        #region PropertyAliases
+
+        [ResourceProperty(CommonResourceProperty.Language, ResourcePropertyGroup.ThisClass, IsReadOnly = true)]
+        public string LanguageName
+        {
+            get
+            {
+                ILanguageModule module;
+                if (ComponentManager.TryGetModule(language, out module))
+                    return module.Name;
+                return "error: module could not be found";
+            }
+        }
+
+        [ResourceProperty(CommonResourceProperty.CompatibleLanguages, ResourcePropertyGroup.ThisClass, IsReadOnly = true)]
+        public string CompatibleLanguagesNames
+        {
+            get
+            {
+                string list = string.Empty;
+                foreach (Guid lang in compatibleLanguages)
+                {
+                    ILanguageModule module;
+                    if (ComponentManager.TryGetModule(lang, out module))
+                        list += module.Name + "; ";
+
+                }
+                return list;
+            }
+        }
 
         #endregion
     }

@@ -204,11 +204,17 @@
   <data name="Info_Class" xml:space="preserve">
     <value>Class:</value>
   </data>
+  <data name="Info_CompilationPath" xml:space="preserve">
+    <value>compiled Path:</value>
+  </data>
   <data name="Info_Description" xml:space="preserve">
     <value>Description:</value>
   </data>
   <data name="Info_File" xml:space="preserve">
     <value>Plugin file:</value>
+  </data>
+  <data name="Info_FSPath" xml:space="preserve">
+    <value>Path:</value>
   </data>
   <data name="Info_GUID" xml:space="preserve">
     <value>GUID:</value>
@@ -216,8 +222,14 @@
   <data name="Info_Icon" xml:space="preserve">
     <value>Icon:</value>
   </data>
+  <data name="Info_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
   <data name="Info_Name" xml:space="preserve">
     <value>Name:</value>
+  </data>
+  <data name="Info_Parent" xml:space="preserve">
+    <value>Parent:</value>
   </data>
   <data name="Info_Special" xml:space="preserve">
     <value>special information:</value>
@@ -263,6 +275,9 @@
   </data>
   <data name="Pack_IncludeResolve" xml:space="preserve">
     <value>Do you want to include the target resources for the packaged resources?</value>
+  </data>
+  <data name="PropertyGroup_General" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="ResourceImport" xml:space="preserve">
     <value>Import a resource</value>
@@ -360,5 +375,8 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome!</value>
+  </data>
+  <data name="Info_CompatibleLanguages" xml:space="preserve">
+    <value>compatible languages:</value>
   </data>
 </root>

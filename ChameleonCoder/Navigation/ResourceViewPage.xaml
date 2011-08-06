@@ -8,7 +8,7 @@
 	Title="ResourceViewPage">
     
     <Page.Resources>
-        <CollectionViewSource x:Uid="CollectionViewSource_1" x:Key="ResPropList" Source="{Binding}">
+        <CollectionViewSource x:Uid="CollectionViewSource_1" x:Key="ResPropList" Source="{Binding Converter={StaticResource PropConv}}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription x:Uid="PropertyGroupDescription_1" PropertyName="Group"/>
             </CollectionViewSource.GroupDescriptions>

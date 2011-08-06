@@ -138,4 +138,31 @@
   <data name="Display_Task" xml:space="preserve">
     <value>task</value>
   </data>
+  <data name="Info_Author" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="Info_Destination" xml:space="preserve">
+    <value>targeted resource:</value>
+  </data>
+  <data name="Info_EndDate" xml:space="preserve">
+    <value>end date:</value>
+  </data>
+  <data name="Info_License" xml:space="preserve">
+    <value>License:</value>
+  </data>
+  <data name="Info_Priority" xml:space="preserve">
+    <value>Priority:</value>
+  </data>
+  <data name="Info_Version" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>high</value>
+  </data>
+  <data name="Priority_Low" xml:space="preserve">
+    <value>low</value>
+  </data>
+  <data name="Priority_Middle" xml:space="preserve">
+    <value>middle</value>
+  </data>
 </root>

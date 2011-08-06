@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IResource : IEnumerable<PropertyDescription>
+    public interface IResource
     {
         /// <summary>
         /// the resource's icon in the main treeview

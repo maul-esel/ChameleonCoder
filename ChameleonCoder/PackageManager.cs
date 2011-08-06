@@ -112,7 +112,7 @@ namespace ChameleonCoder
         {
             if (resource != null)
             {
-                PackagePart fs = GetPackagePart(resource.GetFSPath(), GetPartUri(resource.GetFSPath()), "ChameleonCoder.FSComponent");
+                PackagePart fs = GetPackagePart(resource.FSPath, GetPartUri(resource.FSPath), "ChameleonCoder.FSComponent");
 
                 parent.CreateRelationship(fs.Uri, TargetMode.Internal, "ChameleonCoder://Package.Resource.FSComponent");
                 fs.CreateRelationship(parent.Uri, TargetMode.Internal, "ChameleonCoder://Package.FSComponent.Resource");

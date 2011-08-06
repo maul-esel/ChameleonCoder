@@ -119,6 +119,7 @@
     <Compile Include="CCPluginAttribute.cs" />
     <Compile Include="ComponentManager.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
+    <Compile Include="Converter\ResourcePropertyConverter.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
@@ -137,7 +138,6 @@
     </Compile>
     <Compile Include="InstanceCollection.cs" />
     <Compile Include="LanguageModules\ILanguageModule.cs" />
-    <Compile Include="LanguageModules\LanguageModuleHost.cs" />
     <Compile Include="Navigation\ResourceListPage.xaml.cs">
       <DependentUpon>ResourceListPage.xaml</DependentUpon>
     </Compile>
@@ -157,6 +157,7 @@
     <Compile Include="Resources\Management\ResourceTypeManager.cs" />
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
     <Compile Include="Resources\ResourceHelper.cs" />
+    <Compile Include="Resources\ResourcePropertyAttribute.cs" />
     <Compile Include="Resources\ResourceTypeInfo.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
     <Compile Include="Resources\RichContent\ContentMemberTypeInfo.cs" />
