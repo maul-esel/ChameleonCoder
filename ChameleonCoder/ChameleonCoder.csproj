@@ -115,6 +115,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Templates\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
     <Compile Include="ComponentManager.cs" />
@@ -144,9 +145,12 @@
     <Compile Include="Navigation\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewResourceDialog.xaml.cs">
+      <DependentUpon>NewResourceDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PackageManager.cs" />
     <Compile Include="Resources\Interfaces\IFSComponent.cs" />
-    <Compile Include="Resources\ITemplate.cs" />
+    <Compile Include="Templates\ITemplate.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
@@ -171,9 +175,6 @@
     <Compile Include="Resources\RichContent\RichContentCollection.cs" />
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interaction\ResourceTypeSelector.xaml.cs">
-      <DependentUpon>ResourceTypeSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\IService.cs" />
     <Compile Include="LanguageModules\LexingType.cs" />
@@ -235,7 +236,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Interaction\ResourceTypeSelector.xaml">
+    <Page Include="NewResourceDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
