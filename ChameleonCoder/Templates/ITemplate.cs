@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Templates
@@ -16,13 +15,6 @@ namespace ChameleonCoder.Templates
         /// If the template should not be added to a group, use string.Empty
         /// </summary>
         string Group { get; }
-
-        /// <summary>
-        /// The Identifiers of the coding languages the template relies on,
-        /// for example if it creates an ILanguageResource.
-        /// If the template doesn't rely on a language, use null.
-        /// </summary>
-        IEnumerable<Guid> Languages { get; }
 
         /// <summary>
         /// creates a new instance of the resource type and does additional operations
