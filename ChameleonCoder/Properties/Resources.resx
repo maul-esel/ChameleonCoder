@@ -379,4 +379,10 @@
   <data name="Info_CompatibleLanguages" xml:space="preserve">
     <value>compatible languages:</value>
   </data>
+  <data name="AutoTemplate_Author" xml:space="preserve">
+    <value>ChameleonCoder (original author: {0})</value>
+  </data>
+  <data name="AutoTemplate_Description" xml:space="preserve">
+    <value>new empty "{0}" resource</value>
+  </data>
 </root>

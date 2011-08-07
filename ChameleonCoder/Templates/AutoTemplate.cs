@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Templates
@@ -18,17 +17,17 @@ namespace ChameleonCoder.Templates
         #region IComponent
         public string About
         {
-            get { return "(c) 2011: auto-generated ChameleonCoder Template\noriginal author: " + info.Author; }
+            get { return "(c) 2011: auto-generated ChameleonCoder Template\n" + info.Author; }
         }
 
         public string Author
         {
-            get { return "ChameleonCoder (original author: " + info.Author + ")"; }
+            get { return string.Format(Properties.Resources.AutoTemplate_Author, info.Author); }
         }
 
         public string Description
         {
-            get { return "auto-enerated wrapper template for the " + info.DisplayName + " resource type."; }
+            get { return string.Format(Properties.Resources.AutoTemplate_Description, info.DisplayName); }
         }
 
         public System.Windows.Media.ImageSource Icon
@@ -43,7 +42,7 @@ namespace ChameleonCoder.Templates
 
         public string Name
         {
-            get { return info.DisplayName + "-template"; }
+            get { return info.DisplayName; }
         }
 
         public string Version
@@ -60,11 +59,6 @@ namespace ChameleonCoder.Templates
         public Type ResourceType { get; private set; }
 
         public string Group
-        {
-            get { return null; }
-        }
-
-        public IEnumerable<Guid> Languages
         {
             get { return null; }
         }

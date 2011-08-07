@@ -133,6 +133,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ChameleonCoder (original author: {0}) ähnelt.
+        /// </summary>
+        internal static string AutoTemplate_Author {
+            get {
+                return ResourceManager.GetString("AutoTemplate_Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die new empty &quot;{0}&quot; resource ähnelt.
+        /// </summary>
+        internal static string AutoTemplate_Description {
+            get {
+                return ResourceManager.GetString("AutoTemplate_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to delete the {0}-resource and all its child resources? ähnelt.
         /// </summary>
         internal static string Del_Confirm {
