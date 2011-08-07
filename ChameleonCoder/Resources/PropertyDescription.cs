@@ -1,33 +1,45 @@
-﻿using System;
+﻿using System.Reflection;
 
 namespace ChameleonCoder.Resources
 {
-    public sealed class PropertyDescription
+    internal sealed class PropertyDescription
     {
-        public string Name { get; private set; }
+        internal PropertyDescription(string name, string group, PropertyInfo info, object instance, bool isReadOnly)
+        {
+            Name = name;
+            Group = group;
+            _info = info;
+            _instance = instance;
+            _readonly = isReadOnly;
+        }
 
-        public string Value { get; private set; }
+        object _instance;
+        PropertyInfo _info;
+        bool _readonly;
+
+        public string Name { get; private set; }
 
         public string Group { get; private set; }
 
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly { get { return _readonly; } }
 
-        public PropertyDescription(string name, object value, string group)
+        public object Value
         {
-            this.Name = name;
-            if (value == null)
-                this.Value = string.Empty;
-            else
-                this.Value = value.ToString();
-            this.Group = group;
+            get
+            {
+                var method = _info.GetGetMethod();
+                if (method != null)
+                    return method.Invoke(_instance, null);
+                return null;
+            }
+            set
+            {
+                if (_readonly)
+                    return;
+                var method = _info.GetSetMethod();
+                if (method != null)
+                    method.Invoke(_instance, new object[1] { value });
+            }
         }
-
-        public PropertyDescription(string name, object value, Type group)
-            : this(name, value, Resources.Management.ResourceTypeManager.GetInfo(group).DisplayName)
-        { }
-
-        public PropertyDescription(string name, object value, Resources.Interfaces.IResource group)
-            : this(name, value, group.GetType())
-        { }
     }
 }

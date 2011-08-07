@@ -17,7 +17,7 @@ namespace ChameleonCoder.Converter
             foreach (var property in type.GetProperties())
             {
                 ResourcePropertyAttribute attr = (ResourcePropertyAttribute)Attribute.GetCustomAttribute(property, typeof(ResourcePropertyAttribute));
-                var getMethod = property.GetGetMethod(false);
+                var getMethod = property.GetGetMethod();
 
                 if (attr == null || getMethod == null)
                     continue;
@@ -38,15 +38,15 @@ namespace ChameleonCoder.Converter
                 if (attr.IsReferenceName)
                 {
                     var nameProperty = type.GetProperty(attr.Name, typeof(string));
-                    if (nameProperty != null && nameProperty.GetGetMethod(false) != null)
+                    if (nameProperty != null && nameProperty.GetGetMethod() != null)
                     {
-                        string _name = (string)nameProperty.GetGetMethod(false).Invoke(value, null);
+                        string _name = (string)nameProperty.GetGetMethod().Invoke(value, null);
                         if (!string.IsNullOrWhiteSpace(_name))
                             name = _name;
                     }
                 }
 
-                list.Add(new Resources.PropertyDescription(name, propertyValue, group) { IsReadOnly = attr.IsReadOnly || property.GetSetMethod(false) == null });
+                list.Add(new Resources.PropertyDescription(name, group, property, value, attr.IsReadOnly));
             }
 
             return list;

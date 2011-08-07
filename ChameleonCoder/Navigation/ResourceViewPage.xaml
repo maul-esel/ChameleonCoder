@@ -1,4 +1,4 @@
-﻿<Page x:Uid="Page_1" x:Class="ChameleonCoder.Navigation.ResourceViewPage"
+﻿<Page x:Class="ChameleonCoder.Navigation.ResourceViewPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,49 +8,49 @@
 	Title="ResourceViewPage">
     
     <Page.Resources>
-        <CollectionViewSource x:Uid="CollectionViewSource_1" x:Key="ResPropList" Source="{Binding Converter={StaticResource PropConv}}">
+        <CollectionViewSource x:Key="ResPropList" Source="{Binding Converter={StaticResource PropConv}}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription x:Uid="PropertyGroupDescription_1" PropertyName="Group"/>
+                <PropertyGroupDescription PropertyName="Group"/>
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </Page.Resources>
 
-    <Grid x:Uid="Grid_1">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Uid="ColumnDefinition_1"/>
-            <ColumnDefinition x:Uid="ColumnDefinition_2"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition x:Uid="RowDefinition_1"/>
-            <RowDefinition x:Uid="RowDefinition_2"/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Uid="PropertyGrid" x:Name="PropertyGrid" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+        <ListView x:Name="PropertyGrid" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
                   HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling"
                   ItemsSource="{Binding Source={StaticResource ResPropList}}">
             <ListView.GroupStyle>
-                <GroupStyle x:Uid="GroupStyle_1" HidesIfEmpty="True">
+                <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.ContainerStyle>
-                        <Style x:Uid="Style_1" TargetType="{x:Type GroupItem}">
-                            <Setter x:Uid="Setter_1" Property="Margin" Value="0,0,0,0"/>
-                            <Setter x:Uid="Setter_2" Property="Template">
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate x:Uid="ControlTemplate_1" TargetType="{x:Type GroupItem}">
-                                        <Border x:Uid="Border_1" CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2,2,2,2">
-                                            <GroupBox x:Uid="GroupBox_1">
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Border CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2,2,2,2">
+                                            <GroupBox>
                                                 <GroupBox.Header>
-                                                    <StackPanel x:Uid="StackPanel_1">
-                                                        <StackPanel x:Uid="StackPanel_2" Orientation="Horizontal">
-                                                            <TextBlock x:Uid="TextBlock_1" Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                         </StackPanel>
-                                                        <Border x:Uid="GroupBorder" x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2,2,2,2" Grid.ColumnSpan="1" BorderThickness="1" Width="{Binding ElementName=PropertyGrid, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
+                                                        <Border x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2,2,2,2" Grid.ColumnSpan="1" BorderThickness="1" Width="{Binding ElementName=PropertyGrid, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
                                                         <!--bit ugly way :)-->
                                                     </StackPanel>
                                                 </GroupBox.Header>
                                                 <GroupBox.Content>
-                                                    <ItemsPresenter x:Uid="ItemsPresenter_1"/>
+                                                    <ItemsPresenter/>
                                                 </GroupBox.Content>
                                             </GroupBox>
                                         </Border>
@@ -62,18 +62,18 @@
                 </GroupStyle>
             </ListView.GroupStyle>
             <ListView.View>
-                <GridView x:Uid="GridView_1">
-                    <GridViewColumn x:Uid="GridViewColumn_1" Width="Auto">
+                <GridView>
+                    <GridViewColumn>
                         <GridViewColumn.CellTemplate>
-                            <DataTemplate x:Uid="DataTemplate_1">
-                                <TextBlock x:Uid="TextBlock_2" Text="{Binding Path=Name, Mode=OneWay}"/>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name, Mode=OneWay}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Uid="GridViewColumn_2" Width="Auto">
+                    <GridViewColumn Width="Auto">
                         <GridViewColumn.CellTemplate>
-                            <DataTemplate x:Uid="DataTemplate_2">
-                                <TextBox x:Uid="TextBox_1" Text="{Binding Path=Value, Mode=OneWay}" IsReadOnly="{Binding Path=IsReadOnly}" HorizontalAlignment="Stretch"/>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=Value}" IsReadOnly="{Binding Path=IsReadOnly}" HorizontalAlignment="Stretch"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -81,7 +81,7 @@
             </ListView.View>
         </ListView>
         
-        <DataGrid x:Uid="MetadataGrid" x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1"
+        <DataGrid x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1"
                           ItemsSource="{Binding Path=MetaData}"
                           HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray"
                           HeadersVisibility="Column"
@@ -89,7 +89,7 @@
                           VirtualizingStackPanel.VirtualizationMode="Recycling">
         </DataGrid>
 
-        <TextBox x:Uid="NotesBox" x:Name="NotesBox" Grid.Column="1" Grid.Row="1"
+        <TextBox x:Name="NotesBox" Grid.Column="1" Grid.Row="1"
                  AutoWordSelection="True" AcceptsReturn="True"
                  Text="{Binding Path=Notes}"/>
     </Grid>
