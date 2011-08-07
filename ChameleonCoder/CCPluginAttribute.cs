@@ -2,7 +2,7 @@
 
 namespace ChameleonCoder
 {
-    [AttributeUsage(AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class)]
     public class CCPluginAttribute : Attribute
     {
     }

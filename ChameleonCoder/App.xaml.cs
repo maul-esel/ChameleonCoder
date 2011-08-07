@@ -204,11 +204,12 @@ namespace ChameleonCoder
 
         private static void LoadPlugins()
         {
-            var components = from dll in Directory.GetFiles(AppDir + "\\Components", "*.dll").AsParallel()
+            var components = from dll in Directory.GetFiles(AppDir + "\\Components", "*.dll")
                              let plugin = Assembly.LoadFrom(dll)
                              where Attribute.IsDefined(plugin, typeof(CCPluginAttribute))
-                             from type in plugin.GetTypes().AsParallel()
-                             where !type.IsAbstract && !type.IsInterface && !type.IsNotPublic
+                             from type in plugin.GetTypes()
+                             where Attribute.IsDefined(type, typeof(CCPluginAttribute))
+                                && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
                              select type;
 
             Parallel.ForEach(components, component =>
@@ -216,15 +217,6 @@ namespace ChameleonCoder
                 PluginManager.TryAdd(component);
                 if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
                     (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
-
-                /*if (component.GetInterface(typeof(LanguageModules.ILanguageModule).FullName) != null)
-                    LanguageModules.LanguageModuleHost.Add(component);
-
-                if (component.GetInterface(typeof(Services.IService).FullName) != null)
-                    Services.ServiceHost.Add(component);
-
-                if (component.GetInterface(typeof(ITemplate).FullName) != null)
-                    TemplateManager.Add(component);*/
             });
         }
 

@@ -4,6 +4,7 @@ using ChameleonCoder.Services;
 
 namespace GuidCreator
 {
+    [ChameleonCoder.CCPlugin]
     public class GuidCreator : IService
     {
         #region infrastructure

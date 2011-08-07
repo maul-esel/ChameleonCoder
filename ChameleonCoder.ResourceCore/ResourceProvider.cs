@@ -11,6 +11,7 @@ using Res = ChameleonCoder.ResourceCore.Properties.Resources;
 
 namespace ChameleonCoder.ResourceCore
 {
+    [CCPlugin]
     public sealed class ResourceProvider : ChameleonCoder.IComponentProvider
     {
         public void Init(Action<Type, ContentMemberTypeInfo> registerContentMember, Action<Type, ResourceTypeInfo> registerResourceType)
