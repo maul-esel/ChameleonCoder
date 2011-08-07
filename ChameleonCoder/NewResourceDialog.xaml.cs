@@ -14,7 +14,7 @@ namespace ChameleonCoder
     {
         public NewResourceDialog()
         {
-            var templates = new List<ITemplate>(ComponentManager.GetTemplates());
+            var templates = new List<ITemplate>(PluginManager.GetTemplates());
 
             foreach (var type in ResourceTypeManager.GetResourceTypes())
                 if (!Attribute.IsDefined(type, typeof(NoWrapperTemplateAttribute)))

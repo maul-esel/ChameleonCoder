@@ -68,12 +68,12 @@ namespace ChameleonCoder.Resources.Management
 
             if ((langRes = resource as ILanguageResource) != null)
             {
-                if (ComponentManager.ActiveModule != null
-                    && langRes.language != ComponentManager.ActiveModule.Identifier)
+                if (PluginManager.ActiveModule != null
+                    && langRes.language != PluginManager.ActiveModule.Identifier)
                 {
-                    ComponentManager.UnloadModule();
-                    if (ComponentManager.IsModuleRegistered(langRes.language))
-                        ComponentManager.LoadModule(langRes.language);
+                    PluginManager.UnloadModule();
+                    if (PluginManager.IsModuleRegistered(langRes.language))
+                        PluginManager.LoadModule(langRes.language);
                 }
             }
             Interaction.InformationProvider.OnResourceLoaded(resource, new EventArgs());

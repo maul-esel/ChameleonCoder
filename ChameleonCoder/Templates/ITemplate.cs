@@ -3,7 +3,7 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Templates
 {
-    public interface ITemplate : IComponent
+    public interface ITemplate : IPlugin
     {
         /// <summary>
         /// the resource type the template creates

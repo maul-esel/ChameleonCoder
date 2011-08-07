@@ -20,7 +20,7 @@ namespace ChameleonCoder.Converter
             if (resource is ILanguageResource)
             {
                 ILanguageModule module;
-                if (ComponentManager.TryGetModule((resource as ILanguageResource).language, out module) && module.Icon != null)
+                if (PluginManager.TryGetModule((resource as ILanguageResource).language, out module) && module.Icon != null)
                     return module.Icon.GetAsFrozen();
             }
 

@@ -17,10 +17,10 @@ namespace ChameleonCoder.Navigation
             ILanguageResource langRes = resource as ILanguageResource;
             if (langRes != null)
             {
-                if (ComponentManager.ActiveModule != null)
-                    ComponentManager.UnloadModule();
-                if (ComponentManager.IsModuleRegistered(langRes.language))
-                    ComponentManager.LoadModule(langRes.language);
+                if (PluginManager.ActiveModule != null)
+                    PluginManager.UnloadModule();
+                if (PluginManager.IsModuleRegistered(langRes.language))
+                    PluginManager.LoadModule(langRes.language);
             }
         }
 

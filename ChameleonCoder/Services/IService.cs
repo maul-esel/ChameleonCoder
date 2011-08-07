@@ -5,7 +5,7 @@ namespace ChameleonCoder.Services
     /// <summary>
     /// the interface for a service
     /// </summary>
-    public interface IService : IComponent
+    public interface IService : IPlugin
     {
         /// <summary>
         /// called when the user starts the service

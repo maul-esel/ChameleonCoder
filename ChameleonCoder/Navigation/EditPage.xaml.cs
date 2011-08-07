@@ -16,9 +16,9 @@ namespace ChameleonCoder.Navigation
             ILanguageResource langRes = resource as ILanguageResource;
             if (langRes != null)
             {
-                if (ComponentManager.ActiveModule != null)
-                    ComponentManager.UnloadModule();
-                ComponentManager.LoadModule(langRes.language);
+                if (PluginManager.ActiveModule != null)
+                    PluginManager.UnloadModule();
+                PluginManager.LoadModule(langRes.language);
             }
         }
 

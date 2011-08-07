@@ -118,10 +118,10 @@
     <Compile Include="Templates\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
-    <Compile Include="ComponentManager.cs" />
+    <Compile Include="PluginManager.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="Converter\ResourcePropertyConverter.cs" />
-    <Compile Include="IComponent.cs" />
+    <Compile Include="IPlugin.cs" />
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>

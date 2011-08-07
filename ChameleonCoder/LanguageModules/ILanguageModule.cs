@@ -5,7 +5,7 @@ namespace ChameleonCoder.LanguageModules
     /// <summary>
     /// defines the interface all language modules must implement
     /// </summary>
-    public interface ILanguageModule : IComponent
+    public interface ILanguageModule : IPlugin
     {
         /// <summary>
         /// called when the user requests to compile a resource

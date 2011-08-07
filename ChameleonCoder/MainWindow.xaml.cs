@@ -23,10 +23,10 @@ namespace ChameleonCoder
         {
             InitializeComponent();
 
-            if (ComponentManager.ServiceCount == 0)
+            if (PluginManager.ServiceCount == 0)
                 this.MenuServices.IsEnabled = false;
 
-            foreach (IService service in ComponentManager.GetServices())
+            foreach (IService service in PluginManager.GetServices())
                 MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.Name, DataContext = service.Identifier });
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
@@ -40,7 +40,7 @@ namespace ChameleonCoder
                 item.Click += ResourceCreateChild;
                 AddChildResource.Items.Add(item);
             }
-            foreach (var template in ComponentManager.GetTemplates())
+            foreach (var template in PluginManager.GetTemplates())
                 MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = template.Icon, Header = template.Name, DataContext = template.Identifier });
 
             GoHome(null, null);
@@ -98,7 +98,7 @@ namespace ChameleonCoder
         {
             RibbonApplicationMenuItem item = e.OriginalSource as RibbonApplicationMenuItem;
             if (item != null)
-                ComponentManager.CallService((Guid)item.DataContext);
+                PluginManager.CallService((Guid)item.DataContext);
         }
 
         #region resources
@@ -121,7 +121,7 @@ namespace ChameleonCoder
             {
                 var template = (Guid)(e.OriginalSource as RibbonApplicationMenuItem).DataContext;
                 if (template != default(Guid))
-                    ComponentManager.Create(template, null);
+                    PluginManager.Create(template, null);
             }
         }
 

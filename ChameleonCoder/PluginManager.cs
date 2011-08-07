@@ -8,7 +8,7 @@ using IF = ChameleonCoder.Interaction.InformationProvider;
 
 namespace ChameleonCoder
 {
-    public static class ComponentManager
+    public static class PluginManager
     {
         internal static void TryAdd(Type component)
         {

@@ -3,7 +3,7 @@
     /// <summary>
     /// a base interface to be implemented by components
     /// </summary>
-    public interface IComponent
+    public interface IPlugin
     {
         /// <summary>
         /// an about text displayed in an About Box. This may include credits, copyright, ...
