@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using ChameleonCoder.Navigation;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Services;
 using Odyssey.Controls;
 
 namespace ChameleonCoder

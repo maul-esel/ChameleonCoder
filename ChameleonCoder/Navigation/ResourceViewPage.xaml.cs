@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Data;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 

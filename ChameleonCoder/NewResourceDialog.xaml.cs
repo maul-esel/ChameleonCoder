@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Templates;
+using ChameleonCoder.Plugins;
 
 namespace ChameleonCoder
 {

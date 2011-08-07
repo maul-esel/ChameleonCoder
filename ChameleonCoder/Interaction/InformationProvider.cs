@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml;
 using System.Windows.Media;
-using ChameleonCoder.LanguageModules;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
@@ -12,7 +12,7 @@ namespace ChameleonCoder.Interaction
 {
     public delegate void ResourceEventHandler(IResource sender, EventArgs e);
     public delegate void LanguageModuleEventHandler(ILanguageModule sender, EventArgs e);
-    public delegate void ServiceEventHandler(Services.IService sender, EventArgs e);
+    public delegate void ServiceEventHandler(IService sender, EventArgs e);
     public delegate void SettingsEventHandler(object newValue);
 
     public static class InformationProvider
@@ -33,7 +33,7 @@ namespace ChameleonCoder.Interaction
 
         #region tools
 
-        public static void RegisterCodeGenerator(LanguageModules.CodeGeneratorEventHandler clicked, ImageSource image, string text)
+        public static void RegisterCodeGenerator(CodeGeneratorEventHandler clicked, ImageSource image, string text)
         {
             RibbonButton button = new RibbonButton() { Content = text, LargeImage = image, DataContext = clicked };
             button.Click += (s, e) =>
@@ -249,14 +249,14 @@ namespace ChameleonCoder.Interaction
                 handler(sender, e);
         }
 
-        internal static void OnServiceExecute(Services.IService sender, EventArgs e)
+        internal static void OnServiceExecute(IService sender, EventArgs e)
         {
             ServiceEventHandler handler = ServiceExecute;
             if (handler != null)
                 handler(sender, e);
         }
 
-        internal static void OnServiceExecuted(Services.IService sender, EventArgs e)
+        internal static void OnServiceExecuted(IService sender, EventArgs e)
         {
             ServiceEventHandler handler = ServiceExecuted;
             if (handler != null)

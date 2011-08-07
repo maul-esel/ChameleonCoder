@@ -20,7 +20,7 @@ namespace ChameleonCoder
         public string ResDescription { get; set; }
         public Guid ResDestination { get; set; }
         public string ResPath { get; set; }
-        public LanguageModules.ILanguageModule ResLanguage { get; set; }
+        public Plugins.ILanguageModule ResLanguage { get; set; }
         public string ResCompilationPath { get; set; }
         public string ResAuthor { get; set; }
         public string ResVersion { get; set; }
@@ -52,7 +52,7 @@ namespace ChameleonCoder
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
-                this.ResourceLanguage.ItemsSource = PluginManager.GetModules();
+                this.ResourceLanguage.ItemsSource = Plugins.PluginManager.GetModules();
                 customAttributes.Add("language", () => ResourceLanguage.Text);
             }
 

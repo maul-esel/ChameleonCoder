@@ -1,4 +1,4 @@
-﻿namespace ChameleonCoder
+﻿namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// a base interface to be implemented by components

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Services;
+using ChameleonCoder.Plugins;
 
 namespace GuidCreator
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.LanguageModules
+namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// defines the interface all language modules must implement

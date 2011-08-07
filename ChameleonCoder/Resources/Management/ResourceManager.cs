@@ -1,4 +1,5 @@
 ﻿using System;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management

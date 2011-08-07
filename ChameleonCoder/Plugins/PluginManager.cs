@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using ChameleonCoder.LanguageModules;
-using ChameleonCoder.Templates;
-using ChameleonCoder.Services;
+using ChameleonCoder.Plugins;
 using IF = ChameleonCoder.Interaction.InformationProvider;
 
-namespace ChameleonCoder
+namespace ChameleonCoder.Plugins
 {
     public static class PluginManager
     {

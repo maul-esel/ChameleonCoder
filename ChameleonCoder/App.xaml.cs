@@ -112,7 +112,7 @@ namespace ChameleonCoder
 
         internal static void ExitHandler(object sender, EventArgs e)
         {
-            PluginManager.Shutdown();
+            Plugins.PluginManager.Shutdown();
         }
 
         internal static void ParseFile(string file)
@@ -214,7 +214,7 @@ namespace ChameleonCoder
 
             Parallel.ForEach(components, component =>
             {
-                PluginManager.TryAdd(component);
+                Plugins.PluginManager.TryAdd(component);
                 if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
                     (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
             });

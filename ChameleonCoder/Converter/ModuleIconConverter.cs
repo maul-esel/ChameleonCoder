@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 using System.Windows.Media;
-using ChameleonCoder.LanguageModules;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Converter

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.Templates
+namespace ChameleonCoder.Plugins
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class NoWrapperTemplateAttribute : Attribute

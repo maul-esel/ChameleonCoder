@@ -1,7 +1,7 @@
 ﻿using System;
 using ChameleonCoder.Resources;
 
-namespace ChameleonCoder.Templates
+namespace ChameleonCoder.Plugins
 {
     internal sealed class AutoTemplate : ITemplate
     {

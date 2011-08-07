@@ -5,7 +5,7 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
-using ChameleonCoder.LanguageModules;
+using ChameleonCoder.Plugins;
 
 namespace ChameleonCoder.ResourceCore
 {

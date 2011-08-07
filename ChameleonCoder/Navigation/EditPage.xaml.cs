@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Navigation

@@ -1,7 +1,7 @@
 ﻿using System;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Templates
+namespace ChameleonCoder.Plugins
 {
     public interface ITemplate : IPlugin
     {

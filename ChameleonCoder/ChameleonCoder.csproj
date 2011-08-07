@@ -115,13 +115,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Templates\AutoTemplate.cs" />
+    <Compile Include="Plugins\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
-    <Compile Include="PluginManager.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="Converter\ResourcePropertyConverter.cs" />
-    <Compile Include="IPlugin.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="IComponentProvider.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
@@ -133,12 +133,12 @@
     <Compile Include="Interaction\ResourceSelector.xaml.cs">
       <DependentUpon>ResourceSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LanguageModules\CodeGeneratorEventArgs.cs" />
+    <Compile Include="Plugins\CodeGeneratorEventArgs.cs" />
     <Compile Include="Navigation\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="InstanceCollection.cs" />
-    <Compile Include="LanguageModules\ILanguageModule.cs" />
+    <Compile Include="Plugins\ILanguageModule.cs" />
     <Compile Include="Navigation\ResourceListPage.xaml.cs">
       <DependentUpon>ResourceListPage.xaml</DependentUpon>
     </Compile>
@@ -150,7 +150,7 @@
     </Compile>
     <Compile Include="PackageManager.cs" />
     <Compile Include="Resources\Interfaces\IFSComponent.cs" />
-    <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Plugins\ITemplate.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
@@ -176,8 +176,8 @@
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\IService.cs" />
-    <Compile Include="LanguageModules\LexingType.cs" />
+    <Compile Include="Plugins\IService.cs" />
+    <Compile Include="Plugins\LexingType.cs" />
     <Compile Include="Resources\Metadata.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\MetadataCollection.cs" />
@@ -194,7 +194,7 @@
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Templates\NoWrapperTemplateAttribute.cs" />
+    <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
     <Page Include="Interaction\CCResourceCatalog.xaml">

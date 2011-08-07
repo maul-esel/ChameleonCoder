@@ -136,8 +136,8 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                LanguageModules.ILanguageModule module;
-                if (PluginManager.TryGetModule(language, out module))
+                Plugins.ILanguageModule module;
+                if (Plugins.PluginManager.TryGetModule(language, out module))
                     return module.Name;
                 return "error: module could not be found";
             }
@@ -151,8 +151,8 @@ namespace ChameleonCoder.ResourceCore
                 string list = string.Empty;
                 foreach (Guid lang in compatibleLanguages)
                 {
-                    LanguageModules.ILanguageModule module;
-                    if (PluginManager.TryGetModule(lang, out module))
+                    Plugins.ILanguageModule module;
+                    if (Plugins.PluginManager.TryGetModule(lang, out module))
                         list += module.Name + "; ";
 
                 }
