@@ -194,6 +194,7 @@
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Templates\NoWrapperTemplateAttribute.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
     <Page Include="Interaction\CCResourceCatalog.xaml">

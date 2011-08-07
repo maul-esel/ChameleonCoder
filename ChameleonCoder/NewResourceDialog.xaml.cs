@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
-using ChameleonCoder.Templates;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Templates;
 
 namespace ChameleonCoder
 {
@@ -16,7 +17,8 @@ namespace ChameleonCoder
             var templates = new List<ITemplate>(ComponentManager.GetTemplates());
 
             foreach (var type in ResourceTypeManager.GetResourceTypes())
-                templates.Add(new AutoTemplate(type, ResourceTypeManager.GetInfo(type)));
+                if (!Attribute.IsDefined(type, typeof(NoWrapperTemplateAttribute)))
+                    templates.Add(new AutoTemplate(type, ResourceTypeManager.GetInfo(type)));
 
             InitializeComponent();
 
