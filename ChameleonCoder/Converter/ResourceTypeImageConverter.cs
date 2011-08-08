@@ -1,22 +1,48 @@
 ﻿using System;
 using System.Windows.Data;
 using System.Windows.Media;
-using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
 {
+    /// <summary>
+    /// converts a Type instance to a registered's resource type's icon.
+    /// </summary>
     [ValueConversion(typeof(Type), typeof(ImageSource))]
     internal sealed class ResourceTypeImageConverter : IValueConverter
     {
+        /// <summary>
+        /// converts the Type instance to the ImageSource
+        /// </summary>
+        /// <param name="value">the Type instance to convert</param>
+        /// <param name="targetType">not used</param>
+        /// <param name="parameter">not used</param>
+        /// <param name="culture">not used</param>
+        /// <returns>the ImageSource</returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            ResourceTypeInfo info = ResourceTypeManager.GetInfo(value as Type);
-            if (info != null && info.TypeIcon != null)
-                return info.TypeIcon.GetAsFrozen();
-            return null;
+            Type type = value as Type; // cast the value to a Type instance
+            if (type != null) // if cast successful
+            {
+                ResourceTypeInfo info = ResourceTypeManager.GetInfo(type); // get the information
+                if (info != null && info.TypeIcon != null) // if information found and Icon-property is non-null;
+                    return info.TypeIcon.GetAsFrozen(); // return the Icon, using GetAsFrozen() to avoid multi-threading issues
+                // else throw exception
+                throw new InvalidOperationException("the type " + type.FullName + " is not registered or it's Icon property is null");
+            }
+            // if cast not successful: throw exception
+            throw new ArgumentException("'value' is not a Type instance or null", "value");
         }
 
+        /// <summary>
+        /// this converter does not support converting back.
+        /// </summary>
+        /// <param name="value">not used</param>
+        /// <param name="targetType">not used</param>
+        /// <param name="parameter">not used</param>
+        /// <param name="culture">not used</param>
+        /// <returns>null</returns>
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
