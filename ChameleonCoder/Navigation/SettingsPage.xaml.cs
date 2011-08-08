@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows.Controls;
 
-
 namespace ChameleonCoder.Navigation
 {
     /// <summary>
-    /// Interaktionslogik für SettingsPage.xaml
+    /// a page displaying the app settings
     /// </summary>
     public partial class SettingsPage : Page
     {

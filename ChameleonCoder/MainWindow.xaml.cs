@@ -80,7 +80,7 @@ namespace ChameleonCoder
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (IsInitialized)
-                ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked);
+                ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked == true);
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)

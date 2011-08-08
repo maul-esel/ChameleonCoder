@@ -1,14 +1,6 @@
-﻿<Page x:Uid="Page_1" x:Class="ChameleonCoder.Navigation.EditPage"
+﻿<Page x:Class="ChameleonCoder.Navigation.EditPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Localization.Attributes="$Content(Unreadable Unmodifiable)">
-
-    <avalon:TextEditor x:Uid="Editor" x:Name="Editor" ShowLineNumbers="True"
-                       Localization.Attributes="$Content(Unreadable Unmodifiable) Name(Unreadable Unmodifiable) ShowLineNumbers(Unreadable Unmodifiable)"/>
-
+      xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit">
+    <avalon:TextEditor x:Name="Editor" ShowLineNumbers="True"/>
 </Page>

@@ -1,73 +1,94 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Navigation
 {
     /// <summary>
-    /// Interaktionslogik für ResourceListPage.xaml
+    /// a page displaying all registered resources
     /// </summary>
     public partial class ResourceListPage : Page
     {
+        /// <summary>
+        /// creates a new instance of this page
+        /// </summary>
         internal ResourceListPage()
         {
-            this.Resources.Add("Name_", Properties.Resources.Info_Name);
-            this.Resources.Add("Description_",Properties.Resources.Info_Description);
+            DataContext = App.Gui.DataContext;
             InitializeComponent();
         }
 
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        /// <summary>
+        /// filters the items in the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Filter(object sender, FilterEventArgs e)
         {
-            IResource resource = e.Item as IResource;
-            e.Accepted = true;
-            Type resType = resource.GetType();
+            IResource resource = e.Item as IResource; // get resource
+            e.Accepted = true; // default value: accept
+            Type resType = resource.GetType(); // get type
 
+            // if IResolvables should not be shown and this is an IResolvable:
             if (resource is IResolvable && !App.Gui.ShowLinks.IsChecked == true)
-                e.Accepted = false;
+                e.Accepted = false; // directly filter it
 
-            else if (IsInitialized)
+            else if (IsInitialized) // othwerise, and if the page is initialized:
             {
                 int i = 0;
-                foreach (Type t in App.Gui.visTypes.Items)
+                foreach (Type t in App.Gui.visTypes.Items) // iterate through types
                 {
-                    if (t == resType)
+                    if (t == resType) // if it is a match:
                     {
-                        DependencyObject item = App.Gui.visTypes.ItemContainerGenerator.ContainerFromIndex(i);
+                        DependencyObject item = App.Gui.visTypes.ItemContainerGenerator.ContainerFromIndex(i); // get the item containing this type
                         if (item != null)
                         {
                             for (int index = 0; index < 14; index++)
-                                item = VisualTreeHelper.GetChild(item, index == 6 ? 1 : index == 3 || index == 8 || index == 11 ? 3 : 0); /* /0/0/0/3/0/0/1/0/3/0/0/3/0/0 */
-                            if ((item as CheckBox).IsChecked == true)
+                                item = VisualTreeHelper.GetChild(item, index == 6 ? 1 : index == 3 || index == 8 || index == 11 ? 3 : 0); // recurse through the visual tree /* /0/0/0/3/0/0/1/0/3/0/0/3/0/0 */
+                            if ((item as CheckBox).IsChecked == true) // until we find the checkbox. If it is checked, hide the resource
                                 e.Accepted = false;
                         }
-                        break;
+                        break; // stop iteration
                     }
                     i++;
                 }   
             }
         }
 
+        /// <summary>
+        /// opens a resource in ResourceView
+        /// </summary>
+        /// <param name="sender">the control raising the event</param>
+        /// <param name="e">additional data</param>
         private void OpenResource(object sender, EventArgs e)
         {
-            App.Gui.ResourceOpen(ResourceList.SelectedItem as IResource);
+            App.Gui.ResourceOpen(ResourceList.SelectedItem as IResource); // redirect call
         }
 
+        /// <summary>
+        /// tries to import a dropped file
+        /// </summary>
+        /// <param name="sender">the control raising the event</param>
+        /// <param name="e">additional data</param>
         private void DroppedFile(object sender, DragEventArgs e)
         {
-            App.Gui.DroppedFile(sender, e);
+            App.Gui.DroppedFile(sender, e); // redirect call
         }
 
-        internal void GroupingChanged(bool? enabled)
+        /// <summary>
+        /// updates the grouping status
+        /// </summary>
+        /// <param name="enabled">true to enable grouping, otherwise false</param>
+        internal void GroupingChanged(bool enabled)
         {
-            if (this.IsInitialized)
+            if (IsInitialized) // if the page is initilized
             {
-                if (enabled == true)
+                if (enabled) // if enabled: add group description
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter()));
-                else if (enabled == false)
+                else // othwerwise: remove group descriptions
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Clear();
             }
         }

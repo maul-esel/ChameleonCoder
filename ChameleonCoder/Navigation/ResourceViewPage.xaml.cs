@@ -6,14 +6,20 @@ using ChameleonCoder.Resources.Management;
 namespace ChameleonCoder.Navigation
 {
     /// <summary>
-    /// Interaktionslogik für ResourceViewPage.xaml
+    /// a page displaying resource details
     /// </summary>
     public partial class ResourceViewPage : Page
     {
+        /// <summary>
+        /// creates a new instance of this page, given a resource to display
+        /// </summary>
+        /// <param name="resource">the resource to display</param>
         internal ResourceViewPage(IResource resource)
         {
-            this.DataContext = this.Resource = ResourceManager.ActiveItem = resource;
+            DataContext = Resource = ResourceManager.ActiveItem = resource;
+
             InitializeComponent();
+
             ILanguageResource langRes = resource as ILanguageResource;
             if (langRes != null)
             {
@@ -24,6 +30,9 @@ namespace ChameleonCoder.Navigation
             }
         }
 
+        /// <summary>
+        /// the resource which is displayed
+        /// </summary>
         internal IResource Resource { get; private set; }
     }
 }
