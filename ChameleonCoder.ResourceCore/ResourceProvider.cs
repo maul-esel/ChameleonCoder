@@ -46,11 +46,6 @@ namespace ChameleonCoder.ResourceCore
                     ResourceProvider.Create, "maul.esel"));
         }
 
-        public static void Load(IResource resource)
-        {
-
-        }
-
         public static IResource Create(Type target, IResource parent, string name)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
