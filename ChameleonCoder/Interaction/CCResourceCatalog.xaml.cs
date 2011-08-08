@@ -9,7 +9,7 @@ using ChameleonCoder.Resources.Management;
 namespace ChameleonCoder.Interaction
 {
     /// <summary>
-    /// Interaktionslogik für CCResourceCatalog.xaml
+    /// a user control that displays a caller-defined set of resources
     /// </summary>
     public partial class CCResourceCatalog : UserControl
     {

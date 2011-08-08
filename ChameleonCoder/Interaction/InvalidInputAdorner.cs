@@ -4,20 +4,35 @@ using System.Windows.Media;
 
 namespace ChameleonCoder.Interaction
 {
+    /// <summary>
+    /// an adorner to show invalid user input
+    /// </summary>
     public class InvalidInputAdorner : Adorner
     {
+        /// <summary>
+        /// creates a new instance of the adorner, given an element
+        /// </summary>
+        /// <param name="element"></param>
         protected InvalidInputAdorner(UIElement element) : base(element) { }
 
-        protected GeometryGroup ad;
-
+        /// <summary>
+        /// rendres the adorner
+        /// </summary>
+        /// <param name="drawingContext">the drawing context for this adorner</param>
         protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
         {
-            ad = new GeometryGroup();
+            GeometryGroup ad = new GeometryGroup();
             ad.Children.Add(new RectangleGeometry(new Rect(AdornedElement.RenderSize)) { });
             drawingContext.DrawGeometry(null, new Pen(Brushes.Red, 1), ad);
             (AdornedElement as FrameworkElement).ToolTip = ToolTip;
         }
 
+        /// <summary>
+        /// adorns an element with a new InvalidInputAdorner
+        /// </summary>
+        /// <param name="element">the element to adorn</param>
+        /// <param name="message">a custom tooltip message</param>
+        /// <returns>the new instance</returns>
         public static InvalidInputAdorner Adorn(FrameworkElement element, string message)
         {
             var layer = AdornerLayer.GetAdornerLayer(element);
@@ -26,6 +41,9 @@ namespace ChameleonCoder.Interaction
             return adorner;
         }
 
+        /// <summary>
+        /// removes the current instance from its element
+        /// </summary>
         public void Remove()
         {
             AdornerLayer.GetAdornerLayer(AdornedElement).Remove(this);
