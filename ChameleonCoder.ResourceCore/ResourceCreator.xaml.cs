@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using ChameleonCoder.Interaction;
-using ChameleonCoder.ResourceCore;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder
+namespace ChameleonCoder.ResourceCore
 {
     /// <summary>
     /// Interaktionslogik für ResourceCreator.xaml
@@ -28,11 +27,12 @@ namespace ChameleonCoder
         public ProjectResource.ProjectPriority ResPriority { get; set; }
         public DateTime ResDate { get; set; }
 
-        public ResourceCreator(Type target, string parent)
+        public ResourceCreator(Type target, string parent, string name)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            ResName = name;
             this.ResourceParent.Text = parent;
             this.ResourceType.Text = InformationProvider.GetResourceTypeInfo(target).DisplayName;
 

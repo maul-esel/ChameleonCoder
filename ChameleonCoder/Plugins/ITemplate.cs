@@ -26,6 +26,6 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="parent">the parent resource or null is it is a new top resource</param>
         /// <returns>the newly created resource</returns>
-        IResource Create(IResource parent);
+        IResource Create(IResource parent, string Name);
     }
 }

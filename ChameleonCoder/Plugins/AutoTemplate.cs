@@ -1,5 +1,6 @@
 ﻿using System;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Plugins
 {
@@ -17,7 +18,7 @@ namespace ChameleonCoder.Plugins
         #region IComponent
         public string About
         {
-            get { return "(c) 2011: auto-generated ChameleonCoder Template\n" + info.Author; }
+            get { return "© 2011: auto-generated ChameleonCoder Template\n" + info.Author; }
         }
 
         public string Author
@@ -81,9 +82,9 @@ namespace ChameleonCoder.Plugins
             private set;
         }
 
-        public Resources.Interfaces.IResource Create(Resources.Interfaces.IResource parent)
+        public Resources.Interfaces.IResource Create(IResource parent, string name)
         {
-            return info.Create(ResourceType, parent);
+            return info.Create(ResourceType, parent, name);
         }
         #endregion
     }

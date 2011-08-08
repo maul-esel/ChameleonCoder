@@ -174,12 +174,12 @@ namespace ChameleonCoder.Plugins
         static int TemplateCount { get { return Templates.Count; } }
 
 
-        internal static void Create(Guid id, Resources.Interfaces.IResource parent)
+        internal static void Create(Guid id, Resources.Interfaces.IResource parent, string name)
         {
             ITemplate template;
             if (Templates.TryGetValue(id, out template))
             {
-                template.Create(parent);
+                template.Create(parent, name);
             }
         }
 

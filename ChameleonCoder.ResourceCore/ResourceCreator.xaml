@@ -1,4 +1,4 @@
-﻿<Window x:Class="ChameleonCoder.ResourceCreator"
+﻿<Window x:Class="ChameleonCoder.ResourceCore.ResourceCreator"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ResourceCreator" Height="Auto" Width="600"
@@ -39,7 +39,7 @@
             
             <!--IResource-->
             <TextBlock Margin="5,5,5,5" Text="Name:" Grid.Column="0" Grid.Row="1"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceName" Grid.Column="1" Grid.Row="1"
+            <TextBox Margin="5,5,5,5" Name="ResourceName" Grid.Column="1" Grid.Row="1" IsReadOnly="True"
                      Text="{Binding Path=ResName}"/>
 
             <TextBlock Margin="5,5,5,5" Text="Type:" Grid.Column="0" Grid.Row="2"/>
