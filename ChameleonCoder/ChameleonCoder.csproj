@@ -185,7 +185,6 @@
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
     <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
-    <Compile Include="Converter\ResourceImageConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
     <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="ComponentCollection.cs" />

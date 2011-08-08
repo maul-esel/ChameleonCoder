@@ -13,7 +13,6 @@
         <resman:ResourceTypeCollection x:Key="ResourceTypes"/>
 
         <conv:ResourceTypeConverter x:Key="TypeConverter"/>
-        <conv:ResourceImageConverter x:Key="ImageConverter"/>
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
         <conv:ResourceTypeImageConverter x:Key="TypeImageConverter"/>
         <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>

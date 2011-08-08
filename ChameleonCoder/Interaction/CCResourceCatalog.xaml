@@ -13,11 +13,6 @@
               Localization.Attributes="$Content(Unreadable Unmodifiable) HorizontalContentAlignment(Unreadable Unmodifiable)
               VirtualizingStackPanel.IsVirtualizing(Unreadable Unmodifiable) AllowDrop(Unreadable Unmodifiable)">
         
-        <TreeView.Resources>
-            <conv:ResourceImageConverter x:Uid="conv:ResourceImageConverter_1" x:Key="ImageConverter"
-                                         Localization.Attributes="$Content(Unreadable Unmodifiable)"/>
-        </TreeView.Resources>
-        
         <TreeView.ItemTemplate>
             <HierarchicalDataTemplate x:Uid="HierarchicalDataTemplate_1" ItemsSource="{Binding Path=children}">
                 
@@ -34,7 +29,7 @@
                             Localization.Attributes="Background(Unreadable Unmodifiable) BorderBrush(Unreadable Unmodifiable) BorderThickness(Unreadable Unmodifiable)
                             Grid.Column(Unreadable Unmodifiable) Height(Unreadable Unmodifiable) Width(Unreadable Unmodifiable)">
                         
-                        <Image x:Uid="Image_1" Source="{Binding Converter={StaticResource ImageConverter}}" Width="19" Height="19"
+                        <Image x:Uid="Image_1" Source="{Binding Path=Icon}" Width="19" Height="19"
                                Localization.Attributes="$Content(Unreadable Unmodifiable) Height(Unreadable Unmodifiable) Width(Unreadable Unmodifiable)"/>
                         
                     </Border>
