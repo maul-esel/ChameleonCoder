@@ -439,6 +439,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Version: ähnelt.
+        /// </summary>
+        internal static string Info_Version {
+            get {
+                return ResourceManager.GetString("Info_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Icon &amp; Color: ähnelt.
         /// </summary>
         internal static string Info_Visual {

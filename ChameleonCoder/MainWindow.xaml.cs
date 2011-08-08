@@ -30,18 +30,7 @@ namespace ChameleonCoder
                 MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.Name, DataContext = service.Identifier });
 
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
-            {
-                Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(t);
-
                 visTypes.Items.Add(t);
-                MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = info.TypeIcon, Header = info.DisplayName, DataContext = t });
-
-                RibbonMenuItem item = new RibbonMenuItem(){ Header = info.DisplayName, Image = info.TypeIcon, DataContext = t };
-                item.Click += ResourceCreateChild;
-                AddChildResource.Items.Add(item);
-            }
-            foreach (var template in PluginManager.GetTemplates())
-                MenuCreators.Items.Add(new RibbonApplicationMenuItem() { Image = template.Icon, Header = template.Name, DataContext = template.Identifier });
 
             GoHome(null, null);
         }
@@ -105,37 +94,14 @@ namespace ChameleonCoder
 
         private void ResourceCreate(object sender, RoutedEventArgs e)
         {
-            Type resourceType = (e.OriginalSource as RibbonApplicationMenuItem).DataContext as Type;
-            if (resourceType != null)
-            {
-                Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
-
-                if (info != null && info.Create != null)
-                {
-                    IResource resource = info.Create(resourceType, null);
-                    if (resource != null)
-                        ResourceManager.Add(resource, null);
-                }
-            }
-            else
-            {
-                var template = (Guid)(e.OriginalSource as RibbonApplicationMenuItem).DataContext;
-                if (template != default(Guid))
-                    PluginManager.Create(template, null);
-            }
+            NewResourceDialog dialog = new NewResourceDialog();
+            dialog.ShowDialog();
         }
 
         private void ResourceCreateChild(object sender, RoutedEventArgs e)
         {
-            Type resourceType = (e.OriginalSource as RibbonMenuItem).DataContext as Type;
-            Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(resourceType);
-
-            if (info != null && info.Create != null)
-            {
-                IResource resource = info.Create(resourceType, ResourceManager.ActiveItem);
-                if (resource != null)
-                    ResourceManager.Add(resource, ResourceManager.ActiveItem);
-            }
+            NewResourceDialog dialog = new NewResourceDialog(ResourceManager.ActiveItem);
+            dialog.ShowDialog();
         }
 
         private void ResourceDelete(object sender, RoutedEventArgs e)

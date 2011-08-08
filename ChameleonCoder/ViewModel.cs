@@ -55,6 +55,7 @@ namespace ChameleonCoder
         public string Info_File { get { return Res.Info_File; } }
         public string Info_Assembly { get { return Res.Info_Assembly; } }
         public string Info_Class { get { return Res.Info_Class; } }
+        public string Info_Version { get { return Res.Info_Version; } }
 
         public string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
 

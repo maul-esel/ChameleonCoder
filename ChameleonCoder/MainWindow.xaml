@@ -167,8 +167,7 @@
 
                     <odc:RibbonSeparator/>
                     
-                    <odc:RibbonApplicationMenuItem x:Name="MenuCreators" Image="Images\RibbonTab1\create.png"
-                                                   Header="{Binding Path=Selection_CreateNew}" StaysOpenOnClick="True" Click="ResourceCreate" SubMenuTitle="available types"/>
+                    <odc:RibbonApplicationMenuItem x:Name="MenuCreators" Image="Images\RibbonTab1\create.png" Header="{Binding Path=Selection_CreateNew}" Click="ResourceCreate"/>
                     
                     <odc:RibbonApplicationMenuItem x:Name="MenuImport" Image="Images\LargeIcon.png" Header="{Binding Path=ResourceImport}"/>
                     
@@ -309,7 +308,7 @@
                     <odc:RibbonTabItem x:Name="ResourceViewTab" Title="{Binding Path=RibbonContext_View}">
                         <odc:RibbonGroup x:Name="Group8">
 
-                            <odc:RibbonDropDownButton x:Name="AddChildResource" Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"/>
+                            <odc:RibbonButton x:Name="AddChildResource" Click="ResourceCreateChild" Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"/>
 
                             <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Move}" Click="ResourceMove"/>
 

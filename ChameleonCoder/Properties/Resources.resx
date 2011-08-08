@@ -385,4 +385,7 @@
   <data name="AutoTemplate_Description" xml:space="preserve">
     <value>new empty "{0}" resource</value>
   </data>
+  <data name="Info_Version" xml:space="preserve">
+    <value>Version:</value>
+  </data>
 </root>
