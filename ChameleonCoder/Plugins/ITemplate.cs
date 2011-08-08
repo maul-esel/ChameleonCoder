@@ -6,15 +6,20 @@ namespace ChameleonCoder.Plugins
     public interface ITemplate : IPlugin
     {
         /// <summary>
-        /// the resource type the template creates
+        /// the default name for a new resource
         /// </summary>
-        Type ResourceType { get; }
+        string DefaultName { get; }
 
         /// <summary>
         /// The name of a template group the template should be added to.
-        /// If the template should not be added to a group, use string.Empty
+        /// If the template should not be added to a group, use null.
         /// </summary>
         string Group { get; }
+
+        /// <summary>
+        /// the resource type the template creates
+        /// </summary>
+        Type ResourceType { get; }
 
         /// <summary>
         /// creates a new instance of the resource type and does additional operations

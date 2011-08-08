@@ -56,11 +56,21 @@ namespace ChameleonCoder.Plugins
         #endregion
 
         #region ITemplate
-        public Type ResourceType { get; private set; }
+
+        public string DefaultName
+        {
+            get { return info.DisplayName + ".ext"; }
+        }
 
         public string Group
         {
             get { return null; }
+        }
+
+        public Type ResourceType
+        {
+            get;
+            private set;
         }
 
         public Resources.Interfaces.IResource Create(Resources.Interfaces.IResource parent)
