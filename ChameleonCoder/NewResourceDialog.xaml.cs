@@ -68,7 +68,8 @@ namespace ChameleonCoder
             Close();
 
             IResource child = template.Create(ParentResource, name);
-            ResourceManager.Add(child, ParentResource);
+            if (child != null)
+                ResourceManager.Add(child, ParentResource);
         }
         #endregion
 
