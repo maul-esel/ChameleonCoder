@@ -59,8 +59,16 @@ namespace ChameleonCoder.Plugins
 
         public string DefaultName
         {
-            get { return info.DisplayName + ".ext"; }
+            get
+            {
+                TemplateDefaultNameAttribute attr = (TemplateDefaultNameAttribute)Attribute.GetCustomAttribute(ResourceType, typeof(TemplateDefaultNameAttribute));
+                if (attr != null)
+                    return attr.Name;
+                return info.DisplayName + i;
+            }
         }
+
+        int i = 1;
 
         public string Group
         {

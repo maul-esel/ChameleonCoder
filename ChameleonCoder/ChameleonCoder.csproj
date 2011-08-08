@@ -149,6 +149,7 @@
       <DependentUpon>NewResourceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="PackageManager.cs" />
+    <Compile Include="Plugins\TemplateDefaultNameAttribute.cs" />
     <Compile Include="Resources\Interfaces\IFSComponent.cs" />
     <Compile Include="Plugins\ITemplate.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
