@@ -6,6 +6,7 @@ using ChameleonCoder.Interaction;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
+using System.Xml;
 using ChameleonCoder.Resources.RichContent;
 using Res = ChameleonCoder.ResourceCore.Properties.Resources;
 
@@ -128,8 +129,56 @@ namespace ChameleonCoder.ResourceCore
             return brush;
         }
 
-        public IResource CreateResource(Type type, string name, IResource parent)
+        public IResource CreateResource(Type target, string name, IResource parent)
         {
+            string parent_name = parent != null ? parent.Name : string.Empty;
+            ResourceCreator creator = new ResourceCreator(target, parent_name, name);
+
+            if (creator.ShowDialog() == true)
+            {
+                #region Xml
+
+                XmlDocument doc = (parent == null) ? new XmlDocument() : parent.Xml.OwnerDocument;
+
+                string alias = string.Empty;
+                if (target == typeof(FileResource))
+                    alias = "file";
+                else if (target == typeof(CodeResource))
+                    alias = "code";
+                else if (target == typeof(LibraryResource))
+                    alias = "library";
+                else if (target == typeof(ProjectResource))
+                    alias = "project";
+                else if (target == typeof(LinkResource))
+                    alias = "link";
+                else if (target == typeof(TaskResource))
+                    alias = "task";
+
+                XmlElement node = doc.CreateElement(alias);
+
+                foreach (var pair in creator.GetXmlAttributes())
+                {
+                    XmlAttribute attr = doc.CreateAttribute(pair.Key);
+                    attr.Value = pair.Value;
+                    node.SetAttributeNode(attr);
+                }
+                (parent == null ? (XmlNode)doc : parent.Xml).AppendChild(node);
+                #endregion
+
+                IResource resource = Activator.CreateInstance(target) as IResource;
+                resource.Init(node, parent);
+
+                if (parent == null)
+                {
+                    string path = InformationProvider.FindFreePath(InformationProvider.DataDir, resource.Name + ".ccr", true);
+                    doc.Save(path);
+                    doc = new XmlDocument();
+                    doc.Load(path);
+                    resource.Init(doc.DocumentElement, parent);
+                }
+
+                return resource;
+            }
             return null;
         }
 

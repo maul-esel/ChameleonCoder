@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using System.Xml;
-using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -15,11 +13,6 @@ namespace ChameleonCoder.ResourceCore
     /// </summary>
     public abstract partial class ResourceBase : IResource, INotifyPropertyChanged
     {
-        static ResourceBase()
-        {
-            
-        }
-
         #region IResource
 
         /// <summary>
@@ -147,60 +140,6 @@ namespace ChameleonCoder.ResourceCore
                 return GUID.ToString("B");
             }
         }
-
         #endregion
-
-        public static IResource Create(Type target, IResource parent, string name)
-        {
-            string parent_name = parent != null ? parent.Name : string.Empty;
-            ResourceCreator creator = new ResourceCreator(target, parent_name, name);
-
-            if (creator.ShowDialog() == true)
-            {
-                #region Xml
-
-                XmlDocument doc = (parent == null) ? new XmlDocument() : parent.Xml.OwnerDocument;
-
-                string alias = string.Empty;
-                if (target == typeof(FileResource))
-                    alias = "file";
-                else if (target == typeof(CodeResource))
-                    alias = "code";
-                else if (target == typeof(LibraryResource))
-                    alias = "library";
-                else if (target == typeof(ProjectResource))
-                    alias = "project";
-                else if (target == typeof(LinkResource))
-                    alias = "link";
-                else if (target == typeof(TaskResource))
-                    alias = "task";
-
-                XmlElement node = doc.CreateElement(alias);
-
-                foreach (KeyValuePair<string, string> pair in creator.GetXmlAttributes())
-                {
-                    XmlAttribute attr = doc.CreateAttribute(pair.Key);
-                    attr.Value = pair.Value;
-                    node.SetAttributeNode(attr);
-                }
-                (parent == null ? (XmlNode)doc : parent.Xml).AppendChild(node);
-                #endregion
-
-                IResource resource = Activator.CreateInstance(target) as IResource;
-                resource.Init(node, parent);
-
-                if (parent == null)
-                {
-                    string path = InformationProvider.FindFreePath(InformationProvider.DataDir, resource.Name + ".ccr", true);
-                    doc.Save(path);
-                    doc = new XmlDocument();
-                    doc.Load(path);
-                    resource.Init(doc.DocumentElement, parent);
-                }
-
-                return resource;
-            }
-            return null;
-        }
     }
 }
