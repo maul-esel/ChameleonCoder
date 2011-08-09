@@ -79,7 +79,7 @@ namespace ChameleonCoder
                 resource.Init(node, newParent);
                 if (newParent == null)
                 {
-                    path = InformationProvider.FindFreePath(InformationProvider.DataDir, resource.Name + ".ccr", true);
+                    path = InformationProvider.FindFreePath(App.DataDir, resource.Name + ".ccr", true);
                     newDoc.Save(path);
                     newDoc = new XmlDocument();
                     newDoc.Load(path);

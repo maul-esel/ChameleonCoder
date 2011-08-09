@@ -27,8 +27,6 @@ namespace ChameleonCoder.Interaction
             set { PromptText.Text = value; }
         }
 
-        public Func<string, Action<string>, bool> _validation;
-
         public string Text
         {
             get
@@ -43,6 +41,8 @@ namespace ChameleonCoder.Interaction
                     entered.Text = value;
             }
         }
+
+        public Func<string, Action<string>, bool> _validation;
 
         string _text;
 
