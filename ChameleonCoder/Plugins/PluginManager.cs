@@ -13,44 +13,47 @@ namespace ChameleonCoder.Plugins
         /// <param name="component"></param>
         internal static void TryAdd(Type component)
         {
-            if (component.GetConstructor(Type.EmptyTypes) == null) // if no parameterless constructor: skip
+            // if no parameterless constructor or no plugin: skip
+            if (component.GetConstructor(Type.EmptyTypes) == null || component.GetInterface(typeof(IPlugin).FullName) == null)
                 return;
 
-            if (component.GetInterface(typeof(ITemplate).FullName) != null) // if it is a template:
+            IPlugin plugin = Activator.CreateInstance(component) as IPlugin; // create an instance
+            if (plugin == null) // check for null
+                return;
+
+            // if this plugin is disabled
+            if (Properties.Settings.Default.DisabledPlugins.Contains(plugin.Identifier.ToString("n")))
             {
-                ITemplate template = Activator.CreateInstance(component) as ITemplate; // create an instance
-                if (template != null)
-                {
-                    Templates.TryAdd(template.Identifier, template); // ...store it
-                    template.Initialize(); // ... and initialize it
-                }
+                disabledPlugins.TryAdd(plugin.Identifier, plugin);
+                return;
             }
-            if (component.GetInterface(typeof(IService).FullName) != null)
+
+            ITemplate template = plugin as ITemplate;
+            if (template != null) // if it is a template:
             {
-                IService service = Activator.CreateInstance(component) as IService;
-                if (service != null)
-                {
-                    Services.TryAdd(service.Identifier, service);
-                    service.Initialize();
-                }
+                Templates.TryAdd(template.Identifier, template); // ...store it
+                template.Initialize(); // ... and initialize it
             }
-            if (component.GetInterface(typeof(ILanguageModule).FullName) != null)
+
+            IService service = plugin as IService;
+            if (service != null) // if it is a service:
             {
-                ILanguageModule module = Activator.CreateInstance(component) as ILanguageModule;
-                if (module != null)
-                {
-                    Modules.TryAdd(module.Identifier, module);
-                    module.Initialize();
-                }
+                Services.TryAdd(service.Identifier, service); // ...store it
+                service.Initialize(); // ... and initialize it
             }
-            if (component.GetInterface(typeof(IComponentFactory).FullName) != null)
+
+            ILanguageModule module = plugin as ILanguageModule;
+            if (module != null) // if it is a language module
             {
-                IComponentFactory factory = Activator.CreateInstance(component) as IComponentFactory;
-                if (factory != null)
-                {
-                    Factories.TryAdd(factory.Identifier, factory);
-                    factory.Initialize();
-                }
+                Modules.TryAdd(module.Identifier, module); // ...store it
+                module.Initialize(); // ... and initialize it
+            }
+
+            IComponentFactory factory = plugin as IComponentFactory;
+            if (factory != null) // if it is a ComponentFactory
+            {
+                Factories.TryAdd(factory.Identifier, factory); // ...store it
+                factory.Initialize(); // ... and initialize it
             }
         }
 
@@ -59,13 +62,31 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         internal static void Shutdown()
         {
-            foreach (ITemplate template in Templates.Values)
+            foreach (ITemplate template in GetTemplates())
                 template.Shutdown();
-            foreach (IService service in Services.Values)
+            foreach (IService service in GetServices())
                 service.Shutdown();
-            foreach (ILanguageModule module in Modules.Values)
+            foreach (ILanguageModule module in GetModules())
                 module.Shutdown();
+            foreach (IComponentFactory factory in GetFactories())
+                factory.Shutdown();
         }
+
+        /// <summary>
+        /// returns a nlist of all registered plugins
+        /// </summary>
+        /// <returns></returns>
+        internal static IEnumerable<IPlugin> GetPlugins()
+        {
+            var plugins = new List<IPlugin>();
+            plugins.AddRange(GetModules());
+            plugins.AddRange(GetServices());
+            plugins.AddRange(GetTemplates());
+            plugins.AddRange(GetFactories());
+            return plugins;
+        }
+
+        static ConcurrentDictionary<Guid, IPlugin> disabledPlugins = new ConcurrentDictionary<Guid, IPlugin>();
 
         #region ILanguageModule
 
@@ -277,12 +298,22 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         internal static int FactoryCount { get { return Factories.Count; } }
 
+        /// <summary>
+        /// returns the IComponentFactory with the given identifier
+        /// </summary>
+        /// <param name="id">the identifier</param>
+        /// <returns>the factory</returns>
         internal static IComponentFactory GetFactory(Guid id)
         {
             IComponentFactory factory;
             if (Factories.TryGetValue(id, out factory))
                 return factory;
             throw new ArgumentException("this factory is not registered!\nGuid: " + id.ToString("b"));
+        }
+
+        internal static IEnumerable<IPlugin> GetFactories()
+        {
+            return Factories.Values;
         }
 
         #endregion
