@@ -43,6 +43,7 @@ namespace ChameleonCoder
         public string Item_Home { get { return Res.Item_Home; } }
         public string Item_List { get { return Res.Item_List; } }
         public string Item_Settings { get { return Res.Item_Settings; } }
+        public string Item_Plugins { get { return Res.Item_Plugins; } }
 
         public string Info_Name { get { return Res.Info_Name; } }
         public string Info_Description { get { return Res.Info_Description; } }
@@ -56,6 +57,11 @@ namespace ChameleonCoder
         public string Info_Assembly { get { return Res.Info_Assembly; } }
         public string Info_Class { get { return Res.Info_Class; } }
         public string Info_Version { get { return Res.Info_Version; } }
+
+        public string Plugin_LanguageModule { get { return Res.Plugin_LanguageModule; } }
+        public string Plugin_Service { get { return Res.Plugin_Service; } }
+        public string Plugin_Template { get { return Res.Plugin_Template; } }
+        public string Plugin_ComponentFactory { get { return Res.Plugin_ComponentFactory; } }
 
         public string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
 
@@ -137,6 +143,7 @@ namespace ChameleonCoder
         public string Selection_List { get { return Res.Selection_List; } }
         public string Selection_Settings { get { return Res.Selection_Settings; } }
         public string Selection_CreateNew { get { return Res.Selection_CreateNew; } }
+        public string Selection_Plugins { get { return Res.Selection_Plugins; } }
         #endregion
 
         #endregion

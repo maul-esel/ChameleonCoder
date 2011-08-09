@@ -68,6 +68,15 @@ namespace ChameleonCoder
                 TabReplace(new TabContext(MVVM.Item_List, new ResourceListPage()), Tabs.SelectedIndex);
         }
 
+        internal void GoPlugins(object sender, EventArgs e)
+        {
+            int i;
+            if ((i = FindPageTab<PluginPage>()) != -1)
+                Tabs.SelectedIndex = i;
+            else
+                TabReplace(new TabContext(MVVM.Item_Plugins, new PluginPage()), Tabs.SelectedIndex);
+        }
+
         internal void GoSettings(object sender, EventArgs e)
         {
             int i;

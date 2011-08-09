@@ -43,7 +43,9 @@
         <Button Style="{StaticResource GoButton}" Margin="5" Click="OpenResourceList" Content="{Binding Path=Selection_List}"/>
         
         <Button Style="{StaticResource GoButton}" Margin="5" Click="OpenConfiguration" Content="{Binding Path=Selection_Settings}"/>
-        
+
+        <Button Style="{StaticResource GoButton}" Margin="5" Click="OpenPlugins" Content="{Binding Path=Selection_Plugins}"/>
+
         <Button Style="{StaticResource GoButton}" Margin="5" Click="CreateResource" Content="{Binding Path=Selection_CreateNew}"/>
         
     </StackPanel>

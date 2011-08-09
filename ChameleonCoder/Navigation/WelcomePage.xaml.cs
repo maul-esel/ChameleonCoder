@@ -47,5 +47,15 @@ namespace ChameleonCoder.Navigation
         {
             App.Gui.GoSettings(null, null);
         }
+
+        /// <summary>
+        /// switches the view to the plugins view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenPlugins(object sender, EventArgs e)
+        {
+            App.Gui.GoPlugins(null, null);
+        }
     }
 }

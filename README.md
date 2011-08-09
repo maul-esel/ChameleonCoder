@@ -30,6 +30,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 * super-easy importing of resources
 * a "breadcrumb" control for easy navigation
 * packaging and unpackaging of resource into archives, with the possibility to include the corresponding data files
+* multiple language support
 
 ### planned
 * creation, moving, copying and deleting of resources
@@ -39,7 +40,6 @@ Other implementations such as MONO do not work as CC requires WPF.
 	* syntax highlighting,
 	* intellisense,
 	* ... and a lot more
-* multiple language support
 * of course rich editing component using the AvalonEdit control
 * RichContent model for describing the content of a resource
 * Generating documentation from RichContent, maybe exporting to HTML
@@ -49,10 +49,12 @@ Other implementations such as MONO do not work as CC requires WPF.
 It is planned to support different models to extend CC.
 Basically, there are two types: ***plugins***, which can communicate with CC and influence it in A LOT of different ways, and ***static components***, which can't communicate with CC.
 
-Speaking of ***plugins***, there are 2 types:
+Speaking of ***plugins***, there are 4 types:
 
 * the most important one: ***LanguageModules***, which add language-specific support such as a compiler, intellisense, ...
 * ***services*** which can be opened by the user and perform a specific, language-independant action.
+* ***templates*** which create a new resource and apply a common template on it, for example by setting its properties or adding metadata.
+* ***component factories*** which are used to provide static components.
 
 When it comes to ***static components***, the following 2 types are planned:
 
@@ -62,7 +64,7 @@ When it comes to ***static components***, the following 2 types are planned:
 To add an extension to CC, simply place it in the ```Components\``` folder.
 
 ## Resources model
-Resources are described by XML files in the ```Data\``` folder. A resource can have several child resource. For more information see the help file.
+Resources are described by XML files in the ```Data\``` folder or in another folder. A resource can have several child resource. For more information see the help file.
 You can interact with these resources in a lot of different ways such as copying, moving, editing or compiling them.
 
 ## RichContent model

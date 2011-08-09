@@ -388,4 +388,22 @@
   <data name="Info_Version" xml:space="preserve">
     <value>Version:</value>
   </data>
+  <data name="Plugin_ComponentFactory" xml:space="preserve">
+    <value>components</value>
+  </data>
+  <data name="Plugin_LanguageModule" xml:space="preserve">
+    <value>language modules</value>
+  </data>
+  <data name="Plugin_Service" xml:space="preserve">
+    <value>services</value>
+  </data>
+  <data name="Plugin_Template" xml:space="preserve">
+    <value>templates</value>
+  </data>
+  <data name="Selection_Plugins" xml:space="preserve">
+    <value>view plugins</value>
+  </data>
+  <data name="Item_Plugins" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
 </root>

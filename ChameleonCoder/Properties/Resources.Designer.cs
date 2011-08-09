@@ -475,6 +475,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Plugins ähnelt.
+        /// </summary>
+        internal static string Item_Plugins {
+            get {
+                return ResourceManager.GetString("Item_Plugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {0} [editing] ähnelt.
         /// </summary>
         internal static string Item_ResourceEdit {
@@ -561,6 +570,42 @@ namespace ChameleonCoder.Properties {
         internal static string Pack_IncludeResolve {
             get {
                 return ResourceManager.GetString("Pack_IncludeResolve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die components ähnelt.
+        /// </summary>
+        internal static string Plugin_ComponentFactory {
+            get {
+                return ResourceManager.GetString("Plugin_ComponentFactory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die language modules ähnelt.
+        /// </summary>
+        internal static string Plugin_LanguageModule {
+            get {
+                return ResourceManager.GetString("Plugin_LanguageModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die services ähnelt.
+        /// </summary>
+        internal static string Plugin_Service {
+            get {
+                return ResourceManager.GetString("Plugin_Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die templates ähnelt.
+        /// </summary>
+        internal static string Plugin_Template {
+            get {
+                return ResourceManager.GetString("Plugin_Template", resourceCulture);
             }
         }
         
@@ -696,6 +741,15 @@ namespace ChameleonCoder.Properties {
         internal static string Selection_List {
             get {
                 return ResourceManager.GetString("Selection_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die view plugins ähnelt.
+        /// </summary>
+        internal static string Selection_Plugins {
+            get {
+                return ResourceManager.GetString("Selection_Plugins", resourceCulture);
             }
         }
         
