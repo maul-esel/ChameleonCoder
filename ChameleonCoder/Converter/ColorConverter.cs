@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
@@ -25,16 +24,14 @@ namespace ChameleonCoder.Converter
             // check value to be null
             if (value != null)
             {
-                // get the instance
-                ResourceTypeInfo info = ResourceTypeManager.GetInfo(value.GetType());
-
-                // check both the instance and the brush to be null (ComponentProviders could pass null)
-                if (info != null && info.Background != null)
-                    return info.Background.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
-                // if one of them is null: throw exception
-                throw new NullReferenceException("the ResourceTypeInfo for " + value.GetType() + " or its 'Background' property is null.");
+                // get the background
+                var background = ResourceTypeManager.GetBackground(value.GetType());
+                if (background != null) // check if the type was registered with a null-background
+                    return background.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
+                // if it is null: throw exception
+                throw new NullReferenceException("the " + value.GetType() + "'s 'Background' property is null.");
             }
-            // if null: thro exception
+            // if null: throw exception
             throw new ArgumentNullException("value");
         }
 

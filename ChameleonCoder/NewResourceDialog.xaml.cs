@@ -21,7 +21,7 @@ namespace ChameleonCoder
 
             foreach (var type in ResourceTypeManager.GetResourceTypes())
                 if (!Attribute.IsDefined(type, typeof(NoWrapperTemplateAttribute)))
-                    templates.Add(new AutoTemplate(type, ResourceTypeManager.GetInfo(type)));
+                    templates.Add(new AutoTemplate(type));
             #endregion
 
             #region groups

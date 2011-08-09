@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Xml;
-using System.Collections.Generic;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -57,5 +56,6 @@ namespace ChameleonCoder.ResourceCore
             }
         }
 
+        internal const string Alias = "task";
     }
 }

@@ -5,6 +5,9 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.ResourceCore
 {
+    /// <summary>
+    /// represents a simple group of resources
+    /// </summary>
     public class GroupResource : ResourceBase
     {
         public override void Init(XmlElement node, IResource parent)
@@ -13,5 +16,7 @@ namespace ChameleonCoder.ResourceCore
         }
 
         public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/group.png")).GetAsFrozen() as ImageSource; } }
+
+        internal const string Alias = "group";
     }
 }

@@ -212,12 +212,7 @@ namespace ChameleonCoder
                                 && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
                              select type;
 
-            Parallel.ForEach(components, component =>
-            {
-                Plugins.PluginManager.TryAdd(component);
-                if (component.GetInterface(typeof(IComponentProvider).FullName) != null)
-                    (Activator.CreateInstance(component) as IComponentProvider).Init(ContentMemberManager.RegisterComponent, ResourceTypeManager.RegisterComponent);
-            });
+            Parallel.ForEach(components, component => Plugins.PluginManager.TryAdd(component));
         }
 
         #region Registry

@@ -136,16 +136,6 @@ namespace ChameleonCoder.Interaction
         }
 
         /// <summary>
-        /// gets the ResourceTypeInfo instance for a resource type
-        /// </summary>
-        /// <param name="type">the resource type to retrieve information for</param>
-        /// <returns>the ResourceTypeInfo instance if the type is registered</returns>
-        public static ResourceTypeInfo GetResourceTypeInfo(Type type)
-        {
-            return ResourceTypeManager.GetInfo(type);
-        }
-
-        /// <summary>
         /// gets the currently active resource
         /// </summary>
         /// <returns>the active IResource instance</returns>

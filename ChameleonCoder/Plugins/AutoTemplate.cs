@@ -1,6 +1,7 @@
 ﻿using System;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Plugins
 {
@@ -14,13 +15,11 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="resourceType">the resource type to wrap</param>
         /// <param name="info">the ResourceTypeInfo corresponding to the resource type</param>
-        internal AutoTemplate(Type resourceType, ResourceTypeInfo info)
+        internal AutoTemplate(Type resourceType)
         {
-            this.info = info;
             ResourceType = resourceType;
         }
 
-        ResourceTypeInfo info;
         Guid instanceId = Guid.NewGuid();
 
         #region IPlugin
@@ -29,7 +28,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string About
         {
-            get { return "© 2011: auto-generated ChameleonCoder Template\n" + info.Author; }
+            get { return "© 2011: auto-generated ChameleonCoder Template\n" + ResourceTypeManager.GetFactory(ResourceType).Author; }
         }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string Author
         {
-            get { return string.Format(Properties.Resources.AutoTemplate_Author, info.Author); }
+            get { return string.Format(Properties.Resources.AutoTemplate_Author, ResourceTypeManager.GetFactory(ResourceType).Author); }
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string Description
         {
-            get { return string.Format(Properties.Resources.AutoTemplate_Description, info.DisplayName); }
+            get { return string.Format(Properties.Resources.AutoTemplate_Description, ResourceTypeManager.GetDisplayName(ResourceType)); }
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public System.Windows.Media.ImageSource Icon
         {
-            get { return info.TypeIcon; }
+            get { return ResourceTypeManager.GetTypeIcon(ResourceType); }
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string Name
         {
-            get { return info.DisplayName; }
+            get { return ResourceTypeManager.GetDisplayName(ResourceType); }
         }
 
         /// <summary>
@@ -106,7 +105,7 @@ namespace ChameleonCoder.Plugins
                 TemplateDefaultNameAttribute attr = (TemplateDefaultNameAttribute)Attribute.GetCustomAttribute(ResourceType, typeof(TemplateDefaultNameAttribute));
                 if (attr != null)
                     return attr.Name;
-                return info.DisplayName + i;
+                return Resources.Management.ResourceTypeManager.GetDisplayName(ResourceType) + i;
             }
         }
 
@@ -137,7 +136,7 @@ namespace ChameleonCoder.Plugins
         /// <returns>the new resource</returns>
         public IResource Create(IResource parent, string name)
         {
-            return info.Create(ResourceType, parent, name);
+            return Resources.Management.ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
         }
         #endregion
     }

@@ -91,5 +91,7 @@ namespace ChameleonCoder.ResourceCore
         }
 
         #endregion
+
+        internal new const string Alias = "library";
     }
 }

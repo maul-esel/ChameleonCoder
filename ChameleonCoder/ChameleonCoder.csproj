@@ -118,11 +118,11 @@
     <Compile Include="Plugins\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
+    <Compile Include="Plugins\IComponentFactory.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="Converter\ResourcePropertyConverter.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
-    <Compile Include="IComponentProvider.cs" />
     <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
     </Compile>
@@ -163,7 +163,6 @@
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
     <Compile Include="Resources\ResourceHelper.cs" />
     <Compile Include="Resources\ResourcePropertyAttribute.cs" />
-    <Compile Include="Resources\ResourceTypeInfo.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
     <Compile Include="Resources\RichContent\ContentMemberTypeInfo.cs" />
     <Compile Include="Resources\RichContent\Implementations\ClassMember.cs" />

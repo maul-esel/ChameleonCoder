@@ -57,8 +57,8 @@
     <Compile Include="Implementations\LinkResource.cs" />
     <Compile Include="Implementations\ProjectResource.cs" />
     <Compile Include="Implementations\ResourceBase.cs" />
-    <Compile Include="ResourceProvider.cs" />
     <Compile Include="Implementations\TaskResource.cs" />
+    <Compile Include="IntegratedFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceCreator.xaml.cs">
       <DependentUpon>ResourceCreator.xaml</DependentUpon>

@@ -25,11 +25,11 @@ namespace ChameleonCoder.Converter
 
             if (type != null) // if cast successful
             {
-                Resources.ResourceTypeInfo info = ResourceTypeManager.GetInfo(type); // get the information
-                if (info != null) // if information retrieved successfully
-                    return info.DisplayName; // return the name
+                var displayName = ResourceTypeManager.GetDisplayName(type); // get the display name
+                if (!string.IsNullOrWhiteSpace(displayName)) // check if it is a blank
+                    return displayName; // return it
                 // else throw an exception
-                throw new ArgumentException("this type is not registered: " + type.FullName, "value");
+                throw new ArgumentException("this type's display name is blank: " + type.FullName, "value");
             }
             // if 'value' is not a Tyspe instance: throw exception
             throw new ArgumentException("'value' is either null or not a Type object", "value");

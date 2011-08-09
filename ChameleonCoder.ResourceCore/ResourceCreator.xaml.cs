@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.ResourceCore
 {
@@ -34,7 +35,8 @@ namespace ChameleonCoder.ResourceCore
 
             ResName = name;
             this.ResourceParent.Text = parent;
-            this.ResourceType.Text = InformationProvider.GetResourceTypeInfo(target).DisplayName;
+
+            this.ResourceType.Text = ResourceTypeManager.GetDisplayName(target);
 
             this.ResGuid = Guid.NewGuid();
 

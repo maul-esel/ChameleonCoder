@@ -179,5 +179,7 @@ namespace ChameleonCoder.ResourceCore
         {
             get { return Properties.Resources.Info_Priority; }
         }
+
+        internal const string Alias = "project";
     }
 }

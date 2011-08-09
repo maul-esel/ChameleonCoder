@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml;
+using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
-using ChameleonCoder.Plugins;
 
 namespace ChameleonCoder.ResourceCore
 {
@@ -128,5 +128,7 @@ namespace ChameleonCoder.ResourceCore
         }
 
         #endregion
+
+        internal new const string Alias = "code";
     }
 }

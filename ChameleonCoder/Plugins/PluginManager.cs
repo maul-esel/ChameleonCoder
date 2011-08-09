@@ -16,13 +16,13 @@ namespace ChameleonCoder.Plugins
             if (component.GetConstructor(Type.EmptyTypes) == null) // if no parameterless constructor: skip
                 return;
 
-            if (component.GetInterface(typeof(ITemplate).FullName) != null)
+            if (component.GetInterface(typeof(ITemplate).FullName) != null) // if it is a template:
             {
-                ITemplate template = Activator.CreateInstance(component) as ITemplate;
+                ITemplate template = Activator.CreateInstance(component) as ITemplate; // create an instance
                 if (template != null)
                 {
-                    Templates.TryAdd(template.Identifier, template);
-                    template.Initialize();
+                    Templates.TryAdd(template.Identifier, template); // ...store it
+                    template.Initialize(); // ... and initialize it
                 }
             }
             if (component.GetInterface(typeof(IService).FullName) != null)
@@ -41,6 +41,15 @@ namespace ChameleonCoder.Plugins
                 {
                     Modules.TryAdd(module.Identifier, module);
                     module.Initialize();
+                }
+            }
+            if (component.GetInterface(typeof(IComponentFactory).FullName) != null)
+            {
+                IComponentFactory factory = Activator.CreateInstance(component) as IComponentFactory;
+                if (factory != null)
+                {
+                    Factories.TryAdd(factory.Identifier, factory);
+                    factory.Initialize();
                 }
             }
         }
@@ -255,6 +264,25 @@ namespace ChameleonCoder.Plugins
         internal static IEnumerable<ITemplate> GetTemplates()
         {
             return Templates.Values;
+        }
+
+        #endregion
+
+        #region IComponentFactory
+
+        static ConcurrentDictionary<Guid, IComponentFactory> Factories = new ConcurrentDictionary<Guid, IComponentFactory>();
+
+        /// <summary>
+        /// gets the count of registered IComponentFactories
+        /// </summary>
+        internal static int FactoryCount { get { return Factories.Count; } }
+
+        internal static IComponentFactory GetFactory(Guid id)
+        {
+            IComponentFactory factory;
+            if (Factories.TryGetValue(id, out factory))
+                return factory;
+            throw new ArgumentException("this factory is not registered!\nGuid: " + id.ToString("b"));
         }
 
         #endregion

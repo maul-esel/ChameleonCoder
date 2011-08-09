@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -20,7 +19,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")).GetAsFrozen() as ImageSource; } }
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")).GetAsFrozen() as ImageSource; } }
 
         #endregion
 
@@ -83,5 +82,7 @@ namespace ChameleonCoder.ResourceCore
                 this.OnPropertyChanged("Path");
             }
         }
+
+        internal const string Alias = "file";
     }
 }

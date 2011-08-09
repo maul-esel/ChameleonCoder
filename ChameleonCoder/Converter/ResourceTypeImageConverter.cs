@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
 using System.Windows.Media;
-using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
@@ -25,11 +24,11 @@ namespace ChameleonCoder.Converter
             Type type = value as Type; // cast the value to a Type instance
             if (type != null) // if cast successful
             {
-                ResourceTypeInfo info = ResourceTypeManager.GetInfo(type); // get the information
-                if (info != null && info.TypeIcon != null) // if information found and Icon-property is non-null;
-                    return info.TypeIcon.GetAsFrozen(); // return the Icon, using GetAsFrozen() to avoid multi-threading issues
+                var image = ResourceTypeManager.GetTypeIcon(type); // get the icon
+                if (image != null) // check if the type was registered with a null-icon
+                    return image.GetAsFrozen(); // return the Icon, using GetAsFrozen() to avoid multi-threading issues
                 // else throw exception
-                throw new InvalidOperationException("the type " + type.FullName + " is not registered or it's Icon property is null");
+                throw new InvalidOperationException("the " + type.FullName + "'s Icon property is null");
             }
             // if cast not successful: throw exception
             throw new ArgumentException("'value' is not a Type instance or null", "value");

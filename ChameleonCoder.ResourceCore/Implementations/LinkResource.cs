@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Xml;
-using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Interaction;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.ResourceCore
 {
@@ -10,6 +10,7 @@ namespace ChameleonCoder.ResourceCore
     /// a class representing a resource that serves as link to another resource
     /// inherits from ResourceBase
     /// </summary>
+    [CCPlugin]
     public class LinkResource : ResourceBase, IResolvable
     {
         /// <summary>
@@ -29,7 +30,7 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                IResource resource = this.Resolve();
+                IResource resource = Resolve();
                 if (resource != null)
                     return resource.Icon;
                 return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png")).GetAsFrozen() as ImageSource;
@@ -146,5 +147,7 @@ namespace ChameleonCoder.ResourceCore
                 return Properties.Resources.Info_Destination;
             }
         }
+
+        internal const string Alias = "link";
     }
 }
