@@ -73,16 +73,31 @@ namespace ChameleonCoder.Plugins
         }
 
         /// <summary>
-        /// returns a nlist of all registered plugins
+        /// returns a list of all registered plugins, except the disabled ones
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the list of plugins</returns>
         internal static IEnumerable<IPlugin> GetPlugins()
+        {
+            return GetPlugins(false);
+        }
+
+        /// <summary>
+        /// returns a list with all registered plugins.
+        /// A parameter indicates whether to include disabled plugins.
+        /// </summary>
+        /// <param name="includeDisabled">true to include disabled plugins, otherwise false</param>
+        /// <returns>the list of plugins</returns>
+        internal static IEnumerable<IPlugin> GetPlugins(bool includeDisabled)
         {
             var plugins = new List<IPlugin>();
             plugins.AddRange(GetModules());
             plugins.AddRange(GetServices());
             plugins.AddRange(GetTemplates());
             plugins.AddRange(GetFactories());
+
+            if (includeDisabled)
+                plugins.AddRange(disabledPlugins.Values);
+
             return plugins;
         }
 
@@ -311,6 +326,10 @@ namespace ChameleonCoder.Plugins
             throw new ArgumentException("this factory is not registered!\nGuid: " + id.ToString("b"));
         }
 
+        /// <summary>
+        /// gets a list of all registered IComponentFactories
+        /// </summary>
+        /// <returns>the list</returns>
         internal static IEnumerable<IComponentFactory> GetFactories()
         {
             return Factories.Values;
