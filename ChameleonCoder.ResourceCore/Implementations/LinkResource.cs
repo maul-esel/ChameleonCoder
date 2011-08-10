@@ -44,56 +44,47 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                string result = string.Empty;
-
-                try { result = base.Name; }
-                catch (NullReferenceException) { }
-
-                if (!string.IsNullOrWhiteSpace(result))
-                    return result;
-
-                try { result = this.Resolve().Name; }
-                catch (NullReferenceException) { }
-
+                string result = base.Name;
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    IResource target = Resolve();
+                    if (target != null)
+                        return target.Name;
+                }
                 return result;
             }
-            set { base.Name = value; }
+            set
+            {
+                base.Name = value;
+            }
         }
 
         public override string Description
         {
             get
             {
-                string result = string.Empty;
-                try
+                string result = base.Description;
+                if (string.IsNullOrWhiteSpace(result))
                 {
-                    result = base.Description;
+                    IResource target = Resolve();
+                    if (target != null)
+                        return target.Description;
                 }
-                catch (NullReferenceException) { }
-                if (!string.IsNullOrWhiteSpace(result))
-                    return result;
-                try
-                {
-                    result = this.Resolve().Description;
-                }
-                catch (NullReferenceException) { }
                 return result;
             }
-            set { base.Description = value; }
+            set
+            {
+                base.Description = value;
+            }
         }
 
         public override ImageSource SpecialVisualProperty
         {
             get
             {
-                IResource resource = this;
-                IResolvable link;
-
-                while ((link = resource as IResolvable) != null && link.shouldResolve)
-                    resource = link.Resolve();
-
-                if (resource != null)
-                    return resource.SpecialVisualProperty;
+                IResource target = Resolve();
+                if (target != null)
+                    return target.SpecialVisualProperty;
                 return null;
             }
         }
@@ -120,11 +111,18 @@ namespace ChameleonCoder.ResourceCore
         /// </summary>
         public Guid Destination
         {
-            get { return new Guid(this.Xml.Attributes["destination"].Value); }
+            get
+            {
+                Guid dest;
+                string guid = Xml.GetAttribute("destination");
+                if (!Guid.TryParse(guid, out dest))
+                    return Guid.Empty;
+                return dest;
+            }
             protected set
             {
-                this.Xml.Attributes["destination"].Value = value.ToString();
-                this.OnPropertyChanged("Destination");
+                Xml.SetAttribute("destination", value.ToString());
+                OnPropertyChanged("Destination");
             }
         }
 

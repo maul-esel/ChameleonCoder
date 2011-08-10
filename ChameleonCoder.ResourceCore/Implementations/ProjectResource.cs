@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -22,28 +23,26 @@ namespace ChameleonCoder.ResourceCore
         public override void Init(XmlElement node, IResource parent)
         {
             base.Init(node, parent);
-            this.compatibleLanguages = new List<Guid>();
+            compatibleLanguages = new List<Guid>();
         }
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")).GetAsFrozen() as ImageSource; } }
+        public override ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")).GetAsFrozen() as ImageSource; } }
 
-        object lock_special = new object();
         public override ImageSource SpecialVisualProperty
         {
             get
             {
-                lock (lock_special)
+                string id;
+                switch (Priority)
                 {
-                    switch (this.Priority)
-                    {
-                        case ProjectPriority.basic: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/low.png"));
-                        case ProjectPriority.middle: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/middle.png"));
-                        case ProjectPriority.high: return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/high.png"));
-                    }
-                    return base.SpecialVisualProperty;
+                    default:
+                    case ProjectPriority.basic: id = "low"; break;
+                    case ProjectPriority.middle: id = "middle"; break;
+                    case ProjectPriority.high: id = "high"; break;
                 }
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/" + id + ".png")).GetAsFrozen() as ImageSource;
             }
         }
 
@@ -58,11 +57,17 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                return new Guid(Xml.Attributes["language"].Value);
+                Guid lang;
+                string guid = Xml.GetAttribute("language");
+
+                if (!Guid.TryParse(guid, out lang))
+                    lang = Guid.Empty;
+
+                return lang;
             }
             protected set
             {
-                Xml.Attributes["language"].Value = value.ToString();
+                Xml.SetAttribute("language", value.ToString());
                 OnPropertyChanged("language");
             }
         }
@@ -81,16 +86,11 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                string result = null;
-
-                try { result = Xml.Attributes["compilation-path"].Value; }
-                catch (NullReferenceException) { }
-
-                return result;
+                return Xml.GetAttribute("compilation-path");
             }
             protected set
             {
-                Xml.Attributes["compilation-path"].Value = value;
+                Xml.SetAttribute("compilation-path", value);
                 OnPropertyChanged("compilationPath");
             }
         }
@@ -102,10 +102,16 @@ namespace ChameleonCoder.ResourceCore
         /// </summary>
         public ProjectPriority Priority
         {
-            get { return (ProjectPriority)Int32.Parse(this.Xml.Attributes["priority"].Value); }
+            get
+            {
+                ProjectPriority priority;
+                string value = Xml.GetAttribute("priority");
+                Enum.TryParse<ProjectPriority>(value, out priority);
+                return priority;
+            }
             protected set
             {
-                Xml.Attributes["priority"].Value = ((int)value).ToString();
+                Xml.SetAttribute("priority", value.ToString());
                 OnPropertyChanged("Priority");
             }
         }

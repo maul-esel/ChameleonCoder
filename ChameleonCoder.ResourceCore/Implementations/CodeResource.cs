@@ -24,8 +24,8 @@ namespace ChameleonCoder.ResourceCore
         public override void Init(XmlElement node, IResource parent)
         {
             base.Init(node, parent);
-            this.compatibleLanguages = new List<Guid>();
-            this.RichContent = new RichContentCollection();
+            compatibleLanguages = new List<Guid>();
+            RichContent = new RichContentCollection();
         }
 
         #region IResource
@@ -43,13 +43,18 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                try { return new Guid(this.Xml.Attributes["language"].Value); }
-                catch (NullReferenceException) { return Guid.Empty; }
+                Guid lang;
+                string guid = Xml.GetAttribute("language");
+
+                if (!Guid.TryParse(guid, out lang))
+                    lang = Guid.Empty;
+
+                return lang;
             }
             protected set
             {
-                this.Xml.Attributes["language"].Value = value.ToString();
-                this.OnPropertyChanged("language");
+                Xml.SetAttribute("language", value.ToString());
+                OnPropertyChanged("language");
             }
         }
 
@@ -67,19 +72,15 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                string result = null;
-
-                try { result = this.Xml.Attributes["compilation-path"].Value; }
-                catch (NullReferenceException) { }
-
-                if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(this.Path))
-                    result = this.Path + ".exe";
+                string result = Xml.GetAttribute("compilation-path");
+                if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(Path))
+                    result = Path + ".exe";
                 return result;
             }
             set
             {
-                this.Xml.Attributes["compilation-path"].Value = value;
-                this.OnPropertyChanged("compilationPath");
+                Xml.SetAttribute("compilation-path", value);
+                OnPropertyChanged("compilationPath");
             }
         }
 
@@ -121,7 +122,6 @@ namespace ChameleonCoder.ResourceCore
                     ILanguageModule module;
                     if (PluginManager.TryGetModule(lang, out module))
                         list += module.Name + "; ";
-
                 }
                 return list;
             }

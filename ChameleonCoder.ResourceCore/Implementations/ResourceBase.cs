@@ -28,7 +28,14 @@ namespace ChameleonCoder.ResourceCore
             if (children == null)
                 children = new ResourceCollection();
 
-            GUID = new Guid(node.Attributes["guid"].Value);
+            string guid = Xml.GetAttribute("guid");
+            Guid id;
+            if (!Guid.TryParse(guid, out id))
+            {
+                id = Guid.NewGuid();
+                Xml.SetAttribute("guid", id.ToString());
+            }
+            GUID = id;
 
             if (MetaData == null)
             {
@@ -51,16 +58,12 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                try
-                {
-                    return this.Xml.Attributes["name"].Value;
-                }
-                catch (NullReferenceException) { return string.Empty; }
+                return Xml.GetAttribute("name");
             }
             set
             {
-                this.Xml.Attributes["name"].Value = value;
-                this.OnPropertyChanged("Name");
+                Xml.SetAttribute("name", value);
+                OnPropertyChanged("Name");
             }
         }
 
@@ -69,15 +72,11 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                try
-                {
-                    return this.Xml.Attributes["description"].Value;
-                }
-                catch (NullReferenceException) { return null; }
+                return Xml.GetAttribute("description");
             }
             set
             {
-                this.Xml.Attributes["description"].Value = value;
+                Xml.SetAttribute("description", value);
                 this.OnPropertyChanged("Description");
             }
         }
@@ -86,13 +85,12 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                try { return this.Xml.Attributes["notes"].Value; }
-                catch (NullReferenceException) { return string.Empty; }
+                return Xml.GetAttribute("notes");
             }
             set
             {
-                this.Xml.Attributes["notes"].Value = value;
-                this.OnPropertyChanged("Notes");
+                Xml.SetAttribute("notes", value);
+                OnPropertyChanged("Notes");
             }
         }
 
@@ -112,7 +110,7 @@ namespace ChameleonCoder.ResourceCore
 
         protected void OnPropertyChanged(string name)
         {
-            System.ComponentModel.PropertyChangedEventHandler handler = PropertyChanged;
+            PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(name));
         }
@@ -121,7 +119,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region PropertyAliases
 
-        [ResourceProperty(CommonResourceProperty.Parent, ResourcePropertyGroup.General, IsReadOnly = true, IsReferenceName = true)]
+        [ResourceProperty(CommonResourceProperty.Parent, ResourcePropertyGroup.General, IsReadOnly = true)]
         public string ParentName
         {
             get
@@ -137,7 +135,7 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                return GUID.ToString("B");
+                return GUID.ToString("b");
             }
         }
         #endregion

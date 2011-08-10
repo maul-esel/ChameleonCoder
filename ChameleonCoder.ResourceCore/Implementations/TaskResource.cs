@@ -27,15 +27,16 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                try { return DateTime.Parse(this.Xml.Attributes["enddate"].Value); }
-                catch (ArgumentNullException) { return DateTime.MaxValue; }
-                catch (FormatException) { return DateTime.MaxValue; }
-                catch (NullReferenceException) { return DateTime.MaxValue; }
+                string value = Xml.GetAttribute("enddate");
+                DateTime date;
+                if (string.IsNullOrWhiteSpace(value) || !DateTime.TryParse(value, out date))
+                    return DateTime.MaxValue;
+                return date;
             }
             protected set
             {
-                this.Xml.Attributes["enddate"].Value = value.ToString();
-                this.OnPropertyChanged("EndTime");
+                Xml.SetAttribute("enddate", value.ToString());
+                OnPropertyChanged("EndDate");
             }
         }
 

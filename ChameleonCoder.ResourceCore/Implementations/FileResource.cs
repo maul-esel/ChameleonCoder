@@ -10,7 +10,7 @@ namespace ChameleonCoder.ResourceCore
     /// <summary>
     /// represents a file resource
     /// </summary>
-    public class FileResource : ResourceBase, IEditable
+    public class FileResource : ResourceBase, IEditable // todo: implement IFSComponent
     {
         public override void Init(XmlElement node, IResource parent)
         {
@@ -29,10 +29,10 @@ namespace ChameleonCoder.ResourceCore
         {
             if (!string.IsNullOrWhiteSpace(Path) && File.Exists(Path))
             {
-                if (IsBinary(this.Path))
+                if (IsBinary(Path))
                     return "file is binary (contains null chars) and can't be loaded";
 
-                return File.ReadAllText(this.Path);
+                return File.ReadAllText(Path);
             }
             return string.Format("path cannot be found: '{0}'", Path);
         }
@@ -65,10 +65,7 @@ namespace ChameleonCoder.ResourceCore
         {
             get
             {
-                string path = string.Empty;
-
-                try { path = this.Xml.Attributes["path"].Value; }
-                catch (NullReferenceException) { }
+                string path = Xml.GetAttribute("path");
 
                 if (!System.IO.Path.IsPathRooted(path) && !string.IsNullOrWhiteSpace(path)
                     && File.Exists(ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory + path))
@@ -78,8 +75,8 @@ namespace ChameleonCoder.ResourceCore
             }
             protected set
             {
-                this.Xml.Attributes["path"].Value = value;
-                this.OnPropertyChanged("Path");
+                Xml.SetAttribute("path", value);
+                OnPropertyChanged("Path");
             }
         }
 
