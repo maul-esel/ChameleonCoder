@@ -311,7 +311,7 @@ namespace ChameleonCoder.Plugins
             throw new ArgumentException("this factory is not registered!\nGuid: " + id.ToString("b"));
         }
 
-        internal static IEnumerable<IPlugin> GetFactories()
+        internal static IEnumerable<IComponentFactory> GetFactories()
         {
             return Factories.Values;
         }
