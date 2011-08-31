@@ -406,4 +406,8 @@
   <data name="Item_Plugins" xml:space="preserve">
     <value>Plugins</value>
   </data>
+  <data name="Error_InvalidFile" xml:space="preserve">
+    <value>Die angegebene Datei "{0}" konnte nicht geöffnet werden.
+ChameleonCoder wird geschlossen.</value>
+  </data>
 </root>
