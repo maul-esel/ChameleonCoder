@@ -13,5 +13,10 @@ namespace ChameleonCoder.Resources.Management
         {
             return base.GetComponent(alias);
         }
+
+        internal string GetAlias(Type type)
+        {
+            return base.GetKey(type);
+        }
     }
 }

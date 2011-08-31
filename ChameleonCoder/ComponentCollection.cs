@@ -24,6 +24,14 @@ namespace ChameleonCoder
             return default(TValue);
         }
 
+        protected TKey GetKey(TValue value) // a bit dirty workaround
+        {
+            var keys = new System.Collections.Generic.List<TKey>(components.Keys);
+            var values = new System.Collections.Generic.List<TValue>(components.Values);
+
+            return keys[values.IndexOf(value)];
+        }
+
         public System.Collections.Generic.IEnumerable<TValue> GetList()
         {
             return this.components.Values;

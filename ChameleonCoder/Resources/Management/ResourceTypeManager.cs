@@ -17,6 +17,11 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.GetResourceType(alias);
         }
 
+        internal static string GetAlias(Type type)
+        {
+            return ResourceTypes.GetAlias(type);
+        }
+
         internal static IResource CreateInstanceOf(string alias)
         {
             Type type = GetResourceType(alias);
