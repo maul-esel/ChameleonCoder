@@ -60,7 +60,7 @@ namespace ChameleonCoder
             {
                 XmlDocument newDoc = newParent == null ? new XmlDocument() : newParent.Xml.OwnerDocument;
 
-                XmlElement node = InformationProvider.CloneElement(resource.Xml, newDoc);
+                XmlElement node = (XmlElement)newDoc.ImportNode(resource.Xml, true);
 
                 (resource.Parent == null ? ResourceManager.GetChildren() : resource.Parent.children).Remove(resource.GUID);
 
@@ -93,7 +93,7 @@ namespace ChameleonCoder
         {
             if (resource != null)
             {
-                XmlElement node = InformationProvider.CloneElement(resource.Xml, newParent.Xml.OwnerDocument);
+                XmlElement node = (XmlElement)newParent.Xml.OwnerDocument.ImportNode(resource.Xml, true);
                 node.Attributes["guid"].Value = Guid.NewGuid().ToString("b");
 
                 newParent.Xml.AppendChild(node);                

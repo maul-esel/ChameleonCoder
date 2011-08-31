@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Media;
-using System.Xml;
 using ChameleonCoder.Plugins;
-using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using Odyssey.Controls;
@@ -245,28 +243,6 @@ namespace ChameleonCoder.Interaction
             return path;
         }
 
-        /// <summary>
-        /// clones an XmlElement into a new document
-        /// </summary>
-        /// <param name="element">the element to use as template</param>
-        /// <param name="newOwner">the new OwnerDocument</param>
-        /// <returns>the copy of the given element, with the newOwner document as OwnerDocument</returns>
-        public static XmlElement CloneElement(XmlElement element, XmlDocument newOwner)
-        {
-            XmlElement newElement = newOwner.CreateElement(element.Name);
-            foreach (XmlAttribute attr in element.Attributes)
-            {
-                XmlAttribute newAttr = newOwner.CreateAttribute(attr.Name);
-                newAttr.Value = attr.Value;
-                newElement.SetAttributeNode(newAttr);
-            }
-            foreach (XmlElement child in element.ChildNodes)
-            {
-                XmlElement newChild = CloneElement(child, newOwner);
-                newElement.AppendChild(newChild);
-            }
-            return newElement;
-        }
         #endregion
 
         #region events
