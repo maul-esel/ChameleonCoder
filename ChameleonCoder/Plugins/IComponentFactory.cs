@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
@@ -32,13 +33,15 @@ namespace ChameleonCoder.Plugins
         Brush GetBackground(Type type);
 
         /// <summary>
-        /// creates a new resource of the given Type, using the given name and parent resource
+        /// provides information about a newly created resource,
+        /// for example by letting the user modifiy its properties
         /// </summary>
         /// <param name="type">the type of the resource to create</param>
         /// <param name="name">the name for the resource</param>
-        /// <param name="parent">the parent resource or null if a top-level resource should be created</param>
-        /// <returns>the newly created IResource instance</returns>
-        IResource CreateResource(Type type, string name, IResource parent);
+        /// <param name="parent">the parent resource</param>
+        /// <returns>a dictionary containing the attributes the resource's XML element should have</returns>
+        /// <remarks>this function must not create an instance of the specified resource!</remarks>
+        IEnumerable<KeyValuePair<string, string>> CreateResource(Type type, string name, IResource parent);
 
         /// <summary>
         /// creates a new ContentMember of the given Type, using the given name and parent member
@@ -47,6 +50,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="name">the name of the new member</param>
         /// <param name="parent">the parent member or null</param>
         /// <returns>the newly created IContentMember instance</returns>
+        [Obsolete]
         IContentMember CreateMember(Type type, string name, IContentMember parent);
 
         /// <summary>
