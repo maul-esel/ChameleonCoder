@@ -37,9 +37,9 @@
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Border Background="Peru" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20" Margin="5,0,0,0">
-                                                            <Image Source="{Binding Path=Name, Converter={StaticResource TypeImageConverter}}" Width="20"/>
+                                                            <Image Source="{Binding Path=Name, Converter={StaticResource TypeConverter}, ConverterParameter=Icon}" Width="20"/>
                                                         </Border>
-                                                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}, ConverterParameter=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                     </StackPanel>
                                                     <Border BorderBrush="#4989FF" Margin="2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
                                                     <!--bit ugly way :)-->

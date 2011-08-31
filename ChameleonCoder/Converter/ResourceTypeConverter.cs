@@ -7,7 +7,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// this converter returns the "static" (localized) DisplayName of an IResource implmentation, given a Type object
     /// </summary>
-    [ValueConversion(typeof(Type), typeof(string))]
+    [ValueConversion(typeof(Type), typeof(object))]
     internal sealed class ResourceTypeConverter : IValueConverter
     {
         /// <summary>
@@ -25,13 +25,25 @@ namespace ChameleonCoder.Converter
 
             if (type != null) // if cast successful
             {
-                var displayName = ResourceTypeManager.GetDisplayName(type); // get the display name
-                if (!string.IsNullOrWhiteSpace(displayName)) // check if it is a blank
-                    return displayName; // return it
-                // else throw an exception
-                throw new ArgumentException("this type's display name is blank: " + type.FullName, "value");
+                if (parameter as string == "DisplayName")
+                {
+                    var displayName = ResourceTypeManager.GetDisplayName(type); // get the display name
+                    if (!string.IsNullOrWhiteSpace(displayName)) // check if it is a blank
+                        return displayName; // return it
+                    // else throw an exception
+                    throw new ArgumentException("this type's display name is blank: " + type.FullName, "value");
+                }
+                else if (parameter as string == "Icon")
+                {
+                    var icon = ResourceTypeManager.GetTypeIcon(type); // get the type icon
+                    if (icon == null) // check if it is null
+                        return icon; // return it
+                    // else throw an exception
+                    throw new ArgumentException("this type's type icon name is null: " + type.FullName, "value");
+                }
+                throw new InvalidOperationException("no such information available: " + parameter);
             }
-            // if 'value' is not a Tyspe instance: throw exception
+            // if 'value' is not a Type instance: throw exception
             throw new ArgumentException("'value' is either null or not a Type object", "value");
         }
 

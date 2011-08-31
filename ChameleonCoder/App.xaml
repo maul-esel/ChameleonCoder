@@ -14,7 +14,6 @@
 
         <conv:ResourceTypeConverter x:Key="TypeConverter"/>
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
-        <conv:ResourceTypeImageConverter x:Key="TypeImageConverter"/>
         <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>
         <conv:ColorConverter x:Key="ColorConverter"/>
         <conv:CultureConverter x:Key="CultureConv"/>
