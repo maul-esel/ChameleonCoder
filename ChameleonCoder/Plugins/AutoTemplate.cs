@@ -102,10 +102,10 @@ namespace ChameleonCoder.Plugins
         {
             get
             {
-                TemplateDefaultNameAttribute attr = (TemplateDefaultNameAttribute)Attribute.GetCustomAttribute(ResourceType, typeof(TemplateDefaultNameAttribute));
+                var attr = (TemplateDefaultNameAttribute)Attribute.GetCustomAttribute(ResourceType, typeof(TemplateDefaultNameAttribute));
                 if (attr != null)
                     return attr.Name;
-                return Resources.Management.ResourceTypeManager.GetDisplayName(ResourceType) + i;
+                return ResourceTypeManager.GetDisplayName(ResourceType) + i;
             }
         }
 
@@ -136,7 +136,8 @@ namespace ChameleonCoder.Plugins
         /// <returns>the new resource</returns>
         public IResource Create(IResource parent, string name)
         {
-            return Resources.Management.ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
+            var attr = ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
+            return ResourceTypeManager.CreateInstanceOf(ResourceType, name, attr, parent);
         }
         #endregion
     }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Xml;
 using IF = ChameleonCoder.Interaction.InformationProvider;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Plugins
 {
@@ -336,5 +338,19 @@ namespace ChameleonCoder.Plugins
         }
 
         #endregion
+
+        public static IResource CreateResource(IResource parent, Type type, IEnumerable<KeyValuePair<string, string>> attributes)
+        {
+            if (parent != null) // use current file instead!
+            {
+                IResource resource = Activator.CreateInstance(type) as IResource;
+
+                //XmlElement element = parent.Xml.OwnerDocument.CreateElement( // get alias
+
+
+                return resource;
+            }
+            return null;
+        }
     }
 }
