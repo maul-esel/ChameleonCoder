@@ -9,11 +9,11 @@ namespace ChameleonCoder.Resources.RichContent
         RichContentCollection childMembers { get; }
 
         /// <summary>
-        /// gets the member's representation, e.g. in form of html, txt, ...
+        /// gets the member's html representation
         /// </summary>
         /// <param name="param">optional information for the member</param>
         /// <returns>the member's representation</returns>
-        object GetRepresentation(object param = null);
+        string GetHtml(object param = null);
 
         /// <summary>
         /// saves the instance
