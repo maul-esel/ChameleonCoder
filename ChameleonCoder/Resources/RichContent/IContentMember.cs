@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace ChameleonCoder.Resources.RichContent
 {
     public interface IContentMember
@@ -11,17 +9,21 @@ namespace ChameleonCoder.Resources.RichContent
         RichContentCollection childMembers { get; }
 
         /// <summary>
-        /// asks the content member for permission to add a child to its childMember list.
-        /// In this way, a function may allow a ParameterMember object but refuse a ClassMember object.
-        /// THIS FUNCTION SHOULD NOT ADD IT TO THE LIST!
+        /// gets the member's representation, e.g. in form of html, txt, ...
         /// </summary>
-        /// <param name="child">the child to check</param>
-        /// <returns>true if the child would be accepted, false otherwise</returns>
-        bool ValidateChild(IContentMember child);
+        /// <param name="param">optional information for the member</param>
+        /// <returns>the member's representation</returns>
+        object GetRepresentation(object param = null);
 
-        bool ValidateParent(IContentMember parent);
-
+        /// <summary>
+        /// saves the instance
+        /// </summary>
         void Save();
+
+        /// <summary>
+        /// initializes the instance
+        /// </summary>
+        /// <param name="node"></param>
         void Init(System.Xml.XmlNode node);
     }
 }
