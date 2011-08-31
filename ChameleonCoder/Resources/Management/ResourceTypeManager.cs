@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Windows.Media;
+using System.Xml;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -28,6 +30,37 @@ namespace ChameleonCoder.Resources.Management
             if (type == null)
                 return null;
             return Activator.CreateInstance(type) as IResource;
+        }
+
+        public static IResource CreateInstanceOf(Type type, string name, IEnumerable<KeyValuePair<string, string>> attributes, IResource parent)
+        {
+            var resource = Activator.CreateInstance(type) as IResource;
+
+            if (resource != null)
+            {
+                var document = new XmlDocument(); // use opened file instead
+
+                var element = document.CreateElement(GetAlias(type));
+                if (parent == null)
+                    document.DocumentElement.SelectSingleNode("Resources").AppendChild(element);
+                else
+                    parent.Xml.AppendChild(element);
+
+                foreach (var attribute in attributes)
+                {
+                    element.SetAttribute(attribute.Key, attribute.Value);
+                }
+
+                resource.Init(element, parent);
+                ResourceManager.Add(resource, parent);
+            }
+
+            return null;
+        }
+
+        public static IResource CreateInstanceOf(string alias, string name, IEnumerable<KeyValuePair<string, string>> attributes, IResource parent)
+        {
+            return CreateInstanceOf(GetResourceType(alias), name, attributes, parent);
         }
 
         internal static System.Collections.Generic.IEnumerable<Type> GetResourceTypes()
