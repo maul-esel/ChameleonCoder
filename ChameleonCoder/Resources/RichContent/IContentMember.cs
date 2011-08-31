@@ -1,5 +1,4 @@
-﻿
-namespace ChameleonCoder.Resources.RichContent
+﻿namespace ChameleonCoder.Resources.RichContent
 {
     public interface IContentMember
     {

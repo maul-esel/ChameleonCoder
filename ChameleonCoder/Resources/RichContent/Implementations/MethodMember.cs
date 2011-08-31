@@ -7,11 +7,5 @@ namespace ChameleonCoder.Resources.RichContent.Implementations
 {
     public class MethodMember : FunctionMember
     {
-        public override bool ValidateParent(IContentMember parent)
-        {
-            if (parent is ClassMember)
-                return true;
-            return false;
-        }
     }
 }

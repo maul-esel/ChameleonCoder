@@ -1,25 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChameleonCoder.Resources.RichContent.Implementations
+﻿namespace ChameleonCoder.Resources.RichContent.Implementations
 {
     public class VariableMember : IContentMember
     {
         public RichContentCollection childMembers { get; set; }
 
-        public virtual bool ValidateChild(IContentMember child)
+        public string GetHtml(object param = null)
         {
-            return false;
-        }
-
-        public virtual bool ValidateParent(IContentMember parent)
-        {
-            return false;
+            return string.Empty;
         }
 
         public virtual void Save() { }
+
         public virtual void Init(System.Xml.XmlNode node) { }
     }
 }

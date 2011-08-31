@@ -1,29 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChameleonCoder.Resources.RichContent.Implementations
+﻿namespace ChameleonCoder.Resources.RichContent.Implementations
 {
     public class FunctionMember : IContentMember
     {
         #region IContentMember
 
-        public virtual bool ValidateChild(IContentMember child)
+        public string GetHtml(object param = null)
         {
-            if (child is ParameterMember || child is ReturnValueMember)
-                return true;
-            return false;
-        }
-
-        public virtual bool ValidateParent(IContentMember parent)
-        {
-            return false;
-        }
-
-        public virtual void AddChild(IContentMember child)
-        {
-            this.childMembers.Add(child);
+            return string.Empty;
         }
 
         public RichContentCollection childMembers
@@ -33,6 +16,7 @@ namespace ChameleonCoder.Resources.RichContent.Implementations
         }
 
         public virtual void Save() { }
+
         public virtual void Init(System.Xml.XmlNode node) { }
 
         #endregion
