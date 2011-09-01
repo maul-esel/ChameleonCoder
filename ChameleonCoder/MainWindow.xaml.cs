@@ -144,7 +144,9 @@ namespace ChameleonCoder
         private void ResourceMove(object sender, EventArgs e)
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
-            if (selector.ShowDialog() == true && selector.resources.Count > 0)
+            if (selector.ShowDialog() == true
+                && selector.resources.Count > 0
+                && selector.resources[0] != ResourceManager.ActiveItem)
             {
                 ResourceManager.ActiveItem.Move(selector.resources[0]);
             }

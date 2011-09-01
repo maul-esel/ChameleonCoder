@@ -9,102 +9,90 @@ namespace ChameleonCoder
     internal static class ResourceHelper
     {
         #region Save & Delete
-        [Obsolete("must be updated to OpenFile etc.")]
-        public static void Save(this IResource resource)
-        {
-            if (resource != null)
-            {
-                foreach (IResource child in resource.children)
-                    child.Save();
-
-                IResolvable link = resource as IResolvable;
-                if (link != null)
-                    link.Resolve().Save();
-
-                IRichContentResource richResource = resource as IRichContentResource;
-                if (richResource != null)
-                    foreach (Resources.RichContent.IContentMember content in richResource.RichContent)
-                        content.Save();
-
-                resource.Xml.OwnerDocument.Save(resource.GetResourceFile());
-            }
-        }
-        [Obsolete("must be updated to OpenFile etc.")]
+        /// <summary>
+        /// deletes a resource by removing all references for it and deleting its XML
+        /// </summary>
+        /// <param name="resource">the resource to delete</param>
         public static void Delete(this IResource resource)
         {
-            if (resource != null)
+            var list = ResourceManager.GetList();
+            foreach (IResource child in resource.children) // remove references to all child resources
             {
-                if (ResourceManager.ActiveItem == resource)
-                    ResourceManager.ActiveItem = null;
-
-                foreach (IResource child in resource.children)
-                    child.Delete();
-
-                string path = resource.GetResourceFile();
-                if (resource.Parent != null)
-                {
-                    resource.Parent.Xml.RemoveChild(resource.Xml);
-                    resource.Xml.OwnerDocument.Save(path);
-                }
-                else
-                    System.IO.File.Delete(path);                    
-
-                (resource.Parent == null ? ResourceManager.GetChildren() : resource.Parent.children).Remove(resource.GUID);
-                ResourceManager.GetList().Remove(resource.GUID);
+                if (ResourceManager.ActiveItem == child)
+                    ResourceManager.ActiveItem = null; // maybe this needs some unloading process?
+                list.Remove(child);
             }
+
+            if (ResourceManager.ActiveItem == resource)
+                ResourceManager.ActiveItem = null; // (see above)            
+
+            resource.Xml.ParentNode.RemoveChild(resource.Xml);
+
+            if (resource.Parent == null)
+                ResourceManager.GetChildren().Remove(resource);
+            else
+                resource.Parent.children.Remove(resource);
+
+            list.Remove(resource.GUID);
+
+            resource.GetResourceFile().Save(); // save changes
         }
         #endregion
 
-        [Obsolete("must be updated to OpenFile etc.")]
+        /// <summary>
+        /// moves a resource to a new parent resource
+        /// </summary>
+        /// <param name="resource">the resource to move</param>
+        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
         public static void Move(this IResource resource, IResource newParent)
         {
-            if (resource != null)
-            {
-                XmlDocument newDoc = newParent == null ? new XmlDocument() : newParent.Xml.OwnerDocument;
+            if (resource.Parent == newParent)
+                return;
 
-                XmlElement node = (XmlElement)newDoc.ImportNode(resource.Xml, true);
-
-                (resource.Parent == null ? ResourceManager.GetChildren() : resource.Parent.children).Remove(resource.GUID);
-
-                string path = resource.GetResourceFile();
-                if (resource.Parent != null)
-                {
-                    resource.Parent.Xml.RemoveChild(resource.Xml);
-                    resource.Xml.OwnerDocument.Save(path);
-                }
-                else
-                    System.IO.File.Delete(path);
-
-                (newParent == null ? ResourceManager.GetChildren() : newParent.children).Add(resource);
-                (newParent == null ? (XmlNode)newDoc : newParent.Xml).AppendChild(node);
-
-                resource.Init(node, newParent);
-                if (newParent == null)
-                {
-                    path = string.Empty; // InformationProvider.FindFreePath(App.DataDir, resource.Name + ".ccr", true);
-                    newDoc.Save(path);
-                    newDoc = new XmlDocument();
-                    newDoc.Load(path);
-                    resource.Init(newDoc.DocumentElement, newParent);
-                }
-                newDoc.Save(resource.GetResourceFile());
-            }
+            resource.Copy(newParent, true);
+            resource.Delete();
         }
 
-        [Obsolete("must be updated to OpenFile etc.")]
+        /// <summary>
+        /// copies a resource to a new parent
+        /// </summary>
+        /// <param name="resource">the resource to copy</param>
+        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
+        /// <param name="moveGUID">a bool defining whether the copy should receive the original GUID or not.</param>
+        public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
+        {
+            var doc = (newParent == null ? resource.GetResourceFile() : newParent.GetResourceFile()).Document;
+
+            var element = (XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
+            if (element.OwnerDocument != doc) //if we switch the document:
+                element = (XmlElement)doc.ImportNode(element, true); // import the XmlElement
+
+            if (moveGUID) // if the copy should receive the original GUID:
+            {
+                resource.Xml.SetAttribute("guid", Guid.NewGuid().ToString("n")); // set the GUID-attribute of the old instance
+                resource.Init(resource.Xml, resource.Parent); // re-init it to apply the changes
+            }
+            else // if the copy receives a new GUID:
+                element.SetAttribute("guid", Guid.NewGuid().ToString("n")); // set the approbriate attribute
+
+            App.AddResource(element, newParent); // let the App class create an instance, add it to the lists, init it, ...
+
+            resource.GetResourceFile().Save(); // save the documents
+            if (newParent != null)
+                newParent.GetResourceFile().Save();
+            System.Windows.MessageBox.Show((resource.Xml.ParentNode != null).ToString());
+        }
+
+        /// <summary>
+        /// copies a resource to a new parent, giving it a new GUID
+        /// </summary>
+        /// <param name="resource">the resource to copy</param>
+        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param
+        /// <remarks>this is an overload for the IResource.Copy(IResource, bool) method,
+        /// using <code>false</code> for <code>moveGUID</code>.</remarks>
         public static void Copy(this IResource resource, IResource newParent)
         {
-            if (resource != null)
-            {
-                XmlElement node = (XmlElement)newParent.Xml.OwnerDocument.ImportNode(resource.Xml, true);
-                node.Attributes["guid"].Value = Guid.NewGuid().ToString("b");
-
-                newParent.Xml.AppendChild(node);                
-
-                IResource copy = Activator.CreateInstance(resource.GetType()) as IResource;
-                copy.Init(node, newParent);
-                ResourceManager.Add(copy, newParent);
-            }
+            resource.Copy(newParent, false);
         }
 
         #region metadata
@@ -172,10 +160,11 @@ namespace ChameleonCoder
         }
         #endregion
 
-        [Obsolete]
-        public static string GetResourceFile(this IResource resource)
+        public static DataFile GetResourceFile(this IResource resource)
         {
-            return new Uri(resource.Xml.BaseURI).LocalPath;
+            return App.OpenFile;
+            // this method doesn't make a lot of sense now.
+            // However, it may whenever multiple files are allowed to be opened simultaneously.
         }
     }
 }

@@ -160,7 +160,7 @@ namespace ChameleonCoder
                file => ParseFile(file));
         }
 
-        private static void AddResource(XmlElement node, IResource parent)
+        internal static void AddResource(XmlElement node, IResource parent)
         {
             IResource resource;
             
