@@ -10,7 +10,7 @@ namespace ChameleonCoder.ResourceCore
     /// <summary>
     /// represents a file resource
     /// </summary>
-    public class FileResource : ResourceBase, IEditable // todo: implement IFSComponent
+    public class FileResource : ResourceBase, IEditable, IFSComponent
     {
         public override void Init(XmlElement node, IResource parent)
         {
@@ -42,6 +42,15 @@ namespace ChameleonCoder.ResourceCore
             if (!string.IsNullOrWhiteSpace(Path))
                 if (!IsBinary(this.Path))
                     File.WriteAllText(this.Path, text);
+        }
+
+        #endregion
+
+        #region IFSComponent
+
+        public string GetFSPath()
+        {
+            return Path;
         }
 
         #endregion
