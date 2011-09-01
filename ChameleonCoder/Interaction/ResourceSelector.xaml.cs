@@ -107,11 +107,8 @@ namespace ChameleonCoder.Interaction
         {
             if (Catalog.SelectedItem == null)
                 return;
-
-            if (resources.Count <= maxCount)
-                AddButton.Visibility = RemButton.Visibility = Visibility.Hidden;
-
-            else if (resources.Contains(Catalog.SelectedItem as IResource))
+            
+            if (resources.Contains(Catalog.SelectedItem as IResource))
             {
                 AddButton.Visibility = Visibility.Hidden;
                 RemButton.Visibility = Visibility.Visible;
@@ -121,6 +118,10 @@ namespace ChameleonCoder.Interaction
                 AddButton.Visibility = Visibility.Visible;
                 RemButton.Visibility = Visibility.Hidden;
             }
+
+            if (resources.Count >= maxCount)
+                AddButton.Visibility = Visibility.Hidden;
+
             DataContext = new { Lang = App.Gui.DataContext, Res = Catalog.SelectedItem };
         }
     }
