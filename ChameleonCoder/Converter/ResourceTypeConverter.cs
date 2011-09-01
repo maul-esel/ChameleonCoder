@@ -36,10 +36,10 @@ namespace ChameleonCoder.Converter
                 else if (parameter as string == "Icon")
                 {
                     var icon = ResourceTypeManager.GetTypeIcon(type); // get the type icon
-                    if (icon == null) // check if it is null
+                    if (icon != null) // check if it is null
                         return icon; // return it
                     // else throw an exception
-                    throw new ArgumentException("this type's type icon name is null: " + type.FullName, "value");
+                    throw new ArgumentException("this type's type icon is null: " + type.FullName, "value");
                 }
                 throw new InvalidOperationException("no such information available: " + parameter);
             }
