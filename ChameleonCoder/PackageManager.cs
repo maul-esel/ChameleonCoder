@@ -101,7 +101,7 @@ namespace ChameleonCoder
         {
             string path = Path.GetTempFileName();
             if (resource.Parent == null)
-                File.Copy(resource.GetResourceFile(), path, true);
+                File.Copy(resource.GetResourceFile().FilePath, path, true);
             else
                 File.WriteAllText(path, resource.Xml.OuterXml);
             return path;
