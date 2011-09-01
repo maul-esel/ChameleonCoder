@@ -116,12 +116,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\PluginDisabledConverter.cs" />
+    <Compile Include="DataFile.cs" />
     <Compile Include="Interaction\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Navigation\PluginPage.xaml.cs">
       <DependentUpon>PluginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PackDataFile.cs" />
     <Compile Include="Plugins\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
@@ -192,7 +194,6 @@
     <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
-    <Compile Include="Converter\ResourceTypeImageConverter.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Resources\RichContent\ContentMemberCollection.cs" />
     <Compile Include="Resources\RichContent\Implementations\FunctionMember.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
+    <Compile Include="XmlDataFile.cs" />
     <Page Include="Interaction\CCResourceCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

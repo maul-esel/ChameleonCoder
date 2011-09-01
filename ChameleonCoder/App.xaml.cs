@@ -26,82 +26,73 @@ namespace ChameleonCoder
 
         internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
 
-        internal static string DataDir { get { return AppDir + "\\Data"; } }
-
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
+
+        internal static DataFile OpenFile { get; private set; }
         #endregion
 
         internal void Init(Object sender, StartupEventArgs e)
         {
-            DispatcherObject = this.Dispatcher;
+            DispatcherObject = Dispatcher;
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
-            ResourceTypeManager.SetCollection(this.Resources["ResourceTypes"] as ResourceTypeCollection);
-            ResourceManager.SetCollections(this.Resources["resources"] as ResourceCollection,
-                                           this.Resources["resourceHierarchy"] as ResourceCollection);
+            ResourceTypeManager.SetCollection(Resources["ResourceTypes"] as ResourceTypeCollection);
+            ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
+                                           Resources["resourceHierarchy"] as ResourceCollection);
 
-            #region command line
-            bool no_data = false;
-            bool plus_data = false;
-            bool noplugin = false;
+            string path = null;
 
-            ConcurrentBag<string> files = new ConcurrentBag<string>();
-            ConcurrentBag<string> dirs = new ConcurrentBag<string>();
-
-            string[] args = Environment.GetCommandLineArgs();
-
-            Parallel.For(1, args.Length, i =>
+            if (e.Args.Length > 0)
             {
-                if (File.Exists(args[i]))
+                if (File.Exists(e.Args[0]))
                 {
-                    no_data = true;
-                    files.Add(args[i]);
+                    path = e.Args[0];
                 }
-                else if (Directory.Exists(args[i]))
+                else if (e.Args[0] == "--install_ext")
                 {
-                    no_data = true;
-                    dirs.Add(args[i]);
-                }
-                else if (args[i] == "--data")
-                {
-                    plus_data = true;
-                }
-                else if (args[i] == "--install_ext")
-                {
-                    if (Registry.ClassesRoot.OpenSubKey(".ccm") != null
-                        && Registry.ClassesRoot.OpenSubKey(".ccr") != null
+                    if (Registry.ClassesRoot.OpenSubKey(".ccr") != null
                         && Registry.ClassesRoot.OpenSubKey(".ccp") != null)
                         UnRegisterExtensions();
                     else
                         RegisterExtensions();
-                    App.Current.Shutdown();
+                    Environment.Exit(0);
                 }
-                else if (args[i] == "--install_COM")
+                else if (e.Args[0] == "--install_COM")
                 {
-                    App.Current.Shutdown();
+                    Environment.Exit(-3);
                 }
-                else if (args[i] == "--install_full")
+                else if (e.Args[0] == "--install_full")
                 {
                     System.Diagnostics.Process.Start(AppPath, "--install_ext");
                     System.Diagnostics.Process.Start(AppPath, "--install_COM");
-                    App.Current.Shutdown();
+                    Environment.Exit(0);
                 }
-            });
+            }
 
-            if (plus_data)
-                no_data = false;
-            #endregion
+            if (path == null)
+            {
+#if DEBUG
+                path = "test.ccr";
+#else
+                using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr; *.ccp" })
+                {
+                    if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                        Environment.Exit(-1);
+                    path = dialog.FileName;
+                }
+#endif
+            }
+
+            OpenFile = DataFile.Open(path);
 
             App.Current.Exit += ExitHandler;
 
             Task parallelTask = Task.Factory.StartNew(() =>
             {
-                if (!noplugin)
+                if (!e.Args.Contains("--noplugin"))
                     LoadPlugins();
-                Parallel.Invoke(() => Parallel.ForEach(files, file => ParseFile(file)),
-                                () => Parallel.ForEach(dirs, dir => ParseDir(dir)));
-                if (!no_data)
-                    ParseDir(DataDir);
+                foreach (XmlElement element in OpenFile.Document.SelectNodes("/cc-resource-file/resources/*"))
+                    AddResource(element, null);
             });
 
             new MainWindow();
@@ -113,8 +104,11 @@ namespace ChameleonCoder
         internal static void ExitHandler(object sender, EventArgs e)
         {
             Plugins.PluginManager.Shutdown();
+            OpenFile.Save();
+            OpenFile.Dispose();
         }
 
+        [Obsolete("only one file now", true)]
         internal static void ParseFile(string file)
         {
             XmlDocument doc = new XmlDocument();
@@ -156,6 +150,7 @@ namespace ChameleonCoder
             }
         }
 
+        [Obsolete]
         internal static void ParseDir(string dir)
         {
             Parallel.ForEach(
@@ -223,39 +218,30 @@ namespace ChameleonCoder
         {
             lock (lock_ext)
             {
-                RegistryKey regCCM = Registry.ClassesRoot.CreateSubKey(".ccm", RegistryKeyPermissionCheck.ReadWriteSubTree);
                 RegistryKey regCCP = Registry.ClassesRoot.CreateSubKey(".ccp", RegistryKeyPermissionCheck.ReadWriteSubTree);
                 RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
                 
-                regCCM.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCM);
                 regCCP.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCP);
                 regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
 
-                regCCM.Close();
                 regCCP.Close();
                 regCCR.Close();
 
-                regCCM = Registry.ClassesRoot.CreateSubKey(".ccm\\Shell\\Open\\command");
                 regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\Shell\\Open\\command");
                 regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
 
-                regCCM.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
                 regCCP.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
                 regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
 
-                regCCM.Close();
                 regCCP.Close();
                 regCCR.Close();
 
-                regCCM = Registry.ClassesRoot.CreateSubKey(".ccm\\DefaultIcon");
                 regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\DefaultIcon");
                 regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
 
-                regCCM.SetValue("", AppPath + ", 0");
-                regCCP.SetValue("", AppPath + ", 1");
-                regCCR.SetValue("", AppPath + ", 2");
+                regCCP.SetValue("", AppPath + ", 0");
+                regCCR.SetValue("", AppPath + ", 1");
 
-                regCCM.Close();
                 regCCP.Close();
                 regCCR.Close();
             }
@@ -265,7 +251,6 @@ namespace ChameleonCoder
         {
             lock (lock_ext)
             {
-                Registry.ClassesRoot.DeleteSubKeyTree(".ccm");
                 Registry.ClassesRoot.DeleteSubKeyTree(".ccp");
                 Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
             }
@@ -274,6 +259,7 @@ namespace ChameleonCoder
 
         static object lock_drop = new object();
 
+        [Obsolete]
         internal static void ImportDroppedResource(DragEventArgs dragged)
         {
             lock (lock_drop)
@@ -291,11 +277,23 @@ namespace ChameleonCoder
                             PackageManager.UnpackResources(file);
                             return;
                         }
-                        File.Copy(file, DataDir + Path.GetFileName(file));
-                        App.ParseFile(DataDir + Path.GetFileName(file));
+                        //File.Copy(file, DataDir + Path.GetFileName(file));
+                        //App.ParseFile(DataDir + Path.GetFileName(file));
                     }
                 }
             }
+        }
+
+        internal static void Log(string sender, string reason, string log)
+        {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
+            if (!File.Exists(path))
+                File.Create(path);
+            File.AppendAllText(path, "new event:"
+                + "\n\tsender: " + sender
+                + "\n\treason: " + reason
+                + "\n\t\t" + log
+                + "\n===========================================\n\n");
         }
     }
 }

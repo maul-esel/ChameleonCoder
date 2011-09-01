@@ -9,6 +9,7 @@ namespace ChameleonCoder
     internal static class ResourceHelper
     {
         #region Save & Delete
+        [Obsolete("must be updated to OpenFile etc.")]
         public static void Save(this IResource resource)
         {
             if (resource != null)
@@ -28,7 +29,7 @@ namespace ChameleonCoder
                 resource.Xml.OwnerDocument.Save(resource.GetResourceFile());
             }
         }
-
+        [Obsolete("must be updated to OpenFile etc.")]
         public static void Delete(this IResource resource)
         {
             if (resource != null)
@@ -54,6 +55,7 @@ namespace ChameleonCoder
         }
         #endregion
 
+        [Obsolete("must be updated to OpenFile etc.")]
         public static void Move(this IResource resource, IResource newParent)
         {
             if (resource != null)
@@ -79,7 +81,7 @@ namespace ChameleonCoder
                 resource.Init(node, newParent);
                 if (newParent == null)
                 {
-                    path = InformationProvider.FindFreePath(App.DataDir, resource.Name + ".ccr", true);
+                    path = string.Empty; // InformationProvider.FindFreePath(App.DataDir, resource.Name + ".ccr", true);
                     newDoc.Save(path);
                     newDoc = new XmlDocument();
                     newDoc.Load(path);
@@ -89,6 +91,7 @@ namespace ChameleonCoder
             }
         }
 
+        [Obsolete("must be updated to OpenFile etc.")]
         public static void Copy(this IResource resource, IResource newParent)
         {
             if (resource != null)
@@ -169,6 +172,7 @@ namespace ChameleonCoder
         }
         #endregion
 
+        [Obsolete]
         public static string GetResourceFile(this IResource resource)
         {
             return new Uri(resource.Xml.BaseURI).LocalPath;

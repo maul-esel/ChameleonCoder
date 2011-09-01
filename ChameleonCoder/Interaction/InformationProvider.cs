@@ -61,11 +61,6 @@ namespace ChameleonCoder.Interaction
         /// </summary>
         public static string AppDir { get { return App.AppDir; } }
 
-        /// <summary>
-        /// the directory containing data
-        /// </summary>
-        public static string DataDir { get { return App.DataDir; } }
-
         #endregion
 
         #region tools

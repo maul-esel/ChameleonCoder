@@ -9,6 +9,7 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder
 {
+    [Obsolete("will be replaced by file format conversion")]
     internal static class PackageManager
     {
         #region internal methods
@@ -16,7 +17,7 @@ namespace ChameleonCoder
         {
             lock (thisLock)
             {
-                string packName = InformationProvider.FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
+                string packName = string.Empty; // InformationProvider.FindFreePath(App.DataDir, Path.GetFileNameWithoutExtension(file), false);
                 if (!Directory.Exists(packName))
                     Directory.CreateDirectory(packName);
 

@@ -15,7 +15,7 @@ namespace ChameleonCoder.Navigation
 
             langCombo.SelectedItem = Properties.Resources.Culture.LCID;
 
-            extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccm") != null
+            extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccp") != null
                     && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
         }
 

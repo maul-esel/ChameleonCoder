@@ -278,15 +278,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die CC resource map ähnelt.
-        /// </summary>
-        internal static string Ext_CCM {
-            get {
-                return ResourceManager.GetString("Ext_CCM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die CC resource package ähnelt.
         /// </summary>
         internal static string Ext_CCP {
