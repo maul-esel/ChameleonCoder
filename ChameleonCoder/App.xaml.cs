@@ -235,7 +235,7 @@ namespace ChameleonCoder
         {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
             if (!File.Exists(path))
-                File.Create(path);
+                File.Create(path).Close();
             File.AppendAllText(path, "new event:"
                 + "\n\tsender: " + sender
                 + "\n\treason: " + reason

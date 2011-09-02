@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +19,92 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         public PluginPage()
         {
-            var plugins = Plugins.PluginManager.GetPlugins(true);
-            DataContext = new { Lang = new ViewModel(), Plugins = plugins };
+            DataContext = new KeyValuePair<ViewModel, IEnumerable<IPlugin>>(new ViewModel(),
+                FilterPlugins(Plugins.PluginManager.GetPlugins()));
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// removes the selected plugin from the list of installed plugins. On next launch, it won't be loaded.
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
+        private void Uninstall(object sender, EventArgs e)
+        {
+            var plugin = list.SelectedItem as IPlugin;
+            Properties.Settings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
+
+            DataContext = new KeyValuePair<ViewModel,IEnumerable<IPlugin>>(new ViewModel(),
+                FilterPlugins(Plugins.PluginManager.GetPlugins()));
+        }
+
+        /// <summary>
+        /// lets the user select an assembly and plugin classes inside it
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
+        private void Install(object sender, EventArgs e)
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll" };
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = dialog.FileName;
+                Assembly ass;
+
+                dialog.Dispose();
+
+                try { ass = Assembly.LoadFrom(path); }
+                catch (BadImageFormatException ex)
+                {
+                    MessageBox.Show(string.Format(Properties.Resources.Error_InstallNoAssembly, path),
+                        Properties.Resources.Status_InstallPlugin);
+                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                        "catched exception: *.dll could not be loaded (" + path + ").",
+                        ex.ToString());
+                    return;
+                }
+
+                if (!Attribute.IsDefined(ass, typeof(CCPluginAttribute)))
+                {
+                    MessageBox.Show(string.Format(Properties.Resources.Error_InstallNoPlugin, path),
+                        Properties.Resources.Status_InstallPlugin);
+                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                        "refused plugin install: Assembly does not have CCPluginAttribute defined (" + path + ").",
+                        null);
+                    return;
+                }
+
+                var types = from type in ass.GetTypes()
+                            where Attribute.IsDefined(type, typeof(CCPluginAttribute))
+                                && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
+                                && type.GetInterface(typeof(Plugins.IPlugin).FullName) != null
+                                && type.GetConstructor(Type.EmptyTypes) != null
+                            select type;
+
+                List<IPlugin> newPlugins = new List<IPlugin>();
+                foreach (var component in types)
+                {
+                    IPlugin plugin = Activator.CreateInstance(component) as IPlugin;
+                    if (!Properties.Settings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
+                        newPlugins.Add(plugin);
+                }
+
+                if (newPlugins.Count == 0)
+                {
+                    MessageBox.Show(string.Format(Properties.Resources.Error_InstallEmptyAssembly, path),
+                        Properties.Resources.Status_InstallPlugin);
+                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                        "refused plugin install: Assembly does not contain plugin classes that aren't already installed (" + path + ").",
+                        null);
+                    return;
+                }
+
+                var installer = new PluginInstaller(newPlugins);
+                installer.ShowDialog();
+
+                DataContext = new KeyValuePair<ViewModel, IEnumerable<IPlugin>>(new ViewModel(),
+                    FilterPlugins(Plugins.PluginManager.GetPlugins()));
+            }
         }
 
         /// <summary>
@@ -29,44 +115,6 @@ namespace ChameleonCoder.Navigation
         private void RefreshFilter(object sender, EventArgs e)
         {
             CollectionViewSource.GetDefaultView(list.ItemsSource).Refresh();
-        }
-
-        /// <summary>
-        /// disables a plugin
-        /// </summary>
-        /// <param name="sender">the button raising the event</param>
-        /// <param name="e">additional data</param>
-        private void Disable(object sender, EventArgs e)
-        {
-            IPlugin plugin = GetPlugin(sender as FrameworkElement);
-
-            if (!Properties.Settings.Default.DisabledPlugins.Contains(plugin.Identifier.ToString("n"))) // if already disabled, ignore it
-                Properties.Settings.Default.DisabledPlugins.Add(plugin.Identifier.ToString("n")); // otherwise add it to the list
-            Properties.Settings.Default.Save(); // save the settings
-
-            // todo:
-            // * instant visual update: re-apply template or similar
-            // * instant PluginManager modification: remove from corresponding list,
-            //      add to list of disabled plugins,
-            //      if ComponentFactory: remove registered types
-        }
-
-        /// <summary>
-        /// enables a previously disabled plugin
-        /// </summary>
-        /// <param name="sender">the button raising the event</param>
-        /// <param name="e">additional data</param>
-        private void Enable(object sender, EventArgs e)
-        {
-            IPlugin plugin = GetPlugin(sender as FrameworkElement);
-
-            if (Properties.Settings.Default.DisabledPlugins.Contains(plugin.Identifier.ToString("n"))) // check: if included in list
-                Properties.Settings.Default.DisabledPlugins.Remove(plugin.Identifier.ToString("n")); // if so, remove it
-            Properties.Settings.Default.Save(); // save updated settings
-
-            // todo:
-            // * instant visual update
-            // * initialize the plugin, move it to the corresponding PluginManager list
         }
 
         /// <summary>
@@ -88,24 +136,35 @@ namespace ChameleonCoder.Navigation
         /// <param name="e"></param>
         private void Filter(object sender, FilterEventArgs e)
         {
-            if (IsInitialized && categories.SelectedItem != null)
+            if (IsInitialized && categories.SelectedIndex != -1)
             {
-                string category = (categories.SelectedItem as ListBoxItem).Content as string;
+                int category = categories.SelectedIndex;
 
-                if (category == App.Gui.MVVM.Item_Plugins) // if all plugins should be shown:
+                if (category == 0) // if all plugins should be shown:
                     e.Accepted = true; // accept everything
                 else
                 {
-                    if (e.Item is ILanguageModule) // compare selected category with required one
-                        e.Accepted = category == App.Gui.MVVM.Plugin_LanguageModule;
+                    if (e.Item is ITemplate) // compare selected category with required one
+                        e.Accepted = category == 1;
                     if (e.Item is IService)
-                        e.Accepted = category == App.Gui.MVVM.Plugin_Service;
-                    if (e.Item is ITemplate)
-                        e.Accepted = category == App.Gui.MVVM.Plugin_Template;
+                        e.Accepted = category == 2;
+                    if (e.Item is ILanguageModule)
+                        e.Accepted = category == 3;
                     if (e.Item is IComponentFactory)
-                        e.Accepted = category == App.Gui.MVVM.Plugin_ComponentFactory;
+                        e.Accepted = category == 4;
                 }
             }
+        }
+
+        private IList<IPlugin> FilterPlugins(IEnumerable<IPlugin> plugins)
+        {
+            var list = new List<IPlugin>();
+            foreach (var plugin in plugins)
+            {
+                if (Properties.Settings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
+                    list.Add(plugin);
+            }
+            return list;
         }
     }
 }

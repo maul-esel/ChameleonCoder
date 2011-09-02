@@ -58,10 +58,18 @@ namespace ChameleonCoder
         public string Info_Class { get { return Res.Info_Class; } }
         public string Info_Version { get { return Res.Info_Version; } }
 
+        public string Plugin_All { get { return Res.Plugin_All; } }
         public string Plugin_LanguageModule { get { return Res.Plugin_LanguageModule; } }
         public string Plugin_Service { get { return Res.Plugin_Service; } }
         public string Plugin_Template { get { return Res.Plugin_Template; } }
         public string Plugin_ComponentFactory { get { return Res.Plugin_ComponentFactory; } }
+        public string Plugin_Install { get { return Res.Plugin_Install; } }
+        public string Plugin_Uninstall { get { return Res.Plugin_Uninstall; } }
+        public string Plugin_InstallSelected { get { return Res.Plugin_InstallSelected; } }
+        public string Plugin_InstallAll { get { return Res.Plugin_InstallAll; } }
+        public string Error_InstallNoAssembly { get { return Res.Error_InstallNoAssembly; } }
+        public string Error_InstallNoPlugin { get { return Res.Error_InstallNoPlugin; } }
+        public string Error_InstallEmptyAssembly { get { return Res.Error_InstallEmptyAssembly; } }
 
         public string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
 

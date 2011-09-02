@@ -4,7 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" VerticalAlignment="Stretch">
     
     <Page.Resources>
-        <CollectionViewSource x:Key="pluginsList" Source="{Binding Path=Plugins}" Filter="Filter">
+        <CollectionViewSource x:Key="pluginsList" Source="{Binding Path=Value}" Filter="Filter">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Name"/>
             </CollectionViewSource.SortDescriptions>
@@ -16,21 +16,28 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" SelectionChanged="RefreshFilter" Name="categories" VerticalAlignment="Top">
-            <ListBox.Resources>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="5"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="BorderThickness" Value="0.5"/>
-                    <Setter Property="Background" Value="LightGray"/>
-                </Style>
-            </ListBox.Resources>
-            <ListBoxItem Content="{Binding Path=Lang.Item_Plugins}"/>
-            <ListBoxItem Content="{Binding Path=Lang.Plugin_Template}"/>
-            <ListBoxItem Content="{Binding Path=Lang.Plugin_Service}"/>
-            <ListBoxItem Content="{Binding Path=Lang.Plugin_LanguageModule}"/>
-            <ListBoxItem Content="{Binding Path=Lang.Plugin_ComponentFactory}"/>
-        </ListBox>
+        
+        <StackPanel>
+            <ListBox Grid.Column="0" SelectionChanged="RefreshFilter" Name="categories" VerticalAlignment="Top">
+                <ListBox.Resources>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0.5"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem Content="{Binding Path=Key.Plugin_All}"/>
+                <ListBoxItem Content="{Binding Path=Key.Plugin_Template}"/>
+                <ListBoxItem Content="{Binding Path=Key.Plugin_Service}"/>
+                <ListBoxItem Content="{Binding Path=Key.Plugin_LanguageModule}"/>
+                <ListBoxItem Content="{Binding Path=Key.Plugin_ComponentFactory}"/>
+            </ListBox>
+            
+            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Key.Plugin_Uninstall}" Click="Uninstall"/>
+            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Key.Plugin_Install}" Click="Install"/>
+        </StackPanel>
+        
 
         <ListBox Name="list" Grid.Column="1" Background="LightGray" ItemsSource="{Binding Source={StaticResource pluginsList}}" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" HorizontalContentAlignment="Stretch">
             <ListBox.Resources>
@@ -40,12 +47,11 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
-                                <Border CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" Name="border" Background="{TemplateBinding Background}" Padding="5" Margin="0.5">
+                                <Border CornerRadius="5" BorderBrush="DarkGray" BorderThickness="2" Name="border" Background="{TemplateBinding Background}" Padding="5" Margin="0.5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="50"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="75"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
@@ -57,20 +63,8 @@
                                         <TextBlock Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Name}" FontSize="14" FontWeight="DemiBold"/>
                                         <TextBlock Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Description}"/>
                                         <TextBlock Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding Path=About}" FontStyle="Italic"/>
-                                        
-                                        <Button x:Name="disableButton" Margin="5" Click="Disable" Grid.Column="2" Grid.Row="0" Visibility="Collapsed" Content="disable"/>
-                                        <Button x:Name="enableButton" Margin="5" Click="Enable" Grid.Column="2" Grid.Row="1" Content="Enable" Visibility="Collapsed"/>
                                     </Grid>
                                 </Border>
-                                <ControlTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding Converter={StaticResource PluginDisabledConv}}" Value="True">
-                                        <Setter TargetName="enableButton" Property="Control.Visibility" Value="Visible"/>
-                                        <Setter Property="BorderBrush" Value="DarkRed"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Converter={StaticResource PluginDisabledConv}}" Value="False">
-                                        <Setter TargetName="disableButton" Property="Control.Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

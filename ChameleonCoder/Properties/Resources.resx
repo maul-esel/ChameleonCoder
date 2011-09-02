@@ -425,4 +425,31 @@ ChameleonCoder will close.</value>
   <data name="Status_CreateMeta" xml:space="preserve">
     <value>creating new metadata...</value>
   </data>
+  <data name="Error_InstallEmptyAssembly" xml:space="preserve">
+    <value>The assembly at "{0}" does not contain ChameleonCoder plugins that aren't already installed.</value>
+  </data>
+  <data name="Error_InstallNoAssembly" xml:space="preserve">
+    <value>The file "{0}" is not a valid assembly.</value>
+  </data>
+  <data name="Error_InstallNoPlugin" xml:space="preserve">
+    <value>The assembly at "{0}" is not a ChameleonCoder plugin assembly.</value>
+  </data>
+  <data name="Plugin_All" xml:space="preserve">
+    <value>all plugins</value>
+  </data>
+  <data name="Plugin_Install" xml:space="preserve">
+    <value>install plugins</value>
+  </data>
+  <data name="Plugin_InstallAll" xml:space="preserve">
+    <value>install all</value>
+  </data>
+  <data name="Plugin_InstallSelected" xml:space="preserve">
+    <value>install selected plugins</value>
+  </data>
+  <data name="Plugin_Uninstall" xml:space="preserve">
+    <value>uninstall selected plugin</value>
+  </data>
+  <data name="Status_InstallPlugin" xml:space="preserve">
+    <value>installing plugins...</value>
+  </data>
 </root>

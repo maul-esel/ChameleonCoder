@@ -259,6 +259,33 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The assembly at &quot;{0}&quot; does not contain ChameleonCoder plugins that aren&apos;t already installed. ähnelt.
+        /// </summary>
+        internal static string Error_InstallEmptyAssembly {
+            get {
+                return ResourceManager.GetString("Error_InstallEmptyAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The file &quot;{0}&quot; is not a valid assembly. ähnelt.
+        /// </summary>
+        internal static string Error_InstallNoAssembly {
+            get {
+                return ResourceManager.GetString("Error_InstallNoAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The assembly at &quot;{0}&quot; is not a ChameleonCoder plugin assembly. ähnelt.
+        /// </summary>
+        internal static string Error_InstallNoPlugin {
+            get {
+                return ResourceManager.GetString("Error_InstallNoPlugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The file &quot;{0}&quot; could not be opened.
         ///ChameleonCoder will close. ähnelt.
         /// </summary>
@@ -620,11 +647,47 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die all plugins ähnelt.
+        /// </summary>
+        internal static string Plugin_All {
+            get {
+                return ResourceManager.GetString("Plugin_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die components ähnelt.
         /// </summary>
         internal static string Plugin_ComponentFactory {
             get {
                 return ResourceManager.GetString("Plugin_ComponentFactory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die install plugins ähnelt.
+        /// </summary>
+        internal static string Plugin_Install {
+            get {
+                return ResourceManager.GetString("Plugin_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die install all ähnelt.
+        /// </summary>
+        internal static string Plugin_InstallAll {
+            get {
+                return ResourceManager.GetString("Plugin_InstallAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die install selected plugins ähnelt.
+        /// </summary>
+        internal static string Plugin_InstallSelected {
+            get {
+                return ResourceManager.GetString("Plugin_InstallSelected", resourceCulture);
             }
         }
         
@@ -652,6 +715,15 @@ namespace ChameleonCoder.Properties {
         internal static string Plugin_Template {
             get {
                 return ResourceManager.GetString("Plugin_Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die uninstall selected plugin ähnelt.
+        /// </summary>
+        internal static string Plugin_Uninstall {
+            get {
+                return ResourceManager.GetString("Plugin_Uninstall", resourceCulture);
             }
         }
         
@@ -904,6 +976,15 @@ namespace ChameleonCoder.Properties {
         internal static string Status_DeleteResource {
             get {
                 return ResourceManager.GetString("Status_DeleteResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die installing plugins... ähnelt.
+        /// </summary>
+        internal static string Status_InstallPlugin {
+            get {
+                return ResourceManager.GetString("Status_InstallPlugin", resourceCulture);
             }
         }
         

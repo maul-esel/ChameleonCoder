@@ -23,12 +23,9 @@ namespace ChameleonCoder.Plugins
             if (plugin == null) // check for null
                 return;
 
-            // if this plugin is disabled
-            if (Properties.Settings.Default.DisabledPlugins.Contains(plugin.Identifier.ToString("n")))
-            {
-                disabledPlugins.TryAdd(plugin.Identifier, plugin);
+            // if this plugin is not registered
+            if (!Properties.Settings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
                 return;
-            }
 
             ITemplate template = plugin as ITemplate;
             if (template != null) // if it is a template:
@@ -80,7 +77,14 @@ namespace ChameleonCoder.Plugins
         /// <returns>the list of plugins</returns>
         internal static IEnumerable<IPlugin> GetPlugins()
         {
-            return GetPlugins(false);
+            var plugins = new List<IPlugin>();
+
+            plugins.AddRange(GetModules());
+            plugins.AddRange(GetServices());
+            plugins.AddRange(GetTemplates());
+            plugins.AddRange(GetFactories());
+
+            return plugins;
         }
 
         /// <summary>
@@ -89,6 +93,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="includeDisabled">true to include disabled plugins, otherwise false</param>
         /// <returns>the list of plugins</returns>
+        [Obsolete("use overload", true)]
         internal static IEnumerable<IPlugin> GetPlugins(bool includeDisabled)
         {
             var plugins = new List<IPlugin>();
@@ -97,12 +102,13 @@ namespace ChameleonCoder.Plugins
             plugins.AddRange(GetTemplates());
             plugins.AddRange(GetFactories());
 
-            if (includeDisabled)
-                plugins.AddRange(disabledPlugins.Values);
+            /*if (includeDisabled)
+                plugins.AddRange(disabledPlugins.Values);*/
 
             return plugins;
         }
 
+        [Obsolete("no disabled plugins", true)]
         static ConcurrentDictionary<Guid, IPlugin> disabledPlugins = new ConcurrentDictionary<Guid, IPlugin>();
 
         #region ILanguageModule
