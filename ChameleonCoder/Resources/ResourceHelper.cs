@@ -125,14 +125,7 @@ namespace ChameleonCoder
                 res.AppendChild(meta); // and insert it
             }
 
-            if (value == null) // if value is 'null'
-            {
-                meta.ParentNode.RemoveChild(meta); // delete the metadata element
-            }
-            else
-            {
-                meta.InnerText = value; // set the value
-            }
+            meta.InnerText = value; // set the value
         }
 
         /// <summary>
@@ -178,6 +171,28 @@ namespace ChameleonCoder
                 dict.Add(meta.GetAttribute("name"), meta.InnerText); // add all metadata elements to the dictionary
 
             return dict; // return the dictionary
+        }
+
+        /// <summary>
+        /// deletes a specified metadata
+        /// </summary>
+        /// <param name="resource">the resource to contain the metadata</param>
+        /// <param name="key">the metadata's key</param>
+        public static void DeleteMetadata(this IResource resource, string key)
+        {
+            var doc = resource.GetResourceFile().Document;
+
+            // get the resource's data element
+            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            if (res == null) // if it doesn't exist:
+                return; // there's no metadata --> return null
+
+            // get the metadata element
+            XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
+            if (meta == null) // if it doesn't exist:
+                return; // there's no such metadata --> return null
+
+            meta.ParentNode.RemoveChild(meta); // remove the node
         }
         #endregion
 
