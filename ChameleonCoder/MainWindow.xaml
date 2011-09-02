@@ -316,7 +316,16 @@
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup>
+                            
                             <odc:RibbonButton x:Name="OpenEdit" Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png" Click="ResourceEdit"/>
+                            
+                        </odc:RibbonGroup>
+                        
+                        <odc:RibbonGroup>
+                            
+                            <odc:RibbonButton Content="{Binding Path=Meta_Add}" Click="MetadataAdd"/>
+                            <odc:RibbonButton Content="{Binding Path=Meta_Delete}" Click="MetadataDelete"/>
+                            
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup x:Name="CustomGroup3"/>

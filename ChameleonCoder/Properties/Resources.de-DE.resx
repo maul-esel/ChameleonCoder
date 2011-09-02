@@ -413,4 +413,16 @@ ChameleonCoder wird geschlossen.</value>
   <data name="Meta_Value" xml:space="preserve">
     <value>Wert</value>
   </data>
+  <data name="Meta_Add" xml:space="preserve">
+    <value>Metadaten hinzufügen</value>
+  </data>
+  <data name="Meta_Delete" xml:space="preserve">
+    <value>ausgewählte Metadaten löschen</value>
+  </data>
+  <data name="Meta_EnterName" xml:space="preserve">
+    <value>Geben Sie den Namen der neuen Metadaten ein:</value>
+  </data>
+  <data name="Status_CreateMeta" xml:space="preserve">
+    <value>Erstelle neue Metadaten...</value>
+  </data>
 </root>

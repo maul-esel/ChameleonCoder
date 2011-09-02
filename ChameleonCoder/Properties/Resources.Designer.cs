@@ -539,6 +539,33 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die add metadata ähnelt.
+        /// </summary>
+        internal static string Meta_Add {
+            get {
+                return ResourceManager.GetString("Meta_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die delete selected metadata ähnelt.
+        /// </summary>
+        internal static string Meta_Delete {
+            get {
+                return ResourceManager.GetString("Meta_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter the new metadata&apos;s name: ähnelt.
+        /// </summary>
+        internal static string Meta_EnterName {
+            get {
+                return ResourceManager.GetString("Meta_EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die metadata key ähnelt.
         /// </summary>
         internal static string Meta_Key {
@@ -859,6 +886,15 @@ namespace ChameleonCoder.Properties {
         internal static string StartSelection {
             get {
                 return ResourceManager.GetString("StartSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die creating new metadata... ähnelt.
+        /// </summary>
+        internal static string Status_CreateMeta {
+            get {
+                return ResourceManager.GetString("Status_CreateMeta", resourceCulture);
             }
         }
         

@@ -76,14 +76,21 @@
             </ListView.View>
         </ListView>
         
-        <ListView x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1"
-                          ItemsSource="{Binding Path=meta}"
-                          VirtualizingStackPanel.IsVirtualizing="True"
-                          VirtualizingStackPanel.VirtualizationMode="Recycling">
+        <ListView x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="1"
+                  ItemsSource="{Binding Path=meta}"
+                  HorizontalContentAlignment="Stretch"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" Focusable="False">
             <ListView.View>
-                <GridView ColumnHeaderTemplate="{x:Null}">
+                <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="{Binding Path=lang.Meta_Key}"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Value}" Header="{Binding Path=lang.Meta_Value}"/>
+                    <GridViewColumn Header="{Binding Path=lang.Meta_Value}" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Width="Auto" Text="{Binding Path=Value, Mode=OneWay}" TextChanged="SaveMetadata" HorizontalAlignment="Stretch"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

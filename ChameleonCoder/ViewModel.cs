@@ -84,6 +84,8 @@ namespace ChameleonCoder
 
         public string Meta_Key { get { return Res.Meta_Key; } }
         public string Meta_Value { get { return Res.Meta_Value; } }
+        public string Meta_Add { get { return Res.Meta_Add; } }
+        public string Meta_Delete { get { return Res.Meta_Delete; } }
 
         #region RibbonTab headers
         public string RibbonContext_List { get { return Res.RibbonContext_List; } }

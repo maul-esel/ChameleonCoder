@@ -240,6 +240,18 @@ namespace ChameleonCoder
 
         #endregion
 
+        private void MetadataAdd(object sender, EventArgs e)
+        {
+            var input = new Interaction.InputBox(Properties.Resources.Status_CreateMeta, Properties.Resources.Meta_EnterName);
+            if (input.ShowDialog() == true && !string.IsNullOrWhiteSpace(input.Text))
+                ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).AddMetadata(input.Text);
+        }
+
+        private void MetadataDelete(object sender, EventArgs e)
+        {
+            ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).DeleteMetadata();
+        }
+
         private void Restart(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
