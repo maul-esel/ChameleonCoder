@@ -211,7 +211,7 @@
 
                                         <StackPanel Orientation="Horizontal">
 
-                                            <CheckBox x:Name="myChecker" Margin="1,1,5,1" Checked="FilterChanged" Unchecked="FilterChanged" Content="{Binding Converter={StaticResource TypeConverter}}"/>
+                                            <CheckBox x:Name="myChecker" Margin="1,1,5,1" Checked="FilterChanged" Unchecked="FilterChanged" Content="{Binding Converter={StaticResource TypeConverter}, ConverterParameter=DisplayName}"/>
 
                                         </StackPanel>
 
