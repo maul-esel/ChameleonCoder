@@ -47,7 +47,7 @@
     </p>
     <ul>
     <li><p>
-    <code>--install_ext</code> causes CC to install the <code>*.ccm</code> and <code>*.ccr</code> file extensions and to register itself as default handler.
+    <code>--install_ext</code> causes CC to install the <code>*.ccp</code> and <code>*.ccr</code> file extensions and to register itself as default handler.
     If run on a machine which has already installed these, CC will instead uninstall them.<br />
     The app is shutdown without opening the main window.    
     </p></li>
@@ -61,20 +61,8 @@
     The app is shutdown without opening the main window.
     </p></li>
     <li><p>
-    If you pass the name of a file to CC, it will try to read it as <code>*.ccr</code> or <code>*.ccm</code> file
+    If you pass the name of a file to CC, it will try to read it as <code>*.ccr</code> or <code>*.ccp</code> file
     and parse the contained resources.<br />
-    The resources loaded by default (in the <code>\Data\</code> folder) will be ignored,
-    unless the <code>--data</code> switch is present.
-    </p></li>
-    <li><p>
-    If you pass the name of a directory to CC, it will try to read all included files (also those in subfolders)
-    as <code>*.ccr</code> or <code>*.ccm</code> files.<br />
-    The resources loaded by default (in the <code>\Data\</code> folder) will be ignored,
-    unless the <code>--data</code> switch is present.
-    </p></li>
-    <li><p>
-    <code>--data</code> enables parsing of the default resources (in the <code>\Data\</code> folder),
-    even if additional resources are  passed.
     </p></li>
     </ul>
 
