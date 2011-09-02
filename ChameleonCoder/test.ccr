@@ -44,7 +44,7 @@
       <metadata name="test">testvalue</metadata>
 	  </resource-data>
     <resource-data guid="{6ef3c403-9197-47cd-9515-fcf00898c566}">
-      <metadata name="Einsatz" default="1">Config-Explorer</metadata>
+      <metadata name="Einsatz">Config-Explorer</metadata>
     </resource-data>
     <resource-data guid="{41a40866-f247-428b-a6de-ab5e70d21da9}">
       <metadata name="Aktuell">Neusortierung</metadata>

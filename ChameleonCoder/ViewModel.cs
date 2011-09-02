@@ -82,6 +82,9 @@ namespace ChameleonCoder
         public string Help { get { return Res.Help; } }
         public string About { get { return Res.About; } }
 
+        public string Meta_Key { get { return Res.Meta_Key; } }
+        public string Meta_Value { get { return Res.Meta_Value; } }
+
         #region RibbonTab headers
         public string RibbonContext_List { get { return Res.RibbonContext_List; } }
         public string RibbonContext_Edit { get { return Res.RibbonContext_Edit; } }

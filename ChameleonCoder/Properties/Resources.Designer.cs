@@ -539,6 +539,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die metadata key ähnelt.
+        /// </summary>
+        internal static string Meta_Key {
+            get {
+                return ResourceManager.GetString("Meta_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die value ähnelt.
+        /// </summary>
+        internal static string Meta_Value {
+            get {
+                return ResourceManager.GetString("Meta_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {0} module (version {1}) by {2} ähnelt.
         /// </summary>
         internal static string ModuleInfo {

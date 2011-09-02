@@ -16,7 +16,8 @@ namespace ChameleonCoder.Navigation
         /// <param name="resource">the resource to display</param>
         internal ResourceViewPage(IResource resource)
         {
-            DataContext = Resource = ResourceManager.ActiveItem = resource;
+            Resource = ResourceManager.ActiveItem = resource;
+            DataContext = new { res = resource, meta = resource.GetMetadata(), lang = App.Gui.DataContext };
 
             InitializeComponent();
 

@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Page.Resources>
-        <CollectionViewSource x:Key="ResPropList" Source="{Binding Converter={StaticResource PropConv}}">
+        <CollectionViewSource x:Key="ResPropList" Source="{Binding Path=res, Converter={StaticResource PropConv}}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="Group"/>
             </CollectionViewSource.GroupDescriptions>
@@ -76,16 +76,20 @@
             </ListView.View>
         </ListView>
         
-        <DataGrid x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1"
-                          ItemsSource="{Binding Path=MetaData}"
-                          HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray"
-                          HeadersVisibility="Column"
+        <ListView x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1"
+                          ItemsSource="{Binding Path=meta}"
                           VirtualizingStackPanel.IsVirtualizing="True"
                           VirtualizingStackPanel.VirtualizationMode="Recycling">
-        </DataGrid>
+            <ListView.View>
+                <GridView ColumnHeaderTemplate="{x:Null}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="{Binding Path=lang.Meta_Key}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Value}" Header="{Binding Path=lang.Meta_Value}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <TextBox x:Name="NotesBox" Grid.Column="1" Grid.Row="1"
                  AutoWordSelection="True" AcceptsReturn="True"
-                 Text="{Binding Path=Notes}"/>
+                 Text="{Binding Path=res.Notes}"/>
     </Grid>
 </Page>
