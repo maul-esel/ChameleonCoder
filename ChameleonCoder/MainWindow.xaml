@@ -90,10 +90,10 @@
                 </Setter.Value>
             </Setter>
            
-            <Setter x:Uid="Setter_2" Property="ContentTemplate">
+            <Setter Property="ContentTemplate">
                 <Setter.Value>
-                    <DataTemplate x:Uid="DataTemplate_2">
-                        <Frame x:Uid="Frame_1" Content="{Binding Path=Content}" NavigationUIVisibility="Hidden"></Frame>
+                    <DataTemplate>
+                        <Frame Content="{Binding Path=Content}" NavigationUIVisibility="Hidden"/>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>

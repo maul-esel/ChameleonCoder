@@ -289,38 +289,38 @@ namespace ChameleonCoder
             if (Tabs.SelectedItem == null)
                 return;
 
-            Type selected = (Tabs.SelectedItem as TabContext).Content.GetType();
+            Page page = (Tabs.SelectedItem as TabContext).Content;
             Ribbon.SelectedTabIndex = 0;
 
-            if (selected == typeof(WelcomePage))
+            if (page is WelcomePage)
             {
                 Ribbon.ContextualTabSet = null;
                 ResourceManager.ActiveItem = null;
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem);
             }
 
-            else if (selected == typeof(ResourceListPage))
+            else if (page is ResourceListPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
                 ResourceManager.ActiveItem = null;
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List;
             }
 
-            else if (selected == typeof(EditPage))
+            else if (page is EditPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
                 ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as EditPage).Resource;
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
-            else if (selected == typeof(ResourceViewPage))
+            else if (page is ResourceViewPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
                 ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).Resource;
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
-            else if (selected == typeof(SettingsPage))
+            else if (page is SettingsPage)
             {
                 Ribbon.ContextualTabSet = null;
                 ResourceManager.ActiveItem = null;
