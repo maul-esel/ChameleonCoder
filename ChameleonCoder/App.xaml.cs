@@ -108,58 +108,6 @@ namespace ChameleonCoder
             OpenFile.Dispose();
         }
 
-        [Obsolete("only one file now", true)]
-        internal static void ParseFile(string file)
-        {
-            XmlDocument doc = new XmlDocument();
-
-            try { doc.Load(file); }
-            catch (XmlException)
-            {
-                PackageManager.UnpackResources(file);
-                return;
-            }
-
-            if (doc.DocumentElement.Name == "cc-resource-map")
-            {
-                Parallel.Invoke(
-                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
-                                            where _ref.Name == "file"
-                                            select _ref),
-                                      file_ref =>
-                                      {
-                                          if (File.Exists(file_ref.InnerText))
-                                              ParseFile(file_ref.InnerText);
-                                          else if (File.Exists(Path.Combine(Path.GetDirectoryName(file), file_ref.InnerText.TrimStart('\\'))))
-                                              ParseFile(Path.GetDirectoryName(file) + "\\" + file_ref.InnerText.TrimStart('\\'));
-                                      }),
-                    () => Parallel.ForEach((from XmlNode _ref in doc.DocumentElement.ChildNodes.AsParallel()
-                                            where _ref.Name == "dir" && Directory.Exists(_ref.Value)
-                                            select _ref),
-                                       dir_ref =>
-                                       {
-                                           if (Directory.Exists(dir_ref.InnerText))
-                                               ParseDir(dir_ref.InnerText);
-                                           else if (File.Exists(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText.TrimStart('\\')))
-                                               ParseDir(Path.GetDirectoryName(file) + "\\" + dir_ref.InnerText.TrimStart('\\'));
-                                       }));
-            }
-            else
-            {
-                AddResource(doc.DocumentElement, null);
-            }
-        }
-
-        [Obsolete("no dir-parsing", true)]
-        internal static void ParseDir(string dir)
-        {
-            Parallel.ForEach(
-                new ConcurrentBag<string>(
-                    (Directory.GetFiles(dir, "*.ccr", SearchOption.AllDirectories)).Concat(
-                     Directory.GetFiles(dir, "*.ccm", SearchOption.AllDirectories))),
-               file => ParseFile(file));
-        }
-
         internal static void AddResource(XmlElement node, IResource parent)
         {
             IResource resource;

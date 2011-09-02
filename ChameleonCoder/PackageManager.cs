@@ -40,7 +40,7 @@ namespace ChameleonCoder
                             CopyStream(part.GetStream(), fileStream);
                     }
                 }
-                App.ParseDir(packName);
+                //App.ParseDir(packName);
             }
         }
 
