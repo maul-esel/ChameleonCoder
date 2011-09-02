@@ -150,7 +150,7 @@ namespace ChameleonCoder
             }
         }
 
-        [Obsolete]
+        [Obsolete("no dir-parsing", true)]
         internal static void ParseDir(string dir)
         {
             Parallel.ForEach(
@@ -178,9 +178,7 @@ namespace ChameleonCoder
 
             foreach (XmlElement child in node.ChildNodes)
             {
-                if (child.Name == "metadata")
-                    continue;
-                else if (child.Name == "RichContent" && richResource != null)
+                if (child.Name == "RichContent" && richResource != null)
                     foreach (XmlNode member in child.ChildNodes)
                     {
                         IContentMember richContent = ContentMemberManager.CreateInstanceOf(member.Name);

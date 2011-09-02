@@ -1,0 +1,68 @@
+<cc-resource-file>
+  <!--this is the root element-->
+  <resources>
+    <!--this element contains the resources-->
+    <group name="NewParentGroup" guid="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}" description="the new parent group" notes="" />
+    <file name="Formulator.exe" guid="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" notes="" description="main executable" path="Projekte\[que] KAPROG\Formulator.exe" />
+    <file name="AHK.ScriptsMan.dll" guid="{d315d152-7e7f-4028-a49a-b5c95c66762c}" notes="" description="resource dll" path="AutoHotkey\AHK.ScriptsMan\AHK.ScriptsMan.dll" />
+    <library name="IPC-Library" guid="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" notes="" description="inter-process communication" author="IsNull" license="MIT?" version="0.1?" path="" />
+    <library name="TF-Library" guid="{f5053dd6-a7ab-4dee-844b-24542767ecae}" notes="" description="text manipulation" author="hugov" license="?" version="?" path="" />
+    <library name="Aero-Library" guid="{439bccec-fa17-4ef6-9037-cc93be66cb95}" notes="Hi!&#xD;&#xA;How are you?&#xD;&#xA;" description="dwmapi handling" author="RaptorOne &amp; Bentschi" license="?" version="1.1" path="AutoHotkey\#Include\Aero.ahk" language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}">
+      <group name="TheNewGroup" guid="{2dbbf243-eead-47c8-826a-34713faf8ac9}" description="a new test group" notes="">
+        <group name="TheNewChildGroup" guid="{9a40009c-f699-48e3-8a1f-1d4e06bdd9f2}" description="a new child test group" notes="" />
+      </group>
+    </library>
+    <library name="Toolbar" guid="{5d03da7b-acf1-4ae9-acca-6a4133c65880}" notes="" description="toolbar control functions" author="majkinetor" license="unlicensed" version="0.8" path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk" language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" />
+    <project name="KAPROG" guid="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" notes="" description="[deprecated]" language="{926d62ed-678d-48b3-b13d-f92293f638d4}" priority="0">
+      <link guid="{cbf92f3e-3e8e-4f15-8ce0-cb4182f19ee4}" destination="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" />
+      <link guid="{7a4973f2-398a-4dfc-bd50-468b18ee696b}" destination="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" />
+      <link guid="{08566d7c-1ad3-468b-a957-385e4e9678e3}" destination="{f5053dd6-a7ab-4dee-844b-24542767ecae}" />
+      <link guid="{6ef3c403-9197-47cd-9515-fcf00898c566}" destination="{5d03da7b-acf1-4ae9-acca-6a4133c65880}" />
+    </project>
+    <project name="AHK.ScriptsMan" guid="{41a40866-f247-428b-a6de-ab5e70d21da9}" notes="this is the parent project of ChameleonCoder. It is deprecated now." description="[deprecated] IDE" language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}" priority="2">
+      <link name="resource dll" guid="{a3d7f867-16d7-4260-803a-74a58aeba668}" destination="{d315d152-7e7f-4028-a49a-b5c95c66762c}" />
+      <link name="executable" guid="{327a7eb0-07ad-4219-a4b4-878920075fc5}" destination="{5d03da7b-acf1-4ae9-acca-6a4133c65880}" />
+      <task name="Code review" guid="{398aca26-d030-4b19-9a45-16edef1d70ca}" notes="code should be reviewed and shortened, especially Gui.ahk.&#xD;&#xA;Maybe I should use new class syntax... ?" description="replace old code with new one" enddate="20110912" />
+      <group name="UI" guid="{0c49bd9e-939c-4afc-9611-a9dc644eacea}" notes="this is the most unfinished part&#xD;&#xA;It requires Scintilla class by HotkeyIt --&gt; download" description="contains the gui code">
+        <project name="PanelMain" guid="{fcf88c90-997a-4498-958c-695dbbd20f24}" notes="- rework code&#xD;&#xA;- save documents in object / array&#xD;&#xA;- save panel handles" description="the main gui code file" language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" priority="2">
+          <link name="toolbar" guid="{bc38b097-3766-4121-8977-a8d9ca99317f}" destination="{5d03da7b-acf1-4ae9-acca-6a4133c65880}" />
+          <task name="Continue" guid="{789804aa-07f2-4472-bb65-d97009b6cfb2}" notes="Continue working out the main panel design&#xD;&#xA;	- first make notes&#xD;&#xA;	- then draw&#xD;&#xA;	- then code ;)" description="Finish other panels &amp; events">
+            <code name="AutomaticGuiCreator.ahk" guid="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}" notes="this script is incredible! It creates code from drawings and optimizes them!" description="auto-creates and reworks GUI code" language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" compilation-path="" path="C:\anywhere\AGC.ahk" />
+          </task>
+        </project>
+      </group>
+      <library name="SVS-Funktionen" guid="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}" notes="" description="divers functions" language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" priority="2" />
+    </project>
+    <task name="Aufgabe1" guid="{31efc3af-111f-4a6a-a7a7-56318d73449e}" description="a new task" notes="" enddate="Montag, 1. Januar 0001" />
+    <library name="Thumbnail-Library" guid="{a2268e5c-db2d-4da1-9233-57f62a8e036f}" notes="" description="aero thumbnail handling" author="maul.esel" license="" version="1" path="#Include\Thumbnail.ahk" language="3b737871-bc94-4eda-a3f6-0c1b7da0c7fd" />
+  </resources>
+  <data>
+    <!--this section will contain information about resources, such as "last modified", "created at", ...
+		NEW: this will also contain metadata and RichContent
+		The resources are identified by their GUID. NOT YET IMPLEMENTED!!!-->
+	  <resource-data guid="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
+      <metadata name="test">testvalue</metadata>
+	  </resource-data>
+    <resource-data guid="{6ef3c403-9197-47cd-9515-fcf00898c566}">
+      <metadata name="Einsatz" default="1">Config-Explorer</metadata>
+    </resource-data>
+    <resource-data guid="{41a40866-f247-428b-a6de-ab5e70d21da9}">
+      <metadata name="Aktuell">Neusortierung</metadata>
+      <metadata name="MainElement">Treeview</metadata>
+    </resource-data>
+    <resource-data guid="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}">
+      <metadata name="Todo">Cleanup!</metadata>
+    </resource-data>
+  </data>
+  <settings>
+    <!-- This section will contain several more or less useful informations about the pack.
+		They will also contain an unlimited number of <metadata> elements. NOT YET IMPLEMENTED!!!-->
+    <name>test file</name>
+    <changelog>
+    </changelog>
+  </settings>
+  <references>
+    <!--this section can contain references for other *.ccr / *.ccp files that will also be loaded (not sure whether or when this will be implemented).
+		It can also contain references for directories which will be used to find files given a relative path. NOT YET IMPLEMENTED!!!-->
+  </references>
+</cc-resource-file>

@@ -36,15 +36,6 @@ namespace ChameleonCoder.ResourceCore
                 Xml.SetAttribute("guid", id.ToString());
             }
             GUID = id;
-
-            if (MetaData == null)
-            {
-                MetaData = new MetadataCollection();
-                foreach (XmlNode meta in (from XmlNode meta in node.ChildNodes
-                                          where meta.Name == "metadata"
-                                          select meta))
-                    MetaData.Add(new Metadata(meta));
-            }
         }
 
         public XmlElement Xml { get; private set; }
@@ -93,8 +84,6 @@ namespace ChameleonCoder.ResourceCore
                 OnPropertyChanged("Notes");
             }
         }
-
-        public virtual MetadataCollection MetaData { get; protected set; }
 
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
 

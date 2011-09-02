@@ -33,11 +33,6 @@ namespace ChameleonCoder.Resources.Interfaces
         string Notes { get; }
 
         /// <summary>
-        /// the associated metadata as Metadata class instances
-        /// </summary>
-        MetadataCollection MetaData { get; }
-
-        /// <summary>
         /// an image representing an important information related to the resource
         /// </summary>
         ImageSource SpecialVisualProperty { get; }

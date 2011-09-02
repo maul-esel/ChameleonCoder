@@ -187,9 +187,7 @@
     </Compile>
     <Compile Include="Plugins\IService.cs" />
     <Compile Include="Plugins\LexingType.cs" />
-    <Compile Include="Resources\Metadata.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
-    <Compile Include="Resources\MetadataCollection.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
     <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
@@ -283,6 +281,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="test.ccr" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\info.png" />

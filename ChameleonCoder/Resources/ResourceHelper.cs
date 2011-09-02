@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
@@ -8,7 +9,6 @@ namespace ChameleonCoder
 {
     internal static class ResourceHelper
     {
-        #region Save & Delete
         /// <summary>
         /// deletes a resource by removing all references for it and deleting its XML
         /// </summary>
@@ -37,8 +37,8 @@ namespace ChameleonCoder
 
             resource.GetResourceFile().Save(); // save changes
         }
-        #endregion
 
+        #region Copy & Move
         /// <summary>
         /// moves a resource to a new parent resource
         /// </summary>
@@ -94,19 +94,92 @@ namespace ChameleonCoder
         {
             resource.Copy(newParent, false);
         }
+        #endregion
 
         #region metadata
-        public static void AddMetadata(this IResource resource, Resources.Metadata meta)
+        /// <summary>
+        /// sets the value of a resource's metadata with the specified key and creates it if necessary
+        /// </summary>
+        /// <param name="resource">the resource to receive the metadata</param>
+        /// <param name="key">the metadata key</param>
+        /// <param name="value">the value</param>
+        public static void SetMetadata(this IResource resource, string key, string value)
         {
-            System.Xml.XmlNode node = resource.Xml.SelectSingleNode("metadata");
-            //if (node != null)
-                //node.AppendChild(meta.node);
+            var doc = resource.GetResourceFile().Document;
+
+            // get the resource-data element for the resource
+            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            if (res == null) // if it doesn't yet exist:
+            {
+                res = doc.CreateElement("resource-data"); // create it
+                res.SetAttribute("guid", resource.GUID.ToString("b")); // associate it with the resource
+                doc.SelectSingleNode("/cc-resource-file/data").AppendChild(res); // and insert it into the document
+            }
+
+            // get the metadata element for the given key
+            XmlElement meta = (XmlElement)res.SelectSingleNode("/metadata[@name='" + key + "']");
+            if (meta == null) // if it doesn't exist:
+            {
+                meta = doc.CreateElement("metadata"); // create it
+                meta.SetAttribute("name", key); // give it the requested key
+                res.AppendChild(meta); // and insert it
+            }
+
+            if (value == null) // if value is 'null'
+            {
+                meta.ParentNode.RemoveChild(meta); // delete the metadata element
+            }
+            else
+            {
+                meta.Value = value; // set the value
+            }
         }
 
-        public static void DeleteMetadata(this IResource resource, Resources.Metadata meta)
+        /// <summary>
+        /// gets the value of a specified metadata element for the resource
+        /// </summary>
+        /// <param name="resource">the resurce containing the metadata</param>
+        /// <param name="key">the metadata's key</param>
+        /// <returns>the metadata's value if found, null otherwise</returns>
+        public static string GetMetadata(this IResource resource, string key)
         {
-            //resource.Xml.RemoveChild(meta.Xml);
-            resource.MetaData.Remove(meta);
+            var doc = resource.GetResourceFile().Document;
+
+            // get the resource's data element
+            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            if (res == null) // if it doesn't exist:
+                return null; // there's no metadata --> return null
+
+            // get the metadata element
+            XmlElement meta = (XmlElement)res.SelectSingleNode("/metadata[@name='" + key + "']");
+            if (meta == null) // if it doesn't exist:
+                return null; // there's no such metadata --> return null
+
+            return meta.Value; // return the requested value
+        }
+
+        /// <summary>
+        /// gets a list of all metadata elements for the resource
+        /// </summary>
+        /// <param name="resource">the resource to analyze</param>
+        /// <returns>a dictionary containing the metadata, which is empty if none is found</returns>
+        public static Dictionary<string, string> GetMetadata(this IResource resource)
+        {
+            var doc = resource.GetResourceFile().Document;
+            var dict = new Dictionary<string, string>();
+
+            // get the resource's data element
+            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            if (res == null) // if it doesn't exist:
+                return dict; // there's no metadata --> return empty dictionary
+
+            var data = res.SelectNodes("/metadata"); // get the list of metadata
+            foreach (XmlElement meta in data)
+            {
+                dict.Add(meta.GetAttribute("name"), meta.Value); // add all metadata elements to the dictionary
+            }
+
+            return dict; // return the dictionary
         }
         #endregion
 
