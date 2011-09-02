@@ -131,7 +131,7 @@ namespace ChameleonCoder
             }
             else
             {
-                meta.Value = value; // set the value
+                meta.InnerText = value; // set the value
             }
         }
 
@@ -155,7 +155,7 @@ namespace ChameleonCoder
             if (meta == null) // if it doesn't exist:
                 return null; // there's no such metadata --> return null
 
-            return meta.Value; // return the requested value
+            return meta.InnerText; // return the requested value
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace ChameleonCoder
 
             var data = res.SelectNodes("metadata"); // get the list of metadata
             foreach (XmlElement meta in data)
-                dict.Add(meta.GetAttribute("name"), meta.Value); // add all metadata elements to the dictionary
+                dict.Add(meta.GetAttribute("name"), meta.InnerText); // add all metadata elements to the dictionary
 
             return dict; // return the dictionary
         }
