@@ -117,7 +117,7 @@ namespace ChameleonCoder
             }
 
             // get the metadata element for the given key
-            XmlElement meta = (XmlElement)res.SelectSingleNode("/metadata[@name='" + key + "']");
+            XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
             if (meta == null) // if it doesn't exist:
             {
                 meta = doc.CreateElement("metadata"); // create it
@@ -151,7 +151,7 @@ namespace ChameleonCoder
                 return null; // there's no metadata --> return null
 
             // get the metadata element
-            XmlElement meta = (XmlElement)res.SelectSingleNode("/metadata[@name='" + key + "']");
+            XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
             if (meta == null) // if it doesn't exist:
                 return null; // there's no such metadata --> return null
 
@@ -173,11 +173,9 @@ namespace ChameleonCoder
             if (res == null) // if it doesn't exist:
                 return dict; // there's no metadata --> return empty dictionary
 
-            var data = res.SelectNodes("/metadata"); // get the list of metadata
+            var data = res.SelectNodes("metadata"); // get the list of metadata
             foreach (XmlElement meta in data)
-            {
                 dict.Add(meta.GetAttribute("name"), meta.Value); // add all metadata elements to the dictionary
-            }
 
             return dict; // return the dictionary
         }
