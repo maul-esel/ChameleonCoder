@@ -152,7 +152,7 @@ namespace ChameleonCoder
                              where Attribute.IsDefined(type, typeof(CCPluginAttribute))
                                 && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
                                 && type.GetInterface(typeof(Plugins.IPlugin).FullName) != null
-                                && type.GetConstructor(Type.EmptyTypes) == null
+                                && type.GetConstructor(Type.EmptyTypes) != null
                              select type;
 
             Parallel.ForEach(components, component => Plugins.PluginManager.TryAdd(component));
