@@ -29,7 +29,7 @@
         /// <summary>
         /// initializes the instance
         /// </summary>
-        /// <param name="node"></param>
-        void Init(System.Xml.XmlNode node);
+        /// <param name="node">the XmlElement containing the member's data</param>
+        void Init(System.Xml.XmlElement node);
     }
 }

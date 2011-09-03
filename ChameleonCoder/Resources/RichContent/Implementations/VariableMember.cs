@@ -11,6 +11,6 @@
 
         public virtual void Save() { }
 
-        public virtual void Init(System.Xml.XmlNode node) { }
+        public virtual void Init(System.Xml.XmlElement node) { }
     }
 }
