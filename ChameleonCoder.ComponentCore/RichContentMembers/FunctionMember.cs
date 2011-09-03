@@ -1,4 +1,6 @@
-﻿namespace ChameleonCoder.Resources.RichContent.Implementations
+﻿using ChameleonCoder.Resources.RichContent;
+
+namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
     public class FunctionMember : IContentMember
     {

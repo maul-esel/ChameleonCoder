@@ -6,7 +6,7 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// represents a project resource,
@@ -28,7 +28,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/project.png")).GetAsFrozen() as ImageSource; } }
+        public override ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/project.png")).GetAsFrozen() as ImageSource; } }
 
         public override ImageSource SpecialVisualProperty
         {
@@ -42,7 +42,7 @@ namespace ChameleonCoder.ResourceCore
                     case ProjectPriority.middle: id = "middle"; break;
                     case ProjectPriority.high: id = "high"; break;
                 }
-                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/Priority/" + id + ".png")).GetAsFrozen() as ImageSource;
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/Priority/" + id + ".png")).GetAsFrozen() as ImageSource;
             }
         }
 

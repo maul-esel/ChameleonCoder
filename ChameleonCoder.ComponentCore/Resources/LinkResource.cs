@@ -2,9 +2,10 @@
 using System.Windows.Media;
 using System.Xml;
 using ChameleonCoder.Interaction;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// a class representing a resource that serves as link to another resource
@@ -33,7 +34,7 @@ namespace ChameleonCoder.ResourceCore
                 IResource resource = Resolve();
                 if (resource != null)
                     return resource.Icon;
-                return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/link.png")).GetAsFrozen() as ImageSource;
+                return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/link.png")).GetAsFrozen() as ImageSource;
             }
         }
 
@@ -126,7 +127,7 @@ namespace ChameleonCoder.ResourceCore
             }
         }
 
-        [Resources.ResourceProperty("nameof_DestinationName", Resources.ResourcePropertyGroup.ThisClass, IsReadOnly = true, IsReferenceName = true)]
+        [ResourceProperty("nameof_DestinationName", ResourcePropertyGroup.ThisClass, IsReadOnly = true, IsReferenceName = true)]
         public string DestinationName
         {
             get

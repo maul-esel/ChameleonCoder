@@ -176,13 +176,6 @@
     <Compile Include="Resources\ResourcePropertyAttribute.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
     <Compile Include="Resources\RichContent\ContentMemberTypeInfo.cs" />
-    <Compile Include="Resources\RichContent\Implementations\ClassMember.cs" />
-    <Compile Include="Resources\RichContent\Implementations\FieldMember.cs" />
-    <Compile Include="Resources\RichContent\Implementations\MethodMember.cs" />
-    <Compile Include="Resources\RichContent\Implementations\ParameterMember.cs" />
-    <Compile Include="Resources\RichContent\Implementations\PropertyMember.cs" />
-    <Compile Include="Resources\RichContent\Implementations\ReturnValueMember.cs" />
-    <Compile Include="Resources\RichContent\Implementations\VariableMember.cs" />
     <Compile Include="Resources\RichContent\RichContentCollection.cs" />
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
@@ -196,7 +189,6 @@
     <Compile Include="Converter\ModuleIconConverter.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Resources\RichContent\ContentMemberCollection.cs" />
-    <Compile Include="Resources\RichContent\Implementations\FunctionMember.cs" />
     <Compile Include="Resources\RichContent\IContentMember.cs" />
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>

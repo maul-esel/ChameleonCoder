@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ChameleonCoder.ComponentCore.Resources;
 using ChameleonCoder.Interaction;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources.RichContent;
-using Res = ChameleonCoder.ResourceCore.Properties.Resources;
+using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore
 {
     [CCPlugin]
     public class IntegratedFactory : IComponentFactory
@@ -21,7 +22,7 @@ namespace ChameleonCoder.ResourceCore
 
         public string Author { get { return "maul.esel"; } }
 
-        public string Description { get { return "provides the ChameleonCoder integrated resource types"; } }
+        public string Description { get { return "provides the ChameleonCoder integrated resource and RichContent types"; } }
 
         public ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/Images/logo.png")); } }
 
@@ -94,7 +95,7 @@ namespace ChameleonCoder.ResourceCore
             BitmapImage image = null;
             try
             {
-                image = new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/" + name + ".png"));
+                image = new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/" + name + ".png"));
             }
             catch (Exception e)
             {

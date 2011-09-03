@@ -5,7 +5,7 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// represents a file resource
@@ -19,7 +19,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/file.png")).GetAsFrozen() as ImageSource; } }
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/file.png")).GetAsFrozen() as ImageSource; } }
 
         #endregion
 

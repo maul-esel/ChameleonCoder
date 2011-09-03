@@ -7,7 +7,7 @@ using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// represents a file containing code,
@@ -29,7 +29,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/code.png")).GetAsFrozen() as ImageSource; } }
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/code.png")).GetAsFrozen() as ImageSource; } }
 
         #endregion
 

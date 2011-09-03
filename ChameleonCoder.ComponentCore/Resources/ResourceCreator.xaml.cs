@@ -5,7 +5,7 @@ using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// Interaktionslogik für ResourceCreator.xaml

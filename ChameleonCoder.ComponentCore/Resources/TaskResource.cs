@@ -4,7 +4,7 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// represents a task,

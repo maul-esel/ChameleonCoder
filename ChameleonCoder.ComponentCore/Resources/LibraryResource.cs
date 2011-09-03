@@ -4,7 +4,7 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.ResourceCore
+namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// represents a library resource,
@@ -25,7 +25,7 @@ namespace ChameleonCoder.ResourceCore
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ResourceCore;component/Images/library.png")).GetAsFrozen() as ImageSource; } }
+        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/library.png")).GetAsFrozen() as ImageSource; } }
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace ChameleonCoder.ResourceCore
             }
         }
 
-        [Resources.ResourceProperty("nameof_Version", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        [ResourceProperty("nameof_Version", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Version
         {
             get

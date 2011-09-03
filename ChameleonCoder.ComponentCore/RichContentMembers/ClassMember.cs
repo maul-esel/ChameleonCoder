@@ -1,6 +1,8 @@
-﻿namespace ChameleonCoder.Resources.RichContent.Implementations
+﻿using ChameleonCoder.Resources.RichContent;
+
+namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
-    public class VariableMember : IContentMember
+    public class ClassMember : IContentMember
     {
         public RichContentCollection childMembers { get; set; }
 

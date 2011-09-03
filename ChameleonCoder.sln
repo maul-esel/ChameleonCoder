@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidCreator", "GuidCreator\
 		{D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71} = {D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChameleonCoder.ResourceCore", "ChameleonCoder.ResourceCore\ChameleonCoder.ResourceCore.csproj", "{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChameleonCoder.ComponentCore", "ChameleonCoder.ComponentCore\ChameleonCoder.ComponentCore.csproj", "{2CFB7709-CABC-4E32-8AAE-BED7D044C91A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71} = {D9EC0C4A-E672-4BE1-A6D1-1122AE64CB71}
 	EndProjectSection
