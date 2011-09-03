@@ -179,31 +179,6 @@ namespace ChameleonCoder.Interaction
 
         #endregion
 
-        #region Metadata management
-
-        /// <summary>
-        /// adds a metadata element to a resource
-        /// </summary>
-        /// <param name="resource">the resource to receive the metadata</param>
-        /// <param name="name">the name of the metadata</param>
-        /// <param name="value">the metadata's value</param>
-        public static void AddMetadata(this IResource resource, string name, string value)
-        {
-            resource.AddMetadata(name, value);
-        }
-
-        /// <summary>
-        /// deletes metadata from a resource
-        /// </summary>
-        /// <param name="resource">the resource to work on</param>
-        /// <param name="name">the name of the metadata to delete</param>
-        public static void DeleteMetadata(this IResource resource, string name)
-        {
-            resource.DeleteMetadata(name);
-        }
-
-        #endregion
-
         #region file management
 
         public static void SetFileData(string key, string value)
