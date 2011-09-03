@@ -2,28 +2,51 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Windows.Media;
-using System.Xml;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
 {
+    /// <summary>
+    /// manages the registered resource types
+    /// </summary>
     public static class ResourceTypeManager
     {
+        /// <summary>
+        /// the collection holding the resource types
+        /// </summary>
         private static ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
-        private static ConcurrentDictionary<Type, Plugins.IComponentFactory> Factories = new ConcurrentDictionary<Type, Plugins.IComponentFactory>();
+        /// <summary>
+        /// a dictionary associating the resource types with the registering component factory
+        /// </summary>
+        private static ConcurrentDictionary<Type, IComponentFactory> Factories = new ConcurrentDictionary<Type, IComponentFactory>();
 
+        /// <summary>
+        /// gets the resource type that was registered with the specified alias
+        /// </summary>
+        /// <param name="alias">the alias</param>
+        /// <returns>the type</returns>
         internal static Type GetResourceType(string alias)
         {
             return ResourceTypes.GetResourceType(alias);
         }
 
+        /// <summary>
+        /// gets the alias a type was registered with
+        /// </summary>
+        /// <param name="type">the type</param>
+        /// <returns>the alias</returns>
         internal static string GetAlias(Type type)
         {
             return ResourceTypes.GetAlias(type);
         }
 
+        /// <summary>
+        /// creates an instance of the type registered with the specified alias
+        /// </summary>
+        /// <param name="alias">the alias</param>
+        /// <returns>the instance</returns>
         internal static IResource CreateInstanceOf(string alias)
         {
             Type type = GetResourceType(alias);
@@ -32,13 +55,23 @@ namespace ChameleonCoder.Resources.Management
             return Activator.CreateInstance(type) as IResource;
         }
 
+        /// <summary>
+        /// creates an instance of the specified type,
+        /// creates a new XmlElement representing the resource using the name and the specified attributes,
+        /// and initializes the resource using the XmlElement and the given parent resource.
+        /// </summary>
+        /// <param name="type">the type to create an instance of</param>
+        /// <param name="name">the name for the new resource</param>
+        /// <param name="attributes">a list of attributes for the XmlElement</param>
+        /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
+        /// <returns>the new resource</returns>
         public static IResource CreateInstanceOf(Type type, string name, IEnumerable<KeyValuePair<string, string>> attributes, IResource parent)
         {
             var resource = Activator.CreateInstance(type) as IResource;
 
             if (resource != null)
             {
-                var document = new XmlDocument(); // use opened file instead
+                var document = resource.GetResourceFile().Document;
 
                 var element = document.CreateElement(GetAlias(type));
                 if (parent == null)
@@ -53,21 +86,42 @@ namespace ChameleonCoder.Resources.Management
 
                 resource.Init(element, parent);
                 ResourceManager.Add(resource, parent);
+
+                return resource;
             }
 
             return null;
         }
 
+        /// <summary>
+        /// creates an instance of the type with the specified alias,
+        /// creates a new XmlElement representing the resource using the name and the specified attributes,
+        /// and initializes the resource using the XmlElement and the given parent resource.
+        /// </summary>
+        /// <param name="alias">the alias of the type to create an instance of</param>
+        /// <param name="name">the name for the new resource</param>
+        /// <param name="attributes">a list of attributes for the XmlElement</param>
+        /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
+        /// <returns>the new resource</returns>
         public static IResource CreateInstanceOf(string alias, string name, IEnumerable<KeyValuePair<string, string>> attributes, IResource parent)
         {
             return CreateInstanceOf(GetResourceType(alias), name, attributes, parent);
         }
 
-        internal static System.Collections.Generic.IEnumerable<Type> GetResourceTypes()
+        /// <summary>
+        /// gets a list of all registered resource types
+        /// </summary>
+        /// <returns>the list</returns>
+        internal static IEnumerable<Type> GetResourceTypes()
         {
             return ResourceTypes.GetList();
         }
 
+        /// <summary>
+        /// gets the factory that registered the given resource type
+        /// </summary>
+        /// <param name="component">the resource type</param>
+        /// <returns>the IComponentFactory instance</returns>
         internal static IComponentFactory GetFactory(Type component)
         {
             IComponentFactory factory;

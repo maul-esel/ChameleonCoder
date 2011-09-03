@@ -5,7 +5,7 @@
              xmlns:conv="clr-namespace:ChameleonCoder.Converter"
              xmlns:res="clr-namespace:ChameleonCoder.Resources"
              xmlns:resman="clr-namespace:ChameleonCoder.Resources.Management"
-             Startup="Init">
+             Startup="Init" Exit="ExitHandler">
     <Application.Resources>
         <res:ResourceCollection x:Key="resources"/>
         <res:ResourceCollection x:Key="resourceHierarchy"/>
@@ -18,10 +18,5 @@
         <conv:ColorConverter x:Key="ColorConverter"/>
         <conv:CultureConverter x:Key="CultureConv"/>
         <conv:ResourcePropertyConverter x:Key="PropConv"/>
-
-        <LinearGradientBrush x:Key="BgBrush" EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect" Opacity="200">
-            <GradientStop Offset="0" Color="Orange"/>
-            <GradientStop Offset="1" Color="White"/>
-        </LinearGradientBrush>
     </Application.Resources>
 </Application>

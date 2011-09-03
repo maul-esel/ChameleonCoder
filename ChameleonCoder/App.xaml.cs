@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,59 +7,79 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Resources.RichContent;
 using Microsoft.Win32;
 
 namespace ChameleonCoder
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// the main app class
     /// </summary>
     public partial class App : Application
     {
         #region properties
-        public static System.Windows.Threading.Dispatcher DispatcherObject { get; private set; }
 
+        /// <summary>
+        /// gets the application's main window
+        /// </summary>
         internal static MainWindow Gui { get { return Application.Current.MainWindow as MainWindow; } }
 
+        /// <summary>
+        /// gets the directory containing the application
+        /// </summary>
         internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
 
+        /// <summary>
+        /// gets the full path to the application
+        /// </summary>
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
+        /// <summary>
+        /// gets the DataFile instance for the currently opened file.
+        /// </summary>
         internal static DataFile OpenFile { get; private set; }
+
         #endregion
 
-        internal void Init(Object sender, StartupEventArgs e)
+        /// <summary>
+        /// serves as entry point for the application, reacting to the App.Startup event
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">additional data containing the cmd arguments</param>
+        private void Init(Object sender, StartupEventArgs e)
         {
-            DispatcherObject = Dispatcher;
+            // setting the language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
+            // associate the instances created in XAML with the classes
             ResourceTypeManager.SetCollection(Resources["ResourceTypes"] as ResourceTypeCollection);
             ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
                                            Resources["resourceHierarchy"] as ResourceCollection);
 
+            // finding the path of the file to open:
             string path = null;
 
+            // parsing command line: 
             if (e.Args.Length > 0)
             {
-                if (File.Exists(e.Args[0]))
+                if (File.Exists(e.Args[0])) // if a file path is passed: use it as path
                 {
                     path = e.Args[0];
                 }
-                else if (e.Args[0] == "--install_ext")
+                else if (e.Args[0] == "--install_ext") // param to (un-)install file extension
                 {
                     if (Registry.ClassesRoot.OpenSubKey(".ccr") != null
                         && Registry.ClassesRoot.OpenSubKey(".ccp") != null)
                         UnRegisterExtensions();
                     else
                         RegisterExtensions();
-                    Environment.Exit(0);
+                    Environment.Exit(0); // shutdown the app
                 }
-                else if (e.Args[0] == "--install_COM")
+                else if (e.Args[0] == "--install_COM") // param to (un-)install COM support
                 {
+                    // not yet implemented
                     Environment.Exit(-3);
                 }
-                else if (e.Args[0] == "--install_full")
+                else if (e.Args[0] == "--install_full") // param to (un-)install file extensions and COM support
                 {
                     System.Diagnostics.Process.Start(AppPath, "--install_ext");
                     System.Diagnostics.Process.Start(AppPath, "--install_COM");
@@ -69,11 +87,12 @@ namespace ChameleonCoder
                 }
             }
 
-            if (path == null)
+            if (path == null) // if not path was passed
             {
 #if DEBUG
-                path = "test.ccr";
+                path = "test.ccr"; // use test file in debug builds
 #else
+                // else let the user open a new file
                 using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr; *.ccp" })
                 {
                     if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
@@ -83,127 +102,121 @@ namespace ChameleonCoder
 #endif
             }
 
-            OpenFile = DataFile.Open(path);
+            OpenFile = DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
 
-            App.Current.Exit += ExitHandler;
-
+            // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
-                if (!e.Args.Contains("--noplugin"))
-                    LoadPlugins();
+                Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
                 foreach (XmlElement element in OpenFile.Document.SelectNodes("/cc-resource-file/resources/*"))
-                    AddResource(element, null);
+                    AddResource(element, null); // and parse the xml
             });
 
-            new MainWindow();
+            new MainWindow(); // open the main window during plugin loading and parsing
 
-            parallelTask.Wait();
-            Gui.Show();
+            parallelTask.Wait(); // ensure parsing is finished before...
+            Gui.Show(); // ... showing the window
         }
 
-        internal static void ExitHandler(object sender, EventArgs e)
+        /// <summary>
+        /// performs necessary clean-ups on exit
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
+        private void ExitHandler(object sender, EventArgs e)
         {
-            Plugins.PluginManager.Shutdown();
-            OpenFile.Save();
+            Plugins.PluginManager.Shutdown(); // inform plugins
+            OpenFile.Save(); // save changes to the opened file
             OpenFile.Dispose();
         }
 
+        /// <summary>
+        /// parses a XmlElement and its child elements for resource definitions
+        /// and creates instances for them, adding them to the global resource list
+        /// and to the given parent resource.
+        /// </summary>
+        /// <param name="node">the XmlElement to parse</param>
+        /// <param name="parent">the parent resource or null,
+        /// if the resource represented by <paramref name="node"/> is a top-level resource.</param>
         internal static void AddResource(XmlElement node, IResource parent)
         {
             IResource resource;
             
-            resource = ResourceTypeManager.CreateInstanceOf(node.Name);
-            if (resource == null && node.Attributes["fallback"] != null)
-                resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value);
-            if (resource == null)
-                return;
+            resource = ResourceTypeManager.CreateInstanceOf(node.Name); // try to use the element's name as resource alias
+            if (resource == null && node.GetAttribute("fallback") != null) // if e.g. the containing plugin is not loaded:
+                resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value); // give it a "2nd chance"
+            if (resource == null) // if creation failed:
+            {
+                Log("ChameleonCoder.App --> internal static void AddResource(XmlElement, IResource)",
+                    "failed to create resource",
+                    "resource-creation failed on:\n\t" +
+                     node.OuterXml + " in " + OpenFile.FilePath); // log
+                return; // ignore
+            }
 
-            resource.Init(node, parent);
-
-            IRichContentResource richResource = resource as IRichContentResource;
-
-            ResourceManager.Add(resource, parent);
+            resource.Init(node, parent); // give the resource the information it requires
+            ResourceManager.Add(resource, parent); // and add it to all required lists
 
             foreach (XmlElement child in node.ChildNodes)
             {
-                if (child.Name == "RichContent" && richResource != null)
-                    foreach (XmlNode member in child.ChildNodes)
-                    {
-                        IContentMember richContent = ContentMemberManager.CreateInstanceOf(member.Name);
-                        if (richContent == null)
-                            richContent = ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
-                        if (richContent != null)
-                            if (richResource.ValidateRichContent(richContent))
-                                richResource.RichContent.Add(richContent);
-                    }
-                else
-                    AddResource(child, resource);
+                AddResource(child, resource); // parse all child resources
+            }
+
+            // convert it into a RichContentResource
+            IRichContentResource richResource = resource as IRichContentResource;
+            if (richResource != null) // if it is really a RichContentResource:
+            {
+                richResource.MakeRichContent(); // parse the RichContent
             }
 
             return;
         }
 
-        private static void LoadPlugins()
-        {
-            var components = from dll in Directory.GetFiles(AppDir + "\\Components", "*.dll")
-                             let plugin = Assembly.LoadFrom(dll)
-                             where Attribute.IsDefined(plugin, typeof(CCPluginAttribute))
-                             from type in plugin.GetTypes()
-                             where Attribute.IsDefined(type, typeof(CCPluginAttribute))
-                                && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
-                                && type.GetInterface(typeof(Plugins.IPlugin).FullName) != null
-                                && type.GetConstructor(Type.EmptyTypes) != null
-                             select type;
-
-            Parallel.ForEach(components, component => Plugins.PluginManager.TryAdd(component));
-        }
-
         #region Registry
-        static object lock_ext = new object();
- 
+        /// <summary>
+        /// registers the file extensions *.ccr and *.ccp
+        /// </summary>
         internal static void RegisterExtensions()
         {
-            lock (lock_ext)
-            {
-                RegistryKey regCCP = Registry.ClassesRoot.CreateSubKey(".ccp", RegistryKeyPermissionCheck.ReadWriteSubTree);
-                RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
-                
-                regCCP.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCP);
-                regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
+            RegistryKey regCCP = Registry.ClassesRoot.CreateSubKey(".ccp", RegistryKeyPermissionCheck.ReadWriteSubTree);
+            RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
 
-                regCCP.Close();
-                regCCR.Close();
+            regCCP.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCP);
+            regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
 
-                regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\Shell\\Open\\command");
-                regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
+            regCCP.Close();
+            regCCR.Close();
 
-                regCCP.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
-                regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+            regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\Shell\\Open\\command");
+            regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
 
-                regCCP.Close();
-                regCCR.Close();
+            regCCP.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+            regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
 
-                regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\DefaultIcon");
-                regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
+            regCCP.Close();
+            regCCR.Close();
 
-                regCCP.SetValue("", AppPath + ", 0");
-                regCCR.SetValue("", AppPath + ", 1");
+            regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\DefaultIcon");
+            regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
 
-                regCCP.Close();
-                regCCR.Close();
-            }
+            regCCP.SetValue("", AppPath + ", 0");
+            regCCR.SetValue("", AppPath + ", 1");
+
+            regCCP.Close();
+            regCCR.Close();
         }
 
+        /// <summary>
+        /// unregisters the file extensions *.ccr and *.ccp
+        /// </summary>
         internal static void UnRegisterExtensions()
         {
-            lock (lock_ext)
-            {
-                Registry.ClassesRoot.DeleteSubKeyTree(".ccp");
-                Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
-            }
+            Registry.ClassesRoot.DeleteSubKeyTree(".ccp");
+            Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
         }
         #endregion
 
+        [Obsolete]
         static object lock_drop = new object();
 
         [Obsolete]
@@ -231,12 +244,19 @@ namespace ChameleonCoder
             }
         }
 
-        internal static void Log(string sender, string reason, string log)
+        /// <summary>
+        /// logs a message, such as a warning, an error, ...
+        /// </summary>
+        /// <param name="sender">the sender calling this method</param>
+        /// <param name="reason">the reason for the logging</param>
+        /// <param name="log">more information about the event</param>
+        public static void Log(string sender, string reason, string log)
         {
+            // get the log path
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
-            if (!File.Exists(path))
-                File.Create(path).Close();
-            File.AppendAllText(path, "new event:"
+            if (!File.Exists(path)) // create it if necessary
+                File.Create(path).Close(); // (and immediately close the stream)
+            File.AppendAllText(path, "new event:" // add the log to the file
                 + "\n\tsender: " + sender
                 + "\n\treason: " + reason
                 + "\n\t\t" + log

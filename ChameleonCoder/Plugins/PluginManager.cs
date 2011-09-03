@@ -1,24 +1,69 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Xml;
-using IF = ChameleonCoder.Interaction.InformationProvider;
+using System.Linq;
+using System.Threading.Tasks;
 using ChameleonCoder.Resources.Interfaces;
+using IF = ChameleonCoder.Interaction.InformationProvider;
 
 namespace ChameleonCoder.Plugins
 {
+    /// <summary>
+    /// a static class managing the plugins installed
+    /// </summary>
     public static class PluginManager
     {
         /// <summary>
-        /// tries adding a type to the corresponding plugin collections
+        /// loads all assemblies in the \Components\ folder and the contained plugins (if installed)
         /// </summary>
-        /// <param name="component"></param>
-        internal static void TryAdd(Type component)
+        internal static void Load()
         {
-            // if no parameterless constructor or no plugin: skip
-            if (component.GetConstructor(Type.EmptyTypes) == null || component.GetInterface(typeof(IPlugin).FullName) == null)
-                return;
+            var components = from dll in System.IO.Directory.GetFiles(App.AppDir + "\\Components", "*.dll").AsParallel()
+                             let plugin = System.Reflection.Assembly.LoadFrom(dll) // load all assemblies
+                             where Attribute.IsDefined(plugin, typeof(CCPluginAttribute)) // filter non-plugin assemblies
 
+                             from type in Filter(plugin.GetTypes()).AsParallel() // get all contained types and filter them
+                             select type;
+            // add it to plugin manager
+            Parallel.ForEach(components, component => Add(component));
+        }
+
+        /// <summary>
+        /// loads the given plugins, if installed
+        /// </summary>
+        /// <param name="plugins"></param>
+        internal static void Load(IEnumerable<Type> plugins)
+        {
+            Parallel.ForEach(Filter(plugins), plugin => Add(plugin));
+        }
+
+        /// <summary>
+        /// filters a list of types representing plugins
+        /// </summary>
+        /// <param name="types">the list to filter</param>
+        /// <returns>the filtered list</returns>
+        private static IEnumerable<Type> Filter(IEnumerable<Type> types)
+        {
+            List<Type> filtered = new List<Type>();
+
+            Parallel.ForEach(types, type =>
+                {
+                    if (Attribute.IsDefined(type, typeof(CCPluginAttribute)) // filter non-plugin types
+                        && !type.IsAbstract && type.IsClass && type.IsPublic // filter types that can't be instantiated
+                        && type.GetInterface(typeof(IPlugin).FullName) != null // only use those that implement plugin interface
+                        && type.GetConstructor(Type.EmptyTypes) != null) // filter types without parameterless constructor
+                        filtered.Add(type); // if everything ok: add it to the list
+                });
+
+            return filtered; // return the list
+        }
+
+        /// <summary>
+        /// adds a type to the corresponding plugin collections
+        /// </summary>
+        /// <param name="component">the type to add</param>
+        private static void Add(Type component)
+        {
             IPlugin plugin = Activator.CreateInstance(component) as IPlugin; // create an instance
             if (plugin == null) // check for null
                 return;
@@ -72,7 +117,7 @@ namespace ChameleonCoder.Plugins
         }
 
         /// <summary>
-        /// returns a list of all registered plugins, except the disabled ones
+        /// returns a list of all registered plugins
         /// </summary>
         /// <returns>the list of plugins</returns>
         internal static IEnumerable<IPlugin> GetPlugins()
@@ -87,32 +132,11 @@ namespace ChameleonCoder.Plugins
             return plugins;
         }
 
-        /// <summary>
-        /// returns a list with all registered plugins.
-        /// A parameter indicates whether to include disabled plugins.
-        /// </summary>
-        /// <param name="includeDisabled">true to include disabled plugins, otherwise false</param>
-        /// <returns>the list of plugins</returns>
-        [Obsolete("use overload", true)]
-        internal static IEnumerable<IPlugin> GetPlugins(bool includeDisabled)
-        {
-            var plugins = new List<IPlugin>();
-            plugins.AddRange(GetModules());
-            plugins.AddRange(GetServices());
-            plugins.AddRange(GetTemplates());
-            plugins.AddRange(GetFactories());
-
-            /*if (includeDisabled)
-                plugins.AddRange(disabledPlugins.Values);*/
-
-            return plugins;
-        }
-
-        [Obsolete("no disabled plugins", true)]
-        static ConcurrentDictionary<Guid, IPlugin> disabledPlugins = new ConcurrentDictionary<Guid, IPlugin>();
-
         #region ILanguageModule
 
+        /// <summary>
+        /// a dictionary containing the modules loaded
+        /// </summary>
         static ConcurrentDictionary<Guid, ILanguageModule> Modules = new ConcurrentDictionary<Guid, ILanguageModule>();
 
         /// <summary>
@@ -135,18 +159,22 @@ namespace ChameleonCoder.Plugins
             ILanguageModule module;
             if (Modules.TryGetValue(id, out module))
             {
-                lock (module)
+                IF.OnModuleLoad(module, new EventArgs());
+
+                module.Load();
+                ActiveModule = module;
+
+                if (!App.Current.Dispatcher.CheckAccess())
                 {
-                    IF.OnModuleLoad(module, new EventArgs());
-
-                    module.Load();
-                    ActiveModule = module;
-
+                    App.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                        module.Name, module.Version, module.Author, module.About)));
+                }
+                else
                     App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                         module.Name, module.Version, module.Author, module.About);
 
-                    IF.OnModuleLoaded(module, new EventArgs());
-                }
+                IF.OnModuleLoaded(module, new EventArgs());
             }
             else
                 throw new ArgumentException("this module is not registered!\nGuid: " + id.ToString("b"));
@@ -160,18 +188,22 @@ namespace ChameleonCoder.Plugins
         {
             if (ActiveModule == null)
                 throw new InvalidOperationException("Module cannot be unloaded: no module loaded!");
-            lock (ActiveModule)
+
+            ILanguageModule module = ActiveModule;
+            IF.OnModuleUnload(ActiveModule, new EventArgs());
+
+            ActiveModule.Unload();
+            ActiveModule = null;
+
+            if (!App.Current.Dispatcher.CheckAccess())
             {
-                ILanguageModule module = ActiveModule;
-                IF.OnModuleUnload(ActiveModule, new EventArgs());
-
-                ActiveModule.Unload();
-                ActiveModule = null;
-
+                App.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    App.Gui.CurrentModule.Text = string.Empty));
+            }
+            else
                 App.Gui.CurrentModule.Text = string.Empty;
 
-                IF.OnModuleUnloaded(module, new EventArgs());
-            }
+            IF.OnModuleUnloaded(module, new EventArgs());
         }
 
         /// <summary>
@@ -344,19 +376,5 @@ namespace ChameleonCoder.Plugins
         }
 
         #endregion
-
-        public static IResource CreateResource(IResource parent, Type type, IEnumerable<KeyValuePair<string, string>> attributes)
-        {
-            if (parent != null) // use current file instead!
-            {
-                IResource resource = Activator.CreateInstance(type) as IResource;
-
-                //XmlElement element = parent.Xml.OwnerDocument.CreateElement( // get alias
-
-
-                return resource;
-            }
-            return null;
-        }
     }
 }

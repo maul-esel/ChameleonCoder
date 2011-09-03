@@ -49,10 +49,12 @@ namespace ChameleonCoder.Plugins
 
         private void Install(IEnumerable<IPlugin> plugins)
         {
+            List<Type> pluginTypes = new List<Type>();
+
             foreach (IPlugin plugin in plugins)
             {
                 Properties.Settings.Default.InstalledPlugins.Add(plugin.Identifier.ToString("n"));
-                PluginManager.TryAdd(plugin.GetType());
+                pluginTypes.Add(plugin.GetType());
                 pluginList.Remove(plugin);
 
                 if (Path.GetDirectoryName(plugin.GetType().Assembly.Location) != Path.Combine(App.AppDir, "Components"))
@@ -60,6 +62,9 @@ namespace ChameleonCoder.Plugins
                         Path.Combine(App.AppDir, "Components\\",
                         Path.GetFileName(plugin.GetType().Assembly.Location)));
             }
+
+            PluginManager.Load(pluginTypes);
+
             DataContext = new { plugins = pluginList, lang = new ViewModel() };
             Properties.Settings.Default.Save();
         }

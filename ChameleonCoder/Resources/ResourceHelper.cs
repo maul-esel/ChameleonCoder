@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder
 {
@@ -108,13 +108,7 @@ namespace ChameleonCoder
             var doc = resource.GetResourceFile().Document;
 
             // get the resource-data element for the resource
-            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
-            if (res == null) // if it doesn't yet exist:
-            {
-                res = doc.CreateElement("resource-data"); // create it
-                res.SetAttribute("guid", resource.GUID.ToString("b")); // associate it with the resource
-                doc.SelectSingleNode("/cc-resource-file/data").AppendChild(res); // and insert it into the document
-            }
+            XmlElement res = GetDataElement(resource, true);
 
             // get the metadata element for the given key
             XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
@@ -139,7 +133,7 @@ namespace ChameleonCoder
             var doc = resource.GetResourceFile().Document;
 
             // get the resource's data element
-            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            XmlElement res = GetDataElement(resource, false);
             if (res == null) // if it doesn't exist:
                 return null; // there's no metadata --> return null
 
@@ -162,7 +156,7 @@ namespace ChameleonCoder
             var dict = new Dictionary<string, string>();
 
             // get the resource's data element
-            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            XmlElement res = GetDataElement(resource, false);
             if (res == null) // if it doesn't exist:
                 return dict; // there's no metadata --> return empty dictionary
 
@@ -183,7 +177,7 @@ namespace ChameleonCoder
             var doc = resource.GetResourceFile().Document;
 
             // get the resource's data element
-            XmlElement res = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            XmlElement res = GetDataElement(resource, false);
             if (res == null) // if it doesn't exist:
                 return; // there's no metadata --> return null
 
@@ -195,6 +189,81 @@ namespace ChameleonCoder
             meta.ParentNode.RemoveChild(meta); // remove the node
         }
         #endregion
+
+        /// <summary>
+        /// updates the "last-modified"-data of a resource to the current time
+        /// </summary>
+        /// <param name="resource">the resource to update</param>
+        public static void UpdateLastModified(this IResource resource)
+        {
+            var res = GetDataElement(resource, true);
+
+            var lastmod = res.SelectSingleNode("last-modified");
+            if (lastmod == null)
+            {
+                lastmod = resource.GetResourceFile().Document.CreateElement("last-modified");
+                lastmod.InnerText = DateTime.Now.ToString();
+                res.AppendChild(lastmod);
+            }
+        }
+
+        /// <summary>
+        /// gets the "last-modified"-data of a resource
+        /// </summary>
+        /// <param name="resource">the resource to analyze</param>
+        /// <returns>the last-modified DateTime, or <code>default(DateTime)</code> if it couldn't be found.</returns>
+        public static DateTime GetLastModified(this IResource resource)
+        {
+            var res = GetDataElement(resource, false);
+            if (res == null)
+                return default(DateTime);
+
+            var lastmod = res.SelectSingleNode("last-modified");
+            if (lastmod == null)
+                return default(DateTime);
+
+            return DateTime.Parse(lastmod.InnerText);
+        }
+
+        /// <summary>
+        /// parses the RichContent for a RichContentResource
+        /// </summary>
+        /// <param name="resource">the resource to parse</param>
+        internal static void MakeRichContent(this IRichContentResource resource)
+        {
+            var res = GetDataElement(resource, false);
+            if (res == null)
+                return;
+
+            var cont = (XmlElement)res.SelectSingleNode("RichContent");
+            if (cont == null)
+                return;
+
+            foreach (XmlElement member in cont.ChildNodes)
+            {
+                IContentMember richContent = ContentMemberManager.CreateInstanceOf(member.Name);
+                if (richContent == null)
+                    richContent = ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
+                if (richContent != null)
+                    if (resource.ValidateRichContent(richContent))
+                        resource.RichContent.Add(richContent);
+            }
+        }
+
+        private static XmlElement GetDataElement(IResource resource, bool create)
+        {
+            var doc = resource.GetResourceFile().Document;
+
+            var data = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            if (data == null && create)
+            {
+                data = doc.CreateElement("resource-data"); // create it
+                data.SetAttribute("guid", resource.GUID.ToString("b")); // associate it with the resource
+                doc.SelectSingleNode("/cc-resource-file/data").AppendChild(data); // and insert it into the document
+            }
+
+            return data;
+        }
 
         #region path
         public static string GetPath(this IResource resource, string delimiter)
