@@ -20,7 +20,6 @@ namespace ChameleonCoder.ResourceCore
         /// </summary>
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
-        /// <param name="datafile">the file that contains the definition</param>
         public override void Init(XmlElement node, IResource parent)
         {
             base.Init(node, parent);
@@ -88,9 +87,9 @@ namespace ChameleonCoder.ResourceCore
 
         #region IRichContentResource
 
-        public bool ValidateRichContent(IContentMember member)
+        public string GetHtml()
         {
-            return true;
+            return string.Empty;
         }
 
         public RichContentCollection RichContent { get; protected set; }
