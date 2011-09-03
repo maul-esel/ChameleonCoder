@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using System.IO;
-using System.Linq;
 
 namespace ChameleonCoder.Resources.RichContent
 {
@@ -19,12 +16,12 @@ namespace ChameleonCoder.Resources.RichContent
             }
         }
 
-        internal static IContentMember CreateInstanceOf(string alias, params object[] parameters)
+        internal static IContentMember CreateInstanceOf(string alias)
         {
             Type member = ContentMembers.GetMember(alias);
             if (member == null)
                 return null;
-            return (IContentMember)Activator.CreateInstance(member, parameters);
+            return Activator.CreateInstance(member) as IContentMember;
         }
     }
 }
