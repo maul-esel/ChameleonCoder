@@ -3,11 +3,10 @@
     public interface IRichContentResource : IResource
     {
         /// <summary>
-        /// validates whether a RichContent member can be applied to this resource or not
+        /// returns the Html representing the resource's RichContent
         /// </summary>
-        /// <param name="member">the RichContentMember to validate</param>
-        /// <returns>true if the member can be added, false otherwise</returns>
-        bool ValidateRichContent(RichContent.IContentMember member);
+        /// <returns>the Html text</returns>
+        string GetHtml();
 
         /// <summary>
         /// the collection holding the RichContent

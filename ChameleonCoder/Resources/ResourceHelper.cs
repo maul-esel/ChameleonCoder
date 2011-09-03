@@ -245,11 +245,16 @@ namespace ChameleonCoder
                 if (richContent == null)
                     richContent = ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
                 if (richContent != null)
-                    if (resource.ValidateRichContent(richContent))
-                        resource.RichContent.Add(richContent);
+                    resource.RichContent.Add(richContent);
             }
         }
 
+        /// <summary>
+        /// gets the resource-data element for the resource, optionally creating it if not found
+        /// </summary>
+        /// <param name="resource">the resource whose data should be found</param>
+        /// <param name="create">true to create the lement if not found, false otherwise</param>
+        /// <returns>the XmlElement containing the resource's data</returns>
         private static XmlElement GetDataElement(IResource resource, bool create)
         {
             var doc = resource.GetResourceFile().Document;
