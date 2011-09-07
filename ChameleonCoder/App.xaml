@@ -4,13 +4,10 @@
              xmlns:c="clr-namespace:ChameleonCoder"
              xmlns:conv="clr-namespace:ChameleonCoder.Converter"
              xmlns:res="clr-namespace:ChameleonCoder.Resources"
-             xmlns:resman="clr-namespace:ChameleonCoder.Resources.Management"
              Startup="Init" Exit="ExitHandler">
     <Application.Resources>
         <res:ResourceCollection x:Key="resources"/>
         <res:ResourceCollection x:Key="resourceHierarchy"/>
-
-        <resman:ResourceTypeCollection x:Key="ResourceTypes"/>
 
         <conv:ResourceTypeConverter x:Key="TypeConverter"/>
         <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
