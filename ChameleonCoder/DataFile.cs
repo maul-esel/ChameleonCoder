@@ -8,26 +8,34 @@ namespace ChameleonCoder
     internal abstract class DataFile : IDisposable
     {
         #region instance
-        internal readonly string FilePath;
 
-        internal XmlDocument Document { get; private set; }
+        /// <summary>
+        /// returns the path to the file represented by the instance
+        /// </summary>
+        public string FilePath { get; protected internal set; }
 
-        internal DataFile(string path)
-            : this(path, new XmlDocument())
-        {            
-        }
+        /// <summary>
+        /// returns the XmlDocument
+        /// </summary>
+        public XmlDocument Document { get; protected internal set; }
 
-        internal DataFile(string path, XmlDocument doc)
-        {
-            FilePath = path;
-            Document = doc;
-        }
-
+        /// <summary>
+        /// disposes the instance
+        /// </summary>
         public abstract void Dispose();
 
+        /// <summary>
+        /// saves the changes made to the file
+        /// </summary>
         internal abstract void Save();
+
         #endregion
 
+        /// <summary>
+        /// opens a DataFile instance for the given file
+        /// </summary>
+        /// <param name="path">the path to the file to open</param>
+        /// <returns>the DataFile instance</returns>
         internal static DataFile Open(string path)
         {
             if (string.Equals(Path.GetExtension(path), ".ccr", StringComparison.OrdinalIgnoreCase))
