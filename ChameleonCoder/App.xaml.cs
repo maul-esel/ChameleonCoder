@@ -51,7 +51,6 @@ namespace ChameleonCoder
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
             // associate the instances created in XAML with the classes
-            ResourceTypeManager.SetCollection(Resources["ResourceTypes"] as ResourceTypeCollection);
             ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
                                            Resources["resourceHierarchy"] as ResourceCollection);
 

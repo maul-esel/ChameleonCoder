@@ -168,11 +168,6 @@ namespace ChameleonCoder.Resources.Management
             }
         }
 
-        internal static void SetCollection(ResourceTypeCollection collection)
-        {
-            ResourceTypes = collection;
-        }
-
         internal static ResourceTypeCollection GetCollection()
         {
             lock (ResourceTypes)
