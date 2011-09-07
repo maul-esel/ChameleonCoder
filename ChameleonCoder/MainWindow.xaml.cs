@@ -101,6 +101,17 @@ namespace ChameleonCoder
 
         #region resources
 
+        private void ResourceCopy(object sender, EventArgs e)
+        {
+            Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
+            if (selector.ShowDialog() == true
+                && selector.resources.Count > 0
+                && selector.resources[0] != ResourceManager.ActiveItem)
+            {
+                ResourceManager.ActiveItem.Copy(selector.resources[0]);
+            }
+        }
+
         private void ResourceCreate(object sender, RoutedEventArgs e)
         {
             NewResourceDialog dialog = new NewResourceDialog();
@@ -144,11 +155,18 @@ namespace ChameleonCoder
         private void ResourceMove(object sender, EventArgs e)
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
-            if (selector.ShowDialog() == true
-                && selector.resources.Count > 0
-                && selector.resources[0] != ResourceManager.ActiveItem)
+            if (selector.ShowDialog() == true // user did not cancel
+                && selector.resources.Count > 0 // user selected 1 resource
+                && selector.resources[0] != null // resource is not null
+                && selector.resources[0] != ResourceManager.ActiveItem.Parent) // resource is already parent
             {
-                ResourceManager.ActiveItem.Move(selector.resources[0]);
+                if (!selector.resources[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
+                {
+                    ResourceManager.ActiveItem.Move(selector.resources[0]);
+                }
+                else
+                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, selector.resources[0].Name),
+                                    Properties.Resources.Status_Move);
             }
         }
 
@@ -159,15 +177,18 @@ namespace ChameleonCoder
 
         private void ResourceOpen(object sender, RoutedPropertyChangedEventArgs<BreadcrumbItem> e)
         {
-            BreadcrumbContext context = e.NewValue.DataContext as BreadcrumbContext;
-            if (e.NewValue.IsRoot)
-                GoHome(null, null);
-            else if (context != null && context.IsResourceList)
-                GoList(null, null);
-            else if (context != null && context.IsSettingsPage)
-                GoSettings(null, null);
-            else
-                ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));
+            if (e.NewValue != null)
+            {
+                BreadcrumbContext context = e.NewValue.DataContext as BreadcrumbContext;
+                if (e.NewValue.IsRoot)
+                    GoHome(null, null);
+                else if (context != null && context.IsResourceList)
+                    GoList(null, null);
+                else if (context != null && context.IsSettingsPage)
+                    GoSettings(null, null);
+                else
+                    ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));
+            }
         }
 
         internal void ResourceOpen(IResource resource)

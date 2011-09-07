@@ -450,6 +450,16 @@ ChameleonCoder wird geschlossen.</value>
     <value>deinstalliere markiertes Plugin</value>
   </data>
   <data name="Status_InstallPlugin" xml:space="preserve">
-    <value>Installiere Plugins...</value>
+    <value>CC - Installiere Plugins...</value>
+  </data>
+  <data name="Error_MoveToDescendant" xml:space="preserve">
+    <value>Die Ressource "{0}" kann der Ressource "{1}" nicht untergeordnet werden:
+Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value>
+  </data>
+  <data name="Status_Move" xml:space="preserve">
+    <value>CC - Verschiebe Ressource...</value>
+  </data>
+  <data name="View_Copy" xml:space="preserve">
+    <value>Kopieren</value>
   </data>
 </root>

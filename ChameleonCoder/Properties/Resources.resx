@@ -423,7 +423,7 @@ ChameleonCoder will close.</value>
     <value>Enter the new metadata's name:</value>
   </data>
   <data name="Status_CreateMeta" xml:space="preserve">
-    <value>creating new metadata...</value>
+    <value>CC - creating new metadata...</value>
   </data>
   <data name="Error_InstallEmptyAssembly" xml:space="preserve">
     <value>The assembly at "{0}" does not contain ChameleonCoder plugins that aren't already installed.</value>
@@ -450,6 +450,16 @@ ChameleonCoder will close.</value>
     <value>uninstall selected plugin</value>
   </data>
   <data name="Status_InstallPlugin" xml:space="preserve">
-    <value>installing plugins...</value>
+    <value>CC - installing plugins...</value>
+  </data>
+  <data name="Error_MoveToDescendant" xml:space="preserve">
+    <value>The resource "{0}" could not be moved to resource "{1}":
+resources cannot be moved to descendants.</value>
+  </data>
+  <data name="Status_Move" xml:space="preserve">
+    <value>CC - Moving resource...</value>
+  </data>
+  <data name="View_Copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
 </root>

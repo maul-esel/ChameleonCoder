@@ -296,6 +296,16 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The resource &quot;{0}&quot; could not be moved to resource &quot;{1}&quot;:
+        ///resources cannot be moved to descendants. ähnelt.
+        /// </summary>
+        internal static string Error_MoveToDescendant {
+            get {
+                return ResourceManager.GetString("Error_MoveToDescendant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die An error occured during packaging: ähnelt.
         /// </summary>
         internal static string Error_Package {
@@ -962,7 +972,7 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die creating new metadata... ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC - creating new metadata... ähnelt.
         /// </summary>
         internal static string Status_CreateMeta {
             get {
@@ -980,11 +990,20 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die installing plugins... ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC - installing plugins... ähnelt.
         /// </summary>
         internal static string Status_InstallPlugin {
             get {
                 return ResourceManager.GetString("Status_InstallPlugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die CC - Moving resource... ähnelt.
+        /// </summary>
+        internal static string Status_Move {
+            get {
+                return ResourceManager.GetString("Status_Move", resourceCulture);
             }
         }
         
@@ -1012,6 +1031,15 @@ namespace ChameleonCoder.Properties {
         internal static string View_AddChild {
             get {
                 return ResourceManager.GetString("View_AddChild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Copy ähnelt.
+        /// </summary>
+        internal static string View_Copy {
+            get {
+                return ResourceManager.GetString("View_Copy", resourceCulture);
             }
         }
         

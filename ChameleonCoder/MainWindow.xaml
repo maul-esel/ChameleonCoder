@@ -313,6 +313,8 @@
                             <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Move}" Click="ResourceMove"/>
 
                             <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Delete}" Click="ResourceDelete"/>
+                            
+                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Copy}" Click="ResourceCopy"/>
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup>

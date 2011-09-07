@@ -137,6 +137,7 @@ namespace ChameleonCoder
         public string View_AddChild { get { return Res.View_AddChild; } }
         public string View_Move { get { return Res.View_Move; } }
         public string View_Delete { get { return Res.View_Delete; } }
+        public string View_Copy { get { return Res.View_Copy; } }
 
         public string View_Edit { get { return Res.View_Edit; } }
         #endregion
