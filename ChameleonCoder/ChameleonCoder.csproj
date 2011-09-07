@@ -374,7 +374,15 @@
   <ItemGroup>
     <Resource Include="Images\Go.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\choosevisibletypes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

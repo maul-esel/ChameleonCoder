@@ -25,11 +25,11 @@ namespace ChameleonCoder
                     new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
                     new BreadcrumbContext[]
                         {
-                        new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_List,
+                        new BreadcrumbContext(Item_List,
                             new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
                             ResourceManager.GetChildren(),
                             true, false),
-                        new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Settings,
+                        new BreadcrumbContext(Item_Settings,
                             new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
                             null,
                             false, true)
@@ -105,6 +105,7 @@ namespace ChameleonCoder
         public string List_EnableGroups { get { return Res.List_EnableGroups; } }
         public string List_ShowResolvable { get { return Res.List_ShowResolvable; } }
         public string List_HiddenTypes { get { return Res.List_HiddenTypes; } }
+        public string List_SortResources { get { return Res.List_SortResources; } }
         #endregion
 
         #region ResourceEdit Ribbon

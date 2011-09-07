@@ -86,7 +86,7 @@ namespace ChameleonCoder
                 TabReplace(new TabContext(MVVM.Item_Settings, new SettingsPage()), Tabs.SelectedIndex);
         }
 
-        private void GroupsChanged(object sender, RoutedEventArgs e)
+        private void GroupsChanged(object sender, EventArgs e)
         {
             if (IsInitialized)
                 ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked == true);
@@ -205,6 +205,7 @@ namespace ChameleonCoder
             }
         }
 
+        [Obsolete]
         private void ResourcesPackage(object sender, EventArgs e)
         {
             CurrentAction.Text = Properties.Resources.Status_Pack;
@@ -245,6 +246,7 @@ namespace ChameleonCoder
                 page.Save();
         }
 
+        [Obsolete]
         private void ResourcesUnpackage(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
@@ -277,6 +279,12 @@ namespace ChameleonCoder
         {
             System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
             Application.Current.Shutdown(0);
+        }
+
+        private void SortingChanged(object sender, EventArgs e)
+        {
+            if (IsInitialized)
+                ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).SortingChanged(SortItems.IsChecked == true);
         }
 
         #region Tabs

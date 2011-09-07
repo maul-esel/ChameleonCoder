@@ -462,4 +462,7 @@ resources cannot be moved to descendants.</value>
   <data name="View_Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="List_SortResources" xml:space="preserve">
+    <value>Sort resources</value>
+  </data>
 </root>

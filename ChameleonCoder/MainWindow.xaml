@@ -1,19 +1,20 @@
 ﻿<odc:RibbonWindow x:Class="ChameleonCoder.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
-        xmlns:cc="clr-namespace:ChameleonCoder"
-        xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
-        Title="{Binding Path=Title}" IsGlassEnabled="True"
-        WindowState="Maximized" x:Name="RibbonWindow" Width="1200" Height="800" Icon="Images\logo.ico" xml:lang="en-US">
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+                  xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                  xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
+                  xmlns:cc="clr-namespace:ChameleonCoder"
+                  xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
+                  Title="{Binding Path=Title}" Icon="Images\logo.ico"
+                  IsGlassEnabled="True" WindowState="Maximized">
 
     <Window.DataContext>
         <cc:ViewModel/>
     </Window.DataContext>
     
     <odc:RibbonWindow.Resources>
+        
         <ControlTemplate TargetType="Button" x:Key="CloseButton">
             <Border CornerRadius="2" BorderThickness="1" Width="12" Height="12">
                 <Border.BorderBrush>
@@ -109,17 +110,21 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Border Background="Chocolate" Grid.Column="0" Width="20" Height="20" BorderBrush="Black" BorderThickness="0.5">
+                <Border Grid.Column="0" Width="20" Height="20"
+                        Background="Chocolate" BorderBrush="Black" BorderThickness="0.5">
                     
-                    <Image Source="{Binding Converter={StaticResource ImageConverter}}" Width="19" Height="19"/>
+                    <Image Source="{Binding Path=Icon}" Width="19" Height="19"/>
                     
                 </Border>
-                
-                <Image Source="{Binding Path=SpecialVisualProperty}" Margin="5,0,0,0" Grid.Column="1" MaxWidth="20" MaxHeight="20"/>
-                
-                <TextBlock Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+
+                <Image Source="{Binding Path=SpecialVisualProperty}" Grid.Column="1" Width="20" Height="20" Margin="5,0,0,0"/>
+
+                <TextBlock Text="{Binding Path=Name}"
+                           Grid.Column="2" Margin="5,0,0,0"/>
+
             </Grid>
         </HierarchicalDataTemplate>
+
     </odc:RibbonWindow.Resources>
     
     <Grid>
@@ -151,37 +156,51 @@
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                            <odc:RibbonButton Foreground="Black" Content="{Binding Path=Action_Restart}" Click="Restart" SmallImage="Images\RibbonTab1\restart.png" MinWidth="100"
-                                              odc:RibbonBar.Size="Medium"/>
+                            <odc:RibbonButton Content="{Binding Path=Action_Restart}" SmallImage="Images\RibbonTab1\restart.png"
+                                              Click="Restart"
+                                              odc:RibbonBar.Size="Medium" MinWidth="100"
+                                              Foreground="Black"/>
 
-                            <odc:RibbonButton Foreground="Black" Content="{Binding Path=Action_Exit}" Click="Close" SmallImage="Images\RibbonTab1\close.png" MinWidth="100"
-                                              odc:RibbonBar.Size="Medium"/>
+                            <odc:RibbonButton Content="{Binding Path=Action_Exit}" SmallImage="Images\RibbonTab1\close.png"
+                                              Click="Close"
+                                              odc:RibbonBar.Size="Medium" MinWidth="100"
+                                              Foreground="Black" />
                             
                         </StackPanel>
                         
                     </odc:RibbonApplicationMenu.Footer>
 
-                    <odc:RibbonApplicationMenuItem x:Name="MenuHome" Image="Images\home.png" Header="{Binding Path=Item_Home}" Click="GoHome"/>
-                    
-                    <odc:RibbonApplicationMenuItem x:Name="MenuServices" Image="Images\LargeIcon.png" Header="{Binding Path=Services}" StaysOpenOnClick="True" Click="LaunchService"/>
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=Item_Home}" Image="Images\home.png"
+                                                   Click="GoHome"/>
 
-                    <odc:RibbonSeparator/>
-                    
-                    <odc:RibbonApplicationMenuItem x:Name="MenuCreators" Image="Images\RibbonTab1\create.png" Header="{Binding Path=Selection_CreateNew}" Click="ResourceCreate"/>
-                    
-                    <odc:RibbonApplicationMenuItem x:Name="MenuImport" Image="Images\LargeIcon.png" Header="{Binding Path=ResourceImport}"/>
-                    
-                    <odc:RibbonApplicationMenuItem x:Name="MenuPack" Image="Images\LargeIcon.png" Header="{Binding Path=ResourcePackage}" Click="ResourcesPackage"/>
-                    
-                    <odc:RibbonApplicationMenuItem x:Name="MenuUnpack" Image="Images\LargeIcon.png" Header="{Binding Path=ResourceUnpackage}" Click="ResourcesUnpackage"/>
+                    <odc:RibbonApplicationMenuItem x:Name="MenuServices" Header="{Binding Path=Services}" Image="Images\LargeIcon.png"
+                                                   Click="LaunchService"
+                                                   StaysOpenOnClick="True"/>
 
                     <odc:RibbonSeparator/>
 
-                    <odc:RibbonApplicationMenuItem x:Name="MenuHelp" Image="Images\RibbonTab1\help.jpg" Header="{Binding Path=Help}"/>
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=Selection_CreateNew}" Image="Images\RibbonTab1\create.png"
+                                                   Click="ResourceCreate"/>
 
-                    <odc:RibbonApplicationMenuItem x:Name="MenuSettings" Image="Images\RibbonTab1\settings.png" Header="{Binding Path=Item_Settings}" Click="GoSettings"/>
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=ResourceImport}" Image="Images\LargeIcon.png"
+                                                   IsEnabled="False"/>
 
-                    <odc:RibbonApplicationMenuItem x:Name="MenuAbout" Image="Images\RibbonTab1\info.png" Header="{Binding Path=About}"/>
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=ResourcePackage}" Image="Images\LargeIcon.png"
+                                                   Click="ResourcesPackage"
+                                                   IsEnabled="False"/>
+
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=ResourceUnpackage}" Image="Images\LargeIcon.png"
+                                                   Click="ResourcesUnpackage"
+                                                   IsEnabled="False"/>
+
+                    <odc:RibbonSeparator/>
+
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=Help}" Image="Images\RibbonTab1\help.jpg"/>
+
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=Item_Settings}" Image="Images\RibbonTab1\settings.png"
+                                                   Click="GoSettings"/>
+
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=About}" Image="Images\RibbonTab1\info.png"/>
                     
                 </odc:RibbonApplicationMenu>
             </odc:RibbonBar.ApplicationMenu>
@@ -189,29 +208,30 @@
             <odc:RibbonBar.QAToolBar>
                 <odc:RibbonQAToolBar>
                     
-                    <odc:RibbonButton SmallImage="Images\home.png" Click="GoHome"/>
+                    <odc:RibbonButton SmallImage="Images\home.png"
+                                      Click="GoHome"/>
 
                 </odc:RibbonQAToolBar>
             </odc:RibbonBar.QAToolBar>
 
             <odc:RibbonBar.ContextualTabSets>
-                
+
+                <!--resource list-->
                 <odc:RibbonContextualTabSet>
-                    <odc:RibbonTabItem x:Name="ResourceListTab" Title="{Binding Path=RibbonContext_List}">
+                    
+                    <odc:RibbonTabItem Title="{Binding Path=RibbonContext_List}">
 
                         <odc:RibbonGroup>
-
-                            <odc:RibbonToggleButton x:Name="EnableGroups" Content="{Binding Path=List_EnableGroups}" LargeImage="Images\LargeIcon.png"
-                                               Unchecked="GroupsChanged" Checked="GroupsChanged" IsChecked="True"/>
-
-                            <odc:RibbonDropDownButton Content="{Binding Path=List_HiddenTypes}" SmallImage="Images\LargeIcon.png" Margin="5" x:Name="visTypes">
+                            
+                            <odc:RibbonDropDownButton x:Name="visTypes" Content="{Binding Path=List_HiddenTypes}" LargeImage="Images\choosevisibletypes.png"
+                                                      odc:RibbonBar.Size="Large">
 
                                 <odc:RibbonDropDownButton.ItemTemplate>
                                     <DataTemplate>
 
                                         <StackPanel Orientation="Horizontal">
 
-                                            <CheckBox x:Name="myChecker" Margin="1,1,5,1" Checked="FilterChanged" Unchecked="FilterChanged" Content="{Binding Converter={StaticResource TypeConverter}, ConverterParameter=DisplayName}"/>
+                                            <CheckBox Margin="1,1,5,1" Checked="FilterChanged" Unchecked="FilterChanged" Content="{Binding Converter={StaticResource TypeConverter}, ConverterParameter=DisplayName}"/>
 
                                         </StackPanel>
 
@@ -220,58 +240,82 @@
 
                             </odc:RibbonDropDownButton>
 
+                            <odc:RibbonToggleButton x:Name="EnableGroups" Content="{Binding Path=List_EnableGroups}" SmallImage="Images\SmallIcon.png"
+                                                Unchecked="GroupsChanged" Checked="GroupsChanged" IsChecked="True"
+                                                odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonToggleButton x:Name="SortItems" Content="{Binding Path=List_SortResources}" SmallImage="Images\sort.png"
+                                                Unchecked="SortingChanged" Checked="SortingChanged" IsChecked="True"
+                                                odc:RibbonBar.MaxSize="Medium"/>
+
                             <odc:RibbonToggleButton x:Name="ShowLinks" Content="{Binding Path=List_ShowResolvable}" SmallImage="Images\SmallIcon.png"
-                            Unchecked="FilterChanged" Checked="FilterChanged" IsChecked="False" Margin="5"/>
+                                                Unchecked="FilterChanged" Checked="FilterChanged" IsChecked="False"
+                                                odc:RibbonBar.Size="Medium"/>
+                            <!--this may be removed soon-->                            
 
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup x:Name="CustomGroup1"/>
 
                     </odc:RibbonTabItem>
+                    
                 </odc:RibbonContextualTabSet>
 
-                <odc:RibbonContextualTabSet x:Name="contextEditing">
-                    <odc:RibbonTabItem x:Name="EditTab" Title="{Binding Path=RibbonContext_Edit}">
+                <!--resource editing-->
+                <odc:RibbonContextualTabSet>
+                    <odc:RibbonTabItem Title="{Binding Path=RibbonContext_Edit}">
 
-                        <odc:RibbonGroup x:Name="Group3" Title="{Binding Path=RibbonGroup_Clipboard}">
+                        <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Clipboard}">
 
-                            <odc:RibbonButton x:Name="PasteButton" LargeImage="Images\RibbonTab2\paste.png" Content="{Binding Path=Edit_Paste}" />
+                            <odc:RibbonButton Content="{Binding Path=Edit_Paste}" LargeImage="Images\RibbonTab2\paste.png"
+                                              odc:RibbonBar.Size="Large"/>
 
-                            <odc:RibbonButton x:Name="CutButton" SmallImage="Images\RibbonTab2\cut.png" Content="{Binding Path=Edit_Cut}"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Cut}" SmallImage="Images\RibbonTab2\cut.png"
+                                              odc:RibbonBar.MaxSize="Medium"/>
 
-                            <odc:RibbonButton x:Name="CopyButton" SmallImage="Images\RibbonTab2\copy.png" Content="{Binding Path=Edit_Copy}"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Copy}" SmallImage="Images\RibbonTab2\copy.png"
+                                              odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group4" Title="{Binding Path=RibbonGroup_View}">
+                        <odc:RibbonGroup Title="{Binding Path=RibbonGroup_View}">
 
-                            <odc:RibbonButton x:Name="ViewPlusButton" SmallImage="Images\RibbonTab2\viewplus.png"
-                                             Content="{Binding Path=Edit_ZoomIn}"/>
-                            <odc:RibbonButton x:Name="ViewMinusButton" SmallImage="Images\RibbonTab2\viewminus.png"
-                                             Content="{Binding Path=Edit_ZoomOut}"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_ZoomIn}" SmallImage="Images\RibbonTab2\viewplus.png"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Edit_ZoomOut}" SmallImage="Images\RibbonTab2\viewminus.png"
+                                              odc:RibbonBar.Size="Medium"/>
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group5" Title="{Binding Path=RibbonGroup_UndoRedo}">
+                        <odc:RibbonGroup Title="{Binding Path=RibbonGroup_UndoRedo}">
 
-                            <odc:RibbonButton x:Name="UndoButton" SmallImage="Images\RibbonTab2\undo.png" Content="{Binding Path=Edit_Undo}"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Undo}" SmallImage="Images\RibbonTab2\undo.png"
+                                              odc:RibbonBar.MaxSize="Medium"/>
 
-                            <odc:RibbonButton x:Name="RedoButton" SmallImage="Images\RibbonTab2\redo.png" Content="{Binding Path=Edit_Redo}"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Redo}" SmallImage="Images\RibbonTab2\redo.png"
+                                              odc:RibbonBar.Size="Medium"/>
+
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_SaveOpen}">
 
-                            <odc:RibbonButton Content="{Binding Path=Edit_Save}" LargeImage="Images\RibbonTab2\filesave.png" Click="ResourceSave"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Save}" LargeImage="Images\RibbonTab2\filesave.png"
+                                              Click="ResourceSave"
+                                              odc:RibbonBar.Size="Large"/>
 
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group6" Title="{Binding Path=RibbonGroup_Search}">
+                        <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Search}">
 
-                            <odc:RibbonButton x:Name="SearchButton" Content="{Binding Path=Edit_Search}" SmallImage="Images\RibbonTab2\search.png"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Search}" SmallImage="Images\RibbonTab2\search.png"
+                                              odc:RibbonBar.MaxSize="Medium"/>
 
-                            <odc:RibbonButton x:Name="ReplaceButton" Content="{Binding Path=Edit_Replace}" SmallImage="Images\RibbonTab2\search.png"/>
+                            <odc:RibbonButton Content="{Binding Path=Edit_Replace}" SmallImage="Images\RibbonTab2\search.png"
+                                              odc:RibbonBar.Size="Medium"/>
+
                         </odc:RibbonGroup>
 
-                        <odc:RibbonGroup x:Name="Group7" Title="{Binding Path=RibbonGroup_Code}">
+                        <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Code}">
 
                             <odc:RibbonDropDownButton x:Name="StubCreators" LargeImage="Images\LargeIcon.png" Content="{Binding Path=Edit_NewCodeStub}">
 
@@ -303,30 +347,47 @@
                     </odc:RibbonTabItem>
                 </odc:RibbonContextualTabSet>
 
-                <odc:RibbonContextualTabSet x:Name="contextResourceView">
+                <!--resource view-->
+                <odc:RibbonContextualTabSet>
 
-                    <odc:RibbonTabItem x:Name="ResourceViewTab" Title="{Binding Path=RibbonContext_View}">
-                        <odc:RibbonGroup x:Name="Group8">
+                    <odc:RibbonTabItem Title="{Binding Path=RibbonContext_View}">
+                        <odc:RibbonGroup>
 
-                            <odc:RibbonButton x:Name="AddChildResource" Click="ResourceCreateChild" Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"/>
+                            <odc:RibbonButton Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"
+                                              Click="ResourceCreateChild"
+                                              odc:RibbonBar.Size="Large"/>
 
-                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Move}" Click="ResourceMove"/>
+                            <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\SmallIcon.png"
+                                              Click="ResourceCopy"
+                                              odc:RibbonBar.MaxSize="Medium"/>
 
-                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Delete}" Click="ResourceDelete"/>
-                            
-                            <odc:RibbonButton SmallImage="Images\SmallIcon.png" Content="{Binding Path=View_Copy}" Click="ResourceCopy"/>
+                            <odc:RibbonButton Content="{Binding Path=View_Move}" SmallImage="Images\SmallIcon.png"
+                                              Click="ResourceMove"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=View_Delete}" SmallImage="Images\delete.png"
+                                              Click="ResourceDelete"
+                                              odc:RibbonBar.Size="Medium"/>
+
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup>
                             
-                            <odc:RibbonButton x:Name="OpenEdit" Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png" Click="ResourceEdit"/>
+                            <odc:RibbonButton Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png"
+                                              Click="ResourceEdit"
+                                              odc:RibbonBar.Size="Large"/>
                             
                         </odc:RibbonGroup>
                         
                         <odc:RibbonGroup>
                             
-                            <odc:RibbonButton Content="{Binding Path=Meta_Add}" Click="MetadataAdd"/>
-                            <odc:RibbonButton Content="{Binding Path=Meta_Delete}" Click="MetadataDelete"/>
+                            <odc:RibbonButton Content="{Binding Path=Meta_Add}" SmallImage="Images\SmallIcon.png"
+                                              Click="MetadataAdd"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Meta_Delete}" SmallImage="Images\SmallIcon.png"
+                                              Click="MetadataDelete"
+                                              odc:RibbonBar.Size="Medium"/>
                             
                         </odc:RibbonGroup>
 
@@ -338,17 +399,20 @@
                 
             </odc:RibbonBar.ContextualTabSets>
             
-            <odc:RibbonTabItem x:Name="HomeTab" Title="{Binding Path=Item_Home}"/>
+            <odc:RibbonTabItem Title="{Binding Path=Item_Home}"/>
 
         </odc:RibbonBar>
 
-        <inter:CCResourceCatalog Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="3"
-                              x:Name="TreeView" MouseDoubleClick="ResourceOpen" ImportDropped="True"/>
-        
-        <odc:BreadcrumbBar Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" x:Name="breadcrumb"
-                           IsEditable="False" ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}"
-                           SelectedBreadcrumbChanged="ResourceOpen" SeparatorString="/"
-                           Root="{Binding Path=BreadcrumbRoot}">
+        <inter:CCResourceCatalog x:Name="TreeView"
+                                 MouseDoubleClick="ResourceOpen"
+                                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                                 ImportDropped="True"/>
+
+        <odc:BreadcrumbBar x:Name="breadcrumb"
+                           SelectedBreadcrumbChanged="ResourceOpen"
+                           Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" 
+                           IsEditable="False" SeparatorString="/" Root="{Binding Path=BreadcrumbRoot}"
+                           ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}">
             
             <odc:BreadcrumbBar.BreadcrumbItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
@@ -360,14 +424,17 @@
 
         </odc:BreadcrumbBar>
         
-        <TabControl x:Name="Tabs" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="TabChanged"
+        <TabControl x:Name="Tabs"
+                    SelectionChanged="TabChanged"
+                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
                     IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Tabs}"/>
-        
-        <Button Margin="2" VerticalContentAlignment="Center" Width="20" Height="20" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Click="TabOpen">
-            <TextBlock Text="+" FontWeight="Bold"/>
-        </Button>
 
-        <StatusBar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Grid.RowSpan="1">
+        <Button Content="+"
+                Click="TabOpen"
+                Grid.Column="2" Grid.Row="2" Margin="2" Width="20" Height="20"
+                VerticalAlignment="Top" HorizontalAlignment="Right"/>
+
+        <StatusBar Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5">
             
             <StatusBarItem>
                 

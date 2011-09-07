@@ -84,12 +84,27 @@ namespace ChameleonCoder.Navigation
         /// <param name="enabled">true to enable grouping, otherwise false</param>
         internal void GroupingChanged(bool enabled)
         {
-            if (IsInitialized) // if the page is initilized
+            if (IsInitialized) // if the page is initialized
             {
-                if (enabled) // if enabled: add group description
+                if (enabled) // if enabled: add group description (group by CustomGroupConverter)
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter()));
                 else // othwerwise: remove group descriptions
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Clear();
+            }
+        }
+
+        /// <summary>
+        /// updates sorting status
+        /// </summary>
+        /// <param name="enabled">true to enable sorting, otherwise false</param>
+        internal void SortingChanged(bool enabled)
+        {
+            if (IsInitialized) // if the page is initialized
+            {
+                if (enabled) // if enabled: add SortDescription (sort by name, ascending)
+                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription("Name", System.ComponentModel.ListSortDirection.Ascending));
+                else // otherwise: remove sort descriptions
+                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).SortDescriptions.Clear();
             }
         }
     }

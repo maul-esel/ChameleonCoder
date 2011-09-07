@@ -576,6 +576,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sort resources ähnelt.
+        /// </summary>
+        internal static string List_SortResources {
+            get {
+                return ResourceManager.GetString("List_SortResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die add metadata ähnelt.
         /// </summary>
         internal static string Meta_Add {

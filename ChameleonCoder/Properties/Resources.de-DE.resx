@@ -462,4 +462,7 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="View_Copy" xml:space="preserve">
     <value>Kopieren</value>
   </data>
+  <data name="List_SortResources" xml:space="preserve">
+    <value>Ressourcen sortieren</value>
+  </data>
 </root>
