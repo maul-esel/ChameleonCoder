@@ -67,6 +67,11 @@ namespace ChameleonCoder
             if (element.OwnerDocument != doc) //if we switch the document:
                 element = (XmlElement)doc.ImportNode(element, true); // import the XmlElement
 
+            if (newParent == null) // if no parent:
+                doc.SelectSingleNode("/cc-resource-file/resources").AppendChild(element); // add element to resource list
+            else // if parent:
+                newParent.Xml.AppendChild(element); // add element to parent's children
+
             if (moveGUID) // if the copy should receive the original GUID:
             {
                 resource.Xml.SetAttribute("guid", Guid.NewGuid().ToString("n")); // set the GUID-attribute of the old instance
@@ -318,6 +323,17 @@ namespace ChameleonCoder
         {
             return GetResourceFromPath(path, "\\");
         }
+
+        public static bool IsDescendantOf(this IResource resource, IResource ancestor)
+        {
+            return resource.GetPath().StartsWith(ancestor.GetPath());
+        }
+
+        public static bool IsAncestorOf(this IResource resource, IResource descendant)
+        {
+            return descendant.IsDescendantOf(resource);
+        }
+
         #endregion
 
         public static DataFile GetResourceFile(this IResource resource)
