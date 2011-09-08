@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Windows.Data;
 using ChameleonCoder.Resources;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
 {
     /// <summary>
     /// gets the properties of an IResource instance
     /// </summary>
-    [ValueConversion(typeof(ChameleonCoder.Resources.Interfaces.IResource), typeof(List<PropertyDescription>))]
+    [ValueConversion(typeof(Resources.Interfaces.IResource), typeof(List<PropertyDescription>))]
     public class ResourcePropertyConverter : IValueConverter
     {
         /// <summary>
@@ -25,7 +26,7 @@ namespace ChameleonCoder.Converter
             if (value != null)
             {
                 // initialize the list and the Type instance
-                List<Resources.PropertyDescription> list = new List<Resources.PropertyDescription>();
+                List<PropertyDescription> list = new List<PropertyDescription>();
                 Type type = value.GetType();
 
                 // iterate through all public properties
@@ -47,13 +48,13 @@ namespace ChameleonCoder.Converter
                             group = Properties.Resources.PropertyGroup_General; // use the localized group name
                             break;
                         case ResourcePropertyGroup.ThisClass: // if it is defined as ResourcePropertyGroup.ThisClass
-                            if (!Resources.Management.ResourceTypeManager.IsRegistered(property.DeclaringType))
+                            if (!ResourceTypeManager.IsRegistered(property.DeclaringType))
                                 goto default;
-                            group = Resources.Management.ResourceTypeManager.GetDisplayName(property.DeclaringType); // get the display name
+                            group = ResourceTypeManager.GetDisplayName(property.DeclaringType); // get the display name
                             break;
                         default:
                         case ResourcePropertyGroup.CurrentClass: // if it is defined as ResourcePropertyGroup.CurrentClass
-                            group = Resources.Management.ResourceTypeManager.GetDisplayName(type); // use the display name
+                            group = ResourceTypeManager.GetDisplayName(type); // use the display name
                             break; // checking is not needed: the current type must be registered
                     }
                     
