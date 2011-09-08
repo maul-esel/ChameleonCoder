@@ -33,11 +33,6 @@ namespace ChameleonCoder
         /// </summary>
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
-        /// <summary>
-        /// gets the DataFile instance for the currently opened file.
-        /// </summary>
-        internal static DataFile OpenFile { get; private set; }
-
         #endregion
 
         /// <summary>
@@ -45,7 +40,7 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="sender">not used</param>
         /// <param name="e">additional data containing the cmd arguments</param>
-        private void Init(Object sender, StartupEventArgs e)
+        private void InitHandler(Object sender, StartupEventArgs e)
         {
             // setting the language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
@@ -101,13 +96,13 @@ namespace ChameleonCoder
 #endif
             }
 
-            OpenFile = DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
+            DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
 
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
                 Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
-                foreach (XmlElement element in OpenFile.Document.SelectNodes("/cc-resource-file/resources/*"))
+                foreach (XmlElement element in DataFile.GetResources())
                     AddResource(element, null); // and parse the xml
             });
 
@@ -125,8 +120,8 @@ namespace ChameleonCoder
         private void ExitHandler(object sender, EventArgs e)
         {
             Plugins.PluginManager.Shutdown(); // inform plugins
-            OpenFile.Save(); // save changes to the opened file
-            OpenFile.Dispose();
+            DataFile.SaveAll(); // save changes to the opened files
+            DataFile.DisposeAll();
         }
 
         /// <summary>
@@ -149,7 +144,7 @@ namespace ChameleonCoder
                 Log("ChameleonCoder.App --> internal static void AddResource(XmlElement, IResource)",
                     "failed to create resource",
                     "resource-creation failed on:\n\t" +
-                     node.OuterXml + " in " + OpenFile.FilePath); // log
+                     node.OuterXml + " in " + DataFile.GetResourceFile(node.OwnerDocument).FilePath); // log
                 return; // ignore
             }
 

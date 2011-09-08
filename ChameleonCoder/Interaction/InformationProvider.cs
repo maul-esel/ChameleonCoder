@@ -179,36 +179,6 @@ namespace ChameleonCoder.Interaction
 
         #endregion
 
-        #region file management
-
-        public static void SetFileData(string key, string value)
-        {
-            var doc = App.OpenFile.Document;
-
-            var meta = (System.Xml.XmlElement)doc.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
-            if (meta == null)
-            {
-                meta = doc.CreateElement("metadata");
-                meta.SetAttribute("name", key);
-                doc.SelectSingleNode("/cc-resource-file/settings").AppendChild(meta);
-            }
-
-            meta.InnerText = value;
-        }
-
-        public static string GetFileData(string key)
-        {
-            var doc = App.OpenFile.Document;
-
-            var meta = (System.Xml.XmlElement)doc.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
-            if (meta == null)
-                return null;
-
-            return meta.InnerText;
-        }
-
-        #endregion
-
         #region shared infrastructure
 
         /// <summary>

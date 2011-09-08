@@ -16,10 +16,8 @@ namespace ChameleonCoder
         /// <param name="pack">the Package to open</param>
         /// <param name="path">the path to the file</param>
         internal PackDataFile(Package pack, string path)
+            : base(path, new System.Xml.XmlDocument())
         {
-            FilePath = path;
-            Document = new System.Xml.XmlDocument();
-
             this.pack = pack;
             foreach (var relation in pack.GetRelationshipsByType("ChameleonCoder://Resource/Pack/Markup"))
             {
@@ -33,7 +31,7 @@ namespace ChameleonCoder
         /// <summary>
         /// disposes the instance
         /// </summary>
-        public override void Dispose()
+        internal override void Dispose()
         {
             stream.Close();
             pack.Close();

@@ -184,12 +184,12 @@ namespace ChameleonCoder
             // get the resource's data element
             XmlElement res = GetDataElement(resource, false);
             if (res == null) // if it doesn't exist:
-                return; // there's no metadata --> return null
+                return; // there's no metadata --> return
 
             // get the metadata element
             XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
             if (meta == null) // if it doesn't exist:
-                return; // there's no such metadata --> return null
+                return; // there's no such metadata --> return
 
             meta.ParentNode.RemoveChild(meta); // remove the node
         }
@@ -338,9 +338,14 @@ namespace ChameleonCoder
 
         public static DataFile GetResourceFile(this IResource resource)
         {
-            return App.OpenFile;
-            // this method doesn't make a lot of sense now.
-            // However, it may whenever multiple files are allowed to be opened simultaneously.
+            try
+            {
+                return DataFile.GetResourceFile(resource.Xml.OwnerDocument);
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new InvalidOperationException("this resource's resource file cannot be detected: " + resource.Name, e);
+            }            
         }
     }
 }

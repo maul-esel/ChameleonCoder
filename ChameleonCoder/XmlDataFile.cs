@@ -12,15 +12,23 @@ namespace ChameleonCoder
         /// <param name="doc">the document</param>
         /// <param name="path">the file</param>
         internal XmlDataFile(XmlDocument doc, string path)
+            : base(path, doc)
         {
-            FilePath = path;
-            Document = doc;
+            foreach (XmlElement reference in Document.SelectNodes("/cc-resource-file/references/reference"))
+            {
+                if (reference.GetAttribute("type") == "dir" && !string.IsNullOrWhiteSpace(reference.InnerText)
+                    && Directory.Exists(reference.InnerText))
+                    Directories.Add(reference.InnerText);
+                else if (reference.GetAttribute("type") == "file" && !string.IsNullOrWhiteSpace(reference.InnerText)
+                    && File.Exists(reference.InnerText))
+                    DataFile.Open(reference.InnerText);
+            }
         }
 
         /// <summary>
         /// disposes the instance
         /// </summary>
-        public override void Dispose()
+        internal override void Dispose()
         {
         }
 
