@@ -383,6 +383,11 @@
   <ItemGroup>
     <Resource Include="Images\delete.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
