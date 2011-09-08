@@ -7,5 +7,6 @@
 /Deploy/*.xml
 /Deploy/Temp
 /Deploy/ICSharpCode.AvalonEdit.xml
+/Documentation/ChameleonCoderDocs.log
 *.pdb
 *.xml

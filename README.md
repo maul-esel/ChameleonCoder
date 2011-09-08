@@ -3,7 +3,7 @@ Note: more information can be found in the help file: ```Documentation\Documenta
 ## Introduction
 This program called 'ChameleonCoder' (CC) is intended to be an IDE for every programming or scripting language.
 It makes it possible to interoperate between different languages easily, providing a lot of other features useful for programmers.
-Current version: 0.0.0.1 alpha (not yet functional)
+Current version: 0.0.0.1 alpha 2
 
 ## System Requirements
 To run CC, the .NET Framework v4 is required. The Framework v4 itself is supported begining with XP SP3.
@@ -18,22 +18,21 @@ Other implementations such as MONO do not work as CC requires WPF.
 ### realized
 * rich extensibility model
 * parsing of resource files and displaying them, including hierarchy
-* 6 included resource types
+* 7 included resource types
 	* links, which allow referencing another resource without copying it
 	* files
     * code files
     * libraries
     * projects
     * tasks
+	* groups
 * user-defined metadata for a resource
 * possibility to add custom resource types
-* super-easy importing of resources
-* a "breadcrumb" control for easy navigation
-* packaging and unpackaging of resource into archives, with the possibility to include the corresponding data files
+* a breadcrumb control for easy navigation
 * multiple language support
+* creation, moving, copying and deleting of resources
 
 ### planned
-* creation, moving, copying and deleting of resources
 * support for coding languages using LanguageModules, which can allow
 	* compilation of resources,
 	* execution of resources,
@@ -43,34 +42,35 @@ Other implementations such as MONO do not work as CC requires WPF.
 * of course rich editing component using the AvalonEdit control
 * RichContent model for describing the content of a resource
 * Generating documentation from RichContent, maybe exporting to HTML
-
+* 2 different file types including possibility to convert between them
+* backing up *.ccp files on startup, possibility to extract / restore / delete backups
+* creation of empty files of both types
 
 ## Extensibility model
 It is planned to support different models to extend CC.
-Basically, there are two types: ***plugins***, which can communicate with CC and influence it in A LOT of different ways, and ***static components***, which can't communicate with CC.
-
-Speaking of ***plugins***, there are 4 types:
+There are 4 types of plugins:
 
 * the most important one: ***LanguageModules***, which add language-specific support such as a compiler, intellisense, ...
 * ***services*** which can be opened by the user and perform a specific, language-independant action.
 * ***templates*** which create a new resource and apply a common template on it, for example by setting its properties or adding metadata.
-* ***component factories*** which are used to provide static components.
+* ***component factories*** which are used to provide custom resource types and custom RichContent members.
 
-When it comes to ***static components***, the following 2 types are planned:
-
-* ***ResourceTypes*** that enable support for custom resource types, such as *IniSection* or *XmlNode*.
-* ***RichContentMembers*** which enable support for custom RichContent types. They often correspond to a custom ResourceType.
-
-To add an extension to CC, simply place it in the ```Components\``` folder.
+To add an extension to CC, simply place it in the ```Components\``` folder. Then run CC, go to the plugins dialog and click "install".
+Select the file containing the plugin. Select the plugins you want to install and click "install selected".
 
 ## Resources model
-Resources are described by XML files in the ```Data\``` folder or in another folder. A resource can have several child resource. For more information see the help file.
+Resources are described by XML files. A resource can have several child resource. For more information see the help file.
 You can interact with these resources in a lot of different ways such as copying, moving, editing or compiling them.
 
 ## RichContent model
 Each resource can have 'RichContent'. RichContent describes what parts a resource includes.
-An example would be the functions in a class, including its parameters.
+These members can have child members: An example would be the classes in a namespace, the methods in a class, the parameters in a method, ...
 
-RichContent is described using XML and the ```<content>``` key in a resource. Multiple hierarchy levels will be supported,
-and as mentioned above, it could be used for auto-generated documentation, including export to HTML, or other purposes.
+## Resource files
+There are 2 types of resource files:
+* files with the extension *.ccr are simply XML files containing the resource markup. All related files are stored outside.
+Editing without CC is possible, and the files are smaller.
+* files with the extension *.ccp are zip-like files. They contain the resource markup, but every related file will be stored inside, too.
+Editing without CC is only possible using an archiver such as 7zip, and the files are bigger.
+But there will be the possibility to backup files every time opened, and you have to carry just 1 file with you.
 
