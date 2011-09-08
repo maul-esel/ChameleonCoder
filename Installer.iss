@@ -18,23 +18,24 @@ Uninstallable=yes
 [Languages]
 
 [Types]
-Name: "full"; Description: "{cm:FullInstall}"
+Name: "full";   Description: "{cm:FullInstall}"
 Name: "custom"; Description: "{cm:CustInstall}"; Flags: iscustom
 
 [Components]
 Name: "main";         Description: "{cm:CompMain}";   Types: full custom; Flags: fixed
 Name: "ext";          Description: "{cm:CompExts}";   Types: full custom
 Name: "com";          Description: "{cm:CompCOMS}";                       Flags: fixed
-Name: "language";     Description: "{cm:CompLang}";   Types: full custom
+Name: "language";     Description: "{cm:CompLang}";   Types: full
+Name: "language\DE";  Description: "Deutsch";         Types: full
 Name: "GuidCreator";  Description: "{cm:CompGuid}";   Types: full custom
 Name: "help";         Description: "{cm:CompHelp}";   Types: full custom
-Name: "help\english"; Description: "{cm:CompHelpEN}"; Types: full custom
+Name: "help\EN";      Description: "English";         Types: full custom
 Name: "debug";        Description: "{cm:CompTest}"
 
 [Dirs]
 Name: "{app}\Components"
-Name: "{app}\de-DE"; Components: language
-Name: "{app}\Components\de-DE"; Components: language
+Name: "{app}\de-DE"; Components: language\DE
+Name: "{app}\Components\de-DE"; Components: language\DE
 
 [Files]
 Source: "ChameleonCoder.exe";         DestDir: "{app}"; Flags: ignoreversion; Components: main
@@ -44,12 +45,12 @@ Source: "license.txt";                DestDir: "{app}"; Flags: ignoreversion; Co
 Source: "Odyssey.dll";                DestDir: "{app}"; Flags: ignoreversion; Components: main
 Source: "Components\ChameleonCoder.ComponentCore.dll"; DestDir: "{app}\Components"; Flags: ignoreversion; Components: main
 
-Source: "de-DE\ChameleonCoder.resources.dll"; DestDir: "{app}\de-DE"; Flags: ignoreversion; Components: language
-Source: "Components\de-DE\ChameleonCoder.ComponentCore.resources.dll"; DestDir: "{app}\Components\de-DE"; Flags: ignoreversion; Components: language
+Source: "de-DE\ChameleonCoder.resources.dll"; DestDir: "{app}\de-DE"; Flags: ignoreversion; Components: language\DE
+Source: "Components\de-DE\ChameleonCoder.ComponentCore.resources.dll"; DestDir: "{app}\Components\de-DE"; Flags: ignoreversion; Components: language\DE
 
 Source: "Components\GuidCreator.dll"; DestDir: "{app}\Components"; Flags: ignoreversion; Components: GuidCreator
 
-Source: "..\Documentation\Documentation.chm"; DestDir: "{app}"; Flags: ignoreversion; Components: help\english; Permissions: users-full
+Source: "..\Documentation\Documentation.chm"; DestDir: "{app}"; Flags: ignoreversion; Components: help\EN; Permissions: users-full
 
 Source: "test.ccr"; DestDir: "{app}"; Flags: ignoreversion; Components: debug
 
@@ -70,7 +71,7 @@ Name: "{commondesktop}\ChameleonCoder"; Filename: "{app}\ChameleonCoder.exe"; Wo
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
-Name: "de"; MessagesFile: "compiler:German.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 
 [CustomMessages]
 en.FullInstall="full installation"
@@ -81,10 +82,20 @@ en.CompCOMS="COM support"
 en.CompLang="additional languages"
 en.CompGuid="GuidCreator plugin"
 en.CompHelp="help files"
-en.CompHelpEN="english help file"
 en.CompTest="test file"
 en.ExtsCCR="ChameleonCoder resource file"
 en.ExtsCCP="ChameleonCoder resource pack"
+de.FullInstall="vollständige Installation"
+de.CustInstall="benutzerdefinierte Installation"
+de.CompMain="ChameleonCoder und integrierte Ressource-Typen (benötigt)"
+de.CompExts="Dateiendungen für *.ccr und *.ccp"
+de.CompCOMS="COM support"
+de.CompLang="zusätzliche Sprachen"
+de.CompGuid="GuidCreator-Plugin"
+de.CompHelp="Hilfe-Dateien"
+de.CompTest="Test-Datei"
+de.ExtsCCR="ChameleonCoder Ressourcen-Datei"
+de.ExtsCCP="ChameleonCoder Ressourcen-Paket"
 
 
 
