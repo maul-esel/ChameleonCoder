@@ -82,11 +82,11 @@ namespace ChameleonCoder
             }
 
 #if DEBUG
-            if (path == null) // if no file passed:
+            if (path == null && File.Exists("test.ccr")) // if no file passed:
                 path = "test.ccr"; // use test file in debug builds
 #endif
 
-            if (path == null) // if not path was passed
+            if (path == null) // if no path was passed
             {
                 // else let the user open a new file
                 using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr; *.ccp" })
