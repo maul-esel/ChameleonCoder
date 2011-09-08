@@ -74,13 +74,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                string path = Xml.GetAttribute("path");
-
-                if (!System.IO.Path.IsPathRooted(path) && !string.IsNullOrWhiteSpace(path)
-                    && File.Exists(ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory + path))
-                    return ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory + path;
-
-                return path;
+                return Xml.GetAttribute("path");
             }
             protected set
             {
