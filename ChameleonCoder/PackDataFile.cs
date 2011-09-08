@@ -26,6 +26,7 @@ namespace ChameleonCoder
                 Document.Load(stream = part.GetStream());
                 break;
             }
+            LoadReferences();
         }
 
         /// <summary>

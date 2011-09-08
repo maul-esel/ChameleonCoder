@@ -23,6 +23,23 @@ namespace ChameleonCoder
         }
 
         /// <summary>
+        /// loads the referenced files and directories
+        /// </summary>
+        protected void LoadReferences()
+        {
+            foreach (XmlElement reference in Document.SelectNodes("/cc-resource-file/references/reference"))
+            {
+                if (reference.GetAttribute("type") == "dir" && !string.IsNullOrWhiteSpace(reference.InnerText)
+                    && Directory.Exists(reference.InnerText))
+                    Directories.Add(reference.InnerText);
+                else if (reference.GetAttribute("type") == "file" && !string.IsNullOrWhiteSpace(reference.InnerText)
+                    && File.Exists(reference.InnerText))
+                    try { DataFile.Open(reference.InnerText); }
+                    catch (FileFormatException) { throw; } // Todo: inform user, log
+            }
+        }
+
+        /// <summary>
         /// returns the path to the file represented by the instance
         /// </summary>
         internal string FilePath { get; private set; }
@@ -214,9 +231,9 @@ namespace ChameleonCoder
 
         public static readonly IList<string> Directories = new List<string>();
 
-        protected static readonly IList<string> LoadedFilePaths = new List<string>();
+        private static readonly IList<string> LoadedFilePaths = new List<string>();
 
-        protected static readonly IList<DataFile> LoadedFiles = new List<DataFile>();
+        private static readonly IList<DataFile> LoadedFiles = new List<DataFile>();
         #endregion
     }
 }

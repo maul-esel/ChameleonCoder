@@ -14,15 +14,7 @@ namespace ChameleonCoder
         internal XmlDataFile(XmlDocument doc, string path)
             : base(path, doc)
         {
-            foreach (XmlElement reference in Document.SelectNodes("/cc-resource-file/references/reference"))
-            {
-                if (reference.GetAttribute("type") == "dir" && !string.IsNullOrWhiteSpace(reference.InnerText)
-                    && Directory.Exists(reference.InnerText))
-                    Directories.Add(reference.InnerText);
-                else if (reference.GetAttribute("type") == "file" && !string.IsNullOrWhiteSpace(reference.InnerText)
-                    && File.Exists(reference.InnerText))
-                    DataFile.Open(reference.InnerText);
-            }
+            LoadReferences();
         }
 
         /// <summary>
