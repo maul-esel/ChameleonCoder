@@ -145,6 +145,23 @@ namespace ChameleonCoder
         }
 
         #endregion // references
+
+        /// <summary>
+        /// appens the given text to the file's changelog, including an exact date-time stamp
+        /// </summary>
+        /// <param name="changelog">the text to append</param>
+        public void AppendChangelog(string changelog)
+        {
+            var element = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/changelog");
+
+            if (element == null)
+            {
+                element = Document.CreateElement("changelog");
+                Document.SelectSingleNode("/cc-resource-file/settings").AppendChild(element);
+            }
+            element.InnerText += DateTime.Now.ToString() + ": " + changelog + "\n\n";
+        }
+
         #endregion // instance
 
         #region static
