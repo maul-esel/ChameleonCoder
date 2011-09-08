@@ -192,8 +192,8 @@ namespace ChameleonCoder
         {
             get
             {
-                if (Properties.Settings.Default.UseDefaultPackageSettings)
-                    return Properties.Settings.Default.Package_IncludeFSComponent;
+                /*if (Properties.Settings.Default.UseDefaultPackageSettings)
+                    return Properties.Settings.Default.Package_IncludeFSComponent;*/
 
                 if (_includeFS == null)
                     _includeFS = MessageBox.Show(Properties.Resources.Pack_IncludeFS,
@@ -207,8 +207,8 @@ namespace ChameleonCoder
         {
             get
             {
-                if (Properties.Settings.Default.UseDefaultPackageSettings)
-                    return Properties.Settings.Default.Package_IncludeTarget;
+                /*if (Properties.Settings.Default.UseDefaultPackageSettings)
+                    return Properties.Settings.Default.Package_IncludeTarget;*/
 
                 if (_includeTarget == null)
                     _includeTarget = MessageBox.Show(Properties.Resources.Pack_IncludeResolve,

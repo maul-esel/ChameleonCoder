@@ -49,42 +49,6 @@ namespace ChameleonCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UseDefaultPackageSettings {
-            get {
-                return ((bool)(this["UseDefaultPackageSettings"]));
-            }
-            set {
-                this["UseDefaultPackageSettings"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Package_IncludeFSComponent {
-            get {
-                return ((bool)(this["Package_IncludeFSComponent"]));
-            }
-            set {
-                this["Package_IncludeFSComponent"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Package_IncludeTarget {
-            get {
-                return ((bool)(this["Package_IncludeTarget"]));
-            }
-            set {
-                this["Package_IncludeTarget"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
             "tring>e6662af6d0fd45bda2ab8784eda3079d</string>\r\n</ArrayOfString>")]

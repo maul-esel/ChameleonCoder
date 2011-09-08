@@ -208,6 +208,7 @@ namespace ChameleonCoder
 
         public static string FindRelativePath(string path)
         {
+            throw new NotImplementedException();
             return null;
         }
 
