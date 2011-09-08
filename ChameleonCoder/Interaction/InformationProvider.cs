@@ -43,11 +43,6 @@ namespace ChameleonCoder.Interaction
         #region settings
 
         /// <summary>
-        /// the user's programming directory
-        /// </summary>
-        public static string ProgrammingDirectory { get { return Properties.Settings.Default.ProgrammingDir; } }
-
-        /// <summary>
         /// the user's language as LCID code
         /// </summary>
         public static int Language { get { return Properties.Settings.Default.Language; } }

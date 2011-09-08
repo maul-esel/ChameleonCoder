@@ -93,7 +93,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         private void SearchFile(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
-            dialog.InitialDirectory = ChameleonCoder.Interaction.InformationProvider.ProgrammingDirectory;
+            dialog.InitialDirectory = DataFile.Directories[0];
             dialog.DereferenceLinks = false;
 
             dialog.FileOk += (s, e2) =>

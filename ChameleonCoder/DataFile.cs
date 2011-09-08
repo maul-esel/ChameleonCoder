@@ -206,7 +206,12 @@ namespace ChameleonCoder
             throw new InvalidOperationException("this document's resource file cannot be detected:\n\n" + doc.DocumentElement.OuterXml);
         }
 
-        internal static readonly IList<string> Directories = new List<string>();
+        public static string FindRelativePath(string path)
+        {
+            return null;
+        }
+
+        public static readonly IList<string> Directories = new List<string>();
 
         protected static readonly IList<string> LoadedFilePaths = new List<string>();
 

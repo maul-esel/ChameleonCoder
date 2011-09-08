@@ -251,7 +251,7 @@ namespace ChameleonCoder
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
             dialog.Filter = "CC Packages (*.ccp)|*.ccp";
-            dialog.InitialDirectory = Interaction.InformationProvider.ProgrammingDirectory;
+            dialog.InitialDirectory = DataFile.Directories[0];
             dialog.FileOk += (s, args) =>
                 {
                     if (!args.Cancel)
