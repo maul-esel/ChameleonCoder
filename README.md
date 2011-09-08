@@ -68,8 +68,10 @@ These members can have child members: An example would be the classes in a names
 
 ## Resource files
 There are 2 types of resource files:
+
 * files with the extension *.ccr are simply XML files containing the resource markup. All related files are stored outside.
 Editing without CC is possible, and the files are smaller.
+
 * files with the extension *.ccp are zip-like files. They contain the resource markup, but every related file will be stored inside, too.
 Editing without CC is only possible using an archiver such as 7zip, and the files are bigger.
 But there will be the possibility to backup files every time opened, and you have to carry just 1 file with you.
