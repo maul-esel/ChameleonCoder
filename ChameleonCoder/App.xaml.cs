@@ -81,11 +81,13 @@ namespace ChameleonCoder
                 }
             }
 
+#if DEBUG
+            if (path == null) // if no file passed:
+                path = "test.ccr"; // use test file in debug builds
+#endif
+
             if (path == null) // if not path was passed
             {
-#if DEBUG
-                path = "test.ccr"; // use test file in debug builds
-#else
                 // else let the user open a new file
                 using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr; *.ccp" })
                 {
@@ -93,7 +95,6 @@ namespace ChameleonCoder
                         Environment.Exit(-1);
                     path = dialog.FileName;
                 }
-#endif
             }
 
             DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
