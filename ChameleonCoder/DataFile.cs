@@ -29,11 +29,15 @@ namespace ChameleonCoder
         {
             foreach (XmlElement reference in Document.SelectNodes("/cc-resource-file/references/reference"))
             {
-                if (reference.GetAttribute("type") == "dir" && !string.IsNullOrWhiteSpace(reference.InnerText)
-                    && Directory.Exists(reference.InnerText))
+                if (reference.GetAttribute("type") == "dir"
+                    && !string.IsNullOrWhiteSpace(reference.InnerText)
+                    && Directory.Exists(reference.InnerText)
+                    && !Directories.Contains(reference.InnerText))
                     Directories.Add(reference.InnerText);
-                else if (reference.GetAttribute("type") == "file" && !string.IsNullOrWhiteSpace(reference.InnerText)
-                    && File.Exists(reference.InnerText))
+                else if (reference.GetAttribute("type") == "file"
+                    && !string.IsNullOrWhiteSpace(reference.InnerText)
+                    && File.Exists(reference.InnerText)
+                    && !LoadedFilePaths.Contains(reference.InnerText))
                     try { DataFile.Open(reference.InnerText); }
                     catch (FileFormatException) { throw; } // Todo: inform user, log
             }
