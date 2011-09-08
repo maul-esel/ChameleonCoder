@@ -20,6 +20,7 @@ namespace ChameleonCoder
             Document = doc;
             LoadedFilePaths.Add(FilePath = path);
             LoadedFiles.Add(this);
+            Directories.Add(Path.GetDirectoryName(path));
         }
 
         /// <summary>
