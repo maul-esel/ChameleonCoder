@@ -10,8 +10,21 @@ namespace ChameleonCoder.ComponentCore.Resources
     /// <summary>
     /// an abstract base class for resources
     /// </summary>
-    public abstract partial class ResourceBase : IResource, INotifyPropertyChanged
+    public abstract partial class ResourceBase : IResource
     {
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(name));
+        }
+
+        #endregion
+
         #region IResource
 
         /// <summary>
@@ -90,20 +103,7 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         public virtual ResourceCollection children { get; private set; }
 
-        #endregion 
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(name));
-        }
-
-        #endregion
+        #endregion        
 
         #region PropertyAliases
 

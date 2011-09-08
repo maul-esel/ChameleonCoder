@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
-    public interface IResource
+    public interface IResource : System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// the resource's icon in the main treeview
