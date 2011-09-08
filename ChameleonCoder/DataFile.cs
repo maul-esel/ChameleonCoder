@@ -101,7 +101,7 @@ namespace ChameleonCoder
 
             var reference = Document.CreateElement("reference");
 
-            reference.SetAttribute("id", id.ToString("n"));
+            reference.SetAttribute("id", id.ToString("b"));
             reference.SetAttribute("type", isFile ? "file" : "dir");
             reference.InnerText = path;
 
@@ -116,7 +116,7 @@ namespace ChameleonCoder
         /// <param name="id">the reference's unique id</param>
         public void DeleteReference(Guid id)
         {
-            var reference = Document.SelectSingleNode("/cc-resource-file/references/reference[@id='" + id.ToString("n") + "']");
+            var reference = Document.SelectSingleNode("/cc-resource-file/references/reference[@id='" + id.ToString("b") + "']");
 
             if (reference != null)
                 reference.ParentNode.RemoveChild(reference);

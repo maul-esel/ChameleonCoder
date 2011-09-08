@@ -39,7 +39,7 @@
   <data>
     <!--this section will contain information about resources, such as "last modified", "created at", ...
 		NEW: this will also contain metadata and RichContent
-		The resources are identified by their GUID. NOT YET IMPLEMENTED!!!-->
+		The resources are identified by their GUID.-->
 	  <resource-data guid="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
       <metadata name="test">testvalue</metadata>
 	  </resource-data>
@@ -56,13 +56,17 @@
   </data>
   <settings>
     <!-- This section will contain several more or less useful informations about the pack.
-		They will also contain an unlimited number of <metadata> elements. NOT YET IMPLEMENTED!!!-->
+		They will also contain an unlimited number of <metadata> elements.-->
     <name>test file</name>
     <changelog>
     </changelog>
   </settings>
   <references>
     <!--this section can contain references for other *.ccr / *.ccp files that will also be loaded (not sure whether or when this will be implemented).
-		It can also contain references for directories which will be used to find files given a relative path. NOT YET IMPLEMENTED!!!-->
+		It can also contain references for directories which will be used to find files given a relative path.
+    A sample file-ref:
+    <reference id="{8593d5c2-4fe7-438f-b74f-5a236793ccd9}" type="file">C:\Programming\MyProject.ccr</reference>
+    A sample dir-ref:
+    <reference id="{2477fbcd-6736-4720-9ad0-625d4fae6639}" type="dir">C:\Programming\Utilities</reference>-->
   </references>
 </cc-resource-file>
