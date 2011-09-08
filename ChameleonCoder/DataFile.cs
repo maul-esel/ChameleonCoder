@@ -42,7 +42,88 @@ namespace ChameleonCoder
         /// </summary>
         internal abstract void Save();
 
-        #endregion
+        #region metadata
+        /// <summary>
+        /// sets datafile metadata, creating it if necessary
+        /// </summary>
+        /// <param name="key">the metadata's name</param>
+        /// <param name="value">the metadata's new value</param>
+        public void SetMetadata(string key, string value)
+        {
+            var meta = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
+            if (meta == null)
+            {
+                meta = (XmlElement)Document.CreateElement("metadata");
+                meta.SetAttribute("name", key);
+                Document.SelectSingleNode("/cc-resource-file/settings").AppendChild(meta);
+            }
+
+            meta.InnerText = value;
+        }
+
+        /// <summary>
+        /// gets datafile metadata
+        /// </summary>
+        /// <param name="key">the metadata's name</param>
+        /// <returns>the metadata's value</returns>
+        public string GetMetadata(string key)
+        {
+            var meta = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
+            if (meta == null)
+                return null;
+
+            return meta.InnerText;
+        }
+
+        /// <summary>
+        /// deletes datafile metadata
+        /// </summary>
+        /// <param name="key">the metadata's name</param>
+        public void DeleteMetadata(string key)
+        {
+            var meta = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
+            if (meta != null)
+                meta.ParentNode.RemoveChild(meta);
+        }
+        #endregion // metadata
+
+        #region references
+
+        /// <summary>
+        /// adds a reference to the DataFile
+        /// </summary>
+        /// <param name="path">the path to the referenced object</param>
+        /// <param name="isFile">true if the reference references a file, false it if references a directory</param>
+        /// <returns>the reference's uinque id</returns>
+        public Guid AddReference(string path, bool isFile)
+        {
+            var id = Guid.NewGuid();
+
+            var reference = Document.CreateElement("reference");
+
+            reference.SetAttribute("id", id.ToString("n"));
+            reference.SetAttribute("type", isFile ? "file" : "dir");
+            reference.InnerText = path;
+
+            Document.SelectSingleNode("/cc-resource-file/references").AppendChild(reference);
+
+            return id;
+        }
+
+        /// <summary>
+        /// deletes a reference from the DataFile
+        /// </summary>
+        /// <param name="id">the reference's unique id</param>
+        public void DeleteReference(Guid id)
+        {
+            var reference = Document.SelectSingleNode("/cc-resource-file/references/reference[@id='" + id.ToString("n") + "']");
+
+            if (reference != null)
+                reference.ParentNode.RemoveChild(reference);
+        }
+
+        #endregion // references
+        #endregion // instance
 
         #region static
         /// <summary>
