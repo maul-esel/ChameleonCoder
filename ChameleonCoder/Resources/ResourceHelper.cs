@@ -15,12 +15,11 @@ namespace ChameleonCoder
         /// <param name="resource">the resource to delete</param>
         public static void Delete(this IResource resource)
         {
-            var list = ResourceManager.GetList();
             foreach (IResource child in resource.children) // remove references to all child resources
             {
                 if (ResourceManager.ActiveItem == child)
                     ResourceManager.ActiveItem = null; // maybe this needs some unloading process?
-                list.Remove(child);
+                ResourceManager.Remove(child);
             }
 
             if (ResourceManager.ActiveItem == resource)
@@ -28,12 +27,7 @@ namespace ChameleonCoder
 
             resource.Xml.ParentNode.RemoveChild(resource.Xml);
 
-            if (resource.Parent == null)
-                ResourceManager.GetChildren().Remove(resource);
-            else
-                resource.Parent.children.Remove(resource);
-
-            list.Remove(resource.GUID);
+            ResourceManager.Remove(resource);
 
             resource.GetResourceFile().Save(); // save changes
         }
