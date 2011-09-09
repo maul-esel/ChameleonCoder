@@ -69,16 +69,6 @@ namespace ChameleonCoder.Navigation
         }
 
         /// <summary>
-        /// tries to import a dropped file
-        /// </summary>
-        /// <param name="sender">the control raising the event</param>
-        /// <param name="e">additional data</param>
-        private void DroppedFile(object sender, DragEventArgs e)
-        {
-            App.Gui.DroppedFile(sender, e); // redirect call
-        }
-
-        /// <summary>
         /// updates the grouping status
         /// </summary>
         /// <param name="enabled">true to enable grouping, otherwise false</param>

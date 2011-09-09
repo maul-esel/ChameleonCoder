@@ -122,7 +122,7 @@ namespace ChameleonCoder
         {
             Plugins.PluginManager.Shutdown(); // inform plugins
             DataFile.SaveAll(); // save changes to the opened files
-            DataFile.DisposeAll();
+            DataFile.CloseAll();
         }
 
         /// <summary>
@@ -210,34 +210,6 @@ namespace ChameleonCoder
             Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
         }
         #endregion
-
-        [Obsolete]
-        static object lock_drop = new object();
-
-        [Obsolete]
-        internal static void ImportDroppedResource(DragEventArgs dragged)
-        {
-            lock (lock_drop)
-            {
-                if (dragged.Data.GetDataPresent(DataFormats.FileDrop))
-                {
-                    string[] files = dragged.Data.GetData(DataFormats.FileDrop, true) as string[];
-
-                    foreach (string file in files)
-                    {
-                        System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-                        try { doc.Load(file); }
-                        catch (System.Xml.XmlException)
-                        {
-                            PackageManager.UnpackResources(file);
-                            return;
-                        }
-                        //File.Copy(file, DataDir + Path.GetFileName(file));
-                        //App.ParseFile(DataDir + Path.GetFileName(file));
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// logs a message, such as a warning, an error, ...

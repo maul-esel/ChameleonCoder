@@ -6,8 +6,16 @@ using System.Xml;
 
 namespace ChameleonCoder
 {
+    /// <summary>
+    /// represents an opened resource file
+    /// </summary>
     public abstract class DataFile
     {
+        static DataFile()
+        {
+            Directories.Add(Environment.CurrentDirectory);
+        }
+
         #region instance
 
         /// <summary>
@@ -55,14 +63,100 @@ namespace ChameleonCoder
         internal XmlDocument Document { get; private set; }
 
         /// <summary>
-        /// disposes the instance
+        /// closes the instance
         /// </summary>
-        internal abstract void Dispose();
+        internal abstract void Close();
 
         /// <summary>
         /// saves the changes made to the file
         /// </summary>
         internal abstract void Save();
+
+        #region fs-components
+        /// <summary>
+        /// adds a file represented by an IFSComponent instance to the DataFile's scope
+        /// </summary>
+        /// <param name="source">the path to the file</param>
+        /// <returns>the Guid that identifies the component inside the DataFile</returns>
+        /// <exception cref="FileNotFoundException">the file  pointed to by
+        /// <paramref name="source"/> was not found.</exception>
+        public abstract Guid AddFSComponent(string source);
+
+        /// <summary>
+        /// copies a file represented by an IFSComponent instance inside the DataFile's scope
+        /// </summary>
+        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
+        /// <param name="dest">the destination path</param>
+        /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
+        /// <exception cref="FileNotFoundException">the source component does not exist</exception>
+        public abstract Guid CopyFSComponent(Guid id, string dest);
+
+        /// <summary>
+        /// deletes a file represented by an IFSComponent instance from the DataFile's scope
+        /// </summary>
+        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
+        public abstract void DeleteFSComponent(Guid id);
+
+        /// <summary>
+        /// determines whether the given component exists,
+        /// that means it is registered and the content exists, too.
+        /// </summary>
+        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
+        /// <returns>true is the component exists, false otherwise</returns>
+        public abstract bool Exists(Guid id);
+
+        /// <summary>
+        /// moves a file represented by an IFSComponent instance inside the DataFile's scope
+        /// </summary>
+        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
+        /// <param name="dest">the destination path</param>
+        /// <returns>the new Guid that identifies the component inside the DataFile<returns>
+        /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
+        /// <exception cref="FileNotFoundException">the source component does not exist</exception>
+        public Guid MoveFSComponent(Guid id, string dest)
+        {
+            var newId = CopyFSComponent(id, dest);
+            DeleteFSComponent(id);
+            return newId;
+        }
+
+        /// <summary>
+        /// gets a stream containing the file's content
+        /// </summary>
+        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
+        /// <returns>the content as stream</returns>
+        /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
+        /// <exception cref="FileNotFoundException">the source component does not exist</exception>
+        public abstract Stream GetStream(Guid id);
+
+        #endregion
+
+        /// <summary>
+        /// tries to find the absolute path for a given relative path
+        /// </summary>
+        /// <param name="relativePath">the (relative) path</param>
+        /// <returns>the absolute path, or null if not found</returns>
+        /// <remarks>this method is not suitable for managing files inside PackDataFiles!</remarks>
+        public static string MakeAbsolutePath(string relativePath)
+        {
+            if (!string.IsNullOrWhiteSpace(relativePath))
+            {
+                if (File.Exists(relativePath) || Directory.Exists(relativePath))
+                {
+                    if (Path.IsPathRooted(relativePath))
+                        return relativePath;
+                    return Path.GetFullPath(relativePath);
+                }
+
+                foreach (var dir in Directories)
+                {
+                    string fullpath = Path.Combine(dir, relativePath);
+                    if (File.Exists(fullpath) || Directory.Exists(fullpath))
+                        return fullpath;
+                }
+            }
+            return null;
+        }
 
         #region metadata
         /// <summary>
@@ -147,7 +241,7 @@ namespace ChameleonCoder
         #endregion // references
 
         /// <summary>
-        /// appens the given text to the file's changelog, including an exact date-time stamp
+        /// appends the given text to the file's changelog, including an exact date-time stamp
         /// </summary>
         /// <param name="changelog">the text to append</param>
         public void AppendChangelog(string changelog)
@@ -170,6 +264,7 @@ namespace ChameleonCoder
         #endregion // instance
 
         #region static
+
         /// <summary>
         /// opens a DataFile instance for the given file
         /// </summary>
@@ -226,14 +321,15 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// disposes all loaded instances
+        /// closes all loaded instances
         /// </summary>
-        internal static void DisposeAll()
+        internal static void CloseAll()
         {
             foreach (DataFile file in LoadedFiles)
-                file.Dispose();
+                file.Close();
 
             LoadedFiles.Clear();
+            LoadedFilePaths.Clear();
         }
 
         /// <summary>
@@ -250,17 +346,21 @@ namespace ChameleonCoder
             throw new InvalidOperationException("this document's resource file cannot be detected:\n\n" + doc.DocumentElement.OuterXml);
         }
 
-        public static string FindRelativePath(string path)
-        {
-            throw new NotImplementedException();
-            return null;
-        }
-
+        /// <summary>
+        /// contains a list of all referenced directories
+        /// </summary>
         public static readonly IList<string> Directories = new List<string>();
 
+        /// <summary>
+        /// contains a list of all loaded files in form of their file paths
+        /// </summary>
         private static readonly IList<string> LoadedFilePaths = new List<string>();
 
+        /// <summary>
+        /// contains a list of all loaded files in form of their DataFile instances
+        /// </summary>
         private static readonly IList<DataFile> LoadedFiles = new List<DataFile>();
+
         #endregion
     }
 }

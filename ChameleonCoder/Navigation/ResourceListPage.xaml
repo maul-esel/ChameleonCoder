@@ -21,7 +21,6 @@
              ItemsSource="{Binding Source={StaticResource ResListSource}}"
              VirtualizingStackPanel.IsVirtualizing="True"
              VirtualizingStackPanel.VirtualizationMode="Recycling"
-             AllowDrop="True" Drop="DroppedFile"
              MouseDoubleClick="OpenResource">
         <ListBox.GroupStyle>
             <GroupStyle HidesIfEmpty="True">

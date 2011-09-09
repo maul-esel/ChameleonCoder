@@ -182,16 +182,6 @@
                     <odc:RibbonApplicationMenuItem Header="{Binding Path=Selection_CreateNew}" Image="Images\RibbonTab1\create.png"
                                                    Click="ResourceCreate"/>
 
-                    <odc:RibbonApplicationMenuItem Header="{Binding Path=ResourceImport}" Image="Images\LargeIcon.png"
-                                                   IsEnabled="False"/>
-
-                    <odc:RibbonApplicationMenuItem Header="{Binding Path=ResourcePackage}" Image="Images\LargeIcon.png"
-                                                   Click="ResourcesPackage"
-                                                   IsEnabled="False"/>
-
-                    <odc:RibbonApplicationMenuItem Header="{Binding Path=ResourceUnpackage}" Image="Images\LargeIcon.png"
-                                                   Click="ResourcesUnpackage"
-                                                   IsEnabled="False"/>
 
                     <odc:RibbonSeparator/>
 
@@ -405,8 +395,7 @@
 
         <inter:CCResourceCatalog x:Name="TreeView"
                                  MouseDoubleClick="ResourceOpen"
-                                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                                 ImportDropped="True"/>
+                                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
 
         <odc:BreadcrumbBar x:Name="breadcrumb"
                            SelectedBreadcrumbChanged="ResourceOpen"

@@ -40,11 +40,6 @@ namespace ChameleonCoder
             App.Current.Shutdown(0);
         }
 
-        internal void DroppedFile(object sender, DragEventArgs e)
-        {
-            App.ImportDroppedResource(e);
-        }
-
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(((Tabs.SelectedItem as TabContext).Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
@@ -205,31 +200,6 @@ namespace ChameleonCoder
             }
         }
 
-        [Obsolete]
-        private void ResourcesPackage(object sender, EventArgs e)
-        {
-            CurrentAction.Text = Properties.Resources.Status_Pack;
-            CurrentActionProgress.IsIndeterminate = true;
-
-            Interaction.ResourceSelector selector = new Interaction.ResourceSelector();
-            if (selector.ShowDialog() == true && selector.resources.Count > 0)
-            {
-                BackgroundWorker worker = new BackgroundWorker() { WorkerSupportsCancellation = false };
-                worker.DoWork += (bw, args) => PackageManager.PackageResources(selector.resources);
-                worker.RunWorkerCompleted += (bw, args) =>
-                {
-                    if (args.Error != null)
-                        MessageBox.Show(Properties.Resources.Error_Package + "\n\n" + args.Error.ToString());
-                    else
-                        MessageBox.Show(Properties.Resources.Pack_Finished);
-
-                    CurrentAction.Text = string.Empty;
-                    CurrentActionProgress.IsIndeterminate = false;
-                };
-                worker.RunWorkerAsync();
-            }
-        }
-
         private void ResourceSave(object sender, EventArgs e)
         {
             ResourceSave(Tabs.SelectedItem as TabContext);
@@ -244,21 +214,6 @@ namespace ChameleonCoder
         {
             if (page != null)
                 page.Save();
-        }
-
-        [Obsolete]
-        private void ResourcesUnpackage(object sender, EventArgs e)
-        {
-            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
-            dialog.Filter = "CC Packages (*.ccp)|*.ccp";
-            dialog.InitialDirectory = DataFile.Directories[0];
-            dialog.FileOk += (s, args) =>
-                {
-                    if (!args.Cancel)
-                        PackageManager.UnpackResources((s as System.Windows.Forms.OpenFileDialog).FileName);
-                };
-
-            dialog.ShowDialog();
         }
 
         #endregion

@@ -756,33 +756,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Import a resource ähnelt.
-        /// </summary>
-        internal static string ResourceImport {
-            get {
-                return ResourceManager.GetString("ResourceImport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Package resources ähnelt.
-        /// </summary>
-        internal static string ResourcePackage {
-            get {
-                return ResourceManager.GetString("ResourcePackage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Unpackage resources ähnelt.
-        /// </summary>
-        internal static string ResourceUnpackage {
-            get {
-                return ResourceManager.GetString("ResourceUnpackage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Editing ähnelt.
         /// </summary>
         internal static string RibbonContext_Edit {

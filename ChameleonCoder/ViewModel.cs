@@ -83,10 +83,6 @@ namespace ChameleonCoder
         public string Action_OK { get { return Res.Action_OK; } }
         public string Action_Cancel { get { return Res.Action_Cancel; } }
 
-        public string ResourceImport { get { return Res.ResourceImport; } }
-        public string ResourcePackage { get { return Res.ResourcePackage; } }
-        public string ResourceUnpackage { get { return Res.ResourceUnpackage; } }
-
         public string Help { get { return Res.Help; } }
         public string About { get { return Res.About; } }
 

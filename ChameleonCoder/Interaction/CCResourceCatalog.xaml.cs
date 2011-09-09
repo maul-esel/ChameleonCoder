@@ -85,31 +85,6 @@ namespace ChameleonCoder.Interaction
         }
 
         #region OnResourceDropped
-        bool isImporting = false;
-
-        /// <summary>
-        /// sets whether ChameleonCoder imports resources which are dropped on the control
-        /// </summary>
-        public bool ImportDropped
-        {
-            set
-            {
-                if (value && !isImporting)
-                {
-                    Drop += ImportDroppedResource;
-                    isImporting = true;
-                }
-                else if (!value && isImporting)
-                {
-                    Drop -= ImportDroppedResource;
-                    isImporting = false;
-                }
-            }
-            get
-            {
-                return isImporting;
-            }
-        }
 
         /// <summary>
         /// event which is raised when something is dropped on the resource
@@ -126,15 +101,6 @@ namespace ChameleonCoder.Interaction
             }
         }
 
-        /// <summary>
-        /// private method to import dropped resources etc.
-        /// </summary>
-        /// <param name="sender">the sender of the event</param>
-        /// <param name="e">arguments including information about the dropped resources</param>
-        private void ImportDroppedResource(object sender, DragEventArgs e)
-        {
-            App.ImportDroppedResource(e);
-        }
         #endregion
 
         /// <summary>

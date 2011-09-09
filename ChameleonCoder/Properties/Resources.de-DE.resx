@@ -276,15 +276,6 @@
   <data name="PropertyGroup_General" xml:space="preserve">
     <value>Allgemein</value>
   </data>
-  <data name="ResourceImport" xml:space="preserve">
-    <value>Eine Ressource importieren</value>
-  </data>
-  <data name="ResourcePackage" xml:space="preserve">
-    <value>Ressourcen packen</value>
-  </data>
-  <data name="ResourceUnpackage" xml:space="preserve">
-    <value>Ressourcen entpacken</value>
-  </data>
   <data name="RibbonContext_Edit" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
