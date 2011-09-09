@@ -201,7 +201,7 @@ namespace ChameleonCoder
             if (lastmod == null)
             {
                 lastmod = resource.GetResourceFile().Document.CreateElement("last-modified");
-                lastmod.InnerText = DateTime.Now.ToString();
+                lastmod.InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
                 res.AppendChild(lastmod);
             }
         }
