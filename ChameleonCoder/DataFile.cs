@@ -152,14 +152,19 @@ namespace ChameleonCoder
         /// <param name="changelog">the text to append</param>
         public void AppendChangelog(string changelog)
         {
-            var element = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/changelog");
+            var log = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/changelog");
 
-            if (element == null)
+            if (log == null)
             {
-                element = Document.CreateElement("changelog");
-                Document.SelectSingleNode("/cc-resource-file/settings").AppendChild(element);
+                log = Document.CreateElement("changelog");
+                Document.SelectSingleNode("/cc-resource-file/settings").AppendChild(log);
             }
-            element.InnerText += DateTime.Now.ToString() + ": " + changelog + "\n\n";
+
+            var change = Document.CreateElement("change");
+            change.SetAttribute("time", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            change.InnerText = changelog;
+
+            log.AppendChild(change);
         }
 
         #endregion // instance
