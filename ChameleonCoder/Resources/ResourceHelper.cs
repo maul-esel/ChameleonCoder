@@ -79,7 +79,6 @@ namespace ChameleonCoder
             resource.GetResourceFile().Save(); // save the documents
             if (newParent != null)
                 newParent.GetResourceFile().Save();
-            System.Windows.MessageBox.Show((resource.Xml.ParentNode != null).ToString());
         }
 
         /// <summary>
