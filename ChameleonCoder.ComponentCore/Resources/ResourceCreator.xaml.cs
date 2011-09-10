@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
@@ -10,7 +9,7 @@ namespace ChameleonCoder.ComponentCore.Resources
     /// <summary>
     /// Interaktionslogik für ResourceCreator.xaml
     /// </summary>
-    public partial class ResourceCreator : Window
+    public sealed partial class ResourceCreator : Window
     {
         Dictionary<string, Func<string>> customAttributes = new Dictionary<string, Func<string>>();
 
@@ -24,7 +23,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         public string ResAuthor { get; set; }
         public string ResVersion { get; set; }
         public string ResLicense { get; set; }
-        public ProjectResource.ProjectPriority ResPriority { get; set; }
+        public ProjectPriority ResPriority { get; set; }
         public DateTime ResDate { get; set; }
 
         public ResourceCreator(Type target, string parent, string name)
@@ -77,7 +76,7 @@ namespace ChameleonCoder.ComponentCore.Resources
                 _Priority.Visibility = ResourcePriority.Visibility = Visibility.Collapsed;
             else
                 customAttributes.Add("priority",
-                    () => ((int)Enum.Parse(typeof(ProjectResource.ProjectPriority), ResourcePriority.Text, true)).ToString());
+                    () => ((int)Enum.Parse(typeof(ProjectPriority), ResourcePriority.Text, true)).ToString());
 
             if (target != typeof(TaskResource))
                 _Enddate.Visibility = ResourceEnddate.Visibility = Visibility.Collapsed;
@@ -121,7 +120,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("name", ResName);
-            dict.Add("guid", ResGuid.ToString("b"));
+            dict.Add("id", ResGuid.ToString("b"));
             dict.Add("description", ResDescription);
             dict.Add("notes", string.Empty);
 

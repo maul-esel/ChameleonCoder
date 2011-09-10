@@ -7,13 +7,13 @@ namespace ChameleonCoder.Interaction
     /// <summary>
     /// an adorner to show invalid user input
     /// </summary>
-    public class InvalidInputAdorner : Adorner
+    public sealed class InvalidInputAdorner : Adorner
     {
         /// <summary>
         /// creates a new instance of the adorner, given an element
         /// </summary>
         /// <param name="element"></param>
-        protected InvalidInputAdorner(UIElement element) : base(element) { }
+        private InvalidInputAdorner(FrameworkElement element) : base(element) { }
 
         /// <summary>
         /// rendres the adorner
@@ -31,7 +31,7 @@ namespace ChameleonCoder.Interaction
         /// adorns an element with a new InvalidInputAdorner
         /// </summary>
         /// <param name="element">the element to adorn</param>
-        /// <param name="message">a custom tooltip message</param>
+        /// <param name="message">a Custom tooltip message</param>
         /// <returns>the new instance</returns>
         public static InvalidInputAdorner Adorn(FrameworkElement element, string message)
         {

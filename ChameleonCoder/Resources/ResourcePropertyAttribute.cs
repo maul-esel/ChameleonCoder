@@ -4,40 +4,45 @@ using Res = ChameleonCoder.Properties.Resources;
 namespace ChameleonCoder.Resources
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class ResourcePropertyAttribute : Attribute
+    public sealed class ResourcePropertyAttribute : Attribute
     {
         public ResourcePropertyAttribute(string name, ResourcePropertyGroup group)
         {
-            Name = name;
-            Group = group;
+            this.name = name;
+            this.group = group;
         }
 
         public ResourcePropertyAttribute(CommonResourceProperty property, ResourcePropertyGroup group)
         {
-            Group = group;
+            this.group = group;
             switch (property)
             {
-                case CommonResourceProperty.GUID: Name = GUID_Name; break;
-                case CommonResourceProperty.Name: Name = Name_Name; break;
-                case CommonResourceProperty.Description: Name = Description_Name; break;
-                case CommonResourceProperty.Parent: Name = Parent_Name; break;
-                case CommonResourceProperty.CompilationPath: Name = CompilationPath_Name; break;
-                case CommonResourceProperty.FSPath: Name = FSPath_Name; break;
-                case CommonResourceProperty.Language: Name = Language_Name; break;
-                case CommonResourceProperty.CompatibleLanguages: Name = CompatibleLanguages_Name; break;
-                default: Name = string.Empty; break;
+                case CommonResourceProperty.Identifier: name = Identifier_Name; break;
+                case CommonResourceProperty.Name: name = Name_Name; break;
+                case CommonResourceProperty.Description: name = Description_Name; break;
+                case CommonResourceProperty.Parent: name = Parent_Name; break;
+                case CommonResourceProperty.CompilationPath: name = CompilationPath_Name; break;
+                case CommonResourceProperty.FSPath: name = FSPath_Name; break;
+                case CommonResourceProperty.Language: name = Language_Name; break;
+                case CommonResourceProperty.CompatibleLanguages: name = CompatibleLanguages_Name; break;
+                default: name = string.Empty; break;
             }
         }
 
-        internal readonly string Name;
-        internal readonly ResourcePropertyGroup Group;
+        private readonly string name;
+        private readonly ResourcePropertyGroup group;
+
+        internal string Name { get { return name; } }
+
+        internal ResourcePropertyGroup Group { get { return Group; } }
 
         public bool IsReadOnly { get; set; }
+
         public bool IsReferenceName { get; set; }
 
         #region Names
 
-        private static string GUID_Name { get { return Res.Info_GUID; } }
+        private static string Identifier_Name { get { return Res.Info_Identifier; } }
 
         private static string Name_Name { get { return Res.Info_Name; } }
 
@@ -65,7 +70,7 @@ namespace ChameleonCoder.Resources
 
     public enum CommonResourceProperty
     {
-        GUID,
+        Identifier,
         Name,
         Description,
         Parent,

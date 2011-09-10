@@ -49,7 +49,7 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #endregion
 
-        private bool IsBinary(string path)
+        private static bool IsBinary(string path)
         {
             using (FileStream s = new FileStream(path, FileMode.OpenOrCreate))
             {

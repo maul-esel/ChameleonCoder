@@ -1,30 +1,28 @@
-﻿using System;
-
-namespace ChameleonCoder.Plugins
+﻿namespace ChameleonCoder.Plugins
 {
     /// <summary>
-    /// an enume defining the type of lexing performed by a language module
+    /// an enum defining the type of lexing performed by a Language module
     /// </summary>
     public enum LexingType
     {
         /// <summary>
         /// no lexing performed
         /// </summary>
-        none,
+        None,
 
         /// <summary>
-        /// a custom DocumentHighlighter was written
+        /// a Custom DocumentHighlighter was written
         /// </summary>
-        custom,
+        Custom,
 
         /// <summary>
         /// the XML-highlighting engine should be used
         /// </summary>
-        xml,
+        Xml,
 
         /// <summary>
-        /// an AvalonEdit-integrated engine should be used
+        /// an AvalonEdit-Integrated engine should be used
         /// </summary>
-        integrated
+        Integrated
     }
 }

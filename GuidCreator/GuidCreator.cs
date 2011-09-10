@@ -2,7 +2,7 @@
 using System.Windows.Media.Imaging;
 using ChameleonCoder.Plugins;
 
-namespace GuidCreator
+namespace ChameleonCoder.Services
 {
     [ChameleonCoder.CCPlugin]
     public class GuidCreator : IService
@@ -32,7 +32,7 @@ namespace GuidCreator
         {
         }
 
-        public void Call()
+        public void Execute()
         {
             busy = true;
             CreatorView viewer = new CreatorView();

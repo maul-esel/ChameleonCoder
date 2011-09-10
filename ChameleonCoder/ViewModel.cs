@@ -17,6 +17,11 @@ namespace ChameleonCoder
 
         public int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
 
+        public static string test
+        {
+            get { return "hi!"; }
+        }
+
         public BreadcrumbContext BreadcrumbRoot
         {
             get
@@ -52,7 +57,7 @@ namespace ChameleonCoder
 
         public string Info_Name { get { return Res.Info_Name; } }
         public string Info_Description { get { return Res.Info_Description; } }
-        public string Info_GUID { get { return Res.Info_GUID; } }
+        public string Info_GUID { get { return Res.Info_Identifier; } }
         public string Info_Icon { get { return Res.Info_Icon; } }
         public string Info_Special { get { return Res.Info_Special; } }
         public string Info_Author { get { return Res.Info_Author; } }

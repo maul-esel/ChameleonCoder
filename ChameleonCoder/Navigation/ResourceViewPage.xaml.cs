@@ -10,7 +10,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying resource details
     /// </summary>
-    public partial class ResourceViewPage : Page
+    public sealed partial class ResourceViewPage : Page
     {
         /// <summary>
         /// creates a new instance of this page, given a resource to display
@@ -28,8 +28,8 @@ namespace ChameleonCoder.Navigation
             {
                 if (PluginManager.ActiveModule != null)
                     PluginManager.UnloadModule();
-                if (PluginManager.IsModuleRegistered(langRes.language))
-                    PluginManager.LoadModule(langRes.language);
+                if (PluginManager.IsModuleRegistered(langRes.Language))
+                    PluginManager.LoadModule(langRes.Language);
             }
         }
 
@@ -52,7 +52,7 @@ namespace ChameleonCoder.Navigation
         {
         	var box = sender as TextBox;
             string value = box.Text;
-            string key = ((KeyValuePair<string, string>)(((sender as TextBox).TemplatedParent as ContentPresenter).Parent as GridViewRowPresenter).Content).Key;
+            string key = ((KeyValuePair<string, string>)((box.TemplatedParent as ContentPresenter).Parent as GridViewRowPresenter).Content).Key;
 
             Resource.SetMetadata(key, value);
             box.InvalidateProperty(System.Windows.FrameworkElement.WidthProperty);

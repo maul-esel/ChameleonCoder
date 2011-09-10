@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Media;
-using System.Linq;
-using System.Text;
 
 namespace ChameleonCoder.Resources.RichContent
 {
-    public class ContentMemberTypeInfo
+    [Obsolete("use component factory", false)]
+    public sealed class ContentMemberTypeInfo
     {
         public ContentMemberTypeInfo(string alias, Guid requiredLang)
         {

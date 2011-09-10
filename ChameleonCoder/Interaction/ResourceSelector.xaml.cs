@@ -68,7 +68,7 @@ namespace ChameleonCoder.Interaction
 
         int maxCount = -1;
 
-        public List<IResource> resources = new List<IResource>();
+        public List<IResource> resourceList = new List<IResource>();
 
         /// <summary>
         /// adds a resource to the list of selected resources
@@ -80,7 +80,7 @@ namespace ChameleonCoder.Interaction
             if (Catalog.SelectedItem == null)
                 return;
 
-            resources.Add(Catalog.SelectedItem as IResource);
+            resourceList.Add(Catalog.SelectedItem as IResource);
             ValidateButtons(null, null);
         }
 
@@ -94,7 +94,7 @@ namespace ChameleonCoder.Interaction
             if (Catalog.SelectedItem == null)
                 return;
 
-            resources.Remove(Catalog.SelectedItem as IResource);
+            resourceList.Remove(Catalog.SelectedItem as IResource);
             ValidateButtons(null, null);
         }
 
@@ -108,7 +108,7 @@ namespace ChameleonCoder.Interaction
             if (Catalog.SelectedItem == null)
                 return;
             
-            if (resources.Contains(Catalog.SelectedItem as IResource))
+            if (resourceList.Contains(Catalog.SelectedItem as IResource))
             {
                 AddButton.Visibility = Visibility.Hidden;
                 RemButton.Visibility = Visibility.Visible;
@@ -119,7 +119,7 @@ namespace ChameleonCoder.Interaction
                 RemButton.Visibility = Visibility.Hidden;
             }
 
-            if (resources.Count >= maxCount)
+            if (resourceList.Count >= maxCount)
                 AddButton.Visibility = Visibility.Hidden;
 
             DataContext = new { Lang = App.Gui.DataContext, Res = Catalog.SelectedItem };

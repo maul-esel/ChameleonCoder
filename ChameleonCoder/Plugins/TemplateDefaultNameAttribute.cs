@@ -3,10 +3,10 @@
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
-    /// defines a custom default name for a resource created through the wrapper template
+    /// defines a Custom default name for a resource created through the wrapper template
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class TemplateDefaultNameAttribute : Attribute
+    public sealed class TemplateDefaultNameAttribute : Attribute
     {
         /// <summary>
         /// creates a new instance of the attribute
@@ -14,9 +14,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="name">the default name to use</param>
         public TemplateDefaultNameAttribute(string name)
         {
-            Name = name;
+            this.name = name;
         }
 
-        internal readonly string Name;
+        internal string Name { get { return name; } }
+
+        private readonly string name;
     }
 }

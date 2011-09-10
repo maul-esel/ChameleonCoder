@@ -42,7 +42,7 @@ namespace ChameleonCoder
         /// <param name="e">additional data containing the cmd arguments</param>
         private void InitHandler(Object sender, StartupEventArgs e)
         {
-            // setting the language the user chose
+            // setting the Language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
 
             // associate the instances created in XAML with the classes
@@ -104,7 +104,7 @@ namespace ChameleonCoder
             {
                 Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
                 foreach (XmlElement element in DataFile.GetResources())
-                    AddResource(element, null); // and parse the xml
+                    AddResource(element, null); // and parse the Xml
             });
 
             MainWindow = new MainWindow(); // open the main window during plugin loading and parsing
@@ -149,7 +149,7 @@ namespace ChameleonCoder
                 return; // ignore
             }
 
-            resource.Init(node, parent); // give the resource the information it requires
+            resource.Initialize(node, parent); // give the resource the information it requires
             ResourceManager.Add(resource, parent); // and add it to all required lists
 
             foreach (XmlElement child in node.ChildNodes)

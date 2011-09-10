@@ -13,21 +13,21 @@ namespace ChameleonCoder.Interaction
     /// </summary>
     /// <param name="sender">the resource raising the event</param>
     /// <param name="e">additional data</param>
-    public delegate void ResourceEventHandler(IResource sender, EventArgs args);
+    public delegate void ResourceEventHandler(object sender, EventArgs e);
 
     /// <summary>
     /// a delegate for LanguageModule events
     /// </summary>
     /// <param name="sender">the LanguageModule raising the event</param>
     /// <param name="e">additional data</param>
-    public delegate void LanguageModuleEventHandler(ILanguageModule sender, EventArgs args);
+    public delegate void LanguageModuleEventHandler(object sender, EventArgs e);
 
     /// <summary>
     /// a delegate for Service Events
     /// </summary>
     /// <param name="sender">the service raising the event</param>
     /// <param name="e">additional data</param>
-    public delegate void ServiceEventHandler(IService sender, EventArgs args);
+    public delegate void ServiceEventHandler(object sender, EventArgs e);
 
     /// <summary>
     /// a delegate for Settings events
@@ -43,7 +43,7 @@ namespace ChameleonCoder.Interaction
         #region settings
 
         /// <summary>
-        /// the user's language as LCID code
+        /// the user's Language as LCID code
         /// </summary>
         public static int Language { get { return Properties.Settings.Default.Language; } }
 
@@ -233,22 +233,22 @@ namespace ChameleonCoder.Interaction
         public static event ResourceEventHandler ResourceUnloaded;
 
         /// <summary>
-        /// raised when a language module is going to be loaded
+        /// raised when a Language module is going to be loaded
         /// </summary>
         public static event LanguageModuleEventHandler ModuleLoad;
 
         /// <summary>
-        /// raised when a language module was loaded
+        /// raised when a Language module was loaded
         /// </summary>
         public static event LanguageModuleEventHandler ModuleLoaded;
 
         /// <summary>
-        /// raised when a language module is going to be unloaded
+        /// raised when a Language module is going to be unloaded
         /// </summary>
         public static event LanguageModuleEventHandler ModuleUnload;
 
         /// <summary>
-        /// raised when a language module was unloaded
+        /// raised when a Language module was unloaded
         /// </summary>
         public static event LanguageModuleEventHandler ModuleUnloaded;
 

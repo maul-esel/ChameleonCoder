@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace GuidCreator
+namespace ChameleonCoder.Services
 {
-    public class GUIDConverter : IValueConverter
+    public class GuidConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

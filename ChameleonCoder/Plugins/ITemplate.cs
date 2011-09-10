@@ -3,6 +3,11 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Plugins
 {
+    /// <summary>
+    /// an interface to implement by templates.
+    /// Templates are a kind of 'macro' on resource-creation:
+    /// They create a new resource and perform special actions on it.
+    /// </summary>
     public interface ITemplate : IPlugin
     {
         /// <summary>
@@ -28,6 +33,6 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="parent">the parent resource or null is it is a new top resource</param>
         /// <returns>the newly created resource</returns>
-        IResource Create(IResource parent, string Name);
+        IResource Create(IResource parent, string name);
     }
 }

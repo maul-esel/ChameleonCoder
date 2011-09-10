@@ -423,20 +423,20 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die GUID: ähnelt.
-        /// </summary>
-        internal static string Info_GUID {
-            get {
-                return ResourceManager.GetString("Info_GUID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Icon: ähnelt.
         /// </summary>
         internal static string Info_Icon {
             get {
                 return ResourceManager.GetString("Info_Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Identifier: ähnelt.
+        /// </summary>
+        internal static string Info_Identifier {
+            get {
+                return ResourceManager.GetString("Info_Identifier", resourceCulture);
             }
         }
         
@@ -711,7 +711,7 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die language modules ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Language modules ähnelt.
         /// </summary>
         internal static string Plugin_LanguageModule {
             get {

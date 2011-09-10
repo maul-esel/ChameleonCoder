@@ -3,7 +3,7 @@
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
-    /// custom EventArgs class for CodeGenerators
+    /// Custom EventArgs class for CodeGenerators
     /// </summary>
     public class CodeGeneratorEventArgs : EventArgs
     {

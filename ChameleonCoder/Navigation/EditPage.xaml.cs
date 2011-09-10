@@ -8,7 +8,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying the edit control to edit resources
     /// </summary>
-    public partial class EditPage : Page
+    public sealed partial class EditPage : Page
     {
         /// <summary>
         /// creates a new instance of the page, given an IEditable resource
@@ -26,8 +26,8 @@ namespace ChameleonCoder.Navigation
             {
                 if (PluginManager.ActiveModule != null)
                     PluginManager.UnloadModule();
-                if (PluginManager.IsModuleRegistered(langRes.language))
-                    PluginManager.LoadModule(langRes.language);
+                if (PluginManager.IsModuleRegistered(langRes.Language))
+                    PluginManager.LoadModule(langRes.Language);
             }
         }
 

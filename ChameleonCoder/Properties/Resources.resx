@@ -213,8 +213,8 @@
   <data name="Info_FSPath" xml:space="preserve">
     <value>Path:</value>
   </data>
-  <data name="Info_GUID" xml:space="preserve">
-    <value>GUID:</value>
+  <data name="Info_Identifier" xml:space="preserve">
+    <value>Identifier:</value>
   </data>
   <data name="Info_Icon" xml:space="preserve">
     <value>Icon:</value>

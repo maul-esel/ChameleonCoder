@@ -10,7 +10,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying all registered resources
     /// </summary>
-    public partial class ResourceListPage : Page
+    public sealed partial class ResourceListPage : Page
     {
         /// <summary>
         /// creates a new instance of this page
@@ -77,7 +77,7 @@ namespace ChameleonCoder.Navigation
             if (IsInitialized) // if the page is initialized
             {
                 if (enabled) // if enabled: add group description (group by CustomGroupConverter)
-                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter()));
+                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter(), StringComparison.CurrentCulture));
                 else // othwerwise: remove group descriptions
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Clear();
             }

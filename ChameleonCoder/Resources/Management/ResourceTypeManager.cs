@@ -65,7 +65,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateInstanceOf(Type type, string name, IEnumerable<KeyValuePair<string, string>> attributes, IResource parent)
+        public static IResource CreateInstanceOf(Type type, string name, IDictionary<string, string> attributes, IResource parent)
         {
             var resource = Activator.CreateInstance(type) as IResource;
 
@@ -84,7 +84,9 @@ namespace ChameleonCoder.Resources.Management
                     element.SetAttribute(attribute.Key, attribute.Value);
                 }
 
-                resource.Init(element, parent);
+                element.SetAttribute("name", name);
+
+                resource.Initialize(element, parent);
                 ResourceManager.Add(resource, parent);
 
                 return resource;
@@ -103,7 +105,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateInstanceOf(string alias, string name, IEnumerable<KeyValuePair<string, string>> attributes, IResource parent)
+        public static IResource CreateInstanceOf(string alias, string name, IDictionary<string, string> attributes, IResource parent)
         {
             return CreateInstanceOf(GetResourceType(alias), name, attributes, parent);
         }

@@ -8,9 +8,7 @@ namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
     /// a class representing a resource that serves as link to another resource
-    /// inherits from ResourceBase
     /// </summary>
-    [CCPlugin]
     public class LinkResource : ResourceBase, IResolvable
     {
         #region IResource
@@ -91,7 +89,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             return InformationProvider.GetResourceInstance(Destination);
         }
 
-        public bool shouldResolve { get { return true; } }
+        public bool ShouldResolve { get { return true; } }
 
         #endregion
 

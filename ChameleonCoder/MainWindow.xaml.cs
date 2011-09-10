@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +14,7 @@ namespace ChameleonCoder
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    [CLSCompliant(false)]
     public partial class MainWindow : RibbonWindow
     {
         internal ViewModel MVVM { get { return DataContext as ViewModel; } }
@@ -100,10 +100,10 @@ namespace ChameleonCoder
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
             if (selector.ShowDialog() == true
-                && selector.resources.Count > 0
-                && selector.resources[0] != ResourceManager.ActiveItem)
+                && selector.resourceList.Count > 0
+                && selector.resourceList[0] != ResourceManager.ActiveItem)
             {
-                ResourceManager.ActiveItem.Copy(selector.resources[0]);
+                ResourceManager.ActiveItem.Copy(selector.resourceList[0]);
             }
         }
 
@@ -132,7 +132,7 @@ namespace ChameleonCoder
                 IResource resource = ResourceManager.ActiveItem;
                 IResolvable link;
 
-                while ((link = resource as IResolvable) != null && link.shouldResolve)
+                while ((link = resource as IResolvable) != null && link.ShouldResolve)
                     resource = link.Resolve();
 
                 IEditable editResource = resource as IEditable;
@@ -151,16 +151,16 @@ namespace ChameleonCoder
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
             if (selector.ShowDialog() == true // user did not cancel
-                && selector.resources.Count > 0 // user selected 1 resource
-                && selector.resources[0] != null // resource is not null
-                && selector.resources[0] != ResourceManager.ActiveItem.Parent) // resource is already parent
+                && selector.resourceList.Count > 0 // user selected 1 resource
+                && selector.resourceList[0] != null // resource is not null
+                && selector.resourceList[0] != ResourceManager.ActiveItem.Parent) // resource is already parent
             {
-                if (!selector.resources[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
+                if (!selector.resourceList[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
                 {
-                    ResourceManager.ActiveItem.Move(selector.resources[0]);
+                    ResourceManager.ActiveItem.Move(selector.resourceList[0]);
                 }
                 else
-                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, selector.resources[0].Name),
+                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, selector.resourceList[0].Name),
                                     Properties.Resources.Status_Move);
             }
         }

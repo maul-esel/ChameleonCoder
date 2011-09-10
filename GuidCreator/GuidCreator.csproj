@@ -8,7 +8,7 @@
     <ProjectGuid>{A0949735-7B31-4192-9102-BD64C16C19C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GuidCreator</RootNamespace>
+    <RootNamespace>ChameleonCoder.Services</RootNamespace>
     <AssemblyName>GuidCreator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -63,6 +63,10 @@
       <HintPath>..\Deploy\ChameleonCoder.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Odyssey, Version=1.4.21.36154, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -82,7 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="GUIDConverter.cs" />
+    <Compile Include="GuidConverter.cs" />
     <Compile Include="GuidCreator.cs" />
     <Compile Include="CreatorView.xaml.cs">
       <DependentUpon>CreatorView.xaml</DependentUpon>

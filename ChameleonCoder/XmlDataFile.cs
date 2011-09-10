@@ -46,7 +46,7 @@ namespace ChameleonCoder
             var components = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components"); // get the component registration
 
             var comp = Document.CreateElement("component"); // add a XmlElement storing the information
-            comp.SetAttribute("guid", id.ToString("b")); // ... the id
+            comp.SetAttribute("id", id.ToString("b")); // ... the id
             comp.SetAttribute("path", source); // ... and the relative / given path
 
             components.AppendChild(comp); // registrate the file
@@ -63,7 +63,7 @@ namespace ChameleonCoder
         /// <exception cref="FileNotFoundException">the source component does not exist</exception>
         public override Guid CopyFSComponent(Guid id, string dest)
         {
-            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@guid='" + id.ToString("b") + "']");
+            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@id='" + id.ToString("b") + "']");
             if (comp == null)
                 throw new ArgumentException("this component is not registered: '" + id.ToString("b") + "'", "id");
 
@@ -75,7 +75,7 @@ namespace ChameleonCoder
                 var newId = Guid.NewGuid();
 
                 var copy = Document.CreateElement("component");
-                copy.SetAttribute("guid", newId.ToString("b"));
+                copy.SetAttribute("id", newId.ToString("b"));
                 copy.SetAttribute("path", dest);
                 Document.SelectSingleNode("/cc-resource-file/components").AppendChild(copy);
 
@@ -90,7 +90,7 @@ namespace ChameleonCoder
         /// <param name="id">the Guid that identifies the component inside the DataFile</param>
         public override void DeleteFSComponent(Guid id)
         {
-            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@guid='" + id.ToString("b") + "']");
+            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@id='" + id.ToString("b") + "']");
             if (comp != null)
             {
                 File.Delete(MakeAbsolutePath(comp.GetAttribute("path")));
@@ -107,7 +107,7 @@ namespace ChameleonCoder
         /// <returns>true is the component exists, false otherwise</returns>
         public override bool Exists(Guid id)
         {
-            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@guid='" + id.ToString("b") + "']");
+            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@id='" + id.ToString("b") + "']");
             if (comp == null)
                 return false;
 
@@ -123,7 +123,7 @@ namespace ChameleonCoder
         /// <exception cref="FileNotFoundException">the source component does not exist</exception>
         public override Stream GetStream(Guid id)
         {
-            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@guid='" + id.ToString("b") + "']");
+            var comp = (XmlElement)Document.SelectSingleNode("/cc-resource-file/components/component[@id='" + id.ToString("b") + "']");
             if (comp == null)
                 throw new ArgumentException("this component is not registered: '" + id.ToString("b") + "'", "id");
 

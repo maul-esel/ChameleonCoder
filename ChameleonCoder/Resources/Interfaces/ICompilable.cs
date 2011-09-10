@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChameleonCoder.Resources.Interfaces
+﻿namespace ChameleonCoder.Resources.Interfaces
 {
+    /// <summary>
+    /// an interface to implement by resources that can be compiled
+    /// </summary>
     public interface ICompilable : ILanguageResource
     {
-        string compilationPath { get; }
+        /// <summary>
+        /// the path to which the resource would be compiled
+        /// </summary>
+        string CompilationPath { get; }
     }
 }

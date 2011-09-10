@@ -7,7 +7,7 @@ using ChameleonCoder.Resources.Interfaces;
 namespace ChameleonCoder.Converter
 {
     /// <summary>
-    /// converts an IResource instance to the corresponding language module's icon.
+    /// converts an IResource instance to the corresponding Language module's icon.
     /// </summary>
     [ValueConversion(typeof(IResource), typeof(ImageSource))]
     internal sealed class ModuleIconConverter : IValueConverter
@@ -29,7 +29,7 @@ namespace ChameleonCoder.Converter
             {
                 IResolvable link;
                 // if it is an IResolvable, iterate through the resolved resources
-                while ((link = resource as IResolvable) != null && link.shouldResolve)
+                while ((link = resource as IResolvable) != null && link.ShouldResolve)
                     resource = link.Resolve();
 
                 // check if resource is still non-null
@@ -41,8 +41,8 @@ namespace ChameleonCoder.Converter
                     if (langRes != null)
                     {
                         ILanguageModule module;
-                        // check if the corresponding language module is registered and it has a non-null icon
-                        if (PluginManager.TryGetModule(langRes.language, out module) && module.Icon != null)
+                        // check if the corresponding Language module is registered and it has a non-null icon
+                        if (PluginManager.TryGetModule(langRes.Language, out module) && module.Icon != null)
                             // if so: return its icon
                             return module.Icon.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
                     }

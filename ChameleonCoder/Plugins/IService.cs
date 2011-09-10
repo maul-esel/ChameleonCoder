@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ChameleonCoder.Plugins
+﻿namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// the interface for a service

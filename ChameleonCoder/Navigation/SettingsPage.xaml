@@ -43,7 +43,7 @@
                 <Button Content="{Binding Path=Action_Apply}" Click="SetLanguage"/>
             </StackPanel>
             
-            <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding Path=Setting_EnableUpdate}" Margin="5" x:Name="updateCheck"/>
+            <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding Path=Setting_EnableUpdate}" Margin="5"/>
 
             <CheckBox x:Name="extInstCheck" Click="InstallExtensions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding Path=Setting_InstallExt}" Margin="5"/>
 

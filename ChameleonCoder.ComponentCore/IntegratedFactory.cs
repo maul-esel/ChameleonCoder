@@ -14,7 +14,7 @@ using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 namespace ChameleonCoder.ComponentCore
 {
     [CCPlugin]
-    public class IntegratedFactory : IComponentFactory
+    public sealed class IntegratedFactory : IComponentFactory
     {
         #region IPlugin
 
@@ -136,12 +136,14 @@ namespace ChameleonCoder.ComponentCore
             return null;
         }
 
-        public Type[] GetRegisteredTypes()
+        public IEnumerable<Type> RegisteredTypes
         {
-            return new Type[7] { typeof(FileResource), typeof(CodeResource), typeof(LibraryResource),
+            get { return registeredTypesArray; }
+        }
+
+        Type[] registeredTypesArray = new Type[7] { typeof(FileResource), typeof(CodeResource), typeof(LibraryResource),
                                 typeof(LinkResource), typeof(ProjectResource), typeof(TaskResource),
                                 typeof(GroupResource) };
-        }
 
         #endregion
     }

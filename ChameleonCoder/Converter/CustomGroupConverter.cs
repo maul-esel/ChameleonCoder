@@ -27,7 +27,7 @@ namespace ChameleonCoder.Converter
             {
                 IResolvable link;
                 // if it is an IResolvable, iterate through the resolved resources
-                while ((link = (resource as IResolvable)) != null && link.shouldResolve)
+                while ((link = (resource as IResolvable)) != null && link.ShouldResolve)
                     resource = link.Resolve();
 
                 // if the resource is still non-null...

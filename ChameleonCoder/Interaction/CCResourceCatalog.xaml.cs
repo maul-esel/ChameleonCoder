@@ -11,7 +11,7 @@ namespace ChameleonCoder.Interaction
     /// <summary>
     /// a user control that displays a caller-defined set of resources
     /// </summary>
-    public partial class CCResourceCatalog : UserControl
+    public sealed partial class CCResourceCatalog : UserControl
     {
         #region constructors
         /// <summary>
@@ -53,7 +53,7 @@ namespace ChameleonCoder.Interaction
                 top.Add(parent); // ... and add the parent as only element
             }
 
-            Init(top); // redirect to Init() method
+            Init(top); // redirect to Initialize() method
         }
 
         /// <summary>
@@ -78,6 +78,10 @@ namespace ChameleonCoder.Interaction
         /// </summary>
         public ResourceCollection Collection // TODO: make DependencyProperty
         {
+            get
+            {
+                return TreeView.DataContext as ResourceCollection;
+            }
             set
             {
                 TreeView.DataContext = value;

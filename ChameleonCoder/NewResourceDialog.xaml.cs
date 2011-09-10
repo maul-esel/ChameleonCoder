@@ -9,9 +9,9 @@ using ChameleonCoder.Resources.Management;
 namespace ChameleonCoder
 {
     /// <summary>
-    /// Interaktionslogik für NewResourceDialog.xaml
+    /// the dialog to let the user create a new resource
     /// </summary>
-    public partial class NewResourceDialog : Window
+    public sealed partial class NewResourceDialog : Window
     {
         #region constructors
         public NewResourceDialog(IResource parent)

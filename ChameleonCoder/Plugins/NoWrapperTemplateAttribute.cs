@@ -6,7 +6,7 @@ namespace ChameleonCoder.Plugins
     /// defines that a wrapper template should not be created for this class
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class NoWrapperTemplateAttribute : Attribute
+    public sealed class NoWrapperTemplateAttribute : Attribute
     {
     }
 }

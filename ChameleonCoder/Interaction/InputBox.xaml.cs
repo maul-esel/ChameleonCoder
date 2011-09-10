@@ -6,7 +6,7 @@ namespace ChameleonCoder.Interaction
     /// <summary>
     /// Interaktionslogik für InputBox.xaml
     /// </summary>
-    public partial class InputBox : Window
+    public sealed partial class InputBox : Window
     {
         public InputBox(string title, string prompt, Func<string, Action<string>, bool> validation)
         {

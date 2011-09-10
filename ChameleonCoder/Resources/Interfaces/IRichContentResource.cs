@@ -1,5 +1,8 @@
 ﻿namespace ChameleonCoder.Resources.Interfaces
 {
+    /// <summary>
+    /// an interface to implement by resources that can host RichContent
+    /// </summary>
     public interface IRichContentResource : IResource
     {
         /// <summary>

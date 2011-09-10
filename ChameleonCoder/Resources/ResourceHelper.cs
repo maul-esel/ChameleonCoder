@@ -52,7 +52,7 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="resource">the resource to copy</param>
         /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
-        /// <param name="moveGUID">a bool defining whether the copy should receive the original GUID or not.</param>
+        /// <param name="moveGUID">a bool defining whether the copy should receive the original Identifier or not.</param>
         public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
         {
             var doc = (newParent == null ? resource.GetResourceFile() : newParent.GetResourceFile()).Document;
@@ -66,13 +66,13 @@ namespace ChameleonCoder
             else // if parent:
                 newParent.Xml.AppendChild(element); // add element to parent's Children
 
-            if (moveGUID) // if the copy should receive the original GUID:
+            if (moveGUID) // if the copy should receive the original Identifier:
             {
-                resource.Xml.SetAttribute("guid", Guid.NewGuid().ToString("n")); // set the GUID-attribute of the old instance
-                resource.Init(resource.Xml, resource.Parent); // re-init it to apply the changes
+                resource.Xml.SetAttribute("id", Guid.NewGuid().ToString("b")); // set the Identifier-attribute of the old instance
+                resource.Initialize(resource.Xml, resource.Parent); // re-init it to apply the changes
             }
-            else // if the copy receives a new GUID:
-                element.SetAttribute("guid", Guid.NewGuid().ToString("n")); // set the approbriate attribute
+            else // if the copy receives a new Identifier:
+                element.SetAttribute("id", Guid.NewGuid().ToString("b")); // set the approbriate attribute
 
             App.AddResource(element, newParent); // let the App class create an instance, add it to the lists, init it, ...
 
@@ -82,7 +82,7 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// copies a resource to a new parent, giving it a new GUID
+        /// copies a resource to a new parent, giving it a new Identifier
         /// </summary>
         /// <param name="resource">the resource to copy</param>
         /// <param name="newParent">the new parent resource or null to make it a top-level resource</param
@@ -147,7 +147,7 @@ namespace ChameleonCoder
         /// gets a list of all metadata elements for the resource
         /// </summary>
         /// <param name="resource">the resource to analyze</param>
-        /// <returns>a dictionary containing the metadata, which is empty if none is found</returns>
+        /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
         public static Dictionary<string, string> GetMetadata(this IResource resource)
         {
             var doc = resource.GetResourceFile().Document;
@@ -257,11 +257,11 @@ namespace ChameleonCoder
         {
             var doc = resource.GetResourceFile().Document;
 
-            var data = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@guid='" + resource.GUID.ToString("b") + "']");
+            var data = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@id='" + resource.Identifier.ToString("b") + "']");
             if (data == null && create)
             {
                 data = doc.CreateElement("resource-data"); // create it
-                data.SetAttribute("guid", resource.GUID.ToString("b")); // associate it with the resource
+                data.SetAttribute("id", resource.Identifier.ToString("b")); // associate it with the resource
                 doc.SelectSingleNode("/cc-resource-file/data").AppendChild(data); // and insert it into the document
             }
 
@@ -288,8 +288,8 @@ namespace ChameleonCoder
 
         public static IResource GetResourceFromPath(string path, string separator)
         {
-            if (path.StartsWith("CC" + separator))
-                path.Remove(0, 3);
+            if (path.StartsWith("CC" + separator, StringComparison.Ordinal))
+                path = path.Remove(0, 3);
             Resources.ResourceCollection collection = Resources.Management.ResourceManager.GetChildren();
             string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -319,7 +319,8 @@ namespace ChameleonCoder
 
         public static bool IsDescendantOf(this IResource resource, IResource ancestor)
         {
-            return resource.GetPath().StartsWith(ancestor.GetPath());
+            return resource.GetPath().StartsWith(ancestor.GetPath(), StringComparison.Ordinal);
+            // todo: find a better way to do this, as duplicate names are allowed
         }
 
         public static bool IsAncestorOf(this IResource resource, IResource descendant)

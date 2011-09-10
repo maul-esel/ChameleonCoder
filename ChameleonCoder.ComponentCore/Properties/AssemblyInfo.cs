@@ -17,6 +17,8 @@ using System.Runtime.InteropServices;
 // für COM-Komponenten. Wenn Sie auf einen Typ in dieser Assembly von 
 // COM zugreifen müssen, legen Sie das ComVisible-Attribut für diesen Typ auf "true" fest.
 [assembly: ComVisible(false)]
+[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
+[assembly: System.CLSCompliant(true)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
 [assembly: Guid("cd2ebec0-8eb6-4744-9f9c-0bffe82fb3aa")]

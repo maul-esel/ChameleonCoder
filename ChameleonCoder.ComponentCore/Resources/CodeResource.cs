@@ -20,10 +20,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
-        public override void Init(XmlElement node, IResource parent)
+        public override void Initialize(XmlElement data, IResource parent)
         {
-            base.Init(node, parent);
-            compatibleLanguages = new List<Guid>();
+            base.Initialize(data, parent);
             // todo: parse compatible languages
         }
 
@@ -38,7 +37,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// contains the languages to which the file is compatible
         /// </summary>
-        public Guid language
+        public Guid Language
         {
             get
             {
@@ -52,12 +51,17 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Xml.SetAttribute("language", value.ToString());
-                OnPropertyChanged("language");
+                Xml.SetAttribute("language", value.ToString("b"));
+                OnPropertyChanged("Language");
             }
         }
 
-        public List<Guid> compatibleLanguages { get; protected set; }
+        public IEnumerable<Guid> CompatibleLanguages
+        {
+            get { return languages; }
+        }
+
+        private List<Guid> languages = new List<Guid>();
 
         #endregion
 
@@ -67,7 +71,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// the path to save the file if it is compiled.
         /// </summary>
         [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
-        public string compilationPath
+        public string CompilationPath
         {
             get
             {
@@ -79,7 +83,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             set
             {
                 Xml.SetAttribute("compilation-path", value);
-                OnPropertyChanged("compilationPath");
+                OnPropertyChanged("CompilationPath");
             }
         }
 
@@ -109,7 +113,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 ILanguageModule module;
-                if (PluginManager.TryGetModule(language, out module))
+                if (PluginManager.TryGetModule(Language, out module))
                     return module.Name;
                 return "error: module could not be found";
             }
@@ -121,7 +125,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 string list = string.Empty;
-                foreach (Guid lang in compatibleLanguages)
+                foreach (Guid lang in CompatibleLanguages)
                 {
                     ILanguageModule module;
                     if (PluginManager.TryGetModule(lang, out module))

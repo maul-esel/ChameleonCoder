@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChameleonCoder.Resources.Interfaces
+﻿namespace ChameleonCoder.Resources.Interfaces
 {
     public interface IExecutable : ILanguageResource
     {

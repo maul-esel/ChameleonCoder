@@ -14,8 +14,15 @@ namespace ChameleonCoder.ComponentCore.Resources
     {
         #region INotifyPropertyChanged
 
+        /// <summary>
+        /// fired when an important property changes
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// fires the ProeprtyChanged event
+        /// </summary>
+        /// <param name="name">the name of the paorperty that changed</param>
         protected void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -30,32 +37,41 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// serves as base initializer for inherited classes and sets general properties
         /// </summary>
-        /// <param name="node">the XmlNode that contains the resource</param>
+        /// <param name="data">the XmlNode that contains the resource</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Init(XmlElement data, IResource parent)
+        public virtual void Initialize(XmlElement data, IResource parent)
         {
             Xml = data;
             Parent = parent;
 
-            if (Children == null)
-                Children = new ResourceCollection();
-
-            string guid = Xml.GetAttribute("guid");
+            string guid = Xml.GetAttribute("id");
             Guid id;
             if (!Guid.TryParse(guid, out id))
             {
                 id = Guid.NewGuid();
-                Xml.SetAttribute("guid", id.ToString());
+                Xml.SetAttribute("id", id.ToString("b"));
             }
-            GUID = id;
+            Identifier = id;
         }
 
+        /// <summary>
+        /// gets the XmlElement representing the resource
+        /// </summary>
         public XmlElement Xml { get; private set; }
 
+        /// <summary>
+        /// when overriden in a derived class, gets the resource's icon
+        /// </summary>
         public abstract ImageSource Icon { get; }
 
-        public Guid GUID { get; protected set; }
+        /// <summary>
+        /// gets the resource's unique identifier
+        /// </summary>
+        public Guid Identifier { get; protected set; }
 
+        /// <summary>
+        /// gets the resource's name
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.Name, ResourcePropertyGroup.General)]
         public virtual string Name
         {
@@ -70,6 +86,9 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets the resource's description
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.Description, ResourcePropertyGroup.General)]
         public virtual string Description
         {
@@ -84,6 +103,9 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets the resource's notes
+        /// </summary>
         public virtual string Notes
         {
             get
@@ -97,16 +119,33 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// When overriden in a derived class, gets an icon indicating an important property's status
+        /// </summary>
         public virtual ImageSource SpecialVisualProperty { get { return null; } }
 
-        public virtual IResource Parent { get; private set; }
+        /// <summary>
+        /// gets the current instance's parent resource
+        /// </summary>
+        public IResource Parent { get; private set; }
 
-        public virtual ResourceCollection Children { get; private set; }
+        /// <summary>
+        /// gets the current instance's children
+        /// </summary>
+        public ResourceCollection Children
+        {
+            get { return childrenCollection; }
+        }
+
+        private ResourceCollection childrenCollection = new ResourceCollection();
 
         #endregion        
 
         #region PropertyAliases
 
+        /// <summary>
+        /// gets the name of the resource's parent resource
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.Parent, ResourcePropertyGroup.General, IsReadOnly = true)]
         public string ParentName
         {
@@ -118,12 +157,15 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        [ResourceProperty(CommonResourceProperty.GUID, ResourcePropertyGroup.General, IsReadOnly = true)]
-        public string GUIDName
+        /// <summary>
+        /// gets the resource's identifier as string
+        /// </summary>
+        [ResourceProperty(CommonResourceProperty.Identifier, ResourcePropertyGroup.General, IsReadOnly = true)]
+        public string IdentifierName
         {
             get
             {
-                return GUID.ToString("b");
+                return Identifier.ToString("b");
             }
         }
         #endregion

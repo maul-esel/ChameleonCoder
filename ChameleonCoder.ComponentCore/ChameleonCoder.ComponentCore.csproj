@@ -36,6 +36,9 @@
       <HintPath>..\Deploy\ChameleonCoder.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Odyssey">
+      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

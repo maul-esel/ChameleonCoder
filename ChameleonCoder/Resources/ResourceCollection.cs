@@ -4,7 +4,7 @@
     {
         public new void Add(Interfaces.IResource instance)
         {
-            base.Add(instance.GUID, instance);
+            base.Add(instance.Identifier, instance);
         }
     }
 }

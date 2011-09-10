@@ -40,7 +40,7 @@
                                                         <StackPanel Orientation="Horizontal">
                                                             <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                         </StackPanel>
-                                                        <Border x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2,2,2,2" Grid.ColumnSpan="1" BorderThickness="1" Width="{Binding ElementName=PropertyGrid, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
+                                                        <Border x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2" Grid.ColumnSpan="1" BorderThickness="1" Width="{Binding ElementName=PropertyGrid, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
                                                         <!--bit ugly way :)-->
                                                     </StackPanel>
                                                 </GroupBox.Header>
@@ -95,7 +95,7 @@
             </ListView.View>
         </ListView>
 
-        <TextBox x:Name="NotesBox" Grid.Column="1" Grid.Row="1"
+        <TextBox Grid.Column="1" Grid.Row="1"
                  AutoWordSelection="True" AcceptsReturn="True"
                  Text="{Binding Path=res.Notes}"/>
     </Grid>

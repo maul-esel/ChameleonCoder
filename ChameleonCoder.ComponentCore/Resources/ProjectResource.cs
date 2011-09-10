@@ -15,15 +15,13 @@ namespace ChameleonCoder.ComponentCore.Resources
     public class ProjectResource : ResourceBase, ICompilable
     {
         /// <summary>
-        /// instantiates a new instance of the ProjectResource class
+        /// initializes the instance
         /// </summary>
-        /// <param name="xml">the XmlDocument that contains the resource's definition</param>
-        /// <param name="xpath">the xpath to the resource's main element</param>
-        /// <param name="datafile">the file that contains the definition</param>
-        public override void Init(XmlElement data, IResource parent)
+        /// <param name="xml">the XmlElement that contains the resource's definition</param>
+        /// <param name="parent">the resource's parent resource</param>
+        public override void Initialize(XmlElement data, IResource parent)
         {
-            base.Init(data, parent);
-            compatibleLanguages = new List<Guid>();
+            base.Initialize(data, parent);
             // todo: parse compatible languages
         }
 
@@ -52,9 +50,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         #region ILanguageResource
 
         /// <summary>
-        /// the GUID of the language in which the project is written
+        /// the GUID of the Language in which the project is written
         /// </summary>
-        public Guid language
+        public Guid Language
         {
             get
             {
@@ -69,11 +67,16 @@ namespace ChameleonCoder.ComponentCore.Resources
             protected set
             {
                 Xml.SetAttribute("language", value.ToString());
-                OnPropertyChanged("language");
+                OnPropertyChanged("Language");
             }
         }
 
-        public List<Guid> compatibleLanguages { get; set; }
+        public IEnumerable<Guid> CompatibleLanguages
+        {
+            get { return languages; }
+        }
+
+        private List<Guid> languages = new List<Guid>();
 
         #endregion
 
@@ -83,7 +86,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// the path to which the project would be compiled
         /// </summary>
         [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
-        public string compilationPath
+        public string CompilationPath
         {
             get
             {
@@ -92,7 +95,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             protected set
             {
                 Xml.SetAttribute("compilation-path", value);
-                OnPropertyChanged("compilationPath");
+                OnPropertyChanged("CompilationPath");
             }
         }
 
@@ -118,26 +121,6 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        /// <summary>
-        /// defines a project's priority
-        /// </summary>
-        public enum ProjectPriority
-        {
-            /// <summary>
-            /// the project has the default (low) priority
-            /// </summary>
-            Low,
-
-            /// <summary>
-            /// the project has a slightly higher priority (middle)
-            /// </summary>
-            Middle,
-
-            /// <summary>
-            /// the project has a high priority
-            /// </summary>
-            High
-        }
 
         [ResourceProperty(CommonResourceProperty.Language, ResourcePropertyGroup.ThisClass)]
         public string LanguageName
@@ -145,7 +128,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 Plugins.ILanguageModule module;
-                if (Plugins.PluginManager.TryGetModule(language, out module))
+                if (Plugins.PluginManager.TryGetModule(Language, out module))
                     return module.Name;
                 return "error: module could not be found";
             }
@@ -157,7 +140,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 string list = string.Empty;
-                foreach (Guid lang in compatibleLanguages)
+                foreach (Guid lang in CompatibleLanguages)
                 {
                     Plugins.ILanguageModule module;
                     if (Plugins.PluginManager.TryGetModule(lang, out module))
@@ -189,5 +172,26 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         internal const string Alias = "project";
+    }
+
+    /// <summary>
+    /// defines a project's priority
+    /// </summary>
+    public enum ProjectPriority
+    {
+        /// <summary>
+        /// the project has the default (low) priority
+        /// </summary>
+        Low,
+
+        /// <summary>
+        /// the project has a slightly higher priority (middle)
+        /// </summary>
+        Middle,
+
+        /// <summary>
+        /// the project has a high priority
+        /// </summary>
+        High
     }
 }

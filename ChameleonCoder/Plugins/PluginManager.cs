@@ -86,7 +86,7 @@ namespace ChameleonCoder.Plugins
             }
 
             ILanguageModule module = plugin as ILanguageModule;
-            if (module != null) // if it is a language module
+            if (module != null) // if it is a Language module
             {
                 Modules.TryAdd(module.Identifier, module); // ...store it
                 module.Initialize(); // ... and initialize it
@@ -144,12 +144,12 @@ namespace ChameleonCoder.Plugins
         internal static ILanguageModule ActiveModule { get; private set; }
 
         /// <summary>
-        /// returns the count of language modules registered
+        /// returns the count of Language modules registered
         /// </summary>
         internal static int ModuleCount { get { return Modules.Count; } }
 
         /// <summary>
-        /// loads a language module given its identifier
+        /// loads a Language module given its identifier
         /// </summary>
         /// <param name="id">the identifier</param>
         /// <exception cref="ArgumentException">thrown if no module with this identifier is registered.</exception>
@@ -318,21 +318,6 @@ namespace ChameleonCoder.Plugins
         static int TemplateCount { get { return Templates.Count; } }
 
         /// <summary>
-        /// invokes the ITemplate.Create() method
-        /// </summary>
-        /// <param name="id">the template's identifier</param>
-        /// <param name="parent">the parent resource for the new resource</param>
-        /// <param name="name">the name for the new resource</param>
-        internal static void Create(Guid id, Resources.Interfaces.IResource parent, string name)
-        {
-            ITemplate template;
-            if (Templates.TryGetValue(id, out template))
-            {
-                template.Create(parent, name);
-            }
-        }
-
-        /// <summary>
         /// gets a list with all registered templates
         /// </summary>
         /// <returns>a list with all registered templates</returns>
@@ -351,19 +336,6 @@ namespace ChameleonCoder.Plugins
         /// gets the count of registered IComponentFactories
         /// </summary>
         internal static int FactoryCount { get { return Factories.Count; } }
-
-        /// <summary>
-        /// returns the IComponentFactory with the given identifier
-        /// </summary>
-        /// <param name="id">the identifier</param>
-        /// <returns>the factory</returns>
-        internal static IComponentFactory GetFactory(Guid id)
-        {
-            IComponentFactory factory;
-            if (Factories.TryGetValue(id, out factory))
-                return factory;
-            throw new ArgumentException("this factory is not registered!\nGuid: " + id.ToString("b"));
-        }
 
         /// <summary>
         /// gets a list of all registered IComponentFactories

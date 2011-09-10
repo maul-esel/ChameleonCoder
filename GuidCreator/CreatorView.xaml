@@ -1,11 +1,11 @@
-﻿<Window x:Class="GuidCreator.CreatorView"
+﻿<Window x:Class="ChameleonCoder.Services.CreatorView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:gc="clr-namespace:GuidCreator"
+        xmlns:gc="clr-namespace:ChameleonCoder.Services"
         Title="MainWindow" Width="525" ShowInTaskbar="False" SizeToContent="Height" Topmost="True">
     <StackPanel>
         <StackPanel.Resources>
-            <gc:GUIDConverter x:Key="conv"/>
+            <gc:GuidConverter x:Key="conv"/>
         </StackPanel.Resources>
         <TextBlock Text="A new GUID was created." HorizontalAlignment="Center"/>
         <TextBox Text="{Binding Converter={StaticResource conv}, NotifyOnSourceUpdated=True, ConverterParameter=N, Mode=OneWay}" x:Name="GuidN" Margin="10" IsReadOnly="True" Width="450" Height="25" HorizontalContentAlignment="Center"/>

@@ -12,7 +12,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a Page displaying all registered plugins
     /// </summary>
-    public partial class PluginPage : Page
+    public sealed partial class PluginPage : Page
     {
         /// <summary>
         /// creates a new instance of the page
@@ -115,18 +115,6 @@ namespace ChameleonCoder.Navigation
         private void RefreshFilter(object sender, EventArgs e)
         {
             CollectionViewSource.GetDefaultView(list.ItemsSource).Refresh();
-        }
-
-        /// <summary>
-        /// gets the plugin from a button on the representing ListBoxItem
-        /// </summary>
-        /// <param name="ctrl">the button</param>
-        /// <returns>the plugin</returns>
-        private IPlugin GetPlugin(FrameworkElement ctrl)
-        {
-            for (int i = 0; i < 2; i++)
-                ctrl = ctrl.Parent as FrameworkElement;
-            return ctrl.DataContext as IPlugin;
         }
 
         /// <summary>

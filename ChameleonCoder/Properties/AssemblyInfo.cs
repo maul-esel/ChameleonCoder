@@ -20,8 +20,9 @@ using System.Windows;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+[assembly: System.CLSCompliant(true)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
+// The following Identifier is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("4120f71f-b728-44c8-bd1d-3f9b187ca602")]
 
 //In order to begin building localizable applications, set 

@@ -2,22 +2,22 @@
 using System.Windows;
 using ChameleonCoder.Interaction;
 
-namespace GuidCreator
+namespace ChameleonCoder.Services
 {
-    public partial class CreatorView : Window
+    public sealed partial class CreatorView : Window
     {
-        public Guid currentGuid { get; private set; }
+        public Guid CurrentGuid { get; private set; }
 
         public CreatorView()
         {
             InitializeComponent();
-            DataContext = currentGuid = Guid.NewGuid();
+            DataContext = CurrentGuid = Guid.NewGuid();
             this.ShowDialog();
         }
 
         public void Invoke(object sender, EventArgs e)
         {
-            DataContext = currentGuid = Guid.NewGuid();
+            DataContext = CurrentGuid = Guid.NewGuid();
         }
 
         public void Enter(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace GuidCreator
                     return true;
                 });
             if (box.ShowDialog() == true)
-                DataContext = currentGuid = Guid.Parse(box.Text);
+                DataContext = CurrentGuid = Guid.Parse(box.Text);
         }
     }
 }
