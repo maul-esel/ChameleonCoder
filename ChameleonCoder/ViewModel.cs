@@ -23,17 +23,22 @@ namespace ChameleonCoder
             {
                 return new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Home,
                     new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
-                    new BreadcrumbContext[]
+                    new BreadcrumbContext[3]
                         {
                         new BreadcrumbContext(Item_List,
                             new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
                             ResourceManager.GetChildren(),
-                            true, false),
+                            BreadcrumbContext.ContextType.ResourceList),
                         new BreadcrumbContext(Item_Settings,
                             new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
                             null,
-                            false, true)
-                        });
+                            BreadcrumbContext.ContextType.Settings),
+                        new BreadcrumbContext(Item_Plugins,
+                            null, // todo: add image
+                            null,
+                            BreadcrumbContext.ContextType.Plugins)
+                        },
+                    BreadcrumbContext.ContextType.Home);
             }
         }
 

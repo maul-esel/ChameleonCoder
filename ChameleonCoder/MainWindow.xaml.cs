@@ -175,12 +175,18 @@ namespace ChameleonCoder
             if (e.NewValue != null)
             {
                 BreadcrumbContext context = e.NewValue.DataContext as BreadcrumbContext;
-                if (e.NewValue.IsRoot)
-                    GoHome(null, null);
-                else if (context != null && context.IsResourceList)
-                    GoList(null, null);
-                else if (context != null && context.IsSettingsPage)
-                    GoSettings(null, null);
+
+                if (context != null)
+                {
+                    if (context.Type == BreadcrumbContext.ContextType.Home)
+                        GoHome(null, null);
+                    else if (context.Type == BreadcrumbContext.ContextType.ResourceList)
+                        GoList(null, null);
+                    else if (context.Type == BreadcrumbContext.ContextType.Settings)
+                        GoSettings(null, null);
+                    else if (context.Type == BreadcrumbContext.ContextType.Plugins)
+                        GoPlugins(null, null);
+                }
                 else
                     ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));
             }

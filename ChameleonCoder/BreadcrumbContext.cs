@@ -3,27 +3,30 @@ using System.Windows.Media;
 
 namespace ChameleonCoder
 {
-    class BreadcrumbContext
+    internal sealed class BreadcrumbContext
     {
-        internal BreadcrumbContext(string name, ImageSource icon, IEnumerable children)
-            : this(name, icon, children, false, false)
-        {
-        }
-
-        internal BreadcrumbContext(string name, ImageSource icon, IEnumerable children, bool isList, bool isSetting)
+        internal BreadcrumbContext(string name, ImageSource icon, IEnumerable children, ContextType type)
         {
             Name = name;
             Icon = icon;
             this.children = children;
-            IsResourceList = isList;
-            IsSettingsPage = isSetting;
+            Type = type;
         }
 
-        public bool IsResourceList { get; private set; }
-        public bool IsSettingsPage { get; private set; }
+        internal ContextType Type { get; private set; }
 
-        public IEnumerable children { get; private set; }
-        public ImageSource Icon { get; private set; }
-        public string Name { get; private set; }
-    }
+        internal IEnumerable children { get; private set; }
+
+        internal ImageSource Icon { get; private set; }
+
+        internal string Name { get; private set; }
+
+        internal enum ContextType
+        {
+            ResourceList,
+            Settings,
+            Plugins,
+            Home
+        }
+    }    
 }
