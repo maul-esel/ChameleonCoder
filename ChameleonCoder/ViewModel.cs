@@ -8,7 +8,7 @@ namespace ChameleonCoder
 {
     internal sealed class ViewModel
     {
-        internal ViewModel()
+        public ViewModel()
         {
             Tabs = new ObservableCollection<TabContext>();
         }
