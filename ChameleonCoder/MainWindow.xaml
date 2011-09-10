@@ -100,7 +100,7 @@
             </Setter>
         </Style>
         
-        <HierarchicalDataTemplate ItemsSource="{Binding Path=children}" x:Key="resourceTemplate">
+        <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" x:Key="resourceTemplate">
 
             <Grid Margin="3" HorizontalAlignment="Stretch">
                 
@@ -404,7 +404,7 @@
                            ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}">
             
             <odc:BreadcrumbBar.BreadcrumbItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
                     
                     <TextBlock Text="{Binding Path=Name}"/>
 

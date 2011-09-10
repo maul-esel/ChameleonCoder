@@ -46,7 +46,7 @@ namespace ChameleonCoder.Interaction
             ResourceCollection top;
 
             if (!includeSelf) // if only childs should be displayed:
-                top = parent.children; // ... use the children collection
+                top = parent.Children; // ... use the Children collection
             else
             {
                 top = new ResourceCollection(); // else create a new collection
@@ -135,7 +135,7 @@ namespace ChameleonCoder.Interaction
             {
                 child = parent.ItemContainerGenerator.ContainerFromIndex(i) as ItemsControl; // get the next item
                 if (child != null)
-                    item = Find(child); // recurse through the item's children
+                    item = Find(child); // recurse through the item's Children
                 i++;
             }
 

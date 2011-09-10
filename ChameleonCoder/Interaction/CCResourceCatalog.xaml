@@ -11,7 +11,7 @@
               ItemsSource="{Binding}" SelectedItemChanged="Expand">
         
         <TreeView.ItemTemplate>
-            <HierarchicalDataTemplate ItemsSource="{Binding Path=children}">
+            <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
                 
                 <Grid Margin="3">
                     

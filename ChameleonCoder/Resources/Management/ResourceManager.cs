@@ -9,7 +9,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
-        private static ResourceCollection children;
+        private static ResourceCollection Children;
 
         /// <summary>
         /// contains a list of ALL resources
@@ -31,7 +31,7 @@ namespace ChameleonCoder.Resources.Management
         internal static void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
         {
             FlatList = flat;
-            children = hierarchy;
+            Children = hierarchy;
         }
 
         /// <summary>
@@ -48,11 +48,11 @@ namespace ChameleonCoder.Resources.Management
             FlatList.Add(instance);
             if (parent == null)
             {
-                children.Add(instance);
+                Children.Add(instance);
             }
             else
             {
-                parent.children.Add(instance);
+                parent.Children.Add(instance);
             }
             instance.PropertyChanged += OnPropertyChanged;
         }
@@ -60,7 +60,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// removes the resource
         /// 1) from the list of ALL resources
-        /// 2) from its parent's children list OR from the list of top-level resources.
+        /// 2) from its parent's Children list OR from the list of top-level resources.
         /// It also removes the handler from the 'PropertyChanged' event.
         /// </summary>
         /// <param name="instance">the instance to remove</param>
@@ -70,11 +70,11 @@ namespace ChameleonCoder.Resources.Management
 
             if (instance.Parent == null)
             {
-                children.Remove(instance);
+                Children.Remove(instance);
             }
             else
             {
-                instance.Parent.children.Remove(instance);
+                instance.Parent.Children.Remove(instance);
             }
 
             instance.PropertyChanged -= OnPropertyChanged;
@@ -82,7 +82,7 @@ namespace ChameleonCoder.Resources.Management
 
         internal static ResourceCollection GetChildren()
         {
-            return children;
+            return Children;
         }
 
         internal static ResourceCollection GetList()

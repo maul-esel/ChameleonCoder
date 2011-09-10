@@ -9,24 +9,24 @@ namespace ChameleonCoder
         {
             Name = name;
             Icon = icon;
-            this.children = children;
+            Children = children;
             Type = type;
         }
 
         internal ContextType Type { get; private set; }
 
-        internal IEnumerable children { get; private set; }
+        public IEnumerable Children { get; private set; }
 
-        internal ImageSource Icon { get; private set; }
+        public ImageSource Icon { get; private set; }
 
-        internal string Name { get; private set; }
+        public string Name { get; private set; }
 
         internal enum ContextType
         {
+            Home,
             ResourceList,
             Settings,
-            Plugins,
-            Home
+            Plugins            
         }
     }    
 }

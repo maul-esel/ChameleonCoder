@@ -21,7 +21,7 @@ namespace ChameleonCoder
         {
             get
             {
-                return new BreadcrumbContext(ChameleonCoder.Properties.Resources.Item_Home,
+                return new BreadcrumbContext(Item_Home,
                     new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
                     new BreadcrumbContext[3]
                         {

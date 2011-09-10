@@ -37,8 +37,8 @@ namespace ChameleonCoder.ComponentCore.Resources
             Xml = data;
             Parent = parent;
 
-            if (children == null)
-                children = new ResourceCollection();
+            if (Children == null)
+                Children = new ResourceCollection();
 
             string guid = Xml.GetAttribute("guid");
             Guid id;
@@ -101,7 +101,7 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         public virtual IResource Parent { get; private set; }
 
-        public virtual ResourceCollection children { get; private set; }
+        public virtual ResourceCollection Children { get; private set; }
 
         #endregion        
 

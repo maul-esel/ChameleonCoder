@@ -15,7 +15,7 @@ namespace ChameleonCoder
         /// <param name="resource">the resource to delete</param>
         public static void Delete(this IResource resource)
         {
-            foreach (IResource child in resource.children) // remove references to all child resources
+            foreach (IResource child in resource.Children) // remove references to all child resources
             {
                 if (ResourceManager.ActiveItem == child)
                     ResourceManager.ActiveItem = null; // maybe this needs some unloading process?
@@ -64,7 +64,7 @@ namespace ChameleonCoder
             if (newParent == null) // if no parent:
                 doc.SelectSingleNode("/cc-resource-file/resources").AppendChild(element); // add element to resource list
             else // if parent:
-                newParent.Xml.AppendChild(element); // add element to parent's children
+                newParent.Xml.AppendChild(element); // add element to parent's Children
 
             if (moveGUID) // if the copy should receive the original GUID:
             {
@@ -303,7 +303,7 @@ namespace ChameleonCoder
                     if (res.Name != segment)
                         continue;
                     if (segments.Length > i)
-                        collection = res.children;
+                        collection = res.Children;
                     else if (segments.Length == i)
                         result = res;
                     break;

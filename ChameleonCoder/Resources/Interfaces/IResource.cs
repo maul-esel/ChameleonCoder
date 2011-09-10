@@ -50,7 +50,7 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// a ResourceCollection containing the (direct) child resources
         /// </summary>
-        ResourceCollection children { get; }
+        ResourceCollection Children { get; }
 
         /// <summary>
         /// initializes the resource
