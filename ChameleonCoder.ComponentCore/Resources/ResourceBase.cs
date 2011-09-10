@@ -32,9 +32,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         /// <param name="node">the XmlNode that contains the resource</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Init(XmlElement node, IResource parent)
+        public virtual void Init(XmlElement data, IResource parent)
         {
-            Xml = node;
+            Xml = data;
             Parent = parent;
 
             if (children == null)

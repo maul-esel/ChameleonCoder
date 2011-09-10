@@ -10,7 +10,7 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// called when the user starts the service
         /// </summary>
-        void Call();
+        void Execute();
 
         /// <summary>
         /// defines whether the service is busy or not

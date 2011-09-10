@@ -42,7 +42,7 @@ namespace ChameleonCoder.Interaction
             }
         }
 
-        public Func<string, Action<string>, bool> _validation;
+        private Func<string, Action<string>, bool> _validation;
 
         string _text;
 

@@ -20,10 +20,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="xml">the XmlDocument that contains the resource's definition</param>
         /// <param name="xpath">the xpath to the resource's main element</param>
         /// <param name="datafile">the file that contains the definition</param>
-        public override void Init(XmlElement node, IResource parent)
+        public override void Init(XmlElement data, IResource parent)
         {
-            base.Init(node, parent);
+            base.Init(data, parent);
             compatibleLanguages = new List<Guid>();
+            // todo: parse compatible languages
         }
 
         #region IResource
@@ -38,9 +39,9 @@ namespace ChameleonCoder.ComponentCore.Resources
                 switch (Priority)
                 {
                     default:
-                    case ProjectPriority.basic: id = "low"; break;
-                    case ProjectPriority.middle: id = "middle"; break;
-                    case ProjectPriority.high: id = "high"; break;
+                    case ProjectPriority.Low: id = "low"; break;
+                    case ProjectPriority.Middle: id = "middle"; break;
+                    case ProjectPriority.High: id = "high"; break;
                 }
                 return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/Priority/" + id + ".png")).GetAsFrozen() as ImageSource;
             }
@@ -106,8 +107,9 @@ namespace ChameleonCoder.ComponentCore.Resources
             {
                 ProjectPriority priority;
                 string value = Xml.GetAttribute("priority");
-                Enum.TryParse<ProjectPriority>(value, out priority);
-                return priority;
+                if (Enum.TryParse<ProjectPriority>(value, out priority))
+                	return priority;
+                return ProjectPriority.Low;
             }
             protected set
             {
@@ -124,17 +126,17 @@ namespace ChameleonCoder.ComponentCore.Resources
             /// <summary>
             /// the project has the default (low) priority
             /// </summary>
-            basic,
+            Low,
 
             /// <summary>
             /// the project has a slightly higher priority (middle)
             /// </summary>
-            middle,
+            Middle,
 
             /// <summary>
             /// the project has a high priority
             /// </summary>
-            high
+            High
         }
 
         [ResourceProperty(CommonResourceProperty.Language, ResourcePropertyGroup.ThisClass)]
@@ -174,9 +176,9 @@ namespace ChameleonCoder.ComponentCore.Resources
                 switch (Priority)
                 {
                     default:
-                    case ProjectPriority.basic: return Properties.Resources.Priority_Low;
-                    case ProjectPriority.middle: return Properties.Resources.Priority_Middle;
-                    case ProjectPriority.high: return Properties.Resources.Priority_High;
+                    case ProjectPriority.Low: return Properties.Resources.Priority_Low;
+                    case ProjectPriority.Middle: return Properties.Resources.Priority_Middle;
+                    case ProjectPriority.High: return Properties.Resources.Priority_High;
                 }
             }
         }

@@ -107,7 +107,7 @@ namespace ChameleonCoder
                     AddResource(element, null); // and parse the xml
             });
 
-            new MainWindow(); // open the main window during plugin loading and parsing
+            MainWindow = new MainWindow(); // open the main window during plugin loading and parsing
 
             parallelTask.Wait(); // ensure parsing is finished before...
             Gui.Show(); // ... showing the window
@@ -216,8 +216,8 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="sender">the sender calling this method</param>
         /// <param name="reason">the reason for the logging</param>
-        /// <param name="log">more information about the event</param>
-        public static void Log(string sender, string reason, string log)
+        /// <param name="text">more information about the event</param>
+        public static void Log(string sender, string reason, string text)
         {
             // get the log path
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
@@ -226,7 +226,7 @@ namespace ChameleonCoder
             File.AppendAllText(path, "new event:" // add the log to the file
                 + "\n\tsender: " + sender
                 + "\n\treason: " + reason
-                + "\n\t\t" + log
+                + "\n\t\t" + text
                 + "\n===========================================\n\n");
         }
     }

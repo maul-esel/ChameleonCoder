@@ -11,11 +11,6 @@ namespace ChameleonCoder
     /// </summary>
     public abstract class DataFile
     {
-        static DataFile()
-        {
-            Directories.Add(Environment.CurrentDirectory);
-        }
-
         #region instance
 
         /// <summary>
@@ -349,7 +344,15 @@ namespace ChameleonCoder
         /// <summary>
         /// contains a list of all referenced directories
         /// </summary>
-        public static readonly IList<string> Directories = new List<string>();
+        public static IList<string> Directories
+        {
+        	get
+        	{
+        		return dirlist;
+        	}
+        }
+        
+        private static List<string> dirlist = new List<string>(new string[1] { Environment.CurrentDirectory });
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths

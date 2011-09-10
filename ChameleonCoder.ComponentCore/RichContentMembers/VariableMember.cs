@@ -4,7 +4,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
     public class VariableMember : IContentMember
     {
-        public RichContentCollection childMembers { get; set; }
+        public RichContentCollection childMembers { get; protected set; }
 
         public string GetHtml(object param = null)
         {

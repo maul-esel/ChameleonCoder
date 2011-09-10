@@ -52,76 +52,67 @@ namespace ChameleonCoder.ComponentCore
 
         #region IComponentFactory
 
-        public string GetDisplayName(Type component)
+        public string GetDisplayName(Type type)
         {
             string name = null;
 
-            if (component == typeof(FileResource))
+            if (type == typeof(FileResource))
                 name = Res.Display_File;
-            else if (component == typeof(CodeResource))
+            else if (type == typeof(CodeResource))
                 name = Res.Display_Code;
-            else if (component == typeof(LibraryResource))
+            else if (type == typeof(LibraryResource))
                 name = Res.Display_Library;
-            else if (component == typeof(GroupResource))
+            else if (type == typeof(GroupResource))
                 name = Res.Display_Group;
-            else if (component == typeof(LinkResource))
+            else if (type == typeof(LinkResource))
                 name = Res.Display_Link;
-            else if (component == typeof(ProjectResource))
+            else if (type == typeof(ProjectResource))
                 name = Res.Display_Project;
-            else if (component == typeof(TaskResource))
+            else if (type == typeof(TaskResource))
                 name = Res.Display_Task;
 
             return name;
         }
 
-        public ImageSource GetTypeIcon(Type component)
+        public ImageSource GetTypeIcon(Type type)
         {
             string name = null;
-            if (component == typeof(FileResource))
+            if (type == typeof(FileResource))
                 name = FileResource.Alias;
-            else if (component == typeof(CodeResource))
+            else if (type == typeof(CodeResource))
                 name = CodeResource.Alias;
-            else if (component == typeof(LibraryResource))
+            else if (type == typeof(LibraryResource))
                 name = LibraryResource.Alias;
-            else if (component == typeof(GroupResource))
+            else if (type == typeof(GroupResource))
                 name = GroupResource.Alias;
-            else if (component == typeof(LinkResource))
+            else if (type == typeof(LinkResource))
                 name = LinkResource.Alias;
-            else if (component == typeof(ProjectResource))
+            else if (type == typeof(ProjectResource))
                 name = ProjectResource.Alias;
-            else if (component == typeof(TaskResource))
+            else if (type == typeof(TaskResource))
                 name = TaskResource.Alias;
 
-            BitmapImage image = null;
-            try
-            {
-                image = new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/" + name + ".png"));
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(e.ToString());
-            }
-            return image;
+            return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/" + name + ".png"));
         }
 
-        public Brush GetBackground(Type component)
+        public Brush GetBackground(Type type)
         {
             Color top = Colors.White;
             Color bottom = Colors.White;
 
-            if (component == typeof(FileResource))
+            if (type == typeof(FileResource))
                 bottom = Colors.MediumBlue;
-            else if (component == typeof(CodeResource))
+            else if (type == typeof(CodeResource))
                 bottom = Colors.Orange;
-            else if (component == typeof(LibraryResource))
+            else if (type == typeof(LibraryResource))
                 bottom = Colors.Sienna;
-            else if (component == typeof(GroupResource))
+            else if (type == typeof(GroupResource))
                 bottom = Colors.Maroon;
-            else if (component == typeof(LinkResource))
+            else if (type == typeof(LinkResource))
                 bottom = Colors.Aqua;
-            else if (component == typeof(ProjectResource))
+            else if (type == typeof(ProjectResource))
                 bottom = Colors.Red;
-            else if (component == typeof(TaskResource))
+            else if (type == typeof(TaskResource))
                 bottom = Colors.Lime;
 
             var brush = new LinearGradientBrush(top, bottom,
@@ -130,10 +121,10 @@ namespace ChameleonCoder.ComponentCore
             return brush;
         }
 
-        public IEnumerable<KeyValuePair<string, string>> CreateResource(Type target, string name, IResource parent)
+        public IDictionary<string, string> CreateResource(Type type, string name, IResource parent)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
-            ResourceCreator creator = new ResourceCreator(target, parent_name, name);
+            ResourceCreator creator = new ResourceCreator(type, parent_name, name);
 
             if (creator.ShowDialog() == true)
                 return creator.GetXmlAttributes();

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
-using System.Xml;
 using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.ComponentCore.Resources
 {
@@ -12,11 +10,6 @@ namespace ChameleonCoder.ComponentCore.Resources
     /// </summary>
     public class TaskResource : ResourceBase
     {
-        public override void Init(XmlElement node, IResource parent)
-        {
-            base.Init(node, parent);
-        }
-
         #region IResource
 
         public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/task.png")).GetAsFrozen() as ImageSource; } }

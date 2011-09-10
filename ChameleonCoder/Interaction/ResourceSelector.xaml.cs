@@ -28,9 +28,8 @@ namespace ChameleonCoder.Interaction
         /// </summary>
         /// <param name="maxResources">the number of resources the user can select</param>
         public ResourceSelector(int maxResources)
-            : this(ResourceManager.GetChildren(), -1)
+            : this(ResourceManager.GetChildren(), maxResources)
         {
-            maxCount = maxResources;
         }
 
         /// <summary>
@@ -57,6 +56,7 @@ namespace ChameleonCoder.Interaction
             Catalog.Collection = resources;
             Catalog.SelectedItemChanged += ValidateButtons;
             DataContext = new { Lang = App.Gui.DataContext };
+            maxCount = maxResources;
 
             OKButton.Click += (sender, e) =>
             {

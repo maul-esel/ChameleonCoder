@@ -267,11 +267,6 @@ namespace ChameleonCoder.Interaction
         /// </summary>
         public static event SettingsEventHandler LanguageChanged;
 
-        /// <summary>
-        /// raised when the 'ProgrammingDir' setting was changed
-        /// </summary>
-        public static event SettingsEventHandler ProgrammingDirChanged;
-
         #endregion
 
         #region event wrappers
@@ -402,16 +397,6 @@ namespace ChameleonCoder.Interaction
         internal static void OnLanguageChanged()
         {
             SettingsEventHandler handler = LanguageChanged;
-            if (handler != null)
-                handler(Language);
-        }
-
-        /// <summary>
-        /// raises the ProgrammingDirChanged event
-        /// </summary>
-        internal static void OnProgrammingDirChanged()
-        {
-            SettingsEventHandler handler = ProgrammingDirChanged;
             if (handler != null)
                 handler(Language);
         }

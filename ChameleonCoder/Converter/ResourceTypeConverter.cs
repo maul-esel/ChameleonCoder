@@ -25,7 +25,8 @@ namespace ChameleonCoder.Converter
 
             if (type != null) // if cast successful
             {
-                if (parameter as string == "DisplayName")
+            	string property = parameter as string;
+                if (property== "DisplayName")
                 {
                     var displayName = ResourceTypeManager.GetDisplayName(type); // get the display name
                     if (!string.IsNullOrWhiteSpace(displayName)) // check if it is a blank
@@ -33,7 +34,7 @@ namespace ChameleonCoder.Converter
                     // else throw an exception
                     throw new ArgumentException("this type's display name is blank: " + type.FullName, "value");
                 }
-                else if (parameter as string == "Icon")
+                else if (property == "Icon")
                 {
                     var icon = ResourceTypeManager.GetTypeIcon(type); // get the type icon
                     if (icon != null) // check if it is null

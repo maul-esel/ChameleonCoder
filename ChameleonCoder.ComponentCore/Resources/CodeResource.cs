@@ -24,7 +24,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             base.Init(node, parent);
             compatibleLanguages = new List<Guid>();
-            RichContent = new RichContentCollection();
+            // todo: parse compatible languages
         }
 
         #region IResource
@@ -57,7 +57,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        public List<Guid> compatibleLanguages { get; set; }
+        public List<Guid> compatibleLanguages { get; protected set; }
 
         #endregion
 
@@ -92,7 +92,12 @@ namespace ChameleonCoder.ComponentCore.Resources
             return string.Empty;
         }
 
-        public RichContentCollection RichContent { get; protected set; }
+        public RichContentCollection RichContent
+        {
+            get { return collection; }
+        }
+
+        private RichContentCollection collection = new RichContentCollection();
 
         #endregion
 

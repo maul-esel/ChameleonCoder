@@ -273,7 +273,7 @@ namespace ChameleonCoder.Plugins
             App.Gui.CurrentActionProgress.IsIndeterminate = true;
             App.Gui.CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
 
-            service.Call();
+            service.Execute();
             while (service.IsBusy)
                 System.Threading.Thread.Sleep(100);
 

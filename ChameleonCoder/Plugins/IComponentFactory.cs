@@ -41,7 +41,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource</param>
         /// <returns>a dictionary containing the attributes the resource's XML element should have</returns>
         /// <remarks>this function must not create an instance of the specified resource!</remarks>
-        IEnumerable<KeyValuePair<string, string>> CreateResource(Type type, string name, IResource parent);
+        IDictionary<string, string> CreateResource(Type type, string name, IResource parent);
 
         /// <summary>
         /// creates a new ContentMember of the given Type, using the given name and parent member
@@ -50,7 +50,6 @@ namespace ChameleonCoder.Plugins
         /// <param name="name">the name of the new member</param>
         /// <param name="parent">the parent member or null</param>
         /// <returns>the newly created IContentMember instance</returns>
-        [Obsolete]
         IContentMember CreateMember(Type type, string name, IContentMember parent);
 
         /// <summary>

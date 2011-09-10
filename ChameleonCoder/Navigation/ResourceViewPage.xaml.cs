@@ -50,11 +50,12 @@ namespace ChameleonCoder.Navigation
 
         private void SaveMetadata(object sender, EventArgs e)
         {
-            string value = (sender as TextBox).Text;
+        	var box = sender as TextBox;
+            string value = box.Text;
             string key = ((KeyValuePair<string, string>)(((sender as TextBox).TemplatedParent as ContentPresenter).Parent as GridViewRowPresenter).Content).Key;
 
             Resource.SetMetadata(key, value);
-            (sender as TextBox).InvalidateProperty(System.Windows.FrameworkElement.WidthProperty);
+            box.InvalidateProperty(System.Windows.FrameworkElement.WidthProperty);
         }
 
         /// <summary>

@@ -12,7 +12,6 @@ namespace ChameleonCoder.ComponentCore.Resources
     /// </summary>
     public partial class ResourceCreator : Window
     {
-        Type target;
         Dictionary<string, Func<string>> customAttributes = new Dictionary<string, Func<string>>();
 
         public string ResName { get; set; }
@@ -85,9 +84,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             else
                 customAttributes.Add("enddate", () => ResourceEnddate.Text);
 
-            this.target = target;
-
-            this.ShowInTaskbar = false;
+            ShowInTaskbar = false;
         }
 
         private void SearchFile(object sender, EventArgs e)
@@ -98,8 +95,9 @@ namespace ChameleonCoder.ComponentCore.Resources
 
             dialog.FileOk += (s, e2) =>
                 {
-                    if (!string.IsNullOrWhiteSpace((s as System.Windows.Forms.OpenFileDialog).FileName))
-                        this.ResPath = (s as System.Windows.Forms.OpenFileDialog).FileName;
+            		var file = (s as System.Windows.Forms.OpenFileDialog).FileName;
+                    if (!string.IsNullOrWhiteSpace(file))
+                        ResPath = file;
                 };
 
             dialog.ShowDialog();
@@ -112,11 +110,11 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         private void CreateResource(object sender, EventArgs e)
         {
-            this.IsEnabled = false;
-            if (this.Validate())
-                this.DialogResult = true;
+            IsEnabled = false;
+            if (Validate())
+                DialogResult = true;
 
-            this.IsEnabled = true;
+            IsEnabled = true;
         }
 
         public Dictionary<string, string> GetXmlAttributes()

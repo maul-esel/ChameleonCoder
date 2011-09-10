@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Media;
-using System.Xml;
 using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -14,17 +13,6 @@ namespace ChameleonCoder.ComponentCore.Resources
     [CCPlugin]
     public class LinkResource : ResourceBase, IResolvable
     {
-        /// <summary>
-        /// creates a new instance of the LinkResource class
-        /// </summary>
-        /// <param name="xml">the XmlDocument that contains the resource's definition</param>
-        /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
-        /// <param name="datafile">the file that contains the definition</param>
-        public override void Init(XmlElement node, IResource parent)
-        {
-            base.Init(node, parent);
-        }
-
         #region IResource
 
         public override ImageSource Icon
