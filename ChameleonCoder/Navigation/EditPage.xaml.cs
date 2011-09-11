@@ -18,16 +18,13 @@ namespace ChameleonCoder.Navigation
         {
             InitializeComponent();
 
-            ResourceManager.ActiveItem = Resource = resource;
+            ResourceManager.Open(Resource = resource);
             Editor.Text = resource.GetText();
 
             ILanguageResource langRes = resource as ILanguageResource;
-            if (langRes != null)
+            if (langRes != null && PluginManager.IsModuleRegistered(langRes.Language))
             {
-                if (PluginManager.ActiveModule != null)
-                    PluginManager.UnloadModule();
-                if (PluginManager.IsModuleRegistered(langRes.Language))
-                    PluginManager.LoadModule(langRes.Language);
+                Editor.SyntaxHighlighting = PluginManager.GetModule(langRes.Language).Highlighting;
             }
         }
 

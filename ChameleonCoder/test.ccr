@@ -12,7 +12,7 @@
         <group name="TheNewChildGroup" id="{9a40009c-f699-48e3-8a1f-1d4e06bdd9f2}" description="a new child test group" notes="" />
       </group>
     </library>
-    <library name="Toolbar" id="{5d03da7b-acf1-4ae9-acca-6a4133c65880}" notes="" description="toolbar control functions" author="majkinetor" license="unlicensed" version="0.8" path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk" language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" />
+    <library name="Toolbar" id="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" notes="" description="toolbar control functions" author="majkinetor" license="unlicensed" version="0.8" path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk" language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" />    
     <project name="KAPROG" id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" notes="" description="[deprecated]" language="{926d62ed-678d-48b3-b13d-f92293f638d4}" priority="0">
       <link id="{cbf92f3e-3e8e-4f15-8ce0-cb4182f19ee4}" destination="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" />
       <link id="{7a4973f2-398a-4dfc-bd50-468b18ee696b}" destination="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" />

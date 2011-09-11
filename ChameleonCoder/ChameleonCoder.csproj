@@ -182,7 +182,6 @@
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\IService.cs" />
-    <Compile Include="Plugins\LexingType.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
     <Compile Include="Resources\Interfaces\IResolvable.cs" />
     <Compile Include="Resources\ResourceCollection.cs" />
