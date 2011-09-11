@@ -72,7 +72,7 @@ namespace ChameleonCoder.Interaction
             button.Click += (s, e) =>
                 {
                     CodeGeneratorEventArgs args = new CodeGeneratorEventArgs();
-                    clicked(GetCurrentResource(), args);
+                    clicked(CurrentResource, args);
                     if (!args.Handled)
                         InsertCode(args.Code);
                 };
@@ -94,20 +94,35 @@ namespace ChameleonCoder.Interaction
         /// appends code to the currently edited resource
         /// </summary>
         /// <param name="code">the code to insert</param>
-        public static void AppendCode(string code) { }
+        public static void AppendCode(string code)
+        {
+            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            if (edit != null)
+                edit.Editor.AppendText(code);
+        }
 
         /// <summary>
         /// inserts code in the currently edited resource
         /// </summary>
         /// <param name="code">the code to insert</param>
         /// <param name="position">the position to use</param>
-        public static void InsertCode(string code, int position) { }
+        public static void InsertCode(string code, int position)
+        {
+            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            if (edit != null)
+                edit.Editor.Text.Insert(position, code);
+        }
 
         /// <summary>
         /// inserts code in the currently edited resource at cursor position
         /// </summary>
         /// <param name="code">the code to insert</param>
-        public static void InsertCode(string code) { } // use cursor position
+        public static void InsertCode(string code)
+        {
+            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            if (edit != null)
+                edit.Editor.Text.Insert(edit.Editor.CaretOffset, code);
+        }
 
         #endregion
 
@@ -126,10 +141,10 @@ namespace ChameleonCoder.Interaction
         /// <summary>
         /// gets the currently active resource
         /// </summary>
-        /// <returns>the active IResource instance</returns>
-        public static IResource GetCurrentResource()
+        public static IResource CurrentResource
         {
-            return ResourceManager.ActiveItem;
+            get { return ResourceManager.ActiveItem; }
+            set { ResourceManager.Open(value); }
         }
 
         /// <summary>
@@ -150,15 +165,6 @@ namespace ChameleonCoder.Interaction
         public static bool IsResourceTypeRegistered(Type type)
         {
             return ResourceTypeManager.IsRegistered(type);
-        }
-
-        /// <summary>
-        /// opens a new resource
-        /// </summary>
-        /// <param name="resource">the resource to open</param>
-        public static void SetCurrentResource(IResource resource)
-        {
-            ResourceManager.Open(resource);
         }
 
         /// <summary>
