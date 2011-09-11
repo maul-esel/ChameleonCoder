@@ -359,5 +359,61 @@ namespace ChameleonCoder
             return -1;
         }
         #endregion
+
+        #region editing methods
+
+        private void EditPaste(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.Paste());
+        }
+
+        private void EditCut(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.Cut());
+        }
+
+        private void EditCopy(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.Copy());
+        }
+
+        private void EditZoomIn(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.FontSize += 2);
+        }
+
+        private void EditZoomOut(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.FontSize -= 2);
+        }
+
+        private void EditUndo(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.Undo());
+        }
+
+        private void EditRedo(object sender, EventArgs e)
+        {
+            EditPerformAction(editor => editor.Redo());
+        }
+
+        private void EditSearch(object sender, EventArgs e)
+        {
+            // todo
+        }
+
+        private void EditReplace(object sender, EventArgs e)
+        {
+            // todo
+        }
+
+        private void EditPerformAction(Action<ICSharpCode.AvalonEdit.TextEditor> action)
+        {
+            EditPage edit = (Tabs.SelectedItem as TabContext).Content as EditPage;
+            if (edit != null)
+                action(edit.Editor);
+        }
+
+        #endregion
     }
 }

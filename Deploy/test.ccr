@@ -40,9 +40,9 @@
     <!--this section will contain information about resources, such as "last modified", "created at", ...
 		NEW: this will also contain metadata and RichContent
 		The resources are identified by their GUID.-->
-    <resource-data id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
+	  <resource-data id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
       <metadata name="test">testvalue</metadata>
-    </resource-data>
+	  </resource-data>
     <resource-data id="{6ef3c403-9197-47cd-9515-fcf00898c566}">
       <metadata name="Einsatz">Config-Explorer</metadata>
     </resource-data>

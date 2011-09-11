@@ -12,7 +12,7 @@
     <Window.DataContext>
         <cc:ViewModel/>
     </Window.DataContext>
-    
+       
     <odc:RibbonWindow.Resources>
         
         <ControlTemplate TargetType="Button" x:Key="CloseButton">
@@ -258,12 +258,15 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Clipboard}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Paste}" LargeImage="Images\RibbonTab2\paste.png"
+                                              Click="EditPaste"
                                               odc:RibbonBar.Size="Large"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Cut}" SmallImage="Images\RibbonTab2\cut.png"
+                                              Click="EditCut"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Copy}" SmallImage="Images\RibbonTab2\copy.png"
+                                              Click="EditCopy"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
@@ -271,18 +274,22 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_View}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomIn}" SmallImage="Images\RibbonTab2\viewplus.png"
+                                              Click="EditZoomIn"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomOut}" SmallImage="Images\RibbonTab2\viewminus.png"
+                                              Click="EditZoomOut"
                                               odc:RibbonBar.Size="Medium"/>
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_UndoRedo}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Undo}" SmallImage="Images\RibbonTab2\undo.png"
+                                              Click="EditUndo"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Redo}" SmallImage="Images\RibbonTab2\redo.png"
+                                              Click="EditRedo"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
@@ -298,9 +305,11 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Search}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Search}" SmallImage="Images\RibbonTab2\search.png"
+                                              Click="EditSearch"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Replace}" SmallImage="Images\RibbonTab2\search.png"
+                                              Click="EditReplace"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
