@@ -34,7 +34,7 @@ namespace ChameleonCoder.Resources
 
         internal string Name { get { return name; } }
 
-        internal ResourcePropertyGroup Group { get { return Group; } }
+        internal ResourcePropertyGroup Group { get { return group; } }
 
         public bool IsReadOnly { get; set; }
 
