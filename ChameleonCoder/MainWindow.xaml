@@ -270,9 +270,9 @@
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
-
+                        
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_View}">
-
+                            
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomIn}" SmallImage="Images\RibbonTab2\viewplus.png"
                                               Click="EditZoomIn"
                                               odc:RibbonBar.MaxSize="Medium"/>
@@ -280,6 +280,7 @@
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomOut}" SmallImage="Images\RibbonTab2\viewminus.png"
                                               Click="EditZoomOut"
                                               odc:RibbonBar.Size="Medium"/>
+                            
                         </odc:RibbonGroup>
 
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_UndoRedo}">

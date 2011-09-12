@@ -285,35 +285,38 @@ namespace ChameleonCoder
             if (page is WelcomePage)
             {
                 Ribbon.ContextualTabSet = null;
-                ResourceManager.ActiveItem = null;
+                if (ResourceManager.ActiveItem != null)
+                    ResourceManager.Close();
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem);
             }
 
             else if (page is ResourceListPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
-                ResourceManager.ActiveItem = null;
+                if (ResourceManager.ActiveItem != null)
+                    ResourceManager.Close();
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List;
             }
 
             else if (page is EditPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
-                ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as EditPage).Resource;
+                ResourceManager.Open(((Tabs.SelectedItem as TabContext).Content as EditPage).Resource);
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
             else if (page is ResourceViewPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
-                ResourceManager.ActiveItem = ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).Resource;
+                ResourceManager.Open(((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).Resource);
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
             }
 
             else if (page is SettingsPage)
             {
                 Ribbon.ContextualTabSet = null;
-                ResourceManager.ActiveItem = null;
+                if (ResourceManager.ActiveItem != null)
+                    ResourceManager.Close();
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_Settings;
             }
             Ribbon.SelectedTabIndex = Ribbon.Tabs.Count;
@@ -379,7 +382,7 @@ namespace ChameleonCoder
 
         private void EditZoomIn(object sender, EventArgs e)
         {
-            EditPerformAction(editor => editor.FontSize += 2);
+            EditPerformAction(editor => editor.FontSize += 2);            
         }
 
         private void EditZoomOut(object sender, EventArgs e)

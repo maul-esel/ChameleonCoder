@@ -17,9 +17,13 @@ namespace ChameleonCoder.Resources.Management
         private static ResourceCollection FlatList;
 
         /// <summary>
-        /// the currently loaded resource
+        /// gets the currently loaded resource
         /// </summary>
-        internal static IResource ActiveItem;
+        internal static IResource ActiveItem
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// sets the collection instances used by this class.
@@ -80,20 +84,32 @@ namespace ChameleonCoder.Resources.Management
             instance.PropertyChanged -= OnPropertyChanged;
         }
 
+        /// <summary>
+        /// gets the Children list
+        /// </summary>
+        /// <returns></returns>
         internal static ResourceCollection GetChildren()
         {
             return Children;
         }
 
+        /// <summary>
+        /// gets the complete list of all resources
+        /// </summary>
+        /// <returns></returns>
         internal static ResourceCollection GetList()
         {
             return FlatList;
         }
 
+        /// <summary>
+        /// opens a resource
+        /// </summary>
+        /// <param name="resource">the resource to open</param>
         internal static void Open(IResource resource)
         {
-            Interaction.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
-            Interaction.InformationProvider.OnResourceUnloaded(ActiveItem, new EventArgs());
+            if (ActiveItem != null)
+                Close();
 
             Interaction.InformationProvider.OnResourceLoad(resource, new EventArgs());
 
@@ -112,6 +128,31 @@ namespace ChameleonCoder.Resources.Management
                 }
             }
             Interaction.InformationProvider.OnResourceLoaded(resource, new EventArgs());
+        }
+
+        /// <summary>
+        /// closes the loaded resource
+        /// </summary>
+        internal static void Close()
+        {
+            if (ActiveItem != null)
+            {
+                Interaction.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
+
+                ILanguageResource langRes = ActiveItem as ILanguageResource;
+                if (langRes != null)
+                {
+                    if (PluginManager.ActiveModule != null && PluginManager.ActiveModule.Identifier == langRes.Language)
+                        PluginManager.UnloadModule();
+                }
+
+                var item = ActiveItem;
+                ActiveItem = null;
+
+                Interaction.InformationProvider.OnResourceUnloaded(item, new EventArgs());
+            }
+            else
+                throw new InvalidOperationException("no resource can be closed.");
         }
 
         /// <summary>

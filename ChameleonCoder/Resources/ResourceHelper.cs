@@ -18,12 +18,12 @@ namespace ChameleonCoder
             foreach (IResource child in resource.Children) // remove references to all child resources
             {
                 if (ResourceManager.ActiveItem == child)
-                    ResourceManager.ActiveItem = null; // maybe this needs some unloading process?
+                    ResourceManager.Close(); // if a child is loaded: unload it
                 ResourceManager.Remove(child);
             }
 
             if (ResourceManager.ActiveItem == resource)
-                ResourceManager.ActiveItem = null; // (see above)            
+                ResourceManager.Close(); // unload the resource to delete            
 
             resource.Xml.ParentNode.RemoveChild(resource.Xml);
 
