@@ -66,6 +66,7 @@
     <Reference Include="Odyssey, Version=1.4.21.36154, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

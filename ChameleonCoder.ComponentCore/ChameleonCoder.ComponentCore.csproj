@@ -38,6 +38,8 @@
     </Reference>
     <Reference Include="Odyssey">
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
