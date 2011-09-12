@@ -18,19 +18,10 @@ namespace ChameleonCoder.Navigation
         /// <param name="resource">the resource to display</param>
         internal ResourceViewPage(IResource resource)
         {
-            Resource = ResourceManager.ActiveItem = resource;
+            ResourceManager.Open(Resource = resource);
             DataContext = new { res = resource, meta = resource.GetMetadata(), lang = App.Gui.DataContext };
 
             InitializeComponent();
-
-            ILanguageResource langRes = resource as ILanguageResource;
-            if (langRes != null)
-            {
-                if (PluginManager.ActiveModule != null)
-                    PluginManager.UnloadModule();
-                if (PluginManager.IsModuleRegistered(langRes.Language))
-                    PluginManager.LoadModule(langRes.Language);
-            }
         }
 
         internal void AddMetadata(string name)
