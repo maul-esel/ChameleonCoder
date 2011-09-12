@@ -12,7 +12,6 @@ namespace ChameleonCoder.Services
         {
             InitializeComponent();
             DataContext = CurrentGuid = Guid.NewGuid();
-            this.ShowDialog();
         }
 
         public void Invoke(object sender, EventArgs e)

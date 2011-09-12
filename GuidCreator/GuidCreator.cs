@@ -36,6 +36,7 @@ namespace ChameleonCoder.Services
         {
             busy = true;
             CreatorView viewer = new CreatorView();
+            viewer.ShowDialog();
             busy = false;
         }
 
