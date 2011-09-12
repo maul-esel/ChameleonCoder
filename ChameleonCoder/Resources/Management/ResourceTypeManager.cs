@@ -169,13 +169,5 @@ namespace ChameleonCoder.Resources.Management
                 Factories.TryAdd(component, factory);
             }
         }
-
-        internal static ResourceTypeCollection GetCollection()
-        {
-            lock (ResourceTypes)
-            {
-                return ResourceTypes;
-            }
-        }
     }
 }
