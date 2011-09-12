@@ -60,5 +60,29 @@ namespace ChameleonCoder.Properties {
                 this["InstalledPlugins"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Courier New")]
+        public string CodeFont {
+            get {
+                return ((string)(this["CodeFont"]));
+            }
+            set {
+                this["CodeFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("11")]
+        public int CodeFontSize {
+            get {
+                return ((int)(this["CodeFontSize"]));
+            }
+            set {
+                this["CodeFontSize"] = value;
+            }
+        }
     }
 }
