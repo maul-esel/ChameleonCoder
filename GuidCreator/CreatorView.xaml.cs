@@ -4,22 +4,22 @@ using ChameleonCoder.Interaction;
 
 namespace ChameleonCoder.Services
 {
-    public sealed partial class CreatorView : Window
+    internal sealed partial class CreatorView : Window
     {
-        public Guid CurrentGuid { get; private set; }
+        internal Guid CurrentGuid { get; private set; }
 
-        public CreatorView()
+        internal CreatorView()
         {
             InitializeComponent();
             DataContext = CurrentGuid = Guid.NewGuid();
         }
 
-        public void Invoke(object sender, EventArgs e)
+        internal void Invoke(object sender, EventArgs e)
         {
             DataContext = CurrentGuid = Guid.NewGuid();
         }
 
-        public void Enter(object sender, EventArgs e)
+        internal void Enter(object sender, EventArgs e)
         {
             InputBox box = new InputBox("GuidCreator", "enter a GUID", (s, error) =>
                 {

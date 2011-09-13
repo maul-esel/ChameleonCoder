@@ -5,7 +5,7 @@ using ChameleonCoder.Plugins;
 namespace ChameleonCoder.Services
 {
     [ChameleonCoder.CCPlugin]
-    public class GuidCreator : IService
+    public sealed class GuidCreator : IService
     {
         #region infrastructure
 
