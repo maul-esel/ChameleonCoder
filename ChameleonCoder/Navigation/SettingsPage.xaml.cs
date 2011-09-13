@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ChameleonCoder.Navigation
 {
@@ -17,6 +18,7 @@ namespace ChameleonCoder.Navigation
 
             extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccp") != null
                     && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
+            codeFont.SelectedItem = new System.Windows.Media.FontFamily(Properties.Settings.Default.CodeFont);
         }
 
         private void InstallExtensions(object sender, EventArgs e)
@@ -39,5 +41,21 @@ namespace ChameleonCoder.Navigation
 
             Interaction.InformationProvider.OnLanguageChanged();
         }
+
+        public static FontFamily CodeFont
+        {
+            get
+            {
+                return family;
+            }
+
+            set
+            {
+                family = value;
+                Properties.Settings.Default.CodeFont = value.Source;
+            }
+        }
+
+        private static FontFamily family = new FontFamily(Properties.Settings.Default.CodeFont);
     }
 }
