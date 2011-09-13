@@ -5,7 +5,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// Custom EventArgs class for CodeGenerators
     /// </summary>
-    public class CodeGeneratorEventArgs : EventArgs
+    public sealed class CodeGeneratorEventArgs : EventArgs
     {
         /// <summary>
         /// defines whether code insertion was already handled, e.g. through an extra resource

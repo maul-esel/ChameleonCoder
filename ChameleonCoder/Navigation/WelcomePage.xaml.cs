@@ -6,7 +6,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a welcome page displaying several buttons
     /// </summary>
-    public sealed partial class WelcomePage : Page
+    internal sealed partial class WelcomePage : Page
     {
         /// <summary>
         /// creates a new instance of this page

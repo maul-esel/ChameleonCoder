@@ -11,10 +11,11 @@ namespace ChameleonCoder
     /// <summary>
     /// the dialog to let the user create a new resource
     /// </summary>
-    public sealed partial class NewResourceDialog : Window
+    internal sealed partial class NewResourceDialog : Window
     {
         #region constructors
-        public NewResourceDialog(IResource parent)
+
+        internal NewResourceDialog(IResource parent)
         {
             #region templates
             var templates = new List<ITemplate>(PluginManager.GetTemplates());
@@ -42,10 +43,12 @@ namespace ChameleonCoder
             ParentResource = parent;
         }
 
-        public NewResourceDialog() : this(null) { }
+        internal NewResourceDialog() : this(null) { }
+
         #endregion
 
         #region methods
+
         private void Filter(object sender, FilterEventArgs e)
         {
             string selectedGroup = groupList.SelectedItem as string;
@@ -71,6 +74,7 @@ namespace ChameleonCoder
             if (child != null)
                 ResourceManager.Add(child, ParentResource);
         }
+
         #endregion
 
         IResource ParentResource;

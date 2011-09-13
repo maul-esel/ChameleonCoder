@@ -7,7 +7,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying the app settings
     /// </summary>
-    public sealed partial class SettingsPage : Page
+    internal sealed partial class SettingsPage : Page
     {
         internal SettingsPage()
         {

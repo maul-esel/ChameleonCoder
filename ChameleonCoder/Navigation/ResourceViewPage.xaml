@@ -1,6 +1,6 @@
 ﻿<Page x:Class="ChameleonCoder.Navigation.ResourceViewPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:ClassModifier="internal">
     
     <Page.Resources>
         <CollectionViewSource x:Key="ResPropList" Source="{Binding Path=res, Converter={StaticResource PropConv}}">

@@ -10,7 +10,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying all registered resources
     /// </summary>
-    public sealed partial class ResourceListPage : Page
+    internal sealed partial class ResourceListPage : Page
     {
         /// <summary>
         /// creates a new instance of this page

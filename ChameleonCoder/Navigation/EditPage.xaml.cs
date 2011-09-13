@@ -8,7 +8,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying the edit control to edit resources
     /// </summary>
-    public sealed partial class EditPage : Page
+    internal sealed partial class EditPage : Page
     {
         /// <summary>
         /// creates a new instance of the page, given an IEditable resource

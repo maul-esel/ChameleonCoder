@@ -12,7 +12,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a Page displaying all registered plugins
     /// </summary>
-    public sealed partial class PluginPage : Page
+    internal sealed partial class PluginPage : Page
     {
         /// <summary>
         /// creates a new instance of the page

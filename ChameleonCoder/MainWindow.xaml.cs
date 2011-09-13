@@ -15,7 +15,7 @@ namespace ChameleonCoder
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     [CLSCompliant(false)]
-    public partial class MainWindow : RibbonWindow
+    internal sealed partial class MainWindow : RibbonWindow
     {
         internal ViewModel MVVM { get { return DataContext as ViewModel; } }
 

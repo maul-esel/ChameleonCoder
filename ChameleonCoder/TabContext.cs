@@ -2,9 +2,9 @@
 
 namespace ChameleonCoder
 {
-    public class TabContext
+    internal sealed class TabContext
     {
-        public TabContext(string title, Page content)
+        internal TabContext(string title, Page content)
         {
             Title = title;
             Content = content;

@@ -10,7 +10,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// a dialog for selecting plugins to install and installing them
     /// </summary>
-    public partial class PluginInstaller : Window
+    internal sealed partial class PluginInstaller : Window
     {
         public PluginInstaller(List<IPlugin> plugins)
         {
