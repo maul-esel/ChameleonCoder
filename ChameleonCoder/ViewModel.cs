@@ -21,11 +21,30 @@ namespace ChameleonCoder
         public static FontFamily CodeFont
         {
             get { return family; }
-
             set { Properties.Settings.Default.CodeFont = (family = value).Source; }
         }
 
         private static FontFamily family = new FontFamily(Properties.Settings.Default.CodeFont);
+
+        public static int UILanguage
+        {
+            get { return Properties.Settings.Default.Language; }
+
+            set
+            {
+                Res.Culture =
+                    new System.Globalization.CultureInfo(
+                        Properties.Settings.Default.Language = value
+                        );
+
+                App.Gui.DataContext = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
+                App.Gui.breadcrumb.Path =
+                    App.Gui.breadcrumb.PathFromBreadcrumbItem(App.Gui.breadcrumb.RootItem)
+                    + "/" + App.Gui.MVVM.Item_Settings;
+
+                Interaction.InformationProvider.OnLanguageChanged();
+            }
+        }
 
         public BreadcrumbContext BreadcrumbRoot
         {

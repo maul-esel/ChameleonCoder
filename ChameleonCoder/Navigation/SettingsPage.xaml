@@ -35,26 +35,30 @@
             </Grid.RowDefinitions>
             
             <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=Setting_Language}" Margin="5"/>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                <ComboBox x:Name="langCombo" Margin="5" Width="250" ItemsSource="{Binding Path=availableTranslations}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource CultureConv}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button Content="{Binding Path=Action_Apply}" Click="SetLanguage"/>
-            </StackPanel>
+            
+            <ComboBox Grid.Column="1" Grid.Row="0" Margin="5" Width="250"
+                      ItemsSource="{Binding Path=availableTranslations}"
+                      SelectedItem="{Binding Path=UILanguage}">
+                
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        
+                        <TextBlock Text="{Binding Converter={StaticResource CultureConv}}"/>
+                        
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                
+            </ComboBox>
             
             <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding Path=Setting_EnableUpdate}" Margin="5"/>
 
             <CheckBox x:Name="extInstCheck" Click="InstallExtensions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding Path=Setting_InstallExt}" Margin="5"/>
 
             <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Content="{Binding Path=Setting_InstallCOM}" Margin="5"/>
-            
-            <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" ItemsSource="{x:Static media:Fonts.SystemFontFamilies}" Margin="5"
-                      SelectedItem="{Binding Path=CodeFont}"/>
-            
+
+            <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="5"
+                      ItemsSource="{x:Static media:Fonts.SystemFontFamilies}"
+                      SelectedItem="{Binding Path=CodeFont}"/>            
         </Grid>
     </StackPanel>
 </Page>

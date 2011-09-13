@@ -14,8 +14,6 @@ namespace ChameleonCoder.Navigation
             DataContext = App.Gui.DataContext;
             InitializeComponent();
 
-            langCombo.SelectedItem = Properties.Resources.Culture.LCID;
-
             extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccp") != null
                     && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
         }
@@ -25,20 +23,6 @@ namespace ChameleonCoder.Navigation
             System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(App.AppPath, "--install_ext") { UseShellExecute = true, Verb = "runAs" };
             try { System.Diagnostics.Process.Start(info); }
             catch (System.ComponentModel.Win32Exception) { }
-        }
-
-        private void SetLanguage(object sender, EventArgs e)
-        {
-            Properties.Resources.Culture =
-                new System.Globalization.CultureInfo(
-                    Properties.Settings.Default.Language = (int)langCombo.SelectedItem
-                    );
-
-            ViewModel model = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
-            App.Gui.DataContext = model;
-            App.Gui.breadcrumb.Path = App.Gui.breadcrumb.PathFromBreadcrumbItem(App.Gui.breadcrumb.RootItem) + "/" + model.Item_Settings;
-
-            Interaction.InformationProvider.OnLanguageChanged();
         }
     }
 }
