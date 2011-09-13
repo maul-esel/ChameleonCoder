@@ -194,6 +194,7 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
     <Compile Include="XmlDataFile.cs" />
