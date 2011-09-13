@@ -14,7 +14,6 @@ namespace ChameleonCoder
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    [CLSCompliant(false)]
     internal sealed partial class MainWindow : RibbonWindow
     {
         internal ViewModel MVVM { get { return DataContext as ViewModel; } }
@@ -56,8 +55,8 @@ namespace ChameleonCoder
 
         internal void GoList(object sender, EventArgs e)
         {
-            int i;
-            if ((i = FindPageTab<ResourceListPage>()) != -1)
+            int i = FindPageTab<ResourceListPage>();
+            if (i != -1)
                 Tabs.SelectedIndex = i;
             else
                 TabReplace(new TabContext(ViewModel.Item_List, new ResourceListPage()), Tabs.SelectedIndex);
@@ -65,8 +64,8 @@ namespace ChameleonCoder
 
         internal void GoPlugins(object sender, EventArgs e)
         {
-            int i;
-            if ((i = FindPageTab<PluginPage>()) != -1)
+            int i = FindPageTab<PluginPage>();
+            if (i != -1)
                 Tabs.SelectedIndex = i;
             else
                 TabReplace(new TabContext(ViewModel.Item_Plugins, new PluginPage()), Tabs.SelectedIndex);
@@ -74,8 +73,8 @@ namespace ChameleonCoder
 
         internal void GoSettings(object sender, EventArgs e)
         {
-            int i;
-            if ((i = FindPageTab<SettingsPage>()) != -1)
+            int i = FindPageTab<SettingsPage>();
+            if (i != -1)
                 Tabs.SelectedIndex = i;
             else
                 TabReplace(new TabContext(ViewModel.Item_Settings, new SettingsPage()), Tabs.SelectedIndex);
@@ -251,8 +250,8 @@ namespace ChameleonCoder
         #region Tabs
         private void TabOpen(object sender, EventArgs e)
         {
-            ViewModel.Tabs.Add(new TabContext(Properties.Resources.Item_Home, new WelcomePage()));
-            Tabs.SelectedIndex = ViewModel.Tabs.Count - 1;
+            MVVM.Tabs.Add(new TabContext(Properties.Resources.Item_Home, new WelcomePage()));
+            Tabs.SelectedIndex = MVVM.Tabs.Count - 1;
         }
 
         private void TabClosed(object sender, RoutedEventArgs e)
@@ -264,7 +263,7 @@ namespace ChameleonCoder
 
             TabContext item = (ctrl as TabItem).DataContext as TabContext;
             ResourceSave(item);
-            ViewModel.Tabs.Remove(item);
+            MVVM.Tabs.Remove(item);
 
             TabChanged(null, null);
         }
@@ -324,10 +323,10 @@ namespace ChameleonCoder
 
         private void TabReplace(TabContext newTab, int oldTab)
         {
-            if (oldTab >= 0 && oldTab < ViewModel.Tabs.Count && ViewModel.Tabs.Count != 0)
-                ViewModel.Tabs[oldTab] = newTab;
+            if (oldTab >= 0 && oldTab < MVVM.Tabs.Count && MVVM.Tabs.Count != 0)
+                MVVM.Tabs[oldTab] = newTab;
             else
-                ViewModel.Tabs.Add(newTab);
+                MVVM.Tabs.Add(newTab);
         }
 
         private int FindResourceTab(IResource resource, bool useEdit)

@@ -14,7 +14,7 @@ namespace ChameleonCoder
             Tabs = new ObservableCollection<TabContext>();
         }
 
-        public static ObservableCollection<TabContext> Tabs { get; private set; }
+        public ObservableCollection<TabContext> Tabs { get; private set; }
 
         public static int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
 
@@ -37,7 +37,7 @@ namespace ChameleonCoder
                         Properties.Settings.Default.Language = value
                         );
 
-                App.Gui.DataContext = new ViewModel();
+                App.Gui.DataContext = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
                 App.Gui.breadcrumb.Path =
                     App.Gui.breadcrumb.PathFromBreadcrumbItem(App.Gui.breadcrumb.RootItem)
                     + "/" + Item_Settings;
