@@ -18,7 +18,6 @@ namespace ChameleonCoder.Navigation
 
             extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccp") != null
                     && Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
-            codeFont.SelectedItem = new System.Windows.Media.FontFamily(Properties.Settings.Default.CodeFont);
         }
 
         private void InstallExtensions(object sender, EventArgs e)
@@ -30,10 +29,10 @@ namespace ChameleonCoder.Navigation
 
         private void SetLanguage(object sender, EventArgs e)
         {
-            int LCID = (int)langCombo.SelectedItem;
-            Properties.Resources.Culture = new System.Globalization.CultureInfo(LCID);
-            Properties.Settings.Default.Language = LCID;
-            Properties.Settings.Default.Save();
+            Properties.Resources.Culture =
+                new System.Globalization.CultureInfo(
+                    Properties.Settings.Default.Language = (int)langCombo.SelectedItem
+                    );
 
             ViewModel model = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
             App.Gui.DataContext = model;
@@ -41,21 +40,5 @@ namespace ChameleonCoder.Navigation
 
             Interaction.InformationProvider.OnLanguageChanged();
         }
-
-        public static FontFamily CodeFont
-        {
-            get
-            {
-                return family;
-            }
-
-            set
-            {
-                family = value;
-                Properties.Settings.Default.CodeFont = value.Source;
-            }
-        }
-
-        private static FontFamily family = new FontFamily(Properties.Settings.Default.CodeFont);
     }
 }

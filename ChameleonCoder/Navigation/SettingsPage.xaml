@@ -52,8 +52,8 @@
 
             <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Content="{Binding Path=Setting_InstallCOM}" Margin="5"/>
             
-            <ComboBox Name="codeFont" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" ItemsSource="{x:Static media:Fonts.SystemFontFamilies}" Margin="5"
-                      SelectedItem="{x:Static nav:SettingsPage.CodeFont}"/>
+            <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" ItemsSource="{x:Static media:Fonts.SystemFontFamilies}" Margin="5"
+                      SelectedItem="{Binding Path=CodeFont}"/>
             
         </Grid>
     </StackPanel>

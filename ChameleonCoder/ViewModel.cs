@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.Resources.Management;
 using Res = ChameleonCoder.Properties.Resources;
@@ -17,10 +18,14 @@ namespace ChameleonCoder
 
         public int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
 
-        public static string test
+        public static FontFamily CodeFont
         {
-            get { return "hi!"; }
+            get { return family; }
+
+            set { Properties.Settings.Default.CodeFont = (family = value).Source; }
         }
+
+        private static FontFamily family = new FontFamily(Properties.Settings.Default.CodeFont);
 
         public BreadcrumbContext BreadcrumbRoot
         {
