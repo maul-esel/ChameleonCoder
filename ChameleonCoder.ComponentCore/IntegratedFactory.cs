@@ -14,7 +14,7 @@ using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 namespace ChameleonCoder.ComponentCore
 {
     [CCPlugin]
-    public sealed class IntegratedFactory : IComponentFactory
+    public sealed class IntegratedFactory : IResourceFactory
     {
         #region IPlugin
 

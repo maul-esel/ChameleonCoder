@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// an interface used to manage components
     /// </summary>
-    public interface IComponentFactory : IPlugin
+    public interface IResourceFactory : IPlugin
     {
         /// <summary>
         /// gets the DisplayName for a resource- or RichContent-type
@@ -42,15 +41,6 @@ namespace ChameleonCoder.Plugins
         /// <returns>a dictionary containing the attributes the resource's XML element should have</returns>
         /// <remarks>this function must not create an instance of the specified resource!</remarks>
         IDictionary<string, string> CreateResource(Type type, string name, IResource parent);
-
-        /// <summary>
-        /// creates a new ContentMember of the given Type, using the given name and parent member
-        /// </summary>
-        /// <param name="type">the type of the member to create</param>
-        /// <param name="name">the name of the new member</param>
-        /// <param name="parent">the parent member or null</param>
-        /// <returns>the newly created IContentMember instance</returns>
-        IContentMember CreateMember(Type type, string name, IContentMember parent);
 
         /// <summary>
         /// gets a list of all types registered by this factory
