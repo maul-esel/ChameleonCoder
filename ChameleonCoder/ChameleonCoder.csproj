@@ -114,6 +114,9 @@
     </ApplicationDefinition>
     <Compile Include="DataFile.cs" />
     <Compile Include="IComponent.cs" />
+    <Compile Include="Interaction\CCNumericUpDown.xaml.cs">
+      <DependentUpon>CCNumericUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interaction\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
     <Compile Include="XmlDataFile.cs" />
+    <Page Include="Interaction\CCNumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Interaction\CCResourceCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
