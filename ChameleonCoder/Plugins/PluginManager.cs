@@ -92,7 +92,7 @@ namespace ChameleonCoder.Plugins
                 module.Initialize(); // ... and initialize it
             }
 
-            IComponentFactory factory = plugin as IComponentFactory;
+            IResourceFactory factory = plugin as IResourceFactory;
             if (factory != null) // if it is a ComponentFactory
             {
                 Factories.TryAdd(factory.Identifier, factory); // ...store it
@@ -111,7 +111,7 @@ namespace ChameleonCoder.Plugins
                 service.Shutdown();
             foreach (ILanguageModule module in GetModules())
                 module.Shutdown();
-            foreach (IComponentFactory factory in GetFactories())
+            foreach (IResourceFactory factory in GetFactories())
                 factory.Shutdown();
         }
 
@@ -328,9 +328,9 @@ namespace ChameleonCoder.Plugins
 
         #endregion
 
-        #region IComponentFactory
+        #region IResourceFactory
 
-        static ConcurrentDictionary<Guid, IComponentFactory> Factories = new ConcurrentDictionary<Guid, IComponentFactory>();
+        static ConcurrentDictionary<Guid, IResourceFactory> Factories = new ConcurrentDictionary<Guid, IResourceFactory>();
 
         /// <summary>
         /// gets the count of registered IComponentFactories
@@ -341,9 +341,14 @@ namespace ChameleonCoder.Plugins
         /// gets a list of all registered IComponentFactories
         /// </summary>
         /// <returns>the list</returns>
-        internal static IEnumerable<IComponentFactory> GetFactories()
+        internal static IEnumerable<IResourceFactory> GetFactories()
         {
             return Factories.Values;
+        }
+
+        internal static bool IsResourceFactoryRegistered(IResourceFactory factory)
+        {
+            return Factories.Values.Contains(factory);
         }
 
         #endregion

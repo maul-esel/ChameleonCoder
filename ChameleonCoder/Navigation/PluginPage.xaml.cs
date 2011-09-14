@@ -138,7 +138,7 @@ namespace ChameleonCoder.Navigation
                         e.Accepted = category == 2;
                     if (e.Item is ILanguageModule)
                         e.Accepted = category == 3;
-                    if (e.Item is IComponentFactory)
+                    if (e.Item is IResourceFactory)
                         e.Accepted = category == 4;
                 }
             }

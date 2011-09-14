@@ -20,7 +20,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// a dictionary associating the resource types with the registering component factory
         /// </summary>
-        private static ConcurrentDictionary<Type, IComponentFactory> Factories = new ConcurrentDictionary<Type, IComponentFactory>();
+        private static ConcurrentDictionary<Type, IResourceFactory> Factories = new ConcurrentDictionary<Type, IResourceFactory>();
 
         /// <summary>
         /// gets the resource type that was registered with the specified alias
@@ -123,10 +123,10 @@ namespace ChameleonCoder.Resources.Management
         /// gets the factory that registered the given resource type
         /// </summary>
         /// <param name="component">the resource type</param>
-        /// <returns>the IComponentFactory instance</returns>
-        internal static IComponentFactory GetFactory(Type component)
+        /// <returns>the IResourceFactory instance</returns>
+        internal static IResourceFactory GetFactory(Type component)
         {
-            IComponentFactory factory;
+            IResourceFactory factory;
             if (Factories.TryGetValue(component, out factory))
                 return factory;
             throw new ArgumentException("this is not a registered resource type", "component");
@@ -157,13 +157,13 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.IsRegistered(type);
         }
 
-        public static void RegisterComponent(Type component, string alias, Plugins.IComponentFactory factory)
+        public static void RegisterComponent(Type component, string alias, Plugins.IResourceFactory factory)
         {
             if (component.GetInterface(typeof(IResource).FullName) != null
-                && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic
-                && !IsRegistered(alias) && !IsRegistered(component)
-                && !string.Equals(alias, "metadata", StringComparison.OrdinalIgnoreCase)
-                && !string.Equals(alias, "RichContent", StringComparison.OrdinalIgnoreCase))
+                && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic // scope and type
+                && component.GetConstructor(Type.EmptyTypes) != null // creation
+                && !IsRegistered(alias) && !IsRegistered(component) // no double-registration
+                && PluginManager.IsResourceFactoryRegistered(factory)) // no anonymous registration
             {
                 ResourceTypes.RegisterResourceType(alias, component);
                 Factories.TryAdd(component, factory);
