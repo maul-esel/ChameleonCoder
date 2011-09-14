@@ -357,11 +357,11 @@
                                               Click="ResourceCreateChild"
                                               odc:RibbonBar.Size="Large"/>
 
-                            <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\SmallIcon.png"
+                            <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\copy.png"
                                               Click="ResourceCopy"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
-                            <odc:RibbonButton Content="{Binding Path=View_Move}" SmallImage="Images\SmallIcon.png"
+                            <odc:RibbonButton Content="{Binding Path=View_Move}" SmallImage="Images\move.png"
                                               Click="ResourceMove"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
