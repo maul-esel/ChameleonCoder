@@ -34,7 +34,7 @@ namespace ChameleonCoder.Interaction
         private void Increase(object sender, EventArgs e)
         {
             if (Number < MaxNumber)
-                ++Number;
+                Number++;
             else
                 Number = MinNumber;
         }
@@ -42,11 +42,12 @@ namespace ChameleonCoder.Interaction
         private void Decrease(object sender, EventArgs e)
         {
             if (Number > MinNumber)
-                --Number;
+                Number--;
             else
                 Number = MaxNumber;
         }
 
+        [System.ComponentModel.Bindable(true, System.ComponentModel.BindingDirection.TwoWay)]
         public int Number
         {
             get { return (int)GetValue(NumberProperty); }
@@ -57,7 +58,7 @@ namespace ChameleonCoder.Interaction
             = DependencyProperty.Register(  "Number",
                                             typeof(int),
                                             typeof(CCNumericUpDown),
-                                            new PropertyMetadata(0));
+                                            new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true });
 
         public int MaxNumber
         {
