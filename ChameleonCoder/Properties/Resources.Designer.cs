@@ -711,7 +711,7 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Language modules ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die language modules ähnelt.
         /// </summary>
         internal static string Plugin_LanguageModule {
             get {
@@ -891,6 +891,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die code font: ähnelt.
+        /// </summary>
+        internal static string Setting_CodeFont {
+            get {
+                return ResourceManager.GetString("Setting_CodeFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die code font size: ähnelt.
+        /// </summary>
+        internal static string Setting_CodeFontSize {
+            get {
+                return ResourceManager.GetString("Setting_CodeFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Enable updates ähnelt.
         /// </summary>
         internal static string Setting_EnableUpdate {
@@ -923,15 +941,6 @@ namespace ChameleonCoder.Properties {
         internal static string Setting_Language {
             get {
                 return ResourceManager.GetString("Setting_Language", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Programming directory: ähnelt.
-        /// </summary>
-        internal static string Setting_ProgrammingDir {
-            get {
-                return ResourceManager.GetString("Setting_ProgrammingDir", resourceCulture);
             }
         }
         

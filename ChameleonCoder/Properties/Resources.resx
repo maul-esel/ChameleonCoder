@@ -331,9 +331,6 @@
   <data name="Setting_Language" xml:space="preserve">
     <value>Language:</value>
   </data>
-  <data name="Setting_ProgrammingDir" xml:space="preserve">
-    <value>Programming directory:</value>
-  </data>
   <data name="Setting_SelectProgDir" xml:space="preserve">
     <value>select directory</value>
   </data>
@@ -455,5 +452,11 @@ resources cannot be moved to descendants.</value>
   </data>
   <data name="List_SortResources" xml:space="preserve">
     <value>Sort resources</value>
+  </data>
+  <data name="Setting_CodeFont" xml:space="preserve">
+    <value>code font:</value>
+  </data>
+  <data name="Setting_CodeFontSize" xml:space="preserve">
+    <value>code font size:</value>
   </data>
 </root>

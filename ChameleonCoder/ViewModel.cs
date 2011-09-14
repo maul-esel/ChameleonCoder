@@ -26,6 +26,12 @@ namespace ChameleonCoder
 
         private static FontFamily family = new FontFamily(Properties.Settings.Default.CodeFont);
 
+        public static int CodeFontSize
+        {
+            get { return Properties.Settings.Default.CodeFontSize; }
+            set { Properties.Settings.Default.CodeFontSize = value; }
+        }
+
         public static int UILanguage
         {
             get { return Properties.Settings.Default.Language; }
@@ -176,10 +182,11 @@ namespace ChameleonCoder
         #region SettingsPage
         public static string Setting_Language { get { return Res.Setting_Language; } }
         public static string Setting_EnableUpdate { get { return Res.Setting_EnableUpdate; } }
-        public static string Setting_ProgrammingDir { get { return Res.Setting_ProgrammingDir; } }
         public static string Setting_SelectProgDir { get { return Res.Setting_SelectProgDir; } }
         public static string Setting_InstallExt { get { return Res.Setting_InstallExt; } }
         public static string Setting_InstallCOM { get { return Res.Setting_InstallCOM; } }
+        public static string Setting_CodeFont { get { return Res.Setting_CodeFont; } }
+        public static string Setting_CodeFontSize { get { return Res.Setting_CodeFontSize; } }
         #endregion
 
         #region WelcomePage
