@@ -92,11 +92,18 @@ namespace ChameleonCoder.Plugins
                 module.Initialize(); // ... and initialize it
             }
 
-            IResourceFactory factory = plugin as IResourceFactory;
-            if (factory != null) // if it is a ComponentFactory
+            IResourceFactory resourceFactory = plugin as IResourceFactory;
+            if (resourceFactory != null) // if it is a ResourceFactory
             {
-                Factories.TryAdd(factory.Identifier, factory); // ...store it
-                factory.Initialize(); // ... and initialize it
+                ResourceFactories.TryAdd(resourceFactory.Identifier, resourceFactory); // ...store it
+                resourceFactory.Initialize(); // ... and initialize it
+            }
+
+            IRichContentFactory contentFactory = plugin as IRichContentFactory;
+            if (contentFactory != null) // if it is a RichContentFactory
+            {
+                RichContentFactories.TryAdd(contentFactory.Identifier, contentFactory); // ...store it
+                contentFactory.Initialize(); // ... and initialize it
             }
         }
 
@@ -105,14 +112,8 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         internal static void Shutdown()
         {
-            foreach (ITemplate template in GetTemplates())
-                template.Shutdown();
-            foreach (IService service in GetServices())
-                service.Shutdown();
-            foreach (ILanguageModule module in GetModules())
-                module.Shutdown();
-            foreach (IResourceFactory factory in GetFactories())
-                factory.Shutdown();
+            foreach (IPlugin plugin in GetPlugins())
+                plugin.Shutdown();
         }
 
         /// <summary>
@@ -126,7 +127,8 @@ namespace ChameleonCoder.Plugins
             plugins.AddRange(GetModules());
             plugins.AddRange(GetServices());
             plugins.AddRange(GetTemplates());
-            plugins.AddRange(GetFactories());
+            plugins.AddRange(GetResourceFactories());
+            plugins.AddRange(GetRichContentFactories());
 
             return plugins;
         }
@@ -330,25 +332,50 @@ namespace ChameleonCoder.Plugins
 
         #region IResourceFactory
 
-        static ConcurrentDictionary<Guid, IResourceFactory> Factories = new ConcurrentDictionary<Guid, IResourceFactory>();
+        static ConcurrentDictionary<Guid, IResourceFactory> ResourceFactories = new ConcurrentDictionary<Guid, IResourceFactory>();
 
         /// <summary>
-        /// gets the count of registered IComponentFactories
+        /// gets the count of registered IResourceFactory
         /// </summary>
-        internal static int FactoryCount { get { return Factories.Count; } }
+        internal static int ResourceFactoryCount { get { return ResourceFactories.Count; } }
 
         /// <summary>
-        /// gets a list of all registered IComponentFactories
+        /// gets a list of all registered IResourceFactory
         /// </summary>
         /// <returns>the list</returns>
-        internal static IEnumerable<IResourceFactory> GetFactories()
+        internal static IEnumerable<IResourceFactory> GetResourceFactories()
         {
-            return Factories.Values;
+            return ResourceFactories.Values;
         }
 
         internal static bool IsResourceFactoryRegistered(IResourceFactory factory)
         {
-            return Factories.Values.Contains(factory);
+            return ResourceFactories.Values.Contains(factory);
+        }
+
+        #endregion
+
+        #region IRichContentFactory
+
+        static ConcurrentDictionary<Guid, IRichContentFactory> RichContentFactories = new ConcurrentDictionary<Guid, IRichContentFactory>();
+
+        /// <summary>
+        /// gets the count of registered IRichContentFactory
+        /// </summary>
+        internal static int RichContentFactoryCount { get { return RichContentFactories.Count; } }
+
+        /// <summary>
+        /// gets a list of all registered IRichContentFactory
+        /// </summary>
+        /// <returns>the list</returns>
+        internal static IEnumerable<IRichContentFactory> GetRichContentFactories()
+        {
+            return RichContentFactories.Values;
+        }
+
+        internal static bool IsRichContentFactoryRegistered(IRichContentFactory factory)
+        {
+            return RichContentFactories.Values.Contains(factory);
         }
 
         #endregion
