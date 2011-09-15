@@ -43,20 +43,6 @@ namespace ChameleonCoder.Resources.Management
         }
 
         /// <summary>
-        /// creates an instance of the type registered with the specified alias
-        /// </summary>
-        /// <param name="alias">the alias</param>
-        /// <returns>the instance</returns>
-        [Obsolete("use overload", true)]
-        internal static IResource CreateInstanceOf(string alias)
-        {
-            Type type = GetResourceType(alias);
-            if (type == null)
-                return null;
-            return Activator.CreateInstance(type) as IResource;
-        }
-
-        /// <summary>
         /// creates an instance of the type registered with the specified alias, using the given data
         /// </summary>
         /// <param name="alias">the alias of the resource type</param>
