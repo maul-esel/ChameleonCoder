@@ -239,9 +239,9 @@ namespace ChameleonCoder
 
             foreach (XmlElement node in content.ChildNodes)
             {
-                IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name);
+                IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name, node, null);
                 if (member == null)
-                    member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"));
+                    member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"), node, null);
 
                 if (member != null)
                 {
@@ -261,9 +261,9 @@ namespace ChameleonCoder
         /// <param name="parent">the parent member</param>
         private static void AddRichContent(XmlElement node, IContentMember parent)
         {
-            IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name);
+            IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name, node, null);
             if (member == null)
-                member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"));
+                member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"), node, null);
 
             if (member != null)
             {

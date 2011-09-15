@@ -47,5 +47,15 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <returns>the Type-Array</returns>
         IEnumerable<Type> RegisteredTypes { get; }
+
+        /// <summary>
+        /// creates an instance of the given type
+        /// </summary>
+        /// <param name="resourceType">the type to create an instance of</param>
+        /// <param name="data">the XmlElement representing the resource</param>
+        /// <param name="parent">the parent resource</param>
+        /// <returns>the newly created instance</returns>
+        /// <remarks>This method should NOT create a new resource but instead instantiate an existing one.</remarks>
+        IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent);
     }
 }

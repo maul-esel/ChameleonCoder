@@ -137,9 +137,9 @@ namespace ChameleonCoder
         {
             IResource resource;
             
-            resource = ResourceTypeManager.CreateInstanceOf(node.Name); // try to use the element's name as resource alias
+            resource = ResourceTypeManager.CreateInstanceOf(node.Name, node, parent); // try to use the element's name as resource alias
             if (resource == null && node.GetAttribute("fallback") != null) // if e.g. the containing plugin is not loaded:
-                resource = ResourceTypeManager.CreateInstanceOf(node.Attributes["fallback"].Value); // give it a "2nd chance"
+                resource = ResourceTypeManager.CreateInstanceOf(node.GetAttribute("fallback"), node, parent); // give it a "2nd chance"
             if (resource == null) // if creation failed:
             {
                 Log("ChameleonCoder.App --> internal static void AddResource(XmlElement, IResource)",
@@ -149,7 +149,6 @@ namespace ChameleonCoder
                 return; // ignore
             }
 
-            resource.Initialize(node, parent); // give the resource the information it requires
             ResourceManager.Add(resource, parent); // and add it to all required lists
 
             foreach (XmlElement child in node.ChildNodes)

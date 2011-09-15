@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Xml;
 using ChameleonCoder.Plugins;
 
 namespace ChameleonCoder.Resources.RichContent
 {
     public static class ContentMemberManager
     {
-        internal static IContentMember CreateInstanceOf(string alias)
-        {
-            Type member = ContentMembers.GetMember(alias);
-            if (member == null)
-                return null;
-            return Activator.CreateInstance(member) as IContentMember;
-        }
-
         /// <summary>
         /// the collection holding the RichContent types
         /// </summary>
@@ -61,6 +54,19 @@ namespace ChameleonCoder.Resources.RichContent
             throw new ArgumentException("this is not a registered content member type", "component");
         }
 
+        internal static IContentMember CreateInstanceOf(string alias, XmlElement data, IContentMember parent)
+        {
+            Type member = ContentMembers.GetMember(alias);
+            if (member != null)
+            {
+                var factory = GetFactory(member);
+                if (factory != null)
+                {
+                    return factory.CreateInstance(member, data, parent);
+                }
+            }
+            return null;
+        }
         
     }
 }

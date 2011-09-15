@@ -35,6 +35,7 @@
         /// initializes the instance
         /// </summary>
         /// <param name="node">the XmlElement containing the member's data</param>
+        [System.Obsolete("use factory for creation and initialization", true)]
         void Initialize(System.Xml.XmlElement node, IContentMember parent);
     }
 }

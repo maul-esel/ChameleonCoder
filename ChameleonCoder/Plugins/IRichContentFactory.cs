@@ -19,6 +19,16 @@ namespace ChameleonCoder.Plugins
         /// <param name="name">the name of the new member</param>
         /// <param name="parent">the parent member or null</param>
         /// <returns>the newly created IContentMember instance</returns>
+        [Obsolete("should return dictionary, same as in IResourceFactory", true)]
         IContentMember CreateMember(Type type, string name, IContentMember parent);
+
+        /// <summary>
+        /// creates an instance of the given registered type
+        /// </summary>
+        /// <param name="memberType">the type to create an instance of</param>
+        /// <param name="data">the XmlElement representing the member</param>
+        /// <param name="parent">the parent member</param>
+        /// <returns>the newly created instance</returns>
+        IContentMember CreateInstance(Type memberType, System.Xml.XmlElement data, IContentMember parent);
     }
 }

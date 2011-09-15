@@ -47,12 +47,32 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="alias">the alias</param>
         /// <returns>the instance</returns>
+        [Obsolete("use overload", true)]
         internal static IResource CreateInstanceOf(string alias)
         {
             Type type = GetResourceType(alias);
             if (type == null)
                 return null;
             return Activator.CreateInstance(type) as IResource;
+        }
+
+        /// <summary>
+        /// creates an instance of the type registered with the specified alias, using the given data
+        /// </summary>
+        /// <param name="alias">the alias of the resource type</param>
+        /// <param name="data">the XmlElement representing the resource</param>
+        /// <param name="parent">the resource's parent</param>
+        /// <returns>the new instance</returns>
+        internal static IResource CreateInstanceOf(string alias, System.Xml.XmlElement data, IResource parent)
+        {
+            Type resourceType = GetResourceType(alias);
+            if (resourceType != null)
+            {
+                var factory = GetFactory(resourceType);
+                if (factory != null)
+                    return factory.CreateInstance(resourceType, data, parent);
+            }
+            return null;
         }
 
         /// <summary>

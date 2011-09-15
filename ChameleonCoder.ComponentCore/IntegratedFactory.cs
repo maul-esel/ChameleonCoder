@@ -145,6 +145,15 @@ namespace ChameleonCoder.ComponentCore
                                 typeof(LinkResource), typeof(ProjectResource), typeof(TaskResource),
                                 typeof(GroupResource) };
 
+        public IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent)
+        {
+            IResource resource = Activator.CreateInstance(resourceType) as IResource;
+
+            resource.Initialize(data, parent);
+
+            return resource;
+        }
+
         #endregion
     }
 }

@@ -39,7 +39,7 @@ namespace ChameleonCoder.Resources.Interfaces
         ResourceCollection Children { get; }
 
         /// <summary>
-        /// initializes the resource
+        /// (re-) initializes the resource
         /// </summary>
         /// <param name="data">the XmlNode containing the resource data.</param>
         /// <param name="parent">the parent resource for the resource</param>
