@@ -14,11 +14,9 @@ namespace ChameleonCoder.Plugins
         /// <param name="name">the default name to use</param>
         public TemplateDefaultNameAttribute(string name)
         {
-            this.name = name;
+            Name = name;
         }
 
-        internal string Name { get { return name; } }
-
-        private readonly string name;
+        public string Name { get; private set; }
     }
 }
