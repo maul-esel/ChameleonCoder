@@ -131,11 +131,6 @@ namespace ChameleonCoder.ComponentCore
             return null;
         }
 
-        public IContentMember CreateMember(Type type, string name, IContentMember parent)
-        {
-            return null;
-        }
-
         public IEnumerable<Type> RegisteredTypes
         {
             get { return registeredTypesArray; }
