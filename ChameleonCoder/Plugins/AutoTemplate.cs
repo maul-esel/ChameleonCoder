@@ -137,7 +137,7 @@ namespace ChameleonCoder.Plugins
         public IResource Create(IResource parent, string name)
         {
             var attr = ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
-            return ResourceTypeManager.CreateInstanceOf(ResourceType, name, attr, parent);
+            return ResourceTypeManager.CreateNewResource(ResourceType, name, attr, parent);
         }
         #endregion
     }
