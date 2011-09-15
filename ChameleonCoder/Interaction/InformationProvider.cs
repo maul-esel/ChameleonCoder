@@ -110,7 +110,7 @@ namespace ChameleonCoder.Interaction
         {
             var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
             if (edit != null)
-                edit.Editor.Text.Insert(position, code);
+                edit.Editor.Text = edit.Editor.Text.Insert(position, code);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace ChameleonCoder.Interaction
         {
             var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
             if (edit != null)
-                edit.Editor.Text.Insert(edit.Editor.CaretOffset, code);
+                edit.Editor.Text = edit.Editor.Text.Insert(edit.Editor.CaretOffset, code);
         }
 
         #endregion
