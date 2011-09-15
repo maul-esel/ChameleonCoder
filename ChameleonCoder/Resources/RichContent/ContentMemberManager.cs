@@ -53,6 +53,14 @@ namespace ChameleonCoder.Resources.RichContent
             return ContentMembers.IsRegistered(type);
         }
 
+        public static IRichContentFactory GetFactory(Type component)
+        {
+            IRichContentFactory factory;
+            if (Factories.TryGetValue(component, out factory))
+                return factory;
+            throw new ArgumentException("this is not a registered content member type", "component");
+        }
+
         
     }
 }
