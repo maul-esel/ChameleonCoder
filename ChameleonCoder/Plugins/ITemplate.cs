@@ -29,7 +29,7 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// creates a new instance of the resource type and does additional operations.
         /// The actual job of creating an instance and initializing it should be carried out
-        /// to the public <code>ResourceTypeManager.CreateInstanceOf(...)</code> method.
+        /// to the public <code>ResourceTypeManager.CreateNewResource(...)</code> method.
         /// </summary>
         /// <param name="parent">the parent resource or null is it is a new top resource</param>
         /// <returns>the newly created resource</returns>
