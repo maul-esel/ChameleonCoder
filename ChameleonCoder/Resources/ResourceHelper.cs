@@ -233,17 +233,45 @@ namespace ChameleonCoder
             if (res == null)
                 return;
 
-            var cont = (XmlElement)res.SelectSingleNode("RichContent");
-            if (cont == null)
+            var content = (XmlElement)res.SelectSingleNode("RichContent");
+            if (content == null)
                 return;
 
-            foreach (XmlElement member in cont.ChildNodes)
+            foreach (XmlElement node in content.ChildNodes)
             {
-                IContentMember richContent = ContentMemberManager.CreateInstanceOf(member.Name);
-                if (richContent == null)
-                    richContent = ContentMemberManager.CreateInstanceOf(member.Attributes["fallback"].Value);
-                if (richContent != null)
-                    resource.RichContent.Add(richContent);
+                IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name);
+                if (member == null)
+                    member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"));
+
+                if (member != null)
+                {
+                    resource.RichContent.Add(member);
+                    foreach (XmlElement child in node.ChildNodes)
+                    {
+                        AddRichContent(child, member);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// parses the RichContent child members of a given RichConhtentMember instance
+        /// </summary>
+        /// <param name="node">the XmlElement representing the child member</param>
+        /// <param name="parent">the parent member</param>
+        private static void AddRichContent(XmlElement node, IContentMember parent)
+        {
+            IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name);
+            if (member == null)
+                member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"));
+
+            if (member != null)
+            {
+                parent.Children.Add(member);
+                foreach (XmlElement child in node.ChildNodes)
+                {
+                    AddRichContent(child, member);
+                }
             }
         }
 
