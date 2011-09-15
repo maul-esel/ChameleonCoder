@@ -15,7 +15,7 @@
         /// indicates whether to resolve the resource or not
         /// Do not use this.
         /// </summary>
-        [System.Obsolete]
+        [System.Obsolete("need to find  abetter way, maybe a parameter. See github issue #16")]
         bool ShouldResolve { get; }
     }
 }
