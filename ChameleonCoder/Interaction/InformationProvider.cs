@@ -56,6 +56,30 @@ namespace ChameleonCoder.Interaction
         /// </summary>
         public static string AppDir { get { return App.AppDir; } }
 
+        /// <summary>
+        /// gets the type of page that is currently active
+        /// </summary>
+        public static CCTabPage CurrentPage
+        {
+            get
+            {
+                var page = (App.Gui.Tabs.SelectedItem as TabContext).Content;
+                if (page is Navigation.WelcomePage)
+                    return CCTabPage.Home;
+                else if (page is Navigation.SettingsPage)
+                    return CCTabPage.Settings;
+                else if (page is Navigation.PluginPage)
+                    return CCTabPage.Plugins;
+                else if (page is Navigation.ResourceListPage)
+                    return CCTabPage.ResourceList;
+                else if (page is Navigation.ResourceViewPage)
+                    return CCTabPage.ResourceView;
+                else if (page is Navigation.EditPage)
+                    return CCTabPage.ResourceEdit;
+                return CCTabPage.None;
+            }
+        }
+
         #endregion
 
         #region tools
@@ -122,6 +146,18 @@ namespace ChameleonCoder.Interaction
             var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
             if (edit != null)
                 edit.Editor.Text = edit.Editor.Text.Insert(edit.Editor.CaretOffset, code);
+        }
+
+        /// <summary>
+        /// gets the current edit control
+        /// </summary>
+        /// <returns>the edit control or null if no resource is currently edited</returns>
+        public static ICSharpCode.AvalonEdit.TextEditor GetEditor()
+        {
+            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            if (edit != null)
+                return edit.Editor;
+            return null;
         }
 
         #endregion
