@@ -32,9 +32,9 @@ namespace ChameleonCoder.Resources
         private readonly string name;
         private readonly ResourcePropertyGroup group;
 
-        internal string Name { get { return name; } }
+        public string Name { get { return name; } }
 
-        internal ResourcePropertyGroup Group { get { return group; } }
+        public ResourcePropertyGroup Group { get { return group; } }
 
         public bool IsReadOnly { get; set; }
 
