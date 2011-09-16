@@ -11,33 +11,48 @@ namespace ChameleonCoder.Services
         internal CreatorView()
         {
             InitializeComponent();
-            DataContext = CurrentGuid = Guid.NewGuid();
+            Invoke(null, null);
         }
 
-        internal void Invoke(object sender, EventArgs e)
+        private void Invoke(object sender, EventArgs e)
         {
-            DataContext = CurrentGuid = Guid.NewGuid();
+            UpdateDataContext(Guid.NewGuid());
+            reportBox.Text = Properties.Resources.Report_Created;
         }
 
-        internal void Enter(object sender, EventArgs e)
+        private void UpdateDataContext(Guid guid)
         {
-            InputBox box = new InputBox("GuidCreator", "enter a GUID", (s, error) =>
+            DataContext = new
+            {
+                guid = (CurrentGuid = guid),
+                action_create = Properties.Resources.Action_Create,
+                action_enter = Properties.Resources.Action_Enter
+            };
+        }
+
+        private void Enter(object sender, EventArgs e)
+        {
+            InputBox box = new InputBox("GUID Creator", Properties.Resources.Prompt_Enter,
+                (s, error) =>
                 {
                     if (string.IsNullOrWhiteSpace(s))
                     {
-                        error("GUID must not be empty!");
+                        error(Properties.Resources.Error_Empty);
                         return false;
                     }
                     Guid g;
                     if (!Guid.TryParse(s, out g))
                     {
-                        error("You did not enter a valid GUID!");
+                        error(Properties.Resources.Error_Invalid);
                         return false;
                     }
                     return true;
                 });
             if (box.ShowDialog() == true)
-                DataContext = CurrentGuid = Guid.Parse(box.Text);
+            {
+                UpdateDataContext(Guid.Parse(box.Text));
+                reportBox.Text = Properties.Resources.Report_Entered;
+            }
         }
     }
 }

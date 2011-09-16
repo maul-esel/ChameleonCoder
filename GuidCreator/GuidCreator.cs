@@ -34,6 +34,8 @@ namespace ChameleonCoder.Services
 
         public void Execute()
         {
+            Properties.Resources.Culture = new System.Globalization.CultureInfo(Interaction.InformationProvider.Language);
+
             busy = true;
             CreatorView viewer = new CreatorView();
             viewer.ShowDialog();

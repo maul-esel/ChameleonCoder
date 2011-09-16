@@ -59,5 +59,68 @@ namespace ChameleonCoder.Services.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Create a new GUID. ähnelt.
+        /// </summary>
+        internal static string Action_Create {
+            get {
+                return ResourceManager.GetString("Action_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter a GUID. ähnelt.
+        /// </summary>
+        internal static string Action_Enter {
+            get {
+                return ResourceManager.GetString("Action_Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die An empty GUID is not valid. ähnelt.
+        /// </summary>
+        internal static string Error_Empty {
+            get {
+                return ResourceManager.GetString("Error_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You did not enter a valid GUID. ähnelt.
+        /// </summary>
+        internal static string Error_Invalid {
+            get {
+                return ResourceManager.GetString("Error_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enter a GUID. ähnelt.
+        /// </summary>
+        internal static string Prompt_Enter {
+            get {
+                return ResourceManager.GetString("Prompt_Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die A new GUID was created. ähnelt.
+        /// </summary>
+        internal static string Report_Created {
+            get {
+                return ResourceManager.GetString("Report_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You entered a new GUID. ähnelt.
+        /// </summary>
+        internal static string Report_Entered {
+            get {
+                return ResourceManager.GetString("Report_Entered", resourceCulture);
+            }
+        }
     }
 }
