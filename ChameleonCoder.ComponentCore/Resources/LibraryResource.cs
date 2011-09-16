@@ -60,17 +60,17 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region Alias
 
-        public string nameof_Author
+        public static string nameof_Author
         {
             get { return Properties.Resources.Info_Author; }
         }
 
-        public string nameof_License
+        public static string nameof_License
         {
             get { return Properties.Resources.Info_License; }
         }
 
-        public string nameof_Version
+        public static string nameof_Version
         {
             get { return Properties.Resources.Info_Version; }
         }

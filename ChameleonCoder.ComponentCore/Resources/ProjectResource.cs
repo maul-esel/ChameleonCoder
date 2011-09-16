@@ -166,7 +166,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        public string nameof_PriorityName
+        public static string nameof_PriorityName
         {
             get { return Properties.Resources.Info_Priority; }
         }

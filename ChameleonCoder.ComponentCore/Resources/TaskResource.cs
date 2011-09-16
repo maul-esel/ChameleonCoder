@@ -42,7 +42,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        public string nameof_EndDateName
+        public static string nameof_EndDateName
         {
             get
             {

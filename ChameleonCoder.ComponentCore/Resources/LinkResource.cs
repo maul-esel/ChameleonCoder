@@ -125,7 +125,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        public string nameof_DestinationName
+        public static string nameof_DestinationName
         {
             get
             {
