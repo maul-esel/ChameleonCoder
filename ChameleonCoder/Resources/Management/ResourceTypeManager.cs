@@ -130,7 +130,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="component">the resource type</param>
         /// <returns>the IResourceFactory instance</returns>
-        internal static IResourceFactory GetFactory(Type component)
+        public static IResourceFactory GetFactory(Type component)
         {
             IResourceFactory factory;
             if (Factories.TryGetValue(component, out factory))
