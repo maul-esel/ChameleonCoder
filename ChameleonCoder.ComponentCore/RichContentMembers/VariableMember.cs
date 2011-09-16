@@ -5,7 +5,9 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
     public class VariableMember : IContentMember
     {
-        public RichContentCollection Children { get; protected set; }
+        public RichContentCollection Children { get { return childrenCollection; } }
+
+        private readonly RichContentCollection childrenCollection = new RichContentCollection();
 
         public string GetHtml(object param)
         {
@@ -23,7 +25,5 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public System.Windows.Media.ImageSource Icon { get; private set; }
 
         public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
-
-
     }
 }

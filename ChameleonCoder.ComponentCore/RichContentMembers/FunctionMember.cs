@@ -12,11 +12,9 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             return string.Empty;
         }
 
-        public RichContentCollection Children
-        {
-            get;
-            private set;
-        }
+        public RichContentCollection Children { get { return childrenCollection; } }
+
+        private readonly RichContentCollection childrenCollection = new RichContentCollection();
 
         public virtual void Save() { }
 
@@ -31,10 +29,5 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
 
         #endregion
-
-        public FunctionMember()
-        {
-            this.Children = new RichContentCollection();
-        }
     }
 }
