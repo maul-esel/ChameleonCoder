@@ -6,8 +6,8 @@
         <TextBlock Name="PromptText" Margin="10" HorizontalAlignment="Center"/>
         <TextBox TextChanged="TextEntered" x:Name="entered" Width="300" Margin="10" HorizontalAlignment="Center"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button IsCancel="True" Content="cancel" Width="100" Margin="10" HorizontalAlignment="Left"/>
-            <Button IsDefault="True" Click="Close" Content="OK" Width="100" Margin="10" HorizontalAlignment="Right"/>
+            <Button IsCancel="True" Name="CancelBtn" Width="100" Margin="10" HorizontalAlignment="Left"/>
+            <Button IsDefault="True" Name="OKBtn" Click="Close" Width="100" Margin="10" HorizontalAlignment="Right"/>
         </StackPanel>
        
     </StackPanel>

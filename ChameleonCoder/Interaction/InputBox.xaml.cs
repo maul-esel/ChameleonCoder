@@ -11,6 +11,10 @@ namespace ChameleonCoder.Interaction
         public InputBox(string title, string prompt, Func<string, Action<string>, bool> validation)
         {
             InitializeComponent();
+
+            CancelBtn.Content = Properties.Resources.Action_Cancel;
+            OKBtn.Content = Properties.Resources.Action_OK;
+
             Title = title;
             Prompt = prompt;
             _validation = validation;
