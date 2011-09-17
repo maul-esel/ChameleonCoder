@@ -73,32 +73,26 @@ namespace ChameleonCoder.Resources.Management
         /// <returns>the new resource</returns>
         public static IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent)
         {
-            var resource = Activator.CreateInstance(type) as IResource;
+            var document = (parent == null) ? App.DefaultFile.Document : parent.GetResourceFile().Document;
 
-            if (resource != null)
+            var element = document.CreateElement(GetAlias(type));
+            if (parent == null)
+                document.DocumentElement.SelectSingleNode("resources").AppendChild(element);
+            else
+                parent.Xml.AppendChild(element);
+
+            foreach (var attribute in attributes)
             {
-                var document = resource.GetResourceFile().Document;
-
-                var element = document.CreateElement(GetAlias(type));
-                if (parent == null)
-                    document.DocumentElement.SelectSingleNode("Resources").AppendChild(element);
-                else
-                    parent.Xml.AppendChild(element);
-
-                foreach (var attribute in attributes)
-                {
-                    element.SetAttribute(attribute.Key, attribute.Value);
-                }
-
-                element.SetAttribute("name", name);
-
-                resource.Initialize(element, parent);
-                ResourceManager.Add(resource, parent);
-
-                return resource;
+                element.SetAttribute(attribute.Key, attribute.Value);
             }
 
-            return null;
+            element.SetAttribute("name", name);
+
+            IResource resource = GetFactory(type).CreateInstance(type, element, parent);
+            if (resource != null)
+                ResourceManager.Add(resource, parent);
+
+            return resource;
         }
 
         /// <summary>
