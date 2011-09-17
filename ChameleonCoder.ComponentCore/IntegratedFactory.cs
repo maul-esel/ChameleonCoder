@@ -21,7 +21,7 @@ namespace ChameleonCoder.ComponentCore
 
         public string Author { get { return "maul.esel"; } }
 
-        public string Description { get { return "provides the ChameleonCoder integrated resource and RichContent types"; } }
+        public string Description { get { return "provides the ChameleonCoder integrated resource types"; } }
 
         public ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/Images/logo.png")); } }
 
