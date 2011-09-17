@@ -27,8 +27,8 @@
       General remarks
     </p>
     <p>
-    Resources are represented by *.xml files in the <code>\Data\</code> directory.
-    They are "well-formed" documents, but they neither use namespaces nor is there a XML schema file.
+    Resources are represented by XML-files with the file extension *.ccr or by süecial other files (*.ccp).
+    These XML-files must be "well-formed" documents, but they neither use namespaces nor is there a XML schema file.
     As case matters in XML, it should be always the same: any node or attribute name must be <b>all lowercase</b>. 
     </p>
     <p>
@@ -36,13 +36,16 @@
       Any custom or included resource type registers itself under a special so-called "alias". This alias is the node name.
       For example, the included resource types' aliases are:
       <ul>
-        <li><code>link</code> for link resources</li>
         <li><code>file</code> for file resources</li>
         <li><code>code</code> for source code resources</li>
         <li><code>library</code> for library resources</li>
         <li><code>project</code> for project resources</li>
         <li><code>group</code> for group resources</li>
+        <li><code>task</code> for task resources</li>
       </ul>
+    </p>
+    <p>
+    Resources can have child resources, represented by child nodes. Those follow the same syntax rules.
     </p>
     <br>
 
@@ -56,7 +59,7 @@
     <ul class="shr">
       <li><code>name</code> - the resource's name</li>
       <li><code>guid</code> - the resource's GUID
-      which can be created with the <code>System.Guid.NewGuid()</code> or with an online tool such as <a href="www.guidgen.com">www.guidgen.com</a></li>
+      which can be created with the <code>System.Guid.NewGuid()</code> or with an online tool such as <a href="http://www.guidgen.com">www.guidgen.com</a></li>
       <li><code>notes</code> - user-defined notes related to the resource</li>
       <li><code>description</code> - a short description of the resource</li>
     </ul>
@@ -66,10 +69,14 @@
     <br>
 
     <p class="big">
-      Child nodes
+      Addtitional data
     </p>
     <p>
-    Any resource can have multiple <code>metadata</code> child nodes.
+    Additional data for a resource is stored in the <code>/cc-resource-file/data</code> element, where each resource
+    has a <code>&lt;resource-data&gt;</code> element with the resource's identifier.
+    </p>
+    <p>
+    Any resource can have multiple <code>metadata</code> elements.
     Their <code>name</code> attribute defines the metadata's name, whereas the node content is the value.
     </p>
     <p>
@@ -77,9 +84,9 @@
     Those <b>will be ignored unless</b> the resource type implements <b><code>IRichContentResource</code></b>. 
     </p>
     <p>
-    Resources can have child resources, represented by child nodes. Those follow the same syntax rules.
-    However, child resources will be ignored unless he resource type implements <b><code>IAllowChildren</code></b>.
+    Other additional data include a "created on" and a "last modified" date and any references to other resources.
     </p>
+    
     <br>
     
     <p class="big">
@@ -87,11 +94,6 @@
     </p>
     <p>
     <ul>
-      <li>Links:
-        <ul>
-          <li><code>destination</code> - the guid of the resource thge link points to</li>
-        </ul>
-      </li>
       <li>Files:
         <ul>
           <li><code>path</code> - the path to the file</li>
@@ -99,7 +101,7 @@
       </li>
       <li>Source Code:
         <ul>
-          <li><i>any attttributes from files</i></li>
+          <li><i>any attributes from files</i></li>
           <li><code>language</code> - the GUID of the language the source is written in</li>
           <li><code>compilation-path</code> - the path the file would be compiled to</li>
           <li><code>compatible-languages</code> - a list of GUIDs for compatible languages, separated by <code>;</code></li>

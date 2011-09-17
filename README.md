@@ -7,7 +7,7 @@ Current version: 0.0.0.1 alpha 2
 
 ## System Requirements
 To run CC, the .NET Framework v4 is required. The Framework v4 itself is supported begining with XP SP3.
-Other implementations such as MONO do not work as CC requires WPF.
+Other implementations such as MONO do ***not*** work as CC requires WPF.
 
 ## Credits & Related
 * CC is licensed under GPL which can be found in license.txt.
@@ -18,8 +18,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 ### realized
 * rich extensibility model
 * parsing of resource files and displaying them, including hierarchy
-* 7 included resource types
-	* links, which allow referencing another resource without copying it
+* 6 included resource types
 	* files
     * code files
     * libraries
@@ -31,6 +30,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 * a breadcrumb control for easy navigation
 * multiple language support
 * creation, moving, copying and deleting of resources
+* referencing a resource in another place
 
 ### planned
 * support for coding languages using LanguageModules, which can allow
@@ -45,6 +45,7 @@ Other implementations such as MONO do not work as CC requires WPF.
 * 2 different file types including possibility to convert between them
 * backing up *.ccp files on startup, possibility to extract / restore / delete backups
 * creation of empty files of both types
+* creation and modification of references
 
 ## Extensibility model
 It is planned to support different models to extend CC.
