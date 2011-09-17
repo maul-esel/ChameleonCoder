@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using IF = ChameleonCoder.Interaction.InformationProvider;
 
@@ -17,21 +17,34 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         internal static void Load()
         {
-            var components = from dll in System.IO.Directory.GetFiles(App.AppDir + "\\Components", "*.dll").AsParallel()
-                             let plugin = System.Reflection.Assembly.LoadFrom(dll) // load all assemblies
-                             where Attribute.IsDefined(plugin, typeof(CCPluginAttribute)) // filter non-plugin assemblies
-                                && plugin.IsFullyTrusted
+            Parallel.ForEach(Directory.GetFiles(Path.Combine(App.AppDir, "Components"), "*.dll"),
+                dll =>
+                {
+                    System.Reflection.Assembly ass = null;
+                    try
+                    {
+                        ass = System.Reflection.Assembly.LoadFile(dll);
+                    }
+                    catch (BadImageFormatException e)
+                    {
+                        App.Log("ChameleonCoder.Plugins.PluginManager->Load()",
+                            "could not assembly '" + dll + "'",
+                            e.ToString());
+                    }
 
-                             from type in Filter(plugin.GetTypes()).AsParallel() // get all contained types and filter them
-                             select type;
-            // add it to plugin manager
-            Parallel.ForEach(components, component => Add(component));
+                    if (ass != null
+                        && ass.IsFullyTrusted
+                        && Attribute.IsDefined(ass, typeof(CCPluginAttribute)))
+                    {
+                        Load(ass.GetTypes());
+                    }
+                });
         }
 
         /// <summary>
         /// loads the given plugins, if installed
         /// </summary>
-        /// <param name="plugins"></param>
+        /// <param name="plugins">the plugins to load</param>
         internal static void Load(IEnumerable<Type> plugins)
         {
             Parallel.ForEach(Filter(plugins), plugin => Add(plugin));
