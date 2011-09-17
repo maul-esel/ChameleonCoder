@@ -139,7 +139,6 @@ namespace ChameleonCoder
 
         #region ResourceList Ribbon
         public static string List_EnableGroups { get { return Res.List_EnableGroups; } }
-        public static string List_ShowResolvable { get { return Res.List_ShowResolvable; } }
         public static string List_HiddenTypes { get { return Res.List_HiddenTypes; } }
         public static string List_SortResources { get { return Res.List_SortResources; } }
         #endregion

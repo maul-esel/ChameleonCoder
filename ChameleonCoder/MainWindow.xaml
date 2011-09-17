@@ -99,31 +99,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}" x:Key="resourceTemplate">
-
-            <Grid Margin="3" HorizontalAlignment="Stretch">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Border Grid.Column="0" Width="20" Height="20"
-                        Background="Chocolate" BorderBrush="Black" BorderThickness="0.5">
-                    
-                    <Image Source="{Binding Path=Icon}" Width="19" Height="19"/>
-                    
-                </Border>
-
-                <Image Source="{Binding Path=SpecialVisualProperty}" Grid.Column="1" Width="20" Height="20" Margin="5,0,0,0"/>
-
-                <TextBlock Text="{Binding Path=Name}"
-                           Grid.Column="2" Margin="5,0,0,0"/>
-
-            </Grid>
-        </HierarchicalDataTemplate>
 
     </odc:RibbonWindow.Resources>
     
@@ -236,12 +211,7 @@
 
                             <odc:RibbonToggleButton x:Name="SortItems" Content="{Binding Path=List_SortResources}" SmallImage="Images\sort.png"
                                                 Unchecked="SortingChanged" Checked="SortingChanged" IsChecked="True"
-                                                odc:RibbonBar.MaxSize="Medium"/>
-
-                            <odc:RibbonToggleButton x:Name="ShowLinks" Content="{Binding Path=List_ShowResolvable}" SmallImage="Images\SmallIcon.png"
-                                                Unchecked="FilterChanged" Checked="FilterChanged" IsChecked="False"
-                                                odc:RibbonBar.Size="Medium"/>
-                            <!--this may be removed soon-->                            
+                                                odc:RibbonBar.Size="Medium"/>                        
 
                         </odc:RibbonGroup>
 
