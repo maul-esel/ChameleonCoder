@@ -102,11 +102,10 @@ namespace ChameleonCoder
                 }
             }
 
-            DefaultFile = DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
-
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
+                DefaultFile = DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
                 Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
                 foreach (XmlElement element in DataFile.GetResources())
                     AddResource(element, null); // and parse the Xml
