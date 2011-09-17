@@ -8,7 +8,7 @@ namespace ChameleonCoder
     {
         ConcurrentDictionary<TKey, TValue> instances = new ConcurrentDictionary<TKey, TValue>();
 
-        public void Add(TKey key, TValue value)
+        protected void Add(TKey key, TValue value)
         {
             if (!instances.ContainsKey(key))
             {
