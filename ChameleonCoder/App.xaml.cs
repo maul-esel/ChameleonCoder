@@ -33,6 +33,11 @@ namespace ChameleonCoder
         /// </summary>
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
 
+        /// <summary>
+        /// gets the initially loaded file
+        /// </summary>
+        internal static DataFile DefaultFile { get; private set; }
+
         #endregion
 
         /// <summary>
@@ -97,7 +102,7 @@ namespace ChameleonCoder
                 }
             }
 
-            DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
+            DefaultFile = DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
 
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
