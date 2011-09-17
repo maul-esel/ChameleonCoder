@@ -41,6 +41,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="parent">the parent resource</param>
         public virtual void Initialize(XmlElement data, IResource parent)
         {
+            referenceCollection.CollectionChanged += (s, e) => OnPropertyChanged("References");
+            childrenCollection.CollectionChanged += (s, e) => OnPropertyChanged("Children");
+
             Xml = data;
             Parent = parent;
 
@@ -68,6 +71,16 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// gets the resource's unique identifier
         /// </summary>
         public Guid Identifier { get; protected set; }
+
+        /// <summary>
+        /// gets a list containing the resource's references
+        /// </summary>
+        public ReferenceCollection References
+        {
+            get { return referenceCollection; }
+        }
+
+        private ReferenceCollection referenceCollection = new ReferenceCollection();
 
         /// <summary>
         /// gets the resource's name

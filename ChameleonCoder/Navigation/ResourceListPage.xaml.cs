@@ -31,12 +31,8 @@ namespace ChameleonCoder.Navigation
             IResource resource = e.Item as IResource; // get resource
             e.Accepted = true; // default value: accept
             Type resType = resource.GetType(); // get type
-
-            // if IResolvables should not be shown and this is an IResolvable:
-            if (resource is IResolvable && !App.Gui.ShowLinks.IsChecked == true)
-                e.Accepted = false; // directly filter it
-
-            else if (IsInitialized) // othwerise, and if the page is initialized:
+            
+            if (IsInitialized) // othwerise, and if the page is initialized:
             {
                 int i = 0;
                 foreach (Type t in App.Gui.visTypes.Items) // iterate through types

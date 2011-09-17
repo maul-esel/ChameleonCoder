@@ -159,6 +159,7 @@ namespace ChameleonCoder
             {
                 AddResource(child, resource); // parse all child resources
             }
+            resource.LoadReferences();
 
             // convert it into a RichContentResource
             IRichContentResource richResource = resource as IRichContentResource;

@@ -96,9 +96,6 @@
     <Resource Include="Images\library.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\link.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\project.png" />
   </ItemGroup>
   <ItemGroup>

@@ -254,6 +254,20 @@ namespace ChameleonCoder
             }
         }
 
+
+        internal static void LoadReferences(this IResource resource)
+        {
+            if (resource != null)
+            {
+                var res = GetDataElement(resource, false);
+                if (res != null)
+                {
+                    foreach (XmlElement reference in res.SelectNodes("reference"))
+                        resource.References.Add(new Resources.ResourceReference(reference));
+                }
+            }
+        }
+
         /// <summary>
         /// parses the RichContent child members of a given RichConhtentMember instance
         /// </summary>

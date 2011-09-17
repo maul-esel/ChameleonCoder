@@ -257,9 +257,6 @@
   <data name="List_HiddenTypes" xml:space="preserve">
     <value>Hidden resource types</value>
   </data>
-  <data name="List_ShowResolvable" xml:space="preserve">
-    <value>Show links</value>
-  </data>
   <data name="ModuleInfo" xml:space="preserve">
     <value>{0} module (version {1}) by {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>

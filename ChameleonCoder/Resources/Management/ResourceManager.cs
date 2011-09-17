@@ -102,6 +102,11 @@ namespace ChameleonCoder.Resources.Management
             return FlatList;
         }
 
+        public static IResource GetResource(Guid id)
+        {
+            return FlatList.GetInstance(id);
+        }
+
         /// <summary>
         /// opens a resource
         /// </summary>

@@ -118,6 +118,7 @@
       <DependentUpon>CCNumericUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interaction\CCTabPage.cs" />
+    <Compile Include="Converter\CollectionCombineConverter.cs" />
     <Compile Include="Interaction\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
@@ -174,8 +175,10 @@
     <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\Management\ResourceTypeManager.cs" />
     <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
+    <Compile Include="Resources\ReferenceCollection.cs" />
     <Compile Include="Resources\ResourceHelper.cs" />
     <Compile Include="Resources\ResourcePropertyAttribute.cs" />
+    <Compile Include="Resources\ResourceReference.cs" />
     <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
     <Compile Include="Resources\RichContent\RichContentCollection.cs" />
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
@@ -183,7 +186,6 @@
     </Compile>
     <Compile Include="Plugins\IService.cs" />
     <Compile Include="Resources\Management\ResourceManager.cs" />
-    <Compile Include="Resources\Interfaces\IResolvable.cs" />
     <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
@@ -397,6 +399,9 @@
   <ItemGroup>
     <Resource Include="Images\copy.png" />
     <Resource Include="Images\move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\reference.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -128,18 +128,12 @@ namespace ChameleonCoder
         {
             if (ResourceManager.ActiveItem != null)
             {
-                IResource resource = ResourceManager.ActiveItem;
-                IResolvable link;
-
-                while ((link = resource as IResolvable) != null && link.ShouldResolve)
-                    resource = link.Resolve();
-
-                IEditable editResource = resource as IEditable;
+                IEditable editResource = ResourceManager.ActiveItem as IEditable;
                 if (editResource != null)
                 {
-                    int i = FindResourceTab(resource, true);
+                    int i = FindResourceTab(editResource, true);
                     if (i == -1)
-                        TabReplace(new TabContext(string.Format(Properties.Resources.Item_ResourceEdit, resource.Name), new Navigation.EditPage(editResource)), Tabs.SelectedIndex);
+                        TabReplace(new TabContext(string.Format(Properties.Resources.Item_ResourceEdit, editResource.Name), new Navigation.EditPage(editResource)), Tabs.SelectedIndex);
                     else
                         Tabs.SelectedIndex = i;
                 }
@@ -166,7 +160,15 @@ namespace ChameleonCoder
 
         private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ResourceOpen(TreeView.SelectedItem as IResource);
+            IResource resource = TreeView.SelectedItem as IResource;
+            if (resource == null)
+            {
+                var reference = TreeView.SelectedItem as Resources.ResourceReference;
+                if (reference == null)
+                    return;
+                resource = reference.Resolve();
+            }
+            ResourceOpen(resource);
         }
 
         private void ResourceOpen(object sender, RoutedPropertyChangedEventArgs<BreadcrumbItem> e)

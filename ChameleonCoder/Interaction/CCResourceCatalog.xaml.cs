@@ -165,11 +165,11 @@ namespace ChameleonCoder.Interaction
         /// a wrapper property for the TreeView'S SelectedItem property
         /// </summary>
         [System.ComponentModel.BindableAttribute(true, System.ComponentModel.BindingDirection.OneWay)]
-        public IResource SelectedItem
+        public IComponent SelectedItem
         {
             get
             {
-                return TreeView.SelectedItem as IResource;
+                return TreeView.SelectedItem as IComponent;
             }
         }
     }

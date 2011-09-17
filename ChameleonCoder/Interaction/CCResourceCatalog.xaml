@@ -11,7 +11,13 @@
               ItemsSource="{Binding}" SelectedItemChanged="Expand">
         
         <TreeView.ItemTemplate>
-            <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+            <HierarchicalDataTemplate>
+                <HierarchicalDataTemplate.ItemsSource>
+                    <MultiBinding Converter="{StaticResource CollConv}">
+                        <Binding Path="Children"/>
+                        <Binding Path="References"/>
+                    </MultiBinding>
+                </HierarchicalDataTemplate.ItemsSource>
                 
                 <Grid Margin="3">
                     

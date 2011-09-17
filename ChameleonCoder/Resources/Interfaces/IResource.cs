@@ -36,7 +36,16 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// a ResourceCollection containing the (direct) child resources
         /// </summary>
+        /// <remarks>IMPORTANT: Implementations MUST register to this member's <c>CollectionChanged</c> event
+        /// and raise the <c>PropertyChanged</c> event in response to it!</remarks>
         ResourceCollection Children { get; }
+
+        /// <summary>
+        /// a collection containing the references this resource contains
+        /// </summary>
+        /// <remarks>IMPORTANT: Implementations MUST register to this member's <c>CollectionChanged</c> event
+        /// and raise the <c>PropertyChanged</c> event in response to it!</remarks>
+        ReferenceCollection References { get; }
 
         /// <summary>
         /// (re-) initializes the resource

@@ -567,15 +567,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Show links ähnelt.
-        /// </summary>
-        internal static string List_ShowResolvable {
-            get {
-                return ResourceManager.GetString("List_ShowResolvable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sort resources ähnelt.
         /// </summary>
         internal static string List_SortResources {
