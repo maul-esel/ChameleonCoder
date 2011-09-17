@@ -27,30 +27,19 @@ namespace ChameleonCoder.Converter
             // check if it is really an IResource instance
             if (resource != null)
             {
-                IResolvable link;
-                // if it is an IResolvable, iterate through the resolved resources
-                while ((link = resource as IResolvable) != null && link.ShouldResolve)
-                    resource = link.Resolve();
-
-                // check if resource is still non-null
-                if (resource != null)
+                // if so, cast the resource to an ILanguageResource instance
+                ILanguageResource langRes = resource as ILanguageResource;
+                // if it is an ILanguageResource
+                if (langRes != null)
                 {
-                    // if so, cast the resource to an ILanguageResource instance
-                    ILanguageResource langRes = resource as ILanguageResource;
-                    // if it is an ILanguageResource
-                    if (langRes != null)
-                    {
-                        ILanguageModule module;
-                        // check if the corresponding Language module is registered and it has a non-null icon
-                        if (PluginManager.TryGetModule(langRes.Language, out module) && module.Icon != null)
-                            // if so: return its icon
-                            return module.Icon.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
-                    }
-                    // if it is not an ILanguageResource instance or the module is not registered or it's icon is null:
-                    return null; // return null
+                    ILanguageModule module;
+                    // check if the corresponding Language module is registered and it has a non-null icon
+                    if (PluginManager.TryGetModule(langRes.Language, out module) && module.Icon != null)
+                        // if so: return its icon
+                        return module.Icon.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
                 }
-                // but if it is null: throw exception
-                throw new InvalidOperationException("an IResolvable instance could not be resolved.");
+                // if it is not an ILanguageResource instance or the module is not registered or it's icon is null:
+                return null; // return null
             }
             // if value is not an IResource instance or it was already null, throw an exception
             throw new ArgumentException("'value' is either null or not an IResource instance", "value");

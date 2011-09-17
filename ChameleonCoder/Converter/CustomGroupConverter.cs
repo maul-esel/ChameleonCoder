@@ -25,16 +25,7 @@ namespace ChameleonCoder.Converter
             // check if it is really an IResource instance
             if (resource != null)
             {
-                IResolvable link;
-                // if it is an IResolvable, iterate through the resolved resources
-                while ((link = (resource as IResolvable)) != null && link.ShouldResolve)
-                    resource = link.Resolve();
-
-                // if the resource is still non-null...
-                if (resource != null)
-                    return resource.GetType(); // ...return the type
-                // but if it is null: throw exception
-                throw new InvalidOperationException("an IResolvable instance could not be resolved.");
+                return resource.GetType(); // ...return the type
             }
             // if it is not an instance or it was already null: throw an exception
             throw new ArgumentException("'value' is either null or not an instance of " + typeof(IResource).FullName + ".", "value");
