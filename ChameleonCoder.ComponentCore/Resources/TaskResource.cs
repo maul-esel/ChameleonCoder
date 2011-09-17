@@ -33,7 +33,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        [ResourceProperty("nameof_EndDateName", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        [ResourceProperty("NameOfEndDate", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string EndDateName
         {
             get
@@ -42,7 +42,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        public static string nameof_EndDateName
+        public static string NameOfEndDate
         {
             get
             {

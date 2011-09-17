@@ -16,7 +16,7 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #endregion
 
-        [ResourceProperty("nameof_Author", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        [ResourceProperty("NameOfAuthor", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Author
         {
             get
@@ -30,7 +30,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        [ResourceProperty("nameof_License", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        [ResourceProperty("NameOfLicense", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string License
         {
             get
@@ -44,7 +44,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        [ResourceProperty("nameof_Version", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        [ResourceProperty("NameOfVersion", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Version
         {
             get
@@ -60,17 +60,17 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region Alias
 
-        public static string nameof_Author
+        public static string NameOfAuthor
         {
             get { return Properties.Resources.Info_Author; }
         }
 
-        public static string nameof_License
+        public static string NameOfLicense
         {
             get { return Properties.Resources.Info_License; }
         }
 
-        public static string nameof_Version
+        public static string NameOfVersion
         {
             get { return Properties.Resources.Info_Version; }
         }

@@ -151,7 +151,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        [ResourceProperty("nameof_PriorityName", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
+        [ResourceProperty("NameOfPriority", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string PriorityName
         {
             get
@@ -166,7 +166,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        public static string nameof_PriorityName
+        public static string NameOfPriority
         {
             get { return Properties.Resources.Info_Priority; }
         }
