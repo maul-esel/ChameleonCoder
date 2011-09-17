@@ -129,9 +129,6 @@
   <data name="Display_Library" xml:space="preserve">
     <value>Bibliothek</value>
   </data>
-  <data name="Display_Link" xml:space="preserve">
-    <value>Verknüpfung</value>
-  </data>
   <data name="Display_Project" xml:space="preserve">
     <value>Projekt</value>
   </data>
@@ -140,9 +137,6 @@
   </data>
   <data name="Info_Author" xml:space="preserve">
     <value>Autor:</value>
-  </data>
-  <data name="Info_Destination" xml:space="preserve">
-    <value>Ziel-Ressource:</value>
   </data>
   <data name="Info_EndDate" xml:space="preserve">
     <value>Auslaufdatum:</value>

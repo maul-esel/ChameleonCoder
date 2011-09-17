@@ -16,7 +16,6 @@ namespace ChameleonCoder.ComponentCore.Resources
         public string ResName { get; set; }
         public Guid ResGuid { get; set; }
         public string ResDescription { get; set; }
-        public Guid ResDestination { get; set; }
         public string ResPath { get; set; }
         public Plugins.ILanguageModule ResLanguage { get; set; }
         public string ResCompilationPath { get; set; }
@@ -37,11 +36,6 @@ namespace ChameleonCoder.ComponentCore.Resources
             this.ResourceType.Text = ResourceTypeManager.GetDisplayName(target);
 
             this.ResGuid = Guid.NewGuid();
-
-            if (target != typeof(LinkResource))
-                _Destination.Visibility = ResourceDestination.Visibility = Visibility.Collapsed;
-            else
-                customAttributes.Add("destination",() => ResourceDestination.Text);
 
             if (target != typeof(FileResource))
                 _Path1.Visibility = _Path2.Visibility = Visibility.Collapsed;

@@ -8,7 +8,6 @@ using ChameleonCoder.Interaction;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Resources.RichContent;
 using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 
 namespace ChameleonCoder.ComponentCore
@@ -40,7 +39,6 @@ namespace ChameleonCoder.ComponentCore
             ResourceTypeManager.RegisterComponent(typeof(FileResource), FileResource.Alias, this);
             ResourceTypeManager.RegisterComponent(typeof(CodeResource), CodeResource.Alias, this);
             ResourceTypeManager.RegisterComponent(typeof(TaskResource), TaskResource.Alias, this);
-            ResourceTypeManager.RegisterComponent(typeof(LinkResource), LinkResource.Alias, this);
             ResourceTypeManager.RegisterComponent(typeof(GroupResource), GroupResource.Alias, this);
             ResourceTypeManager.RegisterComponent(typeof(LibraryResource), LibraryResource.Alias, this);
             ResourceTypeManager.RegisterComponent(typeof(ProjectResource), ProjectResource.Alias, this);
@@ -64,8 +62,6 @@ namespace ChameleonCoder.ComponentCore
                 name = Res.Display_Library;
             else if (type == typeof(GroupResource))
                 name = Res.Display_Group;
-            else if (type == typeof(LinkResource))
-                name = Res.Display_Link;
             else if (type == typeof(ProjectResource))
                 name = Res.Display_Project;
             else if (type == typeof(TaskResource))
@@ -85,8 +81,6 @@ namespace ChameleonCoder.ComponentCore
                 name = LibraryResource.Alias;
             else if (type == typeof(GroupResource))
                 name = GroupResource.Alias;
-            else if (type == typeof(LinkResource))
-                name = LinkResource.Alias;
             else if (type == typeof(ProjectResource))
                 name = ProjectResource.Alias;
             else if (type == typeof(TaskResource))
@@ -108,8 +102,6 @@ namespace ChameleonCoder.ComponentCore
                 bottom = Colors.Sienna;
             else if (type == typeof(GroupResource))
                 bottom = Colors.Maroon;
-            else if (type == typeof(LinkResource))
-                bottom = Colors.Aqua;
             else if (type == typeof(ProjectResource))
                 bottom = Colors.Red;
             else if (type == typeof(TaskResource))
@@ -136,9 +128,8 @@ namespace ChameleonCoder.ComponentCore
             get { return registeredTypesArray; }
         }
 
-        Type[] registeredTypesArray = new Type[7] { typeof(FileResource), typeof(CodeResource), typeof(LibraryResource),
-                                typeof(LinkResource), typeof(ProjectResource), typeof(TaskResource),
-                                typeof(GroupResource) };
+        Type[] registeredTypesArray = new Type[6] { typeof(FileResource), typeof(CodeResource), typeof(LibraryResource),
+                                typeof(ProjectResource), typeof(TaskResource), typeof(GroupResource) };
 
         public IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent)
         {

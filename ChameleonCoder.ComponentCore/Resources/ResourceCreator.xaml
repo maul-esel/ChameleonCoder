@@ -53,11 +53,6 @@
             <TextBox Margin="5,5,5,5" Name="ResourceDescription" Grid.Column="1" Grid.Row="4"
                      Text="{Binding Path=ResDescription}"/>
             
-            <!--LinkResource-->
-            <TextBlock Margin="5,5,5,5" Text="Destination:" Grid.Column="0" Grid.Row="5" Name="_Destination"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceDestination" Grid.Column="1" Grid.Row="5"
-                     Text="{Binding Path=ResDestination}"/>
-            
             <!--FileResource-->
             <TextBlock Margin="5,5,5,5" Text="Path:" Grid.Column="0" Grid.Row="6" Name="_Path1"/>
             <Grid Grid.Column="1" Grid.Row="6" Name="_Path2">

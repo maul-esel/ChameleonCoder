@@ -63,7 +63,6 @@
     <Compile Include="Resources\FileResource.cs" />
     <Compile Include="Resources\GroupResource.cs" />
     <Compile Include="Resources\LibraryResource.cs" />
-    <Compile Include="Resources\LinkResource.cs" />
     <Compile Include="Resources\ProjectResource.cs" />
     <Compile Include="Resources\ResourceBase.cs" />
     <Compile Include="Resources\TaskResource.cs" />

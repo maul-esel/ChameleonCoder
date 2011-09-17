@@ -97,15 +97,6 @@ namespace ChameleonCoder.ComponentCore.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die link ähnelt.
-        /// </summary>
-        internal static string Display_Link {
-            get {
-                return ResourceManager.GetString("Display_Link", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die project ähnelt.
         /// </summary>
         internal static string Display_Project {
@@ -129,15 +120,6 @@ namespace ChameleonCoder.ComponentCore.Properties {
         internal static string Info_Author {
             get {
                 return ResourceManager.GetString("Info_Author", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die targeted resource: ähnelt.
-        /// </summary>
-        internal static string Info_Destination {
-            get {
-                return ResourceManager.GetString("Info_Destination", resourceCulture);
             }
         }
         
