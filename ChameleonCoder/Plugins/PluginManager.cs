@@ -20,6 +20,7 @@ namespace ChameleonCoder.Plugins
             var components = from dll in System.IO.Directory.GetFiles(App.AppDir + "\\Components", "*.dll").AsParallel()
                              let plugin = System.Reflection.Assembly.LoadFrom(dll) // load all assemblies
                              where Attribute.IsDefined(plugin, typeof(CCPluginAttribute)) // filter non-plugin assemblies
+                                && plugin.IsFullyTrusted
 
                              from type in Filter(plugin.GetTypes()).AsParallel() // get all contained types and filter them
                              select type;
