@@ -92,7 +92,7 @@ namespace ChameleonCoder.Interaction
         /// <param name="text">the name of the CodeGenerator</param>
         public static void RegisterCodeGenerator(CodeGeneratorEventHandler clicked, ImageSource image, string text)
         {
-            RibbonButton button = new RibbonButton() { Content = text, LargeImage = image, DataContext = clicked };
+            RibbonButton button = new RibbonButton() { Content = text, LargeImage = image };
             button.Click += (s, e) =>
                 {
                     CodeGeneratorEventArgs args = new CodeGeneratorEventArgs();
