@@ -27,7 +27,7 @@ namespace ChameleonCoder.ComponentCore
 
         public Guid Identifier { get { return new Guid("{e6662af6-d0fd-45bd-a2ab-8784eda3079d}"); } }
 
-        public string Name { get { return "ChameleonCoder.ResourceCore"; } }
+        public string Name { get { return "ChameleonCoder.ComponentCore resources"; } }
 
         public string Version { get { return "0.0.0.1"; } }
 
