@@ -275,7 +275,7 @@ namespace ChameleonCoder
                     doc.Load(path);
                     return new XmlDataFile(doc, path);
                 }
-                catch (XmlException e) { throw new FileFormatException(new Uri(path), "Invalid format: not a well-formed XML file.", e); }
+                catch (XmlException e) { throw new FileFormatException(new Uri(path, UriKind.Relative), "Invalid format: not a well-formed XML file.", e); }
             }
             else if (string.Equals(Path.GetExtension(path), ".ccp", StringComparison.OrdinalIgnoreCase))
             {
