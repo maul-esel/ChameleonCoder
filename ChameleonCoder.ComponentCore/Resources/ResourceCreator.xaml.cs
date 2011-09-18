@@ -7,53 +7,125 @@ using ChameleonCoder.Resources.Management;
 namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
-    /// Interaktionslogik für ResourceCreator.xaml
+    /// A dialog for creating the resource types registered by ChameleonCoder.ComponentCore.
     /// </summary>
-    public sealed partial class ResourceCreator : Window
+    internal sealed partial class ResourceCreator : Window
     {
         Dictionary<string, Func<string>> customAttributes = new Dictionary<string, Func<string>>();
 
-        public string ResName { get; set; }
+        #region binding properties
+
+        /// <summary>
+        /// gets or sets the name of the resource
+        /// </summary>
+        /// <value>This property is given in the constructor.</value>
+        public string ResName { get; private set; }
+
+        /// <summary>
+        /// gets or sets the identifier of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
         public Guid ResGuid { get; set; }
+
+        /// <summary>
+        /// gets or sets the description of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
         public string ResDescription { get; set; }
+
+        /// <summary>
+        /// gets or sets the path of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for FileResources.</remarks>
         public string ResPath { get; set; }
+
+        /// <summary>
+        /// gets or sets the language module of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for ILanguageResources.</remarks>
         public Plugins.ILanguageModule ResLanguage { get; set; }
+
+        /// <summary>
+        /// gets or sets the compilation path of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for ICompilable resources.</remarks>
         public string ResCompilationPath { get; set; }
+
+        /// <summary>
+        /// gets or sets the author of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for LibraryResources.</remarks>
         public string ResAuthor { get; set; }
+
+        /// <summary>
+        /// gets or sets the version of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for LibraryResources.</remarks>
         public string ResVersion { get; set; }
+
+        /// <summary>
+        /// gets or sets the license of the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for LibraryResources.</remarks>
         public string ResLicense { get; set; }
+
+        /// <summary>
+        /// gets or sets the priority for the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for ProjectResources.</remarks>
         public ProjectPriority ResPriority { get; set; }
+
+        /// <summary>
+        /// gets or sets the enddate for the resource
+        /// </summary>
+        /// <value>This property is set through binding.</value>
+        /// <remarks>This is intended for Taskresources.</remarks>
         public DateTime ResDate { get; set; }
 
+        #endregion
+
+        /// <summary>
+        /// creates a new instance of the ResourceCreator dialog.
+        /// </summary>
+        /// <param name="target">The type to create a new resource of</param>
+        /// <param name="parent">the name of the parent resource</param>
+        /// <param name="name">the name of the new reosurce</param>
         public ResourceCreator(Type target, string parent, string name)
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
 
             ResName = name;
-            this.ResourceParent.Text = parent;
+            ResourceParent.Text = parent;
 
-            this.ResourceType.Text = ResourceTypeManager.GetDisplayName(target);
+            ResourceType.Text = ResourceTypeManager.GetDisplayName(target);
 
-            this.ResGuid = Guid.NewGuid();
+            ResGuid = Guid.NewGuid();
 
             if (target != typeof(FileResource))
                 _Path1.Visibility = _Path2.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("path", () => ResourcePath.Text);
+                customAttributes.Add("path", () => ResPath);
 
             if (target.GetInterface(typeof(ILanguageResource).FullName) == null)
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
                 this.ResourceLanguage.ItemsSource = Plugins.PluginManager.GetModules();
-                customAttributes.Add("language", () => ResourceLanguage.Text);
+                customAttributes.Add("language", () => ResLanguage.Identifier.ToString("b"));
             }
 
             if (target.GetInterface(typeof(ICompilable).FullName) == null)
                 _CompilePath1.Visibility = _CompilePath2.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("compilation-path", () => ResourceCompilePath.Text);
+                customAttributes.Add("compilation-path", () => ResCompilationPath);
 
             if (target != typeof(LibraryResource))
                 _Author.Visibility = _Version.Visibility = _License.Visibility
@@ -61,25 +133,30 @@ namespace ChameleonCoder.ComponentCore.Resources
                     = Visibility.Hidden;
             else
             {
-                customAttributes.Add("author", () => ResourceAuthor.Text);
-                customAttributes.Add("version", () => ResourceVersion.Text);
-                customAttributes.Add("license", () => ResourceLicense.Text);
+                customAttributes.Add("author", () => ResAuthor);
+                customAttributes.Add("version", () => ResVersion);
+                customAttributes.Add("license", () => ResLicense);
             }
 
             if (target != typeof(ProjectResource))
                 _Priority.Visibility = ResourcePriority.Visibility = Visibility.Collapsed;
             else
                 customAttributes.Add("priority",
-                    () => ((int)Enum.Parse(typeof(ProjectPriority), ResourcePriority.Text, true)).ToString());
+                    () => ((int)ResPriority).ToString());
 
             if (target != typeof(TaskResource))
                 _Enddate.Visibility = ResourceEnddate.Visibility = Visibility.Collapsed;
             else
-                customAttributes.Add("enddate", () => ResourceEnddate.Text);
+                customAttributes.Add("enddate", () => ResDate.ToString());
 
             ShowInTaskbar = false;
         }
 
+        /// <summary>
+        /// shows a dialog and lets the user select the path of a resource
+        /// </summary>
+        /// <param name="sender">the button raising the event (not used)</param>
+        /// <param name="e">additional data (not used)</param>
         private void SearchFile(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
@@ -96,29 +173,47 @@ namespace ChameleonCoder.ComponentCore.Resources
             dialog.ShowDialog();
         }
 
+        /// <summary>
+        /// validates the entries in the dialog
+        /// </summary>
+        /// <returns>true (not yet implemented)</returns>
         private bool Validate()
         {
             return true;
         }
 
+        /// <summary>
+        /// if the entered data is valid, closes the dialog
+        /// </summary>
+        /// <param name="sender">the button raising the event (not used)</param>
+        /// <param name="e">additional data (not used)</param>
         private void CreateResource(object sender, EventArgs e)
         {
             IsEnabled = false;
+
             if (Validate())
+            {
                 DialogResult = true;
+                Close();
+            }
 
             IsEnabled = true;
         }
 
+        /// <summary>
+        /// gets the resource's future attributes
+        /// </summary>
+        /// <returns>a Dictionary&lt;string, string&gt; instance containing the attributes</returns>
         public Dictionary<string, string> GetXmlAttributes()
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            var dict = new Dictionary<string, string>();
+
             dict.Add("name", ResName);
             dict.Add("id", ResGuid.ToString("b"));
             dict.Add("description", ResDescription);
             dict.Add("notes", string.Empty);
 
-            foreach (KeyValuePair<string, Func<string>> pair in customAttributes)
+            foreach (var pair in customAttributes)
                 dict.Add(pair.Key, pair.Value());
 
             return dict;

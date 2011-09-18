@@ -105,7 +105,7 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="id">the Guid that identifies the component inside the DataFile</param>
         /// <param name="dest">the destination path</param>
-        /// <returns>the new Guid that identifies the component inside the DataFile<returns>
+        /// <returns>the new Guid that identifies the component inside the DataFile</returns>
         /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
         /// <exception cref="FileNotFoundException">the source component does not exist</exception>
         public Guid MoveFSComponent(Guid id, string dest)

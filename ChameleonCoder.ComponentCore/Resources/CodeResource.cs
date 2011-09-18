@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
@@ -10,16 +11,16 @@ using ChameleonCoder.Resources.RichContent;
 namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
-    /// represents a file containing code,
-    /// inherits from FileResource
+    /// represents a file containing source code
     /// </summary>
     public class CodeResource : FileResource, ICompilable, IRichContentResource
     {
         /// <summary>
-        /// creates a new instance of the CodeResource class
+        /// initializes the current instance with the given information
         /// </summary>
-        /// <param name="xml">the XmlDocument that contains the resource's definition</param>
-        /// <param name="xpath">the XPath in the XmlDocument to the resource's root element</param>
+        /// <param name="data">the XmlElement containing the resource's definition</param>
+        /// <param name="parent">the resource's parent resource,
+        /// or null if the resource is a top-level resource.</param>
         public override void Initialize(XmlElement data, IResource parent)
         {
             base.Initialize(data, parent);
@@ -28,15 +29,27 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/code.png")).GetAsFrozen() as ImageSource; } }
+        /// <summary>
+        /// gets the icon that represents this instance to the user
+        /// </summary>
+        /// <value>This is always the same as the CodeResource's type icon.</value>
+        public override ImageSource Icon
+        {
+            get
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/code.png"))
+                    .GetAsFrozen() as ImageSource;
+            }
+        }
 
         #endregion
 
         #region ILanguageResource
 
         /// <summary>
-        /// contains the languages to which the file is compatible
+        /// gets the identifier of the language module in whose coding language the source code is written.
         /// </summary>
+        /// <value>The value is taken from the "language" attribute in the resource's XML.</value>
         public Guid Language
         {
             get
@@ -56,6 +69,11 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets a list of Guid's identifying language modules
+        /// to whose coding languages this resource is compatible
+        /// </summary>
+        /// <value>(not yet implemented)</value>
         public IEnumerable<Guid> CompatibleLanguages
         {
             get { return languages; }
@@ -68,8 +86,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         #region ICompilable
 
         /// <summary>
-        /// the path to save the file if it is compiled.
+        /// gets or sets the path to save the file if it is compiled.
         /// </summary>
+        /// <value>The value is taken from the "compilation-path" attribute in the resource's XML.</value>
         [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
         public string CompilationPath
         {
@@ -91,11 +110,18 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region IRichContentResource
 
+        /// <summary>
+        /// gets the representation of the resource's RichContent
+        /// </summary>
+        /// <returns>the HTML as string</returns>
         public string GetHtml()
         {
             return string.Empty;
         }
 
+        /// <summary>
+        /// contains the resource's RichContent members
+        /// </summary>
         public RichContentCollection RichContent
         {
             get { return collection; }
@@ -107,6 +133,9 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region PropertyAliases
 
+        /// <summary>
+        /// gets the display name of this resource's language module
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.Language, ResourcePropertyGroup.ThisClass, IsReadOnly = true)]
         public string LanguageName
         {
@@ -119,6 +148,9 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets a string contatining the dislay names of the language modules to which the source code is compatible.
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.CompatibleLanguages, ResourcePropertyGroup.ThisClass, IsReadOnly = true)]
         public string CompatibleLanguagesNames
         {

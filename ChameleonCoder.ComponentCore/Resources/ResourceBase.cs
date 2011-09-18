@@ -20,7 +20,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// fires the ProeprtyChanged event
+        /// fires the PropertyChanged event
         /// </summary>
         /// <param name="name">the name of the paorperty that changed</param>
         protected void OnPropertyChanged(string name)
@@ -60,6 +60,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the XmlElement representing the resource
         /// </summary>
+        /// <value>This value is the XmlElement given to the resource in the <see cref="Initialize"/> method.</value>
         public XmlElement Xml { get; private set; }
 
         /// <summary>
@@ -83,8 +84,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         private ReferenceCollection referenceCollection = new ReferenceCollection();
 
         /// <summary>
-        /// gets the resource's name
+        /// gets or sets the resource's name
         /// </summary>
+        /// <value>The value is taken from the "name" attribute in the resource's XML.</value>
         [ResourceProperty(CommonResourceProperty.Name, ResourcePropertyGroup.General)]
         public virtual string Name
         {
@@ -100,8 +102,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         /// <summary>
-        /// gets the resource's description
+        /// gets or sets the resource's description
         /// </summary>
+        /// <value>The value is taken from the "description" attribute in the resource's XML.</value>
         [ResourceProperty(CommonResourceProperty.Description, ResourcePropertyGroup.General)]
         public virtual string Description
         {
@@ -117,8 +120,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         /// <summary>
-        /// gets the resource's notes
+        /// gets or sets the resource's notes
         /// </summary>
+        /// <value>The value is taken from the "notes" attribute in the resource's XML.</value>
         public virtual string Notes
         {
             get
@@ -140,6 +144,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the current instance's parent resource
         /// </summary>
+        /// <value>This value is given to the resource in the <see cref="Initialize"/> method.</value>
         public IResource Parent { get; private set; }
 
         /// <summary>
@@ -159,6 +164,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the name of the resource's parent resource
         /// </summary>
+        /// <value>The <see cref="Name"/> property of the <see cref="Parent"/> resource.</value>
         [ResourceProperty(CommonResourceProperty.Parent, ResourcePropertyGroup.General, IsReadOnly = true)]
         public string ParentName
         {
@@ -173,6 +179,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the resource's identifier as string
         /// </summary>
+        /// <value>The <see cref="Identifier"/>, converted to a string in the form of <c>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</c></value>
         [ResourceProperty(CommonResourceProperty.Identifier, ResourcePropertyGroup.General, IsReadOnly = true)]
         public string IdentifierName
         {

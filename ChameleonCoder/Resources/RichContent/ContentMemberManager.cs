@@ -5,6 +5,9 @@ using ChameleonCoder.Plugins;
 
 namespace ChameleonCoder.Resources.RichContent
 {
+    /// <summary>
+    /// a class for managing the registered RichContent types
+    /// </summary>
     public static class ContentMemberManager
     {
         /// <summary>
@@ -36,16 +39,32 @@ namespace ChameleonCoder.Resources.RichContent
             }
         }
 
+        /// <summary>
+        /// gets whether a RichContent type with the given alias is already registered or not
+        /// </summary>
+        /// <param name="alias">the alias to test</param>
+        /// <returns>true if a RichContent type with this alias is already registered, false otherwise.</returns>
         public static bool IsRegistered(string alias)
         {
             return ContentMembers.IsRegistered(alias);
         }
 
+        /// <summary>
+        /// tests whether the given RichContent type is already registered or not
+        /// </summary>
+        /// <param name="type">the Type to test</param>
+        /// <returns>true if the given Type is already registered, false otherwise.</returns>
         public static bool IsRegistered(Type type)
         {
             return ContentMembers.IsRegistered(type);
         }
 
+        /// <summary>
+        /// gets the <see cref="ChameleonCoder.Plugins.IRichContentFactory"/> that registered the given type.
+        /// </summary>
+        /// <param name="component">the type to get the factory for</param>
+        /// <returns>the <see cref="ChameleonCoder.Plugins.IRichContentFactory"/> instance</returns>
+        /// <exception cref="System.ArgumentException">thown if the given type is not registered.</exception>
         public static IRichContentFactory GetFactory(Type component)
         {
             IRichContentFactory factory;

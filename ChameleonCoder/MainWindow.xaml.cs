@@ -99,10 +99,10 @@ namespace ChameleonCoder
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
             if (selector.ShowDialog() == true
-                && selector.resourceList.Count > 0
-                && selector.resourceList[0] != ResourceManager.ActiveItem)
+                && selector.ResourceList.Count > 0
+                && selector.ResourceList[0] != ResourceManager.ActiveItem)
             {
-                ResourceManager.ActiveItem.Copy(selector.resourceList[0]);
+                ResourceManager.ActiveItem.Copy(selector.ResourceList[0]);
             }
         }
 
@@ -144,16 +144,16 @@ namespace ChameleonCoder
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
             if (selector.ShowDialog() == true // user did not cancel
-                && selector.resourceList.Count > 0 // user selected 1 resource
-                && selector.resourceList[0] != null // resource is not null
-                && selector.resourceList[0] != ResourceManager.ActiveItem.Parent) // resource is already parent
+                && selector.ResourceList.Count > 0 // user selected 1 resource
+                && selector.ResourceList[0] != null // resource is not null
+                && selector.ResourceList[0] != ResourceManager.ActiveItem.Parent) // resource is already parent
             {
-                if (!selector.resourceList[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
+                if (!selector.ResourceList[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
                 {
-                    ResourceManager.ActiveItem.Move(selector.resourceList[0]);
+                    ResourceManager.ActiveItem.Move(selector.ResourceList[0]);
                 }
                 else
-                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, selector.resourceList[0].Name),
+                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, selector.ResourceList[0].Name),
                                     Properties.Resources.Status_Move);
             }
         }

@@ -1,5 +1,8 @@
 ﻿namespace ChameleonCoder.Resources.Interfaces
 {
+    /// <summary>
+    /// an interface to be implemented by resource types that correspond to a file system component
+    /// </summary>
     public interface IFSComponent : IResource
     {
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.ComponentCore.Resources
@@ -12,10 +13,25 @@ namespace ChameleonCoder.ComponentCore.Resources
     {
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/library.png")).GetAsFrozen() as ImageSource; } }
+        /// <summary>
+        /// gets the icon that represents this instance to the user
+        /// </summary>
+        /// <value>This is always the same as the LibraryResource's type icon.</value>
+        public override ImageSource Icon
+        {
+            get
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/library.png"))
+                    .GetAsFrozen() as ImageSource;
+            }
+        }
 
         #endregion
 
+        /// <summary>
+        /// gets or sets the author of this library.
+        /// </summary>
+        /// <value>The value is taken from the "author" attribute in the resource's XML.</value>
         [ResourceProperty("NameOfAuthor", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Author
         {
@@ -30,6 +46,10 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets or sets the license of this library.
+        /// </summary>
+        /// <value>The value is taken from the "license" attibute in the resource's XML.</value>
         [ResourceProperty("NameOfLicense", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string License
         {
@@ -44,6 +64,10 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets or sets the version of this library.
+        /// </summary>
+        /// <value>The value is taken from the "version" attribute in the resource's XML.</value>
         [ResourceProperty("NameOfVersion", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string Version
         {
@@ -60,16 +84,28 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region Alias
 
+        /// <summary>
+        /// gets the localized name of the <see cref="Author"/> property.
+        /// </summary>
+        /// <value>The value is taken from the localized resource file.</value>
         public static string NameOfAuthor
         {
             get { return Properties.Resources.Info_Author; }
         }
 
+        /// <summary>
+        /// gets the localized name of the <see cref="License"/> property.
+        /// </summary>
+        /// <value>The value is taken from the localized resource file.</value>
         public static string NameOfLicense
         {
             get { return Properties.Resources.Info_License; }
         }
 
+        /// <summary>
+        /// gets the localized name of the <see cref="Version"/> property.
+        /// </summary>
+        /// <value>The value is taken from the localized resource file.</value>
         public static string NameOfVersion
         {
             get { return Properties.Resources.Info_Version; }

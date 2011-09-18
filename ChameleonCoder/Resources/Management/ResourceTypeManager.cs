@@ -132,31 +132,62 @@ namespace ChameleonCoder.Resources.Management
             throw new ArgumentException("this is not a registered resource type", "component");
         }
 
+        /// <summary>
+        /// gets the localized display name for the given resource type
+        /// </summary>
+        /// <param name="component">the reosurce type to get the name for</param>
+        /// <returns>the localized string</returns>
         public static string GetDisplayName(Type component)
         {
             return GetFactory(component).GetDisplayName(component);
         }
 
+        /// <summary>
+        /// gets the type icon for a given resource type
+        /// </summary>
+        /// <param name="component">the resource type to get the icon for</param>
+        /// <returns>the icon as <see cref="System.Windows.Media.ImageSource"/> instance</returns>
         public static ImageSource GetTypeIcon(Type component)
         {
             return GetFactory(component).GetTypeIcon(component);
         }
 
+        /// <summary>
+        /// gets the background brush for a given resource type
+        /// </summary>
+        /// <param name="component">the resource type to get the brush for</param>
+        /// <returns>the <see cref="System.Windows.Media.Brush"/> instance</returns>
         public static Brush GetBackground(Type component)
         {
             return GetFactory(component).GetBackground(component);
         }
 
+        /// <summary>
+        /// checks whether a resource type is registered with the given alias or not
+        /// </summary>
+        /// <param name="alias">the alias of the type to check</param>
+        /// <returns>true if a type with the given alias is registered, false otherwise</returns>
         public static bool IsRegistered(string alias)
         {
             return ResourceTypes.IsRegistered(alias);
         }
 
+        /// <summary>
+        /// checks if the given resource type is registered
+        /// </summary>
+        /// <param name="type">the resource type to check</param>
+        /// <returns>true if the type is registered, false otherwise</returns>
         public static bool IsRegistered(Type type)
         {
             return ResourceTypes.IsRegistered(type);
         }
 
+        /// <summary>
+        /// registers a new resource type
+        /// </summary>
+        /// <param name="component">the resource type to register</param>
+        /// <param name="alias">the Xml alias to use for the type</param>
+        /// <param name="factory">the <see cref="ChameleonCoder.Plugins.IResourceFactory"/> calling this method.</param>
         public static void RegisterComponent(Type component, string alias, Plugins.IResourceFactory factory)
         {
             if (component.GetInterface(typeof(IResource).FullName) != null

@@ -4,8 +4,15 @@ using System.Windows.Media.Imaging;
 
 namespace ChameleonCoder.Resources
 {
+    /// <summary>
+    /// represents a reference to another resource
+    /// </summary>
     public sealed class ResourceReference : IComponent
     {
+        /// <summary>
+        /// creates a new instance of the ResourceReference class
+        /// </summary>
+        /// <param name="data">the XmlElement representing the reference</param>
         internal ResourceReference(System.Xml.XmlElement data)
         {
             Xml = data;

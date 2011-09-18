@@ -6,10 +6,13 @@ using System.Windows.Controls;
 namespace ChameleonCoder.Interaction
 {
     /// <summary>
-    /// Interaktionslogik für CCNumericUpDown.xaml
+    /// a WPF numeric updown control to be used by CC and plugins
     /// </summary>
     public sealed partial class CCNumericUpDown : UserControl
     {
+        /// <summary>
+        /// creates a new instance of the control
+        /// </summary>
         public CCNumericUpDown()
         {
             InitializeComponent();
@@ -47,6 +50,9 @@ namespace ChameleonCoder.Interaction
                 Number = MaxNumber;
         }
 
+        /// <summary>
+        /// gets or sets the number shown in the control
+        /// </summary>
         [System.ComponentModel.Bindable(true, System.ComponentModel.BindingDirection.TwoWay)]
         public int Number
         {
@@ -54,30 +60,49 @@ namespace ChameleonCoder.Interaction
             set { SetValue(NumberProperty, value); }
         }
 
+        /// <summary>
+        /// the DependencyProperty for the <see cref="Number"/> CLR property
+        /// </summary>
         public static readonly DependencyProperty NumberProperty
             = DependencyProperty.Register(  "Number",
                                             typeof(int),
                                             typeof(CCNumericUpDown),
                                             new FrameworkPropertyMetadata() { BindsTwoWayByDefault = true });
 
+        /// <summary>
+        /// gets or sets the maximum number to be entered by the user
+        /// </summary>
+        /// <remarks>The user may paste some higher number,
+        /// however, <see cref="Number"/> will only accept numbers less or equal to this.</remarks>
         public int MaxNumber
         {
             get { return (int)GetValue(MaxNumberProperty); }
             set { SetValue(MaxNumberProperty, value); }
         }
 
+        /// <summary>
+        /// the DependencyProperty for the <see cref="MaxNumber"/> CLR property
+        /// </summary>
         public static readonly DependencyProperty MaxNumberProperty
             = DependencyProperty.Register(  "MaxNumber",
                                             typeof(int),
                                             typeof(CCNumericUpDown),
                                             new PropertyMetadata(Int32.MaxValue));
 
+        /// <summary>
+        /// gets or sets the minimum number to be entered by the user
+        /// </summary>
+        /// <remarks>The user may paste some smaller number,
+        /// however, <see cref="Number"/> will only accept numbers greater or equal to this.</remarks>
         public int MinNumber
         {
             get { return (int)GetValue(MinNumberProperty); }
             set { SetValue(MinNumberProperty, value); }
         }
 
+        /// <summary>
+        /// the DependencyProperty for the <see cref="MinNumber"/> CLR property
+        /// </summary>
         public static readonly DependencyProperty MinNumberProperty
             = DependencyProperty.Register(  "MinNumber",
                                             typeof(int),

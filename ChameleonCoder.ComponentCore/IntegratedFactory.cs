@@ -12,25 +12,52 @@ using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 
 namespace ChameleonCoder.ComponentCore
 {
+    /// <summary>
+    /// an IResourceFactory plugin providing and managing the standard resource types
+    /// </summary>
     [CCPlugin]
     public sealed class IntegratedFactory : IResourceFactory
     {
         #region IPlugin
 
+        /// <summary>
+        /// gets the 'about'-information for this plugin
+        /// </summary>
         public string About { get { return "© 2011 maul.esel - CC integrated resource types"; } }
 
+        /// <summary>
+        /// gets the author(s) of this plugin
+        /// </summary>
         public string Author { get { return "maul.esel"; } }
 
+        /// <summary>
+        /// gets a short description of this plugin
+        /// </summary>
         public string Description { get { return "provides the ChameleonCoder integrated resource types"; } }
 
+        /// <summary>
+        /// gets an icon representing this plugin to the user
+        /// </summary>
         public ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/Images/logo.png")); } }
 
+        /// <summary>
+        /// gets an globally unique identifier identifying the plugin
+        /// </summary>
         public Guid Identifier { get { return new Guid("{e6662af6-d0fd-45bd-a2ab-8784eda3079d}"); } }
 
+        /// <summary>
+        /// gets the plugin's name
+        /// </summary>
         public string Name { get { return "ChameleonCoder.ComponentCore resources"; } }
 
+        /// <summary>
+        /// gets the plugin's current version
+        /// </summary>
         public string Version { get { return "0.0.0.1"; } }
 
+        /// <summary>
+        /// initializes the plugin
+        /// </summary>
         public void Initialize()
         {
             Res.Culture = new CultureInfo(InformationProvider.Language);
@@ -44,12 +71,21 @@ namespace ChameleonCoder.ComponentCore
             ResourceTypeManager.RegisterComponent(typeof(ProjectResource), ProjectResource.Alias, this);
         }
 
+        /// <summary>
+        /// prepares the plugin for closing the application
+        /// </summary>
         public void Shutdown() { }
 
         #endregion
 
-        #region IComponentFactory
+        #region IResourceFactory
 
+        /// <summary>
+        /// gets the localized display name for the given type
+        /// </summary>
+        /// <param name="type">the resource type to get the name for</param>
+        /// <returns>the localized name</returns>
+        /// <remarks>For obtaining the current language, use <code>InformationProvider.Language</code></remarks>
         public string GetDisplayName(Type type)
         {
             string name = null;
@@ -70,6 +106,11 @@ namespace ChameleonCoder.ComponentCore
             return name;
         }
 
+        /// <summary>
+        /// gets the type icon for a resource type registered by this factory
+        /// </summary>
+        /// <param name="type">the resource type to get an icon for</param>
+        /// <returns>the ImageSource instance representing the resource type</returns>
         public ImageSource GetTypeIcon(Type type)
         {
             string name = null;
@@ -89,6 +130,12 @@ namespace ChameleonCoder.ComponentCore
             return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/" + name + ".png"));
         }
 
+        /// <summary>
+        /// gets the background brush for a resource type registered by this factory
+        /// </summary>
+        /// <param name="type">the resource type to get the brush for</param>
+        /// <returns>the System.Windows.Media.Brush instance, which can be a SolidColorBrush, an ImageBrush,
+        /// a GradientBrush, ...</returns>
         public Brush GetBackground(Type type)
         {
             Color top = Colors.White;
@@ -113,6 +160,14 @@ namespace ChameleonCoder.ComponentCore
             return brush;
         }
 
+        /// <summary>
+        /// creates a blueprint for a new resource
+        /// </summary>
+        /// <param name="type">the resource type to create a 'blueprint' for</param>
+        /// <param name="name">the new resource's name</param>
+        /// <param name="parent">the new resource's parent resource</param>
+        /// <returns>the 'blueprint' in form of a dictionary,
+        /// containing the attributes the resource's XmlElement should have</returns>
         public IDictionary<string, string> CreateResource(Type type, string name, IResource parent)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
@@ -123,6 +178,9 @@ namespace ChameleonCoder.ComponentCore
             return null;
         }
 
+        /// <summary>
+        /// gets a list of all resource types registered by this factory
+        /// </summary>
         public IEnumerable<Type> RegisteredTypes
         {
             get { return registeredTypesArray; }
@@ -131,6 +189,13 @@ namespace ChameleonCoder.ComponentCore
         Type[] registeredTypesArray = new Type[6] { typeof(FileResource), typeof(CodeResource), typeof(LibraryResource),
                                 typeof(ProjectResource), typeof(TaskResource), typeof(GroupResource) };
 
+        /// <summary>
+        /// creates a new instance of a resource type registered by this factory
+        /// </summary>
+        /// <param name="resourceType">the resource type to create an instance of</param>
+        /// <param name="data">the XmlElement representing the resource</param>
+        /// <param name="parent">the parent resource</param>
+        /// <returns>the newly created instance</returns>
         public IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent)
         {
             IResource resource = Activator.CreateInstance(resourceType) as IResource;

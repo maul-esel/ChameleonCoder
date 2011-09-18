@@ -15,10 +15,11 @@ namespace ChameleonCoder.ComponentCore.Resources
     public class ProjectResource : ResourceBase, ICompilable
     {
         /// <summary>
-        /// initializes the instance
+        /// initializes the current instance with the given information
         /// </summary>
-        /// <param name="xml">the XmlElement that contains the resource's definition</param>
-        /// <param name="parent">the resource's parent resource</param>
+        /// <param name="data">the XmlElement containing the resource's definition</param>
+        /// <param name="parent">the resource's parent resource,
+        /// or null if the resource is a top-level resource.</param>
         public override void Initialize(XmlElement data, IResource parent)
         {
             base.Initialize(data, parent);
@@ -27,8 +28,23 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #region IResource
 
-        public override ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/project.png")).GetAsFrozen() as ImageSource; } }
+        /// <summary>
+        /// gets the icon that represents this instance to the user
+        /// </summary>
+        /// <value>This is always the same as the ProjectResource's type icon</value>
+        public override ImageSource Icon
+        {
+            get
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/project.png"))
+                    .GetAsFrozen() as ImageSource;
+            }
+        }
 
+        /// <summary>
+        /// gets an icon representing a special property on this resource.
+        /// </summary>
+        /// <value>This icon represents the project's priority.</value>
         public override ImageSource SpecialVisualProperty
         {
             get
@@ -50,8 +66,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         #region ILanguageResource
 
         /// <summary>
-        /// the GUID of the Language in which the project is written
+        /// gets the identifier of the language module in whose coding language the source coe is written.
         /// </summary>
+        /// <value>The value is taken from the "language" attribute in the resource's XML.</value>
         public Guid Language
         {
             get
@@ -71,6 +88,11 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets a list of Guid's identifying language modules
+        /// to whose coding languages this resource is compatible
+        /// </summary>
+        /// <value>(not yet implemented)</value>
         public IEnumerable<Guid> CompatibleLanguages
         {
             get { return languages; }
@@ -83,8 +105,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         #region ICompilable
 
         /// <summary>
-        /// the path to which the project would be compiled
+        /// gets or sets the path to save the file if it is compiled.
         /// </summary>
+        /// <value>The value is taken from the "compilation-path" attribute in the resource's XML.</value>
         [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
         public string CompilationPath
         {
@@ -92,7 +115,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             {
                 return Xml.GetAttribute("compilation-path");
             }
-            protected set
+            set
             {
                 Xml.SetAttribute("compilation-path", value);
                 OnPropertyChanged("CompilationPath");
@@ -102,8 +125,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         #endregion
 
         /// <summary>
-        /// contains the project's priority (int from 0 to 2)
+        /// gets the project's priority
         /// </summary>
+        /// <value>The value is taken from the "priority" attribute in the resource's XML.</value>
         public ProjectPriority Priority
         {
             get
@@ -121,7 +145,9 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-
+        /// <summary>
+        /// gets the display name of this resource's language module
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.Language, ResourcePropertyGroup.ThisClass)]
         public string LanguageName
         {
@@ -134,6 +160,9 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets a string contatining the dislay names of the language modules to which the source code is compatible.
+        /// </summary>
         [ResourceProperty(CommonResourceProperty.CompatibleLanguages, ResourcePropertyGroup.ThisClass, IsReadOnly = true)]
         public string CompatibleLanguagesNames
         {
@@ -151,6 +180,10 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets the localized name of the project's priority level.
+        /// </summary>
+        /// <value>The value is taken from the localized resource file.</value>
         [ResourceProperty("NameOfPriority", ResourcePropertyGroup.ThisClass, IsReferenceName = true)]
         public string PriorityName
         {
@@ -166,6 +199,10 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
+        /// <summary>
+        /// gets the localized name of the <see cref="Priority"/> property.
+        /// </summary>
+        /// <value>The value is taken from the localized resource file.</value>
         public static string NameOfPriority
         {
             get { return Properties.Resources.Info_Priority; }

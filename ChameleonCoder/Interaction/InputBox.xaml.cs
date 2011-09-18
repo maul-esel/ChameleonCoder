@@ -4,10 +4,16 @@ using System.Windows;
 namespace ChameleonCoder.Interaction
 {
     /// <summary>
-    /// Interaktionslogik für InputBox.xaml
+    /// A dialog to let the user enter some content
     /// </summary>
     public sealed partial class InputBox : Window
     {
+        /// <summary>
+        /// creates a new instance of the dialog
+        /// </summary>
+        /// <param name="title">the window title to use</param>
+        /// <param name="prompt">the prompt to show to the user</param>
+        /// <param name="validation">a delegate to validate the entered content</param>
         public InputBox(string title, string prompt, Func<string, Action<string>, bool> validation)
         {
             InitializeComponent();
@@ -20,17 +26,28 @@ namespace ChameleonCoder.Interaction
             _validation = validation;
         }
 
+        /// <summary>
+        /// creates a new instance of the dialog
+        /// </summary>
+        /// <param name="title">the window title to use</param>
+        /// <param name="prompt">the prompt to show to the user</param>
         public InputBox(string title, string prompt)
             : this(title, prompt, (s, e) => true)
         {
         }
 
+        /// <summary>
+        /// gets or sets the prompt shown to the user
+        /// </summary>
         public string Prompt
         {
             get { return PromptText.Text; }
             set { PromptText.Text = value; }
         }
 
+        /// <summary>
+        /// gets or sets the text entered by the user
+        /// </summary>
         public string Text
         {
             get
@@ -52,12 +69,21 @@ namespace ChameleonCoder.Interaction
 
         ChameleonCoder.Interaction.InvalidInputAdorner errorDisplay;
 
+        /// <summary>
+        /// reacts to the TextBox' TextChanged event, validating the content
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
         private void TextEntered(object sender, EventArgs e)
         {
             Verify();
         }
 
-        public bool Verify()
+        /// <summary>
+        /// verifies the entered content
+        /// </summary>
+        /// <returns>true if the content is valid, false otherwise</returns>
+        private bool Verify()
         {
             if (_validation != null)
             {
@@ -78,7 +104,12 @@ namespace ChameleonCoder.Interaction
             return true;            
         }
 
-        public void Close(object sender, EventArgs e)
+        /// <summary>
+        /// closes the box if the entered content is valid
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
+        private void Close(object sender, EventArgs e)
         {
             if (Verify())
             {

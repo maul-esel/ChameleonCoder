@@ -5,6 +5,9 @@ using System.ComponentModel;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
+    /// <summary>
+    /// an interface to be implemented by resource types
+    /// </summary>
     public interface IResource : INotifyPropertyChanged, IComponent
     {
         /// <summary>

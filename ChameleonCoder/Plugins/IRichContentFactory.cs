@@ -4,6 +4,9 @@ using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.Plugins
 {
+    /// <summary>
+    /// an interface to be implemented by factories for creation and management of RichContent members
+    /// </summary>
     public interface IRichContentFactory : IPlugin
     {
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -13,12 +14,28 @@ namespace ChameleonCoder.ComponentCore.Resources
     {
         #region IResource
 
-        public override ImageSource Icon { get { return new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/file.png")).GetAsFrozen() as ImageSource; } }
+        /// <summary>
+        /// gets the icon representing this resource to the user
+        /// </summary>
+        /// <value>This is always the same as the FileResource's type icon.</value>
+        public override ImageSource Icon
+        {
+            get
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/file.png"))
+                    .GetAsFrozen() as ImageSource;
+            }
+        }
 
         #endregion
 
         #region IEditable
 
+        /// <summary>
+        /// gets the text represented by this resource, to be edited by the user
+        /// </summary>
+        /// <returns>the content of the file represented by this resource,
+        /// or an error message if the text could not be btained (missing or binary file).</returns>
         public string GetText()
         {
             if (!string.IsNullOrWhiteSpace(Path) && File.Exists(Path))
@@ -31,17 +48,25 @@ namespace ChameleonCoder.ComponentCore.Resources
             return string.Format("path cannot be found: '{0}'", Path);
         }
 
+        /// <summary>
+        /// saves the text represented by this resource, edited by the user
+        /// </summary>
+        /// <param name="text">the modified contents of the file</param>
         public void SaveText(string text)
         {
             if (!string.IsNullOrWhiteSpace(Path))
-                if (!IsBinary(this.Path))
-                    File.WriteAllText(this.Path, text);
+                if (!IsBinary(Path))
+                    File.WriteAllText(Path, text);
         }
 
         #endregion
 
         #region IFSComponent
 
+        /// <summary>
+        /// gets the resource's path in the file system
+        /// </summary>
+        /// <returns>the path as string</returns>
         public string GetFSPath()
         {
             return Path;
@@ -61,8 +86,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         /// <summary>
-        /// the path to the file represented by the resource
+        /// gets the path to the file represented by the resource
         /// </summary>
+        /// <value>The value is taken from the "path" attirubte in the resource's XML.</value>
         [ResourceProperty(CommonResourceProperty.FSPath, ResourcePropertyGroup.ThisClass)]
         public string Path
         {

@@ -7,6 +7,9 @@ using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder
 {
+    /// <summary>
+    /// a static class containing extension methods for IResource instances
+    /// </summary>
     internal static class ResourceHelper
     {
         /// <summary>
@@ -85,7 +88,7 @@ namespace ChameleonCoder
         /// copies a resource to a new parent, giving it a new Identifier
         /// </summary>
         /// <param name="resource">the resource to copy</param>
-        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param
+        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
         /// <remarks>this is an overload for the IResource.Copy(IResource, bool) method,
         /// using <code>false</code> for <code>moveGUID</code>.</remarks>
         public static void Copy(this IResource resource, IResource newParent)

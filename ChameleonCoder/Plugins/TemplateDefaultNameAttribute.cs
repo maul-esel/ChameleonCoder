@@ -17,6 +17,9 @@ namespace ChameleonCoder.Plugins
             Name = name;
         }
 
+        /// <summary>
+        /// gets the name to use as default name by automatically created templates
+        /// </summary>
         public string Name { get; private set; }
     }
 }

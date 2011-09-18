@@ -32,6 +32,7 @@ namespace ChameleonCoder.Plugins
         /// to the public <code>ResourceTypeManager.CreateNewResource(...)</code> method.
         /// </summary>
         /// <param name="parent">the parent resource or null is it is a new top resource</param>
+        /// <param name="name">the name for the new resource</param>
         /// <returns>the newly created resource</returns>
         IResource Create(IResource parent, string name);
     }

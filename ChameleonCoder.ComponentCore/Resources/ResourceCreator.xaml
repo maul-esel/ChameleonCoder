@@ -1,13 +1,13 @@
-﻿<Window x:Class="ChameleonCoder.ComponentCore.Resources.ResourceCreator"
+﻿<Window x:Class="ChameleonCoder.ComponentCore.Resources.ResourceCreator" x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ResourceCreator" Height="Auto" Width="600"
+        Title="ResourceCreator" Width="600"
         SizeToContent="Height">
     
-    <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+    <StackPanel Orientation="Vertical" Margin="0">
 
         <Border Background="#D8E7FF" BorderBrush="Black" BorderThickness="0.5">
-            <TextBlock Text="Fill in all the fields and then click 'create the resource'" Margin="5,5,15,5"/>
+            <TextBlock Text="Fill in all the fields and then click 'create the resource'" Margin="5"/>
         </Border>
         
         <Grid>
@@ -33,90 +33,90 @@
                 <RowDefinition Height="Auto"/>                
             </Grid.RowDefinitions>
             
-            <TextBlock Margin="5,5,5,5" Text="Parent:" Grid.Column="0" Grid.Row="0"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceParent" Grid.Column="1" Grid.Row="0"
+            <TextBlock Margin="5" Text="Parent:" Grid.Column="0" Grid.Row="0"/>
+            <TextBox Margin="5" Name="ResourceParent" Grid.Column="1" Grid.Row="0"
                      IsReadOnly="True"/>
             
             <!--IResource-->
-            <TextBlock Margin="5,5,5,5" Text="Name:" Grid.Column="0" Grid.Row="1"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceName" Grid.Column="1" Grid.Row="1" IsReadOnly="True"
-                     Text="{Binding Path=ResName}"/>
+            <TextBlock Margin="5" Text="Name:" Grid.Column="0" Grid.Row="1"/>
+            <TextBox Margin="5" Name="ResourceName" Grid.Column="1" Grid.Row="1" IsReadOnly="True"
+                     Text="{Binding Path=ResName, Mode=OneTime}"/>
 
-            <TextBlock Margin="5,5,5,5" Text="Type:" Grid.Column="0" Grid.Row="2"/>
-            <TextBlock Margin="5,5,5,5" Name="ResourceType" Grid.Column="1" Grid.Row="2"/>
+            <TextBlock Margin="5" Text="Type:" Grid.Column="0" Grid.Row="2"/>
+            <TextBlock Margin="5" Name="ResourceType" Grid.Column="1" Grid.Row="2"/>
 
-            <TextBlock Margin="5,5,5,5" Text="GUID:" Grid.Column="0" Grid.Row="3"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceGUID" Grid.Column="1" Grid.Row="3" IsReadOnly="True"
+            <TextBlock Margin="5" Text="GUID:" Grid.Column="0" Grid.Row="3"/>
+            <TextBox Margin="5" Name="ResourceGUID" Grid.Column="1" Grid.Row="3" IsReadOnly="True"
                        Text="{Binding Path=ResGuid}"/>
 
-            <TextBlock Margin="5,5,5,5" Text="Description:" Grid.Column="0" Grid.Row="4"/>
-            <TextBox Margin="5,5,5,5" Name="ResourceDescription" Grid.Column="1" Grid.Row="4"
+            <TextBlock Margin="5" Text="Description:" Grid.Column="0" Grid.Row="4"/>
+            <TextBox Margin="5" Name="ResourceDescription" Grid.Column="1" Grid.Row="4"
                      Text="{Binding Path=ResDescription}"/>
             
             <!--FileResource-->
-            <TextBlock Margin="5,5,5,5" Text="Path:" Grid.Column="0" Grid.Row="6" Name="_Path1"/>
+            <TextBlock Margin="5" Text="Path:" Grid.Column="0" Grid.Row="6" Name="_Path1"/>
             <Grid Grid.Column="1" Grid.Row="6" Name="_Path2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourcePath" HorizontalAlignment="Stretch"
-                         Text="{Binding Path=ResPath}"/>
-                <Button Margin="5,5,5,5" Grid.Column="1" Click="SearchFile" Height="25" Content="Select path"/>
+                <TextBox Margin="5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourcePath" HorizontalAlignment="Stretch"
+                         Text="{Binding Path=ResPath, Mode=OneWay}" IsReadOnly="True"/>
+                <Button Margin="5" Grid.Column="1" Click="SearchFile" Height="25" Content="Select path"/>
             </Grid>
             
             <!--ILanguageResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="7" Text="Language:" Name="_Language"/>
-            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="1" Name="ResourceLanguage"
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="7" Text="Language:" Name="_Language"/>
+            <ComboBox Margin="5" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="1" Name="ResourceLanguage"
                       SelectedItem="{Binding Path=ResLanguage}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=LanguageName}"/>
+                        <TextBlock Text="{Binding Path=Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
             <!--ICompilable-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="8" Text="Compilation path:" Name="_CompilePath1"/>
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="8" Text="Compilation path:" Name="_CompilePath1"/>
             <Grid Grid.Column="1" Grid.Row="8" Name="_CompilePath2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Margin="5,5,5,5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourceCompilePath"
+                <TextBox Margin="5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourceCompilePath"
                          Text="{Binding Path=ResCompilationPath}"/>
-                <Button Margin="5,5,5,5" Grid.Column="1" Height="25" Content="Select compilation path"/>
+                <Button Margin="5" Grid.Column="1" Height="25" Content="Select compilation path"/>
             </Grid>
             
             <!--LibraryResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="9" Text="Author:" Name="_Author"/>
-            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Name="ResourceAuthor"
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Author:" Name="_Author"/>
+            <TextBox Margin="5" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Name="ResourceAuthor"
                      Text="{Binding Path=ResAuthor}"/>
 
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="10" Text="Version:" Name="_Version"/>
-            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Name="ResourceVersion"
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="10" Text="Version:" Name="_Version"/>
+            <TextBox Margin="5" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Name="ResourceVersion"
                      Text="{Binding Path=ResVersion}"/>
 
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="11" Text="License:" Name="_License"/>
-            <TextBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="1" Name="ResourceLicense"
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="11" Text="License:" Name="_License"/>
+            <TextBox Margin="5" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="1" Name="ResourceLicense"
                      Text="{Binding Path=ResLicense}"/>
             
             <!--ProjectResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="12" Text="Priority" Name="_Priority"/>
-            <ComboBox Margin="5,5,5,5" Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="1" Name="ResourcePriority"
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="12" Text="Priority" Name="_Priority"/>
+            <ComboBox Margin="5" Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="1" Name="ResourcePriority"
                       SelectedItem="{Binding Path=ResPriority}"/>
             
             <!--TaskResource-->
-            <TextBlock Margin="5,5,5,5" Grid.Column="0" Grid.Row="13" Text="End date:" Name="_Enddate"/>
-            <DatePicker Margin="5,5,5,5" Grid.Column="1" Grid.Row="13" Name="ResourceEnddate"
+            <TextBlock Margin="5" Grid.Column="0" Grid.Row="13" Text="End date:" Name="_Enddate"/>
+            <DatePicker Margin="5" Grid.Column="1" Grid.Row="13" Name="ResourceEnddate"
                  SelectedDateFormat="Long" SelectedDate="{Binding Path=ResDate}"/>
 
         </Grid>
 
         <Border Background="#D8E7FF" BorderBrush="Black" BorderThickness="0.25">
-            <Button HorizontalAlignment="Right" Width="75" Margin="5,5,5,5" Click="CreateResource" MinHeight="25"/>
+            <Button HorizontalAlignment="Right" Width="75" Margin="5" Click="CreateResource" MinHeight="25"/>
         </Border>
 
     </StackPanel>
