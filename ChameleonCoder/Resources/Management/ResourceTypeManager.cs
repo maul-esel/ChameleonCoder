@@ -192,7 +192,6 @@ namespace ChameleonCoder.Resources.Management
         {
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic // scope and type
-                && component.GetConstructor(Type.EmptyTypes) != null // creation
                 && !IsRegistered(alias) && !IsRegistered(component) // no double-registration
                 && PluginManager.IsResourceFactoryRegistered(factory)) // no anonymous registration
             {
