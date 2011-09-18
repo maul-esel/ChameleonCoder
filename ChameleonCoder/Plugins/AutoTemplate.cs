@@ -14,7 +14,6 @@ namespace ChameleonCoder.Plugins
         /// creates a new instance of the AutoTemplate class
         /// </summary>
         /// <param name="resourceType">the resource type to wrap</param>
-        /// <param name="info">the ResourceTypeInfo corresponding to the resource type</param>
         internal AutoTemplate(Type resourceType)
         {
             ResourceType = resourceType;
@@ -137,7 +136,9 @@ namespace ChameleonCoder.Plugins
         public IResource Create(IResource parent, string name)
         {
             var attr = ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
-            return ResourceTypeManager.CreateNewResource(ResourceType, name, attr, parent);
+            if (attr != null)
+                return ResourceTypeManager.CreateNewResource(ResourceType, name, attr, parent);
+            return null;
         }
         #endregion
     }
