@@ -180,9 +180,6 @@
   <data name="Error_Package" xml:space="preserve">
     <value>An error occured during packaging:</value>
   </data>
-  <data name="Ext_CCP" xml:space="preserve">
-    <value>CC resource package</value>
-  </data>
   <data name="Ext_CCR" xml:space="preserve">
     <value>CC resource file</value>
   </data>

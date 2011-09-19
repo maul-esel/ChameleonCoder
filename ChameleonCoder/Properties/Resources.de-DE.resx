@@ -180,11 +180,8 @@
   <data name="Error_Package" xml:space="preserve">
     <value>Beim Packen der Ressourcen ist folgender Fehler aufgetreten:</value>
   </data>
-  <data name="Ext_CCP" xml:space="preserve">
-    <value>CC Ressourcen-Paket</value>
-  </data>
   <data name="Ext_CCR" xml:space="preserve">
-    <value>CC Ressource-Datei</value>
+    <value>CC Ressourcen-Datei</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Hilfe</value>

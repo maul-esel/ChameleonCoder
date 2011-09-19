@@ -127,7 +127,6 @@
     <Compile Include="Navigation\PluginPage.xaml.cs">
       <DependentUpon>PluginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PackDataFile.cs" />
     <Compile Include="Plugins\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
     <Compile Include="CCPluginAttribute.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
-    <Compile Include="XmlDataFile.cs" />
     <Page Include="Interaction\CCNumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

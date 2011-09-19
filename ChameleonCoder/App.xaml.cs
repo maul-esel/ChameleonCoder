@@ -66,11 +66,10 @@ namespace ChameleonCoder
                 }
                 else if (e.Args[0] == "--install_ext") // param to (un-)install file extension
                 {
-                    if (Registry.ClassesRoot.OpenSubKey(".ccr") != null
-                        && Registry.ClassesRoot.OpenSubKey(".ccp") != null)
-                        UnRegisterExtensions();
+                    if (Registry.ClassesRoot.OpenSubKey(".ccr") != null)
+                        UnRegisterExtension();
                     else
-                        RegisterExtensions();
+                        RegisterExtension();
                     Environment.Exit(0); // shutdown the app
                 }
                 else if (e.Args[0] == "--install_COM") // param to (un-)install COM support
@@ -105,7 +104,7 @@ namespace ChameleonCoder
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
-                DefaultFile = DataFile.Open(path); // open the file either as XmlDataFile or PackDataFile
+                DefaultFile = new DataFile(path); // open the file either as XmlDataFile or PackDataFile
                 Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
                 foreach (XmlElement element in DataFile.GetResources())
                     AddResource(element, null); // and parse the Xml
@@ -173,44 +172,28 @@ namespace ChameleonCoder
 
         #region Registry
         /// <summary>
-        /// registers the file extensions *.ccr and *.ccp
+        /// registers the file extensions *.ccr
         /// </summary>
-        internal static void RegisterExtensions()
+        internal static void RegisterExtension()
         {
-            RegistryKey regCCP = Registry.ClassesRoot.CreateSubKey(".ccp", RegistryKeyPermissionCheck.ReadWriteSubTree);
             RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
-
-            regCCP.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCP);
             regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
-
-            regCCP.Close();
             regCCR.Close();
 
-            regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\Shell\\Open\\command");
             regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
-
-            regCCP.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
             regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
-
-            regCCP.Close();
             regCCR.Close();
 
-            regCCP = Registry.ClassesRoot.CreateSubKey(".ccp\\DefaultIcon");
             regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
-
-            regCCP.SetValue("", AppPath + ", 0");
             regCCR.SetValue("", AppPath + ", 1");
-
-            regCCP.Close();
             regCCR.Close();
         }
 
         /// <summary>
-        /// unregisters the file extensions *.ccr and *.ccp
+        /// unregisters the file extensions *.ccr
         /// </summary>
-        internal static void UnRegisterExtensions()
+        internal static void UnRegisterExtension()
         {
-            Registry.ClassesRoot.DeleteSubKeyTree(".ccp");
             Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
         }
         #endregion

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Packaging;
 using System.Xml;
 
 namespace ChameleonCoder
@@ -9,21 +8,34 @@ namespace ChameleonCoder
     /// <summary>
     /// represents an opened resource file
     /// </summary>
-    public abstract class DataFile
+    public class DataFile
     {
         #region instance
 
         /// <summary>
-        /// serves as base constructor for inherited classes
+        /// creates a new instance of the DataFile class
         /// </summary>
         /// <param name="path">the path to the file</param>
-        /// <param name="doc">the XmlDocument containing the file's data</param>
-        protected DataFile(string path, XmlDocument doc)
+        /// <exception cref="FileFormatException">thrown if the Xml is not valid or could not be read.</exception>
+        internal DataFile(string path)
         {
-            Document = doc;
-            LoadedFilePaths.Add(FilePath = path);
-            LoadedFiles.Add(this);
-            Directories.Add(Path.GetDirectoryName(path));
+            if (File.Exists(path) && !string.IsNullOrWhiteSpace(path))
+            {
+                try
+                {
+                    Document.Load(path);
+                }
+                catch (XmlException e)
+                {
+                    throw new FileFormatException(new Uri(path, UriKind.Relative), "Invalid format: not a well-formed XML file.", e);
+                }
+
+                LoadedFilePaths.Add(FilePath = path);
+                LoadedFiles.Add(this);
+                Directories.Add(Path.GetDirectoryName(path));
+
+                LoadReferences();
+            }
         }
 
         /// <summary>
@@ -37,13 +49,22 @@ namespace ChameleonCoder
                     && !string.IsNullOrWhiteSpace(reference.InnerText)
                     && Directory.Exists(reference.InnerText)
                     && !Directories.Contains(reference.InnerText))
+                {
                     Directories.Add(reference.InnerText);
+                }
+
                 else if (reference.GetAttribute("type") == "file"
                     && !string.IsNullOrWhiteSpace(reference.InnerText)
                     && File.Exists(reference.InnerText)
                     && !LoadedFilePaths.Contains(reference.InnerText))
-                    try { DataFile.Open(reference.InnerText); }
+                {
+                    try
+                    {
+                        new DataFile(reference.InnerText);
+                    }
                     catch (FileFormatException) { throw; } // Todo: inform user, log
+                    catch (FileNotFoundException) { throw; }
+                }
             }
         }
 
@@ -55,83 +76,28 @@ namespace ChameleonCoder
         /// <summary>
         /// returns the XmlDocument
         /// </summary>
-        internal XmlDocument Document { get; private set; }
+        internal XmlDocument Document { get { return doc; } }
+
+        private readonly XmlDocument doc = new XmlDocument();
 
         /// <summary>
         /// closes the instance
         /// </summary>
-        internal abstract void Close();
+        internal void Close() { /* currently we don't need to do something here */ }
 
         /// <summary>
         /// saves the changes made to the file
         /// </summary>
-        internal abstract void Save();
-
-        #region fs-components
-        /// <summary>
-        /// adds a file represented by an IFSComponent instance to the DataFile's scope
-        /// </summary>
-        /// <param name="source">the path to the file</param>
-        /// <returns>the Guid that identifies the component inside the DataFile</returns>
-        /// <exception cref="FileNotFoundException">the file  pointed to by
-        /// <paramref name="source"/> was not found.</exception>
-        public abstract Guid AddFSComponent(string source);
-
-        /// <summary>
-        /// copies a file represented by an IFSComponent instance inside the DataFile's scope
-        /// </summary>
-        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
-        /// <param name="dest">the destination path</param>
-        /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
-        /// <exception cref="FileNotFoundException">the source component does not exist</exception>
-        public abstract Guid CopyFSComponent(Guid id, string dest);
-
-        /// <summary>
-        /// deletes a file represented by an IFSComponent instance from the DataFile's scope
-        /// </summary>
-        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
-        public abstract void DeleteFSComponent(Guid id);
-
-        /// <summary>
-        /// determines whether the given component exists,
-        /// that means it is registered and the content exists, too.
-        /// </summary>
-        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
-        /// <returns>true is the component exists, false otherwise</returns>
-        public abstract bool Exists(Guid id);
-
-        /// <summary>
-        /// moves a file represented by an IFSComponent instance inside the DataFile's scope
-        /// </summary>
-        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
-        /// <param name="dest">the destination path</param>
-        /// <returns>the new Guid that identifies the component inside the DataFile</returns>
-        /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
-        /// <exception cref="FileNotFoundException">the source component does not exist</exception>
-        public Guid MoveFSComponent(Guid id, string dest)
+        internal void Save()
         {
-            var newId = CopyFSComponent(id, dest);
-            DeleteFSComponent(id);
-            return newId;
+            Document.Save(FilePath);
         }
-
-        /// <summary>
-        /// gets a stream containing the file's content
-        /// </summary>
-        /// <param name="id">the Guid that identifies the component inside the DataFile</param>
-        /// <returns>the content as stream</returns>
-        /// <exception cref="ArgumentException">the component with the given id is not registered</exception>
-        /// <exception cref="FileNotFoundException">the source component does not exist</exception>
-        public abstract Stream GetStream(Guid id);
-
-        #endregion
 
         /// <summary>
         /// tries to find the absolute path for a given relative path
         /// </summary>
         /// <param name="relativePath">the (relative) path</param>
         /// <returns>the absolute path, or null if not found</returns>
-        /// <remarks>this method is not suitable for managing files inside PackDataFiles!</remarks>
         public static string MakeAbsolutePath(string relativePath)
         {
             if (!string.IsNullOrWhiteSpace(relativePath))
@@ -261,35 +227,6 @@ namespace ChameleonCoder
         #region static
 
         /// <summary>
-        /// opens a DataFile instance for the given file
-        /// </summary>
-        /// <param name="path">the path to the file to open</param>
-        /// <returns>the DataFile instance</returns>
-        internal static DataFile Open(string path)
-        {
-            if (string.Equals(Path.GetExtension(path), ".ccr", StringComparison.OrdinalIgnoreCase))
-            {
-                try
-                {
-                    var doc = new XmlDocument();
-                    doc.Load(path);
-                    return new XmlDataFile(doc, path);
-                }
-                catch (XmlException e) { throw new FileFormatException(new Uri(path, UriKind.Relative), "Invalid format: not a well-formed XML file.", e); }
-            }
-            else if (string.Equals(Path.GetExtension(path), ".ccp", StringComparison.OrdinalIgnoreCase))
-            {
-                try
-                {
-                    var pack = Package.Open(path, FileMode.Open, FileAccess.ReadWrite);
-                    return new PackDataFile(pack, path);
-                }
-                catch (FileFormatException e) { throw new FileFormatException(new Uri(path), "Invalid format: not a valid package file.", e); }
-            }
-            throw new InvalidOperationException("This file could not be opened: " + path + "\nExtension not recognized.");
-        }
-
-        /// <summary>
         /// gets a list with the XML representation of all top-level resources in all opened files
         /// </summary>
         /// <returns>the list, containing of XmlElement instances</returns>
@@ -352,7 +289,7 @@ namespace ChameleonCoder
         	}
         }
         
-        private static List<string> dirlist = new List<string>(new string[1] { Environment.CurrentDirectory });
+        private static readonly List<string> dirlist = new List<string>(new string[1] { Environment.CurrentDirectory });
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths
