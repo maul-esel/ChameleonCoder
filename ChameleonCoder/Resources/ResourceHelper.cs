@@ -298,7 +298,7 @@ namespace ChameleonCoder
         /// <param name="resource">the resource whose data should be found</param>
         /// <param name="create">true to create the lement if not found, false otherwise</param>
         /// <returns>the XmlElement containing the resource's data</returns>
-        private static XmlElement GetDataElement(IResource resource, bool create)
+        internal static XmlElement GetDataElement(IResource resource, bool create)
         {
             var doc = resource.GetResourceFile().Document;
 

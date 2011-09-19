@@ -90,7 +90,14 @@ namespace ChameleonCoder.Resources.Management
 
             IResource resource = GetFactory(type).CreateInstance(type, element, parent);
             if (resource != null)
+            {
                 ResourceManager.Add(resource, parent);
+
+                var data = ResourceHelper.GetDataElement(resource, true);
+                var created = (System.Xml.XmlElement)document.CreateElement("created");
+                created.InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
+                data.AppendChild(created);
+            }
 
             return resource;
         }
