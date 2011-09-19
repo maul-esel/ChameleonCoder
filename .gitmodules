@@ -4,3 +4,6 @@
 [submodule "SLN-2-CCR-Converter"]
 	path = SLN-2-CCR-Converter
 	url = git@github.com:maul-esel/SLN-2-CCR-Converter.git
+[submodule "AHKModule"]
+	path = AHKModule
+	url = git@github.com:maul-esel/AHKModule.git
