@@ -78,7 +78,7 @@ namespace ChameleonCoder
         }
 
         #region localization
-        public static string Title { get { return "CC - ChameleonCoder alpha 1"; } }
+        public static string Title { get { return "CC - ChameleonCoder alpha 2"; } }
 
         public static string Item_Home { get { return Res.Item_Home; } }
         public static string Item_List { get { return Res.Item_List; } }
