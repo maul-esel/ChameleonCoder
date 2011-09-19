@@ -1,3 +1,6 @@
 [submodule "GuidCreator"]
 	path = GuidCreator
 	url = git@github.com:maul-esel/GuidCreator.git
+[submodule "SLN-2-CCR-Converter"]
+	path = SLN-2-CCR-Converter
+	url = git@github.com:maul-esel/SLN-2-CCR-Converter.git
