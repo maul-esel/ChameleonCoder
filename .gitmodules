@@ -1,0 +1,3 @@
+[submodule "GuidCreator"]
+	path = GuidCreator
+	url = git@github.com:maul-esel/GuidCreator.git

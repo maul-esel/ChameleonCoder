@@ -2,11 +2,9 @@
 /ChameleonCoder/obj/
 /ChameleonCoder.ComponentCore/obj/
 /GuidCreator/obj/
-/Deploy/Data/
-/Deploy/*.pdb
-/Deploy/*.xml
 /Deploy/Temp
-/Deploy/ICSharpCode.AvalonEdit.xml
 /Documentation/ChameleonCoderDocs.log
 *.pdb
 *.xml
+*.suo
+*.csproj.user

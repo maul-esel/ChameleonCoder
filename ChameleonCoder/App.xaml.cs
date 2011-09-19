@@ -104,7 +104,7 @@ namespace ChameleonCoder
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
-                DefaultFile = new DataFile(path); // open the file either as XmlDataFile or PackDataFile
+                DefaultFile = new DataFile(path); // open the file
                 Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
                 foreach (XmlElement element in DataFile.GetResources())
                     AddResource(element, null); // and parse the Xml
