@@ -154,9 +154,12 @@ namespace ChameleonCoder.Interaction
         /// <returns>the edit control or null if no resource is currently edited</returns>
         public static ICSharpCode.AvalonEdit.TextEditor GetEditor()
         {
-            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
-            if (edit != null)
-                return edit.Editor;
+            if (App.Gui.Tabs.SelectedItem != null)
+            {
+                var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+                if (edit != null)
+                    return edit.Editor;
+            }
             return null;
         }
 
