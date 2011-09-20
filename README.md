@@ -59,13 +59,14 @@ Select the file containing the plugin. Select the plugins you want to install an
 
 ## Command line
 CC supports several command line switches:
-*** NOTE: *** All of these must be the first parameter you pass.
+
+***NOTE:*** All of these must be the first parameter you pass.
 
 * when you pass the path to a *.ccr file to CC, it will be opened
-* when you pass "--install_ext", CC will install the *.ccr file extension.
-* when you pass "--install_com", CC will install COM support in a future version
-* when you pass "--install_full", CC will install both the file extension and COM support in a future version.
-* when you pass "--config" and as next parameter a file, CC will use this file as configuration file instead of writing to your AppData.
+* when you pass ```--install_ext```, CC will install the *.ccr file extension.
+* when you pass ```--install_com```, CC will install COM support in a future version
+* when you pass ```--install_full```, CC will install both the file extension and COM support in a future version.
+* when you pass ```--config``` and as next parameter a file, CC will use this file as configuration file instead of writing to your AppData.
 This option can also be passed ***after*** the others.
 
 ## Resources model
