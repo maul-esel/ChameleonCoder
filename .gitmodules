@@ -7,3 +7,6 @@
 [submodule "AHKModule"]
 	path = AHKModule
 	url = git@github.com:maul-esel/AHKModule.git
+[submodule "Documentation"]
+	path = Documentation
+	url = git@github.com:maul-esel/CC-Documentation.git
