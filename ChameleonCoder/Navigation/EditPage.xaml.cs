@@ -20,8 +20,8 @@ namespace ChameleonCoder.Navigation
 
             ResourceManager.Open(Resource = resource);
             Editor.Text = resource.GetText();
-            Editor.FontSize = Properties.Settings.Default.CodeFontSize;
-            Editor.FontFamily = new System.Windows.Media.FontFamily(Properties.Settings.Default.CodeFont);
+            Editor.FontSize = Settings.ChameleonCoderSettings.Default.CodeFontSize;
+            Editor.FontFamily = new System.Windows.Media.FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
 
             ILanguageResource langRes = resource as ILanguageResource;
             if (langRes != null && PluginManager.IsModuleRegistered(langRes.Language))

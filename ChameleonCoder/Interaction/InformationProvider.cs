@@ -45,7 +45,7 @@ namespace ChameleonCoder.Interaction
         /// <summary>
         /// the user's Language as LCID code
         /// </summary>
-        public static int Language { get { return Properties.Settings.Default.Language; } }
+        public static int Language { get { return Settings.ChameleonCoderSettings.Default.Language; } }
 
         #endregion
 

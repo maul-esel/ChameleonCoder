@@ -57,7 +57,7 @@ namespace ChameleonCoder.Plugins
         /// <returns>the filtered list</returns>
         private static IEnumerable<Type> Filter(IEnumerable<Type> types)
         {
-            List<Type> filtered = new List<Type>();
+            ConcurrentBag<Type> filtered = new ConcurrentBag<Type>();
 
             Parallel.ForEach(types, type =>
                 {
@@ -82,7 +82,7 @@ namespace ChameleonCoder.Plugins
                 return;
 
             // if this plugin is not registered
-            if (!Properties.Settings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
+            if (!Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
                 return;
 
             ITemplate template = plugin as ITemplate;

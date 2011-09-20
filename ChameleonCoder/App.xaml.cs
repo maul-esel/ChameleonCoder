@@ -48,7 +48,7 @@ namespace ChameleonCoder
         private void InitHandler(Object sender, StartupEventArgs e)
         {
             // setting the Language the user chose
-            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(ChameleonCoder.Properties.Settings.Default.Language);
+            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);
 
             // associate the instances created in XAML with the classes
             ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
@@ -84,12 +84,10 @@ namespace ChameleonCoder
                     Environment.Exit(0);
                 }
             }
-
 #if DEBUG
             if (path == null && File.Exists("test.ccr")) // if no file passed:
                 path = "test.ccr"; // use test file in debug builds
 #endif
-
             if (path == null) // if no path was passed
             {
                 // else let the user open a new file

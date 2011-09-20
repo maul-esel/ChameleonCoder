@@ -94,6 +94,7 @@
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -110,6 +111,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Settings\ChameleonCoderSettings.cs" />
+    <Compile Include="Settings\CCSettingsProvider.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="Interaction\CCNumericUpDown.xaml.cs">
@@ -194,7 +197,6 @@
     </Compile>
     <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
     <Compile Include="Resources\RichContent\RichContentManager.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
     <Page Include="Interaction\CCNumericUpDown.xaml">
@@ -267,11 +269,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -279,10 +276,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="ChameleonCoder.res" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
     <None Include="test.ccr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

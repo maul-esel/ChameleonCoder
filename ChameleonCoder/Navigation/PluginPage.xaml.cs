@@ -32,7 +32,7 @@ namespace ChameleonCoder.Navigation
         private void Uninstall(object sender, EventArgs e)
         {
             var plugin = list.SelectedItem as IPlugin;
-            Properties.Settings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
+            Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
 
             DataContext = new KeyValuePair<ViewModel,IEnumerable<IPlugin>>(new ViewModel(),
                 FilterPlugins(Plugins.PluginManager.GetPlugins()));
@@ -45,13 +45,19 @@ namespace ChameleonCoder.Navigation
         /// <param name="e">not used</param>
         private void Install(object sender, EventArgs e)
         {
-            var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll" };
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string path = dialog.FileName;
-                Assembly ass;
+            string path = null;
 
-                dialog.Dispose();
+            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll" })
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    path = dialog.FileName;
+                }
+            }
+
+            if (path != null)
+            {
+                Assembly ass;
 
                 try { ass = Assembly.LoadFrom(path); }
                 catch (BadImageFormatException ex)
@@ -85,7 +91,7 @@ namespace ChameleonCoder.Navigation
                 foreach (var component in types)
                 {
                     IPlugin plugin = Activator.CreateInstance(component) as IPlugin;
-                    if (!Properties.Settings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
+                    if (!Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
                         newPlugins.Add(plugin);
                 }
 
@@ -149,7 +155,7 @@ namespace ChameleonCoder.Navigation
             var list = new List<IPlugin>();
             foreach (var plugin in plugins)
             {
-                if (Properties.Settings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
+                if (Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
                     list.Add(plugin);
             }
             return list;

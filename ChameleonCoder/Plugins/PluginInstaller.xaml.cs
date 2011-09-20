@@ -53,7 +53,7 @@ namespace ChameleonCoder.Plugins
 
             foreach (IPlugin plugin in plugins)
             {
-                Properties.Settings.Default.InstalledPlugins.Add(plugin.Identifier.ToString("n"));
+                Settings.ChameleonCoderSettings.Default.InstalledPlugins.Add(plugin.Identifier.ToString("n"));
                 pluginTypes.Add(plugin.GetType());
                 pluginList.Remove(plugin);
 
@@ -66,7 +66,6 @@ namespace ChameleonCoder.Plugins
             PluginManager.Load(pluginTypes);
 
             DataContext = new { plugins = pluginList, lang = new ViewModel() };
-            Properties.Settings.Default.Save();
         }
 
         List<IPlugin> pluginList;

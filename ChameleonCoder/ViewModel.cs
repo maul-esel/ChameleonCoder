@@ -21,26 +21,26 @@ namespace ChameleonCoder
         public static FontFamily CodeFont
         {
             get { return family; }
-            set { Properties.Settings.Default.CodeFont = (family = value).Source; }
+            set { Settings.ChameleonCoderSettings.Default.CodeFont = (family = value).Source; }
         }
 
-        private static FontFamily family = new FontFamily(Properties.Settings.Default.CodeFont);
+        private static FontFamily family = new FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
 
         public static int CodeFontSize
         {
-            get { return Properties.Settings.Default.CodeFontSize; }
-            set { Properties.Settings.Default.CodeFontSize = value; }
+            get { return Settings.ChameleonCoderSettings.Default.CodeFontSize; }
+            set { Settings.ChameleonCoderSettings.Default.CodeFontSize = value; }
         }
 
         public static int UILanguage
         {
-            get { return Properties.Settings.Default.Language; }
+            get { return Settings.ChameleonCoderSettings.Default.Language; }
 
             set
             {
                 Res.Culture =
                     new System.Globalization.CultureInfo(
-                        Properties.Settings.Default.Language = value
+                        Settings.ChameleonCoderSettings.Default.Language = value
                         );
 
                 App.Gui.DataContext = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
