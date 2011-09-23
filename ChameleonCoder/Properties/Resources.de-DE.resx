@@ -258,15 +258,6 @@
     <value>{0}-Modul (Version {1}) von {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
   </data>
-  <data name="Pack_Finished" xml:space="preserve">
-    <value>Die Ressourcen wurden erfolgreich gepackt!</value>
-  </data>
-  <data name="Pack_IncludeFS" xml:space="preserve">
-    <value>Wollen Sie die den Ressourcen entsprechenden Dateisystem-Objekte einschließen?</value>
-  </data>
-  <data name="Pack_IncludeResolve" xml:space="preserve">
-    <value>Wollen Sie die Zielressourcen der gepackten Ressourcesn einschließen?</value>
-  </data>
   <data name="PropertyGroup_General" xml:space="preserve">
     <value>Allgemein</value>
   </data>
@@ -313,16 +304,16 @@
   <data name="Services" xml:space="preserve">
     <value>Dienste</value>
   </data>
-  <data name="Setting_EnableUpdate" xml:space="preserve">
+  <data name="SP_Update" xml:space="preserve">
     <value>Automatische Updates aktivieren</value>
   </data>
-  <data name="Setting_InstallCOM" xml:space="preserve">
+  <data name="SP_InstallCOM" xml:space="preserve">
     <value>Installiere COM-Support</value>
   </data>
-  <data name="Setting_InstallExt" xml:space="preserve">
+  <data name="SP_InstallExt" xml:space="preserve">
     <value>Installiere Dateiendungen</value>
   </data>
-  <data name="Setting_Language" xml:space="preserve">
+  <data name="SP_Language" xml:space="preserve">
     <value>Sprache:</value>
   </data>
   <data name="StartSelection" xml:space="preserve">
@@ -357,6 +348,7 @@
   </data>
   <data name="AutoTemplate_Author" xml:space="preserve">
     <value>ChameleonCoder (ursprünglicher Autor: {0})</value>
+    <comment>{0} is the author information of the resource factory</comment>
   </data>
   <data name="AutoTemplate_Description" xml:space="preserve">
     <value>neue leere "{0}"-Ressource</value>
@@ -364,16 +356,16 @@
   <data name="Info_Version" xml:space="preserve">
     <value>Version:</value>
   </data>
-  <data name="Plugin_ComponentFactory" xml:space="preserve">
-    <value>Komponenten</value>
+  <data name="PP_TypesResourceFactory" xml:space="preserve">
+    <value>Ressourcen-Typen</value>
   </data>
-  <data name="Plugin_LanguageModule" xml:space="preserve">
+  <data name="PP_TypesLanguageModule" xml:space="preserve">
     <value>Sprach-Addons</value>
   </data>
-  <data name="Plugin_Service" xml:space="preserve">
+  <data name="PP_TypesService" xml:space="preserve">
     <value>Dienste</value>
   </data>
-  <data name="Plugin_Template" xml:space="preserve">
+  <data name="PP_TypesTemplate" xml:space="preserve">
     <value>Vorlagen</value>
   </data>
   <data name="Selection_Plugins" xml:space="preserve">
@@ -386,10 +378,10 @@
     <value>Die angegebene Datei "{0}" konnte nicht geöffnet werden.
 ChameleonCoder wird geschlossen.</value>
   </data>
-  <data name="Meta_Key" xml:space="preserve">
+  <data name="VP_MetaDataKey" xml:space="preserve">
     <value>Metadata-Schlüssel</value>
   </data>
-  <data name="Meta_Value" xml:space="preserve">
+  <data name="VP_MetaDataValue" xml:space="preserve">
     <value>Wert</value>
   </data>
   <data name="Meta_Add" xml:space="preserve">
@@ -413,10 +405,10 @@ ChameleonCoder wird geschlossen.</value>
   <data name="Error_InstallNoPlugin" xml:space="preserve">
     <value>Die Assembly "{0}" ist keine ChameleonCoder-Plugin-Assembly.</value>
   </data>
-  <data name="Plugin_All" xml:space="preserve">
+  <data name="PP_TypesAll" xml:space="preserve">
     <value>alle Plugins</value>
   </data>
-  <data name="Plugin_Install" xml:space="preserve">
+  <data name="PP_Install" xml:space="preserve">
     <value>installiere Plugins</value>
   </data>
   <data name="Plugin_InstallAll" xml:space="preserve">
@@ -425,7 +417,7 @@ ChameleonCoder wird geschlossen.</value>
   <data name="Plugin_InstallSelected" xml:space="preserve">
     <value>installiere ausgewählte Plugins</value>
   </data>
-  <data name="Plugin_Uninstall" xml:space="preserve">
+  <data name="PP_Uninstall" xml:space="preserve">
     <value>deinstalliere markiertes Plugin</value>
   </data>
   <data name="Status_InstallPlugin" xml:space="preserve">
@@ -444,10 +436,10 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="List_SortResources" xml:space="preserve">
     <value>Ressourcen sortieren</value>
   </data>
-  <data name="Setting_CodeFont" xml:space="preserve">
+  <data name="SP_CodeFont" xml:space="preserve">
     <value>Coding-Schriftart:</value>
   </data>
-  <data name="Setting_CodeFontSize" xml:space="preserve">
+  <data name="SP_CodeFontSize" xml:space="preserve">
     <value>Coding-Schriftgröße:</value>
   </data>
   <data name="SR_FindNext" xml:space="preserve">

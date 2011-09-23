@@ -313,16 +313,16 @@
   <data name="Services" xml:space="preserve">
     <value>Services</value>
   </data>
-  <data name="Setting_EnableUpdate" xml:space="preserve">
+  <data name="SP_Update" xml:space="preserve">
     <value>Enable updates</value>
   </data>
-  <data name="Setting_InstallCOM" xml:space="preserve">
+  <data name="SP_InstallCOM" xml:space="preserve">
     <value>install COM support</value>
   </data>
-  <data name="Setting_InstallExt" xml:space="preserve">
+  <data name="SP_InstallExt" xml:space="preserve">
     <value>install file extensions</value>
   </data>
-  <data name="Setting_Language" xml:space="preserve">
+  <data name="SP_Language" xml:space="preserve">
     <value>Language:</value>
   </data>
   <data name="StartSelection" xml:space="preserve">
@@ -364,16 +364,16 @@
   <data name="Info_Version" xml:space="preserve">
     <value>Version:</value>
   </data>
-  <data name="Plugin_ComponentFactory" xml:space="preserve">
-    <value>components</value>
+  <data name="PP_TypesResourceFactory" xml:space="preserve">
+    <value>resource types</value>
   </data>
-  <data name="Plugin_LanguageModule" xml:space="preserve">
+  <data name="PP_TypesLanguageModule" xml:space="preserve">
     <value>language modules</value>
   </data>
-  <data name="Plugin_Service" xml:space="preserve">
+  <data name="PP_TypesService" xml:space="preserve">
     <value>services</value>
   </data>
-  <data name="Plugin_Template" xml:space="preserve">
+  <data name="PP_TypesTemplate" xml:space="preserve">
     <value>templates</value>
   </data>
   <data name="Selection_Plugins" xml:space="preserve">
@@ -386,10 +386,10 @@
     <value>The file "{0}" could not be opened.
 ChameleonCoder will close.</value>
   </data>
-  <data name="Meta_Key" xml:space="preserve">
+  <data name="VP_MetaDataKey" xml:space="preserve">
     <value>metadata key</value>
   </data>
-  <data name="Meta_Value" xml:space="preserve">
+  <data name="VP_MetaDataValue" xml:space="preserve">
     <value>value</value>
   </data>
   <data name="Meta_Add" xml:space="preserve">
@@ -413,10 +413,10 @@ ChameleonCoder will close.</value>
   <data name="Error_InstallNoPlugin" xml:space="preserve">
     <value>The assembly at "{0}" is not a ChameleonCoder plugin assembly.</value>
   </data>
-  <data name="Plugin_All" xml:space="preserve">
+  <data name="PP_TypesAll" xml:space="preserve">
     <value>all plugins</value>
   </data>
-  <data name="Plugin_Install" xml:space="preserve">
+  <data name="PP_Install" xml:space="preserve">
     <value>install plugins</value>
   </data>
   <data name="Plugin_InstallAll" xml:space="preserve">
@@ -425,7 +425,7 @@ ChameleonCoder will close.</value>
   <data name="Plugin_InstallSelected" xml:space="preserve">
     <value>install selected plugins</value>
   </data>
-  <data name="Plugin_Uninstall" xml:space="preserve">
+  <data name="PP_Uninstall" xml:space="preserve">
     <value>uninstall selected plugin</value>
   </data>
   <data name="Status_InstallPlugin" xml:space="preserve">
@@ -444,10 +444,10 @@ resources cannot be moved to descendants.</value>
   <data name="List_SortResources" xml:space="preserve">
     <value>Sort resources</value>
   </data>
-  <data name="Setting_CodeFont" xml:space="preserve">
+  <data name="SP_CodeFont" xml:space="preserve">
     <value>code font:</value>
   </data>
-  <data name="Setting_CodeFontSize" xml:space="preserve">
+  <data name="SP_CodeFontSize" xml:space="preserve">
     <value>code font size:</value>
   </data>
   <data name="SR_FindNext" xml:space="preserve">

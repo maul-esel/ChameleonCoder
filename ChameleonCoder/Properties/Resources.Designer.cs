@@ -594,24 +594,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die metadata key ähnelt.
-        /// </summary>
-        internal static string Meta_Key {
-            get {
-                return ResourceManager.GetString("Meta_Key", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die value ähnelt.
-        /// </summary>
-        internal static string Meta_Value {
-            get {
-                return ResourceManager.GetString("Meta_Value", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {0} module (version {1}) by {2} ähnelt.
         /// </summary>
         internal static string ModuleInfo {
@@ -648,33 +630,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die all plugins ähnelt.
-        /// </summary>
-        internal static string Plugin_All {
-            get {
-                return ResourceManager.GetString("Plugin_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die components ähnelt.
-        /// </summary>
-        internal static string Plugin_ComponentFactory {
-            get {
-                return ResourceManager.GetString("Plugin_ComponentFactory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die install plugins ähnelt.
-        /// </summary>
-        internal static string Plugin_Install {
-            get {
-                return ResourceManager.GetString("Plugin_Install", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die install all ähnelt.
         /// </summary>
         internal static string Plugin_InstallAll {
@@ -693,38 +648,65 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die install plugins ähnelt.
+        /// </summary>
+        internal static string PP_Install {
+            get {
+                return ResourceManager.GetString("PP_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die all plugins ähnelt.
+        /// </summary>
+        internal static string PP_TypesAll {
+            get {
+                return ResourceManager.GetString("PP_TypesAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die language modules ähnelt.
         /// </summary>
-        internal static string Plugin_LanguageModule {
+        internal static string PP_TypesLanguageModule {
             get {
-                return ResourceManager.GetString("Plugin_LanguageModule", resourceCulture);
+                return ResourceManager.GetString("PP_TypesLanguageModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die resource types ähnelt.
+        /// </summary>
+        internal static string PP_TypesResourceFactory {
+            get {
+                return ResourceManager.GetString("PP_TypesResourceFactory", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die services ähnelt.
         /// </summary>
-        internal static string Plugin_Service {
+        internal static string PP_TypesService {
             get {
-                return ResourceManager.GetString("Plugin_Service", resourceCulture);
+                return ResourceManager.GetString("PP_TypesService", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die templates ähnelt.
         /// </summary>
-        internal static string Plugin_Template {
+        internal static string PP_TypesTemplate {
             get {
-                return ResourceManager.GetString("Plugin_Template", resourceCulture);
+                return ResourceManager.GetString("PP_TypesTemplate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die uninstall selected plugin ähnelt.
         /// </summary>
-        internal static string Plugin_Uninstall {
+        internal static string PP_Uninstall {
             get {
-                return ResourceManager.GetString("Plugin_Uninstall", resourceCulture);
+                return ResourceManager.GetString("PP_Uninstall", resourceCulture);
             }
         }
         
@@ -875,54 +857,54 @@ namespace ChameleonCoder.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die code font: ähnelt.
         /// </summary>
-        internal static string Setting_CodeFont {
+        internal static string SP_CodeFont {
             get {
-                return ResourceManager.GetString("Setting_CodeFont", resourceCulture);
+                return ResourceManager.GetString("SP_CodeFont", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die code font size: ähnelt.
         /// </summary>
-        internal static string Setting_CodeFontSize {
+        internal static string SP_CodeFontSize {
             get {
-                return ResourceManager.GetString("Setting_CodeFontSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Enable updates ähnelt.
-        /// </summary>
-        internal static string Setting_EnableUpdate {
-            get {
-                return ResourceManager.GetString("Setting_EnableUpdate", resourceCulture);
+                return ResourceManager.GetString("SP_CodeFontSize", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die install COM support ähnelt.
         /// </summary>
-        internal static string Setting_InstallCOM {
+        internal static string SP_InstallCOM {
             get {
-                return ResourceManager.GetString("Setting_InstallCOM", resourceCulture);
+                return ResourceManager.GetString("SP_InstallCOM", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die install file extensions ähnelt.
         /// </summary>
-        internal static string Setting_InstallExt {
+        internal static string SP_InstallExt {
             get {
-                return ResourceManager.GetString("Setting_InstallExt", resourceCulture);
+                return ResourceManager.GetString("SP_InstallExt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Language: ähnelt.
         /// </summary>
-        internal static string Setting_Language {
+        internal static string SP_Language {
             get {
-                return ResourceManager.GetString("Setting_Language", resourceCulture);
+                return ResourceManager.GetString("SP_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enable updates ähnelt.
+        /// </summary>
+        internal static string SP_Update {
+            get {
+                return ResourceManager.GetString("SP_Update", resourceCulture);
             }
         }
         
@@ -1103,6 +1085,24 @@ namespace ChameleonCoder.Properties {
         internal static string View_Move {
             get {
                 return ResourceManager.GetString("View_Move", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die metadata key ähnelt.
+        /// </summary>
+        internal static string VP_MetaDataKey {
+            get {
+                return ResourceManager.GetString("VP_MetaDataKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die value ähnelt.
+        /// </summary>
+        internal static string VP_MetaDataValue {
+            get {
+                return ResourceManager.GetString("VP_MetaDataValue", resourceCulture);
             }
         }
         
