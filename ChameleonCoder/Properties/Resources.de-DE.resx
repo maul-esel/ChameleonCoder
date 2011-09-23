@@ -325,9 +325,6 @@
   <data name="Setting_Language" xml:space="preserve">
     <value>Sprache:</value>
   </data>
-  <data name="Setting_SelectProgDir" xml:space="preserve">
-    <value>Suche Ordner</value>
-  </data>
   <data name="StartSelection" xml:space="preserve">
     <value>Wie wollen Sie beginnen?</value>
   </data>

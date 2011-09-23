@@ -325,9 +325,6 @@
   <data name="Setting_Language" xml:space="preserve">
     <value>Language:</value>
   </data>
-  <data name="Setting_SelectProgDir" xml:space="preserve">
-    <value>select directory</value>
-  </data>
   <data name="StartSelection" xml:space="preserve">
     <value>How do you want to start?</value>
   </data>

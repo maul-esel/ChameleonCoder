@@ -927,15 +927,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die select directory ähnelt.
-        /// </summary>
-        internal static string Setting_SelectProgDir {
-            get {
-                return ResourceManager.GetString("Setting_SelectProgDir", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die find next ähnelt.
         /// </summary>
         internal static string SR_FindNext {
