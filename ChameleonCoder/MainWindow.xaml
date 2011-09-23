@@ -71,7 +71,7 @@
         </ControlTemplate>
         
        <Style TargetType="TabItem">
-           
+
             <Setter Property="HeaderTemplate">
                 <Setter.Value>
                     

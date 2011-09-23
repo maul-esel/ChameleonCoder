@@ -403,12 +403,40 @@ namespace ChameleonCoder
 
         private void EditSearch(object sender, EventArgs e)
         {
-            // todo
+            EditPage edit = (Tabs.SelectedItem as TabContext).Content as EditPage;
+            if (edit != null)
+            {
+                var dialog = new CCSearchReplaceDialog(
+                    () => edit.Editor.Text,
+                    (offset, length, replaceBy) => edit.Editor.Document.Replace(offset, length, replaceBy),
+                    (offset, length) =>
+                        {
+                            edit.Editor.Select(offset, length);
+                            var loc = edit.Editor.Document.GetLocation(offset);
+                            edit.Editor.ScrollTo(loc.Line, loc.Column);
+                        },
+                    false);
+                dialog.ShowDialog();
+            }
         }
 
         private void EditReplace(object sender, EventArgs e)
         {
-            // todo
+            EditPage edit = (Tabs.SelectedItem as TabContext).Content as EditPage;
+            if (edit != null)
+            {
+                var dialog = new CCSearchReplaceDialog(
+                    () => edit.Editor.Text,
+                    (offset, length, replaceBy) => edit.Editor.Document.Replace(offset, length, replaceBy),
+                    (offset, length) =>
+                    {
+                        edit.Editor.Select(offset, length);
+                        var loc = edit.Editor.Document.GetLocation(offset);
+                        edit.Editor.ScrollTo(loc.Line, loc.Column);
+                    },
+                    true);
+                dialog.ShowDialog();
+            }
         }
 
         private void EditPerformAction(Action<ICSharpCode.AvalonEdit.TextEditor> action)

@@ -453,4 +453,28 @@ resources cannot be moved to descendants.</value>
   <data name="Setting_CodeFontSize" xml:space="preserve">
     <value>code font size:</value>
   </data>
+  <data name="SR_FindNext" xml:space="preserve">
+    <value>find next</value>
+  </data>
+  <data name="SR_MatchCase" xml:space="preserve">
+    <value>match case</value>
+  </data>
+  <data name="SR_MatchWholeWord" xml:space="preserve">
+    <value>match whole word only</value>
+  </data>
+  <data name="SR_ReplaceAll" xml:space="preserve">
+    <value>replace all</value>
+  </data>
+  <data name="SR_ReplaceBy" xml:space="preserve">
+    <value>replace by:</value>
+  </data>
+  <data name="SR_SearchFor" xml:space="preserve">
+    <value>search for:</value>
+  </data>
+  <data name="SR_Title" xml:space="preserve">
+    <value>search &amp; replace</value>
+  </data>
+  <data name="SR_WrapAround" xml:space="preserve">
+    <value>wrap around</value>
+  </data>
 </root>

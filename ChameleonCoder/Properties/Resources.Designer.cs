@@ -936,6 +936,78 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die find next ähnelt.
+        /// </summary>
+        internal static string SR_FindNext {
+            get {
+                return ResourceManager.GetString("SR_FindNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die match case ähnelt.
+        /// </summary>
+        internal static string SR_MatchCase {
+            get {
+                return ResourceManager.GetString("SR_MatchCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die match whole word only ähnelt.
+        /// </summary>
+        internal static string SR_MatchWholeWord {
+            get {
+                return ResourceManager.GetString("SR_MatchWholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die replace all ähnelt.
+        /// </summary>
+        internal static string SR_ReplaceAll {
+            get {
+                return ResourceManager.GetString("SR_ReplaceAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die replace by: ähnelt.
+        /// </summary>
+        internal static string SR_ReplaceBy {
+            get {
+                return ResourceManager.GetString("SR_ReplaceBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die search for: ähnelt.
+        /// </summary>
+        internal static string SR_SearchFor {
+            get {
+                return ResourceManager.GetString("SR_SearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die search &amp; replace ähnelt.
+        /// </summary>
+        internal static string SR_Title {
+            get {
+                return ResourceManager.GetString("SR_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die wrap around ähnelt.
+        /// </summary>
+        internal static string SR_WrapAround {
+            get {
+                return ResourceManager.GetString("SR_WrapAround", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die How do you want to start? ähnelt.
         /// </summary>
         internal static string StartSelection {

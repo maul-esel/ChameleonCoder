@@ -198,5 +198,29 @@ namespace ChameleonCoder
         #endregion
 
         #endregion
+
+        /// <summary>
+        /// a class containing localization strings for the CCSearchReplace dialog
+        /// </summary>
+        internal sealed class SearchReplaceModel
+        {
+            public static string SearchFor { get { return Res.SR_SearchFor; } }
+
+            public static string ReplaceBy { get { return Res.SR_ReplaceBy; } }
+
+            public static string FindNext { get { return Res.SR_FindNext; } }
+
+            public static string Replace { get { return Res.Edit_Replace; } }
+
+            public static string ReplaceAll { get { return Res.SR_ReplaceAll; } }
+
+            public static string Title { get { return Res.SR_Title; } }
+
+            public static string MatchCase { get { return Res.SR_MatchCase; } }
+
+            public static string MatchWholeWord { get { return Res.SR_MatchWholeWord; } }
+
+            public static string WrapAround { get { return Res.SR_WrapAround; } }
+        }
     }
 }

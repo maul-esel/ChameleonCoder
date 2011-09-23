@@ -111,6 +111,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CCSearchReplaceDialog.xaml.cs">
+      <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
     <Compile Include="DataFile.cs" />
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Interaction\CCResourceCatalog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CCSearchReplaceDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
