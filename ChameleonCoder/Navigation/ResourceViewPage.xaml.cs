@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
@@ -19,15 +18,14 @@ namespace ChameleonCoder.Navigation
         internal ResourceViewPage(IResource resource)
         {
             ResourceManager.Open(Resource = resource);
-            DataContext = new { res = resource, meta = resource.GetMetadata(), lang = App.Gui.DataContext };
-
             InitializeComponent();
+            Update();
         }
 
         internal void AddMetadata(string name)
         {
             Resource.SetMetadata(name, null);
-            DataContext = new { res = Resource, meta = Resource.GetMetadata(), lang = App.Gui.DataContext };
+            Update();
         }
 
         internal void DeleteMetadata()
@@ -35,7 +33,7 @@ namespace ChameleonCoder.Navigation
             if (MetadataGrid.SelectedIndex != -1)
             {
                 Resource.DeleteMetadata(((KeyValuePair<string, string>)MetadataGrid.SelectedItem).Key);
-                DataContext = new { res = Resource, meta = Resource.GetMetadata(), lang = App.Gui.DataContext };
+                Update();
             }
         }
 
@@ -47,6 +45,11 @@ namespace ChameleonCoder.Navigation
 
             Resource.SetMetadata(key, value);
             box.InvalidateProperty(System.Windows.FrameworkElement.WidthProperty);
+        }
+
+        private void Update()
+        {
+            DataContext = new ViewModel.ResourceViewPageModel(Resource);
         }
 
         /// <summary>

@@ -19,9 +19,8 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         public PluginPage()
         {
-            DataContext = new KeyValuePair<ViewModel, IEnumerable<IPlugin>>(new ViewModel(),
-                FilterPlugins(Plugins.PluginManager.GetPlugins()));
             InitializeComponent();
+            Update();
         }
 
         /// <summary>
@@ -34,8 +33,7 @@ namespace ChameleonCoder.Navigation
             var plugin = list.SelectedItem as IPlugin;
             Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
 
-            DataContext = new KeyValuePair<ViewModel,IEnumerable<IPlugin>>(new ViewModel(),
-                FilterPlugins(Plugins.PluginManager.GetPlugins()));
+            Update();
         }
 
         /// <summary>
@@ -108,8 +106,7 @@ namespace ChameleonCoder.Navigation
                 var installer = new PluginInstaller(newPlugins);
                 installer.ShowDialog();
 
-                DataContext = new KeyValuePair<ViewModel, IEnumerable<IPlugin>>(new ViewModel(),
-                    FilterPlugins(Plugins.PluginManager.GetPlugins()));
+                Update();
             }
         }
 
@@ -159,6 +156,11 @@ namespace ChameleonCoder.Navigation
                     list.Add(plugin);
             }
             return list;
+        }
+
+        private void Update()
+        {
+            DataContext = new ViewModel.PluginPageModel(FilterPlugins(PluginManager.GetPlugins()));
         }
     }
 }

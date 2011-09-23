@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -7,6 +8,14 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
+    /*
+     * TODO:
+     * ============================================================
+     * - implement INotifyPropertyChanged on all view model classes
+     * - avoid re-instantiating the classes
+     * - use InformationProvider.LanguageChanged event
+     * - add a 'UpdateAll()' and a 'Update(string)' method
+     */
     internal sealed class ViewModel
     {
         public ViewModel()
@@ -14,43 +23,7 @@ namespace ChameleonCoder
             Tabs = new ObservableCollection<TabContext>();
         }
 
-        public ObservableCollection<TabContext> Tabs { get; private set; }
-
-        public static int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
-
-        public static FontFamily CodeFont
-        {
-            get { return family; }
-            set { Settings.ChameleonCoderSettings.Default.CodeFont = (family = value).Source; }
-        }
-
-        private static FontFamily family = new FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
-
-        public static int CodeFontSize
-        {
-            get { return Settings.ChameleonCoderSettings.Default.CodeFontSize; }
-            set { Settings.ChameleonCoderSettings.Default.CodeFontSize = value; }
-        }
-
-        public static int UILanguage
-        {
-            get { return Settings.ChameleonCoderSettings.Default.Language; }
-
-            set
-            {
-                Res.Culture =
-                    new System.Globalization.CultureInfo(
-                        Settings.ChameleonCoderSettings.Default.Language = value
-                        );
-
-                App.Gui.DataContext = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
-                App.Gui.breadcrumb.Path =
-                    App.Gui.breadcrumb.PathFromBreadcrumbItem(App.Gui.breadcrumb.RootItem)
-                    + "/" + Item_Settings;
-
-                Interaction.InformationProvider.OnLanguageChanged();
-            }
-        }
+        public ObservableCollection<TabContext> Tabs { get; private set; }        
 
         public static BreadcrumbContext BreadcrumbRoot
         {
@@ -98,19 +71,6 @@ namespace ChameleonCoder
         public static string Info_Class { get { return Res.Info_Class; } }
         public static string Info_Version { get { return Res.Info_Version; } }
 
-        public static string Plugin_All { get { return Res.Plugin_All; } }
-        public static string Plugin_LanguageModule { get { return Res.Plugin_LanguageModule; } }
-        public static string Plugin_Service { get { return Res.Plugin_Service; } }
-        public static string Plugin_Template { get { return Res.Plugin_Template; } }
-        public static string Plugin_ComponentFactory { get { return Res.Plugin_ComponentFactory; } }
-        public static string Plugin_Install { get { return Res.Plugin_Install; } }
-        public static string Plugin_Uninstall { get { return Res.Plugin_Uninstall; } }
-        public static string Plugin_InstallSelected { get { return Res.Plugin_InstallSelected; } }
-        public static string Plugin_InstallAll { get { return Res.Plugin_InstallAll; } }
-        public static string Error_InstallNoAssembly { get { return Res.Error_InstallNoAssembly; } }
-        public static string Error_InstallNoPlugin { get { return Res.Error_InstallNoPlugin; } }
-        public static string Error_InstallEmptyAssembly { get { return Res.Error_InstallEmptyAssembly; } }
-
         public static string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
 
         public static string Services { get { return Res.Services; } }
@@ -126,8 +86,6 @@ namespace ChameleonCoder
         public static string Help { get { return Res.Help; } }
         public static string About { get { return Res.About; } }
 
-        public static string Meta_Key { get { return Res.Meta_Key; } }
-        public static string Meta_Value { get { return Res.Meta_Value; } }
         public static string Meta_Add { get { return Res.Meta_Add; } }
         public static string Meta_Delete { get { return Res.Meta_Delete; } }
 
@@ -178,16 +136,6 @@ namespace ChameleonCoder
         public static string View_Edit { get { return Res.View_Edit; } }
         #endregion
 
-        #region SettingsPage
-        public static string Setting_Language { get { return Res.Setting_Language; } }
-        public static string Setting_EnableUpdate { get { return Res.Setting_EnableUpdate; } }
-        public static string Setting_SelectProgDir { get { return Res.Setting_SelectProgDir; } }
-        public static string Setting_InstallExt { get { return Res.Setting_InstallExt; } }
-        public static string Setting_InstallCOM { get { return Res.Setting_InstallCOM; } }
-        public static string Setting_CodeFont { get { return Res.Setting_CodeFont; } }
-        public static string Setting_CodeFontSize { get { return Res.Setting_CodeFontSize; } }
-        #endregion
-
         #region WelcomePage
         public static string Welcome { get { return Res.Welcome; } }
         public static string StartSelection { get { return Res.StartSelection; } }
@@ -221,6 +169,115 @@ namespace ChameleonCoder
             public static string MatchWholeWord { get { return Res.SR_MatchWholeWord; } }
 
             public static string WrapAround { get { return Res.SR_WrapAround; } }
+        }
+
+        /// <summary>
+        /// a class containing localization strings and other data for the PluginPage class
+        /// </summary>
+        internal sealed class PluginPageModel
+        {
+            internal PluginPageModel(IList<Plugins.IPlugin> pluginList)
+            {
+                plugins = new ObservableCollection<Plugins.IPlugin>(pluginList);
+            }
+
+            public ObservableCollection<Plugins.IPlugin> PluginList
+            {
+                get { return plugins; }
+            }
+
+            private readonly ObservableCollection<Plugins.IPlugin> plugins;
+
+            public static string Types_All { get { return Res.PP_TypesAll; } }
+
+            public static string Types_Templates { get { return Res.PP_TypesTemplate; } }
+
+            public static string Types_Services { get { return Res.PP_TypesService; } }
+
+            public static string Types_LanguageModules { get { return Res.PP_TypesLanguageModule; } }
+
+            public static string Types_ResourceFactories { get { return Res.PP_TypesResourceFactory; } }
+
+            public static string Uninstall { get { return Res.PP_Uninstall; } }
+
+            public static string Install { get { return Res.PP_Install; } }
+        }
+
+        /// <summary>
+        /// a class containing localization strings and other data for the ResourceViewPage class
+        /// </summary>
+        internal sealed class ResourceViewPageModel
+        {
+            internal ResourceViewPageModel(Resources.Interfaces.IResource resource)
+            {
+                resourceInstance = resource;
+            }
+
+            public Resources.Interfaces.IResource Resource { get { return resourceInstance; } }
+
+            private readonly Resources.Interfaces.IResource resourceInstance;
+
+            public IDictionary<string, string> MetaData { get { return resourceInstance.GetMetadata(); } }
+
+            public static string MetaDataKey { get { return Res.VP_MetaDataKey; } }
+
+            public static string MetaDataValue { get { return Res.VP_MetaDataValue; } }
+        }
+
+        /// <summary>
+        /// a class containing localization strings and other data for the SettingsPage class
+        /// </summary>
+        internal sealed class SettingsPageModel
+        {
+            public static int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
+
+            public static FontFamily CodeFont
+            {
+                get { return family; }
+                set { Settings.ChameleonCoderSettings.Default.CodeFont = (family = value).Source; }
+            }
+
+            private static FontFamily family = new FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
+
+            public static int CodeFontSize
+            {
+                get { return Settings.ChameleonCoderSettings.Default.CodeFontSize; }
+                set { Settings.ChameleonCoderSettings.Default.CodeFontSize = value; }
+            }
+
+            public static int UILanguage
+            {
+                get { return Settings.ChameleonCoderSettings.Default.Language; }
+
+                set
+                {
+                    Res.Culture =
+                        new System.Globalization.CultureInfo(
+                            Settings.ChameleonCoderSettings.Default.Language = value
+                            );
+
+                    App.Gui.DataContext = new ViewModel() { Tabs = App.Gui.MVVM.Tabs };
+                    App.Gui.breadcrumb.Path =
+                        App.Gui.breadcrumb.PathFromBreadcrumbItem(App.Gui.breadcrumb.RootItem)
+                        + "/" + Item_Settings;
+
+                    Interaction.InformationProvider.OnLanguageChanged();
+                }
+            }
+
+            public static string Item_Settings { get { return Res.Item_Settings; } }
+
+            public static string Setting_Language { get { return Res.SP_Language; } }
+
+            public static string Setting_EnableUpdate { get { return Res.SP_Update; } }
+
+            public static string Setting_InstallExt { get { return Res.SP_InstallExt; } }
+
+            public static string Setting_InstallCOM { get { return Res.SP_InstallCOM; } }
+
+            public static string Setting_CodeFont { get { return Res.SP_CodeFont; } }
+
+            public static string Setting_CodeFontSize { get { return Res.SP_CodeFontSize; } }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Controls;
 using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace ChameleonCoder.Navigation
 {
@@ -11,10 +11,10 @@ namespace ChameleonCoder.Navigation
     {
         internal SettingsPage()
         {
-            DataContext = App.Gui.DataContext;
             InitializeComponent();
+            Update();
 
-            extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
+            extInstCheck.IsChecked = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null;
         }
 
         private void InstallExtensions(object sender, EventArgs e)
@@ -28,6 +28,11 @@ namespace ChameleonCoder.Navigation
             {
             }
             extInstCheck.IsChecked = (Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(".ccr") != null);
+        }
+
+        private void Update()
+        {
+            DataContext = new ViewModel.SettingsPageModel();
         }
     }
 }

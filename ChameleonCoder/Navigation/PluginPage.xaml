@@ -4,7 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" VerticalAlignment="Stretch" x:ClassModifier="internal">
     
     <Page.Resources>
-        <CollectionViewSource x:Key="pluginsList" Source="{Binding Path=Value}" Filter="Filter">
+        <CollectionViewSource x:Key="pluginsList" Source="{Binding Path=PluginList}" Filter="Filter">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="Name"/>
             </CollectionViewSource.SortDescriptions>
@@ -27,15 +27,15 @@
                         <Setter Property="Background" Value="LightGray"/>
                     </Style>
                 </ListBox.Resources>
-                <ListBoxItem Content="{Binding Path=Key.Plugin_All}"/>
-                <ListBoxItem Content="{Binding Path=Key.Plugin_Template}"/>
-                <ListBoxItem Content="{Binding Path=Key.Plugin_Service}"/>
-                <ListBoxItem Content="{Binding Path=Key.Plugin_LanguageModule}"/>
-                <ListBoxItem Content="{Binding Path=Key.Plugin_ComponentFactory}"/>
+                <ListBoxItem Content="{Binding Path=Types_All}"/>
+                <ListBoxItem Content="{Binding Path=Types_Templates}"/>
+                <ListBoxItem Content="{Binding Path=Types_Services}"/>
+                <ListBoxItem Content="{Binding Path=Types_LanguageModules}"/>
+                <ListBoxItem Content="{Binding Path=Types_ResourceFactories}"/>
             </ListBox>
-            
-            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Key.Plugin_Uninstall}" Click="Uninstall"/>
-            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Key.Plugin_Install}" Click="Install"/>
+
+            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Uninstall}" Click="Uninstall"/>
+            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Install}" Click="Install"/>
         </StackPanel>
         
 

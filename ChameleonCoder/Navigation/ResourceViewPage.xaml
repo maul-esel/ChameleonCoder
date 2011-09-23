@@ -1,9 +1,9 @@
-﻿<Page x:Class="ChameleonCoder.Navigation.ResourceViewPage"
+﻿<Page x:Class="ChameleonCoder.Navigation.ResourceViewPage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:ClassModifier="internal">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Page.Resources>
-        <CollectionViewSource x:Key="ResPropList" Source="{Binding Path=res, Converter={StaticResource PropConv}}">
+        <CollectionViewSource x:Key="ResPropList" Source="{Binding Path=Resource, Converter={StaticResource PropConv}}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="Group"/>
             </CollectionViewSource.GroupDescriptions>
@@ -28,12 +28,12 @@
             <ListView.GroupStyle>
                 <GroupStyle HidesIfEmpty="True">
                     <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
+                        <Style TargetType="GroupItem">
                             <Setter Property="Margin" Value="0"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="GroupItem">
-                                        <Border CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2,2,2,2">
+                                        <Border CornerRadius="7.5" BorderBrush="Black" BorderThickness="0.25" Margin="2">
                                             <GroupBox>
                                                 <GroupBox.Header>
                                                     <StackPanel>
@@ -77,14 +77,14 @@
         </ListView>
         
         <ListView x:Name="MetadataGrid" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="1"
-                  ItemsSource="{Binding Path=meta}"
+                  ItemsSource="{Binding Path=MetaData}"
                   HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling" Focusable="False">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="{Binding Path=lang.Meta_Key}"/>
-                    <GridViewColumn Header="{Binding Path=lang.Meta_Value}" Width="Auto">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="{Binding Path=MetaDataKey}"/>
+                    <GridViewColumn Header="{Binding Path=MetaDataValue}" Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBox Width="Auto" Text="{Binding Path=Value, Mode=OneWay}" TextChanged="SaveMetadata" HorizontalAlignment="Stretch"/>
@@ -97,6 +97,6 @@
 
         <TextBox Grid.Column="1" Grid.Row="1"
                  AutoWordSelection="True" AcceptsReturn="True"
-                 Text="{Binding Path=res.Notes}"/>
+                 Text="{Binding Path=Resource.Notes}"/>
     </Grid>
 </Page>
