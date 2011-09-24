@@ -13,7 +13,6 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         internal WelcomePage()
         {
-            DataContext = App.Gui.DataContext;
             InitializeComponent();
         }
 

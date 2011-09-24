@@ -288,13 +288,13 @@
   <data name="RibbonGroup_View" xml:space="preserve">
     <value>Ansicht</value>
   </data>
-  <data name="Selection_CreateNew" xml:space="preserve">
+  <data name="WP_CreateResource" xml:space="preserve">
     <value>Eine neue Ressource erstellen</value>
   </data>
-  <data name="Selection_List" xml:space="preserve">
+  <data name="WP_GoList" xml:space="preserve">
     <value>Zur Ressourcen-Liste gehen</value>
   </data>
-  <data name="Selection_Settings" xml:space="preserve">
+  <data name="WP_GoSettings" xml:space="preserve">
     <value>Die Einstellungen bearbeiten</value>
   </data>
   <data name="ServiceInfo" xml:space="preserve">
@@ -316,7 +316,7 @@
   <data name="SP_Language" xml:space="preserve">
     <value>Sprache:</value>
   </data>
-  <data name="StartSelection" xml:space="preserve">
+  <data name="WP_StartSelection" xml:space="preserve">
     <value>Wie wollen Sie beginnen?</value>
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
@@ -340,7 +340,7 @@
   <data name="View_Move" xml:space="preserve">
     <value>Verschieben</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
+  <data name="WP_Welcome" xml:space="preserve">
     <value>Willkommen!</value>
   </data>
   <data name="Info_CompatibleLanguages" xml:space="preserve">
@@ -368,7 +368,7 @@
   <data name="PP_TypesTemplate" xml:space="preserve">
     <value>Vorlagen</value>
   </data>
-  <data name="Selection_Plugins" xml:space="preserve">
+  <data name="WP_GoPlugins" xml:space="preserve">
     <value>Zur Plugin-Ansicht wechseln</value>
   </data>
   <data name="Item_Plugins" xml:space="preserve">

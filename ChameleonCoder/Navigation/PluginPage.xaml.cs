@@ -20,7 +20,6 @@ namespace ChameleonCoder.Navigation
         public PluginPage()
         {
             InitializeComponent();
-            Update();
         }
 
         /// <summary>
@@ -158,6 +157,7 @@ namespace ChameleonCoder.Navigation
             return list;
         }
 
+        [Obsolete("needs to be update: no re-instantiating", false)]
         private void Update()
         {
             DataContext = new ViewModel.PluginPageModel(FilterPlugins(PluginManager.GetPlugins()));

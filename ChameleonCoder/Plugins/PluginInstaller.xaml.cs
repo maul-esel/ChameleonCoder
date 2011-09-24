@@ -15,7 +15,7 @@ namespace ChameleonCoder.Plugins
         public PluginInstaller(List<IPlugin> plugins)
         {
             pluginList = plugins;
-            DataContext = new { plugins = plugins, lang = new ViewModel() };
+            DataContext = new { plugins = plugins, lang = new ViewModel.MainWindowModel() };
             InitializeComponent();
         }
 
@@ -65,7 +65,7 @@ namespace ChameleonCoder.Plugins
 
             PluginManager.Load(pluginTypes);
 
-            DataContext = new { plugins = pluginList, lang = new ViewModel() };
+            DataContext = new { plugins = pluginList, lang = new ViewModel.MainWindowModel() };
         }
 
         List<IPlugin> pluginList;

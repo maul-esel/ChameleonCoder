@@ -200,8 +200,14 @@
     </Compile>
     <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
     <Compile Include="Resources\RichContent\RichContentManager.cs" />
-    <Compile Include="ViewModel.cs" />
     <Compile Include="TabContext.cs" />
+    <Compile Include="ViewModel\MainWindowModel.cs" />
+    <Compile Include="ViewModel\PluginPageModel.cs" />
+    <Compile Include="ViewModel\ResourceViewPageModel.cs" />
+    <Compile Include="ViewModel\SearchReplaceModel.cs" />
+    <Compile Include="ViewModel\SettingsPageModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\WelcomePageModel.cs" />
     <Page Include="Interaction\CCNumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

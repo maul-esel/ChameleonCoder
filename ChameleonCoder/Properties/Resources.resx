@@ -258,15 +258,6 @@
     <value>{0} module (version {1}) by {2}</value>
     <comment>{0} is the name, {1} the version, {2} the author, {3} the about text</comment>
   </data>
-  <data name="Pack_Finished" xml:space="preserve">
-    <value>Resources were successfully packaged!</value>
-  </data>
-  <data name="Pack_IncludeFS" xml:space="preserve">
-    <value>Do you want to include the file system equivalents for the packaged resources?</value>
-  </data>
-  <data name="Pack_IncludeResolve" xml:space="preserve">
-    <value>Do you want to include the target resources for the packaged resources?</value>
-  </data>
   <data name="PropertyGroup_General" xml:space="preserve">
     <value>General</value>
   </data>
@@ -297,13 +288,13 @@
   <data name="RibbonGroup_View" xml:space="preserve">
     <value>View</value>
   </data>
-  <data name="Selection_CreateNew" xml:space="preserve">
+  <data name="WP_CreateResource" xml:space="preserve">
     <value>create a new resource</value>
   </data>
-  <data name="Selection_List" xml:space="preserve">
+  <data name="WP_GoList" xml:space="preserve">
     <value>go to resource list</value>
   </data>
-  <data name="Selection_Settings" xml:space="preserve">
+  <data name="WP_GoSettings" xml:space="preserve">
     <value>change the configuration</value>
   </data>
   <data name="ServiceInfo" xml:space="preserve">
@@ -325,7 +316,7 @@
   <data name="SP_Language" xml:space="preserve">
     <value>Language:</value>
   </data>
-  <data name="StartSelection" xml:space="preserve">
+  <data name="WP_StartSelection" xml:space="preserve">
     <value>How do you want to start?</value>
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
@@ -349,7 +340,7 @@
   <data name="View_Move" xml:space="preserve">
     <value>Move</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
+  <data name="WP_Welcome" xml:space="preserve">
     <value>Welcome!</value>
   </data>
   <data name="Info_CompatibleLanguages" xml:space="preserve">
@@ -376,7 +367,7 @@
   <data name="PP_TypesTemplate" xml:space="preserve">
     <value>templates</value>
   </data>
-  <data name="Selection_Plugins" xml:space="preserve">
+  <data name="WP_GoPlugins" xml:space="preserve">
     <value>view plugins</value>
   </data>
   <data name="Item_Plugins" xml:space="preserve">

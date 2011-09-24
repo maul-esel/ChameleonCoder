@@ -603,33 +603,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Resources were successfully packaged! ähnelt.
-        /// </summary>
-        internal static string Pack_Finished {
-            get {
-                return ResourceManager.GetString("Pack_Finished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to include the file system equivalents for the packaged resources? ähnelt.
-        /// </summary>
-        internal static string Pack_IncludeFS {
-            get {
-                return ResourceManager.GetString("Pack_IncludeFS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to include the target resources for the packaged resources? ähnelt.
-        /// </summary>
-        internal static string Pack_IncludeResolve {
-            get {
-                return ResourceManager.GetString("Pack_IncludeResolve", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die install all ähnelt.
         /// </summary>
         internal static string Plugin_InstallAll {
@@ -801,42 +774,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die create a new resource ähnelt.
-        /// </summary>
-        internal static string Selection_CreateNew {
-            get {
-                return ResourceManager.GetString("Selection_CreateNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die go to resource list ähnelt.
-        /// </summary>
-        internal static string Selection_List {
-            get {
-                return ResourceManager.GetString("Selection_List", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die view plugins ähnelt.
-        /// </summary>
-        internal static string Selection_Plugins {
-            get {
-                return ResourceManager.GetString("Selection_Plugins", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die change the configuration ähnelt.
-        /// </summary>
-        internal static string Selection_Settings {
-            get {
-                return ResourceManager.GetString("Selection_Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die running service: {0}... ähnelt.
         /// </summary>
         internal static string ServiceInfo {
@@ -981,15 +918,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die How do you want to start? ähnelt.
-        /// </summary>
-        internal static string StartSelection {
-            get {
-                return ResourceManager.GetString("StartSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die CC - creating new metadata... ähnelt.
         /// </summary>
         internal static string Status_CreateMeta {
@@ -1107,11 +1035,56 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die create a new resource ähnelt.
+        /// </summary>
+        internal static string WP_CreateResource {
+            get {
+                return ResourceManager.GetString("WP_CreateResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die go to resource list ähnelt.
+        /// </summary>
+        internal static string WP_GoList {
+            get {
+                return ResourceManager.GetString("WP_GoList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die view plugins ähnelt.
+        /// </summary>
+        internal static string WP_GoPlugins {
+            get {
+                return ResourceManager.GetString("WP_GoPlugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die change the configuration ähnelt.
+        /// </summary>
+        internal static string WP_GoSettings {
+            get {
+                return ResourceManager.GetString("WP_GoSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die How do you want to start? ähnelt.
+        /// </summary>
+        internal static string WP_StartSelection {
+            get {
+                return ResourceManager.GetString("WP_StartSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Welcome! ähnelt.
         /// </summary>
-        internal static string Welcome {
+        internal static string WP_Welcome {
             get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("WP_Welcome", resourceCulture);
             }
         }
     }

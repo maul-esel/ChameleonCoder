@@ -4,13 +4,12 @@
                   xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
                   xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                   xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
-                  xmlns:cc="clr-namespace:ChameleonCoder"
                   xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
                   Title="{Binding Path=Title}" Icon="Images\logo.ico"
                   IsGlassEnabled="True" WindowState="Maximized" x:ClassModifier="internal">
 
     <Window.DataContext>
-        <cc:ViewModel/>
+        <MainWindowModel xmlns="clr-namespace:ChameleonCoder.ViewModel"/>
     </Window.DataContext>
        
     <odc:RibbonWindow.Resources>

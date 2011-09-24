@@ -8,6 +8,7 @@ using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using Odyssey.Controls;
+using ChameleonCoder.Interaction;
 
 namespace ChameleonCoder
 {
@@ -16,7 +17,7 @@ namespace ChameleonCoder
     /// </summary>
     internal sealed partial class MainWindow : RibbonWindow
     {
-        internal ViewModel MVVM { get { return DataContext as ViewModel; } }
+        internal ViewModel.MainWindowModel MVVM { get { return DataContext as ViewModel.MainWindowModel; } }
 
         internal MainWindow()
         {
@@ -50,7 +51,7 @@ namespace ChameleonCoder
             if (i != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(ViewModel.Item_Home, new WelcomePage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(CCTabPage.Home, new WelcomePage()), Tabs.SelectedIndex);
         }
 
         internal void GoList(object sender, EventArgs e)
@@ -59,7 +60,7 @@ namespace ChameleonCoder
             if (i != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(ViewModel.Item_List, new ResourceListPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(CCTabPage.ResourceList, new ResourceListPage()), Tabs.SelectedIndex);
         }
 
         internal void GoPlugins(object sender, EventArgs e)
@@ -68,7 +69,7 @@ namespace ChameleonCoder
             if (i != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(ViewModel.Item_Plugins, new PluginPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(CCTabPage.Plugins, new PluginPage()), Tabs.SelectedIndex);
         }
 
         internal void GoSettings(object sender, EventArgs e)
@@ -77,7 +78,7 @@ namespace ChameleonCoder
             if (i != -1)
                 Tabs.SelectedIndex = i;
             else
-                TabReplace(new TabContext(ViewModel.Item_Settings, new SettingsPage()), Tabs.SelectedIndex);
+                TabReplace(new TabContext(CCTabPage.Settings, new SettingsPage()), Tabs.SelectedIndex);
         }
 
         private void GroupsChanged(object sender, EventArgs e)
@@ -133,7 +134,7 @@ namespace ChameleonCoder
                 {
                     int i = FindResourceTab(editResource, true);
                     if (i == -1)
-                        TabReplace(new TabContext(string.Format(Properties.Resources.Item_ResourceEdit, editResource.Name), new Navigation.EditPage(editResource)), Tabs.SelectedIndex);
+                        TabReplace(new TabContext(CCTabPage.ResourceEdit, new Navigation.EditPage(editResource), editResource.Name), Tabs.SelectedIndex);
                     else
                         Tabs.SelectedIndex = i;
                 }
@@ -201,7 +202,7 @@ namespace ChameleonCoder
 
                 int i = FindResourceTab(resource, false);
                 if (i == -1)
-                    TabReplace(new TabContext(string.Format(Properties.Resources.Item_ResourceView, resource.Name), new ResourceViewPage(resource)), Tabs.SelectedIndex);
+                    TabReplace(new TabContext(CCTabPage.ResourceView, new ResourceViewPage(resource), resource.Name), Tabs.SelectedIndex);
                 else
                     Tabs.SelectedIndex = i;
             }
@@ -252,7 +253,7 @@ namespace ChameleonCoder
         #region Tabs
         private void TabOpen(object sender, EventArgs e)
         {
-            MVVM.Tabs.Add(new TabContext(Properties.Resources.Item_Home, new WelcomePage()));
+            MVVM.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
             Tabs.SelectedIndex = MVVM.Tabs.Count - 1;
         }
 
