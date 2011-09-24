@@ -20,6 +20,7 @@ namespace ChameleonCoder.Navigation
         public PluginPage()
         {
             InitializeComponent();
+            Update();
         }
 
         /// <summary>

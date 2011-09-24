@@ -1,13 +1,8 @@
 ﻿<Page x:Class="ChameleonCoder.Navigation.PluginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-      xmlns:model="clr-namespace:ChameleonCoder.ViewModel"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       VerticalAlignment="Stretch" x:ClassModifier="internal">
-    
-    <Page.DataContext>
-        <model:PluginPageModel/>
-    </Page.DataContext>
     
     <Page.Resources>
         <CollectionViewSource x:Key="pluginsList" Source="{Binding Path=PluginList}" Filter="Filter">
