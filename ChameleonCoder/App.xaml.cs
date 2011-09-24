@@ -47,13 +47,6 @@ namespace ChameleonCoder
         /// <param name="e">additional data containing the cmd arguments</param>
         private void InitHandler(Object sender, StartupEventArgs e)
         {
-            // setting the Language the user chose
-            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);
-
-            // associate the instances created in XAML with the classes
-            ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
-                                           Resources["resourceHierarchy"] as ResourceCollection);
-
             // finding the path of the file to open:
             string path = null;
 
@@ -64,26 +57,47 @@ namespace ChameleonCoder
                 {
                     path = e.Args[0];
                 }
-                else if (e.Args[0] == "--install_ext") // param to (un-)install file extension
+                else if (e.Args[0].Equals("--install_ext", StringComparison.OrdinalIgnoreCase)) // param to install file extension
                 {
-                    if (Registry.ClassesRoot.OpenSubKey(".ccr") != null)
-                        UnRegisterExtension();
-                    else
+                    if (Registry.ClassesRoot.OpenSubKey(".ccr") == null)
                         RegisterExtension();
                     Environment.Exit(0); // shutdown the app
                 }
-                else if (e.Args[0] == "--install_COM") // param to (un-)install COM support
+                else if (e.Args[0].Equals("--uninstall_ext", StringComparison.OrdinalIgnoreCase)) // param to uninstall file extension
                 {
-                    // not yet implemented
-                    Environment.Exit(-3);
+                    if (Registry.ClassesRoot.OpenSubKey(".ccr") != null)
+                        UnRegisterExtension();
+                    Environment.Exit(0); // shutdown the app
                 }
-                else if (e.Args[0] == "--install_full") // param to (un-)install file extensions and COM support
+                else if (e.Args[0].Equals("--install_COM", StringComparison.OrdinalIgnoreCase)) // param to install COM support
+                {
+                    Environment.Exit(-3); // not yet implemented
+                }
+                else if (e.Args[0].Equals("--uninstall_COM", StringComparison.OrdinalIgnoreCase)) // param to uninstall COM support
+                {
+                    Environment.Exit(-3); // not yet implemented
+                }
+                else if (e.Args[0].Equals("--install_full", StringComparison.OrdinalIgnoreCase)) // param to install file extensions and COM support
                 {
                     System.Diagnostics.Process.Start(AppPath, "--install_ext");
                     System.Diagnostics.Process.Start(AppPath, "--install_COM");
                     Environment.Exit(0);
                 }
+                else if (e.Args[0].Equals("--uninstall_full", StringComparison.OrdinalIgnoreCase)) // param to uninstall file extensions and COM support
+                {
+                    System.Diagnostics.Process.Start(AppPath, "--uninstall_ext");
+                    System.Diagnostics.Process.Start(AppPath, "--uninstall_COM");
+                    Environment.Exit(0);
+                }
             }
+
+            // setting the Language the user chose
+            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);
+
+            // associate the instances created in XAML with the classes
+            ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
+                                           Resources["resourceHierarchy"] as ResourceCollection);
+
 #if DEBUG
             if (path == null && File.Exists("test.ccr")) // if no file passed:
                 path = "test.ccr"; // use test file in debug builds

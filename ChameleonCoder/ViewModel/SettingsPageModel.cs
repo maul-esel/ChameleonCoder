@@ -55,10 +55,14 @@ namespace ChameleonCoder.ViewModel
 
             set
             {
-                var info = new ProcessStartInfo(App.AppPath, "--install_ext") { Verb = "runAs" };
+                var param = (ExtInstalled) ? "--uninstall_ext" : "--install_ext";
+                var info = new ProcessStartInfo(App.AppPath, param) { Verb = "runAs" };
                 try
                 {
-                    using (var process = Process.Start(info)) { process.WaitForExit(); }
+                    using (var process = Process.Start(info))
+                    {
+                        process.WaitForExit();
+                    }
                 }
                 catch (System.ComponentModel.Win32Exception)
                 {
