@@ -51,6 +51,9 @@
       <reference id="{7421c5b8-6375-454b-b971-c6e3bd8a6bd6}" target="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" name="InterProcess library"/>
       <reference id="{2caca642-c1f9-4885-b77d-42d35574cabb}" target="{f5053dd6-a7ab-4dee-844b-24542767ecae}" name="TextFile library"/>
     </resource-data>
+    <resource-data id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}">
+      <reference id="{e0558fe3-a8c2-42c1-b837-eebc911ce0fb}" target="{41a40866-f247-428b-a6de-ab5e70d21da9}" name="AHK IDE"/>
+    </resource-data>
   </data>
   <settings>
     <!-- This section will contain several more or less useful informations about the pack.

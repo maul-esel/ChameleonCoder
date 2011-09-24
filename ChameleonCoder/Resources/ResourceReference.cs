@@ -50,6 +50,14 @@ namespace ChameleonCoder.Resources
         }
 
         /// <summary>
+        /// gets the target's special visual property
+        /// </summary>
+        public ImageSource SpecialVisualProperty
+        {
+            get { return Resolve().SpecialVisualProperty; }
+        }
+
+        /// <summary>
         /// contains the Identifier of the target resource
         /// </summary>
         private Guid Target
