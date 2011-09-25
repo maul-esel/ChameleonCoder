@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
@@ -87,25 +86,6 @@ namespace ChameleonCoder.Interaction
                 TreeView.DataContext = value;
             }
         }
-
-        #region OnResourceDropped
-
-        /// <summary>
-        /// event which is raised when something is dropped on the resource
-        /// </summary>
-        public new event DragEventHandler Drop
-        {
-            add
-            {
-                TreeView.Drop += value;
-            }
-            remove
-            {
-                TreeView.Drop -= value;
-            }
-        }
-
-        #endregion
 
         /// <summary>
         /// a private method to expand or de-expand a treeview node on selection
