@@ -12,7 +12,7 @@ DefaultDirName={pf}\ChameleonCoder
 DefaultGroupName=ChameleonCoder
 LicenseFile=license.txt
 SourceDir=Deploy
-OutputDir=..\
+OutputDir=.
 Uninstallable=yes
 
 [Languages]
