@@ -45,40 +45,71 @@ namespace ChameleonCoder
             CollectionViewSource.GetDefaultView(((Tabs.SelectedItem as TabContext).Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
         }
 
+        private void GoHome()
+        {
+            if (Tabs.SelectedItem != null)
+            {
+                var context = Tabs.SelectedItem as TabContext;
+                context.Object = null;
+                context.Type = CCTabPage.Home;
+                context.Content = new WelcomePage();
+
+                TabChanged(context);
+            }
+            else
+            {
+                MVVM.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
+            }
+        }
+
         private void GoHome(object sender, EventArgs e)
         {
-            int i = FindPageTab<WelcomePage>();
-            if (i != -1)
-                Tabs.SelectedIndex = i;
-            else
-                TabReplace(new TabContext(CCTabPage.Home, new WelcomePage()), Tabs.SelectedIndex);
+            GoHome();
         }
 
-        internal void GoList(object sender, EventArgs e)
+        internal void GoList()
         {
-            int i = FindPageTab<ResourceListPage>();
-            if (i != -1)
-                Tabs.SelectedIndex = i;
-            else
-                TabReplace(new TabContext(CCTabPage.ResourceList, new ResourceListPage()), Tabs.SelectedIndex);
+            var context = Tabs.SelectedItem as TabContext;
+            context.Object = null;
+            context.Type = CCTabPage.ResourceList;
+            context.Content = new ResourceListPage();
+
+            TabChanged(context);
         }
 
-        internal void GoPlugins(object sender, EventArgs e)
+        private void GoList(object sender, EventArgs e)
         {
-            int i = FindPageTab<PluginPage>();
-            if (i != -1)
-                Tabs.SelectedIndex = i;
-            else
-                TabReplace(new TabContext(CCTabPage.Plugins, new PluginPage()), Tabs.SelectedIndex);
+            GoList();
         }
 
-        internal void GoSettings(object sender, EventArgs e)
+        internal void GoPlugins()
         {
-            int i = FindPageTab<SettingsPage>();
-            if (i != -1)
-                Tabs.SelectedIndex = i;
-            else
-                TabReplace(new TabContext(CCTabPage.Settings, new SettingsPage()), Tabs.SelectedIndex);
+            var context = Tabs.SelectedItem as TabContext;
+            context.Object = null;
+            context.Type = CCTabPage.Plugins;
+            context.Content = new PluginPage();
+
+            TabChanged(context);
+        }
+
+        private void GoPlugins(object sender, EventArgs e)
+        {
+            GoPlugins();
+        }
+
+        internal void GoSettings()
+        {
+            var context = Tabs.SelectedItem as TabContext;
+            context.Object = null;
+            context.Type = CCTabPage.Settings;
+            context.Content = new SettingsPage();
+
+            TabChanged(context);
+        }
+
+        private void GoSettings(object sender, EventArgs e)
+        {
+            GoSettings();
         }
 
         private void GroupsChanged(object sender, EventArgs e)
@@ -132,11 +163,12 @@ namespace ChameleonCoder
                 IEditable editResource = ResourceManager.ActiveItem as IEditable;
                 if (editResource != null)
                 {
-                    int i = FindResourceTab(editResource, true);
-                    if (i == -1)
-                        TabReplace(new TabContext(CCTabPage.ResourceEdit, new Navigation.EditPage(editResource), editResource.Name), Tabs.SelectedIndex);
-                    else
-                        Tabs.SelectedIndex = i;
+                    var context = Tabs.SelectedItem as TabContext;
+                    context.Object = editResource.Name;
+                    context.Type = CCTabPage.ResourceEdit;
+                    context.Content = new EditPage(editResource);
+
+                    TabChanged(context);
                 }
             }
         }
@@ -200,11 +232,14 @@ namespace ChameleonCoder
             {
                 ResourceManager.Open(resource);
 
-                int i = FindResourceTab(resource, false);
-                if (i == -1)
-                    TabReplace(new TabContext(CCTabPage.ResourceView, new ResourceViewPage(resource), resource.Name), Tabs.SelectedIndex);
-                else
-                    Tabs.SelectedIndex = i;
+                Ribbon.SelectedTabIndex = 0;
+
+                var context = Tabs.SelectedItem as TabContext;
+                context.Object = resource.Name;
+                context.Type = CCTabPage.ResourceView;
+                context.Content = new ResourceViewPage(resource);
+
+                TabChanged(context);
             }
         }
 
@@ -271,17 +306,9 @@ namespace ChameleonCoder
             TabChanged(null, null);
         }
 
-        private void TabChanged(object sender, EventArgs e)
+        private void TabChanged(TabContext newTab)
         {
-            if (Tabs.Items.Count == 0)
-            {
-                GoHome(null, null);
-                return;
-            }
-            if (Tabs.SelectedItem == null)
-                return;
-
-            Page page = (Tabs.SelectedItem as TabContext).Content;
+            Page page = newTab.Content;
             Ribbon.SelectedTabIndex = 0;
 
             if (page is WelcomePage)
@@ -289,6 +316,7 @@ namespace ChameleonCoder
                 Ribbon.ContextualTabSet = null;
                 if (ResourceManager.ActiveItem != null)
                     ResourceManager.Close();
+
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem);
             }
 
@@ -297,21 +325,35 @@ namespace ChameleonCoder
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
                 if (ResourceManager.ActiveItem != null)
                     ResourceManager.Close();
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List;
+
+                breadcrumb.Path = string.Format("{1}{0}{2}",
+                    breadcrumb.SeparatorString,
+                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
+                    Properties.Resources.Item_List);
             }
 
             else if (page is EditPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
-                ResourceManager.Open(((Tabs.SelectedItem as TabContext).Content as EditPage).Resource);
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
+                ResourceManager.Open((page as EditPage).Resource);
+
+                breadcrumb.Path = string.Format("{1}{0}{2}{0}{3}",
+                    breadcrumb.SeparatorString,
+                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
+                    Properties.Resources.Item_List,
+                    ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString));
             }
 
             else if (page is ResourceViewPage)
             {
                 Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
-                ResourceManager.Open(((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).Resource);
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_List + ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString);
+                ResourceManager.Open((page as ResourceViewPage).Resource);
+
+                breadcrumb.Path = string.Format("{1}{0}{2}{0}{3}",
+                    breadcrumb.SeparatorString,
+                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
+                    Properties.Resources.Item_List,
+                    ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString));
             }
 
             else if (page is SettingsPage)
@@ -319,49 +361,36 @@ namespace ChameleonCoder
                 Ribbon.ContextualTabSet = null;
                 if (ResourceManager.ActiveItem != null)
                     ResourceManager.Close();
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem) + "/" + Properties.Resources.Item_Settings;
+
+                breadcrumb.Path = string.Format("{1}{0}{2}",
+                    breadcrumb.SeparatorString,
+                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
+                    Properties.Resources.Item_Settings);
             }
+
+            else if (page is PluginPage)
+            {
+                Ribbon.ContextualTabSet = null;
+                if (ResourceManager.ActiveItem != null)
+                    ResourceManager.Close();
+
+                breadcrumb.Path = string.Format("{1}{0}{2}",
+                    breadcrumb.SeparatorString,
+                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
+                    Properties.Resources.Item_Plugins);
+            }
+
             Ribbon.SelectedTabIndex = Ribbon.Tabs.Count;
         }
 
-        private void TabReplace(TabContext newTab, int oldTab)
+        private void TabChanged(object sender, EventArgs e)
         {
-            if (oldTab >= 0 && oldTab < MVVM.Tabs.Count && MVVM.Tabs.Count != 0)
-                MVVM.Tabs[oldTab] = newTab;
-            else
-                MVVM.Tabs.Add(newTab);
-        }
-
-        private int FindResourceTab(IResource resource, bool useEdit)
-        {
-            ResourceViewPage rvPage;
-            EditPage edPage;
-
-            int i = -1;
-            foreach (TabContext page in Tabs.Items)
+            if (Tabs.Items.Count == 0)
             {
-                i++;
-                if ((rvPage = page.Content as ResourceViewPage) != null && !useEdit)
-                    if (rvPage.Resource == resource)
-                        return i;
-                if ((edPage = page.Content as EditPage) != null && useEdit)
-                    if (edPage.Resource as IResource == resource)
-                        return i;
-                i++;
+                GoHome();
+                if (Tabs.SelectedItem != null)
+                    TabChanged(Tabs.SelectedItem as TabContext);
             }
-            return -1;
-        }
-
-        internal int FindPageTab<T>() where T : Page
-        {
-            int i = -1;
-            foreach (TabContext page in Tabs.Items)
-            {
-                i++;
-                if (page.Content.GetType() == typeof(T))
-                    return i;
-            }
-            return -1;
         }
         #endregion
 

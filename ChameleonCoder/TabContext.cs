@@ -19,22 +19,31 @@ namespace ChameleonCoder
             pageType = type;
             contentPage = content;
 
-            InformationProvider.LanguageChanged += OnChanged;
+            InformationProvider.LanguageChanged += OnLanguageChanged;
         }
 
         ~TabContext()
         {
-            InformationProvider.LanguageChanged -= OnChanged;
+            InformationProvider.LanguageChanged -= OnLanguageChanged;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnChanged(object value)
+        private void OnLanguageChanged(object value)
         {
             var handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs("Title"));
+            }
+        }
+
+        private void OnPropertyChanged(string property)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(property));
             }
         }
 
@@ -47,14 +56,41 @@ namespace ChameleonCoder
         public Page Content
         {
             get { return contentPage; }
+            internal set
+            {
+                contentPage = value;
+                OnPropertyChanged("Content");
+            }
+        }
+
+        internal Object Object
+        {
+            get { return displayedObject; }
+            set
+            {
+                displayedObject = value;
+                OnPropertyChanged("Object");
+                OnPropertyChanged("Title");
+            }
+        }
+
+        internal CCTabPage Type
+        {
+            get { return pageType; }
+            set
+            {
+                pageType = value;
+                OnPropertyChanged("Type");
+                OnPropertyChanged("Title");
+            }
         }
 
 
-        private readonly object displayedObject;
+        private object displayedObject;
 
-        private readonly CCTabPage pageType;
+        private CCTabPage pageType;
 
-        private readonly Page contentPage;
+        private Page contentPage;
 
 
         private string titleTemplate

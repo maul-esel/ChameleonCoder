@@ -23,7 +23,7 @@ namespace ChameleonCoder.Navigation
         /// <param name="e">additional data</param>
         private void OpenResourceList(object sender, EventArgs e)
         {
-            App.Gui.GoList(null, null);
+            App.Gui.GoList();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ChameleonCoder.Navigation
         /// <param name="e">additional data</param>
         private void OpenConfiguration(object sender, EventArgs e)
         {
-            App.Gui.GoSettings(null, null);
+            App.Gui.GoSettings();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace ChameleonCoder.Navigation
         /// <param name="e"></param>
         private void OpenPlugins(object sender, EventArgs e)
         {
-            App.Gui.GoPlugins(null, null);
+            App.Gui.GoPlugins();
         }
     }
 }
