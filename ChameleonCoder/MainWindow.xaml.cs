@@ -32,7 +32,7 @@ namespace ChameleonCoder
             foreach (Type t in ResourceTypeManager.GetResourceTypes())
                 visTypes.Items.Add(t);
 
-            GoHome(null, null);
+            GoHome();
         }
 
         private void Close(object sender, RoutedEventArgs e)
