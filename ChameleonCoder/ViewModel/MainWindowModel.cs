@@ -32,7 +32,7 @@ namespace ChameleonCoder.ViewModel
                             null,
                             BreadcrumbContext.ContextType.Settings),
                         new BreadcrumbContext(Item_Plugins,
-                            null, // todo: add image
+                            new BitmapImage(new Uri("pack://application:,,,/Images/plugins.png")),
                             null,
                             BreadcrumbContext.ContextType.Plugins)
                         },

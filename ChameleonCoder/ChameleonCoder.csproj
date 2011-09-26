@@ -292,6 +292,7 @@
     <AppDesigner Include="Properties\" />
     <None Include="test.ccr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +409,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChameleonCoder.rc" />
+    <Resource Include="Images\plugins.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
