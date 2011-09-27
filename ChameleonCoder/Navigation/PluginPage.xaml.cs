@@ -20,7 +20,7 @@ namespace ChameleonCoder.Navigation
         public PluginPage()
         {
             InitializeComponent();
-            Update();
+            DataContext = ViewModel.PluginPageModel.Instance;
         }
 
         /// <summary>
@@ -32,8 +32,7 @@ namespace ChameleonCoder.Navigation
         {
             var plugin = list.SelectedItem as IPlugin;
             Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
-
-            Update();
+            Interaction.InformationProvider.OnPluginUninstalled(plugin);
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace ChameleonCoder.Navigation
             {
                 Assembly ass;
 
-                try { ass = Assembly.LoadFrom(path); }
+                try { ass = Assembly.LoadFile(path); }
                 catch (BadImageFormatException ex)
                 {
                     MessageBox.Show(string.Format(Properties.Resources.Error_InstallNoAssembly, path),
@@ -105,8 +104,6 @@ namespace ChameleonCoder.Navigation
 
                 var installer = new PluginInstaller(newPlugins);
                 installer.ShowDialog();
-
-                Update();
             }
         }
 
@@ -145,23 +142,6 @@ namespace ChameleonCoder.Navigation
                         e.Accepted = category == 4;
                 }
             }
-        }
-
-        private IList<IPlugin> FilterPlugins(IEnumerable<IPlugin> plugins)
-        {
-            var list = new List<IPlugin>();
-            foreach (var plugin in plugins)
-            {
-                if (Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
-                    list.Add(plugin);
-            }
-            return list;
-        }
-
-        [Obsolete("needs to be update: no re-instantiating", false)]
-        private void Update()
-        {
-            DataContext = new ViewModel.PluginPageModel(FilterPlugins(PluginManager.GetPlugins()));
         }
     }
 }

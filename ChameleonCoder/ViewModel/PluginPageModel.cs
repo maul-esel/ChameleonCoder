@@ -10,17 +10,38 @@ namespace ChameleonCoder.ViewModel
     /// </summary>
     internal sealed class PluginPageModel : ViewModelBase
     {
-        internal PluginPageModel(IList<IPlugin> pluginList)
+        private PluginPageModel()
         {
-            plugins = new ObservableCollection<IPlugin>(pluginList);
+            plugins.CollectionChanged += (s, e) => Update("PluginList");
+
+            Interaction.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
+            Interaction.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
         }
+
+        public static PluginPageModel Instance
+        {
+            get
+            {
+                lock (modelInstance)
+                {
+                    return modelInstance;
+                }
+            }
+        }
+
+        private static readonly PluginPageModel modelInstance = new PluginPageModel();
 
         public ObservableCollection<IPlugin> PluginList
         {
-            get { return plugins; }
+            get
+            {
+                return plugins;
+            }
         }
 
-        private readonly ObservableCollection<IPlugin> plugins;
+        private readonly ObservableCollection<IPlugin> plugins = new ObservableCollection<IPlugin>(PluginManager.GetPlugins());
+
+        #region localization
 
         public static string Types_All { get { return Res.PP_TypesAll; } }
 
@@ -35,5 +56,7 @@ namespace ChameleonCoder.ViewModel
         public static string Uninstall { get { return Res.PP_Uninstall; } }
 
         public static string Install { get { return Res.PP_Install; } }
+
+        #endregion
     }
 }
