@@ -61,6 +61,8 @@ namespace ChameleonCoder.Plugins
                     File.Copy(plugin.GetType().Assembly.Location,
                         Path.Combine(App.AppDir, "Components\\",
                         Path.GetFileName(plugin.GetType().Assembly.Location)));
+
+                Interaction.InformationProvider.OnPluginInstalled(plugin);
             }
 
             PluginManager.Load(pluginTypes);
