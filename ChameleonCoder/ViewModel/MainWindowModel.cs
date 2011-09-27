@@ -8,6 +8,23 @@ namespace ChameleonCoder.ViewModel
 {
     internal sealed class MainWindowModel : ViewModelBase
     {
+        private MainWindowModel()
+        {
+        }
+
+        internal static MainWindowModel Instance
+        {
+            get
+            {
+                lock (modelInstance)
+                {
+                    return modelInstance;
+                }
+            }
+        }
+
+        private static readonly MainWindowModel modelInstance = new MainWindowModel();
+
         public ObservableCollection<TabContext> Tabs
         {
             get { return tabCollection; }

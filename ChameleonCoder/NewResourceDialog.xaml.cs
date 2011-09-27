@@ -38,7 +38,7 @@ namespace ChameleonCoder
 
             InitializeComponent();
 
-            DataContext = new { Lang = App.Gui.MVVM, groups = groups, templates = templates };
+            DataContext = new { Lang = ViewModel.MainWindowModel.Instance, groups = groups, templates = templates };
             Owner = App.Gui;
             ParentResource = parent;
         }

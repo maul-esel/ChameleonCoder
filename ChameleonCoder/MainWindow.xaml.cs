@@ -3,12 +3,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using ChameleonCoder.Interaction;
 using ChameleonCoder.Navigation;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.ViewModel;
 using Odyssey.Controls;
-using ChameleonCoder.Interaction;
 
 namespace ChameleonCoder
 {
@@ -17,11 +18,10 @@ namespace ChameleonCoder
     /// </summary>
     internal sealed partial class MainWindow : RibbonWindow
     {
-        internal ViewModel.MainWindowModel MVVM { get { return DataContext as ViewModel.MainWindowModel; } }
-
         internal MainWindow()
         {
             InitializeComponent();
+            DataContext = MainWindowModel.Instance;
 
             if (PluginManager.ServiceCount == 0)
                 this.MenuServices.IsEnabled = false;
@@ -58,7 +58,7 @@ namespace ChameleonCoder
             }
             else
             {
-                MVVM.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
+                MainWindowModel.Instance.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
             }
         }
 
@@ -288,8 +288,8 @@ namespace ChameleonCoder
         #region Tabs
         private void TabOpen(object sender, EventArgs e)
         {
-            MVVM.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
-            Tabs.SelectedIndex = MVVM.Tabs.Count - 1;
+            MainWindowModel.Instance.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
+            Tabs.SelectedIndex = MainWindowModel.Instance.Tabs.Count - 1;
         }
 
         private void TabClosed(object sender, RoutedEventArgs e)
@@ -301,7 +301,7 @@ namespace ChameleonCoder
 
             TabContext item = (ctrl as TabItem).DataContext as TabContext;
             ResourceSave(item);
-            MVVM.Tabs.Remove(item);
+            MainWindowModel.Instance.Tabs.Remove(item);
 
             TabChanged(null, null);
         }

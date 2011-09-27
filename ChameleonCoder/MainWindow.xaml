@@ -7,10 +7,6 @@
                   xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
                   Title="{Binding Path=Title}" Icon="Images\logo.ico"
                   IsGlassEnabled="True" WindowState="Maximized" x:ClassModifier="internal">
-
-    <Window.DataContext>
-        <MainWindowModel xmlns="clr-namespace:ChameleonCoder.ViewModel"/>
-    </Window.DataContext>
        
     <odc:RibbonWindow.Resources>
         
