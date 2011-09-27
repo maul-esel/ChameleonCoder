@@ -308,6 +308,16 @@ namespace ChameleonCoder.Interaction
         public static event ServiceEventHandler ServiceExecuted;
 
         /// <summary>
+        /// raised when a plugin is installed
+        /// </summary>
+        public static event EventHandler PluginInstalled;
+
+        /// <summary>
+        /// raised when a plugin was uninstalled
+        /// </summary>
+        public static event EventHandler PluginUninstalled;
+
+        /// <summary>
         /// raised when the 'Language' setting changed
         /// </summary>
         public static event SettingsEventHandler LanguageChanged;
@@ -444,6 +454,28 @@ namespace ChameleonCoder.Interaction
             SettingsEventHandler handler = LanguageChanged;
             if (handler != null)
                 handler(Language);
+        }
+
+        /// <summary>
+        /// raises the PluginInstalled event
+        /// </summary>
+        /// <param name="item">the plugin being installed</param>
+        internal static void OnPluginInstalled(IPlugin item)
+        {
+            var handler = PluginInstalled;
+            if (handler != null)
+                handler(item, new EventArgs());
+        }
+
+        /// <summary>
+        /// raises the PluginUninstalled event
+        /// </summary>
+        /// <param name="item">the plugin being uninstalled</param>
+        internal static void OnPluginUninstalled(IPlugin item)
+        {
+            var handler = PluginUninstalled;
+            if (handler != null)
+                handler(item, new EventArgs());
         }
 
         #endregion
