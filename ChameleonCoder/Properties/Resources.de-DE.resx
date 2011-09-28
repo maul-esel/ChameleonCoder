@@ -411,10 +411,10 @@ ChameleonCoder wird geschlossen.</value>
   <data name="PP_Install" xml:space="preserve">
     <value>installiere Plugins</value>
   </data>
-  <data name="Plugin_InstallAll" xml:space="preserve">
+  <data name="PI_InstallAll" xml:space="preserve">
     <value>installiere alle</value>
   </data>
-  <data name="Plugin_InstallSelected" xml:space="preserve">
+  <data name="PI_InstallSelected" xml:space="preserve">
     <value>installiere ausgewählte Plugins</value>
   </data>
   <data name="PP_Uninstall" xml:space="preserve">

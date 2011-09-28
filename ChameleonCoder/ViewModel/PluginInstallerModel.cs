@@ -22,9 +22,9 @@ namespace ChameleonCoder.ViewModel
 
         public string Cancel { get { return Res.Action_Cancel; } }
 
-        public string InstallSelected { get { return Res.Plugin_InstallSelected; } }
+        public string InstallSelected { get { return Res.PI_InstallSelected; } }
 
-        public string InstallAll { get { return Res.Plugin_InstallAll; } }
+        public string InstallAll { get { return Res.PI_InstallAll; } }
 
         #endregion
     }
