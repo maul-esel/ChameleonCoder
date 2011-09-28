@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,8 +15,7 @@ namespace ChameleonCoder.Plugins
     {
         public PluginInstaller(List<IPlugin> plugins)
         {
-            pluginList = plugins;
-            DataContext = new { plugins = plugins, lang = ViewModel.MainWindowModel.Instance };
+            DataContext = new ViewModel.PluginInstallerModel(pluginList = new ObservableCollection<IPlugin>(plugins));
             InitializeComponent();
         }
 
@@ -66,10 +66,8 @@ namespace ChameleonCoder.Plugins
             }
 
             PluginManager.Load(pluginTypes);
-
-            DataContext = new { plugins = pluginList, lang = ViewModel.MainWindowModel.Instance };
         }
 
-        List<IPlugin> pluginList;
+        ObservableCollection<IPlugin> pluginList;
     }
 }

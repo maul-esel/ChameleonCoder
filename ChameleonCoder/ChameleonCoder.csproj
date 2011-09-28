@@ -202,6 +202,7 @@
     <Compile Include="Resources\RichContent\RichContentManager.cs" />
     <Compile Include="TabContext.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
+    <Compile Include="ViewModel\PluginInstallerModel.cs" />
     <Compile Include="ViewModel\PluginPageModel.cs" />
     <Compile Include="ViewModel\ResourceViewPageModel.cs" />
     <Compile Include="ViewModel\SearchReplaceModel.cs" />
@@ -282,10 +283,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
+    <EmbeddedResource Include="Properties\Resources.de-DE.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="ChameleonCoder.res" />
