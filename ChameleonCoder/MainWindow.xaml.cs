@@ -8,8 +8,8 @@ using ChameleonCoder.Navigation;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.ViewModel;
 using Odyssey.Controls;
+using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
 
 namespace ChameleonCoder
 {
@@ -20,7 +20,7 @@ namespace ChameleonCoder
     {
         internal MainWindow()
         {
-            DataContext = MainWindowModel.Instance;
+            DataContext = MVVM.Instance;
             InitializeComponent();            
 
             if (PluginManager.ServiceCount == 0)
@@ -42,14 +42,14 @@ namespace ChameleonCoder
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(((Tabs.SelectedItem as TabContext).Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView((MVVM.Instance.ActiveTab.Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
         }
 
         private void GoHome()
         {
-            if (Tabs.SelectedItem != null)
+            if (MVVM.Instance.ActiveTab != null)
             {
-                var context = Tabs.SelectedItem as TabContext;
+                var context = MVVM.Instance.ActiveTab;
                 context.Object = null;
                 context.Type = CCTabPage.Home;
                 context.Content = new WelcomePage();
@@ -58,7 +58,7 @@ namespace ChameleonCoder
             }
             else
             {
-                MainWindowModel.Instance.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
+                MVVM.Instance.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
             }
         }
 
@@ -69,7 +69,7 @@ namespace ChameleonCoder
 
         internal void GoList()
         {
-            var context = Tabs.SelectedItem as TabContext;
+            var context = MVVM.Instance.ActiveTab;
             context.Object = null;
             context.Type = CCTabPage.ResourceList;
             context.Content = new ResourceListPage();
@@ -84,7 +84,7 @@ namespace ChameleonCoder
 
         internal void GoPlugins()
         {
-            var context = Tabs.SelectedItem as TabContext;
+            var context = MVVM.Instance.ActiveTab;
             context.Object = null;
             context.Type = CCTabPage.Plugins;
             context.Content = new PluginPage();
@@ -99,7 +99,7 @@ namespace ChameleonCoder
 
         internal void GoSettings()
         {
-            var context = Tabs.SelectedItem as TabContext;
+            var context = MVVM.Instance.ActiveTab;
             context.Object = null;
             context.Type = CCTabPage.Settings;
             context.Content = new SettingsPage();
@@ -115,7 +115,7 @@ namespace ChameleonCoder
         private void GroupsChanged(object sender, EventArgs e)
         {
             if (IsInitialized)
-                ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked == true);
+                (MVVM.Instance.ActiveTab.Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked == true);
         }
 
         private void LaunchService(object sender, RoutedEventArgs e)
@@ -163,7 +163,7 @@ namespace ChameleonCoder
                 IEditable editResource = ResourceManager.ActiveItem as IEditable;
                 if (editResource != null)
                 {
-                    var context = Tabs.SelectedItem as TabContext;
+                    var context = MVVM.Instance.ActiveTab;
                     context.Object = editResource.Name;
                     context.Type = CCTabPage.ResourceEdit;
                     context.Content = new EditPage(editResource);
@@ -234,7 +234,7 @@ namespace ChameleonCoder
 
                 Ribbon.SelectedTabIndex = 0;
 
-                var context = Tabs.SelectedItem as TabContext;
+                var context = MVVM.Instance.ActiveTab;
                 context.Object = resource.Name;
                 context.Type = CCTabPage.ResourceView;
                 context.Content = new ResourceViewPage(resource);
@@ -245,7 +245,7 @@ namespace ChameleonCoder
 
         private void ResourceSave(object sender, EventArgs e)
         {
-            ResourceSave(Tabs.SelectedItem as TabContext);
+            ResourceSave(MVVM.Instance.ActiveTab);
         }
 
         private void ResourceSave(TabContext page)
@@ -265,12 +265,12 @@ namespace ChameleonCoder
         {
             var input = new Interaction.InputBox(Properties.Resources.Status_CreateMeta, Properties.Resources.Meta_EnterName);
             if (input.ShowDialog() == true && !string.IsNullOrWhiteSpace(input.Text))
-                ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).AddMetadata(input.Text);
+                (MVVM.Instance.ActiveTab.Content as ResourceViewPage).AddMetadata(input.Text);
         }
 
         private void MetadataDelete(object sender, EventArgs e)
         {
-            ((Tabs.SelectedItem as TabContext).Content as ResourceViewPage).DeleteMetadata();
+            (MVVM.Instance.ActiveTab.Content as ResourceViewPage).DeleteMetadata();
         }
 
         private void Restart(object sender, RoutedEventArgs e)
@@ -282,14 +282,15 @@ namespace ChameleonCoder
         private void SortingChanged(object sender, EventArgs e)
         {
             if (IsInitialized)
-                ((Tabs.SelectedItem as TabContext).Content as ResourceListPage).SortingChanged(SortItems.IsChecked == true);
+                (MVVM.Instance.ActiveTab.Content as ResourceListPage).SortingChanged(SortItems.IsChecked == true);
         }
 
         #region Tabs
         private void TabOpen(object sender, EventArgs e)
         {
-            MainWindowModel.Instance.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
-            Tabs.SelectedIndex = MainWindowModel.Instance.Tabs.Count - 1;
+            var context = new TabContext(CCTabPage.Home, new WelcomePage());
+            MVVM.Instance.Tabs.Add(context);
+            MVVM.Instance.ActiveTab = context;
         }
 
         private void TabClosed(object sender, RoutedEventArgs e)
@@ -301,9 +302,9 @@ namespace ChameleonCoder
 
             TabContext item = (ctrl as TabItem).DataContext as TabContext;
             ResourceSave(item);
-            MainWindowModel.Instance.Tabs.Remove(item);
+            MVVM.Instance.Tabs.Remove(item);
 
-            TabChanged(null, null);
+            TabChanged(MVVM.Instance.ActiveTab);
         }
 
         private void TabChanged(TabContext newTab)
@@ -385,7 +386,7 @@ namespace ChameleonCoder
 
         private void TabChanged(object sender, EventArgs e)
         {
-            if (MainWindowModel.Instance.Tabs.Count == 0)
+            if (MVVM.Instance.Tabs.Count == 0)
             {
                 GoHome();
             }
@@ -431,7 +432,7 @@ namespace ChameleonCoder
 
         private void EditSearch(object sender, EventArgs e)
         {
-            EditPage edit = (Tabs.SelectedItem as TabContext).Content as EditPage;
+            EditPage edit = MVVM.Instance.ActiveTab.Content as EditPage;
             if (edit != null)
             {
                 var dialog = new CCSearchReplaceDialog(

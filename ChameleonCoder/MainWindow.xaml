@@ -389,7 +389,7 @@
         </odc:BreadcrumbBar>
         
         <TabControl x:Name="Tabs"
-                    SelectionChanged="TabChanged"
+                    SelectionChanged="TabChanged" SelectedItem="{Binding Path=ActiveTab}"
                     Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
                     IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Tabs}"/>
 

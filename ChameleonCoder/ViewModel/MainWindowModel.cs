@@ -32,6 +32,12 @@ namespace ChameleonCoder.ViewModel
 
         private readonly ObservableCollection<TabContext> tabCollection = new ObservableCollection<TabContext>();
 
+        public TabContext ActiveTab
+        {
+            get;
+            set;
+        }
+
         public static BreadcrumbContext BreadcrumbRoot
         {
             get
