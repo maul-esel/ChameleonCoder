@@ -20,8 +20,8 @@ namespace ChameleonCoder
     {
         internal MainWindow()
         {
-            InitializeComponent();
             DataContext = MainWindowModel.Instance;
+            InitializeComponent();            
 
             if (PluginManager.ServiceCount == 0)
                 this.MenuServices.IsEnabled = false;
@@ -385,11 +385,9 @@ namespace ChameleonCoder
 
         private void TabChanged(object sender, EventArgs e)
         {
-            if (Tabs.Items.Count == 0)
+            if (MainWindowModel.Instance.Tabs.Count == 0)
             {
                 GoHome();
-                if (Tabs.SelectedItem != null)
-                    TabChanged(Tabs.SelectedItem as TabContext);
             }
         }
         #endregion
