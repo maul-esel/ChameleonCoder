@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ChameleonCoder
 {
@@ -25,10 +15,11 @@ namespace ChameleonCoder
         /// <param name="getText">a delegate to get the current edit text</param>
         /// <param name="replaceText">a delegate to replace the specified area with the given text</param>
         /// <param name="selectText">a delegate to select the specified area</param>
+        /// <param name="replace">a bool indicating whether to start in replace mode or not</param>
         internal CCSearchReplaceDialog(Func<string> getText, Action<int, int, string> replaceText, Action<int, int> selectText, bool replace)
         {
+            DataContext = ViewModel.SearchReplaceModel.Instance;
             InitializeComponent();
-            DataContext = new ViewModel.SearchReplaceModel();
 
             getTextDelegate = getText;
             replaceTextDelegate = replaceText;

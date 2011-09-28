@@ -7,6 +7,25 @@ namespace ChameleonCoder.ViewModel
     /// </summary>
     internal sealed class SearchReplaceModel : ViewModelBase
     {
+        private SearchReplaceModel()
+        {
+        }
+
+        internal static SearchReplaceModel Instance
+        {
+            get
+            {
+                lock (modelInstance)
+                {
+                    return modelInstance;
+                }
+            }
+        }
+
+        private static readonly SearchReplaceModel modelInstance = new SearchReplaceModel();
+
+        #region localization
+
         public static string SearchFor { get { return Res.SR_SearchFor; } }
 
         public static string ReplaceBy { get { return Res.SR_ReplaceBy; } }
@@ -24,5 +43,7 @@ namespace ChameleonCoder.ViewModel
         public static string MatchWholeWord { get { return Res.SR_MatchWholeWord; } }
 
         public static string WrapAround { get { return Res.SR_WrapAround; } }
+
+        #endregion
     }
 }

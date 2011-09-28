@@ -2,10 +2,6 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
-    <Page.DataContext>
-        <WelcomePageModel xmlns="clr-namespace:ChameleonCoder.ViewModel"/>
-    </Page.DataContext>
-    
     <Page.Resources>
         <Style x:Key="GoButton" TargetType="Button">
             <Setter Property="Template">

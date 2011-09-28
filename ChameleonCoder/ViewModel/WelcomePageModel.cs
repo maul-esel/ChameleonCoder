@@ -7,6 +7,23 @@ namespace ChameleonCoder.ViewModel
     /// </summary>
     internal sealed class WelcomePageModel : ViewModelBase
     {
+        private WelcomePageModel()
+        {
+        }
+
+        internal static WelcomePageModel Instance
+        {
+            get
+            {
+                lock (modelInstance)
+                {
+                    return modelInstance;
+                }
+            }
+        }
+
+        private static readonly WelcomePageModel modelInstance = new WelcomePageModel();
+
         public static string CreateResource { get { return Res.WP_CreateResource; } }
 
         public static string GoList { get { return Res.WP_GoList; } }

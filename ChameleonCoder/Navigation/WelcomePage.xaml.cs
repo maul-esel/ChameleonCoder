@@ -13,6 +13,7 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         internal WelcomePage()
         {
+            DataContext = ViewModel.WelcomePageModel.Instance;
             InitializeComponent();
         }
 
