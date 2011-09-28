@@ -4,10 +4,6 @@
       xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
       xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
       Name="page">
-    
-    <Page.DataContext>
-        <SettingsPageModel xmlns="clr-namespace:ChameleonCoder.ViewModel"/>
-    </Page.DataContext>
 
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel.Background>

@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Media;
 using Res = ChameleonCoder.Properties.Resources;
-using System.Diagnostics;
 
 namespace ChameleonCoder.ViewModel
 {
@@ -11,25 +10,53 @@ namespace ChameleonCoder.ViewModel
     /// </summary>
     internal sealed class SettingsPageModel : ViewModelBase
     {
+        private SettingsPageModel()
+        {
+        }
+
+        internal static SettingsPageModel Instance
+        {
+            get
+            {
+                lock (modelInstance)
+                {
+                    return modelInstance;
+                }
+            }
+        }
+
+        private static readonly SettingsPageModel modelInstance = new SettingsPageModel();
+
         [NotifyParentProperty(false)]
         public static int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
 
         public FontFamily CodeFont
         {
-            get { return family; }
-            set { Settings.ChameleonCoderSettings.Default.CodeFont = (family = value).Source; }
+            get
+            {
+                return family;
+            }
+            set
+            {
+                Settings.ChameleonCoderSettings.Default.CodeFont = (family = value).Source;
+                Update("CodeFont");
+            }
         }
 
         private static FontFamily family = new FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
 
-        public static int CodeFontSize
+        public int CodeFontSize
         {
             get { return Settings.ChameleonCoderSettings.Default.CodeFontSize; }
-            set { Settings.ChameleonCoderSettings.Default.CodeFontSize = value; }
+            set
+            {
+                Settings.ChameleonCoderSettings.Default.CodeFontSize = value;
+                Update("CodeFontSize");
+            }
         }
 
         [NotifyParentProperty(false)]
-        public static int UILanguage
+        public int UILanguage
         {
             get { return Settings.ChameleonCoderSettings.Default.Language; }
 
@@ -42,10 +69,13 @@ namespace ChameleonCoder.ViewModel
 
                 Interaction.InformationProvider.OnLanguageChanged();
 
+                // HACK: this should be done in main window or its model, not here
                 var breadcrumb = App.Gui.breadcrumb;
 
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem)
                                 + breadcrumb.SeparatorString + Item_Settings;
+
+                Update("UILanguage");
             }
         }
 

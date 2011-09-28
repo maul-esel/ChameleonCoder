@@ -9,6 +9,7 @@ namespace ChameleonCoder.Navigation
     {
         internal SettingsPage()
         {
+            DataContext = ViewModel.SettingsPageModel.Instance;
             InitializeComponent();
         }
     }
