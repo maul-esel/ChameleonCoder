@@ -61,8 +61,10 @@ namespace ChameleonCoder.Settings
                     if (node == null)
                     {
                         var doc = new XmlDocument();
-                        doc.LoadXml(key.DefaultValue.ToString());
-                        node = doc.DocumentElement;
+
+                        node = doc.CreateElement("setting");
+                        (node as XmlElement).SetAttribute("name", key.Name);
+                        node.InnerText = key.DefaultValue.ToString();
                     }
 
                     var xs = new System.Xml.Serialization.XmlSerializer(typeof(System.Collections.Specialized.StringCollection));
