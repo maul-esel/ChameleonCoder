@@ -22,11 +22,6 @@ namespace ChameleonCoder
             InformationProvider.LanguageChanged += OnLanguageChanged;
         }
 
-        ~TabContext()
-        {
-            InformationProvider.LanguageChanged -= OnLanguageChanged;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnLanguageChanged(object value)
