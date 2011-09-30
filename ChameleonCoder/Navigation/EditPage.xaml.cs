@@ -8,7 +8,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying the edit control to edit resources
     /// </summary>
-    internal sealed partial class EditPage : Page
+    internal sealed partial class EditPage : Page, UIAbstraction.IResourcePresenter
     {
         /// <summary>
         /// creates a new instance of the page, given an IEditable resource
@@ -18,7 +18,7 @@ namespace ChameleonCoder.Navigation
         {
             InitializeComponent();
 
-            ResourceManager.Open(Resource = resource);
+            ResourceManager.Open(EditableResource = resource);
             Editor.Text = resource.GetText();
             Editor.FontSize = Settings.ChameleonCoderSettings.Default.CodeFontSize;
             Editor.FontFamily = new System.Windows.Media.FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
@@ -33,14 +33,16 @@ namespace ChameleonCoder.Navigation
         /// <summary>
         /// the resource which is edited
         /// </summary>
-        internal IEditable Resource { get; private set; }
+        internal IEditable EditableResource { get; private set; }
+
+        public IResource Resource { get { return EditableResource; } }
 
         /// <summary>
         /// saves the changes to the resource
         /// </summary>
         internal void Save() // to be called from ribbon
         {
-            Resource.SaveText(Editor.Text);
+            EditableResource.SaveText(Editor.Text);
         }
     }
 }
