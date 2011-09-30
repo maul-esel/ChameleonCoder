@@ -15,7 +15,7 @@ namespace ChameleonCoder.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        internal void UpdateAll()
+        internal virtual void UpdateAll()
         {
             var handler = PropertyChanged;
             if (handler != null)
@@ -29,7 +29,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        internal void Update(string property)
+        internal virtual void Update(string property)
         {
             var handler = PropertyChanged;
             if (handler != null)
