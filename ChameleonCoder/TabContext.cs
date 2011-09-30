@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Controls;
 using ChameleonCoder.Interaction;
 using ChameleonCoder.Resources.Interfaces;
 using Res = ChameleonCoder.Properties.Resources;
@@ -11,12 +10,12 @@ namespace ChameleonCoder
     {
         #region constructors
 
-        internal TabContext(CCTabPage type, Page content)
+        internal TabContext(CCTabPage type, object content)
             : this(type, content, null)
         {
         }
 
-        internal TabContext(CCTabPage type, Page content, IResource resource)
+        internal TabContext(CCTabPage type, object content, IResource resource)
         {
             Resource = resource;
             Type = type;
@@ -62,16 +61,16 @@ namespace ChameleonCoder
             }
         }
 
-        public Page Content
+        public object Content
         {
             get
             {
-                return contentPage;
+                return contentObject;
             }
 
             internal set
             {
-                contentPage = value;
+                contentObject = value;
                 OnPropertyChanged("Content");
             }
         }
@@ -118,7 +117,7 @@ namespace ChameleonCoder
 
         private CCTabPage pageType;
 
-        private Page contentPage;
+        private object contentObject;
 
 
         private string TitleTemplate
