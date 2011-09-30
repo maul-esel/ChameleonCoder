@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using ChameleonCoder.Interaction;
+using ChameleonCoder.Resources.Interfaces;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
@@ -13,25 +14,16 @@ namespace ChameleonCoder
         {
         }
 
-        internal TabContext(CCTabPage type, Page content, object displayed)
+        internal TabContext(CCTabPage type, Page content, IResource resource)
         {
-            displayedObject = displayed;
-            pageType = type;
-            contentPage = content;
+            Resource = resource;
+            Type = type;
+            Content = content;
 
             InformationProvider.LanguageChanged += OnLanguageChanged;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnLanguageChanged(object value)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs("Title"));
-            }
-        }
 
         private void OnPropertyChanged(string property)
         {
@@ -43,14 +35,28 @@ namespace ChameleonCoder
         }
 
 
+        private void OnLanguageChanged(object value)
+        {
+            OnPropertyChanged("Title");
+        }
+
+
         public string Title
         {
-            get { return string.Format(titleTemplate, displayedObject); }
+            get
+            {
+                var name = (Resource != null) ? Resource.Name : null;
+                return string.Format(TitleTemplate, name);
+            }
         }
 
         public Page Content
         {
-            get { return contentPage; }
+            get
+            {
+                return contentPage;
+            }
+
             internal set
             {
                 contentPage = value;
@@ -58,20 +64,28 @@ namespace ChameleonCoder
             }
         }
 
-        internal Object Object
+        internal IResource Resource
         {
-            get { return displayedObject; }
+            get
+            {
+                return displayedResource;
+            }
+
             set
             {
-                displayedObject = value;
-                OnPropertyChanged("Object");
+                displayedResource = value;
+                OnPropertyChanged("Resource");
                 OnPropertyChanged("Title");
             }
         }
 
         internal CCTabPage Type
         {
-            get { return pageType; }
+            get
+            {
+                return pageType;
+            }
+
             set
             {
                 pageType = value;
@@ -81,14 +95,14 @@ namespace ChameleonCoder
         }
 
 
-        private object displayedObject;
+        private IResource displayedResource;
 
         private CCTabPage pageType;
 
         private Page contentPage;
 
 
-        private string titleTemplate
+        private string TitleTemplate
         {
             get
             {
