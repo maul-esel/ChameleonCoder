@@ -45,6 +45,8 @@ namespace ChameleonCoder.Plugins
                 plugins.Add(plugin);
 
             Install(plugins);
+
+            Close();
         }
 
         private void Install(IEnumerable<IPlugin> plugins)
