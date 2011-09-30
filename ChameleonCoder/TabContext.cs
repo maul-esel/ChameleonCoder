@@ -9,6 +9,8 @@ namespace ChameleonCoder
 {
     internal sealed class TabContext : INotifyPropertyChanged
     {
+        #region constructors
+
         internal TabContext(CCTabPage type, Page content)
             : this(type, content, null)
         {
@@ -23,6 +25,10 @@ namespace ChameleonCoder
             InformationProvider.LanguageChanged += OnLanguageChanged;
         }
 
+        #endregion
+
+        #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string property)
@@ -34,12 +40,18 @@ namespace ChameleonCoder
             }
         }
 
-
         private void OnLanguageChanged(object value)
         {
             OnPropertyChanged("Title");
         }
 
+        private void OnResourceChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Name")
+                OnPropertyChanged("Title");
+        }
+
+        #endregion
 
         public string Title
         {
@@ -73,7 +85,14 @@ namespace ChameleonCoder
 
             set
             {
+                if (displayedResource != null)
+                    displayedResource.PropertyChanged -= OnResourceChanged;
+
                 displayedResource = value;
+
+                if (displayedResource != null)
+                    displayedResource.PropertyChanged += OnResourceChanged;
+
                 OnPropertyChanged("Resource");
                 OnPropertyChanged("Title");
             }
