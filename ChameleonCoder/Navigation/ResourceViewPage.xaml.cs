@@ -9,7 +9,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying resource details
     /// </summary>
-    internal sealed partial class ResourceViewPage : Page, UIAbstraction.IResourcePresenter
+    internal sealed partial class ResourceViewPage : Page
     {
         /// <summary>
         /// creates a new instance of this page, given a resource to display

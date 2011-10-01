@@ -114,6 +114,7 @@
     <Compile Include="CCSearchReplaceDialog.xaml.cs">
       <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChameleonCoderCommands.cs" />
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
     <Compile Include="DataFile.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
     <Compile Include="Resources\RichContent\RichContentManager.cs" />
     <Compile Include="TabContext.cs" />
+    <Compile Include="ViewModel\EditPageModel.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\PluginInstallerModel.cs" />
     <Compile Include="ViewModel\PluginPageModel.cs" />

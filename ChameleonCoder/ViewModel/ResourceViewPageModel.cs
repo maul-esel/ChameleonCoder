@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ChameleonCoder.Resources.Interfaces;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
@@ -8,14 +9,14 @@ namespace ChameleonCoder.ViewModel
     /// </summary>
     internal sealed class ResourceViewPageModel : ViewModelBase
     {
-        internal ResourceViewPageModel(Resources.Interfaces.IResource resource)
+        internal ResourceViewPageModel(IResource resource)
         {
             resourceInstance = resource;
         }
 
-        public Resources.Interfaces.IResource Resource { get { return resourceInstance; } }
+        public IResource Resource { get { return resourceInstance; } }
 
-        private readonly Resources.Interfaces.IResource resourceInstance;
+        private readonly IResource resourceInstance;
 
         public IDictionary<string, string> MetaData { get { return resourceInstance.GetMetadata(); } }
 

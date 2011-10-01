@@ -1,9 +1,11 @@
 ﻿<Page x:Class="ChameleonCoder.Navigation.ResourceListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:cc="clr-namespace:ChameleonCoder"
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase" Name="page" x:ClassModifier="internal">
     
     <Page.Resources>
+
         <CollectionViewSource Source="{StaticResource resources}" Filter="Filter" x:Key="ResListSource">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription Converter="{StaticResource CustomGroupConverter}"/>

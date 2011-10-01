@@ -1,6 +1,11 @@
-﻿<Page x:Class="ChameleonCoder.Navigation.EditPage"
+﻿<Page x:Class="ChameleonCoder.Navigation.EditPage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit" x:ClassModifier="internal">
-    <avalon:TextEditor x:Name="Editor" ShowLineNumbers="True"/>
+      xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit">
+    <avalon:TextEditor x:Name="editor" x:FieldModifier="private"
+                       ShowLineNumbers="True"
+                       FontSize="{Binding Path=CodeFontSize}"
+                       FontFamily="{Binding Path=CodeFont}"
+                       Document="{Binding Path=Document}"
+                       SyntaxHighlighting="{Binding Path=Highlighting}"/>
 </Page>

@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using ChameleonCoder.Interaction;
+using ChameleonCoder.Navigation; // avoid
+using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using Res = ChameleonCoder.Properties.Resources;
 
@@ -10,8 +15,39 @@ namespace ChameleonCoder.ViewModel
     {
         private MainWindowModel()
         {
+            commandList.Add(new CommandBinding(ApplicationCommands.Close,
+                CloseCommandExecuted));
+
+            commandList.Add(new CommandBinding(NavigationCommands.BrowseHome,
+                GoHomeCommandExecuted));
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceListPage,
+                OpenResourceListPageCommandExecuted));
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenPluginPage,
+                OpenPluginPageCommandExecuted));
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenSettingsPage,
+                OpenSettingsPageCommandExecuted));
+
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenNewTab,
+                OpenNewTabCommandExecuted));
+
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.ExecuteService,
+                ExecuteServiceCommandExecuted));
+
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.CreateResource,
+                CreateResourceCommandExecuted));
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceView,
+                OpenResourceViewCommandExecuted));
+            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceEdit,
+                OpenResourceEditCommandExecuted));
+
+            GoHome();
         }
 
+        #region singleton
+
+        /// <summary>
+        /// gets the instance of this model
+        /// </summary>
         internal static MainWindowModel Instance
         {
             get
@@ -25,17 +61,271 @@ namespace ChameleonCoder.ViewModel
 
         private static readonly MainWindowModel modelInstance = new MainWindowModel();
 
-        public ObservableCollection<TabContext> Tabs
+        #endregion
+
+        internal override void Update(string property)
         {
-            get { return tabCollection; }
+            base.Update(property);
+            if (property == "ActiveTab")
+                TabChanged(ActiveTab);
         }
 
-        private readonly ObservableCollection<TabContext> tabCollection = new ObservableCollection<TabContext>();
+        #region commanding
 
-        public TabContext ActiveTab
+        /// <summary>
+        /// contains the collection of command bindings handled by this model
+        /// </summary>
+        public CommandBindingCollection Commands
         {
-            get;
-            set;
+            get { return commandList; }
+        }
+
+        private readonly CommandBindingCollection commandList = new CommandBindingCollection();
+
+        /// <summary>
+        /// implements the logic for the ApplicationCommands.Close command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void CloseCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            Close(e.Parameter as string == "restart");
+        }        
+
+        /// <summary>
+        /// implements the logic for the NavigationCommands.BrowseHome command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void GoHomeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            GoHome();            
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.OpenResourceList command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void OpenResourceListPageCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OpenResourceList();
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.OpenPluginPage command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void OpenPluginPageCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OpenPluginPage();
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.OpenSettingsPage command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void OpenSettingsPageCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OpenSettingsPage();
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.OpenNewTab command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void OpenNewTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OpenNewTab();
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.ExecuteService command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void ExecuteServiceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var service = e.Parameter as Plugins.IService;
+            if (service != null)
+                Plugins.PluginManager.CallService(service.Identifier);
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.CreateResource command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void CreateResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var resource = e.Parameter as IResource;
+            NewResourceDialog dialog = new NewResourceDialog(resource);
+            dialog.ShowDialog();
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.OpenResourceView command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void OpenResourceViewCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var resource = e.Parameter as IResource;
+            if (resource == null)
+            {
+                var reference = e.Parameter as Resources.ResourceReference;
+                if (reference != null)
+                    resource = reference.Resolve();
+            }
+            if (resource == null)
+                throw new ArgumentException("resource to open is null or not an IResource instance");
+
+            OpenResourceView(resource);
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.OpenResourceEdit command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void OpenResourceEditCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var resource = e.Parameter as IEditable;
+            if (resource == null)
+            {
+                var reference = e.Parameter as Resources.ResourceReference;
+                if (reference != null)
+                    resource = reference.Resolve() as IEditable;
+            }
+            if (resource == null)
+                throw new ArgumentException("resource to open is null or not an IEditable instance");
+
+            OpenResourceEdit(resource);
+        }
+
+        #endregion
+
+        private void Close(bool restart)
+        {
+            if (restart)
+                System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
+
+            App.Current.Shutdown(0);
+        }
+
+        #region page management
+
+        private void GoHome()
+        {
+            if (ActiveTab != null)
+            {
+                var context = ActiveTab;
+                context.Resource = null;
+                context.Type = CCTabPage.Home;
+                context.Content = new WelcomePage();
+
+                TabChanged(context);
+            }
+            else
+            {
+                Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
+            }
+        }
+
+        private void OpenResourceList()
+        {
+            var context = ActiveTab;
+            context.Resource = null;
+            context.Type = CCTabPage.ResourceList;
+            context.Content = new ResourceListPage();
+
+            TabChanged(context);
+        }
+
+        private void OpenPluginPage()
+        {
+            var context = ActiveTab;
+            context.Resource = null;
+            context.Type = CCTabPage.Plugins;
+            context.Content = new PluginPage();
+
+            TabChanged(context);
+        }
+
+        private void OpenSettingsPage()
+        {
+            var context = ActiveTab;
+            context.Resource = null;
+            context.Type = CCTabPage.Settings;
+            context.Content = new SettingsPage();
+
+            TabChanged(context);
+        }
+
+        #endregion
+
+        #region resources
+
+        private void OpenResourceView(IResource resource)
+        {
+            ResourceManager.Open(resource);
+
+            var context = ActiveTab;
+            context.Resource = resource;
+            context.Type = CCTabPage.ResourceView;
+            context.Content = new ResourceViewPage(resource);
+
+            TabChanged(context);
+        }
+
+        private void OpenResourceEdit(IEditable resource)
+        {
+            ResourceManager.Open(resource);
+
+            var context = ActiveTab;
+            context.Resource = resource;
+            context.Type = CCTabPage.ResourceEdit;
+            context.Content = new EditPage(resource);
+
+            TabChanged(context);
+        }
+
+        #endregion
+
+        #region breadcrumb
+
+        public string BreadcrumbSeparator
+        {
+            get { return "/"; }
+        }
+
+        private string breadcrumbPath;
+
+        public string BreadcrumbPath
+        {
+            get { return breadcrumbPath; }
+            set
+            {
+                breadcrumbPath = value;
+                Update("BreadcrumbPath");
+            }
         }
 
         public static BreadcrumbContext BreadcrumbRoot
@@ -49,19 +339,181 @@ namespace ChameleonCoder.ViewModel
                         new BreadcrumbContext(Item_List,
                             new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
                             ResourceManager.GetChildren(),
-                            BreadcrumbContext.ContextType.ResourceList),
+                            CCTabPage.ResourceList),
                         new BreadcrumbContext(Item_Settings,
                             new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
                             null,
-                            BreadcrumbContext.ContextType.Settings),
+                            CCTabPage.Settings),
                         new BreadcrumbContext(Item_Plugins,
                             new BitmapImage(new Uri("pack://application:,,,/Images/plugins.png")),
                             null,
-                            BreadcrumbContext.ContextType.Plugins)
+                            CCTabPage.Plugins)
                         },
-                    BreadcrumbContext.ContextType.Home);
+                    CCTabPage.Home);
             }
         }
+
+        #endregion
+
+        #region tabs
+
+        public ObservableCollection<TabContext> Tabs
+        {
+            get { return tabCollection; }
+        }
+
+        private readonly ObservableCollection<TabContext> tabCollection = new ObservableCollection<TabContext>();
+
+        public TabContext ActiveTab
+        {
+            get { return selectedTab; }
+            set
+            {
+                selectedTab = value;
+                Update("ActiveTab");
+            }
+        }
+
+        private TabContext selectedTab;
+
+        private void TabChanged(TabContext newValue)
+        {
+            var page = newValue.Content;
+            RibbonContextTabIndex = -1;
+            
+            switch (newValue.Type)
+            {
+                case CCTabPage.Home:
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+
+                    BreadcrumbPath = BreadcrumbRoot.Name;
+                    break;
+
+                case CCTabPage.Plugins:
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+
+                    BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Item_Plugins);
+                    break;
+
+                case CCTabPage.Settings:
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+
+                    BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Item_Settings);
+                    break;
+
+                case CCTabPage.ResourceList:
+                    RibbonContextTabIndex = 0;
+
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+
+                    BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Item_List);
+                    break;
+
+                case CCTabPage.ResourceView:
+                    RibbonContextTabIndex = 2;
+
+                    ResourceManager.Open(newValue.Resource);
+
+                    BreadcrumbPath = string.Format("{1}{0}{2}{0}{3}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Item_List,
+                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
+                    break;
+
+                case CCTabPage.ResourceEdit:
+                    RibbonContextTabIndex = 1;
+
+                    ResourceManager.Open(newValue.Resource);
+
+                    BreadcrumbPath = string.Format("{1}{0}{2}{0}{3}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Item_List,
+                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
+                    break;
+
+                default:
+                case Interaction.CCTabPage.None:
+                    throw new InvalidOperationException("page type is not known");
+            }
+        }
+
+        private void OpenNewTab()
+        {
+            var context = new TabContext(CCTabPage.Home, new WelcomePage());
+            Tabs.Add(context);
+            ActiveTab = context;
+        }
+
+        #endregion
+
+        #region ribbon
+
+        public int RibbonContextTabIndex
+        {
+            get { return ribbonContextIndex; }
+            private set
+            {
+                ribbonContextIndex = value;
+                Update("RibbonContextTabIndex");
+            }
+        }
+
+        private int ribbonContextIndex = -1;
+
+        public int RibbonSelectedTabIndex
+        {
+            get { return ribbonSelectedIndex; }
+            set
+            {
+                ribbonSelectedIndex = value;
+                Update("RibbonSelectedTabIndex");
+            }
+        }
+
+        private int ribbonSelectedIndex = 0;
+
+        #endregion
+
+        #region services
+
+        public bool EnableServices
+        {
+            get { return Plugins.PluginManager.ServiceCount > 0; }
+        }
+
+        public IEnumerable<Plugins.IService> ServiceList
+        {
+            get
+            {
+                return Plugins.PluginManager.GetServices();
+            }
+        }
+
+        #endregion
+
+        #region resource types
+
+        public IEnumerable<Type> LoadedResourceTypes
+        {
+            get { return ResourceTypeManager.GetResourceTypes(); }
+        }
+
+        #endregion
 
         #region localization
         public static string Title { get { return "CC - ChameleonCoder alpha 2"; } }
@@ -85,6 +537,7 @@ namespace ChameleonCoder.ViewModel
         public static string Info_Version { get { return Res.Info_Version; } }
 
         public static string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
+        public static string Selection_CreateNew { get { return Res.WP_CreateResource; } }
 
         public static string Services { get { return Res.Services; } }
 
@@ -147,15 +600,6 @@ namespace ChameleonCoder.ViewModel
         public static string View_Copy { get { return Res.View_Copy; } }
 
         public static string View_Edit { get { return Res.View_Edit; } }
-        #endregion
-
-        #region WelcomePage
-        public static string Welcome { get { return Res.WP_Welcome; } }
-        public static string StartSelection { get { return Res.WP_StartSelection; } }
-        public static string Selection_List { get { return Res.WP_GoList; } }
-        public static string Selection_Settings { get { return Res.WP_GoSettings; } }
-        public static string Selection_CreateNew { get { return Res.WP_CreateResource; } }
-        public static string Selection_Plugins { get { return Res.WP_GoPlugins; } }
         #endregion
 
         #endregion

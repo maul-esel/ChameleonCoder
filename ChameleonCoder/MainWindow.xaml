@@ -1,15 +1,27 @@
-﻿<odc:RibbonWindow x:Class="ChameleonCoder.MainWindow"
+﻿<odc:RibbonWindow x:Class="ChameleonCoder.MainWindow" x:ClassModifier="internal"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:cc="clr-namespace:ChameleonCoder"
                   xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-                  xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                   xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
                   xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
                   Title="{Binding Path=Title}" Icon="Images\logo.ico"
-                  IsGlassEnabled="True" WindowState="Maximized" x:ClassModifier="internal">
+                  IsGlassEnabled="True" WindowState="Maximized">
+
+    <!--TODO:
+        * remove control names where possible
+        * remove event handlers where possible, introduce commands
+        * bind to view model properties-->
        
     <odc:RibbonWindow.Resources>
-        
+
+        <Style x:Key="serviceStyle" TargetType="odc:RibbonApplicationMenuItem">
+            <Setter Property="Header" Value="{Binding Path=Name}"/>
+            <Setter Property="Image" Value="{Binding Path=Icon}"/>
+            <Setter Property="Command" Value="{x:Static cc:ChameleonCoderCommands.ExecuteService}"/>
+            <Setter Property="CommandParameter" Value="{Binding}"/>
+        </Style>
+
         <ControlTemplate TargetType="Button" x:Key="CloseButton">
             <Border CornerRadius="2" BorderThickness="1" Width="12" Height="12">
                 <Border.BorderBrush>
@@ -117,7 +129,9 @@
             
         </Grid.ColumnDefinitions>
 
-        <odc:RibbonBar x:Name="Ribbon" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="1">
+        <odc:RibbonBar ContextualTabSetIndex="{Binding Path=RibbonContextTabIndex}"
+                       SelectedTabIndex="{Binding Path=RibbonSelectedTabIndex}"
+                       Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="1">
             
             <odc:RibbonBar.ApplicationMenu>
                 <odc:RibbonApplicationMenu MenuButtonImage="Images\logo.ico">
@@ -127,12 +141,12 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
                             <odc:RibbonButton Content="{Binding Path=Action_Restart}" SmallImage="Images\RibbonTab1\restart.png"
-                                              Click="Restart"
+                                              Command="Close" CommandParameter="restart"
                                               odc:RibbonBar.Size="Medium" MinWidth="100"
                                               Foreground="Black"/>
 
                             <odc:RibbonButton Content="{Binding Path=Action_Exit}" SmallImage="Images\RibbonTab1\close.png"
-                                              Click="Close"
+                                              Command="Close"
                                               odc:RibbonBar.Size="Medium" MinWidth="100"
                                               Foreground="Black" />
                             
@@ -141,24 +155,24 @@
                     </odc:RibbonApplicationMenu.Footer>
 
                     <odc:RibbonApplicationMenuItem Header="{Binding Path=Item_Home}" Image="Images\home.png"
-                                                   Click="GoHome"/>
+                                                   Command="BrowseHome"/>
 
-                    <odc:RibbonApplicationMenuItem x:Name="MenuServices" Header="{Binding Path=Services}" Image="Images\LargeIcon.png"
-                                                   Click="LaunchService"
-                                                   StaysOpenOnClick="True"/>
-
+                    <odc:RibbonApplicationMenuItem Header="{Binding Path=Services}" Image="Images\LargeIcon.png"
+                                                   StaysOpenOnClick="True"
+                                                   ItemsSource="{Binding Path=ServiceList}"
+                                                   IsEnabled="{Binding Path=EnableServices}"
+                                                   ItemContainerStyle="{StaticResource serviceStyle}"/>
                     <odc:RibbonSeparator/>
 
                     <odc:RibbonApplicationMenuItem Header="{Binding Path=Selection_CreateNew}" Image="Images\RibbonTab1\create.png"
-                                                   Click="ResourceCreate"/>
-
+                                                   Command="{x:Static cc:ChameleonCoderCommands.CreateResource}"/>
 
                     <odc:RibbonSeparator/>
 
                     <odc:RibbonApplicationMenuItem Header="{Binding Path=Help}" Image="Images\RibbonTab1\help.jpg"/>
 
                     <odc:RibbonApplicationMenuItem Header="{Binding Path=Item_Settings}" Image="Images\RibbonTab1\settings.png"
-                                                   Click="GoSettings"/>
+                                                   Command="{x:Static cc:ChameleonCoderCommands.OpenSettingsPage}"/>
 
                     <odc:RibbonApplicationMenuItem Header="{Binding Path=About}" Image="Images\RibbonTab1\info.png"/>
                     
@@ -169,7 +183,7 @@
                 <odc:RibbonQAToolBar>
                     
                     <odc:RibbonButton SmallImage="Images\home.png"
-                                      Click="GoHome"/>
+                                      Command="BrowseHome"/>
 
                 </odc:RibbonQAToolBar>
             </odc:RibbonBar.QAToolBar>
@@ -184,6 +198,7 @@
                         <odc:RibbonGroup>
                             
                             <odc:RibbonDropDownButton x:Name="visTypes" Content="{Binding Path=List_HiddenTypes}" LargeImage="Images\choosevisibletypes.png"
+                                                      ItemsSource="{Binding Path=LoadedResourceTypes}"
                                                       odc:RibbonBar.Size="Large">
 
                                 <odc:RibbonDropDownButton.ItemTemplate>
@@ -200,11 +215,11 @@
 
                             </odc:RibbonDropDownButton>
 
-                            <odc:RibbonToggleButton x:Name="EnableGroups" Content="{Binding Path=List_EnableGroups}" SmallImage="Images\SmallIcon.png"
+                            <odc:RibbonToggleButton Content="{Binding Path=List_EnableGroups}" SmallImage="Images\SmallIcon.png"
                                                 Unchecked="GroupsChanged" Checked="GroupsChanged" IsChecked="True"
                                                 odc:RibbonBar.MaxSize="Medium"/>
 
-                            <odc:RibbonToggleButton x:Name="SortItems" Content="{Binding Path=List_SortResources}" SmallImage="Images\sort.png"
+                            <odc:RibbonToggleButton Content="{Binding Path=List_SortResources}" SmallImage="Images\sort.png"
                                                 Unchecked="SortingChanged" Checked="SortingChanged" IsChecked="True"
                                                 odc:RibbonBar.Size="Medium"/>                        
 
@@ -223,15 +238,18 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Clipboard}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Paste}" LargeImage="Images\RibbonTab2\paste.png"
-                                              Click="EditPaste"
+                                              Command="Paste"
+                                              CommandTarget="{Binding Path=ActiveTab.Content.Editor.TextArea}"
                                               odc:RibbonBar.Size="Large"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Cut}" SmallImage="Images\RibbonTab2\cut.png"
-                                              Click="EditCut"
+                                              Command="Cut"
+                                              CommandTarget="{Binding Path=ActiveTab.Content.Editor.TextArea}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Copy}" SmallImage="Images\RibbonTab2\copy.png"
-                                              Click="EditCopy"
+                                              Command="Copy"
+                                              CommandTarget="{Binding Path=ActiveTab.Content.Editor.TextArea}"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
@@ -239,11 +257,15 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_View}">
                             
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomIn}" SmallImage="Images\RibbonTab2\viewplus.png"
-                                              Click="EditZoomIn"
+                                              Command="Zoom"
+                                              CommandParameter="in"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomOut}" SmallImage="Images\RibbonTab2\viewminus.png"
-                                              Click="EditZoomOut"
+                                              Command="Zoom"
+                                              CommandParameter="out"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.Size="Medium"/>
                             
                         </odc:RibbonGroup>
@@ -251,11 +273,13 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_UndoRedo}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Undo}" SmallImage="Images\RibbonTab2\undo.png"
-                                              Click="EditUndo"
+                                              Command="Undo"
+                                              CommandTarget="{Binding Path=ActiveTab.Content.Editor.TextArea}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Redo}" SmallImage="Images\RibbonTab2\redo.png"
-                                              Click="EditRedo"
+                                              Command="Redo"
+                                              CommandTarget="{Binding Path=ActiveTab.Content.Editor.TextArea}"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
@@ -263,7 +287,8 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_SaveOpen}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Save}" LargeImage="Images\RibbonTab2\filesave.png"
-                                              Click="ResourceSave"
+                                              Command="{x:Static cc:ChameleonCoderCommands.SaveResource}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.Size="Large"/>
 
                         </odc:RibbonGroup>
@@ -319,7 +344,8 @@
                         <odc:RibbonGroup>
 
                             <odc:RibbonButton Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"
-                                              Click="ResourceCreateChild"
+                                              Command="{x:Static cc:ChameleonCoderCommands.CreateResource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.Resource}"
                                               odc:RibbonBar.Size="Large"/>
 
                             <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\copy.png"
@@ -339,7 +365,9 @@
                         <odc:RibbonGroup>
                             
                             <odc:RibbonButton Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png"
-                                              Click="ResourceEdit"
+
+                                              Command="{x:Static cc:ChameleonCoderCommands.OpenResourceEdit}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.Resource}"
                                               odc:RibbonBar.Size="Large"/>
                             
                         </odc:RibbonGroup>
@@ -372,11 +400,17 @@
                                  MouseDoubleClick="ResourceOpen"
                                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
 
-        <odc:BreadcrumbBar x:Name="breadcrumb"
+        <odc:BreadcrumbBar x:Name="breadcrumb" IsEditable="False"
                            SelectedBreadcrumbChanged="ResourceOpen"
+
                            Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" 
-                           IsEditable="False" SeparatorString="/" Root="{Binding Path=BreadcrumbRoot}"
-                           ImageBinding="{Binding Path=Icon}" TraceBinding="{Binding Path=Name}">
+
+                           SeparatorString="{Binding Path=BreadcrumbSeparator, Mode=OneTime}"
+                           Root="{Binding Path=BreadcrumbRoot, Mode=OneTime}"
+                           Path="{Binding Path=BreadcrumbPath}"
+
+                           ImageBinding="{Binding Path=Icon}"
+                           TraceBinding="{Binding Path=Name}">
             
             <odc:BreadcrumbBar.BreadcrumbItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
@@ -388,13 +422,12 @@
 
         </odc:BreadcrumbBar>
         
-        <TabControl x:Name="Tabs"
-                    SelectionChanged="TabChanged" SelectedItem="{Binding Path=ActiveTab}"
-                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
-                    IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Tabs}"/>
+        <TabControl SelectedItem="{Binding Path=ActiveTab}" ItemsSource="{Binding Path=Tabs}"
+                    SelectionChanged="TabChanged"
+                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
 
         <Button Content="+"
-                Click="TabOpen"
+                Command="{x:Static cc:ChameleonCoderCommands.OpenNewTab}"
                 Grid.Column="2" Grid.Row="2" Margin="2" Width="20" Height="20"
                 VerticalAlignment="Top" HorizontalAlignment="Right"/>
 

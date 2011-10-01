@@ -63,7 +63,7 @@ namespace ChameleonCoder.Interaction
         {
             get
             {
-                var page = (App.Gui.Tabs.SelectedItem as TabContext).Content;
+                var page = ViewModel.MainWindowModel.Instance.ActiveTab.Content;
                 if (page is Navigation.WelcomePage)
                     return CCTabPage.Home;
                 else if (page is Navigation.SettingsPage)
@@ -120,7 +120,7 @@ namespace ChameleonCoder.Interaction
         /// <param name="code">the code to insert</param>
         public static void AppendCode(string code)
         {
-            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            var edit = ViewModel.MainWindowModel.Instance.ActiveTab.Content  as Navigation.EditPage;
             if (edit != null)
                 edit.Editor.AppendText(code);
         }
@@ -132,7 +132,7 @@ namespace ChameleonCoder.Interaction
         /// <param name="position">the position to use</param>
         public static void InsertCode(string code, int position)
         {
-            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            var edit = ViewModel.MainWindowModel.Instance.ActiveTab.Content as Navigation.EditPage;
             if (edit != null)
                 edit.Editor.Text = edit.Editor.Text.Insert(position, code);
         }
@@ -143,7 +143,7 @@ namespace ChameleonCoder.Interaction
         /// <param name="code">the code to insert</param>
         public static void InsertCode(string code)
         {
-            var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+            var edit = ViewModel.MainWindowModel.Instance.ActiveTab.Content as Navigation.EditPage;
             if (edit != null)
                 edit.Editor.Text = edit.Editor.Text.Insert(edit.Editor.CaretOffset, code);
         }
@@ -154,9 +154,9 @@ namespace ChameleonCoder.Interaction
         /// <returns>the edit control or null if no resource is currently edited</returns>
         public static ICSharpCode.AvalonEdit.TextEditor GetEditor()
         {
-            if (App.Gui.Tabs.SelectedItem != null)
+            if (ViewModel.MainWindowModel.Instance.ActiveTab != null)
             {
-                var edit = (App.Gui.Tabs.SelectedItem as TabContext).Content as Navigation.EditPage;
+                var edit = ViewModel.MainWindowModel.Instance.ActiveTab.Content as Navigation.EditPage;
                 if (edit != null)
                     return edit.Editor;
             }

@@ -3,9 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using ChameleonCoder.Interaction;
 using ChameleonCoder.Navigation;
-using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using Odyssey.Controls;
@@ -14,116 +12,53 @@ using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
 namespace ChameleonCoder
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// the main window displaying the IDE
     /// </summary>
     internal sealed partial class MainWindow : RibbonWindow
     {
         internal MainWindow()
         {
             DataContext = MVVM.Instance;
-            InitializeComponent();            
-
-            if (PluginManager.ServiceCount == 0)
-                this.MenuServices.IsEnabled = false;
-
-            foreach (IService service in PluginManager.GetServices())
-                MenuServices.Items.Add(new RibbonApplicationMenuItem() { Image = service.Icon, Header = service.Name, DataContext = service.Identifier });
-
-            foreach (Type t in ResourceTypeManager.GetResourceTypes())
-                visTypes.Items.Add(t);
-
-            GoHome();
-        }
-
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            App.Current.Shutdown(0);
+            CommandBindings.AddRange(MVVM.Instance.Commands);
+            InitializeComponent();
         }
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
+            // TODO: replace by command (see next line)
+            //System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as Page);
             CollectionViewSource.GetDefaultView((MVVM.Instance.ActiveTab.Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
         }
 
-        private void GoHome()
-        {
-            if (MVVM.Instance.ActiveTab != null)
-            {
-                var context = MVVM.Instance.ActiveTab;
-                context.Object = null;
-                context.Type = CCTabPage.Home;
-                context.Content = new WelcomePage();
-
-                TabChanged(context);
-            }
-            else
-            {
-                MVVM.Instance.Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
-            }
-        }
-
-        private void GoHome(object sender, EventArgs e)
-        {
-            GoHome();
-        }
-
-        internal void GoList()
-        {
-            var context = MVVM.Instance.ActiveTab;
-            context.Object = null;
-            context.Type = CCTabPage.ResourceList;
-            context.Content = new ResourceListPage();
-
-            TabChanged(context);
-        }
-
-        private void GoList(object sender, EventArgs e)
-        {
-            GoList();
-        }
-
-        internal void GoPlugins()
-        {
-            var context = MVVM.Instance.ActiveTab;
-            context.Object = null;
-            context.Type = CCTabPage.Plugins;
-            context.Content = new PluginPage();
-
-            TabChanged(context);
-        }
-
-        private void GoPlugins(object sender, EventArgs e)
-        {
-            GoPlugins();
-        }
-
-        internal void GoSettings()
-        {
-            var context = MVVM.Instance.ActiveTab;
-            context.Object = null;
-            context.Type = CCTabPage.Settings;
-            context.Content = new SettingsPage();
-
-            TabChanged(context);
-        }
-
-        private void GoSettings(object sender, EventArgs e)
-        {
-            GoSettings();
-        }
-
-        private void GroupsChanged(object sender, EventArgs e)
+        private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (IsInitialized)
-                (MVVM.Instance.ActiveTab.Content as ResourceListPage).GroupingChanged(EnableGroups.IsChecked == true);
+                (MVVM.Instance.ActiveTab.Content as ResourceListPage).GroupingChanged((sender as RibbonToggleButton).IsChecked == true);
         }
 
-        private void LaunchService(object sender, RoutedEventArgs e)
+        [Obsolete("to be moved to model", false)]
+        private void GoHome()
         {
-            RibbonApplicationMenuItem item = e.OriginalSource as RibbonApplicationMenuItem;
-            if (item != null)
-                PluginManager.CallService((Guid)item.DataContext);
+            System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
         }
+
+        [Obsolete("to be moved to model", false)]
+        internal void GoList()
+        {
+            ChameleonCoderCommands.OpenResourceListPage.Execute(null, this);
+        }
+
+        [Obsolete("to be moved to model", false)]
+        internal void GoPlugins()
+        {
+            ChameleonCoderCommands.OpenPluginPage.Execute(null, this);
+        }
+
+        [Obsolete("to be moved to model", false)]
+        internal void GoSettings()
+        {
+            ChameleonCoderCommands.OpenSettingsPage.Execute(null, this);
+        }        
 
         #region resources
 
@@ -138,39 +73,10 @@ namespace ChameleonCoder
             }
         }
 
-        private void ResourceCreate(object sender, RoutedEventArgs e)
-        {
-            NewResourceDialog dialog = new NewResourceDialog();
-            dialog.ShowDialog();
-        }
-
-        private void ResourceCreateChild(object sender, RoutedEventArgs e)
-        {
-            NewResourceDialog dialog = new NewResourceDialog(ResourceManager.ActiveItem);
-            dialog.ShowDialog();
-        }
-
         private void ResourceDelete(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show(string.Format(Properties.Resources.Del_Confirm, ResourceManager.ActiveItem.Name), Properties.Resources.Status_DeleteResource, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 ResourceManager.ActiveItem.Delete();
-        }
-
-        private void ResourceEdit(object sender, EventArgs e)
-        {
-            if (ResourceManager.ActiveItem != null)
-            {
-                IEditable editResource = ResourceManager.ActiveItem as IEditable;
-                if (editResource != null)
-                {
-                    var context = MVVM.Instance.ActiveTab;
-                    context.Object = editResource.Name;
-                    context.Type = CCTabPage.ResourceEdit;
-                    context.Content = new EditPage(editResource);
-
-                    TabChanged(context);
-                }
-            }
         }
 
         private void ResourceMove(object sender, EventArgs e)
@@ -179,7 +85,7 @@ namespace ChameleonCoder
             if (selector.ShowDialog() == true // user did not cancel
                 && selector.ResourceList.Count > 0 // user selected 1 resource
                 && selector.ResourceList[0] != null // resource is not null
-                && selector.ResourceList[0] != ResourceManager.ActiveItem.Parent) // resource is already parent
+                && selector.ResourceList[0] != ResourceManager.ActiveItem.Parent) // resource is not already parent
             {
                 if (!selector.ResourceList[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
                 {
@@ -191,6 +97,7 @@ namespace ChameleonCoder
             }
         }
 
+        [Obsolete("to be replaced by command", false)]
         private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             IResource resource = TreeView.SelectedItem as IResource;
@@ -204,6 +111,7 @@ namespace ChameleonCoder
             ResourceOpen(resource);
         }
 
+        [Obsolete("to be moved to model + renamed", false)]
         private void ResourceOpen(object sender, RoutedPropertyChangedEventArgs<BreadcrumbItem> e)
         {
             if (e.NewValue != null)
@@ -212,53 +120,25 @@ namespace ChameleonCoder
 
                 if (context != null)
                 {
-                    if (context.Type == BreadcrumbContext.ContextType.Home)
-                        GoHome(null, null);
-                    else if (context.Type == BreadcrumbContext.ContextType.ResourceList)
-                        GoList(null, null);
-                    else if (context.Type == BreadcrumbContext.ContextType.Settings)
-                        GoSettings(null, null);
-                    else if (context.Type == BreadcrumbContext.ContextType.Plugins)
-                        GoPlugins(null, null);
+                    if (context.PageType == Interaction.CCTabPage.Home)
+                        GoHome();
+                    else if (context.PageType == Interaction.CCTabPage.ResourceList)
+                        GoList();
+                    else if (context.PageType == Interaction.CCTabPage.Settings)
+                        GoSettings();
+                    else if (context.PageType == Interaction.CCTabPage.Plugins)
+                        GoPlugins();
                 }
                 else
                     ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));
             }
         }
 
+        [Obsolete("to be moved to model", false)]
         internal void ResourceOpen(IResource resource)
         {
-            if (resource != null)
-            {
-                ResourceManager.Open(resource);
-
-                Ribbon.SelectedTabIndex = 0;
-
-                var context = MVVM.Instance.ActiveTab;
-                context.Object = resource.Name;
-                context.Type = CCTabPage.ResourceView;
-                context.Content = new ResourceViewPage(resource);
-
-                TabChanged(context);
-            }
+            ChameleonCoderCommands.OpenResourceView.Execute(resource, this);
         }
-
-        private void ResourceSave(object sender, EventArgs e)
-        {
-            ResourceSave(MVVM.Instance.ActiveTab);
-        }
-
-        private void ResourceSave(TabContext page)
-        {
-            ResourceSave(page.Content as EditPage);
-        }
-
-        private void ResourceSave(EditPage page)
-        {
-            if (page != null)
-                page.Save();
-        }
-
         #endregion
 
         private void MetadataAdd(object sender, EventArgs e)
@@ -273,26 +153,13 @@ namespace ChameleonCoder
             (MVVM.Instance.ActiveTab.Content as ResourceViewPage).DeleteMetadata();
         }
 
-        private void Restart(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
-            Application.Current.Shutdown(0);
-        }
-
         private void SortingChanged(object sender, EventArgs e)
         {
             if (IsInitialized)
-                (MVVM.Instance.ActiveTab.Content as ResourceListPage).SortingChanged(SortItems.IsChecked == true);
+                (MVVM.Instance.ActiveTab.Content as ResourceListPage).SortingChanged((sender as RibbonToggleButton).IsChecked == true);
         }
 
         #region Tabs
-        private void TabOpen(object sender, EventArgs e)
-        {
-            var context = new TabContext(CCTabPage.Home, new WelcomePage());
-            MVVM.Instance.Tabs.Add(context);
-            MVVM.Instance.ActiveTab = context;
-        }
-
         private void TabClosed(object sender, RoutedEventArgs e)
         {
             DependencyObject ctrl = (e.OriginalSource as Button).Parent;
@@ -301,89 +168,12 @@ namespace ChameleonCoder
                 ctrl = VisualTreeHelper.GetParent(ctrl);
 
             TabContext item = (ctrl as TabItem).DataContext as TabContext;
-            ResourceSave(item);
+            ChameleonCoderCommands.SaveResource.Execute(null, item.Content as Page);
+
             MVVM.Instance.Tabs.Remove(item);
-
-            TabChanged(MVVM.Instance.ActiveTab);
         }
 
-        private void TabChanged(TabContext newTab)
-        {
-            Page page = newTab.Content;
-            Ribbon.SelectedTabIndex = 0;
-
-            if (page is WelcomePage)
-            {
-                Ribbon.ContextualTabSet = null;
-                if (ResourceManager.ActiveItem != null)
-                    ResourceManager.Close();
-
-                breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem);
-            }
-
-            else if (page is ResourceListPage)
-            {
-                Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[0];
-                if (ResourceManager.ActiveItem != null)
-                    ResourceManager.Close();
-
-                breadcrumb.Path = string.Format("{1}{0}{2}",
-                    breadcrumb.SeparatorString,
-                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
-                    Properties.Resources.Item_List);
-            }
-
-            else if (page is EditPage)
-            {
-                Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[1];
-                ResourceManager.Open((page as EditPage).Resource);
-
-                breadcrumb.Path = string.Format("{1}{0}{2}{0}{3}",
-                    breadcrumb.SeparatorString,
-                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
-                    Properties.Resources.Item_List,
-                    ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString));
-            }
-
-            else if (page is ResourceViewPage)
-            {
-                Ribbon.ContextualTabSet = Ribbon.ContextualTabSets[2];
-                ResourceManager.Open((page as ResourceViewPage).Resource);
-
-                breadcrumb.Path = string.Format("{1}{0}{2}{0}{3}",
-                    breadcrumb.SeparatorString,
-                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
-                    Properties.Resources.Item_List,
-                    ResourceManager.ActiveItem.GetPath(breadcrumb.SeparatorString));
-            }
-
-            else if (page is SettingsPage)
-            {
-                Ribbon.ContextualTabSet = null;
-                if (ResourceManager.ActiveItem != null)
-                    ResourceManager.Close();
-
-                breadcrumb.Path = string.Format("{1}{0}{2}",
-                    breadcrumb.SeparatorString,
-                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
-                    Properties.Resources.Item_Settings);
-            }
-
-            else if (page is PluginPage)
-            {
-                Ribbon.ContextualTabSet = null;
-                if (ResourceManager.ActiveItem != null)
-                    ResourceManager.Close();
-
-                breadcrumb.Path = string.Format("{1}{0}{2}",
-                    breadcrumb.SeparatorString,
-                    breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem),
-                    Properties.Resources.Item_Plugins);
-            }
-
-            Ribbon.SelectedTabIndex = Ribbon.Tabs.Count;
-        }
-
+        [Obsolete("to be moved to model", false)]
         private void TabChanged(object sender, EventArgs e)
         {
             if (MVVM.Instance.Tabs.Count == 0)
@@ -393,84 +183,50 @@ namespace ChameleonCoder
         }
         #endregion
 
+        // to be moved to edit page model + use commands!
         #region editing methods
 
-        private void EditPaste(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.Paste());
-        }
-
-        private void EditCut(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.Cut());
-        }
-
-        private void EditCopy(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.Copy());
-        }
-
-        private void EditZoomIn(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.FontSize += 2);            
-        }
-
-        private void EditZoomOut(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.FontSize -= 2);
-        }
-
-        private void EditUndo(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.Undo());
-        }
-
-        private void EditRedo(object sender, EventArgs e)
-        {
-            EditPerformAction(editor => editor.Redo());
-        }
-
+        [Obsolete("to be moved to edit page model", false)]
         private void EditSearch(object sender, EventArgs e)
         {
-            EditPage edit = MVVM.Instance.ActiveTab.Content as EditPage;
-            if (edit != null)
-            {
-                var dialog = new CCSearchReplaceDialog(
-                    () => edit.Editor.Text,
-                    (offset, length, replaceBy) => edit.Editor.Document.Replace(offset, length, replaceBy),
-                    (offset, length) =>
-                        {
-                            edit.Editor.Select(offset, length);
-                            var loc = edit.Editor.Document.GetLocation(offset);
-                            edit.Editor.ScrollTo(loc.Line, loc.Column);
-                        },
-                    false);
-                dialog.ShowDialog();
-            }
+            EditPerformAction(editor =>
+                {
+                    var dialog = new CCSearchReplaceDialog(
+                            () => editor.Text,
+                            (offset, length, replaceBy) => editor.Document.Replace(offset, length, replaceBy),
+                            (offset, length) =>
+                            {
+                                editor.Select(offset, length);
+                                var loc = editor.Document.GetLocation(offset);
+                                editor.ScrollTo(loc.Line, loc.Column);
+                            },
+                            false);
+                    dialog.ShowDialog();
+                });
         }
 
+        [Obsolete("to be moved to edit page model", false)]
         private void EditReplace(object sender, EventArgs e)
         {
-            EditPage edit = (Tabs.SelectedItem as TabContext).Content as EditPage;
-            if (edit != null)
-            {
-                var dialog = new CCSearchReplaceDialog(
-                    () => edit.Editor.Text,
-                    (offset, length, replaceBy) => edit.Editor.Document.Replace(offset, length, replaceBy),
-                    (offset, length) =>
-                    {
-                        edit.Editor.Select(offset, length);
-                        var loc = edit.Editor.Document.GetLocation(offset);
-                        edit.Editor.ScrollTo(loc.Line, loc.Column);
-                    },
-                    true);
-                dialog.ShowDialog();
-            }
+            EditPerformAction(editor =>
+                {
+                    var dialog = new CCSearchReplaceDialog(
+                            () => editor.Text,
+                            (offset, length, replaceBy) => editor.Document.Replace(offset, length, replaceBy),
+                            (offset, length) =>
+                            {
+                                editor.Select(offset, length);
+                                var loc = editor.Document.GetLocation(offset);
+                                editor.ScrollTo(loc.Line, loc.Column);
+                            },
+                            true);
+                    dialog.ShowDialog();
+                });
         }
 
         private void EditPerformAction(Action<ICSharpCode.AvalonEdit.TextEditor> action)
         {
-            EditPage edit = (Tabs.SelectedItem as TabContext).Content as EditPage;
+            EditPage edit = MVVM.Instance.ActiveTab.Content as EditPage;
             if (edit != null)
                 action(edit.Editor);
         }
