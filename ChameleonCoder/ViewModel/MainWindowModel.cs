@@ -234,6 +234,7 @@ namespace ChameleonCoder.ViewModel
 
         private void GoHome()
         {
+            RibbonContextTabIndex = -1;
             if (ActiveTab != null)
             {
                 var context = ActiveTab;
@@ -251,6 +252,8 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceList()
         {
+            RibbonContextTabIndex = -1;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.ResourceList;
@@ -261,6 +264,8 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenPluginPage()
         {
+            RibbonContextTabIndex = -1;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Plugins;
@@ -271,6 +276,8 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenSettingsPage()
         {
+            RibbonContextTabIndex = -1;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Settings;
@@ -285,6 +292,8 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceView(IResource resource)
         {
+            RibbonContextTabIndex = -1;
+
             ResourceManager.Open(resource);
 
             var context = ActiveTab;
@@ -297,6 +306,8 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceEdit(IEditable resource)
         {
+            RibbonContextTabIndex = -1;
+
             ResourceManager.Open(resource);
 
             var context = ActiveTab;
