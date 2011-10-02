@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace ChameleonCoder.ViewModel
 {
@@ -35,5 +36,15 @@ namespace ChameleonCoder.ViewModel
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(property));
         }
+
+        /// <summary>
+        /// contains the collection of command bindings handled by this model
+        /// </summary>
+        public CommandBindingCollection Commands
+        {
+            get { return commandList; }
+        }
+
+        private readonly CommandBindingCollection commandList = new CommandBindingCollection();
     }
 }

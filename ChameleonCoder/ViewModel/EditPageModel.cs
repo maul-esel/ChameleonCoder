@@ -19,13 +19,13 @@ namespace ChameleonCoder.ViewModel
             resourceInstance = resource;
             Resources.Management.ResourceManager.Open(resource);
 
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.SaveResource,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.SaveResource,
                 SaveResourceCommandExecuted));
-            commandList.Add(new CommandBinding(NavigationCommands.Search,
+            Commands.Add(new CommandBinding(NavigationCommands.Search,
                 SearchCommandExecuted));
-            commandList.Add(new CommandBinding(ApplicationCommands.Replace,
+            Commands.Add(new CommandBinding(ApplicationCommands.Replace,
                 ReplaceCommandExecuted));
-            commandList.Add(new CommandBinding(NavigationCommands.Zoom,
+            Commands.Add(new CommandBinding(NavigationCommands.Zoom,
                 ZoomCommandExecuted));
 
             SettingsPageModel.Instance.PropertyChanged += (s, e) =>
@@ -41,16 +41,6 @@ namespace ChameleonCoder.ViewModel
         }
 
         #region commanding
-
-        /// <summary>
-        /// contains the collection of command bindings handled by this model
-        /// </summary>
-        public CommandBindingCollection Commands
-        {
-            get { return commandList; }
-        }
-
-        private readonly CommandBindingCollection commandList = new CommandBindingCollection();
 
         /// <summary>
         /// implements the logic for the ChameleonCoderCommands.SaveResource command

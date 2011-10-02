@@ -15,29 +15,29 @@ namespace ChameleonCoder.ViewModel
     {
         private MainWindowModel()
         {
-            commandList.Add(new CommandBinding(ApplicationCommands.Close,
+            Commands.Add(new CommandBinding(ApplicationCommands.Close,
                 CloseCommandExecuted));
 
-            commandList.Add(new CommandBinding(NavigationCommands.BrowseHome,
+            Commands.Add(new CommandBinding(NavigationCommands.BrowseHome,
                 GoHomeCommandExecuted));
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceListPage,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceListPage,
                 OpenResourceListPageCommandExecuted));
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenPluginPage,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenPluginPage,
                 OpenPluginPageCommandExecuted));
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenSettingsPage,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenSettingsPage,
                 OpenSettingsPageCommandExecuted));
 
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenNewTab,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenNewTab,
                 OpenNewTabCommandExecuted));
 
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.ExecuteService,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.ExecuteService,
                 ExecuteServiceCommandExecuted));
 
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.CreateResource,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateResource,
                 CreateResourceCommandExecuted));
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceView,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceView,
                 OpenResourceViewCommandExecuted));
-            commandList.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceEdit,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceEdit,
                 OpenResourceEditCommandExecuted));
 
             GoHome();
@@ -71,16 +71,6 @@ namespace ChameleonCoder.ViewModel
         }
 
         #region commanding
-
-        /// <summary>
-        /// contains the collection of command bindings handled by this model
-        /// </summary>
-        public CommandBindingCollection Commands
-        {
-            get { return commandList; }
-        }
-
-        private readonly CommandBindingCollection commandList = new CommandBindingCollection();
 
         /// <summary>
         /// implements the logic for the ApplicationCommands.Close command
