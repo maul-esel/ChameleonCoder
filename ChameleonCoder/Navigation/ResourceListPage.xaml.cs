@@ -35,6 +35,8 @@ namespace ChameleonCoder.Navigation
             if (IsInitialized) // othwerise, and if the page is initialized:
             {
                 int i = 0;
+                // TODO: loop once, and store result?
+                // HACK: do not access type list like so!
                 foreach (Type t in App.Gui.visTypes.Items) // iterate through types
                 {
                     if (t == resType) // if it is a match:
@@ -61,7 +63,7 @@ namespace ChameleonCoder.Navigation
         /// <param name="e">additional data</param>
         private void OpenResource(object sender, EventArgs e)
         {
-            App.Gui.ResourceOpen(ResourceList.SelectedItem as IResource); // redirect call
+            ChameleonCoderCommands.OpenResourceView.Execute(ResourceList.SelectedItem, this);
         }
 
         /// <summary>
