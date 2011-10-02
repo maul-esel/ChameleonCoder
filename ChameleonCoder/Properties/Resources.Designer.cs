@@ -1019,18 +1019,18 @@ namespace ChameleonCoder.Properties {
         /// <summary>
         ///   Looks up a localized string similar to metadata key.
         /// </summary>
-        internal static string VP_MetaDataKey {
+        internal static string VP_MetadataKey {
             get {
-                return ResourceManager.GetString("VP_MetaDataKey", resourceCulture);
+                return ResourceManager.GetString("VP_MetadataKey", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to value.
         /// </summary>
-        internal static string VP_MetaDataValue {
+        internal static string VP_MetadataValue {
             get {
-                return ResourceManager.GetString("VP_MetaDataValue", resourceCulture);
+                return ResourceManager.GetString("VP_MetadataValue", resourceCulture);
             }
         }
         

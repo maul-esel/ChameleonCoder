@@ -1,8 +1,9 @@
-﻿<Page x:Class="ChameleonCoder.Navigation.ResourceListPage"
+﻿<nav:CCPageBase x:Class="ChameleonCoder.Navigation.ResourceListPage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:cc="clr-namespace:ChameleonCoder"
-      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase" Name="page" x:ClassModifier="internal">
+      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:nav="clr-namespace:ChameleonCoder.Navigation">
     
     <Page.Resources>
 
@@ -72,8 +73,8 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Image Source="{Binding Converter={StaticResource ModuleIconConverter}}" MaxWidth="30" MaxHeight="30" Stretch="Fill" VerticalAlignment="Center" Grid.RowSpan="2"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=page, Path=DataContext.Info_Name}" Foreground="Black"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=page, Path=DataContext.Info_Description}" Foreground="Black"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=ResourceList, Path=DataContext.Info_Name}" Foreground="Black"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ResourceList, Path=DataContext.Info_Description}" Foreground="Black"/>
                         <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Name}" Foreground="Black"/>
                         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Description}" Foreground="Black"/>
                     </Grid>
@@ -81,4 +82,4 @@
             </DataTemplate>
         </ListBox.ItemTemplate>
     </ListBox>
-</Page>
+</nav:CCPageBase>

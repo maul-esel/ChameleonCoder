@@ -378,10 +378,10 @@
     <value>Die angegebene Datei "{0}" konnte nicht geöffnet werden.
 ChameleonCoder wird geschlossen.</value>
   </data>
-  <data name="VP_MetaDataKey" xml:space="preserve">
+  <data name="VP_MetadataKey" xml:space="preserve">
     <value>Metadata-Schlüssel</value>
   </data>
-  <data name="VP_MetaDataValue" xml:space="preserve">
+  <data name="VP_MetadataValue" xml:space="preserve">
     <value>Wert</value>
   </data>
   <data name="Meta_Add" xml:space="preserve">

@@ -18,10 +18,10 @@ namespace ChameleonCoder.ViewModel
 
         private readonly IResource resourceInstance;
 
-        public IDictionary<string, string> MetaData { get { return resourceInstance.GetMetadata(); } }
+        public IDictionary<string, string> Metadata { get { return resourceInstance.GetMetadata(); } }
 
-        public static string MetaDataKey { get { return Res.VP_MetaDataKey; } }
+        public static string MetadataKey { get { return Res.VP_MetadataKey; } }
 
-        public static string MetaDataValue { get { return Res.VP_MetaDataValue; } }
+        public static string MetadataValue { get { return Res.VP_MetadataValue; } }
     }
 }
