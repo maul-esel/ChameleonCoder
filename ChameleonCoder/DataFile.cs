@@ -153,6 +153,25 @@ namespace ChameleonCoder
         }
 
         /// <summary>
+        /// gets all metadata related to the file
+        /// </summary>
+        /// <returns>a dictionary containing the metadata</returns>
+        public IDictionary<string, string> GetMetadata()
+        {
+            var set = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings");
+            if (set == null)
+                return null;
+
+            var data = set.SelectNodes("metadata");
+            var dict = new Dictionary<string, string>();
+
+            foreach (XmlElement meta in data)
+                dict.Add(meta.GetAttribute("name"), meta.InnerText);
+
+            return dict;
+        }
+
+        /// <summary>
         /// deletes datafile metadata
         /// </summary>
         /// <param name="key">the metadata's name</param>
