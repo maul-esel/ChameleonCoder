@@ -19,8 +19,8 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         public PluginPage()
         {
-            InitializeComponent();
             DataContext = ViewModel.PluginPageModel.Instance;
+            InitializeComponent();            
         }
 
         /// <summary>

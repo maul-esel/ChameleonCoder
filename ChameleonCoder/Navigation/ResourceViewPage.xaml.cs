@@ -18,8 +18,8 @@ namespace ChameleonCoder.Navigation
         internal ResourceViewPage(IResource resource)
         {
             ResourceManager.Open(Resource = resource);
-            InitializeComponent();
             DataContext = new ViewModel.ResourceViewPageModel(resource);
+            InitializeComponent();            
         }
 
         internal void AddMetadata(string name)
