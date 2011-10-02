@@ -73,12 +73,6 @@ namespace ChameleonCoder
             }
         }
 
-        private void ResourceDelete(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show(string.Format(Properties.Resources.Del_Confirm, ResourceManager.ActiveItem.Name), Properties.Resources.Status_DeleteResource, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                ResourceManager.ActiveItem.Delete();
-        }
-
         private void ResourceMove(object sender, EventArgs e)
         {
             Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
@@ -135,7 +129,7 @@ namespace ChameleonCoder
         }
 
         [Obsolete("to be moved to model", false)]
-        internal void ResourceOpen(IResource resource)
+        private void ResourceOpen(IResource resource)
         {
             ChameleonCoderCommands.OpenResourceView.Execute(resource, this);
         }

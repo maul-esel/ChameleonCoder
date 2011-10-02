@@ -39,6 +39,8 @@ namespace ChameleonCoder.ViewModel
                 OpenResourceViewCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceEdit,
                 OpenResourceEditCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteResource,
+                DeleteResourceCommandExecuted));
 
             GoHome();
         }
@@ -210,6 +212,28 @@ namespace ChameleonCoder.ViewModel
             OpenResourceEdit(resource);
         }
 
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.DeleteResource command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void DeleteResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var resource = e.Parameter as IResource;
+            if (resource == null)
+            {
+                var reference = e.Parameter as Resources.ResourceReference;
+                if (reference != null)
+                    resource = reference.Resolve() as IResource;
+            }
+            if (resource == null)
+                throw new ArgumentException("resource to open is null or not an IResource instance");
+
+            DeleteResource(resource);
+        }
+
         #endregion
 
         private void Close(bool restart)
@@ -306,6 +330,17 @@ namespace ChameleonCoder.ViewModel
             context.Content = new EditPage(resource);
 
             TabChanged(context);
+        }
+
+        private void DeleteResource(IResource resource)
+        {
+            if (System.Windows.MessageBox.Show(string.Format(Properties.Resources.Del_Confirm, resource.Name),
+                Properties.Resources.Status_DeleteResource,
+                System.Windows.MessageBoxButton.YesNo)
+                == System.Windows.MessageBoxResult.Yes)
+            {
+                resource.Delete();
+            }
         }
 
         #endregion

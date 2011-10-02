@@ -357,7 +357,8 @@
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=View_Delete}" SmallImage="Images\delete.png"
-                                              Click="ResourceDelete"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteResource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.Resource}"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
