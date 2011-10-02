@@ -213,6 +213,7 @@
     <Compile Include="ViewModel\PluginInstallerModel.cs" />
     <Compile Include="ViewModel\PluginPageModel.cs" />
     <Compile Include="ViewModel\ResourceListPageModel.cs" />
+    <Compile Include="ViewModel\ResourceSelectorModel.cs" />
     <Compile Include="ViewModel\ResourceViewPageModel.cs" />
     <Compile Include="ViewModel\SearchReplaceModel.cs" />
     <Compile Include="ViewModel\SettingsPageModel.cs" />

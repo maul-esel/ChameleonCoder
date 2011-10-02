@@ -9,7 +9,7 @@ namespace ChameleonCoder.Interaction
     /// <summary>
     /// a dialog to let a user select a resource
     /// </summary>
-    public partial class ResourceSelector : Window
+    internal sealed partial class ResourceSelector : Window
     {
         #region constructors
         /// <summary>
@@ -55,7 +55,7 @@ namespace ChameleonCoder.Interaction
             InitializeComponent();
             Catalog.Collection = resources;
             Catalog.SelectedItemChanged += ValidateButtons;
-            DataContext = new { Lang = App.Gui.DataContext };
+            DataContext = new ViewModel.ResourceSelectorModel(); // new { Lang = App.Gui.DataContext };
             maxCount = maxResources;
 
             OKButton.Click += (sender, e) =>
@@ -133,7 +133,7 @@ namespace ChameleonCoder.Interaction
             if (ResourceList.Count >= maxCount)
                 AddButton.Visibility = Visibility.Hidden;
 
-            DataContext = new { Lang = App.Gui.DataContext, Res = Catalog.SelectedItem };
+            (DataContext as ViewModel.ResourceSelectorModel).Resource = Catalog.SelectedItem;
         }
     }
 }
