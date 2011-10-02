@@ -10,14 +10,14 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying all registered resources
     /// </summary>
-    internal sealed partial class ResourceListPage : Page
+    internal sealed partial class ResourceListPage : CCPageBase
     {
         /// <summary>
         /// creates a new instance of this page
         /// </summary>
         internal ResourceListPage()
+            : base(ViewModel.MainWindowModel.Instance)
         {
-            DataContext = App.Gui.DataContext;
             InitializeComponent();
         }
 

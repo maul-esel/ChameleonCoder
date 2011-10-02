@@ -9,16 +9,16 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying resource details
     /// </summary>
-    internal sealed partial class ResourceViewPage : Page
+    internal sealed partial class ResourceViewPage : CCPageBase
     {
         /// <summary>
         /// creates a new instance of this page, given a resource to display
         /// </summary>
         /// <param name="resource">the resource to display</param>
         internal ResourceViewPage(IResource resource)
+            : base(new ViewModel.ResourceViewPageModel(resource))
         {
             ResourceManager.Open(Resource = resource);
-            DataContext = new ViewModel.ResourceViewPageModel(resource);
             InitializeComponent();            
         }
 

@@ -1,15 +1,13 @@
-﻿using System.Windows.Controls;
-
-namespace ChameleonCoder.Navigation
+﻿namespace ChameleonCoder.Navigation
 {
     /// <summary>
     /// a page displaying the app settings
     /// </summary>
-    internal sealed partial class SettingsPage : Page
+    internal sealed partial class SettingsPage : CCPageBase
     {
         internal SettingsPage()
+            : base(ViewModel.SettingsPageModel.Instance)
         {
-            DataContext = ViewModel.SettingsPageModel.Instance;
             InitializeComponent();
         }
     }

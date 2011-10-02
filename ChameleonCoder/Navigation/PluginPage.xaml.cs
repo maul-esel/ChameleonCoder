@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using ChameleonCoder.Plugins;
 
@@ -12,14 +11,14 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a Page displaying all registered plugins
     /// </summary>
-    internal sealed partial class PluginPage : Page
+    internal sealed partial class PluginPage : CCPageBase
     {
         /// <summary>
         /// creates a new instance of the page
         /// </summary>
         public PluginPage()
+            : base(ViewModel.PluginPageModel.Instance)
         {
-            DataContext = ViewModel.PluginPageModel.Instance;
             InitializeComponent();            
         }
 
