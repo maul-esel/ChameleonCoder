@@ -32,6 +32,9 @@ namespace ChameleonCoder.ViewModel
 
         internal virtual void Update(string property)
         {
+            if (GetType().GetProperty(property) == null)
+                throw new InvalidOperationException("update unknown property: " + property);
+
             var handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(property));
