@@ -30,7 +30,7 @@ namespace ChameleonCoder
                     throw new FileFormatException(new Uri(path, UriKind.Relative), "Invalid format: not a well-formed XML file.", e);
                 }
 
-                LoadedFilePaths.Add(FilePath = path);
+                loadedFilePaths.Add(FilePath = path);
                 LoadedFiles.Add(this);
                 Directories.Add(Path.GetDirectoryName(path));
 
@@ -56,7 +56,7 @@ namespace ChameleonCoder
                 else if (reference.GetAttribute("type") == "file"
                     && !string.IsNullOrWhiteSpace(reference.InnerText)
                     && File.Exists(reference.InnerText)
-                    && !LoadedFilePaths.Contains(reference.InnerText))
+                    && !loadedFilePaths.Contains(reference.InnerText))
                 {
                     try
                     {
@@ -261,7 +261,7 @@ namespace ChameleonCoder
                 file.Close();
 
             LoadedFiles.Clear();
-            LoadedFilePaths.Clear();
+            loadedFilePaths.Clear();
         }
 
         /// <summary>
@@ -288,18 +288,26 @@ namespace ChameleonCoder
         		return dirlist;
         	}
         }
+
+        internal static IList<DataFile> LoadedFiles
+        {
+            get
+            {
+                return loadedFiles;
+            }
+        }
         
         private static readonly List<string> dirlist = new List<string>(new string[1] { Environment.CurrentDirectory });
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths
         /// </summary>
-        private static readonly IList<string> LoadedFilePaths = new List<string>();
+        private static readonly IList<string> loadedFilePaths = new List<string>();
 
         /// <summary>
         /// contains a list of all loaded files in form of their DataFile instances
         /// </summary>
-        private static readonly IList<DataFile> LoadedFiles = new List<DataFile>();
+        private static readonly IList<DataFile> loadedFiles = new List<DataFile>();
 
         #endregion
     }
