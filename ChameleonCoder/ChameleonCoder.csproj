@@ -115,6 +115,10 @@
       <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChameleonCoderCommands.cs" />
+    <Compile Include="Navigation\CCPageBase.cs" />
+    <Compile Include="Navigation\FileManagementPage.xaml.cs">
+      <DependentUpon>FileManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
     <Compile Include="DataFile.cs" />
@@ -203,6 +207,7 @@
     <Compile Include="Resources\RichContent\RichContentManager.cs" />
     <Compile Include="TabContext.cs" />
     <Compile Include="ViewModel\EditPageModel.cs" />
+    <Compile Include="ViewModel\FileManagementPageModel.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\PluginInstallerModel.cs" />
     <Compile Include="ViewModel\PluginPageModel.cs" />
@@ -247,6 +252,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Navigation\FileManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugins\PluginInstaller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
