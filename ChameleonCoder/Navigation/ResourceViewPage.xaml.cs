@@ -28,15 +28,6 @@ namespace ChameleonCoder.Navigation
             Update();
         }
 
-        internal void DeleteMetadata()
-        {
-            if (MetadataGrid.SelectedIndex != -1)
-            {
-                Resource.DeleteMetadata(((KeyValuePair<string, string>)MetadataGrid.SelectedItem).Key);
-                Update();
-            }
-        }
-
         private void SaveMetadata(object sender, EventArgs e)
         {
         	var box = sender as TextBox;

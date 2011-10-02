@@ -142,11 +142,6 @@ namespace ChameleonCoder
                 (MVVM.Instance.ActiveTab.Content as ResourceViewPage).AddMetadata(input.Text);
         }
 
-        private void MetadataDelete(object sender, EventArgs e)
-        {
-            (MVVM.Instance.ActiveTab.Content as ResourceViewPage).DeleteMetadata();
-        }
-
         private void SortingChanged(object sender, EventArgs e)
         {
             if (IsInitialized)

@@ -83,5 +83,12 @@ namespace ChameleonCoder
         public static readonly RoutedCommand ExecuteService
             = new RoutedCommand("ExecuteService",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for deleting metadata on a resource or DataFile
+        /// </summary>
+        public static readonly RoutedCommand DeleteMetadata
+            = new RoutedCommand("DeleteMetadata",
+                                typeof(ChameleonCoderCommands));
     }
 }

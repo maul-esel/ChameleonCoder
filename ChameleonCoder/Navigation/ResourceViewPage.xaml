@@ -81,7 +81,8 @@
                   ItemsSource="{Binding Path=Metadata}"
                   HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="True"
-                  VirtualizingStackPanel.VirtualizationMode="Recycling" Focusable="False">
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" Focusable="False"
+                  SelectedItem="{Binding Path=ActiveMetadata}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="{Binding Path=MetadataKey}"/>

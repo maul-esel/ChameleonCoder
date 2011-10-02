@@ -382,7 +382,8 @@
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Meta_Delete}" SmallImage="Images\SmallIcon.png"
-                                              Click="MetadataDelete"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteMetadata}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.Size="Medium"/>
                             
                         </odc:RibbonGroup>
