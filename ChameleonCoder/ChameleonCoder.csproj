@@ -209,6 +209,7 @@
     <Compile Include="ViewModel\EditPageModel.cs" />
     <Compile Include="ViewModel\FileManagementPageModel.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
+    <Compile Include="ViewModel\NewResourceDialogModel.cs" />
     <Compile Include="ViewModel\PluginInstallerModel.cs" />
     <Compile Include="ViewModel\PluginPageModel.cs" />
     <Compile Include="ViewModel\ResourceListPageModel.cs" />

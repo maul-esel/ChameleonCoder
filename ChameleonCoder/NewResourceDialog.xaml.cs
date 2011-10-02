@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
 using ChameleonCoder.Plugins;
@@ -17,33 +16,17 @@ namespace ChameleonCoder
 
         internal NewResourceDialog(IResource parent)
         {
-            #region templates
-            var templates = new List<ITemplate>(PluginManager.GetTemplates());
-
-            foreach (var type in ResourceTypeManager.GetResourceTypes())
-                if (!Attribute.IsDefined(type, typeof(NoWrapperTemplateAttribute)))
-                    templates.Add(new AutoTemplate(type));
-            #endregion
-
-            #region groups
-            List<string> groups = new List<string>();
-
-            foreach (var templ in templates)
-            {
-                string group = string.IsNullOrWhiteSpace(templ.Group) ? Properties.Resources.PropertyGroup_General : templ.Group;
-                if (!groups.Contains(group))
-                    groups.Add(group);
-            }
-            #endregion
-
+            DataContext = new ViewModel.NewResourceDialogModel();
             InitializeComponent();
 
-            DataContext = new { Lang = ViewModel.MainWindowModel.Instance, groups = groups, templates = templates };
             Owner = App.Gui;
             ParentResource = parent;
         }
 
-        internal NewResourceDialog() : this(null) { }
+        internal NewResourceDialog()
+            : this(null)
+        {
+        }
 
         #endregion
 
