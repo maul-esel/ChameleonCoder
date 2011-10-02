@@ -17,7 +17,7 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         internal ResourceListPage()
         {
-            Initialize(ViewModel.MainWindowModel.Instance);
+            Initialize(ViewModel.ResourceListPageModel.Instance);
             InitializeComponent();
         }
 
