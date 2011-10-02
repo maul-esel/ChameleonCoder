@@ -154,19 +154,6 @@ namespace ChameleonCoder
         }
 
         #region Tabs
-        private void TabClosed(object sender, RoutedEventArgs e)
-        {
-            DependencyObject ctrl = (e.OriginalSource as Button).Parent;
-
-            for (int i = 0; i < 4; i++)
-                ctrl = VisualTreeHelper.GetParent(ctrl);
-
-            TabContext item = (ctrl as TabItem).DataContext as TabContext;
-            ChameleonCoderCommands.SaveResource.Execute(null, item.Content as Page);
-
-            MVVM.Instance.Tabs.Remove(item);
-        }
-
         [Obsolete("to be moved to model", false)]
         private void TabChanged(object sender, EventArgs e)
         {

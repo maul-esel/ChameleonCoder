@@ -71,6 +71,13 @@ namespace ChameleonCoder
                                 typeof(ChameleonCoderCommands));
 
         /// <summary>
+        /// the command for closing a tab
+        /// </summary>
+        public static readonly RoutedCommand CloseTab
+            = new RoutedCommand("CloseTab",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
         /// the command for executing a service plugin
         /// </summary>
         public static readonly RoutedCommand ExecuteService

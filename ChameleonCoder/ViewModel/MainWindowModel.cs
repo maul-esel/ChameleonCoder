@@ -29,6 +29,8 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenNewTab,
                 OpenNewTabCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseTab,
+                CloseTabCommandExecuted));
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.ExecuteService,
                 ExecuteServiceCommandExecuted));
@@ -138,6 +140,20 @@ namespace ChameleonCoder.ViewModel
         {
             e.Handled = true;
             OpenNewTab();
+        }
+
+        /// <summary>
+        /// implements the logic for the ChameleonCoderCommands.CloseTab command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">data related to the command execution</param>
+        private void CloseTabCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var item = e.Parameter as TabContext;
+            if (item != null)
+                CloseTab(item);
         }
 
         /// <summary>
@@ -493,6 +509,12 @@ namespace ChameleonCoder.ViewModel
             var context = new TabContext(CCTabPage.Home, new WelcomePage());
             Tabs.Add(context);
             ActiveTab = context;
+        }
+
+        private void CloseTab(TabContext item)
+        {
+            ChameleonCoderCommands.SaveResource.Execute(null, item.Content as System.Windows.IInputElement);
+            Tabs.Remove(item);
         }
 
         #endregion

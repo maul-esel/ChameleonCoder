@@ -89,7 +89,9 @@
                             <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center" Margin="2"/>
                             
                             <Button Template="{StaticResource CloseButton}" HorizontalAlignment="Right"
-                                    Click="TabClosed" VerticalAlignment="Center"/>
+                                    VerticalAlignment="Center"
+                                    Command="{x:Static cc:ChameleonCoderCommands.CloseTab}"
+                                    CommandParameter="{TemplateBinding Property=DataContext}"/>
                             
                         </StackPanel>
                         
