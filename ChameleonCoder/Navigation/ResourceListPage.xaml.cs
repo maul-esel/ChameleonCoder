@@ -16,8 +16,8 @@ namespace ChameleonCoder.Navigation
         /// creates a new instance of this page
         /// </summary>
         internal ResourceListPage()
-            : base(ViewModel.MainWindowModel.Instance)
         {
+            Initialize(ViewModel.MainWindowModel.Instance);
             InitializeComponent();
         }
 

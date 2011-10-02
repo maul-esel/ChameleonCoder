@@ -12,8 +12,8 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         /// <param name="resource">the resource to edit</param>
         internal EditPage(IEditable resource)
-            : base(new ViewModel.EditPageModel(resource))
         {
+            Initialize(new ViewModel.EditPageModel(resource));
             InitializeComponent();
         }
 

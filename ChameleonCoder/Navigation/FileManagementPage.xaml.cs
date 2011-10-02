@@ -20,8 +20,8 @@ namespace ChameleonCoder.Navigation
     internal sealed partial class FileManagementPage : CCPageBase
     {
         internal FileManagementPage(DataFile file)
-            : base(new ViewModel.FileManagementPageModel(file))
         {
+            Initialize(new ViewModel.FileManagementPageModel(file));
             InitializeComponent();
         }
     }

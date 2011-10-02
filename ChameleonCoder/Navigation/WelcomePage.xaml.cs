@@ -9,8 +9,8 @@
         /// creates a new instance of this page
         /// </summary>
         internal WelcomePage()
-            : base(ViewModel.WelcomePageModel.Instance)
         {
+            Initialize(ViewModel.WelcomePageModel.Instance);
             InitializeComponent();
         }
     }

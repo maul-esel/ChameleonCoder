@@ -17,8 +17,8 @@ namespace ChameleonCoder.Navigation
         /// creates a new instance of the page
         /// </summary>
         public PluginPage()
-            : base(ViewModel.PluginPageModel.Instance)
         {
+            Initialize(ViewModel.PluginPageModel.Instance);
             InitializeComponent();            
         }
 

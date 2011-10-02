@@ -16,8 +16,8 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         /// <param name="resource">the resource to display</param>
         internal ResourceViewPage(IResource resource)
-            : base(new ViewModel.ResourceViewPageModel(resource))
         {
+            Initialize(new ViewModel.ResourceViewPageModel(resource));
             ResourceManager.Open(Resource = resource);
             InitializeComponent();            
         }
