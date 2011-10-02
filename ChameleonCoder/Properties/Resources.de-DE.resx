@@ -123,9 +123,6 @@
   <data name="Action_Add" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
-  <data name="Action_Apply" xml:space="preserve">
-    <value>Anwenden</value>
-  </data>
   <data name="Action_Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
@@ -177,35 +174,20 @@
   <data name="Edit_ZoomOut" xml:space="preserve">
     <value>Verkleinern</value>
   </data>
-  <data name="Error_Package" xml:space="preserve">
-    <value>Beim Packen der Ressourcen ist folgender Fehler aufgetreten:</value>
-  </data>
   <data name="Ext_CCR" xml:space="preserve">
     <value>CC Ressourcen-Datei</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Hilfe</value>
   </data>
-  <data name="Info_Alias" xml:space="preserve">
-    <value>XML-Alias:</value>
-  </data>
-  <data name="Info_Assembly" xml:space="preserve">
-    <value>Plugin-Name (Assembly):</value>
-  </data>
   <data name="Info_Author" xml:space="preserve">
     <value>Autor:</value>
-  </data>
-  <data name="Info_Class" xml:space="preserve">
-    <value>Klasse:</value>
   </data>
   <data name="Info_CompilationPath" xml:space="preserve">
     <value>kompilierter Pfad:</value>
   </data>
   <data name="Info_Description" xml:space="preserve">
     <value>Beschreibung:</value>
-  </data>
-  <data name="Info_File" xml:space="preserve">
-    <value>Plugin-Datei:</value>
   </data>
   <data name="Info_FSPath" xml:space="preserve">
     <value>Pfad:</value>
@@ -227,9 +209,6 @@
   </data>
   <data name="Info_Special" xml:space="preserve">
     <value>Zusatzinformation:</value>
-  </data>
-  <data name="Info_Visual" xml:space="preserve">
-    <value>Symbol &amp; Farbe:</value>
   </data>
   <data name="Item_Home" xml:space="preserve">
     <value>Startseite</value>
@@ -321,12 +300,6 @@
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
     <value>CC - lösche Ressourcen...</value>
-  </data>
-  <data name="Status_Pack" xml:space="preserve">
-    <value>CC - packe Ressourcen...</value>
-  </data>
-  <data name="TypeSelector_Select" xml:space="preserve">
-    <value>Diesen Typ auswählen</value>
   </data>
   <data name="View_AddChild" xml:space="preserve">
     <value>Untergeordnete Ressource hinzufügen</value>

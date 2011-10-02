@@ -388,7 +388,7 @@ namespace ChameleonCoder.ViewModel
                     new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
                     new BreadcrumbContext[3]
                         {
-                        new BreadcrumbContext(Item_List,
+                        new BreadcrumbContext(Res.Item_List,
                             new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
                             ResourceManager.GetChildren(),
                             CCTabPage.ResourceList),
@@ -396,7 +396,7 @@ namespace ChameleonCoder.ViewModel
                             new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
                             null,
                             CCTabPage.Settings),
-                        new BreadcrumbContext(Item_Plugins,
+                        new BreadcrumbContext(Res.Item_Plugins,
                             new BitmapImage(new Uri("pack://application:,,,/Images/plugins.png")),
                             null,
                             CCTabPage.Plugins)
@@ -449,7 +449,7 @@ namespace ChameleonCoder.ViewModel
                     BreadcrumbPath = string.Format("{1}{0}{2}",
                         BreadcrumbSeparator,
                         BreadcrumbRoot.Name,
-                        Item_Plugins);
+                        Res.Item_Plugins);
                     break;
 
                 case CCTabPage.Settings:
@@ -471,7 +471,7 @@ namespace ChameleonCoder.ViewModel
                     BreadcrumbPath = string.Format("{1}{0}{2}",
                         BreadcrumbSeparator,
                         BreadcrumbRoot.Name,
-                        Item_List);
+                        Res.Item_List);
                     break;
 
                 case CCTabPage.ResourceView:
@@ -482,7 +482,7 @@ namespace ChameleonCoder.ViewModel
                     BreadcrumbPath = string.Format("{1}{0}{2}{0}{3}",
                         BreadcrumbSeparator,
                         BreadcrumbRoot.Name,
-                        Item_List,
+                        Res.Item_List,
                         ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
                     break;
 
@@ -494,7 +494,7 @@ namespace ChameleonCoder.ViewModel
                     BreadcrumbPath = string.Format("{1}{0}{2}{0}{3}",
                         BreadcrumbSeparator,
                         BreadcrumbRoot.Name,
-                        Item_List,
+                        Res.Item_List,
                         ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
                     break;
 
@@ -577,35 +577,14 @@ namespace ChameleonCoder.ViewModel
         public static string Title { get { return "CC - ChameleonCoder alpha 2"; } }
 
         public static string Item_Home { get { return Res.Item_Home; } }
-        public static string Item_List { get { return Res.Item_List; } }
         public static string Item_Settings { get { return Res.Item_Settings; } }
-        public static string Item_Plugins { get { return Res.Item_Plugins; } }
 
-        public static string Info_Name { get { return Res.Info_Name; } }
-        public static string Info_Description { get { return Res.Info_Description; } }
-        public static string Info_GUID { get { return Res.Info_Identifier; } }
-        public static string Info_Icon { get { return Res.Info_Icon; } }
-        public static string Info_Special { get { return Res.Info_Special; } }
-        public static string Info_Author { get { return Res.Info_Author; } }
-        public static string Info_Visual { get { return Res.Info_Visual; } }
-        public static string Info_Alias { get { return Res.Info_Alias; } }
-        public static string Info_File { get { return Res.Info_File; } }
-        public static string Info_Assembly { get { return Res.Info_Assembly; } }
-        public static string Info_Class { get { return Res.Info_Class; } }
-        public static string Info_Version { get { return Res.Info_Version; } }
-
-        public static string TypeSelector_Select { get { return Res.TypeSelector_Select; } }
         public static string Selection_CreateNew { get { return Res.WP_CreateResource; } }
 
         public static string Services { get { return Res.Services; } }
 
         public static string Action_Restart { get { return Res.Action_Restart; } }
         public static string Action_Exit { get { return Res.Action_Exit; } }
-        public static string Action_Apply { get { return Res.Action_Apply; } }
-        public static string Action_Add { get { return Res.Action_Add; } }
-        public static string Action_Remove { get { return Res.Action_Remove; } }
-        public static string Action_OK { get { return Res.Action_OK; } }
-        public static string Action_Cancel { get { return Res.Action_Cancel; } }
 
         public static string Help { get { return Res.Help; } }
         public static string About { get { return Res.About; } }

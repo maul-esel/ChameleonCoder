@@ -123,9 +123,6 @@
   <data name="Action_Add" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="Action_Apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
   <data name="Action_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -177,35 +174,20 @@
   <data name="Edit_ZoomOut" xml:space="preserve">
     <value>Zoom out</value>
   </data>
-  <data name="Error_Package" xml:space="preserve">
-    <value>An error occured during packaging:</value>
-  </data>
   <data name="Ext_CCR" xml:space="preserve">
     <value>CC resource file</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="Info_Alias" xml:space="preserve">
-    <value>XML Alias:</value>
-  </data>
-  <data name="Info_Assembly" xml:space="preserve">
-    <value>Plugin Name (Assembly):</value>
-  </data>
   <data name="Info_Author" xml:space="preserve">
     <value>Author:</value>
-  </data>
-  <data name="Info_Class" xml:space="preserve">
-    <value>Class:</value>
   </data>
   <data name="Info_CompilationPath" xml:space="preserve">
     <value>compiled Path:</value>
   </data>
   <data name="Info_Description" xml:space="preserve">
     <value>Description:</value>
-  </data>
-  <data name="Info_File" xml:space="preserve">
-    <value>Plugin file:</value>
   </data>
   <data name="Info_FSPath" xml:space="preserve">
     <value>Path:</value>
@@ -227,9 +209,6 @@
   </data>
   <data name="Info_Special" xml:space="preserve">
     <value>special information:</value>
-  </data>
-  <data name="Info_Visual" xml:space="preserve">
-    <value>Icon &amp; Color:</value>
   </data>
   <data name="Item_Home" xml:space="preserve">
     <value>Home</value>
@@ -321,12 +300,6 @@
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
     <value>CC - deleting resources...</value>
-  </data>
-  <data name="Status_Pack" xml:space="preserve">
-    <value>CC - packaging resources...</value>
-  </data>
-  <data name="TypeSelector_Select" xml:space="preserve">
-    <value>Select this resource type</value>
   </data>
   <data name="View_AddChild" xml:space="preserve">
     <value>Add a child resource</value>

@@ -79,15 +79,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply.
-        /// </summary>
-        internal static string Action_Apply {
-            get {
-                return ResourceManager.GetString("Action_Apply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Action_Cancel {
@@ -306,15 +297,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured during packaging:.
-        /// </summary>
-        internal static string Error_Package {
-            get {
-                return ResourceManager.GetString("Error_Package", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CC resource file.
         /// </summary>
         internal static string Ext_CCR {
@@ -333,38 +315,11 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XML Alias:.
-        /// </summary>
-        internal static string Info_Alias {
-            get {
-                return ResourceManager.GetString("Info_Alias", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugin Name (Assembly):.
-        /// </summary>
-        internal static string Info_Assembly {
-            get {
-                return ResourceManager.GetString("Info_Assembly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Author:.
         /// </summary>
         internal static string Info_Author {
             get {
                 return ResourceManager.GetString("Info_Author", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Class:.
-        /// </summary>
-        internal static string Info_Class {
-            get {
-                return ResourceManager.GetString("Info_Class", resourceCulture);
             }
         }
         
@@ -392,15 +347,6 @@ namespace ChameleonCoder.Properties {
         internal static string Info_Description {
             get {
                 return ResourceManager.GetString("Info_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugin file:.
-        /// </summary>
-        internal static string Info_File {
-            get {
-                return ResourceManager.GetString("Info_File", resourceCulture);
             }
         }
         
@@ -473,15 +419,6 @@ namespace ChameleonCoder.Properties {
         internal static string Info_Version {
             get {
                 return ResourceManager.GetString("Info_Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Icon &amp; Color:.
-        /// </summary>
-        internal static string Info_Visual {
-            get {
-                return ResourceManager.GetString("Info_Visual", resourceCulture);
             }
         }
         
@@ -950,24 +887,6 @@ namespace ChameleonCoder.Properties {
         internal static string Status_Move {
             get {
                 return ResourceManager.GetString("Status_Move", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CC - packaging resources....
-        /// </summary>
-        internal static string Status_Pack {
-            get {
-                return ResourceManager.GetString("Status_Pack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select this resource type.
-        /// </summary>
-        internal static string TypeSelector_Select {
-            get {
-                return ResourceManager.GetString("TypeSelector_Select", resourceCulture);
             }
         }
         
