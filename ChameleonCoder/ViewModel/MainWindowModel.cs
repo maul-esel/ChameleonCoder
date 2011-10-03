@@ -381,20 +381,16 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return new BreadcrumbContext(Item_Home,
-                    new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
+                return new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
                     new BreadcrumbContext[3]
                         {
-                        new BreadcrumbContext(Res.Item_List,
-                            new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
+                        new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
                             ResourceManager.GetChildren(),
                             CCTabPage.ResourceList),
-                        new BreadcrumbContext(Item_Settings,
-                            new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
+                        new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
                             null,
                             CCTabPage.Settings),
-                        new BreadcrumbContext(Res.Item_Plugins,
-                            new BitmapImage(new Uri("pack://application:,,,/Images/plugins.png")),
+                        new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/plugins.png")),
                             null,
                             CCTabPage.Plugins)
                         },

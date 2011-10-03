@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Windows.Media;
 using ChameleonCoder.Shared;
+using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
-    internal sealed class BreadcrumbContext
+    internal sealed class BreadcrumbContext : INotifyPropertyChanged
     {
-        internal BreadcrumbContext(string name, ImageSource icon, IEnumerable children, CCTabPage pageType)
+        internal BreadcrumbContext(ImageSource icon, IEnumerable children, CCTabPage pageType)
         {
             switch (pageType)
             {
@@ -20,10 +22,29 @@ namespace ChameleonCoder
                     PageType = pageType;
                     break;
             }
-            Name = name;
             Icon = icon;
             Children = children;
+
+            Shared.InformationProvider.LanguageChanged += v => Update("Name");
         }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void Update(string property)
+        {
+            if (GetType().GetProperty(property) == null)
+                throw new InvalidOperationException("update unknown property");
+
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(property));
+            }
+        }
+
+        #endregion
 
         internal CCTabPage PageType { get; private set; }
 
@@ -31,6 +52,28 @@ namespace ChameleonCoder
 
         public ImageSource Icon { get; private set; }
 
-        public string Name { get; private set; }
+        public string Name
+        {
+            get
+            {
+                switch (PageType)
+                {
+                    case CCTabPage.Home:
+                        return Res.Item_Home;
+
+                    case CCTabPage.ResourceList:
+                        return Res.Item_List;
+
+                    case CCTabPage.Plugins:
+                        return Res.Item_Plugins;
+
+                    case CCTabPage.Settings:
+                        return Res.Item_Settings;
+
+                    default:
+                        throw new InvalidOperationException("specified page type is not valid.");
+                }
+            }
+        }
     }    
 }
