@@ -208,6 +208,9 @@
     <Compile Include="TabContext.cs" />
     <Compile Include="ViewModel\EditPageModel.cs" />
     <Compile Include="ViewModel\FileManagementPageModel.cs" />
+    <Compile Include="ViewModel\Interaction\ConfirmationEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\InputEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\MessageSeverity.cs" />
     <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\NewResourceDialogModel.cs" />

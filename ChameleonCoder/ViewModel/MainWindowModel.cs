@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Shared;
 using ChameleonCoder.Navigation; // avoid
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
@@ -350,10 +350,7 @@ namespace ChameleonCoder.ViewModel
 
         private void DeleteResource(IResource resource)
         {
-            if (System.Windows.MessageBox.Show(string.Format(Properties.Resources.Del_Confirm, resource.Name),
-                Properties.Resources.Status_DeleteResource,
-                System.Windows.MessageBoxButton.YesNo)
-                == System.Windows.MessageBoxResult.Yes)
+            if (OnConfirm(Res.Status_DeleteResource, string.Format(Res.Del_Confirm, resource.Name)) == true)            
             {
                 resource.Delete();
             }

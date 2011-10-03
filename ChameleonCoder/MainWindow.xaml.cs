@@ -18,10 +18,73 @@ namespace ChameleonCoder
     {
         internal MainWindow()
         {
+            MVVM.Instance.Report += ReportMessage;
+            MVVM.Instance.Confirm += ConfirmMessage;
+            MVVM.Instance.UserInput += GetInput;
+
             DataContext = MVVM.Instance;
             CommandBindings.AddRange(MVVM.Instance.Commands);
             InitializeComponent();
         }
+
+        #region view model interaction
+
+        /// <summary>
+        /// reports a message by the view model to the user
+        /// </summary>
+        /// <param name="sender">the view model sending the event</param>
+        /// <param name="e">additional data related to the event</param>
+        /// <remarks>This must not be moved to the model.</remarks>
+        private void ReportMessage(object sender, ViewModel.Interaction.ReportEventArgs e)
+        {
+            MessageBoxImage icon;
+            switch (e.Severity)
+            {
+                case ViewModel.Interaction.MessageSeverity.Error:
+                    icon = MessageBoxImage.Error;
+                    break;
+
+                case ViewModel.Interaction.MessageSeverity.Critical:
+                    icon = MessageBoxImage.Exclamation;
+                    break;
+
+                default:
+                case ViewModel.Interaction.MessageSeverity.Information:
+                    icon = MessageBoxImage.Information;
+                    break;
+            }
+
+            MessageBox.Show(e.Message, e.Topic, MessageBoxButton.YesNo, icon);
+        }
+
+        /// <summary>
+        /// confirms a message by the view model by letting the user decide
+        /// </summary>
+        /// <param name="sender">the view model sending the event</param>
+        /// <param name="e">additional data related to the event</param>
+        /// <remarks>This must not be moved to the model.</remarks>
+        private void ConfirmMessage(object sender, ViewModel.Interaction.ConfirmationEventArgs e)
+        {
+            e.Accepted = MessageBox.Show(e.Message,
+                                        e.Topic,
+                                        MessageBoxButton.YesNo,
+                                        MessageBoxImage.Question) == MessageBoxResult.Yes;
+        }
+
+        /// <summary>
+        /// gets user input for the view model
+        /// </summary>
+        /// <param name="sender">the view model sending the event</param>
+        /// <param name="e">additional data related to the event</param>
+        /// <remarks>This must not be moved to the model.</remarks>
+        private void GetInput(object sender, ViewModel.Interaction.UserInputEventArgs e)
+        {
+            var box = new Shared.InputBox(e.Topic, e.Message);
+            if (box.ShowDialog() == true)
+                e.Input = box.Text;
+        }
+
+        #endregion
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ChameleonCoder.Resources.Interfaces;
 using System.Windows.Input;
+using ChameleonCoder.Resources.Interfaces;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
