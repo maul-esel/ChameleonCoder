@@ -85,6 +85,13 @@ namespace ChameleonCoder
                                 typeof(ChameleonCoderCommands));
 
         /// <summary>
+        /// the command for adding metadata on a resource or DataFile
+        /// </summary>
+        public static readonly RoutedCommand AddMetadata
+            = new RoutedCommand("AddMetadata",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
         /// the command for deleting metadata on a resource or DataFile
         /// </summary>
         public static readonly RoutedCommand DeleteMetadata
