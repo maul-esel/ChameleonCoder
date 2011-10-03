@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChameleonCoder.ViewModel.Interaction
+﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class UserInputEventArgs
+    internal sealed class UserInputEventArgs : System.EventArgs
     {
         internal UserInputEventArgs(string topic, string message)
         {
