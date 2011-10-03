@@ -39,7 +39,7 @@ namespace ChameleonCoder.ViewModel
             set
             {
                 Settings.ChameleonCoderSettings.Default.CodeFont = (family = value).Source;
-                Update("CodeFont");
+                OnPropertyChanged("CodeFont");
             }
         }
 
@@ -51,7 +51,7 @@ namespace ChameleonCoder.ViewModel
             set
             {
                 Settings.ChameleonCoderSettings.Default.CodeFontSize = value;
-                Update("CodeFontSize");
+                OnPropertyChanged("CodeFontSize");
             }
         }
 
@@ -75,7 +75,7 @@ namespace ChameleonCoder.ViewModel
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem)
                                 + breadcrumb.SeparatorString + Item_Settings;
 
-                Update("UILanguage");
+                OnPropertyChanged("UILanguage");
             }
         }
 
@@ -97,7 +97,7 @@ namespace ChameleonCoder.ViewModel
                 catch (System.ComponentModel.Win32Exception)
                 {
                 }
-                Update("ExtInstalled");
+                OnPropertyChanged("ExtInstalled");
             }
         }
 

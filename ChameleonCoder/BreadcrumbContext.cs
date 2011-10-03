@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Media;
 using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
-    internal sealed class BreadcrumbContext : INotifyPropertyChanged
+    internal sealed class BreadcrumbContext : SecureNotifyPropertyChanged
     {
         internal BreadcrumbContext(ImageSource icon, IEnumerable children, CCTabPage pageType)
         {
@@ -25,26 +24,8 @@ namespace ChameleonCoder
             Icon = icon;
             Children = children;
 
-            Shared.InformationProvider.LanguageChanged += v => Update("Name");
+            Shared.InformationProvider.LanguageChanged += v => OnPropertyChanged("Name");
         }
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void Update(string property)
-        {
-            if (GetType().GetProperty(property) == null)
-                throw new InvalidOperationException("update unknown property");
-
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(property));
-            }
-        }
-
-        #endregion
 
         internal CCTabPage PageType { get; private set; }
 

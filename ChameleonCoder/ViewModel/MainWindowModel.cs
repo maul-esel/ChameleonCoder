@@ -44,6 +44,12 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteResource,
                 DeleteResourceCommandExecuted));
 
+            PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == "ActiveTab")
+                        TabChanged(ActiveTab);
+                };
+
             OpenNewTab();
         }
 
@@ -66,13 +72,6 @@ namespace ChameleonCoder.ViewModel
         private static readonly MainWindowModel modelInstance = new MainWindowModel();
 
         #endregion
-
-        internal override void Update(string property)
-        {
-            base.Update(property);
-            if (property == "ActiveTab")
-                TabChanged(ActiveTab);
-        }
 
         #region commanding
 
@@ -367,7 +366,7 @@ namespace ChameleonCoder.ViewModel
             set
             {
                 breadcrumbPath = value;
-                Update("BreadcrumbPath");
+                OnPropertyChanged("BreadcrumbPath");
             }
         }
 
@@ -409,7 +408,7 @@ namespace ChameleonCoder.ViewModel
             set
             {
                 selectedTab = value;
-                Update("ActiveTab");
+                OnPropertyChanged("ActiveTab");
             }
         }
 
@@ -514,7 +513,7 @@ namespace ChameleonCoder.ViewModel
             private set
             {
                 ribbonContextIndex = value;
-                Update("RibbonContextTabIndex");
+                OnPropertyChanged("RibbonContextTabIndex");
             }
         }
 
@@ -526,7 +525,7 @@ namespace ChameleonCoder.ViewModel
             set
             {
                 ribbonSelectedIndex = value;
-                Update("RibbonSelectedTabIndex");
+                OnPropertyChanged("RibbonSelectedTabIndex");
             }
         }
 

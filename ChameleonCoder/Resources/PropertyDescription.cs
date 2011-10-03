@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// encapsulates a resource's property for showing it to the resource view
     /// </summary>
-    internal sealed class PropertyDescription : INotifyPropertyChanged
+    internal sealed class PropertyDescription : SecureNotifyPropertyChanged
     {
         /// <summary>
         /// creates a new instance of the PropertyDescription class
@@ -23,9 +22,9 @@ namespace ChameleonCoder.Resources
             IsReadOnly = isReadOnly || info.GetSetMethod() == null;
 
             this.info = info;
-            this.instance = instance;            
+            this.instance = instance;
 
-            (instance as INotifyPropertyChanged).PropertyChanged += OnPropertyChanged;
+            (instance as System.ComponentModel.INotifyPropertyChanged).PropertyChanged += OnPropertyChanged;
         }
 
         private object instance;
@@ -58,22 +57,16 @@ namespace ChameleonCoder.Resources
         }
 
         /// <summary>
-        /// raised when a property (the 'Value' property) changes
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
         /// reacts to a change of the source property
         /// and raises the PropertyChanged event on 'Value'
         /// </summary>
         /// <param name="sender">the object raising the event</param>
         /// <param name="args">additional data related to the event</param>
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             if (args.PropertyName == info.Name)
             {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Value"));
+                OnPropertyChanged("Value");
             }
         }
     }

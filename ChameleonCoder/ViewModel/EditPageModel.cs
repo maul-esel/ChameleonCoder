@@ -32,7 +32,7 @@ namespace ChameleonCoder.ViewModel
                 {
                     if (e.PropertyName == "CodeFont")
                     {
-                        Update("CodeFont");
+                        OnPropertyChanged("CodeFont");
                     }
                 };
 
@@ -118,7 +118,7 @@ namespace ChameleonCoder.ViewModel
             private set
             {
                 fontSize = value;
-                Update("CodeFontSize");
+                OnPropertyChanged("CodeFontSize");
             }
         }
 

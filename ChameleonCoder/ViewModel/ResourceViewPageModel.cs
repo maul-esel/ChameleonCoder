@@ -59,7 +59,7 @@ namespace ChameleonCoder.ViewModel
                 if (!string.IsNullOrWhiteSpace(key))
                 {
                     Resource.DeleteMetadata(key);
-                    Update("Metadata");
+                    OnPropertyChanged("Metadata");
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace ChameleonCoder.ViewModel
             }
 
             Resource.SetMetadata(name, null);
-            Update("Metadata");
+            OnPropertyChanged("Metadata");
         }
     }
 }

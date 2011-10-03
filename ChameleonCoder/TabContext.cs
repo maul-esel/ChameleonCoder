@@ -6,7 +6,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
-    internal sealed class TabContext : INotifyPropertyChanged
+    internal sealed class TabContext : SecureNotifyPropertyChanged
     {
         #region constructors
 
@@ -27,17 +27,6 @@ namespace ChameleonCoder
         #endregion
 
         #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string property)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(property));
-            }
-        }
 
         private void OnLanguageChanged(object value)
         {

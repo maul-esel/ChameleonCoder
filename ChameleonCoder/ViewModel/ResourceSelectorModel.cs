@@ -14,7 +14,7 @@ namespace ChameleonCoder.ViewModel
             internal set
             {
                 resourceInstance = value;
-                Update("Resource");
+                OnPropertyChanged("Resource");
             }
         }
 
