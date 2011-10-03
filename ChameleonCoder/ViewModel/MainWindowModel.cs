@@ -44,7 +44,7 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteResource,
                 DeleteResourceCommandExecuted));
 
-            GoHome();
+            OpenNewTab();
         }
 
         #region singleton
@@ -265,19 +265,13 @@ namespace ChameleonCoder.ViewModel
         private void GoHome()
         {
             RibbonContextTabIndex = -1;
-            if (ActiveTab != null)
-            {
-                var context = ActiveTab;
-                context.Resource = null;
-                context.Type = CCTabPage.Home;
-                context.Content = new WelcomePage();
 
-                TabChanged(context);
-            }
-            else
-            {
-                Tabs.Add(new TabContext(CCTabPage.Home, new WelcomePage()));
-            }
+            var context = ActiveTab;
+            context.Resource = null;
+            context.Type = CCTabPage.Home;
+            context.Content = new WelcomePage();
+
+            TabChanged(context);
         }
 
         private void OpenResourceList()

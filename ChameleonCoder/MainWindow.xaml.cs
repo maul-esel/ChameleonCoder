@@ -186,7 +186,7 @@ namespace ChameleonCoder
         {
             if (MVVM.Instance.Tabs.Count == 0)
             {
-                System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
+                ChameleonCoderCommands.OpenNewTab.Execute(null, this);
             }
         }
         #endregion
