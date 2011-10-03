@@ -85,7 +85,7 @@ namespace ChameleonCoder.ViewModel
 
             set
             {
-                var param = (ExtInstalled) ? "--uninstall_ext" : "--install_ext";
+                var param = (value) ? "--install_ext" : "--uninstall_ext";
                 var info = new ProcessStartInfo(App.AppPath, param) { Verb = "runAs" };
                 try
                 {
