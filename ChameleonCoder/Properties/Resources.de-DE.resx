@@ -439,4 +439,10 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="SR_WrapAround" xml:space="preserve">
     <value>Am Ende von vorn beginnen</value>
   </data>
+  <data name="Error_MetaDuplicateName" xml:space="preserve">
+    <value>Der eingegebene Name wird bereits für Metadaten verwendet.</value>
+  </data>
+  <data name="Error_MetaInvalidName" xml:space="preserve">
+    <value>Sie haben keinen gültigen Namen für die Metadaten eingegeben.</value>
+  </data>
 </root>

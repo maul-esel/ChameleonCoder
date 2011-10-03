@@ -54,7 +54,7 @@ namespace ChameleonCoder
                     break;
             }
 
-            MessageBox.Show(e.Message, e.Topic, MessageBoxButton.YesNo, icon);
+            MessageBox.Show(e.Message, e.Topic, MessageBoxButton.OK, icon);
         }
 
         /// <summary>
@@ -197,13 +197,6 @@ namespace ChameleonCoder
             ChameleonCoderCommands.OpenResourceView.Execute(resource, this);
         }
         #endregion
-
-        private void MetadataAdd(object sender, EventArgs e)
-        {
-            var input = new Shared.InputBox(Properties.Resources.Status_CreateMeta, Properties.Resources.Meta_EnterName);
-            if (input.ShowDialog() == true && !string.IsNullOrWhiteSpace(input.Text))
-                (MVVM.Instance.ActiveTab.Content as ResourceViewPage).AddMetadata(input.Text);
-        }
 
         private void SortingChanged(object sender, EventArgs e)
         {

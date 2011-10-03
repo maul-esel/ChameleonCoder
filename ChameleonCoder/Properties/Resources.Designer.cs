@@ -287,6 +287,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The name you entered is already used by metadata..
+        /// </summary>
+        internal static string Error_MetaDuplicateName {
+            get {
+                return ResourceManager.GetString("Error_MetaDuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You did not enter a valid name for the metadata..
+        /// </summary>
+        internal static string Error_MetaInvalidName {
+            get {
+                return ResourceManager.GetString("Error_MetaInvalidName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The resource &quot;{0}&quot; could not be moved to resource &quot;{1}&quot;:
         ///resources cannot be moved to descendants..
         /// </summary>

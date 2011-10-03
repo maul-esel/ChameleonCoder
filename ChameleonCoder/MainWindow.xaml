@@ -378,7 +378,8 @@
                         <odc:RibbonGroup>
                             
                             <odc:RibbonButton Content="{Binding Path=Meta_Add}" SmallImage="Images\SmallIcon.png"
-                                              Click="MetadataAdd"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddMetadata}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Meta_Delete}" SmallImage="Images\SmallIcon.png"

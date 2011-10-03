@@ -438,4 +438,10 @@ resources cannot be moved to descendants.</value>
   <data name="SR_WrapAround" xml:space="preserve">
     <value>wrap around</value>
   </data>
+  <data name="Error_MetaDuplicateName" xml:space="preserve">
+    <value>The name you entered is already used by metadata.</value>
+  </data>
+  <data name="Error_MetaInvalidName" xml:space="preserve">
+    <value>You did not enter a valid name for the metadata.</value>
+  </data>
 </root>

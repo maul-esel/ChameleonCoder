@@ -22,12 +22,6 @@ namespace ChameleonCoder.Navigation
             InitializeComponent();            
         }
 
-        internal void AddMetadata(string name)
-        {
-            Resource.SetMetadata(name, null);
-            Update();
-        }
-
         private void SaveMetadata(object sender, EventArgs e)
         {
         	var box = sender as TextBox;

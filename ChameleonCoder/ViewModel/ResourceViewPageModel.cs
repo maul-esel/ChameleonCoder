@@ -16,6 +16,8 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
                 DeleteMetadataCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
+                AddMetadataCommandExecuted));
         }
 
         #region resource & properties
@@ -38,6 +40,15 @@ namespace ChameleonCoder.ViewModel
         public static string MetadataValue { get { return Res.VP_MetadataValue; } }
         #endregion
 
+        #region commanding
+
+        private void AddMetadataCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            AddMetadata();
+        }
+
         private void DeleteMetadataCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
@@ -51,6 +62,27 @@ namespace ChameleonCoder.ViewModel
                     Update("Metadata");
                 }
             }
+        }
+
+        #endregion
+
+        private void AddMetadata()
+        {
+            var name = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                OnReport(Res.Status_CreateMeta, Res.Error_MetaInvalidName, Interaction.MessageSeverity.Error);
+                return;
+            }
+            else if (Resource.GetMetadata(name) != null)
+            {
+                OnReport(Res.Status_CreateMeta, Res.Error_MetaDuplicateName, Interaction.MessageSeverity.Error);
+                return;
+            }
+
+            Resource.SetMetadata(name, null);
+            Update("Metadata");
         }
     }
 }
