@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 
 namespace ChameleonCoder
 {
@@ -8,8 +9,12 @@ namespace ChameleonCoder
 
         protected void OnPropertyChanged(string property)
         {
-            if (GetType().GetProperty(property) == null)
+            if (GetType().GetProperty(property,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)
+                == null)
+            {
                 throw new System.InvalidOperationException("update unknown property: " + property);
+            }
 
             var handler = PropertyChanged;
             if (handler != null)
