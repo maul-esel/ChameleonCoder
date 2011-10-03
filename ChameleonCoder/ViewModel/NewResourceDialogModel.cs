@@ -38,13 +38,13 @@ namespace ChameleonCoder.ViewModel
 
         #region localization
 
-        public string Info_Author { get { return Res.Info_Author; } }
+        public static string Info_Author { get { return Res.Info_Author; } }
 
-        public string Info_Version { get { return Res.Info_Version; } }
+        public static string Info_Version { get { return Res.Info_Version; } }
 
-        public string Action_Cancel { get { return Res.Action_Cancel; } }
+        public static string Action_Cancel { get { return Res.Action_Cancel; } }
 
-        public string Action_OK { get { return Res.Action_OK; } }
+        public static string Action_OK { get { return Res.Action_OK; } }
 
         #endregion
     }

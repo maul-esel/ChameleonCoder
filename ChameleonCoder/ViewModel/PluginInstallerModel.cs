@@ -20,11 +20,11 @@ namespace ChameleonCoder.ViewModel
 
         #region localization
 
-        public string Cancel { get { return Res.Action_Cancel; } }
+        public static string Cancel { get { return Res.Action_Cancel; } }
 
-        public string InstallSelected { get { return Res.PI_InstallSelected; } }
+        public static string InstallSelected { get { return Res.PI_InstallSelected; } }
 
-        public string InstallAll { get { return Res.PI_InstallAll; } }
+        public static string InstallAll { get { return Res.PI_InstallAll; } }
 
         #endregion
     }

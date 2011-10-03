@@ -251,7 +251,7 @@ namespace ChameleonCoder.ViewModel
 
         #endregion
 
-        private void Close(bool restart)
+        private static void Close(bool restart)
         {
             if (restart)
                 System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
@@ -353,7 +353,7 @@ namespace ChameleonCoder.ViewModel
 
         #region breadcrumb
 
-        public string BreadcrumbSeparator
+        public static string BreadcrumbSeparator
         {
             get { return "/"; }
         }
@@ -535,12 +535,12 @@ namespace ChameleonCoder.ViewModel
 
         #region services
 
-        public bool EnableServices
+        public static bool EnableServices
         {
             get { return Plugins.PluginManager.ServiceCount > 0; }
         }
 
-        public IEnumerable<Plugins.IService> ServiceList
+        public static IEnumerable<Plugins.IService> ServiceList
         {
             get
             {
@@ -552,7 +552,7 @@ namespace ChameleonCoder.ViewModel
 
         #region resource types
 
-        public IEnumerable<Type> LoadedResourceTypes
+        public static IEnumerable<Type> LoadedResourceTypes
         {
             get { return ResourceTypeManager.GetResourceTypes(); }
         }

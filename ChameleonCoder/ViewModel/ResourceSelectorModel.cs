@@ -22,25 +22,25 @@ namespace ChameleonCoder.ViewModel
 
         #region localization
 
-        public string Title { get { return MainWindowModel.Title; } }
+        public static string Title { get { return MainWindowModel.Title; } }
 
-        public string Info_Name { get { return Res.Info_Name; } }
+        public static string Info_Name { get { return Res.Info_Name; } }
 
-        public string Info_GUID { get { return Res.Info_Identifier; } }
+        public static string Info_GUID { get { return Res.Info_Identifier; } }
 
-        public string Info_Icon { get { return Res.Info_Icon; } }
+        public static string Info_Icon { get { return Res.Info_Icon; } }
 
-        public string Info_Description { get { return Res.Info_Description; } }
+        public static string Info_Description { get { return Res.Info_Description; } }
 
-        public string Info_Special { get { return Res.Info_Special; } }
+        public static string Info_Special { get { return Res.Info_Special; } }
 
-        public string Action_Add { get { return Res.Action_Add; } }
+        public static string Action_Add { get { return Res.Action_Add; } }
 
-        public string Action_Remove { get { return Res.Action_Remove; } }
+        public static string Action_Remove { get { return Res.Action_Remove; } }
 
-        public string Action_Cancel { get { return Res.Action_Cancel; } }
+        public static string Action_Cancel { get { return Res.Action_Cancel; } }
 
-        public string Action_OK { get { return Res.Action_OK; } }
+        public static string Action_OK { get { return Res.Action_OK; } }
 
         #endregion
     }
