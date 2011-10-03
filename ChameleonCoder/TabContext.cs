@@ -46,7 +46,31 @@ namespace ChameleonCoder
             get
             {
                 var name = (Resource != null) ? Resource.Name : null;
-                return string.Format(TitleTemplate, name);
+
+                switch (pageType)
+                {
+                    case CCTabPage.Home:
+                        return Res.Item_Home;
+
+                    case CCTabPage.Plugins:
+                        return Res.Item_Plugins;
+
+                    case CCTabPage.ResourceEdit:
+                        return string.Format(Res.Item_ResourceEdit, name);
+
+                    case CCTabPage.ResourceList:
+                        return Res.Item_List;
+
+                    case CCTabPage.ResourceView:
+                        return string.Format(Res.Item_ResourceView, name);
+
+                    case CCTabPage.Settings:
+                        return Res.Item_Settings;
+
+                    default:
+                    case CCTabPage.None:
+                        throw new InvalidOperationException("page type is not valid");
+                }
             }
         }
 
@@ -101,43 +125,10 @@ namespace ChameleonCoder
             }
         }
 
-
         private IResource displayedResource;
 
         private CCTabPage pageType;
 
         private object contentObject;
-
-
-        private string TitleTemplate
-        {
-            get
-            {
-                switch (pageType)
-                {
-                    case CCTabPage.Home:
-                        return Res.Item_Home;
-
-                    case CCTabPage.Plugins:
-                        return Res.Item_Plugins;
-
-                    case CCTabPage.ResourceEdit:
-                        return Res.Item_ResourceEdit;
-
-                    case CCTabPage.ResourceList:
-                        return Res.Item_List;
-
-                    case CCTabPage.ResourceView:
-                        return Res.Item_ResourceView;
-
-                    case CCTabPage.Settings:
-                        return Res.Item_Settings;
-
-                    default:
-                    case CCTabPage.None:
-                        throw new InvalidOperationException("page type is not valid");
-                }
-            }
-        }
     }
 }
