@@ -99,30 +99,6 @@ namespace ChameleonCoder
                 (MVVM.Instance.ActiveTab.Content as ResourceListPage).GroupingChanged((sender as RibbonToggleButton).IsChecked == true);
         }
 
-        [Obsolete("to be moved to model", false)]
-        private void GoHome()
-        {
-            System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
-        }
-
-        [Obsolete("to be moved to model", false)]
-        internal void GoList()
-        {
-            ChameleonCoderCommands.OpenResourceListPage.Execute(null, this);
-        }
-
-        [Obsolete("to be moved to model", false)]
-        internal void GoPlugins()
-        {
-            ChameleonCoderCommands.OpenPluginPage.Execute(null, this);
-        }
-
-        [Obsolete("to be moved to model", false)]
-        internal void GoSettings()
-        {
-            ChameleonCoderCommands.OpenSettingsPage.Execute(null, this);
-        }        
-
         #region resources
 
         private void ResourceCopy(object sender, EventArgs e)
@@ -178,13 +154,13 @@ namespace ChameleonCoder
                 if (context != null)
                 {
                     if (context.PageType == Shared.CCTabPage.Home)
-                        GoHome();
+                        System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
                     else if (context.PageType == Shared.CCTabPage.ResourceList)
-                        GoList();
+                        ChameleonCoderCommands.OpenResourceListPage.Execute(null, this);
                     else if (context.PageType == Shared.CCTabPage.Settings)
-                        GoSettings();
+                        ChameleonCoderCommands.OpenSettingsPage.Execute(null, this);
                     else if (context.PageType == Shared.CCTabPage.Plugins)
-                        GoPlugins();
+                        ChameleonCoderCommands.OpenPluginPage.Execute(null, this);
                 }
                 else
                     ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));
@@ -210,7 +186,7 @@ namespace ChameleonCoder
         {
             if (MVVM.Instance.Tabs.Count == 0)
             {
-                GoHome();
+                System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
             }
         }
         #endregion
