@@ -12,8 +12,8 @@
         <group name="TheNewChildGroup" id="{9a40009c-f699-48e3-8a1f-1d4e06bdd9f2}" description="a new child test group" notes="" />
       </group>
     </library>
-    <library name="Toolbar" id="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" notes="" description="toolbar control functions" author="majkinetor" license="unlicensed" version="0.8" path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk" language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" />
-    <project name="KAPROG" id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" notes="" description="[deprecated]" language="{926d62ed-678d-48b3-b13d-f92293f638d4}" priority="0" />
+    <library name="Toolbar" id="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" notes="" description="toolbar control functions" author="majkinetor" license="unlicensed" version="0.8" path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk" language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" />    
+    <project name="KAPROG" id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" notes="" description="[deprecated]" language="{926d62ed-678d-48b3-b13d-f92293f638d4}" priority="0"/>
     <project name="AHK.ScriptsMan" id="{41a40866-f247-428b-a6de-ab5e70d21da9}" notes="this is the parent project of ChameleonCoder. It is deprecated now." description="[deprecated] IDE" language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}" priority="2">
       <task name="Code review" id="{398aca26-d030-4b19-9a45-16edef1d70ca}" notes="code should be reviewed and shortened, especially Gui.ahk.&#xD;&#xA;Maybe I should use new class syntax... ?" description="replace old code with new one" enddate="20110912" />
       <group name="UI" id="{0c49bd9e-939c-4afc-9611-a9dc644eacea}" notes="this is the most unfinished part&#xD;&#xA;It requires Scintilla class by HotkeyIt --&gt; download" description="contains the gui code">
@@ -32,43 +32,27 @@
     <!--this section will contain information about resources, such as "last modified", "created at", ...
 		NEW: this will also contain metadata and RichContent
 		The resources are identified by their GUID.-->
-    <resource-data id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
+	  <resource-data id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
       <metadata name="test">testvalue</metadata>
-      <last-modified>20111001172033</last-modified>
-    </resource-data>
+	  </resource-data>
     <resource-data id="{6ef3c403-9197-47cd-9515-fcf00898c566}">
       <metadata name="Einsatz">Config-Explorer</metadata>
     </resource-data>
     <resource-data id="{41a40866-f247-428b-a6de-ab5e70d21da9}">
       <metadata name="Aktuell">Neusortierung</metadata>
       <metadata name="MainElement">Treeview</metadata>
-      <reference id="{f92886f1-8831-4199-8918-c0017c62b492}" target="{d315d152-7e7f-4028-a49a-b5c95c66762c}" name="ScriptsMan.dll" />
-      <last-modified>20111001172033</last-modified>
+      <reference id="{f92886f1-8831-4199-8918-c0017c62b492}" target="{d315d152-7e7f-4028-a49a-b5c95c66762c}" name="ScriptsMan.dll"/>
     </resource-data>
     <resource-data id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}">
       <metadata name="Todo">Cleanup!</metadata>
     </resource-data>
     <resource-data id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}">
-      <reference id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" target="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" name="Formulator.exe" />
-      <reference id="{7421c5b8-6375-454b-b971-c6e3bd8a6bd6}" target="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" name="InterProcess library" />
-      <reference id="{2caca642-c1f9-4885-b77d-42d35574cabb}" target="{f5053dd6-a7ab-4dee-844b-24542767ecae}" name="TextFile library" />
-      <last-modified>20111001172033</last-modified>
+      <reference id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" target="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" name="Formulator.exe"/>
+      <reference id="{7421c5b8-6375-454b-b971-c6e3bd8a6bd6}" target="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" name="InterProcess library"/>
+      <reference id="{2caca642-c1f9-4885-b77d-42d35574cabb}" target="{f5053dd6-a7ab-4dee-844b-24542767ecae}" name="TextFile library"/>
     </resource-data>
     <resource-data id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}">
-      <reference id="{e0558fe3-a8c2-42c1-b837-eebc911ce0fb}" target="{41a40866-f247-428b-a6de-ab5e70d21da9}" name="AHK IDE" />
-      <last-modified>20111001172033</last-modified>
-    </resource-data>
-    <resource-data id="{2dbbf243-eead-47c8-826a-34713faf8ac9}">
-      <last-modified>20111001172033</last-modified>
-    </resource-data>
-    <resource-data id="{0c49bd9e-939c-4afc-9611-a9dc644eacea}">
-      <last-modified>20111001172033</last-modified>
-    </resource-data>
-    <resource-data id="{fcf88c90-997a-4498-958c-695dbbd20f24}">
-      <last-modified>20111001172033</last-modified>
-    </resource-data>
-    <resource-data id="{789804aa-07f2-4472-bb65-d97009b6cfb2}">
-      <last-modified>20111001172033</last-modified>
+      <reference id="{e0558fe3-a8c2-42c1-b837-eebc911ce0fb}" target="{41a40866-f247-428b-a6de-ab5e70d21da9}" name="AHK IDE"/>
     </resource-data>
   </data>
   <settings>
