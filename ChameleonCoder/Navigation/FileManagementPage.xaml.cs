@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace ChameleonCoder.Navigation
 {
     /// <summary>
-    /// Interaction logic for FileManagementPage.xaml
+    /// Shared logic for FileManagementPage.xaml
     /// </summary>
     internal sealed partial class FileManagementPage : CCPageBase
     {

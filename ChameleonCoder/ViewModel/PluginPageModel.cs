@@ -14,8 +14,8 @@ namespace ChameleonCoder.ViewModel
         {
             plugins.CollectionChanged += (s, e) => Update("PluginList");
 
-            Interaction.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
-            Interaction.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
+            Shared.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
+            Shared.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
         }
 
         public static PluginPageModel Instance

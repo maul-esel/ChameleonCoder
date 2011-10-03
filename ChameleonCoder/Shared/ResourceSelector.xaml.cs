@@ -4,7 +4,7 @@ using System.Windows;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
-namespace ChameleonCoder.Interaction
+namespace ChameleonCoder.Shared
 {
     /// <summary>
     /// a dialog to let a user select a resource

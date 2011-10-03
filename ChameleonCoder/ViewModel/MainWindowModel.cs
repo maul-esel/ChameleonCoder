@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Interaction;
+using ChameleonCoder.Shared;
 using ChameleonCoder.Navigation; // avoid
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
@@ -499,7 +499,7 @@ namespace ChameleonCoder.ViewModel
                     break;
 
                 default:
-                case Interaction.CCTabPage.None:
+                case Shared.CCTabPage.None:
                     throw new InvalidOperationException("page type is not known");
             }
         }

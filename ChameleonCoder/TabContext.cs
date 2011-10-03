@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using ChameleonCoder.Interaction;
+using ChameleonCoder.Shared;
 using ChameleonCoder.Resources.Interfaces;
 using Res = ChameleonCoder.Properties.Resources;
 

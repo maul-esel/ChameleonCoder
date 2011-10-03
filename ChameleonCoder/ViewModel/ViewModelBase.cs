@@ -11,8 +11,10 @@ namespace ChameleonCoder.ViewModel
     {
         protected ViewModelBase()
         {
-            Interaction.InformationProvider.LanguageChanged += (v) => UpdateAll();
+            Shared.InformationProvider.LanguageChanged += (v) => UpdateAll();
         }
+
+        #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,6 +42,10 @@ namespace ChameleonCoder.ViewModel
                 handler(this, new PropertyChangedEventArgs(property));
         }
 
+        #endregion
+
+        #region commanding
+
         /// <summary>
         /// contains the collection of command bindings handled by this model
         /// </summary>
@@ -49,5 +55,7 @@ namespace ChameleonCoder.ViewModel
         }
 
         private readonly CommandBindingCollection commandList = new CommandBindingCollection();
+
+        #endregion
     }
 }

@@ -31,7 +31,7 @@ namespace ChameleonCoder.Navigation
         {
             var plugin = list.SelectedItem as IPlugin;
             Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
-            Interaction.InformationProvider.OnPluginUninstalled(plugin);
+            Shared.InformationProvider.OnPluginUninstalled(plugin);
         }
 
         /// <summary>

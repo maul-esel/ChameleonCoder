@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using IF = ChameleonCoder.Interaction.InformationProvider;
+using IF = ChameleonCoder.Shared.InformationProvider;
 
 namespace ChameleonCoder.Plugins
 {

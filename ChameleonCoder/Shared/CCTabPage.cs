@@ -1,4 +1,4 @@
-﻿namespace ChameleonCoder.Interaction
+﻿namespace ChameleonCoder.Shared
 {
     /// <summary>
     /// represents the type of the currently opened tab page

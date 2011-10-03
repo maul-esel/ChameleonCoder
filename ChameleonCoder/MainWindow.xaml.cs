@@ -64,7 +64,7 @@ namespace ChameleonCoder
 
         private void ResourceCopy(object sender, EventArgs e)
         {
-            Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
+            Shared.ResourceSelector selector = new Shared.ResourceSelector(1);
             if (selector.ShowDialog() == true
                 && selector.ResourceList.Count > 0
                 && selector.ResourceList[0] != ResourceManager.ActiveItem)
@@ -75,7 +75,7 @@ namespace ChameleonCoder
 
         private void ResourceMove(object sender, EventArgs e)
         {
-            Interaction.ResourceSelector selector = new Interaction.ResourceSelector(1);
+            Shared.ResourceSelector selector = new Shared.ResourceSelector(1);
             if (selector.ShowDialog() == true // user did not cancel
                 && selector.ResourceList.Count > 0 // user selected 1 resource
                 && selector.ResourceList[0] != null // resource is not null
@@ -114,13 +114,13 @@ namespace ChameleonCoder
 
                 if (context != null)
                 {
-                    if (context.PageType == Interaction.CCTabPage.Home)
+                    if (context.PageType == Shared.CCTabPage.Home)
                         GoHome();
-                    else if (context.PageType == Interaction.CCTabPage.ResourceList)
+                    else if (context.PageType == Shared.CCTabPage.ResourceList)
                         GoList();
-                    else if (context.PageType == Interaction.CCTabPage.Settings)
+                    else if (context.PageType == Shared.CCTabPage.Settings)
                         GoSettings();
-                    else if (context.PageType == Interaction.CCTabPage.Plugins)
+                    else if (context.PageType == Shared.CCTabPage.Plugins)
                         GoPlugins();
                 }
                 else
@@ -137,7 +137,7 @@ namespace ChameleonCoder
 
         private void MetadataAdd(object sender, EventArgs e)
         {
-            var input = new Interaction.InputBox(Properties.Resources.Status_CreateMeta, Properties.Resources.Meta_EnterName);
+            var input = new Shared.InputBox(Properties.Resources.Status_CreateMeta, Properties.Resources.Meta_EnterName);
             if (input.ShowDialog() == true && !string.IsNullOrWhiteSpace(input.Text))
                 (MVVM.Instance.ActiveTab.Content as ResourceViewPage).AddMetadata(input.Text);
         }

@@ -4,7 +4,7 @@
                   xmlns:cc="clr-namespace:ChameleonCoder"
                   xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
                   xmlns:odc="clr-namespace:Odyssey.Controls;assembly=Odyssey"
-                  xmlns:inter="clr-namespace:ChameleonCoder.Interaction"
+                  xmlns:inter="clr-namespace:ChameleonCoder.Shared"
                   Title="{Binding Path=Title}" Icon="Images\logo.ico"
                   IsGlassEnabled="True" WindowState="Maximized">
 

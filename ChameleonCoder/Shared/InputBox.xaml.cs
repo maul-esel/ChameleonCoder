@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace ChameleonCoder.Interaction
+namespace ChameleonCoder.Shared
 {
     /// <summary>
     /// A dialog to let the user enter some content
@@ -67,7 +67,7 @@ namespace ChameleonCoder.Interaction
 
         string _text;
 
-        ChameleonCoder.Interaction.InvalidInputAdorner errorDisplay;
+        ChameleonCoder.Shared.InvalidInputAdorner errorDisplay;
 
         /// <summary>
         /// reacts to the TextBox' TextChanged event, validating the content

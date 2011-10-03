@@ -116,7 +116,7 @@ namespace ChameleonCoder.Resources.Management
             if (ActiveItem != null)
                 Close();
 
-            Interaction.InformationProvider.OnResourceLoad(resource, new EventArgs());
+            Shared.InformationProvider.OnResourceLoad(resource, new EventArgs());
 
             ActiveItem = resource;
 
@@ -132,7 +132,7 @@ namespace ChameleonCoder.Resources.Management
                         PluginManager.LoadModule(langRes.Language);
                 }
             }
-            Interaction.InformationProvider.OnResourceLoaded(resource, new EventArgs());
+            Shared.InformationProvider.OnResourceLoaded(resource, new EventArgs());
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ChameleonCoder.Resources.Management
         {
             if (ActiveItem != null)
             {
-                Interaction.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
+                Shared.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
 
                 ILanguageResource langRes = ActiveItem as ILanguageResource;
                 if (langRes != null)
@@ -154,7 +154,7 @@ namespace ChameleonCoder.Resources.Management
                 var item = ActiveItem;
                 ActiveItem = null;
 
-                Interaction.InformationProvider.OnResourceUnloaded(item, new EventArgs());
+                Shared.InformationProvider.OnResourceUnloaded(item, new EventArgs());
             }
             else
                 throw new InvalidOperationException("no resource can be closed.");

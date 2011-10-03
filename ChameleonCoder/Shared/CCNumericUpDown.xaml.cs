@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace ChameleonCoder.Interaction
+namespace ChameleonCoder.Shared
 {
     /// <summary>
     /// a WPF numeric updown control to be used by CC and plugins

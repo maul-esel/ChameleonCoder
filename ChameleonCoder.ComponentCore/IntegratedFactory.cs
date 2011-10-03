@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.ComponentCore.Resources;
-using ChameleonCoder.Interaction;
+using ChameleonCoder.Shared;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;

@@ -5,7 +5,7 @@ using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
-namespace ChameleonCoder.Interaction
+namespace ChameleonCoder.Shared
 {
     /// <summary>
     /// a user control that displays a caller-defined set of resources
@@ -142,9 +142,9 @@ namespace ChameleonCoder.Interaction
         }
 
         /// <summary>
-        /// a wrapper property for the TreeView'S SelectedItem property
+        /// a wrapper property for the TreeView's SelectedItem property
         /// </summary>
-        [System.ComponentModel.BindableAttribute(true, System.ComponentModel.BindingDirection.OneWay)]
+        [System.ComponentModel.BindableAttribute(true)]
         public IComponent SelectedItem
         {
             get

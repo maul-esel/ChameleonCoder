@@ -6,7 +6,7 @@ using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using Odyssey.Controls;
 
-namespace ChameleonCoder.Interaction
+namespace ChameleonCoder.Shared
 {
     /// <summary>
     /// a delegate for resource events

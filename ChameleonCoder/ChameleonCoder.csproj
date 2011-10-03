@@ -123,12 +123,12 @@
     <Compile Include="Settings\CCSettingsProvider.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="IComponent.cs" />
-    <Compile Include="Interaction\CCNumericUpDown.xaml.cs">
+    <Compile Include="Shared\CCNumericUpDown.xaml.cs">
       <DependentUpon>CCNumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interaction\CCTabPage.cs" />
+    <Compile Include="Shared\CCTabPage.cs" />
     <Compile Include="Converter\CollectionCombineConverter.cs" />
-    <Compile Include="Interaction\InputBox.xaml.cs">
+    <Compile Include="Shared\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\IRichContentFactory.cs" />
@@ -146,14 +146,14 @@
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="Converter\ResourcePropertyConverter.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
-    <Compile Include="Interaction\CCResourceCatalog.xaml.cs">
+    <Compile Include="Shared\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
-    <Compile Include="Interaction\InformationProvider.cs" />
-    <Compile Include="Interaction\InvalidInputAdorner.cs" />
-    <Compile Include="Interaction\ResourceSelector.xaml.cs">
+    <Compile Include="Shared\InformationProvider.cs" />
+    <Compile Include="Shared\InvalidInputAdorner.cs" />
+    <Compile Include="Shared\ResourceSelector.xaml.cs">
       <DependentUpon>ResourceSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\CodeGeneratorEventArgs.cs" />
@@ -208,6 +208,7 @@
     <Compile Include="TabContext.cs" />
     <Compile Include="ViewModel\EditPageModel.cs" />
     <Compile Include="ViewModel\FileManagementPageModel.cs" />
+    <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\NewResourceDialogModel.cs" />
     <Compile Include="ViewModel\PluginInstallerModel.cs" />
@@ -219,11 +220,11 @@
     <Compile Include="ViewModel\SettingsPageModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WelcomePageModel.cs" />
-    <Page Include="Interaction\CCNumericUpDown.xaml">
+    <Page Include="Shared\CCNumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Interaction\CCResourceCatalog.xaml">
+    <Page Include="Shared\CCResourceCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,11 +232,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Interaction\InputBox.xaml">
+    <Page Include="Shared\InputBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interaction\ResourceSelector.xaml">
+    <Page Include="Shared\ResourceSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

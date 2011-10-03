@@ -67,7 +67,7 @@ namespace ChameleonCoder.ViewModel
                         Settings.ChameleonCoderSettings.Default.Language = value
                         );
 
-                Interaction.InformationProvider.OnLanguageChanged();
+                Shared.InformationProvider.OnLanguageChanged();
 
                 // HACK: this should be done in main window or its model, not here
                 var breadcrumb = App.Gui.breadcrumb;

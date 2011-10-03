@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Windows.Media;
-using ChameleonCoder.Interaction;
+using ChameleonCoder.Shared;
 
 namespace ChameleonCoder
 {
