@@ -14,22 +14,43 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
+        <!--all files (& dirs ?)-->
         <TreeView ItemsSource="{Binding Path=AllFiles}"
                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <!--all files-->
+            <TreeView.ItemTemplate>
+                <DataTemplate>
+                    <!--use name instead?-->
+                    <TextBlock Text="{Binding Path=FilePath}"/>
+                </DataTemplate>
+            </TreeView.ItemTemplate>            
         </TreeView>
-        
+
+        <!--references-->
         <ListView Grid.Column="1" Grid.Row="1">
-            <!--references-->
+            
         </ListView>
-        
-        <ListView ItemsSource="{Binding Path=Metadata}" Grid.Column="2" Grid.Row="1">
-            <!--metadata-->
+
+        <!--metadata-->
+        <ListView SelectedItem="{Binding Path=ActiveMetadata}" ItemsSource="{Binding Path=Metadata}"
+                  Grid.Column="2" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{Binding Path=MetadataKey}" DisplayMemberBinding="{Binding Path=Key}"/>
+                    <GridViewColumn Header="{Binding Path=MetadataValue}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=Value, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
         </ListView>
-        
+
+        <!--changelog-->
         <ListView Grid.Column="2" Grid.Row="0">
-            <!--changelog-->
+            
         </ListView>
         
     </Grid>
