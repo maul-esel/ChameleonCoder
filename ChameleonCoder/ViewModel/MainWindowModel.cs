@@ -465,7 +465,7 @@ namespace ChameleonCoder.ViewModel
 
                     ResourceManager.Open(newValue.Resource);
 
-                    BreadcrumbPath = string.Format("{1}{0}{2}{0}{3}",
+                    BreadcrumbPath = string.Format("{1}{0}{2}{3}",
                         BreadcrumbSeparator,
                         BreadcrumbRoot.Name,
                         Res.Item_List,
