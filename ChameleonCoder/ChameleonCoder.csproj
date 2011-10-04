@@ -213,6 +213,7 @@
     <Compile Include="ViewModel\Interaction\InputEventArgs.cs" />
     <Compile Include="ViewModel\Interaction\MessageSeverity.cs" />
     <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\ViewChangedEventArgs.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\NewResourceDialogModel.cs" />
     <Compile Include="ViewModel\PluginInstallerModel.cs" />

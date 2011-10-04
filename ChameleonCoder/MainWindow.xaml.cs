@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
+using ChameleonCoder.Shared;
 using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
@@ -21,6 +21,7 @@ namespace ChameleonCoder
             MVVM.Instance.Report += ReportMessage;
             MVVM.Instance.Confirm += ConfirmMessage;
             MVVM.Instance.UserInput += GetInput;
+            MVVM.Instance.ViewChanged += AdjustView;
 
             DataContext = MVVM.Instance;
             CommandBindings.AddRange(MVVM.Instance.Commands);
@@ -84,12 +85,58 @@ namespace ChameleonCoder
                 e.Input = box.Text;
         }
 
+        /// <summary>
+        /// reacts to a change on the internal view (i.e. the loaded page / tab) of the model
+        /// </summary>
+        /// <param name="sender">the view model sending the event</param>
+        /// <param name="e">additional data related to the event</param>
+        /// <remarks>This must not be moved to the model.</remarks>
+        private void AdjustView(object sender, ViewModel.Interaction.ViewChangedEventArgs e)
+        {
+            var page = e.NewView.Content;
+
+            ribbon.ContextualTabSet = null;
+            ribbon.SelectedItem = ribbon.Tabs[0];
+
+            switch (e.NewView.Type)
+            {
+                case CCTabPage.Home:
+                case CCTabPage.Plugins:
+                case CCTabPage.Settings:
+
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+                    break;
+
+                case CCTabPage.ResourceList:
+
+                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[0];
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+                    break;
+
+                case CCTabPage.ResourceView:
+
+                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[2];
+                    break;
+
+                case CCTabPage.ResourceEdit:
+
+                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[1];
+                    break;
+
+                default:
+                case CCTabPage.None:
+                    throw new InvalidOperationException("page type is not known");
+            }
+        }
+
         #endregion
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
             // TODO: replace by command (see next line)
-            //System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as Page);
+            //System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as IInputElement);
             CollectionViewSource.GetDefaultView((MVVM.Instance.ActiveTab.Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
         }
 

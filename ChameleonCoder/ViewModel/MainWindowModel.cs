@@ -47,7 +47,7 @@ namespace ChameleonCoder.ViewModel
             PropertyChanged += (s, e) =>
                 {
                     if (e.PropertyName == "ActiveTab")
-                        TabChanged(ActiveTab);
+                        OnViewChanged();
                 };
 
             OpenNewTab();
@@ -263,50 +263,55 @@ namespace ChameleonCoder.ViewModel
 
         private void GoHome()
         {
-            RibbonContextTabIndex = -1;
-
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Home;
             context.Content = new WelcomePage();
 
-            TabChanged(context);
+            OnViewChanged();
+            BreadcrumbPath = BreadcrumbRoot.Name;
         }
 
         private void OpenResourceList()
         {
-            RibbonContextTabIndex = -1;
-
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.ResourceList;
             context.Content = new ResourceListPage();
 
-            TabChanged(context);
+            OnViewChanged();
+            BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Res.Item_List);
         }
 
         private void OpenPluginPage()
         {
-            RibbonContextTabIndex = -1;
-
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Plugins;
             context.Content = new PluginPage();
 
-            TabChanged(context);
+            OnViewChanged();
+            BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Res.Item_Plugins);
         }
 
         private void OpenSettingsPage()
         {
-            RibbonContextTabIndex = -1;
-
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Settings;
             context.Content = new SettingsPage();
 
-            TabChanged(context);
+            OnViewChanged();
+            BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Item_Settings);
         }
 
         #endregion
@@ -315,30 +320,32 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceView(IResource resource)
         {
-            RibbonContextTabIndex = -1;
-
-            ResourceManager.Open(resource);
-
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceView;
             context.Content = new ResourceViewPage(resource);
 
-            TabChanged(context);
+            OnViewChanged();
+            BreadcrumbPath = string.Format("{1}{0}{2}{3}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Res.Item_List,
+                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
         }
 
         private void OpenResourceEdit(IEditable resource)
         {
-            RibbonContextTabIndex = -1;
-
-            ResourceManager.Open(resource);
-
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceEdit;
             context.Content = new EditPage(resource);
 
-            TabChanged(context);
+            OnViewChanged();
+            BreadcrumbPath = string.Format("{1}{0}{2}{3}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Res.Item_List,
+                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
         }
 
         private void DeleteResource(IResource resource)
@@ -414,82 +421,6 @@ namespace ChameleonCoder.ViewModel
 
         private TabContext selectedTab;
 
-        private void TabChanged(TabContext newValue)
-        {
-            var page = newValue.Content;
-            RibbonContextTabIndex = -1;
-            
-            switch (newValue.Type)
-            {
-                case CCTabPage.Home:
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
-
-                    BreadcrumbPath = BreadcrumbRoot.Name;
-                    break;
-
-                case CCTabPage.Plugins:
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
-
-                    BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_Plugins);
-                    break;
-
-                case CCTabPage.Settings:
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
-
-                    BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Item_Settings);
-                    break;
-
-                case CCTabPage.ResourceList:
-                    RibbonContextTabIndex = 0;
-
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
-
-                    BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_List);
-                    break;
-
-                case CCTabPage.ResourceView:
-                    RibbonContextTabIndex = 2;
-
-                    ResourceManager.Open(newValue.Resource);
-
-                    BreadcrumbPath = string.Format("{1}{0}{2}{3}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_List,
-                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
-                    break;
-
-                case CCTabPage.ResourceEdit:
-                    RibbonContextTabIndex = 1;
-
-                    ResourceManager.Open(newValue.Resource);
-
-                    BreadcrumbPath = string.Format("{1}{0}{2}{0}{3}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_List,
-                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
-                    break;
-
-                default:
-                case Shared.CCTabPage.None:
-                    throw new InvalidOperationException("page type is not known");
-            }
-        }
-
         private void OpenNewTab()
         {
             var context = new TabContext(CCTabPage.Home, new WelcomePage());
@@ -502,34 +433,6 @@ namespace ChameleonCoder.ViewModel
             ChameleonCoderCommands.SaveResource.Execute(null, item.Content as System.Windows.IInputElement);
             Tabs.Remove(item);
         }
-
-        #endregion
-
-        #region ribbon
-
-        public int RibbonContextTabIndex
-        {
-            get { return ribbonContextIndex; }
-            private set
-            {
-                ribbonContextIndex = value;
-                OnPropertyChanged("RibbonContextTabIndex");
-            }
-        }
-
-        private int ribbonContextIndex = -1;
-
-        public int RibbonSelectedTabIndex
-        {
-            get { return ribbonSelectedIndex; }
-            set
-            {
-                ribbonSelectedIndex = value;
-                OnPropertyChanged("RibbonSelectedTabIndex");
-            }
-        }
-
-        private int ribbonSelectedIndex = 0;
 
         #endregion
 
@@ -624,6 +527,21 @@ namespace ChameleonCoder.ViewModel
 
         public static string View_Edit { get { return Res.View_Edit; } }
         #endregion
+
+        #endregion
+
+        #region events
+
+        internal event EventHandler<Interaction.ViewChangedEventArgs> ViewChanged;
+
+        private void OnViewChanged()
+        {
+            var handler = ViewChanged;
+            if (handler != null)
+            {
+                handler(this, new Interaction.ViewChangedEventArgs(ActiveTab));
+            }
+        }
 
         #endregion
     }
