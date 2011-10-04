@@ -30,12 +30,13 @@ namespace ChameleonCoder
                     throw new FileFormatException(new Uri(path, UriKind.Relative), "Invalid format: not a well-formed XML file.", e);
                 }
 
-                loadedFilePaths.Add(FilePath = path);
+                loadedFilePaths.Add(path);
                 LoadedFiles.Add(this);
                 Directories.Add(Path.GetDirectoryName(path));
 
                 LoadReferences();
             }
+            this.path = path;
         }
 
         /// <summary>
@@ -71,7 +72,9 @@ namespace ChameleonCoder
         /// <summary>
         /// returns the path to the file represented by the instance
         /// </summary>
-        internal string FilePath { get; private set; }
+        public string FilePath { get { return path; } }
+
+        private readonly string path;
 
         /// <summary>
         /// returns the XmlDocument
@@ -91,33 +94,7 @@ namespace ChameleonCoder
         internal void Save()
         {
             Document.Save(FilePath);
-        }
-
-        /// <summary>
-        /// tries to find the absolute path for a given relative path
-        /// </summary>
-        /// <param name="relativePath">the (relative) path</param>
-        /// <returns>the absolute path, or null if not found</returns>
-        public static string MakeAbsolutePath(string relativePath)
-        {
-            if (!string.IsNullOrWhiteSpace(relativePath))
-            {
-                if (File.Exists(relativePath) || Directory.Exists(relativePath))
-                {
-                    if (Path.IsPathRooted(relativePath))
-                        return relativePath;
-                    return Path.GetFullPath(relativePath);
-                }
-
-                foreach (var dir in Directories)
-                {
-                    string fullpath = Path.Combine(dir, relativePath);
-                    if (File.Exists(fullpath) || Directory.Exists(fullpath))
-                        return fullpath;
-                }
-            }
-            return null;
-        }
+        }        
 
         #region metadata
         /// <summary>
@@ -260,6 +237,32 @@ namespace ChameleonCoder
             }
 
             return elements;
+        }
+
+        /// <summary>
+        /// tries to find the absolute path for a given relative path
+        /// </summary>
+        /// <param name="relativePath">the (relative) path</param>
+        /// <returns>the absolute path, or null if not found</returns>
+        public static string MakeAbsolutePath(string relativePath)
+        {
+            if (!string.IsNullOrWhiteSpace(relativePath))
+            {
+                if (File.Exists(relativePath) || Directory.Exists(relativePath))
+                {
+                    if (Path.IsPathRooted(relativePath))
+                        return relativePath;
+                    return Path.GetFullPath(relativePath);
+                }
+
+                foreach (var dir in Directories)
+                {
+                    string fullpath = Path.Combine(dir, relativePath);
+                    if (File.Exists(fullpath) || Directory.Exists(fullpath))
+                        return fullpath;
+                }
+            }
+            return null;
         }
 
         /// <summary>
