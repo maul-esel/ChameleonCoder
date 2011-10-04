@@ -411,7 +411,7 @@
                            Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" 
 
                            SeparatorString="{Binding Path=BreadcrumbSeparator, Mode=OneTime}"
-                           Root="{Binding Path=BreadcrumbRoot, Mode=OneTime}"
+                           Root="{Binding Path=BreadcrumbRoot}"
                            Path="{Binding Path=BreadcrumbPath}"
 
                            ImageBinding="{Binding Path=Icon}"
