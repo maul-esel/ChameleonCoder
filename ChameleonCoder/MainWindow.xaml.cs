@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using ChameleonCoder.Shared;
 using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Shared;
 using Odyssey.Controls;
 using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
 
@@ -139,15 +138,21 @@ namespace ChameleonCoder
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            // TODO: replace by command (see next line)
-            //System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as IInputElement);
-            CollectionViewSource.GetDefaultView((MVVM.Instance.ActiveTab.Content as ResourceListPage).ResourceList.ItemsSource).Refresh();
+            System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as IInputElement);
         }
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
             if (IsInitialized)
-                (MVVM.Instance.ActiveTab.Content as ResourceListPage).GroupingChanged((sender as RibbonToggleButton).IsChecked == true);
+                ChameleonCoderCommands.SetGroupingMode.Execute((sender as RibbonToggleButton).IsChecked == true,
+                    MVVM.Instance.ActiveTab.Content as IInputElement);
+        }
+
+        private void SortingChanged(object sender, EventArgs e)
+        {
+            if (IsInitialized)
+                ChameleonCoderCommands.SetSortingMode.Execute((sender as RibbonToggleButton).IsChecked == true,
+                    MVVM.Instance.ActiveTab.Content as IInputElement);
         }
 
         #region resources
@@ -224,13 +229,7 @@ namespace ChameleonCoder
             ChameleonCoderCommands.OpenResourceView.Execute(resource, this);
         }
         #endregion
-
-        private void SortingChanged(object sender, EventArgs e)
-        {
-            if (IsInitialized)
-                (MVVM.Instance.ActiveTab.Content as ResourceListPage).SortingChanged((sender as RibbonToggleButton).IsChecked == true);
-        }
-
+        
         #region Tabs
         [Obsolete("to be moved to model", false)]
         private void TabChanged(object sender, EventArgs e)

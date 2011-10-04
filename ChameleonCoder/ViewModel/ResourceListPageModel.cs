@@ -20,7 +20,7 @@ namespace ChameleonCoder.ViewModel
         }
 
         private static readonly ResourceListPageModel modelInstance = new ResourceListPageModel();
-
+        
         public static string Info_Name { get { return Res.Info_Name; } }
 
         public static string Info_Description { get { return Res.Info_Description; } }

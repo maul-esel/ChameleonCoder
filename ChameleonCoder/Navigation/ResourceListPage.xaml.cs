@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Data;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
@@ -17,6 +18,11 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         internal ResourceListPage()
         {
+            CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh,
+                RefreshList));
+            CommandBindings.Add(new CommandBinding(ChameleonCoderCommands.SetSortingMode,
+                SortingChanged));
+
             Initialize(ViewModel.ResourceListPageModel.Instance);
             InitializeComponent();
         }
@@ -61,20 +67,37 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         /// <param name="sender">the control raising the event</param>
         /// <param name="e">additional data</param>
-        private void OpenResource(object sender, EventArgs e)
+        private void OpenResource(object sender, RoutedEventArgs e)
         {
             ChameleonCoderCommands.OpenResourceView.Execute(ResourceList.SelectedItem, this);
         }
 
         /// <summary>
-        /// updates the grouping status
+        /// changes the sorting mode based on the command parameter passed
         /// </summary>
-        /// <param name="enabled">true to enable grouping, otherwise false</param>
-        internal void GroupingChanged(bool enabled)
+        /// <param name="sender">the object raising the event</param>
+        /// <param name="e">additional data related to the event</param>
+        private void SortingChanged(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (IsInitialized)
+            {
+                if ((bool)e.Parameter)
+                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription("Name", System.ComponentModel.ListSortDirection.Ascending));
+                else // otherwise: remove sort descriptions
+                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).SortDescriptions.Clear();
+            }
+        }
+
+        /// <summary>
+        /// changes the grouping mode based on the command parameter passed
+        /// </summary>
+        /// <param name="sender">the object raising the event</param>
+        /// <param name="e">additional data related to the event</param>
+        private void GroupingChanged(object sender, ExecutedRoutedEventArgs e)
         {
             if (IsInitialized) // if the page is initialized
             {
-                if (enabled) // if enabled: add group description (group by CustomGroupConverter)
+                if ((bool)e.Parameter) // if enabled: add group description (group by CustomGroupConverter)
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription(null, new Converter.CustomGroupConverter(), StringComparison.CurrentCulture));
                 else // othwerwise: remove group descriptions
                     CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).GroupDescriptions.Clear();
@@ -82,18 +105,13 @@ namespace ChameleonCoder.Navigation
         }
 
         /// <summary>
-        /// updates sorting status
+        /// refreshes the list containing all resources
         /// </summary>
-        /// <param name="enabled">true to enable sorting, otherwise false</param>
-        internal void SortingChanged(bool enabled)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RefreshList(object sender, EventArgs e)
         {
-            if (IsInitialized) // if the page is initialized
-            {
-                if (enabled) // if enabled: add SortDescription (sort by name, ascending)
-                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription("Name", System.ComponentModel.ListSortDirection.Ascending));
-                else // otherwise: remove sort descriptions
-                    CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).SortDescriptions.Clear();
-            }
+            CollectionViewSource.GetDefaultView(ResourceList.ItemsSource).Refresh();
         }
     }
 }

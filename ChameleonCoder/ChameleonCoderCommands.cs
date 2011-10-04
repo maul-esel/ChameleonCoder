@@ -97,5 +97,19 @@ namespace ChameleonCoder
         public static readonly RoutedCommand DeleteMetadata
             = new RoutedCommand("DeleteMetadata",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for setting the sorting mode in a list box / -view
+        /// </summary>
+        public static readonly RoutedCommand SetSortingMode
+            = new RoutedCommand("SetSortingMode",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for setting the grouping mode in a list box / -view
+        /// </summary>
+        public static readonly RoutedCommand SetGroupingMode
+            = new RoutedCommand("SetGroupingMode",
+                                typeof(ChameleonCoderCommands));
     }
 }
