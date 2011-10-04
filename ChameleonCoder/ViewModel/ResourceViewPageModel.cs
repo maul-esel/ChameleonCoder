@@ -35,9 +35,9 @@ namespace ChameleonCoder.ViewModel
         #endregion
 
         #region localization
-        public static string MetadataKey { get { return Res.VP_MetadataKey; } }
+        public static string MetadataKey { get { return Res.MetadataKey; } }
 
-        public static string MetadataValue { get { return Res.VP_MetadataValue; } }
+        public static string MetadataValue { get { return Res.MetadataValue; } }
         #endregion
 
         #region commanding

@@ -549,6 +549,24 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to metadata key.
+        /// </summary>
+        internal static string MetadataKey {
+            get {
+                return ResourceManager.GetString("MetadataKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to value.
+        /// </summary>
+        internal static string MetadataValue {
+            get {
+                return ResourceManager.GetString("MetadataValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} module (version {1}) by {2}.
         /// </summary>
         internal static string ModuleInfo {
@@ -950,24 +968,6 @@ namespace ChameleonCoder.Properties {
         internal static string View_Move {
             get {
                 return ResourceManager.GetString("View_Move", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to metadata key.
-        /// </summary>
-        internal static string VP_MetadataKey {
-            get {
-                return ResourceManager.GetString("VP_MetadataKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to value.
-        /// </summary>
-        internal static string VP_MetadataValue {
-            get {
-                return ResourceManager.GetString("VP_MetadataValue", resourceCulture);
             }
         }
         
