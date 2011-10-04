@@ -96,7 +96,7 @@ namespace ChameleonCoder
             var page = e.NewView.Content;
 
             ribbon.ContextualTabSet = null;
-            ribbon.SelectedItem = ribbon.Tabs[0];
+            ribbon.SelectedTabItem = ribbon.Tabs[0];
 
             switch (e.NewView.Type)
             {
@@ -111,6 +111,8 @@ namespace ChameleonCoder
                 case CCTabPage.ResourceList:
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[0];
+                    ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
+
                     if (ResourceManager.ActiveItem != null)
                         ResourceManager.Close();
                     break;
@@ -118,11 +120,13 @@ namespace ChameleonCoder
                 case CCTabPage.ResourceView:
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[2];
+                    ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
                     break;
 
                 case CCTabPage.ResourceEdit:
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[1];
+                    ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
                     break;
 
                 default:
