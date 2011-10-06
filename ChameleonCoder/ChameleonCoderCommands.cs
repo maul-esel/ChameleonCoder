@@ -111,5 +111,19 @@ namespace ChameleonCoder
         public static readonly RoutedCommand SetGroupingMode
             = new RoutedCommand("SetGroupingMode",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for uninstalling a plugin
+        /// </summary>
+        public static readonly RoutedCommand UninstallPlugin
+            = new RoutedCommand("UninstallPlugin",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for installing plugins
+        /// </summary>
+        public static readonly RoutedCommand InstallPlugin
+            = new RoutedCommand("InstallPlugin",
+                                typeof(ChameleonCoderCommands));
     }
 }
