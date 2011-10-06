@@ -5,9 +5,9 @@
     /// </summary>
     internal sealed partial class FileManagementPage : CCPageBase
     {
-        internal FileManagementPage(DataFile file)
+        internal FileManagementPage(ViewModel.FileManagementPageModel model)
         {
-            Initialize(new ViewModel.FileManagementPageModel(file));
+            Initialize(model);
             InitializeComponent();
         }
     }

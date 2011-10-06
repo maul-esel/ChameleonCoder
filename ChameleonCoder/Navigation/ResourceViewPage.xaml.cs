@@ -15,13 +15,14 @@ namespace ChameleonCoder.Navigation
         /// creates a new instance of this page, given a resource to display
         /// </summary>
         /// <param name="resource">the resource to display</param>
-        internal ResourceViewPage(IResource resource)
+        internal ResourceViewPage(ViewModel.ResourceViewPageModel model)
         {
-            Initialize(new ViewModel.ResourceViewPageModel(resource));
-            ResourceManager.Open(Resource = resource);
+            Initialize(model);
+            ResourceManager.Open(Resource = model.Resource);
             InitializeComponent();            
         }
 
+        [Obsolete("to be moved to model", false)]
         private void SaveMetadata(object sender, EventArgs e)
         {
         	var box = sender as TextBox;
@@ -40,6 +41,7 @@ namespace ChameleonCoder.Navigation
         /// <summary>
         /// the resource which is displayed
         /// </summary>
+        [Obsolete("only acceptable in model", false)]
         public IResource Resource { get; private set; }
     }
 }
