@@ -8,7 +8,7 @@
         /// <summary>
         /// creates a new instance of the page, given an IEditable resource
         /// </summary>
-        /// <param name="resource">the resource to edit</param>
+        /// <param name="model">the view model to use</param>
         internal EditPage(ViewModel.EditPageModel model)
         {
             Initialize(model);
