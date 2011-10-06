@@ -8,7 +8,7 @@ namespace ChameleonCoder.ViewModel
     {
         internal FileManagementPageModel(DataFile file)
         {
-            this.file = file;
+            this.dataFile = file;
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
                 DeleteMetadataCommandExecuted));
@@ -28,11 +28,16 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return file.GetMetadata();
+                return dataFile.GetMetadata();
             }
         }
 
-        private readonly DataFile file;
+        public DataFile File
+        {
+            get { return dataFile; }
+        }
+
+        private readonly DataFile dataFile;
 
         public object ActiveMetadata
         {
@@ -66,7 +71,7 @@ namespace ChameleonCoder.ViewModel
                 var key = ((KeyValuePair<string, string>)ActiveMetadata).Key;
                 if (!string.IsNullOrWhiteSpace(key))
                 {
-                    file.DeleteMetadata(key);
+                    dataFile.DeleteMetadata(key);
                     OnPropertyChanged("Metadata");
                 }
             }
@@ -83,13 +88,13 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreateMeta, Res.Error_MetaInvalidName, Interaction.MessageSeverity.Error);
                 return;
             }
-            else if (file.GetMetadata(name) != null)
+            else if (dataFile.GetMetadata(name) != null)
             {
                 OnReport(Res.Status_CreateMeta, Res.Error_MetaDuplicateName, Interaction.MessageSeverity.Error);
                 return;
             }
 
-            file.SetMetadata(name, null);
+            dataFile.SetMetadata(name, null);
             OnPropertyChanged("Metadata");
         }
     }
