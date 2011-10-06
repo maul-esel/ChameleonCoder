@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Navigation; // avoid
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Shared;
@@ -49,8 +48,6 @@ namespace ChameleonCoder.ViewModel
                     if (e.PropertyName == "ActiveTab")
                         OnViewChanged();
                 };
-
-            OpenNewTab();
         }
 
         #region singleton
@@ -266,7 +263,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Home;
-            context.Content = new WelcomePage();
+            context.Content = OnRepresentationNeeded(WelcomePageModel.Instance);
 
             OnViewChanged();
             BreadcrumbPath = BreadcrumbRoot.Name;
@@ -277,7 +274,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.ResourceList;
-            context.Content = new ResourceListPage();
+            context.Content = OnRepresentationNeeded(ResourceListPageModel.Instance);
 
             OnViewChanged();
             BreadcrumbPath = string.Format("{1}{0}{2}",
@@ -291,7 +288,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Plugins;
-            context.Content = new PluginPage();
+            context.Content = OnRepresentationNeeded(PluginPageModel.Instance);
 
             OnViewChanged();
             BreadcrumbPath = string.Format("{1}{0}{2}",
@@ -305,7 +302,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Settings;
-            context.Content = new SettingsPage();
+            context.Content = OnRepresentationNeeded(SettingsPageModel.Instance);
 
             OnViewChanged();
             BreadcrumbPath = string.Format("{1}{0}{2}",
@@ -323,7 +320,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceView;
-            context.Content = new ResourceViewPage(resource);
+            context.Content = OnRepresentationNeeded(new ResourceViewPageModel(resource));
 
             OnViewChanged();
             BreadcrumbPath = string.Format("{1}{0}{2}{3}",
@@ -338,7 +335,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceEdit;
-            context.Content = new EditPage(resource);
+            context.Content = OnRepresentationNeeded(new EditPageModel(resource));
 
             OnViewChanged();
             BreadcrumbPath = string.Format("{1}{0}{2}{3}",
@@ -423,7 +420,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenNewTab()
         {
-            var context = new TabContext(CCTabPage.Home, new WelcomePage());
+            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(WelcomePageModel.Instance));
             Tabs.Add(context);
             ActiveTab = context;
         }

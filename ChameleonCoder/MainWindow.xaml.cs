@@ -5,6 +5,8 @@ using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Shared;
+using ChameleonCoder.ViewModel;
+using ChameleonCoder.ViewModel.Interaction;
 using Odyssey.Controls;
 using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
 
@@ -21,10 +23,13 @@ namespace ChameleonCoder
             MVVM.Instance.Confirm += ConfirmMessage;
             MVVM.Instance.UserInput += GetInput;
             MVVM.Instance.ViewChanged += AdjustView;
+            MVVM.Instance.RepresentationNeeded += GetRepresentation;
 
             DataContext = MVVM.Instance;
             CommandBindings.AddRange(MVVM.Instance.Commands);
             InitializeComponent();
+
+            ChameleonCoderCommands.OpenNewTab.Execute(null, this);
         }
 
         #region view model interaction
@@ -35,7 +40,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void ReportMessage(object sender, ViewModel.Interaction.ReportEventArgs e)
+        private void ReportMessage(object sender, ReportEventArgs e)
         {
             MessageBoxImage icon;
             switch (e.Severity)
@@ -63,7 +68,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void ConfirmMessage(object sender, ViewModel.Interaction.ConfirmationEventArgs e)
+        private void ConfirmMessage(object sender, ConfirmationEventArgs e)
         {
             e.Accepted = MessageBox.Show(e.Message,
                                         e.Topic,
@@ -77,9 +82,9 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void GetInput(object sender, ViewModel.Interaction.UserInputEventArgs e)
+        private void GetInput(object sender, UserInputEventArgs e)
         {
-            var box = new Shared.InputBox(e.Topic, e.Message);
+            var box = new InputBox(e.Topic, e.Message);
             if (box.ShowDialog() == true)
                 e.Input = box.Text;
         }
@@ -90,7 +95,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void AdjustView(object sender, ViewModel.Interaction.ViewChangedEventArgs e)
+        private void AdjustView(object sender, ViewChangedEventArgs e)
         {
             var page = e.NewView.Content;
 
@@ -134,6 +139,44 @@ namespace ChameleonCoder
             }
         }
 
+        /// <summary>
+        /// gets a view for a given view model
+        /// </summary>
+        /// <param name="sender">the view model sending the event</param>
+        /// <param name="e">additional data related to the event</param>
+        /// <remarks>This must not be moved to the model.</remarks>
+        private void GetRepresentation(object sender, RepresentationEventArgs e)
+        {
+            if (e.Model is WelcomePageModel)
+            {
+                e.Representation = new WelcomePage();
+            }
+            else if (e.Model is ResourceListPageModel)
+            {
+                e.Representation = new ResourceListPage();
+            }
+            else if (e.Model is SettingsPageModel)
+            {
+                e.Representation = new SettingsPage();
+            }
+            else if (e.Model is PluginPageModel)
+            {
+                e.Representation = new PluginPage();
+            }
+            else if (e.Model is FileManagementPageModel)
+            {
+                e.Representation = new FileManagementPage(e.Model as FileManagementPageModel);
+            }
+            else if (e.Model is ResourceViewPageModel)
+            {
+                e.Representation = new ResourceViewPage(e.Model as ResourceViewPageModel);
+            }
+            else if (e.Model is EditPageModel)
+            {
+                e.Representation = new EditPage(e.Model as EditPageModel);
+            }
+        }
+
         #endregion
 
         private void FilterChanged(object sender, RoutedEventArgs e)
@@ -159,7 +202,7 @@ namespace ChameleonCoder
 
         private void ResourceCopy(object sender, EventArgs e)
         {
-            Shared.ResourceSelector selector = new Shared.ResourceSelector(1);
+            ResourceSelector selector = new ResourceSelector(1);
             if (selector.ShowDialog() == true
                 && selector.ResourceList.Count > 0
                 && selector.ResourceList[0] != ResourceManager.ActiveItem)
@@ -170,7 +213,7 @@ namespace ChameleonCoder
 
         private void ResourceMove(object sender, EventArgs e)
         {
-            Shared.ResourceSelector selector = new Shared.ResourceSelector(1);
+            ResourceSelector selector = new ResourceSelector(1);
             if (selector.ShowDialog() == true // user did not cancel
                 && selector.ResourceList.Count > 0 // user selected 1 resource
                 && selector.ResourceList[0] != null // resource is not null
