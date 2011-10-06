@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -69,7 +69,8 @@ namespace ChameleonCoder.Navigation
         /// <param name="e">additional data</param>
         private void OpenResource(object sender, RoutedEventArgs e)
         {
-            ChameleonCoderCommands.OpenResourceView.Execute(ResourceList.SelectedItem, this);
+            ChameleonCoderCommands.OpenResourceView.Execute((e.OriginalSource as FrameworkElement).DataContext,
+                this);
         }
 
         /// <summary>
