@@ -51,6 +51,8 @@ namespace ChameleonCoder.ViewModel
 
         internal event EventHandler<UserInputEventArgs> UserInput;
 
+        internal event EventHandler<RepresentationEventArgs> RepresentationNeeded;
+
         protected void OnReport(string topic, string message, MessageSeverity severity)
         {
             var handler = Report;
@@ -80,6 +82,19 @@ namespace ChameleonCoder.ViewModel
                 var args = new UserInputEventArgs(topic, message);
                 handler(this, args);
                 return args.Input;
+            }
+            return null;
+        }
+
+        protected object OnRepresentationNeeded(ViewModelBase model)
+        {
+            var handler = RepresentationNeeded;
+            System.Diagnostics.Debug.Assert(handler != null, "did not set handler");
+            if (handler != null)
+            {
+                var args = new RepresentationEventArgs(model);
+                handler(this, args);
+                return args.Representation;
             }
             return null;
         }
