@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Navigation
@@ -14,11 +13,11 @@ namespace ChameleonCoder.Navigation
         /// <summary>
         /// creates a new instance of this page, given a resource to display
         /// </summary>
-        /// <param name="resource">the resource to display</param>
+        /// <param name="model">the view model to display</param>
         internal ResourceViewPage(ViewModel.ResourceViewPageModel model)
         {
             Initialize(model);
-            ResourceManager.Open(Resource = model.Resource);
+            ResourceManager.Open(model.Resource);
             InitializeComponent();            
         }
 
@@ -29,19 +28,8 @@ namespace ChameleonCoder.Navigation
             string value = box.Text;
             string key = ((KeyValuePair<string, string>)((box.TemplatedParent as ContentPresenter).Parent as GridViewRowPresenter).Content).Key;
 
-            Resource.SetMetadata(key, value);
+            (DataContext as ViewModel.ResourceViewPageModel).Resource.SetMetadata(key, value);
             box.InvalidateProperty(System.Windows.FrameworkElement.WidthProperty);
         }
-
-        private void Update()
-        {
-            (DataContext as ViewModel.ResourceViewPageModel).UpdateAll();
-        }
-
-        /// <summary>
-        /// the resource which is displayed
-        /// </summary>
-        [Obsolete("only acceptable in model", false)]
-        public IResource Resource { get; private set; }
     }
 }
