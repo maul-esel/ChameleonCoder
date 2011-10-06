@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using ChameleonCoder.Plugins;
 using Res = ChameleonCoder.Properties.Resources;
 
@@ -11,11 +12,16 @@ namespace ChameleonCoder.ViewModel
     {
         private PluginPageModel()
         {
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.UninstallPlugin,
+                UninstallPluginCommandExecuted));
+
             plugins.CollectionChanged += (s, e) => OnPropertyChanged("PluginList");
 
             Shared.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
             Shared.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
         }
+
+        #region singletone
 
         public static PluginPageModel Instance
         {
@@ -29,6 +35,17 @@ namespace ChameleonCoder.ViewModel
         }
 
         private static readonly PluginPageModel modelInstance = new PluginPageModel();
+
+        #endregion
+
+        #region commanding
+
+        private void UninstallPluginCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            UninstallPlugin(e.Parameter as IPlugin);
+        }
+
+        #endregion
 
         public ObservableCollection<IPlugin> PluginList
         {
@@ -55,6 +72,16 @@ namespace ChameleonCoder.ViewModel
         public static string Uninstall { get { return Res.PP_Uninstall; } }
 
         public static string Install { get { return Res.PP_Install; } }
+
+        #endregion
+
+        #region (un-)installation
+
+        private void UninstallPlugin(IPlugin plugin)
+        {
+            Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
+            Shared.InformationProvider.OnPluginUninstalled(plugin);
+        }
 
         #endregion
     }

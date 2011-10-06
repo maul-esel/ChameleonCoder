@@ -23,18 +23,6 @@ namespace ChameleonCoder.Navigation
         }
 
         /// <summary>
-        /// removes the selected plugin from the list of installed plugins. On next launch, it won't be loaded.
-        /// </summary>
-        /// <param name="sender">not used</param>
-        /// <param name="e">not used</param>
-        private void Uninstall(object sender, EventArgs e)
-        {
-            var plugin = list.SelectedItem as IPlugin;
-            Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
-            Shared.InformationProvider.OnPluginUninstalled(plugin);
-        }
-
-        /// <summary>
         /// lets the user select an assembly and plugin classes inside it
         /// </summary>
         /// <param name="sender">not used</param>
