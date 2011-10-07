@@ -8,7 +8,7 @@ namespace ChameleonCoder
     /// <summary>
     /// represents an opened resource file
     /// </summary>
-    public class DataFile
+    public sealed class DataFile
     {
         #region instance
 
@@ -37,36 +37,6 @@ namespace ChameleonCoder
                 LoadReferences();
             }
             this.path = path;
-        }
-
-        /// <summary>
-        /// loads the referenced files and directories
-        /// </summary>
-        protected void LoadReferences()
-        {
-            foreach (XmlElement reference in Document.SelectNodes("/cc-resource-file/references/reference"))
-            {
-                if (reference.GetAttribute("type") == "dir"
-                    && !string.IsNullOrWhiteSpace(reference.InnerText)
-                    && Directory.Exists(reference.InnerText)
-                    && !Directories.Contains(reference.InnerText))
-                {
-                    Directories.Add(reference.InnerText);
-                }
-
-                else if (reference.GetAttribute("type") == "file"
-                    && !string.IsNullOrWhiteSpace(reference.InnerText)
-                    && File.Exists(reference.InnerText)
-                    && !loadedFilePaths.Contains(reference.InnerText))
-                {
-                    try
-                    {
-                        new DataFile(reference.InnerText);
-                    }
-                    catch (FileFormatException) { throw; } // Todo: inform user, log
-                    catch (FileNotFoundException) { throw; }
-                }
-            }
         }
 
         /// <summary>
@@ -194,6 +164,44 @@ namespace ChameleonCoder
             if (reference != null)
                 reference.ParentNode.RemoveChild(reference);
         }
+
+        /// <summary>
+        /// loads the referenced files and directories
+        /// </summary>
+        private void LoadReferences()
+        {
+            foreach (XmlElement element in Document.SelectNodes("/cc-resource-file/references/reference"))
+            {
+                DataFileReference reference;
+                try
+                {
+                    reference = DataFileReference.CreateReference(element);
+                }
+                catch (FileNotFoundException)
+                {
+                    continue;
+                }
+
+                if (reference.IsFile)
+                {
+                    try
+                    {
+                        /*LoadedFiles.Add(*/new DataFile(reference.Path)/*)*/;
+                    }
+                    catch (FileFormatException)
+                    {
+                        throw; // Todo: inform user, log
+                    }
+                }
+                else
+                {
+                    Directories.Add(element.InnerText);
+                }
+                References.Add(reference);
+            }
+        }
+
+        internal IList<DataFileReference> References = new List<DataFileReference>();
 
         #endregion // references
 
