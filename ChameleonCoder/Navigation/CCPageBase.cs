@@ -6,15 +6,20 @@ namespace ChameleonCoder.Navigation
     {
         protected void Initialize(ViewModel.ViewModelBase model)
         {
-            model.Report += ReportMessage;
+            model.Report -= ReportMessage; // remove handler in case already listening
+            model.Report += ReportMessage; // add it (again)
+
+            model.Confirm -= ConfirmMessage;
             model.Confirm += ConfirmMessage;
+
+            model.UserInput -= GetInput;
             model.UserInput += GetInput;
 
             DataContext = model;
             CommandBindings.AddRange(model.Commands);
         }
 
-        private void ReportMessage(object sender, ViewModel.Interaction.ReportEventArgs e)
+        private static void ReportMessage(object sender, ViewModel.Interaction.ReportEventArgs e)
         {
             MessageBoxImage icon;
             switch (e.Severity)
@@ -36,7 +41,7 @@ namespace ChameleonCoder.Navigation
             MessageBox.Show(e.Message, e.Topic, MessageBoxButton.OK, icon);
         }
 
-        private void ConfirmMessage(object sender, ViewModel.Interaction.ConfirmationEventArgs e)
+        private static void ConfirmMessage(object sender, ViewModel.Interaction.ConfirmationEventArgs e)
         {
             e.Accepted = MessageBox.Show(e.Message,
                                         e.Topic,
@@ -44,7 +49,7 @@ namespace ChameleonCoder.Navigation
                                         MessageBoxImage.Question) == MessageBoxResult.Yes;
         }
 
-        private void GetInput(object sender, ViewModel.Interaction.UserInputEventArgs e)
+        private static void GetInput(object sender, ViewModel.Interaction.UserInputEventArgs e)
         {
             var box = new Shared.InputBox(e.Topic, e.Message);
             if (box.ShowDialog() == true)
