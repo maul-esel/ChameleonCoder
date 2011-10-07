@@ -19,10 +19,19 @@ namespace ChameleonCoder
     {
         internal MainWindow()
         {
+            MVVM.Instance.Report -= ReportMessage;
             MVVM.Instance.Report += ReportMessage;
+
+            MVVM.Instance.Confirm -= ConfirmMessage;
             MVVM.Instance.Confirm += ConfirmMessage;
+
+            MVVM.Instance.UserInput -= GetInput;
             MVVM.Instance.UserInput += GetInput;
+
+            MVVM.Instance.ViewChanged -= AdjustView;
             MVVM.Instance.ViewChanged += AdjustView;
+
+            MVVM.Instance.RepresentationNeeded -= GetRepresentation;
             MVVM.Instance.RepresentationNeeded += GetRepresentation;
 
             DataContext = MVVM.Instance;
@@ -40,7 +49,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void ReportMessage(object sender, ReportEventArgs e)
+        private static void ReportMessage(object sender, ReportEventArgs e)
         {
             MessageBoxImage icon;
             switch (e.Severity)
@@ -68,7 +77,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void ConfirmMessage(object sender, ConfirmationEventArgs e)
+        private static void ConfirmMessage(object sender, ConfirmationEventArgs e)
         {
             e.Accepted = MessageBox.Show(e.Message,
                                         e.Topic,
@@ -82,7 +91,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void GetInput(object sender, UserInputEventArgs e)
+        private static void GetInput(object sender, UserInputEventArgs e)
         {
             var box = new InputBox(e.Topic, e.Message);
             if (box.ShowDialog() == true)
@@ -145,7 +154,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void GetRepresentation(object sender, RepresentationEventArgs e)
+        private static void GetRepresentation(object sender, RepresentationEventArgs e)
         {
             if (e.Model is WelcomePageModel)
             {
