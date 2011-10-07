@@ -13,9 +13,10 @@ namespace ChameleonCoder.Plugins
     /// </summary>
     internal sealed partial class PluginInstaller : Window
     {
-        public PluginInstaller(List<IPlugin> plugins)
+        internal PluginInstaller(ViewModel.PluginInstallerModel model)
         {
-            DataContext = new ViewModel.PluginInstallerModel(pluginList = new ObservableCollection<IPlugin>(plugins));
+            DataContext = model;
+            pluginList = model.PluginList;
             InitializeComponent();
         }
 
