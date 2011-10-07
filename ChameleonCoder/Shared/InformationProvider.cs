@@ -63,20 +63,7 @@ namespace ChameleonCoder.Shared
         {
             get
             {
-                var page = ViewModel.MainWindowModel.Instance.ActiveTab.Content;
-                if (page is Navigation.WelcomePage)
-                    return CCTabPage.Home;
-                else if (page is Navigation.SettingsPage)
-                    return CCTabPage.Settings;
-                else if (page is Navigation.PluginPage)
-                    return CCTabPage.Plugins;
-                else if (page is Navigation.ResourceListPage)
-                    return CCTabPage.ResourceList;
-                else if (page is Navigation.ResourceViewPage)
-                    return CCTabPage.ResourceView;
-                else if (page is Navigation.EditPage)
-                    return CCTabPage.ResourceEdit;
-                return CCTabPage.None;
+                return ViewModel.MainWindowModel.Instance.ActiveTab.Type;
             }
         }
 
