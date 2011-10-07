@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Shared;
@@ -378,16 +377,16 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/home.png")),
+                return new BreadcrumbContext(new Uri("pack://application:,,,/Images/home.png"),
                     new BreadcrumbContext[3]
                         {
-                        new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/list.png")),
+                        new BreadcrumbContext(new Uri("pack://application:,,,/Images/list.png"),
                             ResourceManager.GetChildren(),
                             CCTabPage.ResourceList),
-                        new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png")),
+                        new BreadcrumbContext(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png"),
                             null,
                             CCTabPage.Settings),
-                        new BreadcrumbContext(new BitmapImage(new Uri("pack://application:,,,/Images/plugins.png")),
+                        new BreadcrumbContext(new Uri("pack://application:,,,/Images/plugins.png"),
                             null,
                             CCTabPage.Plugins)
                         },

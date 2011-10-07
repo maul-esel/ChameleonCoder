@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Windows.Media;
 using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
 
@@ -8,7 +7,7 @@ namespace ChameleonCoder
 {
     internal sealed class BreadcrumbContext : SecureNotifyPropertyChanged
     {
-        internal BreadcrumbContext(ImageSource icon, IEnumerable children, CCTabPage pageType)
+        internal BreadcrumbContext(Uri icon, IEnumerable children, CCTabPage pageType)
         {
             switch (pageType)
             {
@@ -31,7 +30,7 @@ namespace ChameleonCoder
 
         public IEnumerable Children { get; private set; }
 
-        public ImageSource Icon { get; private set; }
+        public Uri Icon { get; private set; }
 
         public string Name
         {
