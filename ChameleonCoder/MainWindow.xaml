@@ -258,14 +258,12 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_View}">
                             
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomIn}" SmallImage="Images\RibbonTab2\viewplus.png"
-                                              Command="Zoom"
-                                              CommandParameter="in"
+                                              Command="IncreaseZoom"
                                               CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_ZoomOut}" SmallImage="Images\RibbonTab2\viewminus.png"
-                                              Command="Zoom"
-                                              CommandParameter="out"
+                                              Command="DecreaseZoom"
                                               CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.Size="Medium"/>
                             

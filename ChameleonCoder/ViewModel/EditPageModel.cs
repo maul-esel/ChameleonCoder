@@ -25,8 +25,10 @@ namespace ChameleonCoder.ViewModel
                 SearchCommandExecuted));
             Commands.Add(new CommandBinding(ApplicationCommands.Replace,
                 ReplaceCommandExecuted));
-            Commands.Add(new CommandBinding(NavigationCommands.Zoom,
-                ZoomCommandExecuted));
+            Commands.Add(new CommandBinding(NavigationCommands.DecreaseZoom,
+                DecreaseZoomCommandExecuted));
+            Commands.Add(new CommandBinding(NavigationCommands.IncreaseZoom,
+                IncreaseZoomCommandExecuted));
 
             SettingsPageModel.Instance.PropertyChanged += (s, e) =>
                 {
@@ -95,16 +97,23 @@ namespace ChameleonCoder.ViewModel
         }
 
         /// <summary>
-        /// implements the logic for the NavigationCommands.Zoom command
+        /// implements the logic for the NavigationCommands.DecreaseZoom command
         /// </summary>
         /// <param name="sender">not used</param>
         /// <param name="e">additional data related to execution</param>
-        private void ZoomCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void DecreaseZoomCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.Parameter as string == "in")
-                CodeFontSize += 3;
-            else if (e.Parameter as string == "out")
-                CodeFontSize -= 3;
+            CodeFontSize -= 3;
+        }
+
+        /// <summary>
+        /// implements the logic for the NavigationCommands.IncreaseZoom command
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">additional data related to execution</param>
+        private void IncreaseZoomCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            CodeFontSize += 3;
         }
 
         #endregion
