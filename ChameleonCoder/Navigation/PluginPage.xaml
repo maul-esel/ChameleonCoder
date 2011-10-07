@@ -43,8 +43,10 @@
                     Command="{x:Static cc:ChameleonCoderCommands.UninstallPlugin}"
                     CommandParameter="{Binding ElementName=list, Path=SelectedItem}"
                     Margin="10" Height="Auto" HorizontalAlignment="Stretch"/>
-            
-            <Button Margin="10" Height="Auto" HorizontalAlignment="Stretch" Content="{Binding Path=Install}" Click="Install"/>
+
+            <Button Content="{Binding Path=Install}"
+                    Command="{x:Static cc:ChameleonCoderCommands.InstallPlugin}"
+                    Margin="10" Height="Auto" HorizontalAlignment="Stretch"/>
         </StackPanel>
         
 

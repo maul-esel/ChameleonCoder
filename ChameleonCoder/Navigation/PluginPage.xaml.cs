@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
 using System.Windows.Data;
 using ChameleonCoder.Plugins;
 
@@ -18,79 +14,45 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         public PluginPage()
         {
+            ViewModel.PluginPageModel.Instance.AssemblyNeeded -= FindAssembly; // remove handler if already attached
+            ViewModel.PluginPageModel.Instance.AssemblyNeeded += FindAssembly; // add handler
+
+            ViewModel.PluginPageModel.Instance.RepresentationNeeded -= OpenDialog; // see above
+            ViewModel.PluginPageModel.Instance.RepresentationNeeded += OpenDialog;
+
             Initialize(ViewModel.PluginPageModel.Instance);
             InitializeComponent();            
         }
 
         /// <summary>
-        /// lets the user select an assembly and plugin classes inside it
+        /// lets the user select an assembly for the model
         /// </summary>
         /// <param name="sender">not used</param>
         /// <param name="e">not used</param>
-        private void Install(object sender, EventArgs e)
+        /// <remarks>This must not be moved to the model.</remarks>
+        private static void FindAssembly(object sender, ViewModel.Interaction.UserInputEventArgs e)
         {
-            string path = null;
-
             using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll" })
             {
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    path = dialog.FileName;
+                    e.Input = dialog.FileName;
                 }
             }
+        }
 
-            if (path != null)
+        /// <summary>
+        /// creates a PluginInstaller dialog for the model
+        /// </summary>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
+        /// <remarks>This must not be moved to the model.</remarks>
+        private static void OpenDialog(object sender, ViewModel.Interaction.RepresentationEventArgs e)
+        {
+            var model = e.Model as ViewModel.PluginInstallerModel;
+            if (model != null)
             {
-                Assembly ass;
-
-                try { ass = Assembly.LoadFile(path); }
-                catch (BadImageFormatException ex)
-                {
-                    MessageBox.Show(string.Format(Properties.Resources.Error_InstallNoAssembly, path),
-                        Properties.Resources.Status_InstallPlugin);
-                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
-                        "catched exception: *.dll could not be loaded (" + path + ").",
-                        ex.ToString());
-                    return;
-                }
-
-                if (!Attribute.IsDefined(ass, typeof(CCPluginAttribute)))
-                {
-                    MessageBox.Show(string.Format(Properties.Resources.Error_InstallNoPlugin, path),
-                        Properties.Resources.Status_InstallPlugin);
-                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
-                        "refused plugin install: Assembly does not have CCPluginAttribute defined (" + path + ").",
-                        null);
-                    return;
-                }
-
-                var types = from type in ass.GetTypes()
-                            where Attribute.IsDefined(type, typeof(CCPluginAttribute))
-                                && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
-                                && type.GetInterface(typeof(Plugins.IPlugin).FullName) != null
-                                && type.GetConstructor(Type.EmptyTypes) != null
-                            select type;
-
-                List<IPlugin> newPlugins = new List<IPlugin>();
-                foreach (var component in types)
-                {
-                    IPlugin plugin = Activator.CreateInstance(component) as IPlugin;
-                    if (!Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
-                        newPlugins.Add(plugin);
-                }
-
-                if (newPlugins.Count == 0)
-                {
-                    MessageBox.Show(string.Format(Properties.Resources.Error_InstallEmptyAssembly, path),
-                        Properties.Resources.Status_InstallPlugin);
-                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
-                        "refused plugin install: Assembly does not contain plugin classes that aren't already installed (" + path + ").",
-                        null);
-                    return;
-                }
-
-                var installer = new PluginInstaller(newPlugins);
-                installer.ShowDialog();
+                e.Representation = new PluginInstaller(model);
             }
         }
 
@@ -99,6 +61,7 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         /// <param name="sender">not used</param>
         /// <param name="e">not used</param>
+        /// <remarks>This must not be moved to the model.</remarks>
         private void RefreshFilter(object sender, EventArgs e)
         {
             CollectionViewSource.GetDefaultView(list.ItemsSource).Refresh();
@@ -107,8 +70,9 @@ namespace ChameleonCoder.Navigation
         /// <summary>
         /// filters the listboxitems to fit the type selection
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">not used</param>
+        /// <param name="e">not used</param>
+        /// <remarks>This must not be moved to the model.</remarks>
         private void Filter(object sender, FilterEventArgs e)
         {
             if (IsInitialized && categories.SelectedIndex != -1)
