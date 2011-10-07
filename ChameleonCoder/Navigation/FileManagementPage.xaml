@@ -16,18 +16,19 @@
         </Grid.RowDefinitions>
 
         <!--all files (& dirs ?)-->
-        <TreeView ItemsSource="{Binding Path=AllFiles}"
+        <ListView ItemsSource="{Binding Path=AllFiles}" SelectedItem="{Binding Path=ActiveFile}"
                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <TreeView.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <!--use name instead?-->
                     <TextBlock Text="{Binding Path=FilePath}"/>
                 </DataTemplate>
-            </TreeView.ItemTemplate>            
-        </TreeView>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <!--references-->
-        <ListView Grid.Column="1" Grid.Row="1">
+        <ListView ItemsSource="{Binding Path=References}"
+                  Grid.Column="1" Grid.Row="1">
             
         </ListView>
 

@@ -6,14 +6,21 @@ namespace ChameleonCoder.ViewModel
 {
     internal sealed class FileManagementPageModel : ViewModelBase
     {
-        internal FileManagementPageModel(DataFile file)
+        internal FileManagementPageModel()
         {
-            this.dataFile = file;
-
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
-                DeleteMetadataCommandExecuted));
+                DeleteMetadataCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null && ActiveMetadata != null));
+
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
-                AddMetadataCommandExecuted));
+                AddMetadataCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null));
+        }
+
+        internal FileManagementPageModel(DataFile file)
+            : this()
+        {
+            ActiveFile = file;
         }
 
         public static IList<DataFile> AllFiles
@@ -28,22 +35,46 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return dataFile.GetMetadata();
+                if (ActiveFile != null)
+                    return ActiveFile.GetMetadata();
+                return null;
             }
         }
 
-        public DataFile File
+        public IList<object> References
         {
-            get { return dataFile; }
+            get
+            {
+                if (ActiveFile != null)
+                    return (IList<object>)ActiveFile.References;
+                return null;
+            }
         }
 
-        private readonly DataFile dataFile;
+        public DataFile ActiveFile
+        {
+            get { return file; }
+            set
+            {
+                file = value;
+                OnPropertyChanged("ActiveFile");
+                OnPropertyChanged("Metadata");
+            }
+        }
+
+        private DataFile file;
 
         public object ActiveMetadata
         {
-            get;
-            set;
+            get { return metadata; }
+            set
+            {
+                metadata = value;
+                OnPropertyChanged("ActiveMetadata");
+            }
         }
+
+        private object metadata;
 
         #region localization
 
@@ -66,12 +97,12 @@ namespace ChameleonCoder.ViewModel
         {
             e.Handled = true;
 
-            if (ActiveMetadata != null)
+            if (ActiveMetadata != null && ActiveFile != null)
             {
                 var key = ((KeyValuePair<string, string>)ActiveMetadata).Key;
                 if (!string.IsNullOrWhiteSpace(key))
                 {
-                    dataFile.DeleteMetadata(key);
+                    ActiveFile.DeleteMetadata(key);
                     OnPropertyChanged("Metadata");
                 }
             }
@@ -81,21 +112,24 @@ namespace ChameleonCoder.ViewModel
 
         private void AddMetadata()
         {
-            var name = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
-
-            if (string.IsNullOrWhiteSpace(name))
+            if (ActiveFile != null)
             {
-                OnReport(Res.Status_CreateMeta, Res.Error_MetaInvalidName, Interaction.MessageSeverity.Error);
-                return;
-            }
-            else if (dataFile.GetMetadata(name) != null)
-            {
-                OnReport(Res.Status_CreateMeta, Res.Error_MetaDuplicateName, Interaction.MessageSeverity.Error);
-                return;
-            }
+                var name = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
 
-            dataFile.SetMetadata(name, null);
-            OnPropertyChanged("Metadata");
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    OnReport(Res.Status_CreateMeta, Res.Error_MetaInvalidName, Interaction.MessageSeverity.Error);
+                    return;
+                }
+                else if (ActiveFile.GetMetadata(name) != null)
+                {
+                    OnReport(Res.Status_CreateMeta, Res.Error_MetaDuplicateName, Interaction.MessageSeverity.Error);
+                    return;
+                }
+
+                ActiveFile.SetMetadata(name, null);
+                OnPropertyChanged("Metadata");
+            }
         }
     }
 }
