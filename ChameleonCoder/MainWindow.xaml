@@ -346,7 +346,7 @@
 
                             <odc:RibbonButton Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"
                                               Command="{x:Static cc:ChameleonCoderCommands.CreateResource}"
-                                              CommandParameter="{Binding Path=ActiveTab.Content.Resource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.Size="Large"/>
 
                             <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\copy.png"
@@ -359,7 +359,7 @@
 
                             <odc:RibbonButton Content="{Binding Path=View_Delete}" SmallImage="Images\delete.png"
                                               Command="{x:Static cc:ChameleonCoderCommands.DeleteResource}"
-                                              CommandParameter="{Binding Path=ActiveTab.Content.Resource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
@@ -367,9 +367,8 @@
                         <odc:RibbonGroup>
                             
                             <odc:RibbonButton Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png"
-
                                               Command="{x:Static cc:ChameleonCoderCommands.OpenResourceEdit}"
-                                              CommandParameter="{Binding Path=ActiveTab.Content.Resource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.Size="Large"/>
                             
                         </odc:RibbonGroup>
