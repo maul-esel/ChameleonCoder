@@ -445,4 +445,7 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="Error_MetaInvalidName" xml:space="preserve">
     <value>Sie haben keinen gültigen Namen für die Metadaten eingegeben.</value>
   </data>
+  <data name="Item_FileManagement" xml:space="preserve">
+    <value>Datei-Verwaltung</value>
+  </data>
 </root>

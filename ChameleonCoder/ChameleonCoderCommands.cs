@@ -43,6 +43,13 @@ namespace ChameleonCoder
                                 typeof(ChameleonCoderCommands));
 
         /// <summary>
+        /// the command for opening a DataFile management page
+        /// </summary>
+        public static readonly RoutedCommand OpenFileManagementPage
+            = new RoutedCommand("OpenFileManagementPage",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
         /// the command for creating a new resource
         /// </summary>
         public static readonly RoutedCommand CreateResource

@@ -441,6 +441,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to file management.
+        /// </summary>
+        internal static string Item_FileManagement {
+            get {
+                return ResourceManager.GetString("Item_FileManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string Item_Home {

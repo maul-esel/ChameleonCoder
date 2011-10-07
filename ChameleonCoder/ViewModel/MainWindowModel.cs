@@ -24,6 +24,8 @@ namespace ChameleonCoder.ViewModel
                 OpenPluginPageCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenSettingsPage,
                 OpenSettingsPageCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFileManagementPage,
+                OpenFileManagementPageCommandExecuted));
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenNewTab,
                 OpenNewTabCommandExecuted));
@@ -245,6 +247,12 @@ namespace ChameleonCoder.ViewModel
             DeleteResource(resource);
         }
 
+        private void OpenFileManagementPageCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OpenFileManagementPage(e.Parameter as DataFile);
+        }
+
         #endregion
 
         private static void Close(bool restart)
@@ -308,6 +316,20 @@ namespace ChameleonCoder.ViewModel
                         BreadcrumbSeparator,
                         BreadcrumbRoot.Name,
                         Item_Settings);
+        }
+
+        private void OpenFileManagementPage(DataFile file)
+        {
+            var context = ActiveTab;
+            context.Resource = null;
+            context.Type = CCTabPage.FileManagement;
+            context.Content = OnRepresentationNeeded(new FileManagementPageModel(file));
+
+            OnViewChanged();
+            BreadcrumbPath = string.Format("{1}{0}{2}",
+                        BreadcrumbSeparator,
+                        BreadcrumbRoot.Name,
+                        Res.Item_FileManagement);
         }
 
         #endregion
@@ -378,7 +400,7 @@ namespace ChameleonCoder.ViewModel
             get
             {
                 return new BreadcrumbContext(new Uri("pack://application:,,,/Images/home.png"),
-                    new BreadcrumbContext[3]
+                    new BreadcrumbContext[4]
                         {
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/list.png"),
                             ResourceManager.GetChildren(),
@@ -388,7 +410,10 @@ namespace ChameleonCoder.ViewModel
                             CCTabPage.Settings),
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/plugins.png"),
                             null,
-                            CCTabPage.Plugins)
+                            CCTabPage.Plugins),
+                        new BreadcrumbContext(new Uri("pack://application:,,,/Images/files.png"),
+                            null,
+                            CCTabPage.FileManagement)
                         },
                     CCTabPage.Home);
             }

@@ -444,4 +444,7 @@ resources cannot be moved to descendants.</value>
   <data name="Error_MetaInvalidName" xml:space="preserve">
     <value>You did not enter a valid name for the metadata.</value>
   </data>
+  <data name="Item_FileManagement" xml:space="preserve">
+    <value>file management</value>
+  </data>
 </root>

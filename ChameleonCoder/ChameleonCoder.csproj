@@ -434,6 +434,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChameleonCoder.rc" />
+    <Resource Include="Images\files.png" />
     <Resource Include="Images\plugins.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -38,6 +38,11 @@
         /// <summary>
         /// a page showing a resource's editable contents
         /// </summary>
-        ResourceEdit
+        ResourceEdit,
+
+        /// <summary>
+        /// a page showing a file's properties
+        /// </summary>
+        FileManagement,
     }
 }

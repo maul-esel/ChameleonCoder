@@ -38,7 +38,7 @@ namespace ChameleonCoder
             CommandBindings.AddRange(MVVM.Instance.Commands);
             InitializeComponent();
 
-            ChameleonCoderCommands.OpenNewTab.Execute(null, this);
+            ChameleonCoderCommands.OpenNewTab.Execute(null, this);         
         }
 
         #region view model interaction
@@ -106,8 +106,6 @@ namespace ChameleonCoder
         /// <remarks>This must not be moved to the model.</remarks>
         private void AdjustView(object sender, ViewChangedEventArgs e)
         {
-            var page = e.NewView.Content;
-
             ribbon.ContextualTabSet = null;
             ribbon.SelectedTabItem = ribbon.Tabs[0];
 
@@ -116,6 +114,7 @@ namespace ChameleonCoder
                 case CCTabPage.Home:
                 case CCTabPage.Plugins:
                 case CCTabPage.Settings:
+                case CCTabPage.FileManagement:
 
                     if (ResourceManager.ActiveItem != null)
                         ResourceManager.Close();
@@ -261,14 +260,28 @@ namespace ChameleonCoder
 
                 if (context != null)
                 {
-                    if (context.PageType == Shared.CCTabPage.Home)
-                        System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
-                    else if (context.PageType == Shared.CCTabPage.ResourceList)
-                        ChameleonCoderCommands.OpenResourceListPage.Execute(null, this);
-                    else if (context.PageType == Shared.CCTabPage.Settings)
-                        ChameleonCoderCommands.OpenSettingsPage.Execute(null, this);
-                    else if (context.PageType == Shared.CCTabPage.Plugins)
-                        ChameleonCoderCommands.OpenPluginPage.Execute(null, this);
+                    switch (context.PageType)
+                    {
+                        case Shared.CCTabPage.Home:
+                            System.Windows.Input.NavigationCommands.BrowseHome.Execute(null, this);
+                            break;
+
+                        case Shared.CCTabPage.ResourceList:
+                            ChameleonCoderCommands.OpenResourceListPage.Execute(null, this);
+                            break;
+
+                        case Shared.CCTabPage.Settings:
+                            ChameleonCoderCommands.OpenSettingsPage.Execute(null, this);
+                            break;
+
+                        case Shared.CCTabPage.Plugins:
+                            ChameleonCoderCommands.OpenPluginPage.Execute(null, this);
+                            break;
+
+                        case Shared.CCTabPage.FileManagement:
+                            ChameleonCoderCommands.OpenFileManagementPage.Execute(null, this); // TODO: handle the parameter
+                            break;
+                    }
                 }
                 else
                     ResourceOpen(ResourceHelper.GetResourceFromPath(breadcrumb.PathFromBreadcrumbItem(e.NewValue), breadcrumb.SeparatorString));

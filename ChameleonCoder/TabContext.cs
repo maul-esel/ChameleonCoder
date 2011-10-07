@@ -67,6 +67,9 @@ namespace ChameleonCoder
                     case CCTabPage.Settings:
                         return Res.Item_Settings;
 
+                    case CCTabPage.FileManagement:
+                        return Res.Item_FileManagement; // TODO: handle file name
+
                     default:
                     case CCTabPage.None:
                         throw new InvalidOperationException("page type is not valid");
