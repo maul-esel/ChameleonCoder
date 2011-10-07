@@ -38,11 +38,17 @@ namespace ChameleonCoder.Navigation
             e.Accepted = true; // default value: accept
             Type resType = resource.GetType(); // get type
             
-            if (IsInitialized) // othwerise, and if the page is initialized:
+            if (IsInitialized) // if the page is initialized:
             {
                 int i = 0;
                 // TODO: loop once, and store result?
                 // HACK: do not access type list like so!
+                /*
+                 * MAYBE: 
+                 *  - a dictionary holding all types + bools
+                 *  - assume all types are enabled
+                 *  - disable or re-enable a type via command 
+                 */
                 foreach (Type t in App.Gui.visTypes.Items) // iterate through types
                 {
                     if (t == resType) // if it is a match:
