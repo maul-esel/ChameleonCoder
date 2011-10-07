@@ -22,6 +22,8 @@ namespace ChameleonCoder.Navigation
                 RefreshList));
             CommandBindings.Add(new CommandBinding(ChameleonCoderCommands.SetSortingMode,
                 SortingChanged));
+            CommandBindings.Add(new CommandBinding(ChameleonCoderCommands.SetGroupingMode,
+                GroupingChanged));
 
             Initialize(ViewModel.ResourceListPageModel.Instance);
             InitializeComponent();
