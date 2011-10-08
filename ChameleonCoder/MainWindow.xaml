@@ -424,7 +424,6 @@
         </odc:BreadcrumbBar>
         
         <TabControl SelectedItem="{Binding Path=ActiveTab}" ItemsSource="{Binding Path=Tabs}"
-                    SelectionChanged="TabChanged"
                     Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
 
         <Button Content="+"

@@ -456,6 +456,11 @@ namespace ChameleonCoder.ViewModel
         {
             ChameleonCoderCommands.SaveResource.Execute(null, item.Content as System.Windows.IInputElement);
             Tabs.Remove(item);
+
+            if (Tabs.Count == 0)
+            {
+                OpenNewTab();
+            }
         }
 
         #endregion

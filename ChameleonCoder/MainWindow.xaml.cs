@@ -294,17 +294,6 @@ namespace ChameleonCoder
             ChameleonCoderCommands.OpenResourceView.Execute(resource, this);
         }
         #endregion
-        
-        #region Tabs
-        [Obsolete("to be moved to model", false)]
-        private void TabChanged(object sender, EventArgs e)
-        {
-            if (MVVM.Instance.Tabs.Count == 0)
-            {
-                ChameleonCoderCommands.OpenNewTab.Execute(null, this);
-            }
-        }
-        #endregion
 
         // to be moved to edit page model + use commands!
         #region editing methods
