@@ -128,6 +128,54 @@ namespace ChameleonCoder
             }
         }
 
+        internal string Path
+        {
+            get
+            {
+                switch (pageType)
+                {
+                    case CCTabPage.Home:
+                        return Res.Item_Home;
+
+                    case CCTabPage.FileManagement:
+                        return string.Format("{0}{1}{2}",
+                            Res.Item_Home,
+                            App.pathSeparator,
+                            Res.Item_FileManagement);
+
+                    case CCTabPage.Plugins:
+                        return string.Format("{0}{1}{2}",
+                            Res.Item_Home,
+                            App.pathSeparator,
+                            Res.Item_Plugins);
+
+                    case CCTabPage.ResourceList:
+                        return string.Format("{0}{1}{2}",
+                            Res.Item_Home,
+                            App.pathSeparator,
+                            Res.Item_List);
+
+                    case CCTabPage.Settings:
+                        return string.Format("{0}{1}{2}",
+                            Res.Item_Home,
+                            App.pathSeparator,
+                            Res.Item_Settings);
+
+                    case CCTabPage.ResourceView:
+                    case CCTabPage.ResourceEdit:
+                        return string.Format("{0}{1}{2}{3}",
+                            Res.Item_Home,
+                            App.pathSeparator,
+                            Res.Item_List,
+                            Resource.GetPath());
+
+                    case CCTabPage.None:
+                    default:
+                        throw new InvalidOperationException();
+                }
+            }
+        }
+
         private IResource displayedResource;
 
         private CCTabPage pageType;
