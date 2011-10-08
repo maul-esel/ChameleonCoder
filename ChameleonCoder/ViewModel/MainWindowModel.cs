@@ -447,6 +447,9 @@ namespace ChameleonCoder.ViewModel
             var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(WelcomePageModel.Instance));
             Tabs.Add(context);
             ActiveTab = context;
+
+            OnViewChanged();
+            BreadcrumbPath = BreadcrumbRoot.Name;
         }
 
         private void CloseTab(TabContext item)
