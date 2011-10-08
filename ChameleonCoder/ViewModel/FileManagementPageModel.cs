@@ -42,12 +42,12 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        public IList<object> References
+        public IList<DataFileReference> References
         {
             get
             {
                 if (ActiveFile != null)
-                    return (IList<object>)ActiveFile.References;
+                    return ActiveFile.References;                
                 return null;
             }
         }
