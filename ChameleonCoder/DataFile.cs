@@ -61,10 +61,21 @@ namespace ChameleonCoder
         /// <summary>
         /// saves the changes made to the file
         /// </summary>
-        internal void Save()
+        public void Save()
         {
             Document.Save(FilePath);
-        }        
+        }
+
+        /// <summary>
+        /// gets the name the user chose for this file
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return Document.SelectSingleNode("/cc-resource-file/settings/name").InnerText;
+            }
+        }
 
         #region metadata
         /// <summary>

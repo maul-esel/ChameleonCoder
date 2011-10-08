@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
@@ -208,6 +207,7 @@ namespace ChameleonCoder
 
         #region resources
 
+        [Obsolete("to be moved to model", false)]
         private void ResourceCopy(object sender, EventArgs e)
         {
             ResourceSelector selector = new ResourceSelector(1);
@@ -219,6 +219,7 @@ namespace ChameleonCoder
             }
         }
 
+        [Obsolete("to be moved to model", false)]
         private void ResourceMove(object sender, EventArgs e)
         {
             ResourceSelector selector = new ResourceSelector(1);
@@ -251,7 +252,7 @@ namespace ChameleonCoder
             ResourceOpen(resource);
         }
 
-        [Obsolete("to be moved to model + renamed", false)]
+        [Obsolete("to be moved to model", false)]
         private void ResourceOpen(object sender, RoutedPropertyChangedEventArgs<BreadcrumbItem> e)
         {
             if (e.NewValue != null)

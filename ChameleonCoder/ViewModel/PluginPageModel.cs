@@ -110,7 +110,7 @@ namespace ChameleonCoder.ViewModel
                 {
                     dll = Assembly.LoadFile(path);
                 }
-                catch (BadImageFormatException e)
+                catch (BadImageFormatException)
                 {
                     OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallNoAssembly, path), Interaction.MessageSeverity.Error);
                     return;
