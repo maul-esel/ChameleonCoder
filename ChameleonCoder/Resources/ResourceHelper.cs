@@ -4,6 +4,7 @@ using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources.RichContent;
+using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
@@ -328,14 +329,16 @@ namespace ChameleonCoder
 
         public static string GetPath(this IResource resource)
         {
-            return resource.GetPath("\\");
+            return resource.GetPath(App.pathSeparator);
         }
 
         public static IResource GetResourceFromPath(string path, string separator)
         {
-            if (path.StartsWith("CC" + separator, StringComparison.Ordinal))
-                path = path.Remove(0, 3);
-            Resources.ResourceCollection collection = Resources.Management.ResourceManager.GetChildren();
+            var start = Res.Item_Home + separator + Res.Item_List;
+            if (path.StartsWith(start, StringComparison.Ordinal))
+                path = path.Remove(0, start.Length);
+
+            var collection = ResourceManager.GetChildren();
             string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;
@@ -359,7 +362,7 @@ namespace ChameleonCoder
 
         public static IResource GetResourceFromPath(string path)
         {
-            return GetResourceFromPath(path, "\\");
+            return GetResourceFromPath(path, App.pathSeparator);
         }
 
         public static bool IsDescendantOf(this IResource resource, IResource ancestor)
