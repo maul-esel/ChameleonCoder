@@ -16,6 +16,8 @@ namespace ChameleonCoder
     /// </summary>
     public partial class App : Application
     {
+        internal const string pathSeparator = "/";
+
         #region properties
 
         /// <summary>
