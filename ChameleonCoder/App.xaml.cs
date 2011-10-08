@@ -47,7 +47,7 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="sender">not used</param>
         /// <param name="e">additional data containing the cmd arguments</param>
-        private void InitHandler(Object sender, StartupEventArgs e)
+        private void InitHandler(object sender, StartupEventArgs e)
         {
             // finding the path of the file to open:
             string path = null;
@@ -101,13 +101,20 @@ namespace ChameleonCoder
                                            Resources["resourceHierarchy"] as ResourceCollection);
 
 #if DEBUG
+            /* TODO:
+             * - do not force the user to open a file
+             * - let him open an empty app
+             * - implement possibilities to create & open files later
+             * - implement possibility to close all opened files
+             * - set debug file through project properties >> parameters instead
+             */
             if (path == null && File.Exists("test.ccr")) // if no file passed:
                 path = "test.ccr"; // use test file in debug builds
 #endif
-            if (path == null) // if no path was passed
+            if (path == null) // if no path was passed:
             {
-                // else let the user open a new file
-                using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr; *.ccp" })
+                // let the user open a new file
+                using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr" })
                 {
                     if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                         Environment.Exit(-1);
@@ -118,8 +125,35 @@ namespace ChameleonCoder
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
-                DefaultFile = new DataFile(path); // open the file
-                Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
+                Task files = null;
+                if (path != null)
+                {
+                    files = Task.Factory.StartNew(() =>
+                        {
+                            try
+                            {
+                                DefaultFile = DataFile.Open(path); // open the file
+                            }
+                            catch (FileFormatException)
+                            {
+                                throw; // Todo: inform user, log
+                            }
+                            catch (FileNotFoundException)
+                            {
+                                throw; // Todo: inform user, log
+                            }
+                        });
+                }
+                var plugins = Task.Factory.StartNew(() =>
+                    {
+                        Plugins.PluginManager.Load();// load all plugins in the /Component/ folder
+                    });
+
+                if (files != null)
+                    files.Wait();
+
+                plugins.Wait();
+
                 foreach (XmlElement element in DataFile.GetResources())
                     AddResource(element, null); // and parse the Xml
             });
