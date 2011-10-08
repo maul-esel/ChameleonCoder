@@ -43,12 +43,6 @@ namespace ChameleonCoder.ViewModel
                 OpenResourceEditCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteResource,
                 DeleteResourceCommandExecuted));
-
-            PropertyChanged += (s, e) =>
-                {
-                    if (e.PropertyName == "ActiveTab")
-                        OnViewChanged();
-                };
         }
 
         #region singleton
@@ -273,7 +267,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(WelcomePageModel.Instance);
 
             OnViewChanged();
-            BreadcrumbPath = BreadcrumbRoot.Name;
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void OpenResourceList()
@@ -284,10 +278,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(ResourceListPageModel.Instance);
 
             OnViewChanged();
-            BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_List);
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void OpenPluginPage()
@@ -298,10 +289,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(PluginPageModel.Instance);
 
             OnViewChanged();
-            BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_Plugins);
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void OpenSettingsPage()
@@ -312,10 +300,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(SettingsPageModel.Instance);
 
             OnViewChanged();
-            BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Item_Settings);
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void OpenFileManagementPage(DataFile file)
@@ -326,10 +311,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(new FileManagementPageModel(file));
 
             OnViewChanged();
-            BreadcrumbPath = string.Format("{1}{0}{2}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_FileManagement);
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         #endregion
@@ -344,11 +326,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(new ResourceViewPageModel(resource));
 
             OnViewChanged();
-            BreadcrumbPath = string.Format("{1}{0}{2}{3}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_List,
-                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void OpenResourceEdit(IEditable resource)
@@ -359,11 +337,7 @@ namespace ChameleonCoder.ViewModel
             context.Content = OnRepresentationNeeded(new EditPageModel(resource));
 
             OnViewChanged();
-            BreadcrumbPath = string.Format("{1}{0}{2}{3}",
-                        BreadcrumbSeparator,
-                        BreadcrumbRoot.Name,
-                        Res.Item_List,
-                        ResourceManager.ActiveItem.GetPath(BreadcrumbSeparator));
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void DeleteResource(IResource resource)
@@ -380,17 +354,20 @@ namespace ChameleonCoder.ViewModel
 
         public static string BreadcrumbSeparator
         {
-            get { return "/"; }
+            get { return App.pathSeparator; }
         }
-
-        private string breadcrumbPath;
 
         public string BreadcrumbPath
         {
-            get { return breadcrumbPath; }
+            get
+            {
+                if (ActiveTab != null)
+                    return ActiveTab.Path;
+                return null;
+            }
             set
             {
-                breadcrumbPath = value;
+                /* TODO: switch active tab (move that from MainWindow) */
                 OnPropertyChanged("BreadcrumbPath");
             }
         }
@@ -437,6 +414,8 @@ namespace ChameleonCoder.ViewModel
             {
                 selectedTab = value;
                 OnPropertyChanged("ActiveTab");
+                OnPropertyChanged("BreadcrumbPath");
+                OnViewChanged();
             }
         }
 
@@ -449,7 +428,7 @@ namespace ChameleonCoder.ViewModel
             ActiveTab = context;
 
             OnViewChanged();
-            BreadcrumbPath = BreadcrumbRoot.Name;
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         private void CloseTab(TabContext item)
