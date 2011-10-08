@@ -279,7 +279,7 @@ namespace ChameleonCoder
                             break;
 
                         case Shared.CCTabPage.FileManagement:
-                            ChameleonCoderCommands.OpenFileManagementPage.Execute(null, this); // TODO: handle the parameter
+                            ChameleonCoderCommands.OpenFileManagementPage.Execute(App.DefaultFile, this);
                             break;
                     }
                 }

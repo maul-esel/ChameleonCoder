@@ -68,7 +68,7 @@ namespace ChameleonCoder
                         return Res.Item_Settings;
 
                     case CCTabPage.FileManagement:
-                        return Res.Item_FileManagement; // TODO: handle file name
+                        return Res.Item_FileManagement;
 
                     default:
                     case CCTabPage.None:

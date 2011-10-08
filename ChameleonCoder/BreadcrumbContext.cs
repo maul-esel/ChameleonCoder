@@ -51,7 +51,7 @@ namespace ChameleonCoder
                         return Res.Item_Settings;
 
                     case CCTabPage.FileManagement:
-                        return Res.Item_FileManagement; // todo: manage file name
+                        return Res.Item_FileManagement;
 
                     default:
                         throw new InvalidOperationException("specified page type is not valid.");
