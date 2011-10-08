@@ -35,7 +35,7 @@ namespace ChameleonCoder
             private set;
         }
 
-        internal string Path
+        public string Path
         {
             get;
             private set;
