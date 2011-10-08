@@ -17,7 +17,8 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="path">the path to the file</param>
         /// <exception cref="FileFormatException">thrown if the Xml is not valid or could not be read.</exception>
-        internal DataFile(string path)
+        /// <exception cref="FileNotFoundException">the specified file does not exist</exception>
+        private DataFile(string path)
         {
             if (File.Exists(path) && !string.IsNullOrWhiteSpace(path))
             {
@@ -27,16 +28,14 @@ namespace ChameleonCoder
                 }
                 catch (XmlException e)
                 {
-                    throw new FileFormatException(new Uri(path, UriKind.Relative), "Invalid format: not a well-formed XML file.", e);
+                    throw new FileFormatException(new Uri(path), "Invalid format: not a well-formed XML file.", e);
                 }
 
-                loadedFilePaths.Add(path);
-                LoadedFiles.Add(this);
-                Directories.Add(Path.GetDirectoryName(path));
-
                 LoadReferences();
+                this.path = path;
             }
-            this.path = path;
+            else
+                throw new FileNotFoundException("the specified file could not be found", path);
         }
 
         /// <summary>
@@ -199,18 +198,11 @@ namespace ChameleonCoder
 
                 if (reference.IsFile)
                 {
-                    try
-                    {
-                        /*LoadedFiles.Add(*/new DataFile(reference.Path)/*)*/;
-                    }
-                    catch (FileFormatException)
-                    {
-                        throw; // Todo: inform user, log
-                    }
+                    Open(reference.Path);
                 }
                 else
                 {
-                    Directories.Add(element.InnerText);
+                    Directories.Add(reference.Path);
                 }
                 References.Add(reference);
             }
@@ -244,6 +236,17 @@ namespace ChameleonCoder
         #endregion // instance
 
         #region static
+
+        internal static DataFile Open(string path)
+        {
+            var file = new DataFile(Path.GetFullPath(path));
+
+            loadedFiles.Add(file);
+            loadedFilePaths.Add(file.FilePath);
+            dirlist.Add(Path.GetDirectoryName(file.FilePath));
+
+            return file;
+        }
 
         /// <summary>
         /// gets a list with the XML representation of all top-level resources in all opened files
@@ -307,6 +310,7 @@ namespace ChameleonCoder
 
             LoadedFiles.Clear();
             loadedFilePaths.Clear();
+            Directories.Clear();
         }
 
         /// <summary>
