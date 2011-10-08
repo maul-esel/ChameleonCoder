@@ -164,7 +164,11 @@ namespace ChameleonCoder
 
             var data = res.SelectNodes("metadata"); // get the list of metadata
             foreach (XmlElement meta in data)
-                dict.Add(meta.GetAttribute("name"), meta.InnerText); // add all metadata elements to the dictionary
+            {
+                var name = meta.GetAttribute("name");
+                if (!string.IsNullOrWhiteSpace(name) && !dict.ContainsKey(name))
+                    dict.Add(meta.GetAttribute("name"), meta.InnerText); // add all metadata elements to the dictionary
+            }
 
             return dict; // return the dictionary
         }

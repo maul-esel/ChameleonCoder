@@ -113,7 +113,11 @@ namespace ChameleonCoder
             var dict = new Dictionary<string, string>();
 
             foreach (XmlElement meta in data)
-                dict.Add(meta.GetAttribute("name"), meta.InnerText);
+            {
+                var name = meta.GetAttribute("name");
+                if (!string.IsNullOrWhiteSpace(name) && !dict.ContainsKey(name))
+                    dict.Add(meta.GetAttribute("name"), meta.InnerText);
+            }
 
             return dict;
         }
