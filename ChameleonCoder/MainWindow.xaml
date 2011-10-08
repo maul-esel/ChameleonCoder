@@ -295,11 +295,13 @@
                         <odc:RibbonGroup Title="{Binding Path=RibbonGroup_Search}">
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Search}" SmallImage="Images\RibbonTab2\search.png"
-                                              Click="EditSearch"
+                                              Command="Search"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=Edit_Replace}" SmallImage="Images\RibbonTab2\search.png"
-                                              Click="EditReplace"
+                                              Command="Replace"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>

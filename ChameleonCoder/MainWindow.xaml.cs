@@ -294,55 +294,5 @@ namespace ChameleonCoder
             ChameleonCoderCommands.OpenResourceView.Execute(resource, this);
         }
         #endregion
-
-        // to be moved to edit page model + use commands!
-        #region editing methods
-
-        [Obsolete("to be moved to edit page model", false)]
-        private void EditSearch(object sender, EventArgs e)
-        {
-            EditPerformAction(editor =>
-                {
-                    var dialog = new CCSearchReplaceDialog(
-                            () => editor.Text,
-                            (offset, length, replaceBy) => editor.Document.Replace(offset, length, replaceBy),
-                            (offset, length) =>
-                            {
-                                editor.Select(offset, length);
-                                var loc = editor.Document.GetLocation(offset);
-                                editor.ScrollTo(loc.Line, loc.Column);
-                            },
-                            false);
-                    dialog.ShowDialog();
-                });
-        }
-
-        [Obsolete("to be moved to edit page model", false)]
-        private void EditReplace(object sender, EventArgs e)
-        {
-            EditPerformAction(editor =>
-                {
-                    var dialog = new CCSearchReplaceDialog(
-                            () => editor.Text,
-                            (offset, length, replaceBy) => editor.Document.Replace(offset, length, replaceBy),
-                            (offset, length) =>
-                            {
-                                editor.Select(offset, length);
-                                var loc = editor.Document.GetLocation(offset);
-                                editor.ScrollTo(loc.Line, loc.Column);
-                            },
-                            true);
-                    dialog.ShowDialog();
-                });
-        }
-
-        private void EditPerformAction(Action<ICSharpCode.AvalonEdit.TextEditor> action)
-        {
-            EditPage edit = MVVM.Instance.ActiveTab.Content as EditPage;
-            if (edit != null)
-                action(edit.Editor);
-        }
-
-        #endregion
     }
 }

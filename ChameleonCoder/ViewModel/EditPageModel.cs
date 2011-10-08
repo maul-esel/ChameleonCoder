@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ICSharpCode.AvalonEdit.Document;
@@ -63,17 +64,7 @@ namespace ChameleonCoder.ViewModel
         /// <param name="e">additional data related to execution</param>
         private void SearchCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var dialog = new CCSearchReplaceDialog(
-                            () => Document.Text,
-                            (offset, length, replaceBy) => Document.Replace(offset, length, replaceBy),
-                            (offset, length) =>
-                            {
-                                //editor.Select(offset, length);
-                                var loc = Document.GetLocation(offset);
-                                //editor.ScrollTo(loc.Line, loc.Column);
-                            },
-                            false);
-            dialog.ShowDialog();
+            SearchReplace(false);
         }
 
         /// <summary>
@@ -83,17 +74,7 @@ namespace ChameleonCoder.ViewModel
         /// <param name="e">additional data related to execution</param>
         private void ReplaceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var dialog = new CCSearchReplaceDialog(
-                            () => Document.Text,
-                            (offset, length, replaceBy) => Document.Replace(offset, length, replaceBy),
-                            (offset, length) =>
-                            {
-                                //editor.Select(offset, length);
-                                var loc = Document.GetLocation(offset);
-                                //editor.ScrollTo(loc.Line, loc.Column);
-                            },
-                            true);
-            dialog.ShowDialog();
+            SearchReplace(true);
         }
 
         /// <summary>
@@ -117,6 +98,19 @@ namespace ChameleonCoder.ViewModel
         }
 
         #endregion
+
+        private void SearchReplace(bool replace)
+        {
+            var dialog = new CCSearchReplaceDialog(
+                            () => Document.Text,
+                            (offset, length, replaceBy) => Document.Replace(offset, length, replaceBy),
+                            (offset, length) =>
+                            {
+                                OnSelectText(offset, length);
+                            },
+                            replace);
+            dialog.ShowDialog();
+        }
 
         /// <summary>
         /// gets the font size
@@ -179,5 +173,20 @@ namespace ChameleonCoder.ViewModel
         }
 
         private readonly IEditable resourceInstance;
+
+        #region events
+
+        internal event EventHandler<Interaction.SelectionEventArgs> SelectText;
+
+        private void OnSelectText(int offset, int length)
+        {
+            var handler = SelectText;
+            if (handler != null)
+            {
+                handler(this, new Interaction.SelectionEventArgs(offset, length));
+            }
+        }
+
+        #endregion
     }
 }
