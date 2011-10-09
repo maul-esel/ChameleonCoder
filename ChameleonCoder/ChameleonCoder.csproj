@@ -436,6 +436,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChameleonCoder.rc" />
+    <Resource Include="Images\create_ccr.png" />
+    <Resource Include="Images\close_ccr.png" />
+    <Resource Include="Images\open_ccr.png" />
     <Resource Include="Images\files.png" />
     <Resource Include="Images\plugins.png" />
   </ItemGroup>
