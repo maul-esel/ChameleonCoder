@@ -7,11 +7,6 @@ namespace ChameleonCoder.ViewModel
     internal sealed class FileManagementPageModel : ViewModelBase
     {
         internal FileManagementPageModel()
-            : this(null)
-        {            
-        }
-
-        internal FileManagementPageModel(DataFile file)
         {
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
                 DeleteMetadataCommandExecuted,
@@ -20,8 +15,6 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
                 AddMetadataCommandExecuted,
                 (s, e) => e.CanExecute = ActiveFile != null));
-
-            ActiveFile = file;
         }
 
         public static IList<DataFile> AllFiles
@@ -57,9 +50,9 @@ namespace ChameleonCoder.ViewModel
             get { return file; }
             set
             {
-                file = value;
+                file = value;                
                 OnPropertyChanged("ActiveFile");
-                OnPropertyChanged("Metadata");
+                UpdateAll();
             }
         }
 
@@ -108,7 +101,6 @@ namespace ChameleonCoder.ViewModel
                 }
             }
         }
-
         #endregion
 
         private void AddMetadata()
