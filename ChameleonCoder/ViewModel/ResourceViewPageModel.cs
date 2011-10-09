@@ -15,7 +15,8 @@ namespace ChameleonCoder.ViewModel
             resourceInstance = resource;
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
-                DeleteMetadataCommandExecuted));
+                DeleteMetadataCommandExecuted,
+                (s, e) => e.CanExecute = ActiveMetadata != null));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
                 AddMetadataCommandExecuted));
         }
