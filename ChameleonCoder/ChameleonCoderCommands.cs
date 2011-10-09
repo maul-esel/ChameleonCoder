@@ -7,6 +7,7 @@ namespace ChameleonCoder
     /// </summary>
     public static class ChameleonCoderCommands
     {
+        #region page management
         /// <summary>
         /// the command for opening the page with a list of resources
         /// </summary>
@@ -48,7 +49,9 @@ namespace ChameleonCoder
         public static readonly RoutedCommand OpenFileManagementPage
             = new RoutedCommand("OpenFileManagementPage",
                                 typeof(ChameleonCoderCommands));
+        #endregion
 
+        #region resources
         /// <summary>
         /// the command for creating a new resource
         /// </summary>
@@ -69,7 +72,9 @@ namespace ChameleonCoder
         public static readonly RoutedCommand DeleteResource
             = new RoutedCommand("SaveResource",
                                 typeof(ChameleonCoderCommands));
+        #endregion
 
+        #region tabs
         /// <summary>
         /// the command for opening a new tab
         /// </summary>
@@ -83,6 +88,7 @@ namespace ChameleonCoder
         public static readonly RoutedCommand CloseTab
             = new RoutedCommand("CloseTab",
                                 typeof(ChameleonCoderCommands));
+        #endregion
 
         /// <summary>
         /// the command for executing a service plugin
@@ -91,6 +97,7 @@ namespace ChameleonCoder
             = new RoutedCommand("ExecuteService",
                                 typeof(ChameleonCoderCommands));
 
+        #region metadata
         /// <summary>
         /// the command for adding metadata on a resource or DataFile
         /// </summary>
@@ -104,6 +111,7 @@ namespace ChameleonCoder
         public static readonly RoutedCommand DeleteMetadata
             = new RoutedCommand("DeleteMetadata",
                                 typeof(ChameleonCoderCommands));
+        #endregion
 
         /// <summary>
         /// the command for setting the sorting mode in a list box / -view
@@ -119,6 +127,7 @@ namespace ChameleonCoder
             = new RoutedCommand("SetGroupingMode",
                                 typeof(ChameleonCoderCommands));
 
+        #region plugins
         /// <summary>
         /// the command for uninstalling a plugin
         /// </summary>
@@ -132,7 +141,9 @@ namespace ChameleonCoder
         public static readonly RoutedCommand InstallPlugin
             = new RoutedCommand("InstallPlugin",
                                 typeof(ChameleonCoderCommands));
+        #endregion
 
+        #region files
         /// <summary>
         /// the command for opening a new file, adding it to the already opened ones
         /// </summary>
@@ -153,5 +164,22 @@ namespace ChameleonCoder
         public static readonly RoutedCommand CreateFile
             = new RoutedCommand("CreateFile",
                                 typeof(ChameleonCoderCommands));
+        #endregion
+
+        #region references
+        /// <summary>
+        /// the command for creating a new reference on a resource or file
+        /// </summary>
+        public static readonly RoutedCommand CreateReference
+            = new RoutedCommand("CreateReference",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for deleting a reference on a resource or file
+        /// </summary>
+        public static readonly RoutedCommand DeleteReference
+            = new RoutedCommand("DeleteReference",
+                                typeof(ChameleonCoderCommands));
+        #endregion
     }
 }
