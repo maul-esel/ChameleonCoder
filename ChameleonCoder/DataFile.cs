@@ -251,6 +251,11 @@ namespace ChameleonCoder
 
         #region static
 
+        internal static bool IsLoaded(string path)
+        {
+            return loadedFilePaths.Contains(path);
+        }
+
         internal static DataFile Open(string path)
         {
             var file = new DataFile(Path.GetFullPath(path));
