@@ -299,7 +299,7 @@
     <value>How do you want to start?</value>
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
-    <value>CC - deleting resources...</value>
+    <value>CC - Deleting resources...</value>
   </data>
   <data name="View_AddChild" xml:space="preserve">
     <value>Add a child resource</value>
@@ -366,7 +366,7 @@ ChameleonCoder will close.</value>
     <value>Enter the new metadata's name:</value>
   </data>
   <data name="Status_CreateMeta" xml:space="preserve">
-    <value>CC - creating new metadata...</value>
+    <value>CC - Creating new metadata...</value>
   </data>
   <data name="Error_InstallEmptyAssembly" xml:space="preserve">
     <value>The assembly at "{0}" does not contain ChameleonCoder plugins that aren't already installed.</value>
@@ -393,7 +393,7 @@ ChameleonCoder will close.</value>
     <value>uninstall selected plugin</value>
   </data>
   <data name="Status_InstallPlugin" xml:space="preserve">
-    <value>CC - installing plugins...</value>
+    <value>CC - Installing plugins...</value>
   </data>
   <data name="Error_MoveToDescendant" xml:space="preserve">
     <value>The resource "{0}" could not be moved to resource "{1}":
@@ -446,5 +446,26 @@ resources cannot be moved to descendants.</value>
   </data>
   <data name="Item_FileManagement" xml:space="preserve">
     <value>file management</value>
+  </data>
+  <data name="File_ConfirmClose" xml:space="preserve">
+    <value>Are you sure you want to close all opened files?</value>
+  </data>
+  <data name="File_ConfirmOverwrite" xml:space="preserve">
+    <value>Do you want to overwrite the file at "{0}"?</value>
+  </data>
+  <data name="File_SelectCreate" xml:space="preserve">
+    <value>Select the path to the file to create.</value>
+  </data>
+  <data name="File_SelectOpen" xml:space="preserve">
+    <value>Select the file you want to open.</value>
+  </data>
+  <data name="Status_ClosingFiles" xml:space="preserve">
+    <value>CC - Closing opened files...</value>
+  </data>
+  <data name="Status_CreatingFile" xml:space="preserve">
+    <value>CC - Creating a file...</value>
+  </data>
+  <data name="Status_OpeningFile" xml:space="preserve">
+    <value>CC - Opening file...</value>
   </data>
 </root>

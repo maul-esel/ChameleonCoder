@@ -324,6 +324,42 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to close all opened files?.
+        /// </summary>
+        internal static string File_ConfirmClose {
+            get {
+                return ResourceManager.GetString("File_ConfirmClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to overwrite the file at &quot;{0}&quot;?.
+        /// </summary>
+        internal static string File_ConfirmOverwrite {
+            get {
+                return ResourceManager.GetString("File_ConfirmOverwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the path to the file to create..
+        /// </summary>
+        internal static string File_SelectCreate {
+            get {
+                return ResourceManager.GetString("File_SelectCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the file you want to open..
+        /// </summary>
+        internal static string File_SelectOpen {
+            get {
+                return ResourceManager.GetString("File_SelectOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         internal static string Help {
@@ -900,7 +936,16 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CC - creating new metadata....
+        ///   Looks up a localized string similar to CC - Closing opened files....
+        /// </summary>
+        internal static string Status_ClosingFiles {
+            get {
+                return ResourceManager.GetString("Status_ClosingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CC - Creating new metadata....
         /// </summary>
         internal static string Status_CreateMeta {
             get {
@@ -909,7 +954,16 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CC - deleting resources....
+        ///   Looks up a localized string similar to CC - Creating a file....
+        /// </summary>
+        internal static string Status_CreatingFile {
+            get {
+                return ResourceManager.GetString("Status_CreatingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CC - Deleting resources....
         /// </summary>
         internal static string Status_DeleteResource {
             get {
@@ -918,7 +972,7 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CC - installing plugins....
+        ///   Looks up a localized string similar to CC - Installing plugins....
         /// </summary>
         internal static string Status_InstallPlugin {
             get {
@@ -932,6 +986,15 @@ namespace ChameleonCoder.Properties {
         internal static string Status_Move {
             get {
                 return ResourceManager.GetString("Status_Move", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CC - Opening file....
+        /// </summary>
+        internal static string Status_OpeningFile {
+            get {
+                return ResourceManager.GetString("Status_OpeningFile", resourceCulture);
             }
         }
         

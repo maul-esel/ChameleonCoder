@@ -299,7 +299,7 @@
     <value>Wie wollen Sie beginnen?</value>
   </data>
   <data name="Status_DeleteResource" xml:space="preserve">
-    <value>CC - lösche Ressourcen...</value>
+    <value>CC - Lösche Ressourcen...</value>
   </data>
   <data name="View_AddChild" xml:space="preserve">
     <value>Untergeordnete Ressource hinzufügen</value>
@@ -447,5 +447,26 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   </data>
   <data name="Item_FileManagement" xml:space="preserve">
     <value>Datei-Verwaltung</value>
+  </data>
+  <data name="File_ConfirmClose" xml:space="preserve">
+    <value>Wollen Sie wirklich alle geöffneten Dateien schließen?</value>
+  </data>
+  <data name="File_ConfirmOverwrite" xml:space="preserve">
+    <value>Wollen Sie die Datei unter "{0}" überschreiben?</value>
+  </data>
+  <data name="File_SelectCreate" xml:space="preserve">
+    <value>Wählen Sie den Pfad zur erstellenden Datei.</value>
+  </data>
+  <data name="File_SelectOpen" xml:space="preserve">
+    <value>Wählen Sie die zu öffnende Datei.</value>
+  </data>
+  <data name="Status_ClosingFiles" xml:space="preserve">
+    <value>CC - Schließe geöffnete Dateien...</value>
+  </data>
+  <data name="Status_CreatingFile" xml:space="preserve">
+    <value>CC - Erstelle eine Datei...</value>
+  </data>
+  <data name="Status_OpeningFile" xml:space="preserve">
+    <value>CC - Öffne Dateien...</value>
   </data>
 </root>
