@@ -609,6 +609,7 @@ namespace ChameleonCoder.ViewModel
         public static string RibbonContext_List { get { return Res.RibbonContext_List; } }
         public static string RibbonContext_Edit { get { return Res.RibbonContext_Edit; } }
         public static string RibbonContext_View { get { return Res.RibbonContext_View; } }
+        public static string RibbonContext_Files { get { return Res.RibbonContext_Files; } }
         #endregion
 
         #region ResourceList Ribbon
@@ -651,6 +652,12 @@ namespace ChameleonCoder.ViewModel
 
         public static string View_Edit { get { return Res.View_Edit; } }
         #endregion
+
+        public static string Ref_AddFileRef { get { return Res.Ref_AddFileRef; } }
+
+        public static string Ref_AddDirRef { get { return Res.Ref_AddDirRef; } }
+
+        public static string Ref_Delete { get { return Res.Ref_Delete; } }
 
         #endregion
 

@@ -473,4 +473,19 @@ resources cannot be moved to descendants.</value>
   <data name="Error_FileAlreadyLoaded" xml:space="preserve">
     <value>The specified file "{0}" is already loaded. You cannot open or replace it.</value>
   </data>
+  <data name="Ref_AddResRef" xml:space="preserve">
+    <value>add resource reference</value>
+  </data>
+  <data name="Ref_AddDirRef" xml:space="preserve">
+    <value>add directory reference</value>
+  </data>
+  <data name="Ref_AddFileRef" xml:space="preserve">
+    <value>add file reference</value>
+  </data>
+  <data name="Ref_Delete" xml:space="preserve">
+    <value>delete reference</value>
+  </data>
+  <data name="RibbonContext_Files" xml:space="preserve">
+    <value>File management</value>
+  </data>
 </root>

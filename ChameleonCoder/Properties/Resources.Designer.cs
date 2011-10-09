@@ -728,11 +728,56 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add directory reference.
+        /// </summary>
+        internal static string Ref_AddDirRef {
+            get {
+                return ResourceManager.GetString("Ref_AddDirRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add file reference.
+        /// </summary>
+        internal static string Ref_AddFileRef {
+            get {
+                return ResourceManager.GetString("Ref_AddFileRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add resource reference.
+        /// </summary>
+        internal static string Ref_AddResRef {
+            get {
+                return ResourceManager.GetString("Ref_AddResRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to delete reference.
+        /// </summary>
+        internal static string Ref_Delete {
+            get {
+                return ResourceManager.GetString("Ref_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editing.
         /// </summary>
         internal static string RibbonContext_Edit {
             get {
                 return ResourceManager.GetString("RibbonContext_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File management.
+        /// </summary>
+        internal static string RibbonContext_Files {
+            get {
+                return ResourceManager.GetString("RibbonContext_Files", resourceCulture);
             }
         }
         

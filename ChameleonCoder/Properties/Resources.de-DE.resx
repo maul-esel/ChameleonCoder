@@ -474,4 +474,19 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="Error_FileAlreadyLoaded" xml:space="preserve">
     <value>Die angegebene Datei ("{0}") ist bereits geöffnet. Sie kann nicht geöffnet oder ersetzt werden.</value>
   </data>
+  <data name="Ref_AddDirRef" xml:space="preserve">
+    <value>Ordner-Verweis hinzufügen</value>
+  </data>
+  <data name="Ref_AddFileRef" xml:space="preserve">
+    <value>Datei-Verweis hinzufügen</value>
+  </data>
+  <data name="Ref_AddResRef" xml:space="preserve">
+    <value>Ressourcen-Verweis hinzufügen</value>
+  </data>
+  <data name="Ref_Delete" xml:space="preserve">
+    <value>Verweis löschen</value>
+  </data>
+  <data name="RibbonContext_Files" xml:space="preserve">
+    <value>Datei-Verwaltung</value>
+  </data>
 </root>
