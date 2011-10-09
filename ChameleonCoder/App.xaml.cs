@@ -18,6 +18,8 @@ namespace ChameleonCoder
     {
         internal const string pathSeparator = "/";
 
+        internal const string fileTemplate = null;
+
         #region properties
 
         /// <summary>
