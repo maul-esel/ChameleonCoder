@@ -277,8 +277,7 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file &quot;{0}&quot; could not be opened.
-        ///ChameleonCoder will close..
+        ///   Looks up a localized string similar to The file &quot;{0}&quot; could not be opened..
         /// </summary>
         internal static string Error_InvalidFile {
             get {

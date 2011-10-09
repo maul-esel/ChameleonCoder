@@ -348,8 +348,7 @@
     <value>Plugins</value>
   </data>
   <data name="Error_InvalidFile" xml:space="preserve">
-    <value>Die angegebene Datei "{0}" konnte nicht geöffnet werden.
-ChameleonCoder wird geschlossen.</value>
+    <value>Die angegebene Datei "{0}" konnte nicht geöffnet werden.</value>
   </data>
   <data name="MetadataKey" xml:space="preserve">
     <value>Metadata-Schlüssel</value>
