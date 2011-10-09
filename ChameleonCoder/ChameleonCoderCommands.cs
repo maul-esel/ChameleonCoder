@@ -170,8 +170,8 @@ namespace ChameleonCoder
         /// <summary>
         /// the command for creating a new reference on a resource or file
         /// </summary>
-        public static readonly RoutedCommand CreateReference
-            = new RoutedCommand("CreateReference",
+        public static readonly RoutedCommand AddReference
+            = new RoutedCommand("AddReference",
                                 typeof(ChameleonCoderCommands));
 
         /// <summary>
