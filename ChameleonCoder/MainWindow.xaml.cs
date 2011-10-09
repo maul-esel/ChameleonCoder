@@ -116,7 +116,6 @@ namespace ChameleonCoder
                 case CCTabPage.Home:
                 case CCTabPage.Plugins:
                 case CCTabPage.Settings:
-                case CCTabPage.FileManagement:
 
                     if (ResourceManager.ActiveItem != null)
                         ResourceManager.Close();
@@ -141,6 +140,16 @@ namespace ChameleonCoder
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[2];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
+                    break;
+
+                case CCTabPage.FileManagement:
+
+                    if (ResourceManager.ActiveItem != null)
+                        ResourceManager.Close();
+
+                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[3];
+                    ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
+
                     break;
 
                 default:

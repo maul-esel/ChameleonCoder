@@ -391,7 +391,40 @@
                         <odc:RibbonGroup x:Name="CustomGroup2"/>
 
                     </odc:RibbonTabItem>
-                </odc:RibbonContextualTabSet>                
+                </odc:RibbonContextualTabSet>
+                
+                <odc:RibbonContextualTabSet>
+                    <odc:RibbonTabItem Title="{Binding Path=RibbonContext_Files}">
+                        <odc:RibbonGroup><!-- add title ?-->
+
+                            <odc:RibbonButton Content="{Binding Path=Meta_Add}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddMetadata}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Meta_Delete}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteMetadata}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"/>
+                        </odc:RibbonGroup>
+
+                        <odc:RibbonGroup><!-- add title ?-->
+
+                            <odc:RibbonButton Content="{Binding Path=Ref_AddFileRef}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddReference}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
+                                              CommandParameter="file"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Ref_AddDirRef}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddReference}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
+                                              CommandParameter="dir"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Ref_Delete}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteReference}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"/>
+                            
+                        </odc:RibbonGroup>
+                    </odc:RibbonTabItem>
+                </odc:RibbonContextualTabSet>
                 
             </odc:RibbonBar.ContextualTabSets>
             
