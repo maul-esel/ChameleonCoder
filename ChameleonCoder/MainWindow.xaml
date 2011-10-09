@@ -232,6 +232,61 @@
                     
                 </odc:RibbonContextualTabSet>
 
+                <!--resource view-->
+                <odc:RibbonContextualTabSet>
+
+                    <odc:RibbonTabItem Title="{Binding Path=RibbonContext_View}">
+                        <odc:RibbonGroup>
+
+                            <odc:RibbonButton Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.CreateResource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
+                                              odc:RibbonBar.Size="Large"/>
+
+                            <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\copy.png"
+                                              Click="ResourceCopy"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=View_Move}" SmallImage="Images\move.png"
+                                              Click="ResourceMove"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=View_Delete}" SmallImage="Images\delete.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteResource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
+                                              odc:RibbonBar.Size="Medium"/>
+
+                        </odc:RibbonGroup>
+
+                        <odc:RibbonGroup>
+
+                            <odc:RibbonButton Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.OpenResourceEdit}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
+                                              odc:RibbonBar.Size="Large"/>
+
+                        </odc:RibbonGroup>
+
+                        <odc:RibbonGroup>
+
+                            <odc:RibbonButton Content="{Binding Path=Meta_Add}" SmallImage="Images\SmallIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddMetadata}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Meta_Delete}" SmallImage="Images\SmallIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteMetadata}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
+                                              odc:RibbonBar.Size="Medium"/>
+
+                        </odc:RibbonGroup>
+
+                        <odc:RibbonGroup x:Name="CustomGroup3"/>
+
+                    </odc:RibbonTabItem>
+
+                </odc:RibbonContextualTabSet>
+
                 <!--resource editing-->
                 <odc:RibbonContextualTabSet>
                     <odc:RibbonTabItem Title="{Binding Path=RibbonContext_Edit}">
@@ -336,66 +391,18 @@
                         <odc:RibbonGroup x:Name="CustomGroup2"/>
 
                     </odc:RibbonTabItem>
-                </odc:RibbonContextualTabSet>
-
-                <!--resource view-->
-                <odc:RibbonContextualTabSet>
-
-                    <odc:RibbonTabItem Title="{Binding Path=RibbonContext_View}">
-                        <odc:RibbonGroup>
-
-                            <odc:RibbonButton Content="{Binding Path=View_AddChild}" LargeImage="Images\LargeIcon.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.CreateResource}"
-                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
-                                              odc:RibbonBar.Size="Large"/>
-
-                            <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\copy.png"
-                                              Click="ResourceCopy"
-                                              odc:RibbonBar.MaxSize="Medium"/>
-
-                            <odc:RibbonButton Content="{Binding Path=View_Move}" SmallImage="Images\move.png"
-                                              Click="ResourceMove"
-                                              odc:RibbonBar.MaxSize="Medium"/>
-
-                            <odc:RibbonButton Content="{Binding Path=View_Delete}" SmallImage="Images\delete.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteResource}"
-                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
-                                              odc:RibbonBar.Size="Medium"/>
-
-                        </odc:RibbonGroup>
-
-                        <odc:RibbonGroup>
-                            
-                            <odc:RibbonButton Content="{Binding Path=View_Edit}" LargeImage="Images\edit.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.OpenResourceEdit}"
-                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
-                                              odc:RibbonBar.Size="Large"/>
-                            
-                        </odc:RibbonGroup>
-                        
-                        <odc:RibbonGroup>
-                            
-                            <odc:RibbonButton Content="{Binding Path=Meta_Add}" SmallImage="Images\SmallIcon.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.AddMetadata}"
-                                              CommandTarget="{Binding Path=ActiveTab.Content}"
-                                              odc:RibbonBar.MaxSize="Medium"/>
-
-                            <odc:RibbonButton Content="{Binding Path=Meta_Delete}" SmallImage="Images\SmallIcon.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteMetadata}"
-                                              CommandTarget="{Binding Path=ActiveTab.Content}"
-                                              odc:RibbonBar.Size="Medium"/>
-                            
-                        </odc:RibbonGroup>
-
-                        <odc:RibbonGroup x:Name="CustomGroup3"/>
-
-                    </odc:RibbonTabItem>
-                    
-                </odc:RibbonContextualTabSet>
+                </odc:RibbonContextualTabSet>                
                 
             </odc:RibbonBar.ContextualTabSets>
             
-            <odc:RibbonTabItem Title="{Binding Path=Item_Home}"/>
+            <odc:RibbonTabItem Title="{Binding Path=Item_Home}">
+                <odc:RibbonGroup>
+                    <odc:RibbonButton Content="create file"/>
+                    <odc:RibbonButton Content="open file"/>
+                    <odc:RibbonButton Content="close files"
+                                      Command="{x:Static cc:ChameleonCoderCommands.CloseFiles}"/>
+                </odc:RibbonGroup>
+            </odc:RibbonTabItem>
 
         </odc:RibbonBar>
 

@@ -130,13 +130,13 @@ namespace ChameleonCoder
 
                 case CCTabPage.ResourceView:
 
-                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[2];
+                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[1];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
                     break;
 
                 case CCTabPage.ResourceEdit:
 
-                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[1];
+                    ribbon.ContextualTabSet = ribbon.ContextualTabSets[2];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
                     break;
 
