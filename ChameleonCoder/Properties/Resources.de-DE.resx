@@ -471,4 +471,7 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="Plugin_SelectInstall" xml:space="preserve">
     <value>Wählen Sie das zu installierende Plugin aus.</value>
   </data>
+  <data name="Error_FileAlreadyLoaded" xml:space="preserve">
+    <value>Die angegebene Datei ("{0}") ist bereits geöffnet. Sie kann nicht geöffnet oder ersetzt werden.</value>
+  </data>
 </root>

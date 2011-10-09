@@ -250,6 +250,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified file &quot;{0}&quot; is already loaded. You cannot open or replace it..
+        /// </summary>
+        internal static string Error_FileAlreadyLoaded {
+            get {
+                return ResourceManager.GetString("Error_FileAlreadyLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The assembly at &quot;{0}&quot; does not contain ChameleonCoder plugins that aren&apos;t already installed..
         /// </summary>
         internal static string Error_InstallEmptyAssembly {
