@@ -132,5 +132,19 @@ namespace ChameleonCoder
         public static readonly RoutedCommand InstallPlugin
             = new RoutedCommand("InstallPlugin",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for opening a new file, adding it to the already opened ones
+        /// </summary>
+        public static readonly RoutedCommand OpenFile
+            = new RoutedCommand("OpenFile",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for closing all opened files
+        /// </summary>
+        public static readonly RoutedCommand CloseFiles
+            = new RoutedCommand("CloseFiles",
+                                typeof(ChameleonCoderCommands));
     }
 }
