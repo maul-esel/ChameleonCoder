@@ -146,5 +146,12 @@ namespace ChameleonCoder
         public static readonly RoutedCommand CloseFiles
             = new RoutedCommand("CloseFiles",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for creating a new file, opening it afterwards
+        /// </summary>
+        public static readonly RoutedCommand CreateFile
+            = new RoutedCommand("CreateFile",
+                                typeof(ChameleonCoderCommands));
     }
 }
