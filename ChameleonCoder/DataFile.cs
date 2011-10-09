@@ -233,6 +233,20 @@ namespace ChameleonCoder
             log.AppendChild(change);
         }
 
+        /// <summary>
+        /// gets a list with the XML representation of all top-level resources in all opened files
+        /// </summary>
+        /// <returns>the list, containing of XmlElement instances</returns>
+        internal IEnumerable<XmlElement> GetResources()
+        {
+            var elements = new List<XmlElement>();
+
+            foreach (XmlElement element in Document.SelectNodes("/cc-resource-file/resources/*"))
+                elements.Add(element);
+
+            return elements;
+        }
+
         #endregion // instance
 
         #region static
@@ -246,23 +260,6 @@ namespace ChameleonCoder
             dirlist.Add(Path.GetDirectoryName(file.FilePath));
 
             return file;
-        }
-
-        /// <summary>
-        /// gets a list with the XML representation of all top-level resources in all opened files
-        /// </summary>
-        /// <returns>the list, containing of XmlElement instances</returns>
-        internal static IEnumerable<XmlElement> GetResources()
-        {
-            var elements = new List<XmlElement>();
-
-            foreach (DataFile file in LoadedFiles)
-            {
-                foreach (XmlElement element in file.Document.SelectNodes("/cc-resource-file/resources/*"))
-                    elements.Add(element);
-            }
-
-            return elements;
         }
 
         /// <summary>
