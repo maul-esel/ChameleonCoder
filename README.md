@@ -31,6 +31,7 @@ Other implementations such as MONO do ***not*** work as CC requires WPF.
 * multiple language support
 * creation, moving, copying and deleting of resources
 * referencing a resource in another place
+* of course rich editing component using the AvalonEdit control
 
 ### planned
 * support for coding languages using LanguageModules, which can allow
@@ -39,11 +40,10 @@ Other implementations such as MONO do ***not*** work as CC requires WPF.
 	* syntax highlighting,
 	* intellisense,
 	* ... and a lot more
-* of course rich editing component using the AvalonEdit control
 * RichContent model for describing the content of a resource
 * Generating documentation from RichContent, maybe exporting to HTML
 * creation of empty files, management of existing files
-	* creation and modification of references
+* creation and modification of file-, directory- and resource-references
 
 ## Extensibility model
 It is planned to support different models to extend CC.
