@@ -14,8 +14,8 @@ namespace ChameleonCoder.Navigation
         /// </summary>
         public PluginPage()
         {
-            ViewModel.PluginPageModel.Instance.AssemblyNeeded -= FindAssembly; // remove handler if already attached
-            ViewModel.PluginPageModel.Instance.AssemblyNeeded += FindAssembly; // add handler
+            ViewModel.PluginPageModel.Instance.PluginNeeded -= FindAssembly; // remove handler if already attached
+            ViewModel.PluginPageModel.Instance.PluginNeeded += FindAssembly; // add handler
 
             ViewModel.PluginPageModel.Instance.RepresentationNeeded -= OpenDialog; // see above
             ViewModel.PluginPageModel.Instance.RepresentationNeeded += OpenDialog;

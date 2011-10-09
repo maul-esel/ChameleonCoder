@@ -95,7 +95,7 @@ namespace ChameleonCoder.ViewModel
 
         private void InstallPlugins()
         {
-            var path = OnAssemblyNeeded(null, null);
+            var path = OnPluginNeeded(null, null);
 
             if (path != null)
             {
@@ -166,17 +166,16 @@ namespace ChameleonCoder.ViewModel
         /// <summary>
         /// called when the model needs to know the path to a plugin assembly
         /// </summary>
-        internal event EventHandler<Interaction.UserInputEventArgs> AssemblyNeeded;
+        internal event EventHandler<Interaction.UserInputEventArgs> PluginNeeded;
 
-        private string OnAssemblyNeeded(string topic, string message)
+        private string OnPluginNeeded(string topic, string message)
         {
-            var handler = AssemblyNeeded;
+            var handler = PluginNeeded;
 
             if (handler != null)
             {
                 var args = new Interaction.UserInputEventArgs(topic, message);
                 handler(this, args);
-                System.Diagnostics.Debug.Print(handler.GetInvocationList().Count().ToString()); ;
                 return args.Input;
             }
             return null;
