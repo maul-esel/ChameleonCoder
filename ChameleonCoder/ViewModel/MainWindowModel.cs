@@ -244,7 +244,7 @@ namespace ChameleonCoder.ViewModel
         private void OpenFileManagementPageCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            OpenFileManagementPage(e.Parameter as DataFile);
+            OpenFileManagementPage();
         }
 
         #endregion
@@ -303,12 +303,12 @@ namespace ChameleonCoder.ViewModel
             OnPropertyChanged("BreadcrumbPath");
         }
 
-        private void OpenFileManagementPage(DataFile file)
+        private void OpenFileManagementPage()
         {
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.FileManagement;
-            context.Content = OnRepresentationNeeded(new FileManagementPageModel(file));
+            context.Content = OnRepresentationNeeded(new FileManagementPageModel());
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
