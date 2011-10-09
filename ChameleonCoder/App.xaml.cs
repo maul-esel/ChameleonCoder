@@ -154,8 +154,11 @@ namespace ChameleonCoder
 
                 plugins.Wait();
 
-                foreach (XmlElement element in DataFile.GetResources())
-                    AddResource(element, null); // and parse the Xml
+                foreach (var file in DataFile.LoadedFiles)
+                {
+                    foreach (XmlElement element in file.GetResources())
+                        AddResource(element, null); // and parse the Xml
+                }
             });
 
             MainWindow = new MainWindow(); // open the main window during plugin loading and parsing
