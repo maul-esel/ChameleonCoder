@@ -43,6 +43,14 @@ namespace ChameleonCoder.ViewModel
                 OpenResourceEditCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteResource,
                 DeleteResourceCommandExecuted));
+
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
+                CloseFilesCommandExecuted,
+                (s, e) => e.CanExecute = DataFile.LoadedFiles.Count > 0));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFile,
+                OpenFileCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
+                CreateFileCommandExecuted));
         }
 
         #region singleton
@@ -245,6 +253,24 @@ namespace ChameleonCoder.ViewModel
         {
             e.Handled = true;
             OpenFileManagementPage();
+        }
+
+        private void CloseFilesCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            CloseFiles();
+        }
+
+        private void OpenFileCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            OpenFile();
+        }
+
+        private void CreateFileCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            CreateFile();
         }
 
         #endregion
@@ -470,6 +496,96 @@ namespace ChameleonCoder.ViewModel
 
         #endregion
 
+        #region files
+
+        private void CloseFiles()
+        {
+            if (OnConfirm(Res.Status_ClosingFiles, Res.File_ConfirmClose) == true)
+            {
+                Resources.Management.ResourceManager.GetChildren().Clear();
+                Resources.Management.ResourceManager.GetList().Clear();
+                DataFile.CloseAll();
+            }
+        }
+
+        private void OpenFile()
+        {
+            string path = OnSelectFile(Res.Status_OpeningFile + " " + Res.File_SelectOpen,
+                Environment.CurrentDirectory, true);
+
+            if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
+            {
+                OnReport(Res.Status_OpeningFile, string.Format(Res.Error_InvalidFile, path),
+                    Interaction.MessageSeverity.Critical);
+                return;
+            }
+
+            OpenFile(path);
+        }
+
+
+        private void OpenFile(string path)
+        {
+            if (DataFile.IsLoaded(path))
+            {
+                OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
+                    Interaction.MessageSeverity.Critical);
+                return;
+            }
+
+            var filesBefore = DataFile.LoadedFiles;
+
+            DataFile.Open(path);
+
+            foreach (var file in DataFile.LoadedFiles)
+            {
+                if (!filesBefore.Contains(file))
+                {
+                    foreach (var element in file.GetResources())
+                    {
+                        App.AddResource(element, null);
+                    }
+                }
+            }
+        }
+
+        private void CreateFile()
+        {
+            string path = OnSelectFile(Res.Status_CreatingFile + " " + Res.File_SelectCreate,
+                Environment.CurrentDirectory, false);
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                OnReport(Res.Status_CreatingFile, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
+                return;
+            }
+            if (DataFile.IsLoaded(path))
+            {
+                OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
+                    Interaction.MessageSeverity.Critical);
+                return;
+            }
+            if (System.IO.File.Exists(path))
+            {
+                if (OnConfirm(Res.Status_CreatingFile, string.Format(Res.File_ConfirmOverwrite, path)) != true)
+                    return;
+                else
+                    System.IO.File.Delete(path);
+            }
+
+            using (var stream = System.IO.File.Create(path))
+            {
+                using (var writer = new System.IO.StreamWriter(stream))
+                {
+                    writer.Write(App.fileTemplate);
+                }
+            }
+
+            OpenFile(path);
+        }
+
+        #endregion
+
         #region localization
         public static string Title { get { return "CC - ChameleonCoder alpha 2"; } }
 
@@ -549,6 +665,22 @@ namespace ChameleonCoder.ViewModel
             {
                 handler(this, new Interaction.ViewChangedEventArgs(ActiveTab));
             }
+        }
+
+        internal event EventHandler<Interaction.FileSelectionEventArgs> SelectFile;
+
+        private string OnSelectFile(string message, string dir, bool mustExist)
+        {
+            var handler = SelectFile;
+
+            if (handler != null)
+            {
+                var args = new Interaction.FileSelectionEventArgs(message, dir, mustExist);
+                handler(this, args);
+                return args.Path;
+            }
+
+            return null;
         }
 
         #endregion

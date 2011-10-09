@@ -33,6 +33,9 @@ namespace ChameleonCoder
             MVVM.Instance.RepresentationNeeded -= GetRepresentation;
             MVVM.Instance.RepresentationNeeded += GetRepresentation;
 
+            MVVM.Instance.SelectFile -= OpenFile;
+            MVVM.Instance.SelectFile += OpenFile;
+
             DataContext = MVVM.Instance;
             CommandBindings.AddRange(MVVM.Instance.Commands);
             InitializeComponent();
@@ -181,6 +184,20 @@ namespace ChameleonCoder
             else if (e.Model is EditPageModel)
             {
                 e.Representation = new EditPage(e.Model as EditPageModel);
+            }
+        }
+
+        private static void OpenFile(object sender, FileSelectionEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC resource files | *.ccr",
+                                                                            Title = e.Message,
+                                                                            CheckPathExists = e.MustExist,
+                                                                            InitialDirectory = e.Directory })
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    e.Path = dialog.FileName;
+                }
             }
         }
 
