@@ -468,4 +468,7 @@ resources cannot be moved to descendants.</value>
   <data name="Status_OpeningFile" xml:space="preserve">
     <value>CC - Opening file...</value>
   </data>
+  <data name="Plugin_SelectInstall" xml:space="preserve">
+    <value>Select the plugin you want to install.</value>
+  </data>
 </root>

@@ -30,13 +30,16 @@ namespace ChameleonCoder.Navigation
         /// <param name="sender">not used</param>
         /// <param name="e">not used</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private static void FindAssembly(object sender, ViewModel.Interaction.UserInputEventArgs e)
+        private static void FindAssembly(object sender, ViewModel.Interaction.FileSelectionEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll" })
+            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll",
+                                                                            Title = e.Message,
+                                                                            CheckPathExists = e.MustExist,
+                                                                            InitialDirectory = e.Directory})
             {
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    e.Input = dialog.FileName;
+                    e.Path = dialog.FileName;
                 }
             }
         }

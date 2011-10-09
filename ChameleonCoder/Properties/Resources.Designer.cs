@@ -639,6 +639,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the plugin you want to install..
+        /// </summary>
+        internal static string Plugin_SelectInstall {
+            get {
+                return ResourceManager.GetString("Plugin_SelectInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to install plugins.
         /// </summary>
         internal static string PP_Install {

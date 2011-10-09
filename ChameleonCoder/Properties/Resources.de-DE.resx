@@ -469,4 +469,7 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="Status_OpeningFile" xml:space="preserve">
     <value>CC - Öffne Dateien...</value>
   </data>
+  <data name="Plugin_SelectInstall" xml:space="preserve">
+    <value>Wählen Sie das zu installierende Plugin aus.</value>
+  </data>
 </root>

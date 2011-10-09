@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using System.Linq;
 using System.Windows.Input;
 using ChameleonCoder.Plugins;
 using Res = ChameleonCoder.Properties.Resources;
@@ -95,7 +94,7 @@ namespace ChameleonCoder.ViewModel
 
         private void InstallPlugins()
         {
-            var path = OnPluginNeeded(null, null);
+            var path = OnPluginNeeded(Res.Status_InstallPlugin + " " + Res.Plugin_SelectInstall);
 
             if (path != null)
             {
@@ -166,17 +165,17 @@ namespace ChameleonCoder.ViewModel
         /// <summary>
         /// called when the model needs to know the path to a plugin assembly
         /// </summary>
-        internal event EventHandler<Interaction.UserInputEventArgs> PluginNeeded;
+        internal event EventHandler<Interaction.FileSelectionEventArgs> PluginNeeded;
 
-        private string OnPluginNeeded(string topic, string message)
+        private string OnPluginNeeded(string message)
         {
             var handler = PluginNeeded;
 
             if (handler != null)
             {
-                var args = new Interaction.UserInputEventArgs(topic, message);
+                var args = new Interaction.FileSelectionEventArgs(message, System.IO.Path.Combine(App.AppDir, "Components"), true);
                 handler(this, args);
-                return args.Input;
+                return args.Path;
             }
             return null;
         }
