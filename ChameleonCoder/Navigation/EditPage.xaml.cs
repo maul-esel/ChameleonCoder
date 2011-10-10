@@ -21,7 +21,7 @@
             get { return editor; }
         }
 
-        private void SelectText(object sender, ViewModel.Interaction.SelectionEventArgs e)
+        private void SelectText(object sender, ViewModel.Interaction.TextSelectionEventArgs e)
         {
             editor.Select(e.StartOffset, e.SelectionLength);
             var loc = editor.Document.GetLocation(e.StartOffset);

@@ -212,7 +212,7 @@
     <Compile Include="ViewModel\FileManagementPageModel.cs" />
     <Compile Include="ViewModel\Interaction\ConfirmationEventArgs.cs" />
     <Compile Include="ViewModel\Interaction\FileSelectionEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\SelectionEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\TextSelectionEventArgs.cs" />
     <Compile Include="ViewModel\Interaction\UserInputEventArgs.cs" />
     <Compile Include="ViewModel\Interaction\MessageSeverity.cs" />
     <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />

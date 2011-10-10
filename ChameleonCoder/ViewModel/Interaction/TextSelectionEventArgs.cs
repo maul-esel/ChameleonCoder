@@ -1,8 +1,8 @@
 ﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class SelectionEventArgs : System.EventArgs
+    internal sealed class TextSelectionEventArgs : System.EventArgs
     {
-        internal SelectionEventArgs(int offset, int length)
+        internal TextSelectionEventArgs(int offset, int length)
         {
             StartOffset = offset;
             SelectionLength = length;

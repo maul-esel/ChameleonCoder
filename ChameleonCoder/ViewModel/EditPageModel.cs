@@ -176,14 +176,14 @@ namespace ChameleonCoder.ViewModel
 
         #region events
 
-        internal event EventHandler<Interaction.SelectionEventArgs> SelectText;
+        internal event EventHandler<Interaction.TextSelectionEventArgs> SelectText;
 
         private void OnSelectText(int offset, int length)
         {
             var handler = SelectText;
             if (handler != null)
             {
-                handler(this, new Interaction.SelectionEventArgs(offset, length));
+                handler(this, new Interaction.TextSelectionEventArgs(offset, length));
             }
         }
 
