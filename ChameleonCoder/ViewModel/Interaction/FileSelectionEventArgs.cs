@@ -7,6 +7,7 @@
             Message = message;
             Directory = dir;
             MustExist = mustExist;
+            Filter = filter;
         }
 
         internal string Message
