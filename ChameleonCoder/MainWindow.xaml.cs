@@ -236,7 +236,7 @@ namespace ChameleonCoder
         [Obsolete("to be moved to model", false)]
         private void ResourceCopy(object sender, EventArgs e)
         {
-            ResourceSelector selector = new ResourceSelector(1);
+            ResourceSelector selector = new ResourceSelector(ResourceManager.GetChildren(), 1, false);
             if (selector.ShowDialog() == true
                 && selector.ResourceList.Count > 0
                 && selector.ResourceList[0] != ResourceManager.ActiveItem)
@@ -248,7 +248,7 @@ namespace ChameleonCoder
         [Obsolete("to be moved to model", false)]
         private void ResourceMove(object sender, EventArgs e)
         {
-            ResourceSelector selector = new ResourceSelector(1);
+            ResourceSelector selector = new ResourceSelector(ResourceManager.GetChildren(), 1, false);
             if (selector.ShowDialog() == true // user did not cancel
                 && selector.ResourceList.Count > 0 // user selected 1 resource
                 && selector.ResourceList[0] != null // resource is not null
