@@ -48,7 +48,7 @@ namespace ChameleonCoder.ViewModel
             get
             {
                 if (ActiveFile != null)
-                    return ActiveFile.References;                
+                    return ActiveFile.GetReferences();                
                 return null;
             }
         }

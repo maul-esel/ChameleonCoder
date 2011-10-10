@@ -184,18 +184,8 @@ namespace ChameleonCoder
         /// </summary>
         private void LoadReferences()
         {
-            foreach (XmlElement element in Document.SelectNodes("/cc-resource-file/references/reference"))
+            foreach (var reference in GetReferences())
             {
-                DataFileReference reference;
-                try
-                {
-                    reference = DataFileReference.CreateReference(element);
-                }
-                catch (FileNotFoundException)
-                {
-                    continue;
-                }
-
                 if (reference.IsFile)
                 {
                     Open(reference.Path);
@@ -204,11 +194,32 @@ namespace ChameleonCoder
                 {
                     Directories.Add(reference.Path);
                 }
-                References.Add(reference);
             }
         }
 
-        internal IList<DataFileReference> References = new List<DataFileReference>();
+        /// <summary>
+        /// gets a list of all referenced files and directories
+        /// </summary>
+        /// <returns>a list of DataFileReference instances</returns>
+        internal IList<DataFileReference> GetReferences()
+        {
+            var list = new List<DataFileReference>();
+
+            foreach (XmlElement element in Document.SelectNodes("/cc-resource-file/references/reference"))
+            {
+                try
+                {
+                    var reference = DataFileReference.CreateReference(element);
+                    list.Add(reference);
+                }
+                catch (FileNotFoundException)
+                {
+                    continue;
+                }
+            }
+
+            return list;
+        }
 
         #endregion // references
 
