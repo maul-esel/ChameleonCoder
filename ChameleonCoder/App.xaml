@@ -15,6 +15,5 @@
         <conv:ColorConverter x:Key="ColorConverter"/>
         <conv:CultureConverter x:Key="CultureConv"/>
         <conv:ResourcePropertyConverter x:Key="PropConv"/>
-        <conv:CollectionCombineConverter x:Key="CollConv"/>
     </Application.Resources>
 </Application>

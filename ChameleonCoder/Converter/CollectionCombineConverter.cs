@@ -14,12 +14,27 @@ namespace ChameleonCoder.Converter
             {
                 var col = item as IEnumerable<IComponent>;
                 if (col != null)
+                {
                     foreach (var comp in col)
-                        collection.Add(comp);
+                    {
+                        if (!(comp is Resources.ResourceReference && ignoreReferences))
+                        {
+                            collection.Add(comp);
+                        }
+                    }
+                }
             }
 
             return collection;
         }
+
+        internal bool IgnoreReferences
+        {
+            get { return ignoreReferences; }
+            set { ignoreReferences = value; }
+        }
+
+        private bool ignoreReferences = false;
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {

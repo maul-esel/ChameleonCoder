@@ -73,17 +73,48 @@ namespace ChameleonCoder.Shared
         #endregion
 
         /// <summary>
+        /// the DependencyProperty field for the <see cref="Collection"/> property
+        /// </summary>
+        public static DependencyProperty CollectionProperty = DependencyProperty.Register("CollectionProperty",
+                                                                        typeof(ResourceCollection),
+                                                                        typeof(CCResourceCatalog));
+
+        /// <summary>
         /// the collection to be shown
         /// </summary>
-        public ResourceCollection Collection // TODO: make DependencyProperty
+        public ResourceCollection Collection
         {
             get
             {
-                return TreeView.DataContext as ResourceCollection;
+                return (ResourceCollection)GetValue(CollectionProperty);
             }
             set
             {
+                SetValue(CollectionProperty, value);
                 TreeView.DataContext = value;
+            }
+        }
+
+        /// <summary>
+        /// the DependencyProperty field for the <see cref="ShowReferences"/> property
+        /// </summary>
+        public static DependencyProperty ShowReferencesProperty = DependencyProperty.Register("ShowReferencesProperty",
+                                                                            typeof(bool),
+                                                                            typeof(CCResourceCatalog));
+
+        /// <summary>
+        /// gets or sets whether the control shows references or not
+        /// </summary>
+        public bool ShowReferences
+        {
+            get
+            {
+                return (bool)GetValue(ShowReferencesProperty);
+            }
+            set
+            {
+                SetValue(ShowReferencesProperty, value);
+                ((Converter.CollectionCombineConverter)TreeView.FindResource("Converter")).IgnoreReferences = !value;
             }
         }
 
