@@ -488,4 +488,13 @@ resources cannot be moved to descendants.</value>
   <data name="RibbonContext_Files" xml:space="preserve">
     <value>File management</value>
   </data>
+  <data name="Error_NonExistentDir" xml:space="preserve">
+    <value>The selected directory "{0}" does not exist.</value>
+  </data>
+  <data name="Ref_SelectTarget" xml:space="preserve">
+    <value>Select the reference target.</value>
+  </data>
+  <data name="Status_CreatingReference" xml:space="preserve">
+    <value>CC - Creating reference...</value>
+  </data>
 </root>

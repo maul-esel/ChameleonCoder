@@ -15,6 +15,14 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
                 AddMetadataCommandExecuted,
                 (s, e) => e.CanExecute = ActiveFile != null));
+
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddReference,
+                AddReferenceCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null));
+
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteReference,
+                DeleteReferenceCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null && ActiveReference != null));
         }
 
         public static IList<DataFile> AllFiles
@@ -43,6 +51,12 @@ namespace ChameleonCoder.ViewModel
                     return ActiveFile.References;                
                 return null;
             }
+        }
+
+        public object ActiveReference
+        {
+            get;
+            set;
         }
 
         public DataFile ActiveFile
@@ -101,7 +115,57 @@ namespace ChameleonCoder.ViewModel
                 }
             }
         }
+
+        private void AddReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            AddReference(e.Parameter as string == "file");
+        }
+
+        private void DeleteReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            if (ActiveFile != null && ActiveReference != null)
+            {
+                ActiveFile.DeleteReference(((DataFileReference)ActiveReference).Identifier);
+                OnPropertyChanged("References");
+                OnPropertyChanged("ActiveReference");
+            }
+        }
+
         #endregion
+
+        private void AddReference(bool isFile)
+        {
+            if (ActiveFile != null)
+            {
+                string path = null;
+
+                if (isFile)
+                {
+                    path = OnReferenceFileNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                    if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
+                    {
+                        OnReport(Res.Status_CreatingReference, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
+                        return;
+                    }
+                }
+                else
+                {
+                    path = OnReferenceDirectoryNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                    if (string.IsNullOrWhiteSpace(path) || !System.IO.Directory.Exists(path))
+                    {
+                        OnReport(Res.Status_CreatingReference, string.Format(Res.Error_NonExistentDir, path), Interaction.MessageSeverity.Critical);
+                        return;
+                    }
+                }
+
+                ActiveFile.AddReference(path, isFile);
+                OnPropertyChanged("References");
+            }
+        }
 
         private void AddMetadata()
         {
@@ -124,5 +188,41 @@ namespace ChameleonCoder.ViewModel
                 OnPropertyChanged("Metadata");
             }
         }
+
+        #region events
+
+        internal event System.EventHandler<Interaction.FileSelectionEventArgs> ReferenceFileNeeded;
+
+        private string OnReferenceFileNeeded(string message, bool mustExist)
+        {
+            var handler = ReferenceFileNeeded;
+
+            if (handler != null)
+            {
+                var args = new Interaction.FileSelectionEventArgs(message, System.Environment.CurrentDirectory, "CC Resource files | *.ccr", mustExist);
+                handler(this, args);
+                return args.Path;
+            }
+
+            return null;
+        }
+
+        internal event System.EventHandler<Interaction.DirectorySelectionEventArgs> ReferenceDirectoryNeeded;
+
+        private string OnReferenceDirectoryNeeded(string message, bool allowCreate)
+        {
+            var handler = ReferenceDirectoryNeeded;
+
+            if (handler != null)
+            {
+                var args = new Interaction.DirectorySelectionEventArgs(message, System.Environment.CurrentDirectory, allowCreate);
+                handler(this, args);
+                return args.Path;
+            }
+
+            return null;
+        }
+
+        #endregion
     }
 }

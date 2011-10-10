@@ -61,6 +61,9 @@
     <name>test file</name>
     <changelog>
     </changelog>
+    <metadata name="test">This is a test.</metadata>
+    <metadata name="purpose">This is the test file.</metadata>
+    <metadata name="test">Another test.</metadata>
   </settings>
   <references>
     <!--this section can contain references for other *.ccr / *.ccp files that will also be loaded (not sure whether or when this will be implemented).
@@ -69,5 +72,6 @@
     <reference id="{8593d5c2-4fe7-438f-b74f-5a236793ccd9}" type="file">C:\Programming\MyProject.ccr</reference>
     A sample dir-ref:
     <reference id="{2477fbcd-6736-4720-9ad0-625d4fae6639}" type="dir">C:\Programming\Utilities</reference>-->
+    <reference id="{2477fbcd-6736-4720-9ad0-625d4fae6639}" type="dir">C:\Programming\</reference>
   </references>
 </cc-resource-file>

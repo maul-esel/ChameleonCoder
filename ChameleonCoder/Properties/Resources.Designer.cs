@@ -323,6 +323,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected directory &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string Error_NonExistentDir {
+            get {
+                return ResourceManager.GetString("Error_NonExistentDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CC resource file.
         /// </summary>
         internal static string Ext_CCR {
@@ -764,6 +773,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the reference target..
+        /// </summary>
+        internal static string Ref_SelectTarget {
+            get {
+                return ResourceManager.GetString("Ref_SelectTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editing.
         /// </summary>
         internal static string RibbonContext_Edit {
@@ -1021,6 +1039,15 @@ namespace ChameleonCoder.Properties {
         internal static string Status_CreatingFile {
             get {
                 return ResourceManager.GetString("Status_CreatingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CC - Creating reference....
+        /// </summary>
+        internal static string Status_CreatingReference {
+            get {
+                return ResourceManager.GetString("Status_CreatingReference", resourceCulture);
             }
         }
         

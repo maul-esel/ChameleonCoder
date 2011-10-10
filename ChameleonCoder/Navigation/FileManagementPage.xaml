@@ -45,7 +45,7 @@
         </Grid>
 
         <!--references-->
-        <ListView ItemsSource="{Binding Path=References}"
+        <ListView ItemsSource="{Binding Path=References}" SelectedItem="{Binding Path=ActiveReference}"
                   Grid.Column="1" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>

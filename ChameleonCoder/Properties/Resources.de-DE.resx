@@ -489,4 +489,13 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="RibbonContext_Files" xml:space="preserve">
     <value>Datei-Verwaltung</value>
   </data>
+  <data name="Error_NonExistentDir" xml:space="preserve">
+    <value>Der ausgewählte Ordner "{0}" existiert nicht.</value>
+  </data>
+  <data name="Ref_SelectTarget" xml:space="preserve">
+    <value>Wählen Sie das Verweis-Ziel aus.</value>
+  </data>
+  <data name="Status_CreatingReference" xml:space="preserve">
+    <value>CC - Erstelle Verweis...</value>
+  </data>
 </root>
