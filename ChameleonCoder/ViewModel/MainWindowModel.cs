@@ -682,7 +682,7 @@ namespace ChameleonCoder.ViewModel
 
             if (handler != null)
             {
-                var args = new Interaction.FileSelectionEventArgs(message, dir, mustExist);
+                var args = new Interaction.FileSelectionEventArgs(message, dir, "CC resource files | *.ccr", mustExist);
                 handler(this, args);
                 return args.Path;
             }

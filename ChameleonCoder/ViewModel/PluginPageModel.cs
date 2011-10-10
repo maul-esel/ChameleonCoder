@@ -173,7 +173,7 @@ namespace ChameleonCoder.ViewModel
 
             if (handler != null)
             {
-                var args = new Interaction.FileSelectionEventArgs(message, System.IO.Path.Combine(App.AppDir, "Components"), true);
+                var args = new Interaction.FileSelectionEventArgs(message, System.IO.Path.Combine(App.AppDir, "Components"), "CC plugins | *.dll", true);
                 handler(this, args);
                 return args.Path;
             }

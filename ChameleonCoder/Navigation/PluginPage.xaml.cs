@@ -32,7 +32,7 @@ namespace ChameleonCoder.Navigation
         /// <remarks>This must not be moved to the model.</remarks>
         private static void FindAssembly(object sender, ViewModel.Interaction.FileSelectionEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "plugins | *.dll",
+            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = e.Filter,
                                                                             Title = e.Message,
                                                                             CheckPathExists = e.MustExist,
                                                                             InitialDirectory = e.Directory})

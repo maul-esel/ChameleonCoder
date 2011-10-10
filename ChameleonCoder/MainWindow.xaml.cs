@@ -198,7 +198,7 @@ namespace ChameleonCoder
 
         private static void OpenFile(object sender, FileSelectionEventArgs e)
         {
-            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC resource files | *.ccr",
+            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = e.Filter,
                                                                             Title = e.Message,
                                                                             CheckPathExists = e.MustExist,
                                                                             InitialDirectory = e.Directory })
