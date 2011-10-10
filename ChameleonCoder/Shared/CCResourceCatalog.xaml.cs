@@ -22,7 +22,7 @@ namespace ChameleonCoder.Shared
         /// <summary>
         /// the DependencyProperty field for the <see cref="Collection"/> property
         /// </summary>
-        public static DependencyProperty CollectionProperty = DependencyProperty.Register("Collection",
+        public static readonly DependencyProperty CollectionProperty = DependencyProperty.Register("Collection",
                                                                         typeof(ResourceCollection),
                                                                         typeof(CCResourceCatalog));
 
@@ -44,9 +44,10 @@ namespace ChameleonCoder.Shared
         /// <summary>
         /// the DependencyProperty field for the <see cref="ShowReferences"/> property
         /// </summary>
-        public static DependencyProperty ShowReferencesProperty = DependencyProperty.Register("ShowReferences",
+        public static readonly DependencyProperty ShowReferencesProperty = DependencyProperty.Register("ShowReferences",
                                                                             typeof(bool),
-                                                                            typeof(CCResourceCatalog));
+                                                                            typeof(CCResourceCatalog),
+                                                                            new PropertyMetadata(true, Update));
 
         /// <summary>
         /// gets or sets whether the control shows references or not
@@ -55,13 +56,23 @@ namespace ChameleonCoder.Shared
         {
             get
             {
+                
                 return (bool)GetValue(ShowReferencesProperty);
             }
             set
             {
                 SetValue(ShowReferencesProperty, value);
-                ((Converter.CollectionCombineConverter)TreeView.FindResource("Converter")).IgnoreReferences = !value;
             }
+        }
+
+        /// <summary>
+        /// updates the collection converter to changes to the <see cref="ShowReferences"/> property
+        /// </summary>
+        /// <param name="sender">the instance on which the change is made</param>
+        /// <param name="e">additional data related to the event</param>
+        private static void Update(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((sender as CCResourceCatalog).TreeView.FindResource("Converter") as Converter.CollectionCombineConverter).IgnoreReferences = !(bool)e.NewValue;
         }
 
         /// <summary>
