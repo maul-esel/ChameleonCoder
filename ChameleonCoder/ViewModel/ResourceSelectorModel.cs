@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Res = ChameleonCoder.Properties.Resources;
+﻿using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
@@ -16,6 +12,18 @@ namespace ChameleonCoder.ViewModel
                 resourceInstance = value;
                 OnPropertyChanged("Resource");
             }
+        }
+
+        public bool ShowReferences
+        {
+            get;
+            internal set;
+        }
+
+        public Resources.ResourceCollection ResourceList
+        {
+            get;
+            internal set;
         }
 
         private IComponent resourceInstance;
