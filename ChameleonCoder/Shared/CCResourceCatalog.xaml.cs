@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Shared
 {
@@ -12,70 +10,18 @@ namespace ChameleonCoder.Shared
     /// </summary>
     public sealed partial class CCResourceCatalog : UserControl
     {
-        #region constructors
-        /// <summary>
-        /// initializes a new instance of the CCResourceCatalog control,
-        /// given a collection of resources
-        /// </summary>
-        /// <param name="top">the ResourceCollection to display</param>
-        public CCResourceCatalog(ResourceCollection top)
-        {
-            Init(top);
-        }        
-
-        /// <summary>
-        /// initializes a new instance of the CCResourceCatalog control,
-        /// given a resource which is displayed along with its child resources.
-        /// </summary>
-        /// <param name="parent">the resource</param>
-        public CCResourceCatalog(IResource parent) : this(parent, true) { }
-
-        /// <summary>
-        /// initializes a new instance of the CCResourceCatalog control,
-        /// given a resource whose child resources are displayed.
-        /// A parameter defines whether the resource itself should be displayed.
-        /// </summary>
-        /// <param name="parent">the resource</param>
-        /// <param name="includeSelf">true to display the resource itself as root</param>
-        public CCResourceCatalog(IResource parent, bool includeSelf)
-        {
-            if (parent == null) // throw exception on null-parent
-                throw new ArgumentNullException("parent", "the parent resource must not be null!");
-
-            ResourceCollection top;
-
-            if (!includeSelf) // if only childs should be displayed:
-                top = parent.Children; // ... use the Children collection
-            else
-            {
-                top = new ResourceCollection(); // else create a new collection
-                top.Add(parent); // ... and add the parent as only element
-            }
-
-            Init(top); // redirect to Initialize() method
-        }
-
         /// <summary>
         /// creates a new instance of the CCResourceCatalog control which displays all registered resources
         /// </summary>
-        public CCResourceCatalog() : this(ResourceManager.GetChildren()) { }
-
-        /// <summary>
-        /// initializes the control
-        /// </summary>
-        /// <param name="top">the ResourceCollection to be shown</param>
-        private void Init(ResourceCollection top)
+        public CCResourceCatalog()
         {
             InitializeComponent();
-            Collection = top; // set the collection to be shown
         }
-
-        #endregion
 
         /// <summary>
         /// the DependencyProperty field for the <see cref="Collection"/> property
         /// </summary>
-        public static DependencyProperty CollectionProperty = DependencyProperty.Register("CollectionProperty",
+        public static DependencyProperty CollectionProperty = DependencyProperty.Register("Collection",
                                                                         typeof(ResourceCollection),
                                                                         typeof(CCResourceCatalog));
 
@@ -92,13 +38,14 @@ namespace ChameleonCoder.Shared
             {
                 SetValue(CollectionProperty, value);
                 TreeView.DataContext = value;
+                value.CollectionChanged += (s, e) => DataContext = s;
             }
         }
 
         /// <summary>
         /// the DependencyProperty field for the <see cref="ShowReferences"/> property
         /// </summary>
-        public static DependencyProperty ShowReferencesProperty = DependencyProperty.Register("ShowReferencesProperty",
+        public static DependencyProperty ShowReferencesProperty = DependencyProperty.Register("ShowReferences",
                                                                             typeof(bool),
                                                                             typeof(CCResourceCatalog));
 
