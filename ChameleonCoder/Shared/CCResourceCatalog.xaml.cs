@@ -15,6 +15,7 @@ namespace ChameleonCoder.Shared
         /// </summary>
         public CCResourceCatalog()
         {
+            DataContext = this;
             InitializeComponent();
         }
 
@@ -37,8 +38,6 @@ namespace ChameleonCoder.Shared
             set
             {
                 SetValue(CollectionProperty, value);
-                TreeView.DataContext = value;
-                value.CollectionChanged += (s, e) => DataContext = s;
             }
         }
 
