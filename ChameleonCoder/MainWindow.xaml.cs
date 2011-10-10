@@ -40,7 +40,7 @@ namespace ChameleonCoder
             CommandBindings.AddRange(MVVM.Instance.Commands);
             InitializeComponent();
 
-            ChameleonCoderCommands.OpenNewTab.Execute(null, this);         
+            ChameleonCoderCommands.OpenNewTab.Execute(null, this);
         }
 
         #region view model interaction

@@ -446,7 +446,7 @@
 
         </odc:RibbonBar>
 
-        <inter:CCResourceCatalog x:Name="TreeView"
+        <inter:CCResourceCatalog x:Name="TreeView" Collection="{StaticResource resourceHierarchy}"
                                  MouseDoubleClick="ResourceOpen"
                                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
 
