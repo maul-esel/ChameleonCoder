@@ -262,7 +262,12 @@ namespace ChameleonCoder
             }
         }
 
+        #region references
 
+        /// <summary>
+        /// loads all references
+        /// </summary>
+        /// <param name="resource">the resource to load the references on</param>
         internal static void LoadReferences(this IResource resource)
         {
             if (resource != null)
@@ -275,6 +280,49 @@ namespace ChameleonCoder
                 }
             }
         }
+
+        /// <summary>
+        /// adds a reference to the resource
+        /// </summary>
+        /// <param name="resource">the resource to add a reference on</param>
+        /// <param name="name">the reference's name</param>
+        /// <param name="target">the reference target</param>
+        public static void AddReference(this IResource resource, string name, Guid target)
+        {
+            if (resource != null)
+            {
+                var res = GetDataElement(resource, true);
+                if (res != null)
+                {
+                    var element = (XmlElement)res.OwnerDocument.CreateElement("reference");
+                    element.SetAttribute("name", name);
+                    element.SetAttribute("id", Guid.NewGuid().ToString("b"));
+                    element.SetAttribute("target", target.ToString("b"));
+                    res.AppendChild(element);
+                }
+            }
+        }
+
+        /// <summary>
+        /// deletes a reference from a resource
+        /// </summary>
+        /// <param name="resource">the resource to delete the reference from</param>
+        /// <param name="id">the id of the reference to delete</param>
+        public static void DeleteReference(this IResource resource, Guid id)
+        {
+            if (resource != null)
+            {
+                var res = GetDataElement(resource, false);
+                if (res != null)
+                {
+                    var element = (XmlElement)res.SelectSingleNode("reference[@id='" + id.ToString("b") + "']");
+                    if (element != null)
+                        res.RemoveChild(element);
+                }
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// parses the RichContent child members of a given RichConhtentMember instance
