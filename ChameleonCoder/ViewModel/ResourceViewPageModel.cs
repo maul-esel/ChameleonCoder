@@ -14,11 +14,17 @@ namespace ChameleonCoder.ViewModel
         {
             resourceInstance = resource;
 
-            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
-                DeleteMetadataCommandExecuted,
-                (s, e) => e.CanExecute = ActiveMetadata != null));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
                 AddMetadataCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
+                DeleteMetadataCommandExecuted,
+                (s, e) => e.CanExecute = ActiveMetadata != null));            
+
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddReference,
+                AddReferenceCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteReference,
+                DeleteReferenceCommandExecuted,
+                (s, e) => e.CanExecute = ActiveReference != null));
         }
 
         #region resource & properties
@@ -33,6 +39,19 @@ namespace ChameleonCoder.ViewModel
             get;
             set;
         }
+
+        /*
+         * TODO:
+         * - how to set this?
+         *      - add reference list to page??
+         *      - use context menu somehow?
+         */
+        public Resources.ResourceReference ActiveReference
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region localization
@@ -65,6 +84,18 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
+        private void AddReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            AddReference();
+        }
+
+        private void DeleteReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            DeleteReference(ActiveReference);
+        }
+
         #endregion
 
         private void AddMetadata()
@@ -84,6 +115,33 @@ namespace ChameleonCoder.ViewModel
 
             Resource.SetMetadata(name, null);
             OnPropertyChanged("Metadata");
+        }
+
+        private void AddReference()
+        {
+            var model = new ResourceSelectorModel(Resources.Management.ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            OnRepresentationNeeded(model, true);
+
+            if (model.SelectedResources.Count > 0)
+            {
+                var resource = model.SelectedResources[0] as IResource;
+                if (resource != null)
+                {
+                    string name = OnUserInput(Res.Status_CreatingReference, Res.Ref_SelectTarget);
+                    if (!string.IsNullOrWhiteSpace(name))
+                    {
+                        Resource.AddReference(name, resource.Identifier);
+                    }
+                }
+            }
+        }
+
+        private void DeleteReference(Resources.ResourceReference reference)
+        {
+            if (reference != null)
+            {
+                Resource.DeleteReference(reference.Identifier);
+            }
         }
     }
 }
