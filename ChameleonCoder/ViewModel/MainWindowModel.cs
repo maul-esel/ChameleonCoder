@@ -290,7 +290,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Home;
-            context.Content = OnRepresentationNeeded(WelcomePageModel.Instance);
+            context.Content = OnRepresentationNeeded(WelcomePageModel.Instance, false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -301,7 +301,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.ResourceList;
-            context.Content = OnRepresentationNeeded(ResourceListPageModel.Instance);
+            context.Content = OnRepresentationNeeded(ResourceListPageModel.Instance, false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -312,7 +312,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Plugins;
-            context.Content = OnRepresentationNeeded(PluginPageModel.Instance);
+            context.Content = OnRepresentationNeeded(PluginPageModel.Instance, false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -323,7 +323,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Settings;
-            context.Content = OnRepresentationNeeded(SettingsPageModel.Instance);
+            context.Content = OnRepresentationNeeded(SettingsPageModel.Instance, false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -334,7 +334,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.FileManagement;
-            context.Content = OnRepresentationNeeded(new FileManagementPageModel());
+            context.Content = OnRepresentationNeeded(new FileManagementPageModel(), false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -349,7 +349,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceView;
-            context.Content = OnRepresentationNeeded(new ResourceViewPageModel(resource));
+            context.Content = OnRepresentationNeeded(new ResourceViewPageModel(resource), false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -360,7 +360,7 @@ namespace ChameleonCoder.ViewModel
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceEdit;
-            context.Content = OnRepresentationNeeded(new EditPageModel(resource));
+            context.Content = OnRepresentationNeeded(new EditPageModel(resource), false);
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -449,7 +449,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenNewTab()
         {
-            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(WelcomePageModel.Instance));
+            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(WelcomePageModel.Instance, false));
             Tabs.Add(context);
             ActiveTab = context;
 

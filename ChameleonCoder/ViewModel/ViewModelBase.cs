@@ -86,13 +86,12 @@ namespace ChameleonCoder.ViewModel
             return null;
         }
 
-        protected object OnRepresentationNeeded(ViewModelBase model)
+        protected object OnRepresentationNeeded(ViewModelBase model, bool show)
         {
             var handler = RepresentationNeeded;
-            System.Diagnostics.Debug.Assert(handler != null, "did not set handler");
             if (handler != null)
             {
-                var args = new RepresentationEventArgs(model);
+                var args = new RepresentationEventArgs(model, show);
                 handler(this, args);
                 return args.Representation;
             }

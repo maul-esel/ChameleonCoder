@@ -55,7 +55,12 @@ namespace ChameleonCoder.Navigation
             var model = e.Model as ViewModel.PluginInstallerModel;
             if (model != null)
             {
-                e.Representation = new PluginInstaller(model);
+                var dialog = new PluginInstaller(model);
+                e.Representation = dialog;
+                if (e.ShowRepresentation)
+                {
+                    dialog.ShowDialog();
+                }
             }
         }
 

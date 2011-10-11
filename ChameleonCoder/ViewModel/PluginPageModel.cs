@@ -148,13 +148,7 @@ namespace ChameleonCoder.ViewModel
                     return;
                 }
 
-                var representation = OnRepresentationNeeded(new PluginInstallerModel(newPlugins));
-
-                var method = representation.GetType().GetMethod("ShowDialog", BindingFlags.Instance | BindingFlags.Public);
-                if (method != null)
-                {
-                    method.Invoke(representation, null);
-                }
+                var representation = OnRepresentationNeeded(new PluginInstallerModel(newPlugins), true);
             }
         }
 

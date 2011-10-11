@@ -33,6 +33,9 @@ namespace ChameleonCoder
             MVVM.Instance.RepresentationNeeded -= GetRepresentation;
             MVVM.Instance.RepresentationNeeded += GetRepresentation;
 
+            MVVM.Instance.RepresentationNeeded -= ShowRepresentation;
+            MVVM.Instance.RepresentationNeeded += ShowRepresentation;
+
             MVVM.Instance.SelectFile -= OpenFile;
             MVVM.Instance.SelectFile += OpenFile;
 
@@ -166,6 +169,9 @@ namespace ChameleonCoder
         /// <remarks>This must not be moved to the model.</remarks>
         private static void GetRepresentation(object sender, RepresentationEventArgs e)
         {
+            if (e.ShowRepresentation)
+                return;
+
             if (e.Model is WelcomePageModel)
             {
                 e.Representation = new WelcomePage();
@@ -210,6 +216,18 @@ namespace ChameleonCoder
             }
         }
 
+        private static void ShowRepresentation(object sender, RepresentationEventArgs e)
+        {
+            if (e.ShowRepresentation)
+            {
+                var win = e.Representation as Window;
+                if (win != null)
+                {
+                    win.ShowDialog();
+                }
+            }
+        }
+
         #endregion
 
         private void FilterChanged(object sender, RoutedEventArgs e)
@@ -236,30 +254,32 @@ namespace ChameleonCoder
         [Obsolete("to be moved to model", false)]
         private void ResourceCopy(object sender, EventArgs e)
         {
-            ResourceSelector selector = new ResourceSelector(ResourceManager.GetChildren(), 1, false);
+            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            ResourceSelector selector = new ResourceSelector(model);
             if (selector.ShowDialog() == true
-                && selector.ResourceList.Count > 0
-                && selector.ResourceList[0] != ResourceManager.ActiveItem)
+                && model.Resources.Count > 0
+                && model.Resources[0] != ResourceManager.ActiveItem)
             {
-                ResourceManager.ActiveItem.Copy(selector.ResourceList[0]);
+                ResourceManager.ActiveItem.Copy(model.Resources[0]);
             }
         }
 
         [Obsolete("to be moved to model", false)]
         private void ResourceMove(object sender, EventArgs e)
         {
-            ResourceSelector selector = new ResourceSelector(ResourceManager.GetChildren(), 1, false);
+            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            ResourceSelector selector = new ResourceSelector(model);
             if (selector.ShowDialog() == true // user did not cancel
-                && selector.ResourceList.Count > 0 // user selected 1 resource
-                && selector.ResourceList[0] != null // resource is not null
-                && selector.ResourceList[0] != ResourceManager.ActiveItem.Parent) // resource is not already parent
+                && model.Resources.Count > 0 // user selected 1 resource
+                && model.Resources[0] != null // resource is not null
+                && model.Resources[0] != ResourceManager.ActiveItem.Parent) // resource is not already parent
             {
-                if (!selector.ResourceList[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
+                if (!model.Resources[0].IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
                 {
-                    ResourceManager.ActiveItem.Move(selector.ResourceList[0]);
+                    ResourceManager.ActiveItem.Move(model.Resources[0]);
                 }
                 else
-                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, selector.ResourceList[0].Name),
+                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, model.Resources[0].Name),
                                     Properties.Resources.Status_Move);
             }
         }
