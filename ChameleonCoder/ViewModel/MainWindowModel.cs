@@ -659,6 +659,8 @@ namespace ChameleonCoder.ViewModel
 
         public static string Ref_Delete { get { return Res.Ref_Delete; } }
 
+        public static string Ref_AddResRef { get { return Res.Ref_AddResRef; } }
+
         #endregion
 
         #region events

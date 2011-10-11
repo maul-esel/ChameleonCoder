@@ -280,6 +280,20 @@
                                               odc:RibbonBar.Size="Medium"/>
 
                         </odc:RibbonGroup>
+                        
+                        <odc:RibbonGroup>
+
+                            <odc:RibbonButton Content="{Binding Path=Ref_AddResRef}" SmallImage="Images\SmallIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddReference}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
+                                              odc:RibbonBar.MaxSize="Medium"/>
+
+                            <odc:RibbonButton Content="{Binding Path=Ref_Delete}" SmallImage="Images\SmallIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteReference}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"
+                                              odc:RibbonBar.Size="Medium"/>
+
+                        </odc:RibbonGroup>
 
                         <odc:RibbonGroup x:Name="CustomGroup3"/>
 
