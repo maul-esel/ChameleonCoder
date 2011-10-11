@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:inter="clr-namespace:ChameleonCoder.Shared"
+        xmlns:cc="clr-namespace:ChameleonCoder"
         Title="{Binding Path=Title}" x:Name="root"
         MinHeight="500" ShowInTaskbar="False" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
 
@@ -22,30 +23,82 @@
             <RowDefinition Height="15"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        <inter:CCResourceCatalog Grid.Column="0" Grid.Row="0" Grid.RowSpan="8" x:Name="Catalog"
+
+        <inter:CCResourceCatalog x:Name="catalog" x:FieldModifier="private"
+                                 SelectedItemChanged="NotifyModel"
+                                 Grid.Column="0" Grid.Row="0" Grid.RowSpan="8"
                                  ShowReferences="{Binding ElementName=root, Path=DataContext.ShowReferences}"
-                                 Collection="{Binding ElementName=root, Path=DataContext.ResourceList}"/>
+                                 Collection="{Binding ElementName=root, Path=DataContext.Resources}"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Info_Name}"/>
-        <TextBox Grid.Column="2" Grid.Row="0" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Resource.Name, Mode=OneWay}" IsReadOnly="True"/>
-        
-        <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Info_GUID}"/>
-        <TextBox Grid.Column="2" Grid.Row="1" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Resource.Identifier, Mode=OneWay}" IsReadOnly="True"/>
+        <!-- resource properties -->
+        <TextBlock Text="{Binding Path=Info_Name}"
+                   Grid.Column="1" Grid.Row="0"
+                   Margin="5" VerticalAlignment="Center"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Info_Icon}"/>
-        <Image Grid.Column="2" Grid.Row="2" Margin="5" VerticalAlignment="Center" Source="{Binding Path=Resource.Icon, Mode=OneWay}" MaxHeight="25"/>
-        
-        <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Info_Description}"/>
-        <TextBox Grid.Column="2" Grid.Row="3" Margin="5" VerticalAlignment="Stretch" Text="{Binding Path=Resource.Description, Mode=OneWay}" IsReadOnly="True"/>
-        
-        <TextBlock Grid.Column="1" Grid.Row="4" Margin="5" VerticalAlignment="Center" Text="{Binding Path=Info_Special}"/>
-        <Image Grid.Column="2" Grid.Row="4" Margin="5" VerticalAlignment="Center" Source="{Binding Path=Resource.SpecialVisualProperty, Mode=OneWay}" MaxHeight="25"/>
+        <TextBox Text="{Binding Path=ActiveResource.Name, Mode=OneWay}"
+                 Grid.Column="2" Grid.Row="0"
+                 Margin="5" VerticalAlignment="Center"
+                 IsReadOnly="True"/>
 
-        <Button Grid.Column="1" Grid.Row="5" Margin="5" VerticalAlignment="Center" x:Name="AddButton" Padding="5" Click="AddResource" Visibility="Hidden" Content="{Binding Path=Action_Add}"/>
-        <Button Grid.Column="2" Grid.Row="5" Margin="5" VerticalAlignment="Center" x:Name="RemButton" Padding="5" Click="RemoveResource" Visibility="Hidden" Content="{Binding Path=Action_Remove}"/>
+        <TextBlock Text="{Binding Path=Info_GUID}"
+                   Grid.Column="1" Grid.Row="1"
+                   Margin="5" VerticalAlignment="Center"/>
 
-        <Button Grid.Column="1" Grid.Row="7" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="5" IsCancel="True" Content="{Binding Path=Action_Cancel}"/>
-        <Button x:Name="OKButton" Grid.Column="2" Grid.Row="7" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="5" IsDefault="True" Content="{Binding Path=Action_OK}"/>
+        <TextBox Text="{Binding Path=ActiveResource.Identifier, Mode=OneWay}"
+                 Grid.Column="2" Grid.Row="1"
+                 Margin="5" VerticalAlignment="Center"
+                 IsReadOnly="True"/>
+
+        <TextBlock Text="{Binding Path=Info_Icon}"
+                   Grid.Column="1" Grid.Row="2"
+                   Margin="5" VerticalAlignment="Center"/>
+
+        <Image Source="{Binding Path=ActiveResource.Icon, Mode=OneWay}"
+               Grid.Column="2" Grid.Row="2"
+               Margin="5" VerticalAlignment="Center"
+               MaxHeight="25"/>
+
+        <TextBlock Text="{Binding Path=Info_Description}"
+                   Grid.Column="1" Grid.Row="3"
+                   Margin="5" VerticalAlignment="Center"/>
+
+        <TextBox Text="{Binding Path=ActiveResource.Description, Mode=OneWay}"
+                 Grid.Column="2" Grid.Row="3"
+                 Margin="5" VerticalAlignment="Stretch"
+                 IsReadOnly="True"/>
+
+        <TextBlock Text="{Binding Path=Info_Special}"
+                   Grid.Column="1" Grid.Row="4"
+                   Margin="5" VerticalAlignment="Center"/>
+
+        <Image Source="{Binding Path=ActiveResource.SpecialVisualProperty, Mode=OneWay}"
+               Grid.Column="2" Grid.Row="4"
+               Margin="5" VerticalAlignment="Center"
+               MaxHeight="25"/>
+
+        <!-- buttons add & remove -->
+        <Button Content="{Binding Path=Action_Add}"
+                Command="{x:Static cc:ChameleonCoderCommands.AddResource}"
+                CommandParameter="{Binding Path=ActiveResource}"
+                Visibility="{Binding Path=AddVisibility}"
+                Grid.Column="1" Grid.Row="5" Margin="5" VerticalAlignment="Center" Padding="5"/>
+
+        <Button Content="{Binding Path=Action_Remove}"
+                Command="{x:Static cc:ChameleonCoderCommands.RemoveResource}"
+                CommandParameter="{Binding Path=ActiveResource}"
+                Visibility="{Binding Path=RemoveVisibility}"
+                Grid.Column="2" Grid.Row="5" Margin="5" VerticalAlignment="Center" Padding="5"/>
+
+        <!-- buttons cancel & ok -->
+        <Button Content="{Binding Path=Action_Cancel}"
+                Grid.Column="1" Grid.Row="7"
+                Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="5"
+                IsCancel="True"/>
+
+        <Button Content="{Binding Path=Action_OK}"
+                Click="FinishDialog"
+                Grid.Column="2" Grid.Row="7"
+                Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="5"
+                IsDefault="True"/>
     </Grid>
 </Window>

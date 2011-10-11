@@ -1,32 +1,117 @@
-﻿using Res = ChameleonCoder.Properties.Resources;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
+using ChameleonCoder.Resources;
+using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
     internal sealed class ResourceSelectorModel : ViewModelBase
     {
-        public IComponent Resource
+        internal ResourceSelectorModel(ResourceCollection resources, int count)
         {
-            get { return resourceInstance; }
-            internal set
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddResource,
+                AddResourceCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.RemoveResource,
+                RemoveResourceCommandExecuted));
+
+            resourceList = resources;
+            maxResourceCount = count;
+        }
+
+        #region commanding
+
+        private void AddResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var resource = e.Parameter as ChameleonCoder.Resources.Interfaces.IResource;
+            var reference = e.Parameter as ResourceReference;
+            SelectedResources.Add(resource != null ? (IComponent)resource : reference);
+
+            NotifyActiveResourceChanged();
+        }
+
+        private void RemoveResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var resource = e.Parameter as ChameleonCoder.Resources.Interfaces.IResource;
+            var reference = e.Parameter as ResourceReference;
+            SelectedResources.Remove(resource != null ? (IComponent)resource : reference);
+
+            NotifyActiveResourceChanged();
+        }
+
+        #endregion
+
+        public IComponent ActiveResource
+        {
+            get
             {
-                resourceInstance = value;
-                OnPropertyChanged("Resource");
+                return OnActiveResourceNeeded();
             }
         }
 
         public bool ShowReferences
         {
-            get;
-            internal set;
+            get { return showReferenceValue; }
+            set
+            {
+                showReferenceValue = value;
+                OnPropertyChanged("ShowReferences");
+            }
         }
 
-        public Resources.ResourceCollection ResourceList
+        public ResourceCollection Resources
         {
-            get;
-            internal set;
+            get { return resourceList; }
         }
 
-        private IComponent resourceInstance;
+        public IList<IComponent> SelectedResources
+        {
+            get { return selectedResourceList; }
+        }
+
+        public bool CanAdd
+        {
+            get
+            {
+                var resource = OnActiveResourceNeeded();
+                return (resource != null
+                    && !SelectedResources.Contains(resource)
+                    && (SelectedResources.Count < maxResourceCount || maxResourceCount == -1));
+            }
+        }
+
+        public bool CanRemove
+        {
+            get
+            {
+                var resource = OnActiveResourceNeeded();
+                return (resource != null
+                    && SelectedResources.Contains(resource));
+            }
+        }
+
+        public System.Windows.Visibility AddVisibility
+        {
+            get
+            {
+                return (CanAdd ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden);
+            }
+        }
+
+        public System.Windows.Visibility RemoveVisibility
+        {
+            get
+            {
+                return (CanRemove ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden);
+            }
+        }
+
+        private int maxResourceCount;
+
+        private readonly ResourceCollection resourceList;
+
+        private readonly IList<IComponent> selectedResourceList = new List<IComponent>();
+
+        private bool showReferenceValue = true;
 
         #region localization
 
@@ -51,5 +136,34 @@ namespace ChameleonCoder.ViewModel
         public static string Action_OK { get { return Res.Action_OK; } }
 
         #endregion
+
+        #region events
+
+        public event System.EventHandler<Interaction.InformationEventArgs<IComponent>> ActiveResourceNeeded;
+
+        private IComponent OnActiveResourceNeeded()
+        {
+            var handler = ActiveResourceNeeded;
+
+            if (handler != null)
+            {
+                var args = new Interaction.InformationEventArgs<IComponent>();
+                handler(this, args);
+                return args.Information;
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        public void NotifyActiveResourceChanged()
+        {
+            OnPropertyChanged("ActiveResource");
+            OnPropertyChanged("CanAdd");
+            OnPropertyChanged("CanRemove");
+            OnPropertyChanged("AddVisibility");
+            OnPropertyChanged("RemoveVisibility");
+        }
     }
 }
