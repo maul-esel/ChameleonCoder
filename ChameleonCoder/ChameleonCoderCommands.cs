@@ -72,6 +72,20 @@ namespace ChameleonCoder
         public static readonly RoutedCommand DeleteResource
             = new RoutedCommand("SaveResource",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for adding a resource to a collection
+        /// </summary>
+        public static readonly RoutedCommand AddResource
+            = new RoutedCommand("AddResource",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for removing a resource from a collection
+        /// </summary>
+        public static readonly RoutedCommand RemoveResource
+            = new RoutedCommand("RemoveResource",
+                                typeof(ChameleonCoderCommands));
         #endregion
 
         #region tabs
