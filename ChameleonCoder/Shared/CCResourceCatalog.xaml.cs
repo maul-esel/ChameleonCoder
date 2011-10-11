@@ -47,7 +47,7 @@ namespace ChameleonCoder.Shared
         public static readonly DependencyProperty ShowReferencesProperty = DependencyProperty.Register("ShowReferences",
                                                                             typeof(bool),
                                                                             typeof(CCResourceCatalog),
-                                                                            new PropertyMetadata(true, Update));
+                                                                            new PropertyMetadata(true, UpdateShowReferences));
 
         /// <summary>
         /// gets or sets whether the control shows references or not
@@ -70,7 +70,7 @@ namespace ChameleonCoder.Shared
         /// </summary>
         /// <param name="sender">the instance on which the change is made</param>
         /// <param name="e">additional data related to the event</param>
-        private static void Update(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void UpdateShowReferences(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             ((sender as CCResourceCatalog).TreeView.FindResource("Converter") as Converter.CollectionCombineConverter).IgnoreReferences = !(bool)e.NewValue;
         }
@@ -130,9 +130,16 @@ namespace ChameleonCoder.Shared
         }
 
         /// <summary>
+        /// the DependencyPropertyKey field for the <see cref="SelectedItem"/> property        /// </summary>
+        public static readonly DependencyPropertyKey SelectedItemProperty = DependencyProperty.RegisterReadOnly("SelectedItem",
+                                                                                                typeof(IComponent),
+                                                                                                typeof(CCResourceCatalog),
+                                                                                                new PropertyMetadata());
+
+        /// <summary>
         /// a wrapper property for the TreeView's SelectedItem property
         /// </summary>
-        [System.ComponentModel.BindableAttribute(true)]
+        [System.ComponentModel.BindableAttribute(true, System.ComponentModel.BindingDirection.TwoWay)]
         public IComponent SelectedItem
         {
             get
