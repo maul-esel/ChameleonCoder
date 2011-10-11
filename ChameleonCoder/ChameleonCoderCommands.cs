@@ -86,6 +86,20 @@ namespace ChameleonCoder
         public static readonly RoutedCommand RemoveResource
             = new RoutedCommand("RemoveResource",
                                 typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for copying a resource
+        /// </summary>
+        public static readonly RoutedCommand CopyResource
+            = new RoutedCommand("CopyResource",
+                                typeof(ChameleonCoderCommands));
+
+        /// <summary>
+        /// the command for moving a resource
+        /// </summary>
+        public static readonly RoutedCommand MoveResource
+            = new RoutedCommand("MoveResource",
+                                typeof(ChameleonCoderCommands));
         #endregion
 
         #region tabs
