@@ -299,6 +299,8 @@ namespace ChameleonCoder
                     element.SetAttribute("id", Guid.NewGuid().ToString("b"));
                     element.SetAttribute("target", target.ToString("b"));
                     res.AppendChild(element);
+
+                    resource.References.Add(new Resources.ResourceReference(element));
                 }
             }
         }
