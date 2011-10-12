@@ -60,23 +60,24 @@ namespace ChameleonCoder
         public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
         {
             var doc = (newParent == null ? resource.GetResourceFile() : newParent.GetResourceFile()).Document;
+            var manager = NamespaceManagerFactory.GetManager(doc);
 
             var element = (XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
             if (element.OwnerDocument != doc) //if we switch the document:
                 element = (XmlElement)doc.ImportNode(element, true); // import the XmlElement
 
             if (newParent == null) // if no parent:
-                doc.SelectSingleNode("/cc-resource-file/resources").AppendChild(element); // add element to resource list
+                doc.SelectSingleNode("/cc:ChameleonCoder/cc:resources", manager).AppendChild(element); // add element to resource list
             else // if parent:
                 newParent.Xml.AppendChild(element); // add element to parent's Children
 
             if (moveGUID) // if the copy should receive the original Identifier:
             {
-                resource.Xml.SetAttribute("id", Guid.NewGuid().ToString("b")); // set the Identifier-attribute of the old instance
+                resource.Xml.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the Identifier-attribute of the old instance
                 resource.Initialize(resource.Xml, resource.Parent); // re-init it to apply the changes
             }
             else // if the copy receives a new Identifier:
-                element.SetAttribute("id", Guid.NewGuid().ToString("b")); // set the approbriate attribute
+                element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
 
             App.AddResource(element, newParent); // let the App class create an instance, add it to the lists, init it, ...
 
@@ -108,20 +109,21 @@ namespace ChameleonCoder
         public static void SetMetadata(this IResource resource, string key, string value)
         {
             var doc = resource.GetResourceFile().Document;
+            var manager = NamespaceManagerFactory.GetManager(doc);
 
             // get the resource-data element for the resource
             XmlElement res = GetDataElement(resource, true);
 
             // get the metadata element for the given key
-            XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
+            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
             if (meta == null) // if it doesn't exist:
             {
-                meta = doc.CreateElement("metadata"); // create it
-                meta.SetAttribute("name", key); // give it the requested key
+                meta = doc.CreateElement("cc:metadata", DataFile.NamespaceUri); // create it
+                meta.SetAttribute("key", DataFile.NamespaceUri, key); // give it the requested key
                 res.AppendChild(meta); // and insert it
             }
 
-            meta.InnerText = value; // set the value
+            meta.SetAttribute("value", DataFile.NamespaceUri, value); // set the value
         }
 
         /// <summary>
@@ -134,13 +136,15 @@ namespace ChameleonCoder
         {
             var doc = resource.GetResourceFile().Document;
 
+            var manager = NamespaceManagerFactory.GetManager(doc);
+
             // get the resource's data element
             XmlElement res = GetDataElement(resource, false);
             if (res == null) // if it doesn't exist:
                 return null; // there's no metadata --> return null
 
             // get the metadata element
-            XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
+            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
             if (meta == null) // if it doesn't exist:
                 return null; // there's no such metadata --> return null
 
@@ -155,6 +159,8 @@ namespace ChameleonCoder
         public static Dictionary<string, string> GetMetadata(this IResource resource)
         {
             var doc = resource.GetResourceFile().Document;
+            var manager = NamespaceManagerFactory.GetManager(doc);
+
             var dict = new Dictionary<string, string>();
 
             // get the resource's data element
@@ -162,12 +168,15 @@ namespace ChameleonCoder
             if (res == null) // if it doesn't exist:
                 return dict; // there's no metadata --> return empty dictionary
 
-            var data = res.SelectNodes("metadata"); // get the list of metadata
+            var data = res.SelectNodes("cc:metadata/cc:metadata", manager); // get the list of metadata
             foreach (XmlElement meta in data)
             {
-                var name = meta.GetAttribute("name");
+                var name = meta.GetAttribute("key", DataFile.NamespaceUri);
                 if (!string.IsNullOrWhiteSpace(name) && !dict.ContainsKey(name))
-                    dict.Add(meta.GetAttribute("name"), meta.InnerText); // add all metadata elements to the dictionary
+                {
+                    dict.Add(meta.GetAttribute("key", DataFile.NamespaceUri),
+                        meta.GetAttribute("value", DataFile.NamespaceUri)); // add all metadata elements to the dictionary
+                }
             }
 
             return dict; // return the dictionary
@@ -181,6 +190,7 @@ namespace ChameleonCoder
         public static void DeleteMetadata(this IResource resource, string key)
         {
             var doc = resource.GetResourceFile().Document;
+            var manager = NamespaceManagerFactory.GetManager(doc);
 
             // get the resource's data element
             XmlElement res = GetDataElement(resource, false);
@@ -188,7 +198,7 @@ namespace ChameleonCoder
                 return; // there's no metadata --> return
 
             // get the metadata element
-            XmlElement meta = (XmlElement)res.SelectSingleNode("metadata[@name='" + key + "']");
+            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']");
             if (meta == null) // if it doesn't exist:
                 return; // there's no such metadata --> return
 
@@ -203,14 +213,17 @@ namespace ChameleonCoder
         public static void UpdateLastModified(this IResource resource)
         {
             var res = GetDataElement(resource, true);
+            var manager = NamespaceManagerFactory.GetManager(res.OwnerDocument);
 
-            var lastmod = res.SelectSingleNode("last-modified");
+            var lastmod = res.SelectSingleNode("cc:lastmodified", manager);
+
             if (lastmod == null)
             {
-                lastmod = resource.GetResourceFile().Document.CreateElement("last-modified");
-                lastmod.InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
+                lastmod = res.OwnerDocument.CreateElement("cc:lastmodified", DataFile.NamespaceUri);                
                 res.AppendChild(lastmod);
             }
+
+            lastmod.InnerText = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
         }
 
         /// <summary>
@@ -224,7 +237,7 @@ namespace ChameleonCoder
             if (res == null)
                 return default(DateTime);
 
-            var lastmod = res.SelectSingleNode("last-modified");
+            var lastmod = res.SelectSingleNode("lastmodified");
             if (lastmod == null)
                 return default(DateTime);
 
@@ -247,9 +260,17 @@ namespace ChameleonCoder
 
             foreach (XmlElement node in content.ChildNodes)
             {
-                IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name, node, null);
-                if (member == null)
-                    member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"), node, null);
+                Guid type;
+                IContentMember member = null;
+
+                if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
+                {
+                    member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                }
+                else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
+                {
+                    member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                }
 
                 if (member != null)
                 {
@@ -273,9 +294,12 @@ namespace ChameleonCoder
             if (resource != null)
             {
                 var res = GetDataElement(resource, false);
+
                 if (res != null)
                 {
-                    foreach (XmlElement reference in res.SelectNodes("reference"))
+                    var manager = NamespaceManagerFactory.GetManager(res.OwnerDocument);
+
+                    foreach (XmlElement reference in res.SelectNodes("cc:references/cc:reference", manager))
                         resource.References.Add(new Resources.ResourceReference(reference));
                 }
             }
@@ -292,12 +316,13 @@ namespace ChameleonCoder
             if (resource != null)
             {
                 var res = GetDataElement(resource, true);
+
                 if (res != null)
                 {
-                    var element = (XmlElement)res.OwnerDocument.CreateElement("reference");
-                    element.SetAttribute("name", name);
-                    element.SetAttribute("id", Guid.NewGuid().ToString("b"));
-                    element.SetAttribute("target", target.ToString("b"));
+                    var element = (XmlElement)res.OwnerDocument.CreateElement("cc:reference", DataFile.NamespaceUri);
+                    element.SetAttribute("name", DataFile.NamespaceUri, name);
+                    element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
+                    element.SetAttribute("target", DataFile.NamespaceUri, target.ToString("b"));
                     res.AppendChild(element);
 
                     resource.References.Add(new Resources.ResourceReference(element));
@@ -317,7 +342,7 @@ namespace ChameleonCoder
                 var res = GetDataElement(resource, false);
                 if (res != null)
                 {
-                    var element = (XmlElement)res.SelectSingleNode("reference[@id='" + id.ToString("b") + "']");
+                    var element = (XmlElement)res.SelectSingleNode("cc:references/cc:reference[@id='" + id.ToString("b") + "']");
                     if (element != null)
                         res.RemoveChild(element);
                 }
@@ -333,9 +358,17 @@ namespace ChameleonCoder
         /// <param name="parent">the parent member</param>
         private static void AddRichContent(XmlElement node, IContentMember parent)
         {
-            IContentMember member = ContentMemberManager.CreateInstanceOf(node.Name, node, null);
-            if (member == null)
-                member = ContentMemberManager.CreateInstanceOf(node.GetAttribute("fallback"), node, null);
+            Guid type;
+            IContentMember member = null;
+
+            if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
+            {
+                member = ContentMemberManager.CreateInstanceOf(type, node, null);
+            }
+            else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
+            {
+                member = ContentMemberManager.CreateInstanceOf(type, node, null);
+            }
 
             if (member != null)
             {
@@ -356,13 +389,14 @@ namespace ChameleonCoder
         internal static XmlElement GetDataElement(IResource resource, bool create)
         {
             var doc = resource.GetResourceFile().Document;
+            var manager = NamespaceManagerFactory.GetManager(doc);
 
-            var data = (XmlElement)doc.SelectSingleNode("/cc-resource-file/data/resource-data[@id='" + resource.Identifier.ToString("b") + "']");
+            var data = (XmlElement)doc.SelectSingleNode("/cc:ChameleonCoder/cc:data/cc:resourcedata[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)
             {
-                data = doc.CreateElement("resource-data"); // create it
-                data.SetAttribute("id", resource.Identifier.ToString("b")); // associate it with the resource
-                doc.SelectSingleNode("/cc-resource-file/data").AppendChild(data); // and insert it into the document
+                data = doc.CreateElement("cc:resourcedata", DataFile.NamespaceUri); // create it
+                data.SetAttribute("id", DataFile.NamespaceUri, resource.Identifier.ToString("b")); // associate it with the resource
+                doc.SelectSingleNode("/cc:ChameleonCoder/cc:data", manager).AppendChild(data); // and insert it into the document
             }
 
             return data;
