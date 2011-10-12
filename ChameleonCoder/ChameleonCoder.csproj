@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="ChameleonCoderCommands.cs" />
     <Compile Include="DataFileReference.cs" />
+    <Compile Include="NamespaceManagerFactory.cs" />
     <Compile Include="Navigation\CCPageBase.cs" />
     <Compile Include="Navigation\FileManagementPage.xaml.cs">
       <DependentUpon>FileManagementPage.xaml</DependentUpon>
