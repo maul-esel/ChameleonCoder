@@ -102,10 +102,6 @@
 				<xsd:element ref="resource" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
-		<xsd:key name="uniqueResourceGuidKey">
-			<xsd:selector xpath="resource"/>
-			<xsd:field xpath="@id"/>
-		</xsd:key>
 	</xsd:element>
 
 	<!-- DONE: the type for data file references -->
@@ -134,7 +130,11 @@
 				<xsd:element ref="references"/>
 			</xsd:sequence>
 		</xsd:complexType>
-		<xsd:keyref name="uniqueDataGuidKey" refer="uniqueResourceGuidKey">
+    <xsd:key name="uniqueResourceGuidKey">
+      <xsd:selector xpath="resources/resource"/>
+      <xsd:field xpath="@id"/>
+    </xsd:key>
+    <xsd:keyref name="uniqueDataGuidKey" refer="uniqueResourceGuidKey">
 			<xsd:selector xpath="data/resourcedata"/>
 			<xsd:field xpath="@id"/>
 		</xsd:keyref>
