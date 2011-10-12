@@ -1,73 +1,186 @@
-<cc-resource-file>
-  <!--this is the root element-->
-  <resources>
-    <!--this element contains the resources-->
-    <group name="NewParentGroup" id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}" description="the new parent group" notes="" />
-    <file name="Formulator.exe" id="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" notes="" description="main executable" path="Projekte\[que] KAPROG\Formulator.exe" />
-    <file name="AHK.ScriptsMan.dll" id="{d315d152-7e7f-4028-a49a-b5c95c66762c}" notes="" description="resource dll" path="AutoHotkey\AHK.ScriptsMan\AHK.ScriptsMan.dll" />
-    <library name="IPC-Library" id="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" notes="" description="inter-process communication" author="IsNull" license="MIT?" version="0.1?" path="" />
-    <library name="TF-Library" id="{f5053dd6-a7ab-4dee-844b-24542767ecae}" notes="" description="text manipulation" author="hugov" license="?" version="?" path="" />
-    <library name="Aero-Library" id="{439bccec-fa17-4ef6-9037-cc93be66cb95}" notes="Hi!&#xD;&#xA;How are you?&#xD;&#xA;" description="dwmapi handling" author="RaptorOne &amp; Bentschi" license="?" version="1.1" path="AutoHotkey\#Include\Aero.ahk" language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}">
-      <group name="TheNewGroup" id="{2dbbf243-eead-47c8-826a-34713faf8ac9}" description="a new test group" notes="">
-        <group name="TheNewChildGroup" id="{9a40009c-f699-48e3-8a1f-1d4e06bdd9f2}" description="a new child test group" notes="" />
-      </group>
-    </library>
-    <library name="Toolbar" id="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" notes="" description="toolbar control functions" author="majkinetor" license="unlicensed" version="0.8" path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk" language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" />    
-    <project name="KAPROG" id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" notes="" description="[deprecated]" language="{926d62ed-678d-48b3-b13d-f92293f638d4}" priority="0"/>
-    <project name="AHK.ScriptsMan" id="{41a40866-f247-428b-a6de-ab5e70d21da9}" notes="this is the parent project of ChameleonCoder. It is deprecated now." description="[deprecated] IDE" language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}" priority="2">
-      <task name="Code review" id="{398aca26-d030-4b19-9a45-16edef1d70ca}" notes="code should be reviewed and shortened, especially Gui.ahk.&#xD;&#xA;Maybe I should use new class syntax... ?" description="replace old code with new one" enddate="20110912" />
-      <group name="UI" id="{0c49bd9e-939c-4afc-9611-a9dc644eacea}" notes="this is the most unfinished part&#xD;&#xA;It requires Scintilla class by HotkeyIt --&gt; download" description="contains the gui code">
-        <project name="PanelMain" id="{fcf88c90-997a-4498-958c-695dbbd20f24}" notes="- rework code&#xD;&#xA;- save documents in object / array&#xD;&#xA;- save panel handles" description="the main gui code file" language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" priority="2">
-          <task name="Continue" id="{789804aa-07f2-4472-bb65-d97009b6cfb2}" notes="Continue working out the main panel design&#xD;&#xA;	- first make notes&#xD;&#xA;	- then draw&#xD;&#xA;	- then code ;)" description="Finish other panels &amp; events">
-            <code name="AutomaticGuiCreator.ahk" id="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}" notes="this script is incredible! It creates code from drawings and optimizes them!" description="auto-creates and reworks GUI code" language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" compilation-path="" path="C:\anywhere\AGC.ahk" />
-          </task>
-        </project>
-      </group>
-      <library name="SVS-Funktionen" id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}" notes="" description="divers functions" language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" priority="2" />
-    </project>
-    <task name="Aufgabe1" id="{31efc3af-111f-4a6a-a7a7-56318d73449e}" description="a new task" notes="" enddate="Montag, 1. Januar 0001" />
-    <library name="Thumbnail-Library" id="{a2268e5c-db2d-4da1-9233-57f62a8e036f}" notes="" description="aero thumbnail handling" author="maul.esel" license="" version="1" path="#Include\Thumbnail.ahk" language="3b737871-bc94-4eda-a3f6-0c1b7da0c7fd" />
-  </resources>
-  <data>
-    <!--this section will contain information about resources, such as "last modified", "created at", ...
-		NEW: this will also contain metadata and RichContent
-		The resources are identified by their GUID.-->
-	  <resource-data id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
-      <metadata name="test">testvalue</metadata>
-	  </resource-data>
-    <resource-data id="{6ef3c403-9197-47cd-9515-fcf00898c566}">
-      <metadata name="Einsatz">Config-Explorer</metadata>
-    </resource-data>
-    <resource-data id="{41a40866-f247-428b-a6de-ab5e70d21da9}">
-      <metadata name="Aktuell">Neusortierung</metadata>
-      <metadata name="MainElement">Treeview</metadata>
-      <reference id="{f92886f1-8831-4199-8918-c0017c62b492}" target="{d315d152-7e7f-4028-a49a-b5c95c66762c}" name="ScriptsMan.dll"/>
-    </resource-data>
-    <resource-data id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}">
-      <metadata name="Todo">Cleanup!</metadata>
-    </resource-data>
-    <resource-data id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}">
-      <reference id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}" target="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" name="Formulator.exe"/>
-      <reference id="{7421c5b8-6375-454b-b971-c6e3bd8a6bd6}" target="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" name="InterProcess library"/>
-      <reference id="{2caca642-c1f9-4885-b77d-42d35574cabb}" target="{f5053dd6-a7ab-4dee-844b-24542767ecae}" name="TextFile library"/>
-    </resource-data>
-    <resource-data id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}">
-      <reference id="{e0558fe3-a8c2-42c1-b837-eebc911ce0fb}" target="{41a40866-f247-428b-a6de-ab5e70d21da9}" name="AHK IDE"/>
-    </resource-data>
-  </data>
-  <settings>
-    <!-- This section will contain several more or less useful informations about the pack.
-		They will also contain an unlimited number of <metadata> elements.-->
-    <name>test file</name>
-    <changelog>
-    </changelog>
-  </settings>
-  <references>
-    <!--this section can contain references for other *.ccr / *.ccp files that will also be loaded (not sure whether or when this will be implemented).
-		It can also contain references for directories which will be used to find files given a relative path.
-    A sample file-ref:
-    <reference id="{8593d5c2-4fe7-438f-b74f-5a236793ccd9}" type="file">C:\Programming\MyProject.ccr</reference>
-    A sample dir-ref:
-    <reference id="{2477fbcd-6736-4720-9ad0-625d4fae6639}" type="dir">C:\Programming\Utilities</reference>-->
-  </references>
-</cc-resource-file>
+<cc:ChameleonCoder xmlns:cc="ChameleonCoder://Resources/Schema/2011">
+	<!--
+    type      | GUID
+    ========================================================
+    group     | {408b6770-3e25-4567-86c8-5182e7fdc9c9}
+    file      | {826ab0e7-00d5-45be-88e5-7bb2f1d565ab}
+    code      | {478e8dd0-b37e-4616-8246-31984077bb64}
+    library   | {4c6175ed-aed4-4b1d-b39d-f66f400f8d23}
+    project   | {ca90cff4-dae6-4542-b516-771d01b39de9}
+    task      | {14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}
+  -->
+	<cc:resources>
+		<cc:resource cc:type="{408b6770-3e25-4567-86c8-5182e7fdc9c9}" cc:id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}"
+                 cc:name="NewParentGroup" cc:description="the new parent group" cc:notes=""/>
+		<cc:resource cc:type="{826ab0e7-00d5-45be-88e5-7bb2f1d565ab}" cc:id="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}"
+                 cc:name="Formulator.exe" cc:description="main executable" cc:notes=""
+                 cc:path="Projekte\[que] KAPROG\Formulator.exe"/>
+		<cc:resource cc:type="{826ab0e7-00d5-45be-88e5-7bb2f1d565ab}" cc:id="{d315d152-7e7f-4028-a49a-b5c95c66762c}"
+                 cc:name="AHK.ScriptsMan.dll" cc:description="resource dll" cc:notes=""
+                 cc:path="AutoHotkey\AHK.ScriptsMan\AHK.ScriptsMan.dll"/>
+		<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}"
+                 cc:name="IPC-Library" cc:description="inter-process communication" cc:notes=""
+                 cc:path=""
+                 cc:author="IsNull" cc:license="MIT?" cc:version="0.1?"/>
+		<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{f5053dd6-a7ab-4dee-844b-24542767ecae}"
+                 cc:name="TF-Library" cc:description="text manipulation" cc:notes=""
+                 cc:path=""
+                 cc:author="hugov" cc:license="?" cc:version="?"/>
+		<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{439bccec-fa17-4ef6-9037-cc93be66cb95}"
+                 cc:name="Aero-Library" cc:description="dwmapi handling" cc:notes="Hi!&#xD;&#xA;How are you?&#xD;&#xA;"
+                 cc:path="AutoHotkey\#Include\Aero.ahk"
+                 cc:language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}"
+                 cc:author="RaptorOne &amp; Bentschi" cc:license="?" cc:version="1.1">
+			<cc:resource cc:type="{408b6770-3e25-4567-86c8-5182e7fdc9c9}" cc:id="{2dbbf243-eead-47c8-826a-34713faf8ac9}"
+                   cc:name="TheNewGroup" cc:description="a new test group" cc:notes="">
+				<cc:resource cc:type="{408b6770-3e25-4567-86c8-5182e7fdc9c9}" cc:id="{9a40009c-f699-48e3-8a1f-1d4e06bdd9f2}"
+                     cc:name="TheNewChildGroup" cc:description="a new child test group" cc:notes=""/>
+			</cc:resource>
+		</cc:resource>
+		<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{2dc15b81-cc43-48a9-98dc-17765a632465}"
+                 cc:name="Toolbar" cc:description="toolbar control functions" cc:notes=""
+                 cc:path="C:\Programming\AutoHotkey\#Include\[framework] Forms\inc\Toolbar.ahk"
+                 cc:language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}"
+                 cc:author="majkinetor" cc:license="unlicensed" cc:version="0.8"/>
+		<cc:resource cc:type="{ca90cff4-dae6-4542-b516-771d01b39de9}" cc:id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}"
+                 cc:name="KAPROG" cc:description="[deprecated]" cc:notes=""
+                 cc:language="{926d62ed-678d-48b3-b13d-f92293f638d4}" cc:priority="0"/>
+		<cc:resource cc:type="{ca90cff4-dae6-4542-b516-771d01b39de9}" cc:id="{41a40866-f247-428b-a6de-ab5e70d21da9}"
+                 cc:name="AHK.ScriptsMan" cc:description="[deprecated] IDE" cc:notes="this is the parent project of ChameleonCoder. It is deprecated now."
+                 cc:language="{f67fb9f3-ea9c-4140-b960-f47a44b5de56}" cc:priority="2">
+			<cc:resource cc:type="{14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}" cc:id="{398aca26-d030-4b19-9a45-16edef1d70ca}"
+                   cc:name="Code review" cc:description="replace old code with new one" cc:notes="code should be reviewed and shortened, especially Gui.ahk.&#xD;&#xA;Maybe I should use new class syntax... ?"
+                   cc:enddate="2011-09-12"/>
+			<cc:resource cc:type="{408b6770-3e25-4567-86c8-5182e7fdc9c9}" cc:id="{0c49bd9e-939c-4afc-9611-a9dc644eacea}"
+                   cc:name="UI" cc:description="contains the gui code" cc:notes="this is the most unfinished part&#xD;&#xA;It requires Scintilla class by HotkeyIt --&gt; download">
+				<cc:resource cc:type="{ca90cff4-dae6-4542-b516-771d01b39de9}" cc:id="{fcf88c90-997a-4498-958c-695dbbd20f24}"
+                     cc:name="PanelMain" cc:description="the main gui code file" cc:notes="- rework code&#xD;&#xA;- save documents in object / array&#xD;&#xA;- save panel handles"
+                     cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" cc:priority="2">
+					<cc:resource cc:type="{14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}" cc:id="{789804aa-07f2-4472-bb65-d97009b6cfb2}"
+                       cc:name="Continue" cc:description="Finish other panels &amp; events" cc:notes="Continue working out the main panel design&#xD;&#xA;	- first make notes&#xD;&#xA;	- then draw&#xD;&#xA;	- then code ;)">
+						<cc:resource cc:type="{478e8dd0-b37e-4616-8246-31984077bb64}" cc:id="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}"
+                         cc:name="AutomaticGuiCreator.ahk" cc:description="auto-creates and reworks GUI code" cc:notes="this script is incredible! It creates code from drawings and optimizes them!"
+                         cc:path="C:\anywhere\AGC.ahk"
+                         cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}"/>
+					</cc:resource>
+				</cc:resource>
+			</cc:resource>
+			<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}"
+                   cc:name="SVS-Funktionen" cc:description="divers functions" cc:notes=""
+                   cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" cc:priority="2"/>
+		</cc:resource>
+		<cc:resource cc:type="{14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}" cc:id="{31efc3af-111f-4a6a-a7a7-56318d73449e}"
+                 cc:name="Aufgabe1" cc:description="a new task" cc:notes=""
+                 cc:enddate="2011-12-31"/>
+		<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{a2268e5c-db2d-4da1-9233-57f62a8e036f}"
+                 cc:name="Thumbnail-Library" cc:description="aero thumbnail handling" cc:notes=""
+                 cc:path="#Include\Thumbnail.ahk"
+                 cc:language="3b737871-bc94-4eda-a3f6-0c1b7da0c7fd"
+                 cc:author="maul.esel" cc:license="" cc:version="1"/>
+	</cc:resources>
+	<cc:data>
+		<cc:resourcedata cc:id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
+			<cc:metadata>
+				<cc:metadata cc:key="test" cc:value="testvalue"/>
+			</cc:metadata>
+			<cc:created>2011-10-12T18:45:00</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{6ef3c403-9197-47cd-9515-fcf00898c566}">
+			<cc:metadata>
+				<cc:metadata cc:key="Einsatz" cc:value="Config-Explorer"/>
+			</cc:metadata>
+			<cc:created>2011-10-12T18:45:00</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{41a40866-f247-428b-a6de-ab5e70d21da9}">
+			<cc:metadata>
+				<cc:metadata cc:key="Aktuell" cc:value="Neusortierung"/>
+				<cc:metadata cc:key="MainElement" cc:value="Treeview"/>
+			</cc:metadata>
+			<cc:references>
+				<cc:reference cc:id="{f92886f1-8831-4199-8918-c0017c62b492}" cc:target="{d315d152-7e7f-4028-a49a-b5c95c66762c}" cc:name="ScriptsMan.dll"/>
+			</cc:references>
+			<cc:created>2011-10-12T18:45:00</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}">
+			<cc:metadata>
+				<cc:metadata cc:key="Todo" cc:value="Cleanup!"/>
+			</cc:metadata>
+			<cc:created>2011-10-12T18:45:00</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}">
+			<cc:references>
+				<cc:reference cc:id="{36ce7a96-bb6c-49a1-9c57-9e7d264e1466}" cc:target="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" cc:name="Formulator.exe" />
+				<cc:reference cc:id="{7421c5b8-6375-454b-b971-c6e3bd8a6bd6}" cc:target="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" cc:name="InterProcess library" />
+				<cc:reference cc:id="{2caca642-c1f9-4885-b77d-42d35574cabb}" cc:target="{f5053dd6-a7ab-4dee-844b-24542767ecae}" cc:name="TextFile library" />
+			</cc:references>
+			<cc:created>2011-10-12T18:45:00</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}">
+			<cc:references>
+				<cc:reference cc:id="{e0558fe3-a8c2-42c1-b837-eebc911ce0fb}" cc:target="{41a40866-f247-428b-a6de-ab5e70d21da9}" cc:name="AHK IDE" />
+			</cc:references>
+			<cc:created>2011-10-12T18:45:00</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}">
+			<cc:metadata>
+				<cc:metadata cc:key="data" cc:value="value"/>
+			</cc:metadata>
+			<cc:references>
+				<cc:reference cc:id="{2dc15b81-cc43-48a9-98dc-17765a632465}" cc:target="{0c49bd9e-939c-4afc-9611-a9dc644eacea}" cc:name="myReference"/>
+			</cc:references>
+			<cc:lastmodified>2011-10-11T22:07:34</cc:lastmodified>
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{d315d152-7e7f-4028-a49a-b5c95c66762c}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{f5053dd6-a7ab-4dee-844b-24542767ecae}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{2dbbf243-eead-47c8-826a-34713faf8ac9}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{9a40009c-f699-48e3-8a1f-1d4e06bdd9f2}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{398aca26-d030-4b19-9a45-16edef1d70ca}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{0c49bd9e-939c-4afc-9611-a9dc644eacea}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{fcf88c90-997a-4498-958c-695dbbd20f24}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{789804aa-07f2-4472-bb65-d97009b6cfb2}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{31efc3af-111f-4a6a-a7a7-56318d73449e}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{a2268e5c-db2d-4da1-9233-57f62a8e036f}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+		<cc:resourcedata cc:id="{41a40866-f247-428b-a6de-ab5e70d21da9}">
+			<cc:created>2011-10-11T22:07:34</cc:created>
+		</cc:resourcedata>
+	</cc:data>
+	<cc:settings>
+		<cc:name>MyFile</cc:name>
+		<cc:created>2011-10-11T22:07:34</cc:created>
+		<cc:metadata>
+			<cc:metadata cc:key="test" cc:value="This is a test."/>
+			<cc:metadata cc:key="purpose" cc:value="This is the test file."/>
+			<cc:metadata cc:key="test" cc:value="Another test."/><!--will be ignored-->
+		</cc:metadata>
+	</cc:settings>
+	<cc:references>
+		<cc:directory cc:id="{d9e04592-f27d-4ed5-af8b-0a1f5c3fbc89}" cc:path="C:\Programming\"/>
+	</cc:references>
+</cc:ChameleonCoder>
