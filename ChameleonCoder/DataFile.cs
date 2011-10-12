@@ -10,6 +10,11 @@ namespace ChameleonCoder
     /// </summary>
     public sealed class DataFile
     {
+        /// <summary>
+        /// the Uri of the resource document schema
+        /// </summary>
+        public const string NamespaceUri = "ChameleonCoder://Resources/Schema/2011";
+
         #region instance
 
         /// <summary>
@@ -31,11 +36,37 @@ namespace ChameleonCoder
                     throw new FileFormatException(new Uri(path), "Invalid format: not a well-formed XML file.", e);
                 }
 
+                manager = NamespaceManagerFactory.GetManager(doc);
+
+                using (var stream = GetType().Assembly.GetManifestResourceStream("ChameleonCoder.schema.xsd"))
+                {
+                    using (var reader = XmlReader.Create(stream))
+                    {
+                        Document.Schemas.Add(null, reader);
+                    }
+                }
+
+                try
+                {
+                    Document.Validate(ValidateXmlHandler);
+                }
+                catch (XmlException)
+                {
+                    /* the schema does not apply --> inform user + exit */
+                    throw;
+                }
+
                 LoadReferences();
                 this.path = path;
             }
             else
                 throw new FileNotFoundException("the specified file could not be found", path);
+        }
+
+        private void ValidateXmlHandler(object sender, System.Xml.Schema.ValidationEventArgs e)
+        {
+            if (e.Severity == System.Xml.Schema.XmlSeverityType.Error)
+                throw new XmlException(string.Format("The document at {0} is not valid according to the schema!", path), e.Exception);
         }
 
         /// <summary>
@@ -51,6 +82,8 @@ namespace ChameleonCoder
         internal XmlDocument Document { get { return doc; } }
 
         private readonly XmlDocument doc = new XmlDocument();
+
+        private readonly XmlNamespaceManager manager;
 
         /// <summary>
         /// closes the instance
@@ -72,7 +105,7 @@ namespace ChameleonCoder
         {
             get
             {
-                return Document.SelectSingleNode("/cc-resource-file/settings/name").InnerText;
+                return Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:name", manager).InnerText;
             }
         }
 
@@ -84,15 +117,15 @@ namespace ChameleonCoder
         /// <param name="value">the metadata's new value</param>
         public void SetMetadata(string key, string value)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
+            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
             if (meta == null)
             {
-                meta = (XmlElement)Document.CreateElement("metadata");
-                meta.SetAttribute("name", key);
-                Document.SelectSingleNode("/cc-resource-file/settings").AppendChild(meta);
+                meta = (XmlElement)Document.CreateElement("cc:metadata", NamespaceUri);
+                meta.SetAttribute("key", NamespaceUri, key);
+                Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata", manager).AppendChild(meta);
             }
 
-            meta.InnerText = value;
+            meta.SetAttribute("value", NamespaceUri, value);
         }
 
         /// <summary>
@@ -102,11 +135,11 @@ namespace ChameleonCoder
         /// <returns>the metadata's value</returns>
         public string GetMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
+            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']");
             if (meta == null)
                 return null;
 
-            return meta.InnerText;
+            return meta.GetAttribute("value", NamespaceUri);
         }
 
         /// <summary>
@@ -115,18 +148,18 @@ namespace ChameleonCoder
         /// <returns>a dictionary containing the metadata</returns>
         public IDictionary<string, string> GetMetadata()
         {
-            var set = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings");
+            var set = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata");
             if (set == null)
                 return null;
 
-            var data = set.SelectNodes("metadata");
+            var data = set.SelectNodes("cc:metadata", manager);
             var dict = new Dictionary<string, string>();
 
             foreach (XmlElement meta in data)
             {
-                var name = meta.GetAttribute("name");
+                var name = meta.GetAttribute("key", NamespaceUri);
                 if (!string.IsNullOrWhiteSpace(name) && !dict.ContainsKey(name))
-                    dict.Add(meta.GetAttribute("name"), meta.InnerText);
+                    dict.Add(meta.GetAttribute("key", NamespaceUri), meta.GetAttribute("value", NamespaceUri));
             }
 
             return dict;
@@ -138,7 +171,7 @@ namespace ChameleonCoder
         /// <param name="key">the metadata's name</param>
         public void DeleteMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/metadata[@name='" + key + "']");
+            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
             if (meta != null)
                 meta.ParentNode.RemoveChild(meta);
         }
@@ -156,13 +189,12 @@ namespace ChameleonCoder
         {
             var id = Guid.NewGuid();
 
-            var reference = Document.CreateElement("reference");
+            var reference = Document.CreateElement(isFile ? "cc:file" : "cc:directory", NamespaceUri);
 
-            reference.SetAttribute("id", id.ToString("b"));
-            reference.SetAttribute("type", isFile ? "file" : "dir");
-            reference.InnerText = path;
+            reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
+            reference.SetAttribute("path", NamespaceUri, path);
 
-            Document.SelectSingleNode("/cc-resource-file/references").AppendChild(reference);
+            Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:references").AppendChild(reference);
 
             return id;
         }
@@ -173,7 +205,7 @@ namespace ChameleonCoder
         /// <param name="id">the reference's unique id</param>
         public void DeleteReference(Guid id)
         {
-            var reference = Document.SelectSingleNode("/cc-resource-file/references/reference[@id='" + id.ToString("b") + "']");
+            var reference = Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:references/cc:reference[@id='" + id.ToString("b") + "']", manager);
 
             if (reference != null)
                 reference.ParentNode.RemoveChild(reference);
@@ -205,7 +237,7 @@ namespace ChameleonCoder
         {
             var list = new List<DataFileReference>();
 
-            foreach (XmlElement element in Document.SelectNodes("/cc-resource-file/references/reference"))
+            foreach (XmlElement element in Document.SelectNodes("/cc:ChameleonCoder/cc:settings/cc:references/cc:reference", manager))
             {
                 try
                 {
@@ -227,21 +259,24 @@ namespace ChameleonCoder
         /// appends the given text to the file's changelog, including an exact date-time stamp
         /// </summary>
         /// <param name="changelog">the text to append</param>
+        [Obsolete("not implemented", true)]
         public void AppendChangelog(string changelog)
         {
-            var log = (XmlElement)Document.SelectSingleNode("/cc-resource-file/settings/changelog");
+            throw new NotImplementedException();
+
+            /*var log = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:changelog", manager);
 
             if (log == null)
             {
-                log = Document.CreateElement("changelog");
-                Document.SelectSingleNode("/cc-resource-file/settings").AppendChild(log);
+                log = Document.CreateElement("cc:changelog", NamespaceUri);
+                Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings").AppendChild(log);
             }
 
-            var change = Document.CreateElement("change");
-            change.SetAttribute("time", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var change = Document.CreateElement("cc:change", NamespaceUri);
+            change.SetAttribute("time", NamespaceUri, DateTime.Now.ToString("yyyyMMddHHmmss"));
             change.InnerText = changelog;
 
-            log.AppendChild(change);
+            log.AppendChild(change);*/
         }
 
         /// <summary>
@@ -252,7 +287,7 @@ namespace ChameleonCoder
         {
             var elements = new List<XmlElement>();
 
-            foreach (XmlElement element in Document.SelectNodes("/cc-resource-file/resources/*"))
+            foreach (XmlElement element in Document.SelectNodes("/cc:ChameleonCoder/cc:resources/cc:resource", manager))
                 elements.Add(element);
 
             return elements;
