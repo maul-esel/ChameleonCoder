@@ -42,9 +42,9 @@
 	<!-- DONE: the resource reference type -->
 	<xsd:element name="reference">
 		<xsd:complexType>
-			<xsd:attribute name="id" type="guidType" use="required"/>
-			<xsd:attribute name="target" type="guidType" use="required"/>
-			<xsd:attribute name="name" type="xsd:string" use="required"/>
+			<xsd:attribute name="id"      type="guidType"   use="required"/>
+			<xsd:attribute name="target"  type="guidType"   use="required"/>
+			<xsd:attribute name="name"    type="xsd:string" use="required"/>
 			<xsd:anyAttribute/>
 		</xsd:complexType>
 	</xsd:element>
@@ -86,11 +86,12 @@
 			<xsd:sequence minOccurs="0">
 				<xsd:element ref="resource" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute name="type"	type="guidType"		use="required"/>
-			<xsd:attribute name="name"	type="xsd:string"	use="required"/>
-			<xsd:attribute name="id"	type="guidType"		use="required"/>
-			<xsd:attribute name="notes"	type="xsd:string"	use="required"/>
+			<xsd:attribute name="type"        type="guidType"		use="required"/>
+			<xsd:attribute name="name"        type="xsd:string"	use="required"/>
+			<xsd:attribute name="id"          type="guidType"		use="required"/>
+			<xsd:attribute name="notes"       type="xsd:string"	use="required"/>
 			<xsd:attribute name="description"	type="xsd:string" use="required"/>
+      <xsd:attribute name="fallback"    type="guidType"   use="optional"/>
 			<xsd:anyAttribute processContents="skip"/>
 		</xsd:complexType>
 	</xsd:element>
@@ -106,8 +107,8 @@
 
 	<!-- DONE: the type for data file references -->
 	<xsd:complexType name="referenceType">
-    <xsd:attribute name="id" type="guidType" use="required"/>
-		<xsd:attribute name="path" type="xsd:string" use="required"/>
+    <xsd:attribute name="id"    type="guidType"   use="required"/>
+		<xsd:attribute name="path"  type="xsd:string" use="required"/>
     <xsd:anyAttribute processContents="skip"/>
 	</xsd:complexType>
 
