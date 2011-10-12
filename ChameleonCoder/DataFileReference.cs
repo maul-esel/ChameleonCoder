@@ -16,13 +16,13 @@ namespace ChameleonCoder
 
         internal static DataFileReference CreateReference(XmlElement element)
         {
-            string path = element.InnerText;
-            bool isFile = element.GetAttribute("type") == "file";
+            string path = element.GetAttribute("path", DataFile.NamespaceUri);
+            bool isFile = element.Name == "file";
 
             if (!string.IsNullOrWhiteSpace(path)
                 && (isFile) ? File.Exists(path) : Directory.Exists(path))
             {
-                return new DataFileReference(Guid.Parse(element.GetAttribute("id")),
+                return new DataFileReference(Guid.Parse(element.GetAttribute("id", DataFile.NamespaceUri)),
                     element.InnerText,
                     isFile);
             }

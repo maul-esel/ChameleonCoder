@@ -17,8 +17,8 @@ namespace ChameleonCoder.Resources
         {
             Xml = data;
 
-            Identifier = Guid.Parse(Xml.GetAttribute("id"));
-            Target = Guid.Parse(Xml.GetAttribute("target"));
+            Identifier = Guid.Parse(Xml.GetAttribute("id", DataFile.NamespaceUri));
+            Target = Guid.Parse(Xml.GetAttribute("target", DataFile.NamespaceUri));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ChameleonCoder.Resources
         {
             get
             {
-                return Xml.GetAttribute("name");
+                return Xml.GetAttribute("name", DataFile.NamespaceUri);
             }
         }
 
