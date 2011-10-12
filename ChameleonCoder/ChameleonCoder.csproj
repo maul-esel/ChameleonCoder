@@ -320,6 +320,9 @@
     <None Include="app.config" />
     <None Include="ChameleonCoder.res" />
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="schema.xsd">
+      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
+    </EmbeddedResource>
     <None Include="test.ccr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
