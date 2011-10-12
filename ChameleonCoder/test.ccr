@@ -139,6 +139,6 @@
     </cc:metadata>
   </cc:settings>
   <cc:references>
-    <cc:directory cc:path="C:\Programming\"/>
+    <cc:directory cc:id="{d9e04592-f27d-4ed5-af8b-0a1f5c3fbc89}" cc:path="C:\Programming\"/>
   </cc:references>
 </cc:ChameleonCoder>

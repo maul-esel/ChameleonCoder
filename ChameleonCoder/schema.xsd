@@ -106,8 +106,9 @@
 
 	<!-- DONE: the type for data file references -->
 	<xsd:complexType name="referenceType">
+    <xsd:attribute name="id" type="guidType" use="required"/>
 		<xsd:attribute name="path" type="xsd:string" use="required"/>
-		<xsd:anyAttribute processContents="skip"/>
+    <xsd:anyAttribute processContents="skip"/>
 	</xsd:complexType>
 
 	<!-- DONE: the element containing data file references -->
