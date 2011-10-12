@@ -191,11 +191,18 @@ namespace ChameleonCoder
         /// if the resource represented by <paramref name="node"/> is a top-level resource.</param>
         internal static void AddResource(XmlElement node, IResource parent)
         {
-            IResource resource;
-            
-            resource = ResourceTypeManager.CreateInstanceOf(node.Name, node, parent); // try to use the element's name as resource alias
-            if (resource == null && node.GetAttribute("fallback") != null) // if e.g. the containing plugin is not loaded:
-                resource = ResourceTypeManager.CreateInstanceOf(node.GetAttribute("fallback"), node, parent); // give it a "2nd chance"
+            Guid type;
+            IResource resource = null;
+
+            if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
+            {
+                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent); // try to use the element's name as resource alias
+            }
+            else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
+            {
+                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent); // give it a "2nd chance"                    
+            }
+
             if (resource == null) // if creation failed:
             {
                 Log("ChameleonCoder.App --> internal static void AddResource(XmlElement, IResource)",
