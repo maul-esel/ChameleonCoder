@@ -102,28 +102,6 @@ namespace ChameleonCoder
             ResourceManager.SetCollections(Resources["resources"] as ResourceCollection,
                                            Resources["resourceHierarchy"] as ResourceCollection);
 
-#if DEBUG
-            /* TODO:
-             * - do not force the user to open a file
-             * - let him open an empty app
-             * - implement possibilities to create & open files later
-             * - implement possibility to close all opened files
-             * - set debug file through project properties >> parameters instead
-             */
-            if (path == null && File.Exists("test.ccr")) // if no file passed:
-                path = "test.ccr"; // use test file in debug builds
-#endif
-            if (path == null) // if no path was passed:
-            {
-                // let the user open a new file
-                using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = "CC Resources|*.ccr" })
-                {
-                    if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                        Environment.Exit(-1);
-                    path = dialog.FileName;
-                }
-            }
-
             // use a second task to speed things up
             Task parallelTask = Task.Factory.StartNew(() =>
             {
