@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="ChameleonCoder://Resources/Schema/2011"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			attributeFormDefault="qualified"
+			elementFormDefault="qualified"
+			targetNamespace="ChameleonCoder://Resources/Schema/2011">
+
+	<!-- DONE: the type for a GUID -->
+	<xsd:simpleType name="guidType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\{[a-zA-Z\d]{8}\-([a-zA-Z\d]{4}\-){3}[a-zA-Z\d]{12}\}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- DONE: the type for a metadata key-value pair -->
+	<xsd:complexType name="metadataElementType">
+		<xsd:attribute name="key" type="xsd:string" use="required"/>
+		<xsd:attribute name="value" type="xsd:string" use="required"/>
+		<xsd:anyAttribute/>
+	</xsd:complexType>
+
+	<!-- DONE: the element containing metadata -->
+	<xsd:element name="metadata">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="metadata" type="metadataElementType" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- DONE: the element for settings -->
+	<xsd:element name="settings">
+		<xsd:complexType>
+			<xsd:all>			
+				<xsd:element ref="metadata" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="created" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- DONE: the resource reference type -->
+	<xsd:element name="reference">
+		<xsd:complexType>
+			<xsd:attribute name="id" type="guidType" use="required"/>
+			<xsd:attribute name="target" type="guidType" use="required"/>
+			<xsd:attribute name="name" type="xsd:string" use="required"/>
+			<xsd:anyAttribute/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- DONE: the type containing resource references -->
+	<xsd:complexType name="resourceReferences">
+		<xsd:sequence>
+			<xsd:element ref="reference" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- DONE: the element for a resource's data -->
+	<xsd:element name="resourcedata">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="metadata" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="references" type="resourceReferences" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="lastmodified" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="created" type="xsd:dateTime" minOccurs="1" maxOccurs="1"/>
+			</xsd:all>
+			<xsd:attribute name="id" type="guidType" use="required"/>
+			<xsd:anyAttribute/>			
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- DONE: the element containing resource data elements -->
+	<xsd:element name="data">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="resourcedata" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+		
+	</xsd:element>
+
+	<!-- DONE: the type for resources -->
+	<xsd:element name="resource">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:element ref="resource" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="type"	type="guidType"		use="required"/>
+			<xsd:attribute name="name"	type="xsd:string"	use="required"/>
+			<xsd:attribute name="id"	type="guidType"		use="required"/>
+			<xsd:attribute name="notes"	type="xsd:string"	use="required"/>
+			<xsd:attribute name="description"	type="xsd:string" use="required"/>
+			<xsd:anyAttribute processContents="skip"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- DONE: the element containing the resources -->
+	<xsd:element name="resources">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="resource" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+		<xsd:key name="uniqueResourceGuidKey">
+			<xsd:selector xpath="resource"/>
+			<xsd:field xpath="@id"/>
+		</xsd:key>
+	</xsd:element>
+
+	<!-- DONE: the type for data file references -->
+	<xsd:complexType name="referenceType">
+		<xsd:attribute name="path" type="xsd:string" use="required"/>
+		<xsd:anyAttribute processContents="skip"/>
+	</xsd:complexType>
+
+	<!-- DONE: the element containing data file references -->
+	<xsd:element name="references">
+		<xsd:complexType>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element name="directory" type="referenceType"/>
+				<xsd:element name="file" type="referenceType"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- DONE: the root element -->
+	<xsd:element name="ChameleonCoder">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="resources"/>
+				<xsd:element ref="data"/>
+				<xsd:element ref="settings"/>
+				<xsd:element ref="references"/>
+			</xsd:sequence>
+		</xsd:complexType>
+		<xsd:keyref name="uniqueDataGuidKey" refer="uniqueResourceGuidKey">
+			<xsd:selector xpath="data/resourcedata"/>
+			<xsd:field xpath="@id"/>
+		</xsd:keyref>
+	</xsd:element>
+
+</xsd:schema>
