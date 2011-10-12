@@ -2,16 +2,16 @@
 
 namespace ChameleonCoder.Resources.RichContent
 {
-    internal sealed class ContentMemberCollection : ComponentCollection<string, Type>
+    internal sealed class ContentMemberCollection : ComponentCollection<Guid, Type>
     {
-        internal void RegisterContentMember(string alias, Type member)
+        internal void RegisterContentMember(Guid key, Type member)
         {
-            base.RegisterComponent(alias, member);
+            base.RegisterComponent(key, member);
         }
 
-        internal Type GetMember(string alias)
+        internal Type GetMember(Guid key)
         {
-            return base.GetComponent(alias);
+            return base.GetComponent(key);
         }
     }
 }

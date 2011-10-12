@@ -24,17 +24,17 @@ namespace ChameleonCoder.Resources.RichContent
         /// registers a RichContent-type
         /// </summary>
         /// <param name="member">a Type object representing the registered class</param>
-        /// <param name="alias">the Xml-Alias of the class</param>
+        /// <param name="key">the resource type key of the class</param>
         /// <param name="factory">the factory working with the class</param>
-        public static void RegisterContentMember(Type member, string alias, IRichContentFactory factory)
+        public static void RegisterContentMember(Type member, Guid key, IRichContentFactory factory)
         {
             if (member.GetInterface(typeof(IContentMember).FullName) != null
                 && !member.IsAbstract && !member.IsInterface && !member.IsNotPublic // scope and type
                 && member.GetConstructor(Type.EmptyTypes) != null // creation
-                && !IsRegistered(alias) && !IsRegistered(member) // no double-registration
+                && !IsRegistered(key) && !IsRegistered(member) // no double-registration
                 && PluginManager.IsRichContentFactoryRegistered(factory)) // no anonymous registration
             {
-                ContentMembers.RegisterContentMember(alias, member);
+                ContentMembers.RegisterContentMember(key, member);
                 Factories.TryAdd(member, factory);
             }
         }
@@ -42,11 +42,11 @@ namespace ChameleonCoder.Resources.RichContent
         /// <summary>
         /// gets whether a RichContent type with the given alias is already registered or not
         /// </summary>
-        /// <param name="alias">the alias to test</param>
-        /// <returns>true if a RichContent type with this alias is already registered, false otherwise.</returns>
-        public static bool IsRegistered(string alias)
+        /// <param name="key">the resource type key to test</param>
+        /// <returns>true if a RichContent type with this key is already registered, false otherwise.</returns>
+        public static bool IsRegistered(Guid key)
         {
-            return ContentMembers.IsRegistered(alias);
+            return ContentMembers.IsRegistered(key);
         }
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace ChameleonCoder.Resources.RichContent
             throw new ArgumentException("this is not a registered content member type", "component");
         }
 
-        internal static IContentMember CreateInstanceOf(string alias, XmlElement data, IContentMember parent)
+        internal static IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent)
         {
-            Type member = ContentMembers.GetMember(alias);
+            Type member = ContentMembers.GetMember(key);
             if (member != null)
             {
                 var factory = GetFactory(member);

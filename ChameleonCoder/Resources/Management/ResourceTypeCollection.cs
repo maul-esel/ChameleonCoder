@@ -2,19 +2,19 @@
 
 namespace ChameleonCoder.Resources.Management
 {
-    internal sealed class ResourceTypeCollection : ComponentCollection<string, Type>
+    internal sealed class ResourceTypeCollection : ComponentCollection<Guid, Type>
     {
-        internal void RegisterResourceType(string key, Type resourceType)
+        internal void RegisterResourceType(Guid key, Type resourceType)
         {
             base.RegisterComponent(key, resourceType);
         }
 
-        internal Type GetResourceType(string alias)
+        internal Type GetResourceType(Guid key)
         {
-            return base.GetComponent(alias);
+            return base.GetComponent(key);
         }
 
-        internal string GetAlias(Type type)
+        internal Guid GetAlias(Type type)
         {
             return base.GetKey(type);
         }

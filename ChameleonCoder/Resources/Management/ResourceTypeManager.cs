@@ -25,11 +25,11 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// gets the resource type that was registered with the specified alias
         /// </summary>
-        /// <param name="alias">the alias</param>
+        /// <param name="key">resource type key</param>
         /// <returns>the type</returns>
-        internal static Type GetResourceType(string alias)
+        internal static Type GetResourceType(Guid key)
         {
-            return ResourceTypes.GetResourceType(alias);
+            return ResourceTypes.GetResourceType(key);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="type">the type</param>
         /// <returns>the alias</returns>
-        internal static string GetAlias(Type type)
+        internal static Guid GetKey(Type type)
         {
             return ResourceTypes.GetAlias(type);
         }
@@ -45,13 +45,13 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// creates an instance of the type registered with the specified alias, using the given data
         /// </summary>
-        /// <param name="alias">the alias of the resource type</param>
+        /// <param name="key">the resource type key of the resource type</param>
         /// <param name="data">the XmlElement representing the resource</param>
         /// <param name="parent">the resource's parent</param>
         /// <returns>the new instance</returns>
-        internal static IResource CreateInstanceOf(string alias, System.Xml.XmlElement data, IResource parent)
+        internal static IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent)
         {
-            Type resourceType = GetResourceType(alias);
+            Type resourceType = GetResourceType(key);
             if (resourceType != null)
             {
                 var factory = GetFactory(resourceType);
@@ -74,19 +74,22 @@ namespace ChameleonCoder.Resources.Management
         public static IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent)
         {
             var document = (parent == null) ? App.DefaultFile.Document : parent.GetResourceFile().Document;
+            var manager = NamespaceManagerFactory.GetManager(document);
 
-            var element = document.CreateElement(GetAlias(type));
+            var element = document.CreateElement("cc:resource", DataFile.NamespaceUri);
+            element.SetAttribute("type", DataFile.NamespaceUri, GetKey(type).ToString("b"));
+
             if (parent == null)
-                document.DocumentElement.SelectSingleNode("resources").AppendChild(element);
+                document.SelectSingleNode("/cc:ChameleonCoder/cc:resources", manager).AppendChild(element);
             else
                 parent.Xml.AppendChild(element);
 
             foreach (var attribute in attributes)
             {
-                element.SetAttribute(attribute.Key, attribute.Value);
+                element.SetAttribute(attribute.Key, DataFile.NamespaceUri, attribute.Value);
             }
 
-            element.SetAttribute("name", name);
+            element.SetAttribute("name", DataFile.NamespaceUri, name);
 
             IResource resource = GetFactory(type).CreateInstance(type, element, parent);
             if (resource != null)
@@ -94,8 +97,8 @@ namespace ChameleonCoder.Resources.Management
                 ResourceManager.Add(resource, parent);
 
                 var data = ResourceHelper.GetDataElement(resource, true);
-                var created = (System.Xml.XmlElement)document.CreateElement("created");
-                created.InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
+                var created = (System.Xml.XmlElement)document.CreateElement("cc:created", DataFile.NamespaceUri);
+                created.InnerText = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
                 data.AppendChild(created);
             }
 
@@ -107,14 +110,14 @@ namespace ChameleonCoder.Resources.Management
         /// creates a new XmlElement representing the resource using the name and the specified attributes,
         /// and initializes the resource using the XmlElement and the given parent resource.
         /// </summary>
-        /// <param name="alias">the alias of the type to create an instance of</param>
+        /// <param name="key">the resource type key of the type to create an instance of</param>
         /// <param name="name">the name for the new resource</param>
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateNewResource(string alias, string name, IDictionary<string, string> attributes, IResource parent)
+        public static IResource CreateNewResource(Guid key, string name, IDictionary<string, string> attributes, IResource parent)
         {
-            return CreateNewResource(GetResourceType(alias), name, attributes, parent);
+            return CreateNewResource(GetResourceType(key), name, attributes, parent);
         }
 
         /// <summary>
@@ -172,11 +175,11 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// checks whether a resource type is registered with the given alias or not
         /// </summary>
-        /// <param name="alias">the alias of the type to check</param>
-        /// <returns>true if a type with the given alias is registered, false otherwise</returns>
-        public static bool IsRegistered(string alias)
+        /// <param name="key">the resource type key of the type to check</param>
+        /// <returns>true if a type with the given key is registered, false otherwise</returns>
+        public static bool IsRegistered(Guid key)
         {
-            return ResourceTypes.IsRegistered(alias);
+            return ResourceTypes.IsRegistered(key);
         }
 
         /// <summary>
@@ -193,16 +196,16 @@ namespace ChameleonCoder.Resources.Management
         /// registers a new resource type
         /// </summary>
         /// <param name="component">the resource type to register</param>
-        /// <param name="alias">the Xml alias to use for the type</param>
+        /// <param name="key">the resource type key to use for the type</param>
         /// <param name="factory">the <see cref="ChameleonCoder.Plugins.IResourceFactory"/> calling this method.</param>
-        public static void RegisterComponent(Type component, string alias, Plugins.IResourceFactory factory)
+        public static void RegisterComponent(Type component, Guid key, Plugins.IResourceFactory factory)
         {
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic // scope and type
-                && !IsRegistered(alias) && !IsRegistered(component) // no double-registration
+                && !IsRegistered(key) && !IsRegistered(component) // no double-registration
                 && PluginManager.IsResourceFactoryRegistered(factory)) // no anonymous registration
             {
-                ResourceTypes.RegisterResourceType(alias, component);
+                ResourceTypes.RegisterResourceType(key, component);
                 Factories.TryAdd(component, factory);
             }
         }

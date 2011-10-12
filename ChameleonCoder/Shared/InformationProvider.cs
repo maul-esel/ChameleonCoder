@@ -176,11 +176,11 @@ namespace ChameleonCoder.Shared
         /// <summary>
         /// tests if a resource type is registered, given its Xml-alias
         /// </summary>
-        /// <param name="alias">the alias to test</param>
-        /// <returns>true if a resource type is registered with this alias, false otherwise</returns>
-        public static bool IsResourceTypeRegistered(string alias)
+        /// <param name="key">the resource type key to test</param>
+        /// <returns>true if a resource type is registered with this key, false otherwise</returns>
+        public static bool IsResourceTypeRegistered(Guid key)
         {
-            return ResourceTypeManager.IsRegistered(alias);
+            return ResourceTypeManager.IsRegistered(key);
         }
 
         /// <summary>
