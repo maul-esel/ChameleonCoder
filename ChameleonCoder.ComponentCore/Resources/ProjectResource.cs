@@ -74,7 +74,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 Guid lang;
-                string guid = Xml.GetAttribute("language");
+                string guid = Xml.GetAttribute("language", DataFile.NamespaceUri);
 
                 if (!Guid.TryParse(guid, out lang))
                     lang = Guid.Empty;
@@ -83,7 +83,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Xml.SetAttribute("language", value.ToString());
+                Xml.SetAttribute("language", DataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("Language");
             }
         }
@@ -113,11 +113,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("compilation-path");
+                return Xml.GetAttribute("compilation-path", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("compilation-path", value);
+                Xml.SetAttribute("compilation-path", DataFile.NamespaceUri, value);
                 OnPropertyChanged("CompilationPath");
             }
         }
@@ -133,14 +133,14 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 ProjectPriority priority;
-                string value = Xml.GetAttribute("priority");
+                string value = Xml.GetAttribute("priority", DataFile.NamespaceUri);
                 if (Enum.TryParse<ProjectPriority>(value, out priority))
                 	return priority;
                 return ProjectPriority.Low;
             }
             protected set
             {
-                Xml.SetAttribute("priority", value.ToString());
+                Xml.SetAttribute("priority", DataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("Priority");
             }
         }
@@ -208,7 +208,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get { return Properties.Resources.Info_Priority; }
         }
 
-        internal const string Alias = "project";
+        internal const string Key = "{ca90cff4-dae6-4542-b516-771d01b39de9}";
     }
 
     /// <summary>

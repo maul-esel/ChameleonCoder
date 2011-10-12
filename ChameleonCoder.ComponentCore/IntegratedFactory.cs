@@ -4,10 +4,10 @@ using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.ComponentCore.Resources;
-using ChameleonCoder.Shared;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Shared;
 using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 
 namespace ChameleonCoder.ComponentCore
@@ -63,12 +63,12 @@ namespace ChameleonCoder.ComponentCore
             Res.Culture = new CultureInfo(InformationProvider.Language);
             InformationProvider.LanguageChanged += (LCID) => Res.Culture = new CultureInfo((int)LCID);
 
-            ResourceTypeManager.RegisterComponent(typeof(FileResource), FileResource.Alias, this);
-            ResourceTypeManager.RegisterComponent(typeof(CodeResource), CodeResource.Alias, this);
-            ResourceTypeManager.RegisterComponent(typeof(TaskResource), TaskResource.Alias, this);
-            ResourceTypeManager.RegisterComponent(typeof(GroupResource), GroupResource.Alias, this);
-            ResourceTypeManager.RegisterComponent(typeof(LibraryResource), LibraryResource.Alias, this);
-            ResourceTypeManager.RegisterComponent(typeof(ProjectResource), ProjectResource.Alias, this);
+            ResourceTypeManager.RegisterComponent(typeof(FileResource), Guid.Parse(FileResource.Key), this);
+            ResourceTypeManager.RegisterComponent(typeof(CodeResource), Guid.Parse(CodeResource.Key), this);
+            ResourceTypeManager.RegisterComponent(typeof(TaskResource), Guid.Parse(TaskResource.Key), this);
+            ResourceTypeManager.RegisterComponent(typeof(GroupResource), Guid.Parse(GroupResource.Key), this);
+            ResourceTypeManager.RegisterComponent(typeof(LibraryResource), Guid.Parse(LibraryResource.Key), this);
+            ResourceTypeManager.RegisterComponent(typeof(ProjectResource), Guid.Parse(ProjectResource.Key), this);
         }
 
         /// <summary>
@@ -115,17 +115,17 @@ namespace ChameleonCoder.ComponentCore
         {
             string name = null;
             if (type == typeof(FileResource))
-                name = FileResource.Alias;
+                name = "file";
             else if (type == typeof(CodeResource))
-                name = CodeResource.Alias;
+                name = "code";
             else if (type == typeof(LibraryResource))
-                name = LibraryResource.Alias;
+                name = "library";
             else if (type == typeof(GroupResource))
-                name = GroupResource.Alias;
+                name = "group";
             else if (type == typeof(ProjectResource))
-                name = ProjectResource.Alias;
+                name = "project";
             else if (type == typeof(TaskResource))
-                name = TaskResource.Alias;
+                name = "task";
 
             return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/" + name + ".png"));
         }

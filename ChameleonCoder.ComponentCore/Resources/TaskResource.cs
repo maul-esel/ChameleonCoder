@@ -36,7 +36,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                string value = Xml.GetAttribute("enddate");
+                string value = Xml.GetAttribute("enddate", DataFile.NamespaceUri);
                 DateTime date;
                 if (string.IsNullOrWhiteSpace(value) || !DateTime.TryParse(value, out date))
                     return DateTime.MaxValue;
@@ -44,7 +44,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Xml.SetAttribute("enddate", value.ToString());
+                Xml.SetAttribute("enddate", DataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("EndDate");
             }
         }
@@ -73,6 +73,6 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        internal const string Alias = "task";
+        internal const string Key = "{14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}";
     }
 }

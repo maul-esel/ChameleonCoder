@@ -37,11 +37,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("author");
+                return Xml.GetAttribute("author", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("author", value);
+                Xml.SetAttribute("author", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Author");
             }
         }
@@ -55,11 +55,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("license");
+                return Xml.GetAttribute("license", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("license", value);
+                Xml.SetAttribute("license", DataFile.NamespaceUri, value);
                 OnPropertyChanged("License");
             }
         }
@@ -73,11 +73,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("version");
+                return Xml.GetAttribute("version", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("version", value);
+                Xml.SetAttribute("version", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Version");
             }
         }
@@ -113,6 +113,6 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #endregion
 
-        internal new const string Alias = "library";
+        internal new const string Key = "{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}";
     }
 }

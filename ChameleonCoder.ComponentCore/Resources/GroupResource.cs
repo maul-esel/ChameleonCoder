@@ -22,6 +22,6 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
         }
 
-        internal const string Alias = "group";
+        internal const string Key = "{408b6770-3e25-4567-86c8-5182e7fdc9c9}";
     }
 }

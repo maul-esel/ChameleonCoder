@@ -47,12 +47,12 @@ namespace ChameleonCoder.ComponentCore.Resources
             Xml = data;
             Parent = parent;
 
-            string guid = Xml.GetAttribute("id");
+            string guid = Xml.GetAttribute("id", DataFile.NamespaceUri);
             Guid id;
             if (!Guid.TryParse(guid, out id))
             {
                 id = Guid.NewGuid();
-                Xml.SetAttribute("id", id.ToString("b"));
+                Xml.SetAttribute("id", DataFile.NamespaceUri, id.ToString("b"));
             }
             Identifier = id;
         }
@@ -92,11 +92,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("name");
+                return Xml.GetAttribute("name", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("name", value);
+                Xml.SetAttribute("name", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Name");
             }
         }
@@ -110,11 +110,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("description");
+                return Xml.GetAttribute("description", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("description", value);
+                Xml.SetAttribute("description", DataFile.NamespaceUri, value);
                 this.OnPropertyChanged("Description");
             }
         }
@@ -127,11 +127,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("notes");
+                return Xml.GetAttribute("notes", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("notes", value);
+                Xml.SetAttribute("notes", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Notes");
             }
         }

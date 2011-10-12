@@ -55,7 +55,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 Guid lang;
-                string guid = Xml.GetAttribute("language");
+                string guid = Xml.GetAttribute("language", DataFile.NamespaceUri);
 
                 if (!Guid.TryParse(guid, out lang))
                     lang = Guid.Empty;
@@ -64,7 +64,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Xml.SetAttribute("language", value.ToString("b"));
+                Xml.SetAttribute("language", DataFile.NamespaceUri, value.ToString("b"));
                 OnPropertyChanged("Language");
             }
         }
@@ -94,14 +94,14 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                string result = Xml.GetAttribute("compilation-path");
+                string result = Xml.GetAttribute("compilation-path", DataFile.NamespaceUri);
                 if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(Path))
                     result = Path + ".exe";
                 return result;
             }
             set
             {
-                Xml.SetAttribute("compilation-path", value);
+                Xml.SetAttribute("compilation-path", DataFile.NamespaceUri, value);
                 OnPropertyChanged("CompilationPath");
             }
         }
@@ -169,6 +169,6 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #endregion
 
-        internal new const string Alias = "code";
+        internal const string Key = "{478e8dd0-b37e-4616-8246-31984077bb64}";
     }
 }

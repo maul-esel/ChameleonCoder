@@ -94,15 +94,15 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("path");
+                return Xml.GetAttribute("path", DataFile.NamespaceUri);
             }
             protected set
             {
-                Xml.SetAttribute("path", value);
+                Xml.SetAttribute("path", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Path");
             }
         }
 
-        internal const string Alias = "file";
+        internal const string Key = "{826ab0e7-00d5-45be-88e5-7bb2f1d565ab}";
     }
 }
