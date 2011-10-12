@@ -505,6 +505,7 @@ namespace ChameleonCoder.ViewModel
                 Resources.Management.ResourceManager.GetChildren().Clear();
                 Resources.Management.ResourceManager.GetList().Clear();
                 DataFile.CloseAll();
+                NamespaceManagerFactory.ClearManagers();
             }
         }
 
