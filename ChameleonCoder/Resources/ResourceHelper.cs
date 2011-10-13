@@ -254,7 +254,8 @@ namespace ChameleonCoder
             if (res == null)
                 return;
 
-            var content = (XmlElement)res.SelectSingleNode("RichContent");
+            var manager = NamespaceManagerFactory.GetManager(res.OwnerDocument);
+            var content = (XmlElement)res.SelectSingleNode("cc:richcontent", manager);
             if (content == null)
                 return;
 
