@@ -90,6 +90,7 @@ namespace ChameleonCoder.ViewModel
         {
             Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
             Shared.InformationProvider.OnPluginUninstalled(plugin);
+            Settings.ChameleonCoderSettings.Default.Save();
         }
 
         private void InstallPlugins()
@@ -149,6 +150,7 @@ namespace ChameleonCoder.ViewModel
                 }
 
                 var representation = OnRepresentationNeeded(new PluginInstallerModel(newPlugins), true);
+                Settings.ChameleonCoderSettings.Default.Save();
             }
         }
 

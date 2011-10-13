@@ -15,9 +15,8 @@ namespace ChameleonCoder.Settings
 
             if (args.Contains("--config") && args.IndexOf("--config") + 1 < args.Count)
             {
-                string _file = args[args.IndexOf("--config") + 1];
-                if (File.Exists(_file))
-                    file = _file;
+                file = args[args.IndexOf("--config") + 1];
+                
             }
 
             if (!File.Exists(file))

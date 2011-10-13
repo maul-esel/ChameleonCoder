@@ -34,7 +34,7 @@ namespace ChameleonCoder.Settings
             foreach (SettingsProperty key in keys)
             {
                 var value = new SettingsPropertyValue(key) { IsDirty = false };
-                var node = document.SelectSingleNode("//setting[@name='" + key.Name + "']");
+                var node = (XmlElement)document.SelectSingleNode("//setting[@name='" + key.Name + "']");
 
                 if (key.SerializeAs == SettingsSerializeAs.String)
                 {
@@ -51,7 +51,16 @@ namespace ChameleonCoder.Settings
                     else
                     {
                         if (conv.IsValid(key.DefaultValue))
+                        {
+                            node = document.CreateElement("setting");
+                            node.SetAttribute("name", key.Name);
+                            node.InnerText = key.DefaultValue as string;
+                            document.DocumentElement.AppendChild(node);
+
+                            document.Save(new Uri(document.BaseURI).LocalPath);
+
                             value.PropertyValue = conv.ConvertFromString(key.DefaultValue as string);
+                        }
                         else
                             throw new ConfigurationErrorsException("Key not found!");
                     }
@@ -60,19 +69,20 @@ namespace ChameleonCoder.Settings
                 {
                     if (node == null)
                     {
-                        var doc = new XmlDocument();
-
-                        node = doc.CreateElement("setting");
+                        node = document.CreateElement("setting");
                         (node as XmlElement).SetAttribute("name", key.Name);
-                        node.InnerText = key.DefaultValue.ToString();
+                        node.InnerXml = key.DefaultValue.ToString();
+                        document.DocumentElement.AppendChild(node);
+
+                        document.Save(new Uri(document.BaseURI).LocalPath);
                     }
 
                     var xs = new System.Xml.Serialization.XmlSerializer(typeof(System.Collections.Specialized.StringCollection));
-                    using (var strReader = new StringReader(node.InnerText))
+                    using (var strReader = new StringReader(node.InnerXml))
                     {
                         using (var xmlReader = XmlReader.Create(strReader))
                         {
-                            value.PropertyValue = value.SerializedValue = xs.Deserialize(xmlReader);
+                            value.PropertyValue = xs.Deserialize(xmlReader);
                         }
                     }
                 }
@@ -84,10 +94,11 @@ namespace ChameleonCoder.Settings
 
         public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection collection)
         {
-            var conv = System.ComponentModel.TypeDescriptor.GetConverter(typeof(string));
             foreach (SettingsPropertyValue value in collection)
             {
+                var conv = System.ComponentModel.TypeDescriptor.GetConverter(value.Property.PropertyType);
                 var node = (XmlElement)document.SelectSingleNode("//setting[@name='" + value.Name + "']");
+
                 if (node == null)
                 {
                     node = document.CreateElement("setting");
@@ -95,7 +106,16 @@ namespace ChameleonCoder.Settings
                     document.SelectSingleNode("/settings").AppendChild(node);
                 }
 
-                node.InnerText = conv.ConvertToString(value.SerializedValue);
+                if (value.Property.SerializeAs == SettingsSerializeAs.String)
+                    node.InnerText = conv.ConvertToString(value.SerializedValue);
+                else if (value.Property.SerializeAs == SettingsSerializeAs.Xml)
+                {
+                    var doc = new XmlDocument();
+                    doc.LoadXml(conv.ConvertToString(value.SerializedValue));
+
+                    node.InnerXml = doc.DocumentElement.OuterXml;
+
+                }
             }
 
             document.Save(SettingsFile);
