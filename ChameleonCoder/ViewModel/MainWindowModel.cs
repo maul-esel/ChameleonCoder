@@ -378,6 +378,7 @@ namespace ChameleonCoder.ViewModel
 
         #region breadcrumb
 
+        [System.ComponentModel.NotifyParentProperty(false)]
         public static string BreadcrumbSeparator
         {
             get { return App.pathSeparator; }

@@ -106,6 +106,9 @@
 				<cc:metadata cc:key="Todo" cc:value="Cleanup!"/>
 			</cc:metadata>
 			<cc:created>2011-10-12T18:45:00</cc:created>
+      <cc:richcontent>
+        <cc:member cc:id="{59473c3e-7159-4ae3-bbbd-aefc09a1cbca}" cc:name="test member" cc:type="{ed661b62-1310-407c-8a17-984a7f7f98a9}"/>
+      </cc:richcontent>
 		</cc:resourcedata>
 		<cc:resourcedata cc:id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}">
 			<cc:references>
