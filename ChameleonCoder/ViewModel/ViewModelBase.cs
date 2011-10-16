@@ -86,14 +86,14 @@ namespace ChameleonCoder.ViewModel
             return null;
         }
 
-        protected object OnRepresentationNeeded(ViewModelBase model, bool show)
+        protected RepresentationEventArgs OnRepresentationNeeded(ViewModelBase model, bool show)
         {
             var handler = RepresentationNeeded;
             if (handler != null)
             {
                 var args = new RepresentationEventArgs(model, show);
                 handler(this, args);
-                return args.Representation;
+                return args;
             }
             return null;
         }
