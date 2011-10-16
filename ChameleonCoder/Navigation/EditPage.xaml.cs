@@ -3,7 +3,7 @@
     /// <summary>
     /// a page displaying the edit control to edit resources
     /// </summary>
-    internal sealed partial class EditPage : CCPageBase
+    internal sealed partial class EditPage : System.Windows.Controls.Page
     {
         /// <summary>
         /// creates a new instance of the page, given an IEditable resource
@@ -11,8 +11,12 @@
         /// <param name="model">the view model to use</param>
         internal EditPage(ViewModel.EditPageModel model)
         {
+            ModelClientHelper.InitializeModel(model);
+
+            DataContext = model;
+            CommandBindings.AddRange(model.Commands);
+
             model.SelectText += SelectText; 
-            Initialize(model);
             InitializeComponent();
         }
 

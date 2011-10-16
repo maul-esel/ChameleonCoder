@@ -3,14 +3,15 @@
     /// <summary>
     /// a welcome page displaying several buttons
     /// </summary>
-    internal sealed partial class WelcomePage : CCPageBase
+    internal sealed partial class WelcomePage : System.Windows.Controls.Page
     {
-        /// <summary>
-        /// creates a new instance of this page
-        /// </summary>
         internal WelcomePage()
         {
-            Initialize(ViewModel.WelcomePageModel.Instance);
+            ModelClientHelper.InitializeModel(ViewModel.WelcomePageModel.Instance);
+
+            DataContext = ViewModel.WelcomePageModel.Instance;
+            CommandBindings.AddRange(ViewModel.WelcomePageModel.Instance.Commands);
+
             InitializeComponent();
         }
     }

@@ -7,65 +7,25 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a Page displaying all registered plugins
     /// </summary>
-    internal sealed partial class PluginPage : CCPageBase
+    internal sealed partial class PluginPage : System.Windows.Controls.Page
     {
         /// <summary>
         /// creates a new instance of the page
         /// </summary>
         public PluginPage()
         {
-            ViewModel.PluginPageModel.Instance.PluginNeeded -= FindAssembly; // remove handler if already attached
-            ViewModel.PluginPageModel.Instance.PluginNeeded += FindAssembly; // add handler
+            ModelClientHelper.InitializeModel(ViewModel.PluginPageModel.Instance);
 
-            ViewModel.PluginPageModel.Instance.RepresentationNeeded -= OpenDialog; // see above
-            ViewModel.PluginPageModel.Instance.RepresentationNeeded += OpenDialog;
+            ViewModel.PluginPageModel.Instance.PluginNeeded -= ModelClientHelper.SelectFile; // remove handler if already attached
+            ViewModel.PluginPageModel.Instance.PluginNeeded += ModelClientHelper.SelectFile; // add handler
 
-            Initialize(ViewModel.PluginPageModel.Instance);
+            ViewModel.PluginPageModel.Instance.RepresentationNeeded -= ModelClientHelper.GetModelRepresentation; // see above
+            ViewModel.PluginPageModel.Instance.RepresentationNeeded += ModelClientHelper.GetModelRepresentation;
+
+            DataContext = ViewModel.PluginPageModel.Instance;
+            CommandBindings.AddRange(ViewModel.PluginPageModel.Instance.Commands);
+
             InitializeComponent();            
-        }
-
-        /// <summary>
-        /// lets the user select an assembly for the model
-        /// </summary>
-        /// <param name="sender">not used</param>
-        /// <param name="e">not used</param>
-        /// <remarks>This must not be moved to the model.</remarks>
-        private static void FindAssembly(object sender, ViewModel.Interaction.FileSelectionEventArgs e)
-        {
-            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = e.Filter,
-                                                                            Title = e.Message,
-                                                                            CheckPathExists = e.MustExist,
-                                                                            InitialDirectory = e.Directory})
-            {
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    e.Path = dialog.FileName;
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
-
-        /// <summary>
-        /// creates a PluginInstaller dialog for the model
-        /// </summary>
-        /// <param name="sender">not used</param>
-        /// <param name="e">not used</param>
-        /// <remarks>This must not be moved to the model.</remarks>
-        private static void OpenDialog(object sender, ViewModel.Interaction.RepresentationEventArgs e)
-        {
-            var model = e.Model as ViewModel.PluginInstallerModel;
-            if (model != null)
-            {
-                var dialog = new PluginInstaller(model);
-                e.Representation = dialog;
-                if (e.ShowRepresentation)
-                {
-                    dialog.ShowDialog();
-                }
-            }
         }
 
         /// <summary>

@@ -16,93 +16,23 @@ namespace ChameleonCoder
     {
         internal MainWindow()
         {
-            MVVM.Instance.Report -= ReportMessage;
-            MVVM.Instance.Report += ReportMessage;
-
-            MVVM.Instance.Confirm -= ConfirmMessage;
-            MVVM.Instance.Confirm += ConfirmMessage;
-
-            MVVM.Instance.UserInput -= GetInput;
-            MVVM.Instance.UserInput += GetInput;
+            ModelClientHelper.InitializeModel(MVVM.Instance);
 
             MVVM.Instance.ViewChanged -= AdjustView;
             MVVM.Instance.ViewChanged += AdjustView;
 
-            MVVM.Instance.RepresentationNeeded -= GetRepresentation;
-            MVVM.Instance.RepresentationNeeded += GetRepresentation;
-
-            MVVM.Instance.SelectFile -= OpenFile;
-            MVVM.Instance.SelectFile += OpenFile;
+            MVVM.Instance.SelectFile -= ModelClientHelper.SelectFile;
+            MVVM.Instance.SelectFile += ModelClientHelper.SelectFile;
 
             DataContext = MVVM.Instance;
             CommandBindings.AddRange(MVVM.Instance.Commands);
+
             InitializeComponent();
 
             ChameleonCoderCommands.OpenNewTab.Execute(null, this);
         }
 
         #region view model interaction
-
-        /// <summary>
-        /// reports a message by the view model to the user
-        /// </summary>
-        /// <param name="sender">the view model sending the event</param>
-        /// <param name="e">additional data related to the event</param>
-        /// <remarks>This must not be moved to the model.</remarks>
-        private static void ReportMessage(object sender, ReportEventArgs e)
-        {
-            MessageBoxImage icon;
-            switch (e.Severity)
-            {
-                case ViewModel.Interaction.MessageSeverity.Error:
-                    icon = MessageBoxImage.Error;
-                    break;
-
-                case ViewModel.Interaction.MessageSeverity.Critical:
-                    icon = MessageBoxImage.Exclamation;
-                    break;
-
-                default:
-                case ViewModel.Interaction.MessageSeverity.Information:
-                    icon = MessageBoxImage.Information;
-                    break;
-            }
-
-            MessageBox.Show(e.Message, e.Topic, MessageBoxButton.OK, icon);
-        }
-
-        /// <summary>
-        /// confirms a message by the view model by letting the user decide
-        /// </summary>
-        /// <param name="sender">the view model sending the event</param>
-        /// <param name="e">additional data related to the event</param>
-        /// <remarks>This must not be moved to the model.</remarks>
-        private static void ConfirmMessage(object sender, ConfirmationEventArgs e)
-        {
-            e.Accepted = MessageBox.Show(e.Message,
-                                        e.Topic,
-                                        MessageBoxButton.YesNo,
-                                        MessageBoxImage.Question) == MessageBoxResult.Yes;
-        }
-
-        /// <summary>
-        /// gets user input for the view model
-        /// </summary>
-        /// <param name="sender">the view model sending the event</param>
-        /// <param name="e">additional data related to the event</param>
-        /// <remarks>This must not be moved to the model.</remarks>
-        private static void GetInput(object sender, UserInputEventArgs e)
-        {
-            var box = new InputBox(e.Topic, e.Message);
-            if (box.ShowDialog() == true)
-            {
-                e.Input = box.Text;
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-        }
 
         /// <summary>
         /// reacts to a change on the internal view (i.e. the loaded page / tab) of the model
@@ -159,66 +89,6 @@ namespace ChameleonCoder
                 default:
                 case CCTabPage.None:
                     throw new InvalidOperationException("page type is not known");
-            }
-        }
-
-        /// <summary>
-        /// gets a view for a given view model
-        /// </summary>
-        /// <param name="sender">the view model sending the event</param>
-        /// <param name="e">additional data related to the event</param>
-        /// <remarks>This must not be moved to the model.</remarks>
-        private static void GetRepresentation(object sender, RepresentationEventArgs e)
-        {
-            if (e.Model != null)
-            {
-                var attr = (DefaultRepresentationAttribute)
-                    Attribute.GetCustomAttribute(e.Model.GetType(), typeof(DefaultRepresentationAttribute));
-
-                if (attr != null) // if the attribute is defined
-                {
-                    Type representationType = attr.RepresentationType;
-                    if (representationType != null) // if a valid type is given
-                    {
-                        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.;
-                        if (representationType.GetConstructor(flags, null, Type.EmptyTypes, null) != null) // if a parameterless constructor is defined
-                        {
-                            e.Representation = Activator.CreateInstance(representationType, flags, null, null, null); // create the instance
-                        }
-                        else
-                        {
-                            e.Representation = Activator.CreateInstance(representationType, flags, null, new object[1] { e.Model }, null); // assume a constructor with 1 param (model) is defined
-                        }
-                    }
-                }
-
-                if (e.ShowRepresentation && e.Representation != null)
-                {
-                    var dialog = e.Representation as Window;
-                    if (dialog != null)
-                    {
-                        if (dialog.ShowDialog() != true)
-                            e.Cancel = true;
-                    }
-                }
-            }            
-        }
-
-        private static void OpenFile(object sender, FileSelectionEventArgs e)
-        {
-            using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = e.Filter,
-                                                                            Title = e.Message,
-                                                                            CheckPathExists = e.MustExist,
-                                                                            InitialDirectory = e.Directory })
-            {
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    e.Path = dialog.FileName;
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
             }
         }
 

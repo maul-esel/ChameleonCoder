@@ -1,8 +1,7 @@
-﻿<nav:CCPageBase x:Class="ChameleonCoder.Navigation.FileManagementPage" x:ClassModifier="internal"
+﻿<Page x:Class="ChameleonCoder.Navigation.FileManagementPage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:cc="clr-namespace:ChameleonCoder"
-      xmlns:nav="clr-namespace:ChameleonCoder.Navigation">
+      xmlns:cc="clr-namespace:ChameleonCoder">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -77,4 +76,4 @@
         </ListView>
         
     </Grid>
-</nav:CCPageBase>
+</Page>

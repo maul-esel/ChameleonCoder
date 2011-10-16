@@ -1,8 +1,7 @@
-﻿<nav:CCPageBase x:Class="ChameleonCoder.Navigation.WelcomePage" x:ClassModifier="internal"
+﻿<Page x:Class="ChameleonCoder.Navigation.WelcomePage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:cc="clr-namespace:ChameleonCoder"
-      xmlns:nav="clr-namespace:ChameleonCoder.Navigation">
+      xmlns:cc="clr-namespace:ChameleonCoder">
     
     <Page.Resources>
         <Style x:Key="GoButton" TargetType="Button">
@@ -59,4 +58,4 @@
                 Style="{StaticResource GoButton}" Margin="5"/>
         
     </StackPanel>
-</nav:CCPageBase>
+</Page>

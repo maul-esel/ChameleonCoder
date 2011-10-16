@@ -11,13 +11,15 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying all registered resources
     /// </summary>
-    internal sealed partial class ResourceListPage : CCPageBase
+    internal sealed partial class ResourceListPage : System.Windows.Controls.Page
     {
         /// <summary>
         /// creates a new instance of this page
         /// </summary>
         internal ResourceListPage()
         {
+            ModelClientHelper.InitializeModel(ViewModel.ResourceListPageModel.Instance);
+
             CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh,
                 RefreshList));
             CommandBindings.Add(new CommandBinding(ChameleonCoderCommands.SetSortingMode,
@@ -25,7 +27,9 @@ namespace ChameleonCoder.Navigation
             CommandBindings.Add(new CommandBinding(ChameleonCoderCommands.SetGroupingMode,
                 GroupingChanged));
 
-            Initialize(ViewModel.ResourceListPageModel.Instance);
+            DataContext = ViewModel.ResourceListPageModel.Instance;
+            CommandBindings.AddRange(ViewModel.ResourceListPageModel.Instance.Commands);
+
             InitializeComponent();
         }
 

@@ -1,9 +1,8 @@
-﻿<nav:CCPageBase x:Class="ChameleonCoder.Navigation.ResourceListPage" x:ClassModifier="internal"
+﻿<Page x:Class="ChameleonCoder.Navigation.ResourceListPage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:cc="clr-namespace:ChameleonCoder"
-      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-      xmlns:nav="clr-namespace:ChameleonCoder.Navigation">
+      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     
     <Page.Resources>
 
@@ -82,4 +81,4 @@
             </DataTemplate>
         </ListBox.ItemTemplate>
     </ListBox>
-</nav:CCPageBase>
+</Page>

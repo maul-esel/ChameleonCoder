@@ -1,7 +1,6 @@
-﻿<nav:CCPageBase x:Class="ChameleonCoder.Navigation.ResourceViewPage" x:ClassModifier="internal"
+﻿<Page x:Class="ChameleonCoder.Navigation.ResourceViewPage" x:ClassModifier="internal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:nav="clr-namespace:ChameleonCoder.Navigation">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Page.Resources>
         <CollectionViewSource x:Key="ResPropList" Source="{Binding Path=Resource, Converter={StaticResource PropConv}}">
@@ -103,4 +102,4 @@
                  AutoWordSelection="True" AcceptsReturn="True"
                  Text="{Binding Path=Resource.Notes}"/>
     </Grid>
-</nav:CCPageBase>
+</Page>

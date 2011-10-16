@@ -8,7 +8,7 @@ namespace ChameleonCoder.Navigation
     /// <summary>
     /// a page displaying resource details
     /// </summary>
-    internal sealed partial class ResourceViewPage : CCPageBase
+    internal sealed partial class ResourceViewPage : System.Windows.Controls.Page
     {
         /// <summary>
         /// creates a new instance of this page, given a resource to display
@@ -16,8 +16,13 @@ namespace ChameleonCoder.Navigation
         /// <param name="model">the view model to display</param>
         internal ResourceViewPage(ViewModel.ResourceViewPageModel model)
         {
-            Initialize(model);
+            ModelClientHelper.InitializeModel(model);
+
             ResourceManager.Open(model.Resource);
+
+            DataContext = model;
+            CommandBindings.AddRange(model.Commands);
+
             InitializeComponent();            
         }
 
