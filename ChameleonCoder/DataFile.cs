@@ -135,7 +135,7 @@ namespace ChameleonCoder
         /// <returns>the metadata's value</returns>
         public string GetMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']");
+            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
             if (meta == null)
                 return null;
 
@@ -148,7 +148,7 @@ namespace ChameleonCoder
         /// <returns>a dictionary containing the metadata</returns>
         public IDictionary<string, string> GetMetadata()
         {
-            var set = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata");
+            var set = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata", manager);
             if (set == null)
                 return null;
 
@@ -194,7 +194,7 @@ namespace ChameleonCoder
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
 
-            Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:references").AppendChild(reference);
+            Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:references", manager).AppendChild(reference);
 
             return id;
         }
@@ -269,7 +269,7 @@ namespace ChameleonCoder
             if (log == null)
             {
                 log = Document.CreateElement("cc:changelog", NamespaceUri);
-                Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings").AppendChild(log);
+                Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings", manager).AppendChild(log);
             }
 
             var change = Document.CreateElement("cc:change", NamespaceUri);
