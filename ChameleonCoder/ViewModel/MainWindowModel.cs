@@ -321,10 +321,14 @@ namespace ChameleonCoder.ViewModel
 
         private void GoHome()
         {
+            var args = OnRepresentationNeeded(WelcomePageModel.Instance, false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Home;
-            context.Content = OnRepresentationNeeded(WelcomePageModel.Instance, false);
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -332,10 +336,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceList()
         {
+            var args = OnRepresentationNeeded(ResourceListPageModel.Instance, false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.ResourceList;
-            context.Content = OnRepresentationNeeded(ResourceListPageModel.Instance, false);
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -343,10 +351,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenPluginPage()
         {
+            var args = OnRepresentationNeeded(PluginPageModel.Instance, false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = null;
-            context.Type = CCTabPage.Plugins;
-            context.Content = OnRepresentationNeeded(PluginPageModel.Instance, false);
+            context.Type = CCTabPage.Plugins;            
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -354,10 +366,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenSettingsPage()
         {
+            var args = OnRepresentationNeeded(SettingsPageModel.Instance, false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.Settings;
-            context.Content = OnRepresentationNeeded(SettingsPageModel.Instance, false);
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -365,10 +381,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFileManagementPage()
         {
+            var args = OnRepresentationNeeded(new FileManagementPageModel(), false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = null;
             context.Type = CCTabPage.FileManagement;
-            context.Content = OnRepresentationNeeded(new FileManagementPageModel(), false);
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -380,10 +400,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceView(IResource resource)
         {
+            var args = OnRepresentationNeeded(new ResourceViewPageModel(resource), false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceView;
-            context.Content = OnRepresentationNeeded(new ResourceViewPageModel(resource), false);
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
@@ -391,10 +415,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceEdit(IEditable resource)
         {
+            var args = OnRepresentationNeeded(new EditPageModel(resource), false);
+            if (args.Cancel)
+                return;
+
             var context = ActiveTab;
             context.Resource = resource;
             context.Type = CCTabPage.ResourceEdit;
-            context.Content = OnRepresentationNeeded(new EditPageModel(resource), false);
+            context.Content = args.Representation;
 
             OnViewChanged();
             OnPropertyChanged("BreadcrumbPath");
