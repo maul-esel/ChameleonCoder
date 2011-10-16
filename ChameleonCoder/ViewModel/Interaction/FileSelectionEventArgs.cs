@@ -39,5 +39,11 @@
             get;
             private set;
         }
+        
+        internal bool Canceled
+        {
+            get;
+            set;
+        }
     }
 }
