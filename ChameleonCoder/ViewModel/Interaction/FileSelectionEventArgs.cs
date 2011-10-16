@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class FileSelectionEventArgs : System.EventArgs
+    internal sealed class FileSelectionEventArgs : System.ComponentModel.CancelEventArgs
     {
         internal FileSelectionEventArgs(string message, string dir, string filter, bool mustExist)
         {
@@ -38,12 +38,6 @@
         {
             get;
             private set;
-        }
-        
-        internal bool Canceled
-        {
-            get;
-            set;
         }
     }
 }

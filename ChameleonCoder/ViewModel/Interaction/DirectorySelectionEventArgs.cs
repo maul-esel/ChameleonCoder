@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class DirectorySelectionEventArgs : System.EventArgs
+    internal sealed class DirectorySelectionEventArgs : System.ComponentModel.CancelEventArgs
     {
         internal DirectorySelectionEventArgs(string message, string dir, bool allowCreate)
         {
@@ -28,12 +28,6 @@
         }
 
         internal string Path
-        {
-            get;
-            set;
-        }
-
-        internal bool Canceled
         {
             get;
             set;

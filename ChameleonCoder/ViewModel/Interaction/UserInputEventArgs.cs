@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class UserInputEventArgs : System.EventArgs
+    internal sealed class UserInputEventArgs : System.ComponentModel.CancelEventArgs
     {
         internal UserInputEventArgs(string topic, string message)
         {
@@ -21,12 +21,6 @@
         }
 
         internal string Input
-        {
-            get;
-            set;
-        }
-
-        internal bool Canceled
         {
             get;
             set;
