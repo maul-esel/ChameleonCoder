@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class RepresentationEventArgs : System.EventArgs
+    internal sealed class RepresentationEventArgs : System.ComponentModel.CancelEventArgs
     {
         internal RepresentationEventArgs(ViewModelBase model, bool show)
         {
