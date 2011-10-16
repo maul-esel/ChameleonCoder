@@ -118,7 +118,7 @@ namespace ChameleonCoder
         {
             using (var dialog = new System.Windows.Forms.OpenFileDialog() { Filter = e.Filter,
                                                                             Title = e.Message,
-                                                                            CheckPathExists = e.MustExist,
+                                                                            CheckFileExists = e.MustExist,
                                                                             InitialDirectory = e.Directory })
             {
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
