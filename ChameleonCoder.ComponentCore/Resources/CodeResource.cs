@@ -169,6 +169,6 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #endregion
 
-        internal const string Key = "{478e8dd0-b37e-4616-8246-31984077bb64}";
+        internal new const string Key = "{478e8dd0-b37e-4616-8246-31984077bb64}";
     }
 }
