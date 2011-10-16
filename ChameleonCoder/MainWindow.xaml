@@ -244,11 +244,13 @@
                                               odc:RibbonBar.Size="Large"/>
 
                             <odc:RibbonButton Content="{Binding Path=View_Copy}" SmallImage="Images\copy.png"
-                                              Click="ResourceCopy"
+                                              Command="{x:Static cc:ChameleonCoderCommands.CopyResource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=View_Move}" SmallImage="Images\move.png"
-                                              Click="ResourceMove"
+                                              Command="{x:Static cc:ChameleonCoderCommands.MoveResource}"
+                                              CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.MaxSize="Medium"/>
 
                             <odc:RibbonButton Content="{Binding Path=View_Delete}" SmallImage="Images\delete.png"

@@ -261,39 +261,6 @@ namespace ChameleonCoder
 
         #region resources
 
-        [Obsolete("to be moved to model", false)]
-        private void ResourceCopy(object sender, EventArgs e)
-        {
-            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
-            ResourceSelector selector = new ResourceSelector(model);
-            if (selector.ShowDialog() == true
-                && model.SelectedResources.Count > 0
-                && model.SelectedResources[0] != ResourceManager.ActiveItem)
-            {
-                ResourceManager.ActiveItem.Copy(model.SelectedResources[0] as IResource);
-            }
-        }
-
-        [Obsolete("to be moved to model", false)]
-        private void ResourceMove(object sender, EventArgs e)
-        {
-            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
-            ResourceSelector selector = new ResourceSelector(model);
-            if (selector.ShowDialog() == true // user did not cancel
-                && model.SelectedResources.Count > 0 // user selected 1 resource
-                && model.SelectedResources[0] != null // resource is not null
-                && model.SelectedResources[0] != ResourceManager.ActiveItem.Parent) // resource is not already parent
-            {
-                if (!(model.SelectedResources[0] as IResource).IsDescendantOf(ResourceManager.ActiveItem)) // can't be moved to descendant
-                {
-                    ResourceManager.ActiveItem.Move(model.SelectedResources[0] as IResource);
-                }
-                else
-                    MessageBox.Show(string.Format(Properties.Resources.Error_MoveToDescendant, ResourceManager.ActiveItem.Name, model.SelectedResources[0].Name),
-                                    Properties.Resources.Status_Move);
-            }
-        }
-
         [Obsolete("to be replaced by command", false)]
         private void ResourceOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
