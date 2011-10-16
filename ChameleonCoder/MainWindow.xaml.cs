@@ -33,9 +33,6 @@ namespace ChameleonCoder
             MVVM.Instance.RepresentationNeeded -= GetRepresentation;
             MVVM.Instance.RepresentationNeeded += GetRepresentation;
 
-            MVVM.Instance.RepresentationNeeded -= ShowRepresentation;
-            MVVM.Instance.RepresentationNeeded += ShowRepresentation;
-
             MVVM.Instance.SelectFile -= OpenFile;
             MVVM.Instance.SelectFile += OpenFile;
 
@@ -175,9 +172,6 @@ namespace ChameleonCoder
         /// <remarks>This must not be moved to the model.</remarks>
         private static void GetRepresentation(object sender, RepresentationEventArgs e)
         {
-            if (e.ShowRepresentation)
-                return;
-
             if (e.Model is WelcomePageModel)
             {
                 e.Representation = new WelcomePage();
@@ -206,6 +200,20 @@ namespace ChameleonCoder
             {
                 e.Representation = new EditPage(e.Model as EditPageModel);
             }
+            else if (e.Model is ResourceSelectorModel)
+            {
+                e.Representation = new ResourceSelector(e.Model as ResourceSelectorModel);
+            }
+
+            if (e.ShowRepresentation)
+            {
+                var dialog = e.Representation as Window;
+                if (dialog != null)
+                {
+                    if (dialog.ShowDialog() != true)
+                        e.Cancel = true;
+                }
+            }
         }
 
         private static void OpenFile(object sender, FileSelectionEventArgs e)
@@ -222,18 +230,6 @@ namespace ChameleonCoder
                 else
                 {
                     e.Cancel = true;
-                }
-            }
-        }
-
-        private static void ShowRepresentation(object sender, RepresentationEventArgs e)
-        {
-            if (e.ShowRepresentation)
-            {
-                var win = e.Representation as Window;
-                if (win != null)
-                {
-                    win.ShowDialog();
                 }
             }
         }
