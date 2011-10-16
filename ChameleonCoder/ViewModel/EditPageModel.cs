@@ -9,6 +9,7 @@ namespace ChameleonCoder.ViewModel
     /// <summary>
     /// a view model class for editing an IEditable resource
     /// </summary>
+    [DefaultRepresentation(typeof(Navigation.EditPage))]
     internal sealed class EditPageModel : ViewModelBase
     {
         /// <summary>

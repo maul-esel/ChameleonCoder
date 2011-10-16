@@ -5,6 +5,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
+    [DefaultRepresentation(typeof(Shared.ResourceSelector))]
     internal sealed class ResourceSelectorModel : ViewModelBase
     {
         internal ResourceSelectorModel(ResourceCollection resources, int count)

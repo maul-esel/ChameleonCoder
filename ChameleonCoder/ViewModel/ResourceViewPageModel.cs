@@ -8,6 +8,7 @@ namespace ChameleonCoder.ViewModel
     /// <summary>
     /// a class containing localization strings and other data for the ResourceViewPage class
     /// </summary>
+    [DefaultRepresentation(typeof(Navigation.ResourceViewPage))]
     internal sealed class ResourceViewPageModel : ViewModelBase
     {
         internal ResourceViewPageModel(IResource resource)

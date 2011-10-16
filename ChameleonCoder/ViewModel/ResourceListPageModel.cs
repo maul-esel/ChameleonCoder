@@ -2,6 +2,7 @@
 
 namespace ChameleonCoder.ViewModel
 {
+    [DefaultRepresentation(typeof(Navigation.ResourceListPage))]
     internal sealed class ResourceListPageModel : ViewModelBase
     {
         private ResourceListPageModel()

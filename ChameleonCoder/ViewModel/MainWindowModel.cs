@@ -9,6 +9,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
+    [DefaultRepresentation(typeof(MainWindow))]
     internal sealed class MainWindowModel : ViewModelBase
     {
         private MainWindowModel()

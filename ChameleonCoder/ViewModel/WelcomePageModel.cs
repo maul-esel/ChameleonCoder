@@ -5,6 +5,7 @@ namespace ChameleonCoder.ViewModel
     /// <summary>
     /// a class containing localization strings for the WelcomePage class
     /// </summary>
+    [DefaultRepresentation(typeof(Navigation.WelcomePage))]
     internal sealed class WelcomePageModel : ViewModelBase
     {
         private WelcomePageModel()

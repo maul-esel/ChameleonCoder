@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Windows;
-using ChameleonCoder.Navigation;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Shared;
-using ChameleonCoder.ViewModel;
 using ChameleonCoder.ViewModel.Interaction;
 using Odyssey.Controls;
 using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
@@ -172,48 +170,38 @@ namespace ChameleonCoder
         /// <remarks>This must not be moved to the model.</remarks>
         private static void GetRepresentation(object sender, RepresentationEventArgs e)
         {
-            if (e.Model is WelcomePageModel)
+            if (e.Model != null)
             {
-                e.Representation = new WelcomePage();
-            }
-            else if (e.Model is ResourceListPageModel)
-            {
-                e.Representation = new ResourceListPage();
-            }
-            else if (e.Model is SettingsPageModel)
-            {
-                e.Representation = new SettingsPage();
-            }
-            else if (e.Model is PluginPageModel)
-            {
-                e.Representation = new PluginPage();
-            }
-            else if (e.Model is FileManagementPageModel)
-            {
-                e.Representation = new FileManagementPage(e.Model as FileManagementPageModel);
-            }
-            else if (e.Model is ResourceViewPageModel)
-            {
-                e.Representation = new ResourceViewPage(e.Model as ResourceViewPageModel);
-            }
-            else if (e.Model is EditPageModel)
-            {
-                e.Representation = new EditPage(e.Model as EditPageModel);
-            }
-            else if (e.Model is ResourceSelectorModel)
-            {
-                e.Representation = new ResourceSelector(e.Model as ResourceSelectorModel);
-            }
+                var attr = (DefaultRepresentationAttribute)
+                    Attribute.GetCustomAttribute(e.Model.GetType(), typeof(DefaultRepresentationAttribute));
 
-            if (e.ShowRepresentation)
-            {
-                var dialog = e.Representation as Window;
-                if (dialog != null)
+                if (attr != null) // if the attribute is defined
                 {
-                    if (dialog.ShowDialog() != true)
-                        e.Cancel = true;
+                    Type representationType = attr.RepresentationType;
+                    if (representationType != null) // if a valid type is given
+                    {
+                        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.;
+                        if (representationType.GetConstructor(flags, null, Type.EmptyTypes, null) != null) // if a parameterless constructor is defined
+                        {
+                            e.Representation = Activator.CreateInstance(representationType, flags, null, null, null); // create the instance
+                        }
+                        else
+                        {
+                            e.Representation = Activator.CreateInstance(representationType, flags, null, new object[1] { e.Model }, null); // assume a constructor with 1 param (model) is defined
+                        }
+                    }
                 }
-            }
+
+                if (e.ShowRepresentation && e.Representation != null)
+                {
+                    var dialog = e.Representation as Window;
+                    if (dialog != null)
+                    {
+                        if (dialog.ShowDialog() != true)
+                            e.Cancel = true;
+                    }
+                }
+            }            
         }
 
         private static void OpenFile(object sender, FileSelectionEventArgs e)

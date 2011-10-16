@@ -6,6 +6,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
+    [DefaultRepresentation(typeof(NewResourceDialog))]
     internal sealed class NewResourceDialogModel : ViewModelBase
     {
         internal NewResourceDialogModel()

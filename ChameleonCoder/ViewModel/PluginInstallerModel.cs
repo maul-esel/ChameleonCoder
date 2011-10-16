@@ -4,6 +4,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
+    [DefaultRepresentation(typeof(PluginInstaller))]
     internal sealed class PluginInstallerModel : ViewModelBase
     {
         internal PluginInstallerModel(ObservableCollection<IPlugin> plugins)

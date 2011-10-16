@@ -8,6 +8,7 @@ namespace ChameleonCoder.ViewModel
     /// <summary>
     /// a class containing localization strings and other data for the SettingsPage class
     /// </summary>
+    [DefaultRepresentation(typeof(Navigation.SettingsPage))]
     internal sealed class SettingsPageModel : ViewModelBase
     {
         private SettingsPageModel()

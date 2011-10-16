@@ -4,6 +4,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
 {
+    [DefaultRepresentation(typeof(Navigation.FileManagementPage))]
     internal sealed class FileManagementPageModel : ViewModelBase
     {
         internal FileManagementPageModel()

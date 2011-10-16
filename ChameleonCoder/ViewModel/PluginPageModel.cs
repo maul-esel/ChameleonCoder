@@ -10,6 +10,7 @@ namespace ChameleonCoder.ViewModel
     /// <summary>
     /// a class containing localization strings and other data for the PluginPage class
     /// </summary>
+    [DefaultRepresentation(typeof(Navigation.PluginPage))]
     internal sealed class PluginPageModel : ViewModelBase
     {
         private PluginPageModel()
