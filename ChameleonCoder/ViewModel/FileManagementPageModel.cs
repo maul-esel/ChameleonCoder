@@ -145,7 +145,11 @@ namespace ChameleonCoder.ViewModel
 
                 if (isFile)
                 {
-                    path = OnReferenceFileNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                    var args = OnReferenceFileNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                    if (args.Cancel)
+                        return;
+
+                    path = args.Path;
                     if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
                     {
                         OnReport(Res.Status_CreatingReference, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
@@ -154,7 +158,11 @@ namespace ChameleonCoder.ViewModel
                 }
                 else
                 {
-                    path = OnReferenceDirectoryNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                    var args = OnReferenceDirectoryNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                    if (args.Cancel)
+                        return;
+
+                    path = args.Path;
                     if (string.IsNullOrWhiteSpace(path) || !System.IO.Directory.Exists(path))
                     {
                         OnReport(Res.Status_CreatingReference, string.Format(Res.Error_NonExistentDir, path), Interaction.MessageSeverity.Critical);
@@ -171,8 +179,11 @@ namespace ChameleonCoder.ViewModel
         {
             if (ActiveFile != null)
             {
-                var name = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
+                var args = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
+                if (args.Cancel)
+                    return;
 
+                var name = args.Input;
                 if (string.IsNullOrWhiteSpace(name))
                 {
                     OnReport(Res.Status_CreateMeta, Res.Error_MetaInvalidName, Interaction.MessageSeverity.Error);
@@ -193,7 +204,7 @@ namespace ChameleonCoder.ViewModel
 
         internal event System.EventHandler<Interaction.FileSelectionEventArgs> ReferenceFileNeeded;
 
-        private string OnReferenceFileNeeded(string message, bool mustExist)
+        private Interaction.FileSelectionEventArgs OnReferenceFileNeeded(string message, bool mustExist)
         {
             var handler = ReferenceFileNeeded;
 
@@ -201,7 +212,7 @@ namespace ChameleonCoder.ViewModel
             {
                 var args = new Interaction.FileSelectionEventArgs(message, System.Environment.CurrentDirectory, "CC Resource files | *.ccr", mustExist);
                 handler(this, args);
-                return args.Path;
+                return args;
             }
 
             return null;
@@ -209,7 +220,7 @@ namespace ChameleonCoder.ViewModel
 
         internal event System.EventHandler<Interaction.DirectorySelectionEventArgs> ReferenceDirectoryNeeded;
 
-        private string OnReferenceDirectoryNeeded(string message, bool allowCreate)
+        private Interaction.DirectorySelectionEventArgs OnReferenceDirectoryNeeded(string message, bool allowCreate)
         {
             var handler = ReferenceDirectoryNeeded;
 
@@ -217,7 +228,7 @@ namespace ChameleonCoder.ViewModel
             {
                 var args = new Interaction.DirectorySelectionEventArgs(message, System.Environment.CurrentDirectory, allowCreate);
                 handler(this, args);
-                return args.Path;
+                return args;
             }
 
             return null;

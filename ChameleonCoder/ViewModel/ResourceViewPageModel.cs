@@ -100,7 +100,12 @@ namespace ChameleonCoder.ViewModel
 
         private void AddMetadata()
         {
-            var name = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
+            var args = OnUserInput(Res.Status_CreateMeta, Res.Meta_EnterName);
+
+            if (args.Cancel)
+                return;
+
+            var name = args.Input;
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -127,7 +132,12 @@ namespace ChameleonCoder.ViewModel
                 var resource = model.SelectedResources[0] as IResource;
                 if (resource != null)
                 {
-                    string name = OnUserInput(Res.Status_CreatingReference, Res.Ref_SelectTarget);
+                    var args = OnUserInput(Res.Status_CreatingReference, Res.Ref_SelectTarget);
+                    if (args.Cancel)
+                        return;
+
+                    var name = args.Input;
+
                     if (!string.IsNullOrWhiteSpace(name))
                     {
                         Resource.AddReference(name, resource.Identifier);

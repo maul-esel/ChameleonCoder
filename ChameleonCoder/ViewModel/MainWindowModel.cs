@@ -512,9 +512,13 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFile()
         {
-            string path = OnSelectFile(Res.Status_OpeningFile + " " + Res.File_SelectOpen,
+            var args = OnSelectFile(Res.Status_OpeningFile + " " + Res.File_SelectOpen,
                 Environment.CurrentDirectory, true);
 
+            if (args.Cancel)
+                return;
+
+            var path = args.Path;
             if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_InvalidFile, path),
@@ -553,8 +557,13 @@ namespace ChameleonCoder.ViewModel
 
         private void CreateFile()
         {
-            string path = OnSelectFile(Res.Status_CreatingFile + " " + Res.File_SelectCreate,
+            var args = OnSelectFile(Res.Status_CreatingFile + " " + Res.File_SelectCreate,
                 Environment.CurrentDirectory, false);
+
+            if (args.Cancel)
+                return;
+
+            var path = args.Path;
 
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -680,7 +689,7 @@ namespace ChameleonCoder.ViewModel
 
         internal event EventHandler<Interaction.FileSelectionEventArgs> SelectFile;
 
-        private string OnSelectFile(string message, string dir, bool mustExist)
+        private Interaction.FileSelectionEventArgs OnSelectFile(string message, string dir, bool mustExist)
         {
             var handler = SelectFile;
 
@@ -688,7 +697,7 @@ namespace ChameleonCoder.ViewModel
             {
                 var args = new Interaction.FileSelectionEventArgs(message, dir, "CC resource files | *.ccr", mustExist);
                 handler(this, args);
-                return args.Path;
+                return args;
             }
 
             return null;

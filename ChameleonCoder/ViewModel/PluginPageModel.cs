@@ -25,7 +25,7 @@ namespace ChameleonCoder.ViewModel
             Shared.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
         }
 
-        #region singletone
+        #region singleton
 
         public static PluginPageModel Instance
         {
@@ -95,63 +95,65 @@ namespace ChameleonCoder.ViewModel
 
         private void InstallPlugins()
         {
-            var path = OnPluginNeeded(Res.Status_InstallPlugin + " " + Res.Plugin_SelectInstall);
+            var args = OnPluginNeeded(Res.Status_InstallPlugin + " " + Res.Plugin_SelectInstall);
 
-            if (path != null)
+            if (args.Cancel)
+                return;
+
+            var path = args.Path;
+
+            if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
             {
-                if (!System.IO.File.Exists(path))
-                {
-                    OnReport(Res.Status_InstallPlugin, Res.Error_InvalidFile, Interaction.MessageSeverity.Error);
-                    return;
-                }
-
-                Assembly dll;
-                try
-                {
-                    dll = Assembly.LoadFile(path);
-                }
-                catch (BadImageFormatException)
-                {
-                    OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallNoAssembly, path), Interaction.MessageSeverity.Error);
-                    return;
-                }
-
-                if (!Attribute.IsDefined(dll, typeof(CCPluginAttribute)))
-                {
-                    OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallNoPlugin, path), Interaction.MessageSeverity.Error);
-                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
-                        "refused plugin install: Assembly does not have CCPluginAttribute defined (" + path + ").",
-                        null);
-                    return;
-                }
-
-                var newPlugins = new ObservableCollection<IPlugin>();
-
-                foreach (var type in dll.GetTypes())
-                {
-                    if (type.IsDefined(typeof(CCPluginAttribute), false)
-                        && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
-                        && type.GetInterface(typeof(IPlugin).FullName) != null
-                        && type.GetConstructor(Type.EmptyTypes) != null)
-                    {
-                        IPlugin plugin = Activator.CreateInstance(type) as IPlugin;
-                        if (!Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
-                            newPlugins.Add(plugin);
-                    }
-                }
-
-                if (newPlugins.Count == 0)
-                {
-                    OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallEmptyAssembly, path), Interaction.MessageSeverity.Critical);
-                    App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
-                        "refused plugin install: Assembly does not contain plugin classes that aren't already installed (" + path + ").",
-                        null);
-                    return;
-                }
-
-                var representation = OnRepresentationNeeded(new PluginInstallerModel(newPlugins), true);
-                Settings.ChameleonCoderSettings.Default.Save();
+                OnReport(Res.Status_InstallPlugin, Res.Error_InvalidFile, Interaction.MessageSeverity.Error);
+                return;
             }
+
+            Assembly dll;
+            try
+            {
+                dll = Assembly.LoadFile(path);
+            }
+            catch (BadImageFormatException)
+            {
+                OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallNoAssembly, path), Interaction.MessageSeverity.Error);
+                return;
+            }
+
+            if (!Attribute.IsDefined(dll, typeof(CCPluginAttribute)))
+            {
+                OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallNoPlugin, path), Interaction.MessageSeverity.Error);
+                App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                    "refused plugin install: Assembly does not have CCPluginAttribute defined (" + path + ").",
+                    null);
+                return;
+            }
+
+            var newPlugins = new ObservableCollection<IPlugin>();
+
+            foreach (var type in dll.GetTypes())
+            {
+                if (type.IsDefined(typeof(CCPluginAttribute), false)
+                    && !type.IsValueType && !type.IsAbstract && type.IsClass && type.IsPublic
+                    && type.GetInterface(typeof(IPlugin).FullName) != null
+                    && type.GetConstructor(Type.EmptyTypes) != null)
+                {
+                    IPlugin plugin = Activator.CreateInstance(type) as IPlugin;
+                    if (!Settings.ChameleonCoderSettings.Default.InstalledPlugins.Contains(plugin.Identifier.ToString("n")))
+                        newPlugins.Add(plugin);
+                }
+            }
+
+            if (newPlugins.Count == 0)
+            {
+                OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallEmptyAssembly, path), Interaction.MessageSeverity.Critical);
+                App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                    "refused plugin install: Assembly does not contain plugin classes that aren't already installed (" + path + ").",
+                    null);
+                return;
+            }
+
+            var representation = OnRepresentationNeeded(new PluginInstallerModel(newPlugins), true);
+            Settings.ChameleonCoderSettings.Default.Save();
         }
 
         #endregion
@@ -163,7 +165,7 @@ namespace ChameleonCoder.ViewModel
         /// </summary>
         internal event EventHandler<Interaction.FileSelectionEventArgs> PluginNeeded;
 
-        private string OnPluginNeeded(string message)
+        private Interaction.FileSelectionEventArgs OnPluginNeeded(string message)
         {
             var handler = PluginNeeded;
 
@@ -171,7 +173,7 @@ namespace ChameleonCoder.ViewModel
             {
                 var args = new Interaction.FileSelectionEventArgs(message, System.IO.Path.Combine(App.AppDir, "Components"), "CC plugins | *.dll", true);
                 handler(this, args);
-                return args.Path;
+                return args;
             }
             return null;
         }

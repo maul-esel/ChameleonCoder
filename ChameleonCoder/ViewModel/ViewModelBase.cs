@@ -74,14 +74,14 @@ namespace ChameleonCoder.ViewModel
             return null;
         }
 
-        protected string OnUserInput(string topic, string message)
+        protected UserInputEventArgs OnUserInput(string topic, string message)
         {
             var handler = UserInput;
             if (handler != null)
             {
                 var args = new UserInputEventArgs(topic, message);
                 handler(this, args);
-                return args.Input;
+                return args;
             }
             return null;
         }
