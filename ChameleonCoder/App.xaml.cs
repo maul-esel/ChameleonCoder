@@ -18,7 +18,15 @@ namespace ChameleonCoder
     {
         internal const string pathSeparator = "/";
 
-        internal const string fileTemplate = null;
+        internal const string fileTemplate = @"<cc:ChameleonCoder xmlns:cc='ChameleonCoder://Resources/Schema/2011'>"
+                                                + "<cc:resources/>"
+                                                + "<cc:data/>"
+                                                + "<cc:settings>"
+                                                    + "<cc:name>{0}</cc:name>"
+                                                    + "<cc:created>{1}</cc:created>"
+                                                + "</cc:settings>"
+                                                + "<cc:references/>"
+                                            + "</cc:ChameleonCoder>";
 
         #region properties
 
