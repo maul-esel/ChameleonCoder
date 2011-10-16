@@ -122,7 +122,7 @@
 	<xsd:element name="resources">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="resource" maxOccurs="unbounded"/>
+				<xsd:element ref="resource" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
