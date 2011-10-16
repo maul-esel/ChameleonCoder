@@ -43,6 +43,10 @@ namespace ChameleonCoder.ViewModel
                 OpenResourceEditCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteResource,
                 DeleteResourceCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.CopyResource,
+                CopyResourceCommandExecuted));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.MoveResource,
+                MoveResourceCommandExecuted));
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
                 CloseFilesCommandExecuted,
@@ -249,6 +253,36 @@ namespace ChameleonCoder.ViewModel
             DeleteResource(resource);
         }
 
+        private void CopyResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var resource = e.Parameter as IResource;
+            if (resource == null)
+            {
+                var reference = e.Parameter as Resources.ResourceReference;
+                if (reference != null)
+                    resource = reference.Resolve() as IResource;
+            }
+            if (resource == null)
+                throw new ArgumentException("resource to copy is null or not an IResource instance");
+
+            CopyResource(resource);
+        }
+
+        private void MoveResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            var resource = e.Parameter as IResource;
+            if (resource == null)
+            {
+                var reference = e.Parameter as Resources.ResourceReference;
+                if (reference != null)
+                    resource = reference.Resolve() as IResource;
+            }
+            if (resource == null)
+                throw new ArgumentException("resource to move is null or not an IResource instance");
+
+            MoveResource(resource);
+        }
+
         private void OpenFileManagementPageCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
@@ -371,6 +405,46 @@ namespace ChameleonCoder.ViewModel
             if (OnConfirm(Res.Status_DeleteResource, string.Format(Res.Del_Confirm, resource.Name)) == true)            
             {
                 resource.Delete();
+            }
+        }
+
+        private void CopyResource(IResource resource)
+        {
+            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            var args = OnRepresentationNeeded(model, true);
+
+            if (args.Cancel)
+                return;
+
+            if (model.SelectedResources.Count > 0
+                && model.SelectedResources[0] != resource)
+            {
+                resource.Copy(model.SelectedResources[0] as IResource);
+            }
+        }
+
+        private void MoveResource(IResource resource)
+        {
+            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            var args = OnRepresentationNeeded(model, true);
+
+            if (args.Cancel)
+                return;
+
+            if (model.SelectedResources.Count > 0 // user selected 1 resource
+                && model.SelectedResources[0] != null // resource is not null
+                && model.SelectedResources[0] != ResourceManager.ActiveItem.Parent) // resource is not already parent
+            {
+                if (!(model.SelectedResources[0] as IResource).IsDescendantOf(resource)) // can't be moved to descendant
+                {
+                    resource.Move(model.SelectedResources[0] as IResource);
+                }
+                else
+                {
+                    OnReport(Res.Status_Move,
+                        string.Format(Properties.Resources.Error_MoveToDescendant, resource.Name, model.SelectedResources[0].Name),
+                        Interaction.MessageSeverity.Critical);
+                }
             }
         }
 
