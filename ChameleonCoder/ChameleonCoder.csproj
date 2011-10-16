@@ -32,7 +32,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<StartArguments>"test.ccr" --config "config.xml"</StartArguments>
+    <StartArguments>"test.ccr" --config "config.xml"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -46,7 +46,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <DocumentationFile>..\Deploy\ChameleonCoder.XML</DocumentationFile>
-	<StartArguments>"test.ccr" --config "config.xml"</StartArguments>
+    <StartArguments>"test.ccr" --config "config.xml"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -222,7 +222,7 @@
     <Compile Include="ViewModel\Interaction\MessageSeverity.cs" />
     <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />
     <Compile Include="ViewModel\Interaction\RepresentationEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\ViewChangedEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\ViewEventArgs.cs" />
     <Compile Include="ViewModel\MainWindowModel.cs" />
     <Compile Include="ViewModel\NewResourceDialogModel.cs" />
     <Compile Include="ViewModel\PluginInstallerModel.cs" />

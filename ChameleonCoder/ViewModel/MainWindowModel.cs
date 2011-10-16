@@ -667,14 +667,14 @@ namespace ChameleonCoder.ViewModel
 
         #region events
 
-        internal event EventHandler<Interaction.ViewChangedEventArgs> ViewChanged;
+        internal event EventHandler<Interaction.ViewEventArgs> ViewChanged;
 
         private void OnViewChanged()
         {
             var handler = ViewChanged;
             if (handler != null)
             {
-                handler(this, new Interaction.ViewChangedEventArgs(ActiveTab));
+                handler(this, new Interaction.ViewEventArgs(ActiveTab));
             }
         }
 

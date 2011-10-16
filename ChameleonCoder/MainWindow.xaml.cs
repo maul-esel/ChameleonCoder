@@ -109,7 +109,7 @@ namespace ChameleonCoder
         /// <param name="sender">the view model sending the event</param>
         /// <param name="e">additional data related to the event</param>
         /// <remarks>This must not be moved to the model.</remarks>
-        private void AdjustView(object sender, ViewChangedEventArgs e)
+        private void AdjustView(object sender, ViewEventArgs e)
         {
             ribbon.ContextualTabSet = null;
             ribbon.SelectedTabItem = ribbon.Tabs[0];

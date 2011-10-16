@@ -1,8 +1,8 @@
 ﻿namespace ChameleonCoder.ViewModel.Interaction
 {
-    internal sealed class ViewChangedEventArgs : System.EventArgs
+    internal sealed class ViewEventArgs : System.EventArgs
     {
-        internal ViewChangedEventArgs(TabContext newView)
+        internal ViewEventArgs(TabContext newView)
         {
             newViewContext = newView;
         }
