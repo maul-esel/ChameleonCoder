@@ -497,4 +497,7 @@ resources cannot be moved to descendants.</value>
   <data name="Status_CreatingReference" xml:space="preserve">
     <value>CC - Creating reference...</value>
   </data>
+  <data name="File_EnterName" xml:space="preserve">
+    <value>Enter the new file's name:</value>
+  </data>
 </root>

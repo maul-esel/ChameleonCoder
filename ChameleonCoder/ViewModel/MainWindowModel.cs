@@ -687,11 +687,18 @@ namespace ChameleonCoder.ViewModel
                     System.IO.File.Delete(path);
             }
 
+            var input_args = OnUserInput(Res.Status_CreatingFile, Res.File_EnterName);
+            if (input_args.Cancel)
+                return;
+
+            if (string.IsNullOrWhiteSpace(input_args.Input))
+                return; // report?
+
             using (var stream = System.IO.File.Create(path))
             {
                 using (var writer = new System.IO.StreamWriter(stream))
                 {
-                    writer.Write(App.fileTemplate);
+                    writer.Write(string.Format(App.fileTemplate, input_args.Input, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")));
                 }
             }
 
