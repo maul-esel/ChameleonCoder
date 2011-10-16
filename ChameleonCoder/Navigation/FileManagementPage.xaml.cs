@@ -30,6 +30,10 @@ namespace ChameleonCoder.Navigation
                 {
                     e.Path = dialog.FileName;
                 }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
 
@@ -42,6 +46,10 @@ namespace ChameleonCoder.Navigation
                 if (dialog.ShowDialog() == Forms.DialogResult.OK)
                 {
                     e.Path = dialog.SelectedPath;
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
         }

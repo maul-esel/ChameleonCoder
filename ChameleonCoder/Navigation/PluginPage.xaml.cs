@@ -41,6 +41,10 @@ namespace ChameleonCoder.Navigation
                 {
                     e.Path = dialog.FileName;
                 }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
 

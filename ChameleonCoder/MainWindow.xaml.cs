@@ -100,7 +100,13 @@ namespace ChameleonCoder
         {
             var box = new InputBox(e.Topic, e.Message);
             if (box.ShowDialog() == true)
+            {
                 e.Input = box.Text;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         /// <summary>
@@ -212,6 +218,10 @@ namespace ChameleonCoder
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     e.Path = dialog.FileName;
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
         }
