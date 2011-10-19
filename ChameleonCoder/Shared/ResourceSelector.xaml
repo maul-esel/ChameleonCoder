@@ -5,6 +5,10 @@
         xmlns:cc="clr-namespace:ChameleonCoder"
         Title="{Binding Path=Title}" x:Name="root"
         MinHeight="500" ShowInTaskbar="False" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolConverter"/>
+    </Window.Resources>
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -80,13 +84,13 @@
         <Button Content="{Binding Path=Action_Add}"
                 Command="{x:Static cc:ChameleonCoderCommands.AddResource}"
                 CommandParameter="{Binding Path=ActiveResource}"
-                Visibility="{Binding Path=AddVisibility}"
+                Visibility="{Binding Path=CanAdd, Converter={StaticResource boolConverter}}"
                 Grid.Column="1" Grid.Row="5" Margin="5" VerticalAlignment="Center" Padding="5"/>
 
         <Button Content="{Binding Path=Action_Remove}"
                 Command="{x:Static cc:ChameleonCoderCommands.RemoveResource}"
                 CommandParameter="{Binding Path=ActiveResource}"
-                Visibility="{Binding Path=RemoveVisibility}"
+                Visibility="{Binding Path=CanRemove, Converter={StaticResource boolConverter}}"
                 Grid.Column="2" Grid.Row="5" Margin="5" VerticalAlignment="Center" Padding="5"/>
 
         <!-- buttons cancel & ok -->

@@ -90,22 +90,6 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        public System.Windows.Visibility AddVisibility
-        {
-            get
-            {
-                return (CanAdd ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden);
-            }
-        }
-
-        public System.Windows.Visibility RemoveVisibility
-        {
-            get
-            {
-                return (CanRemove ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden);
-            }
-        }
-
         private int maxResourceCount;
 
         private readonly ResourceCollection resourceList;
@@ -163,8 +147,6 @@ namespace ChameleonCoder.ViewModel
             OnPropertyChanged("ActiveResource");
             OnPropertyChanged("CanAdd");
             OnPropertyChanged("CanRemove");
-            OnPropertyChanged("AddVisibility");
-            OnPropertyChanged("RemoveVisibility");
         }
     }
 }
