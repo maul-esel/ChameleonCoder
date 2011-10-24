@@ -120,6 +120,17 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         /// <summary>
+        /// registers c CSS class style
+        /// </summary>
+        /// <param name="classStyle">the style to register</param>
+        public void RegisterClassStyle(CSSClassStyle classStyle)
+        {
+            StyleSheet += classStyle.ToString();
+        }
+
+        private string StyleSheet = null;
+
+        /// <summary>
         /// contains the resource's RichContent members
         /// </summary>
         public RichContentCollection RichContent
