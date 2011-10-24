@@ -38,7 +38,7 @@ namespace ChameleonCoder.Converter
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
-            return null;
+            throw new NotSupportedException();
         }
     }
 }

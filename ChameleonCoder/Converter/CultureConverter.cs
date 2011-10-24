@@ -33,7 +33,7 @@ namespace ChameleonCoder.Converter
         /// <returns>null</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            throw new NotSupportedException();
         }
     }
 }
