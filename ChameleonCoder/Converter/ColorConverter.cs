@@ -28,8 +28,7 @@ namespace ChameleonCoder.Converter
                 var background = ResourceTypeManager.GetBackground(value.GetType());
                 if (background != null) // check if the type was registered with a null-background
                     return background.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
-                // if it is null: throw exception
-                throw new NullReferenceException("the " + value.GetType() + "'s 'Background' property is null.");
+                return null;
             }
             // if null: throw exception
             throw new ArgumentNullException("value");
