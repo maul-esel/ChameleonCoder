@@ -123,7 +123,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// registers c CSS class style
         /// </summary>
         /// <param name="classStyle">the style to register</param>
-        public void RegisterClassStyle(CSSClassStyle classStyle)
+        public void RegisterClassStyle(CssClassStyle classStyle)
         {
             StyleSheet += classStyle.ToString();
         }
