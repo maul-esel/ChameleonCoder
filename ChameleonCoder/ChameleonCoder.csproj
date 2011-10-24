@@ -124,6 +124,9 @@
     <Compile Include="Navigation\FileManagementPage.xaml.cs">
       <DependentUpon>FileManagementPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\RichContent\Css\CssClassStyle.cs" />
+    <Compile Include="Resources\RichContent\Css\CssStyleSelector.cs" />
+    <Compile Include="Resources\RichContent\Css\CssPseudoClass.cs" />
     <Compile Include="SecureNotifyPropertyChanged.cs" />
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
