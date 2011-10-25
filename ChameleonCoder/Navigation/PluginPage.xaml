@@ -36,6 +36,7 @@
                 <ListBoxItem Content="{Binding Path=Types_Services}"/>
                 <ListBoxItem Content="{Binding Path=Types_LanguageModules}"/>
                 <ListBoxItem Content="{Binding Path=Types_ResourceFactories}"/>
+                <ListBoxItem Content="{Binding Path=Types_RichContentFactories}"/>
             </ListBox>
 
             <Button Content="{Binding Path=Uninstall}"

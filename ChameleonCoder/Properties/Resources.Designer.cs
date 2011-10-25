@@ -710,6 +710,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RichContent types.
+        /// </summary>
+        internal static string PP_TypesRichContentFactory {
+            get {
+                return ResourceManager.GetString("PP_TypesRichContentFactory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to services.
         /// </summary>
         internal static string PP_TypesService {
