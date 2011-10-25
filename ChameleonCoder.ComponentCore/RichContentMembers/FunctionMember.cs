@@ -61,5 +61,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
 
         #endregion
+
+        internal const string Key = "{2fc4ddba-0af1-474b-8af7-3154103fa77e}";
     }
 }

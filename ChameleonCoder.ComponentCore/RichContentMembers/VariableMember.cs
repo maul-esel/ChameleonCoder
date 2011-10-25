@@ -57,5 +57,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <param name="node">the XmlElement representing the member</param>
         /// <param name="parent">the member's parent member</param>
         public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
+
+        internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";
     }
 }
