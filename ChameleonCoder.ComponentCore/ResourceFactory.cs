@@ -16,7 +16,7 @@ namespace ChameleonCoder.ComponentCore
     /// an IResourceFactory plugin providing and managing the standard resource types
     /// </summary>
     [CCPlugin]
-    public sealed class IntegratedFactory : IResourceFactory
+    public sealed class ResourceFactory : IResourceFactory
     {
         #region IPlugin
 
