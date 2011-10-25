@@ -501,4 +501,7 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="File_EnterName" xml:space="preserve">
     <value>Geben Sie den Namen der neuen Datei an:</value>
   </data>
+  <data name="PP_TypesRichContentFactory" xml:space="preserve">
+    <value>RichContent-Typen</value>
+  </data>
 </root>

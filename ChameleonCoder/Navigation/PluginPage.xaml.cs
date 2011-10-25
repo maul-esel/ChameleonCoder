@@ -63,6 +63,8 @@ namespace ChameleonCoder.Navigation
                         e.Accepted = category == 3;
                     if (e.Item is IResourceFactory)
                         e.Accepted = category == 4;
+                    if (e.Item is IRichContentFactory)
+                        e.Accepted = category == 5;
                 }
             }
         }

@@ -79,6 +79,8 @@ namespace ChameleonCoder.ViewModel
 
         public static string Types_ResourceFactories { get { return Res.PP_TypesResourceFactory; } }
 
+        public static string Types_RichContentFactories { get { return Res.PP_TypesRichContentFactory; } }
+
         public static string Uninstall { get { return Res.PP_Uninstall; } }
 
         public static string Install { get { return Res.PP_Install; } }

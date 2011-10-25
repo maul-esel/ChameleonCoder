@@ -500,4 +500,7 @@ resources cannot be moved to descendants.</value>
   <data name="File_EnterName" xml:space="preserve">
     <value>Enter the new file's name:</value>
   </data>
+  <data name="PP_TypesRichContentFactory" xml:space="preserve">
+    <value>RichContent types</value>
+  </data>
 </root>
