@@ -8,6 +8,10 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
     /// </summary>
     public class FunctionMember : IContentMember
     {
+        public FunctionMember(System.Xml.XmlElement node, IContentMember parent)
+        {
+        }
+
         #region IContentMember
 
         /// <summary>
@@ -52,13 +56,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         /// <value>null, as this is not yet implemented</value>
         public System.Windows.Media.ImageSource Icon { get; private set; }
-
-        /// <summary>
-        /// initializes the instance
-        /// </summary>
-        /// <param name="node">the XmlElement representing the member</param>
-        /// <param name="parent">the member's parent member</param>
-        public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
 
         #endregion
 

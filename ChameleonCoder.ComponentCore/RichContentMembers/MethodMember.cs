@@ -7,6 +7,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
     /// </summary>
     public class MethodMember : FunctionMember
     {
+        public MethodMember(System.Xml.XmlElement node, IContentMember parent)
+            : base(node, parent)
+        {
+        }
+
         internal new const string Key = "{1a41bfb8-3b17-4290-b7a7-21da3f188eeb}";
     }
 }

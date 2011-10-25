@@ -8,6 +8,10 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
     /// </summary>
     public class VariableMember : IContentMember
     {
+        public VariableMember(System.Xml.XmlElement node, IContentMember parent)
+        {
+        }
+
         /// <summary>
         /// gets the collection of child members
         /// </summary>
@@ -50,13 +54,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         /// <value>null, as this is not yet implemented</value>
         public System.Windows.Media.ImageSource Icon { get; private set; }
-
-        /// <summary>
-        /// initializes the instance
-        /// </summary>
-        /// <param name="node">the XmlElement representing the member</param>
-        /// <param name="parent">the member's parent member</param>
-        public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
 
         internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";
     }
