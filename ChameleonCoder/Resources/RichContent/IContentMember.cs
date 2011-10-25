@@ -30,13 +30,5 @@
         /// saves the instance
         /// </summary>
         void Save();
-
-        /// <summary>
-        /// initializes the instance with the given information
-        /// </summary>
-        /// <param name="node">the XmlElement containing the member's data</param>
-        /// <param name="parent">the member's parent member, or null if this is a top-level member</param>
-        [System.Obsolete("use factory for creation and initialization", true)]
-        void Initialize(System.Xml.XmlElement node, IContentMember parent);
     }
 }
