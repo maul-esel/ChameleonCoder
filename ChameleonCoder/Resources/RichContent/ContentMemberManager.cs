@@ -30,7 +30,6 @@ namespace ChameleonCoder.Resources.RichContent
         {
             if (member.GetInterface(typeof(IContentMember).FullName) != null
                 && !member.IsAbstract && !member.IsInterface && !member.IsNotPublic // scope and type
-                && member.GetConstructor(Type.EmptyTypes) != null // creation
                 && !IsRegistered(key) && !IsRegistered(member) // no double-registration
                 && PluginManager.IsRichContentFactoryRegistered(factory)) // no anonymous registration
             {
