@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ChameleonCoder.ComponentCore.RichContentMembers;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.RichContent;
 
@@ -15,7 +16,7 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// gets the 'about'-information for this plugin
         /// </summary>
-        public string About { get { return "© 2011 maul.esel - CC integrated RichContent members"; } }
+        public string About { get { return "© 2011 maul.esel - CC integrated RichContent types"; } }
 
         /// <summary>
         /// gets the author(s) of this plugin
@@ -40,7 +41,7 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// gets the plugin's name
         /// </summary>
-        public string Name { get { return "ChameleonCoder.ComponentCore RichContent members"; } }
+        public string Name { get { return "ChameleonCoder.ComponentCore RichContent types"; } }
 
         /// <summary>
         /// gets the plugin's current version
@@ -52,6 +53,12 @@ namespace ChameleonCoder.ComponentCore
         /// </summary>
         public void Initialize()
         {
+            ContentMemberManager.RegisterContentMember(typeof(FieldMember), Guid.Parse(FieldMember.Key), this);
+            ContentMemberManager.RegisterContentMember(typeof(MethodMember), Guid.Parse(MethodMember.Key), this);
+            ContentMemberManager.RegisterContentMember(typeof(VariableMember), Guid.Parse(VariableMember.Key), this);
+            ContentMemberManager.RegisterContentMember(typeof(FunctionMember), Guid.Parse(FunctionMember.Key), this);
+            ContentMemberManager.RegisterContentMember(typeof(ParameterMember), Guid.Parse(ParameterMember.Key), this);
+            ContentMemberManager.RegisterContentMember(typeof(ReturnValueMember), Guid.Parse(ReturnValueMember.Key), this);
         }
 
         /// <summary>
@@ -61,16 +68,39 @@ namespace ChameleonCoder.ComponentCore
 
         #endregion
 
+        /// <summary>
+        /// creates an instance of the given type
+        /// </summary>
+        /// <param name="memberType">the type to create an instance of</param>
+        /// <param name="data">the XmlElement representing the member</param>
+        /// <param name="parent">the parent member</param>
+        /// <returns>the newly created instance</returns>
         public IContentMember CreateInstance(Type memberType, System.Xml.XmlElement data, IContentMember parent)
         {
-            return null;
+            IContentMember member = Activator.CreateInstance(memberType, new object[2] { data, parent }) as IContentMember;
+
+            return member;
         }
 
+        /// <summary>
+        /// creates a new ContentMember of the given Type, using the given name and parent member
+        /// </summary>
+        /// <param name="type">the type of the member to create</param>
+        /// <param name="name">the name of the new member</param>
+        /// <param name="parent">the parent member or null</param>
+        /// <returns>the newly created IContentMember instance</returns>
+        [Obsolete("should return dictionary, same as in IResourceFactory", true)]
         public IContentMember CreateMember(Type type, string name, IContentMember parent)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Type> RegisteredTypes { get { return new Type[0] { }; } }
+        /// <summary>
+        /// gets a list of all types registered by this factory
+        /// </summary>
+        /// <returns>the Type-Array</returns>
+        public IEnumerable<Type> RegisteredTypes { get { return registeredTypesArray; } }
+
+        private static Type[] registeredTypesArray = new Type[0];
     }
 }
