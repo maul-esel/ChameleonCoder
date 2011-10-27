@@ -26,7 +26,7 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// gets a short description of this plugin
         /// </summary>
-        public string Description { get { return "provides the ChameleonCoder integrated RichContent members"; } }
+        public string Description { get { return "provides the ChameleonCoder integrated RichContent types"; } }
 
         /// <summary>
         /// gets an icon representing this plugin to the user
