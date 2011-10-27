@@ -21,9 +21,8 @@ namespace ChameleonCoder.Plugins
         /// <param name="type">the type of the member to create</param>
         /// <param name="name">the name of the new member</param>
         /// <param name="parent">the parent member or null</param>
-        /// <returns>the newly created IContentMember instance</returns>
-        [Obsolete("should return dictionary, same as in IResourceFactory", true)]
-        IContentMember CreateMember(Type type, string name, IContentMember parent);
+        /// <returns>a dictionary containing the attributes the new instance should have</returns>
+        IDictionary<string, string> CreateMember(Type type, string name, IContentMember parent);
 
         /// <summary>
         /// creates an instance of the given registered type
