@@ -116,10 +116,19 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <returns>the HTML as string</returns>
         public string GetHtml()
         {
-            // just for debugging:
+            string markup = null;
+
+            var list = System.Linq.Enumerable.OrderBy(RichContent, c => c.GetType().Name);
+            foreach (var member in list)
+            {
+                markup += member.GetHtml(null);
+            }
+
             return "<!DOCTYPE html>\n<html><head><style type='text/css'>"
                 + StyleSheet
-                + "</style></head><body bgcolor='blue'>Hi!</body></html>";
+                + "</style></head><body style='margin: 2.5px; border: solid gray 2px; padding: 2.5px'>"
+                + markup
+                + "</body></html>";
         }
 
         /// <summary>
