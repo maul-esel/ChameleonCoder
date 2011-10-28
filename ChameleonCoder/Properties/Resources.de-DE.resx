@@ -516,4 +516,7 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="File_Open" xml:space="preserve">
     <value>Datei öffnen</value>
   </data>
+  <data name="Item_RichContent" xml:space="preserve">
+    <value>RichContent für '{0}'</value>
+  </data>
 </root>

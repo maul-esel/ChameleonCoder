@@ -584,6 +584,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RichContent for &apos;{0}&apos;.
+        /// </summary>
+        internal static string Item_RichContent {
+            get {
+                return ResourceManager.GetString("Item_RichContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string Item_Settings {

@@ -515,4 +515,7 @@ resources cannot be moved to descendants.</value>
   <data name="File_Open" xml:space="preserve">
     <value>open a file</value>
   </data>
+  <data name="Item_RichContent" xml:space="preserve">
+    <value>RichContent for '{0}'</value>
+  </data>
 </root>
