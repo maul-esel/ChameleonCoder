@@ -69,11 +69,13 @@ namespace ChameleonCoder.Resources.RichContent.Css
                     string value = (string)field.GetValue(null);
                     if (field.IsDefined(typeof(System.ContextStaticAttribute), false))
                     {
-                        return Regex.IsMatch(pseudo, value);
+                        if (Regex.IsMatch(pseudo, value))
+                            return true;
                     }
                     else
                     {
-                        return value == pseudo;
+                        if (value == pseudo)
+                            return true;
                     }
                 }
             }
