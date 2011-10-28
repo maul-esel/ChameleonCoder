@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using ChameleonCoder.Shared;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
@@ -70,6 +70,9 @@ namespace ChameleonCoder
                     case CCTabPage.FileManagement:
                         return Res.Item_FileManagement;
 
+                    case CCTabPage.RichContentView:
+                        return string.Format(Res.Item_RichContent, name);
+
                     default:
                     case CCTabPage.None:
                         throw new InvalidOperationException("page type is not valid");
@@ -83,7 +86,6 @@ namespace ChameleonCoder
             {
                 return contentObject;
             }
-
             internal set
             {
                 contentObject = value;
@@ -163,6 +165,7 @@ namespace ChameleonCoder
 
                     case CCTabPage.ResourceView:
                     case CCTabPage.ResourceEdit:
+                    case CCTabPage.RichContentView:
                         return string.Format("{0}{1}{2}{3}",
                             Res.Item_Home,
                             App.pathSeparator,
