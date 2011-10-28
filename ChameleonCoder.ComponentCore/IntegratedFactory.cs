@@ -186,8 +186,9 @@ namespace ChameleonCoder.ComponentCore
             get { return registeredTypesArray; }
         }
 
-        Type[] registeredTypesArray = new Type[6] { typeof(FileResource), typeof(CodeResource), typeof(LibraryResource),
-                                typeof(ProjectResource), typeof(TaskResource), typeof(GroupResource) };
+        private static Type[] registeredTypesArray = new Type[6] { typeof(FileResource), typeof(CodeResource),
+                                                                   typeof(LibraryResource), typeof(ProjectResource),
+                                                                   typeof(TaskResource), typeof(GroupResource) };
 
         /// <summary>
         /// creates a new instance of a resource type registered by this factory
