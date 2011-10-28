@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Page.Resources>
-        <CollectionViewSource x:Key="ResPropList" Source="{Binding Path=Resource, Converter={StaticResource PropConv}}">
+        <CollectionViewSource x:Key="ResPropList" Source="{Binding Resource, Converter={StaticResource PropConv}}">
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="Group"/>
             </CollectionViewSource.GroupDescriptions>
@@ -39,7 +39,7 @@
                                                 <GroupBox.Header>
                                                     <StackPanel>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+                                                            <TextBlock Text="{Binding Name}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                         </StackPanel>
                                                         <Border x:Name="GroupBorder" BorderBrush="#4989FF" Margin="2" Grid.ColumnSpan="1" BorderThickness="1" Width="{Binding ElementName=PropertyGrid, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
                                                         <!--bit ugly way :)-->
@@ -62,14 +62,14 @@
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=Name, Mode=OneWay}"/>
+                                <TextBlock Text="{Binding Name, Mode=OneWay}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Path=Value}" IsReadOnly="{Binding Path=IsReadOnly}" HorizontalAlignment="Stretch"/>
+                                <TextBox Text="{Binding Value}" IsReadOnly="{Binding IsReadOnly}" HorizontalAlignment="Stretch"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -79,18 +79,18 @@
         
         <ListView x:Name="MetadataGrid" x:FieldModifier="private"
                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Grid.ColumnSpan="1"
-                  ItemsSource="{Binding Path=Metadata}"
+                  ItemsSource="{Binding Metadata}"
                   HorizontalContentAlignment="Stretch"
                   VirtualizingStackPanel.IsVirtualizing="True"
                   VirtualizingStackPanel.VirtualizationMode="Recycling" Focusable="False"
-                  SelectedItem="{Binding Path=ActiveMetadata}">
+                  SelectedItem="{Binding ActiveMetadata}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Header="{Binding Path=MetadataKey}"/>
-                    <GridViewColumn Header="{Binding Path=MetadataValue}" Width="Auto">
+                    <GridViewColumn DisplayMemberBinding="{Binding Key}" Header="{Binding MetadataKey}"/>
+                    <GridViewColumn Header="{Binding MetadataValue}" Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Width="Auto" Text="{Binding Path=Value, Mode=OneWay}" TextChanged="SaveMetadata" HorizontalAlignment="Stretch"/>
+                                <TextBox Width="Auto" Text="{Binding Value, Mode=OneWay}" TextChanged="SaveMetadata" HorizontalAlignment="Stretch"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

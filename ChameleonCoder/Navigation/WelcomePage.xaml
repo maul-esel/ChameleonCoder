@@ -30,7 +30,7 @@
             
             <Border CornerRadius="15" Background="Aquamarine" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
                 
-                <TextBlock Text="{Binding Path=Welcome}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                <TextBlock Text="{Binding Welcome}" HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontFamily="Comic Sans MS" FontSize="18" Foreground="Red"/>
                 
             </Border>
@@ -39,21 +39,21 @@
             
         </StackPanel>
         
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10" Text="{Binding Path=StartSelection}"/>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10" Text="{Binding StartSelection}"/>
 
-        <Button Content="{Binding Path=GoList}"
+        <Button Content="{Binding GoList}"
                 Command="{x:Static cc:ChameleonCoderCommands.OpenResourceListPage}"
                 Style="{StaticResource GoButton}" Margin="5"/>
 
-        <Button Content="{Binding Path=GoSettings}"
+        <Button Content="{Binding GoSettings}"
                 Command="{x:Static cc:ChameleonCoderCommands.OpenSettingsPage}"
                 Style="{StaticResource GoButton}" Margin="5"/>
 
-        <Button Content="{Binding Path=GoPlugins}"
+        <Button Content="{Binding GoPlugins}"
                 Command="{x:Static cc:ChameleonCoderCommands.OpenPluginPage}"
                 Style="{StaticResource GoButton}" Margin="5"/>
 
-        <Button Content="{Binding Path=CreateResource}"
+        <Button Content="{Binding CreateResource}"
                 Command="{x:Static cc:ChameleonCoderCommands.CreateResource}"
                 Style="{StaticResource GoButton}" Margin="5"/>
         

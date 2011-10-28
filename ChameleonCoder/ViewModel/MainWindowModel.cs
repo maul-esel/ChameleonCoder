@@ -741,6 +741,10 @@ namespace ChameleonCoder.ViewModel
         public static string Meta_Add { get { return Res.Meta_Add; } }
         public static string Meta_Delete { get { return Res.Meta_Delete; } }
 
+        public static string File_Create { get { return Res.File_Create; } }
+        public static string File_Open { get { return Res.File_Open; } }
+        public static string File_CloseAll { get { return Res.File_CloseAll; } }
+
         #region RibbonTab headers
         public static string RibbonContext_List { get { return Res.RibbonContext_List; } }
         public static string RibbonContext_Edit { get { return Res.RibbonContext_Edit; } }

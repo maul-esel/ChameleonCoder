@@ -12,7 +12,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
         <Border CornerRadius="10" Background="LightBlue" Height="25" BorderBrush="Blue" BorderThickness="2" Margin="5">
-            <TextBlock Text="{Binding Path=Item_Settings}" FontFamily="Comic Sans MS" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Item_Settings}" FontFamily="Comic Sans MS" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
 
         <Grid>
@@ -35,10 +35,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=Setting_Language}" Margin="5"/>            
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Setting_Language}" Margin="5"/>            
             <ComboBox Grid.Column="1" Grid.Row="0" Margin="5" Width="250"
-                      ItemsSource="{Binding Path=availableTranslations}"
-                      SelectedItem="{Binding Path=UILanguage}">
+                      ItemsSource="{Binding availableTranslations}"
+                      SelectedItem="{Binding UILanguage}">
 
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -50,21 +50,21 @@
 
             </ComboBox>
 
-            <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding Path=Setting_EnableUpdate}" Margin="5"/>
+            <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding Setting_EnableUpdate}" Margin="5"/>
 
-            <CheckBox IsChecked="{Binding Path=ExtInstalled}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding Path=Setting_InstallExt}" Margin="5"/>
+            <CheckBox IsChecked="{Binding ExtInstalled}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding Setting_InstallExt}" Margin="5"/>
 
-            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Content="{Binding Path=Setting_InstallCOM}" Margin="5"/>
+            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Content="{Binding Setting_InstallCOM}" Margin="5"/>
 
             <TextBlock Grid.Column="0" Grid.Row="6" Margin="5"
-                       Text="{Binding Path=Setting_CodeFont}"/>
+                       Text="{Binding Setting_CodeFont}"/>
 
             <ComboBox Grid.Column="1" Grid.Row="6" Margin="5"
                       ItemsSource="{x:Static media:Fonts.SystemFontFamilies}"
-                      SelectedItem="{Binding Path=CodeFont}"/>
+                      SelectedItem="{Binding CodeFont}"/>
 
             <TextBlock Grid.Column="0" Grid.Row="7" Margin="5"
-                       Text="{Binding Path=Setting_CodeFontSize}"/>
+                       Text="{Binding Setting_CodeFontSize}"/>
 
             <inter:CCNumericUpDown Grid.Column="1" Grid.Row="7" Margin="5"
                                    MinNumber="1" MaxNumber="100"

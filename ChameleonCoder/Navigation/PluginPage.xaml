@@ -5,7 +5,7 @@
                 VerticalAlignment="Stretch">
     
     <Page.Resources>
-        <CollectionViewSource x:Key="pluginsList" Source="{Binding Path=PluginList}" Filter="Filter">
+        <CollectionViewSource x:Key="pluginsList" Source="{Binding PluginList}" Filter="Filter">
             <CollectionViewSource.SortDescriptions>
                 <SortDescription PropertyName="Name"
                                  xmlns="clr-namespace:System.ComponentModel;assembly=WindowsBase"/>
@@ -31,20 +31,20 @@
                         <Setter Property="Background" Value="LightGray"/>
                     </Style>
                 </ListBox.Resources>
-                <ListBoxItem Content="{Binding Path=Types_All}"/>
-                <ListBoxItem Content="{Binding Path=Types_Templates}"/>
-                <ListBoxItem Content="{Binding Path=Types_Services}"/>
-                <ListBoxItem Content="{Binding Path=Types_LanguageModules}"/>
-                <ListBoxItem Content="{Binding Path=Types_ResourceFactories}"/>
-                <ListBoxItem Content="{Binding Path=Types_RichContentFactories}"/>
+                <ListBoxItem Content="{Binding Types_All}"/>
+                <ListBoxItem Content="{Binding Types_Templates}"/>
+                <ListBoxItem Content="{Binding Types_Services}"/>
+                <ListBoxItem Content="{Binding Types_LanguageModules}"/>
+                <ListBoxItem Content="{Binding Types_ResourceFactories}"/>
+                <ListBoxItem Content="{Binding Types_RichContentFactories}"/>
             </ListBox>
 
-            <Button Content="{Binding Path=Uninstall}"
+            <Button Content="{Binding Uninstall}"
                     Command="{x:Static cc:ChameleonCoderCommands.UninstallPlugin}"
                     CommandParameter="{Binding ElementName=list, Path=SelectedItem}"
                     Margin="10" Height="Auto" HorizontalAlignment="Stretch"/>
 
-            <Button Content="{Binding Path=Install}"
+            <Button Content="{Binding Install}"
                     Command="{x:Static cc:ChameleonCoderCommands.InstallPlugin}"
                     Margin="10" Height="Auto" HorizontalAlignment="Stretch"/>
         </StackPanel>
@@ -74,11 +74,11 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <Image Margin="5" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=Icon}"/>
+                                        <Image Margin="5" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Icon}"/>
                                         
-                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Name}" FontSize="14" FontWeight="DemiBold"/>
-                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Description}"/>
-                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding Path=About}" FontStyle="Italic"/>
+                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding Name}" FontSize="14" FontWeight="DemiBold"/>
+                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Description}"/>
+                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding About}" FontStyle="Italic"/>
                                     </Grid>
                                 </Border>
                             </ControlTemplate>

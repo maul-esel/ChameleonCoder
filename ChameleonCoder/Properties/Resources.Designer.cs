@@ -341,6 +341,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to close all files.
+        /// </summary>
+        internal static string File_CloseAll {
+            get {
+                return ResourceManager.GetString("File_CloseAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to close all opened files?.
         /// </summary>
         internal static string File_ConfirmClose {
@@ -359,11 +368,29 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to create a file.
+        /// </summary>
+        internal static string File_Create {
+            get {
+                return ResourceManager.GetString("File_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the new file&apos;s name:.
         /// </summary>
         internal static string File_EnterName {
             get {
                 return ResourceManager.GetString("File_EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to open a file.
+        /// </summary>
+        internal static string File_Open {
+            get {
+                return ResourceManager.GetString("File_Open", resourceCulture);
             }
         }
         

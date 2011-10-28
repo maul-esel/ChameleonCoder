@@ -38,9 +38,9 @@
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Border Background="Peru" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20" Margin="5,0,0,0">
-                                                            <Image Source="{Binding Path=Name, Converter={StaticResource TypeConverter}, ConverterParameter=Icon}" Width="20"/>
+                                                            <Image Source="{Binding Name, Converter={StaticResource TypeConverter}, ConverterParameter=Icon}" Width="20"/>
                                                         </Border>
-                                                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource TypeConverter}, ConverterParameter=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+                                                        <TextBlock Text="{Binding Name, Converter={StaticResource TypeConverter}, ConverterParameter=DisplayName}" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
                                                     </StackPanel>
                                                     <Border BorderBrush="#4989FF" Margin="2" BorderThickness="1" Width="{Binding ElementName=ResourceList, Path=ActualWidth, BindsDirectlyToSource=True, Mode=OneWay}"/>
                                                     <!--bit ugly way :)-->
@@ -74,8 +74,8 @@
                         <Image Source="{Binding Converter={StaticResource ModuleIconConverter}}" MaxWidth="30" MaxHeight="30" Stretch="Fill" VerticalAlignment="Center" Grid.RowSpan="2"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=ResourceList, Path=DataContext.Info_Name}" Foreground="Black"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ResourceList, Path=DataContext.Info_Description}" Foreground="Black"/>
-                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Name}" Foreground="Black"/>
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Description}" Foreground="Black"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}" Foreground="Black"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Description}" Foreground="Black"/>
                     </Grid>
                 </Border>
             </DataTemplate>
