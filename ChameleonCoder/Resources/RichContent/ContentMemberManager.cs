@@ -72,7 +72,7 @@ namespace ChameleonCoder.Resources.RichContent
             throw new ArgumentException("this is not a registered content member type", "component");
         }
 
-        internal static IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent)
+        internal static IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent, Interfaces.IRichContentResource resource)
         {
             Type member = ContentMembers.GetMember(key);
             if (member != null)
@@ -80,7 +80,7 @@ namespace ChameleonCoder.Resources.RichContent
                 var factory = GetFactory(member);
                 if (factory != null)
                 {
-                    return factory.CreateInstance(member, data, parent);
+                    return factory.CreateInstance(member, data, parent, resource);
                 }
             }
             return null;

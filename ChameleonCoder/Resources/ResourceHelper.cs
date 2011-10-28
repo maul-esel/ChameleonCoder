@@ -266,11 +266,11 @@ namespace ChameleonCoder
 
                 if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
                 {
-                    member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                    member = ContentMemberManager.CreateInstanceOf(type, node, null, resource);
                 }
                 else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
                 {
-                    member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                    member = ContentMemberManager.CreateInstanceOf(type, node, null, resource);
                 }
 
                 if (member != null)
@@ -278,7 +278,7 @@ namespace ChameleonCoder
                     resource.RichContent.Add(member);
                     foreach (XmlElement child in node.ChildNodes)
                     {
-                        AddRichContent(child, member);
+                        AddRichContent(child, member, resource);
                     }
                 }
             }
@@ -357,18 +357,18 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="node">the XmlElement representing the child member</param>
         /// <param name="parent">the parent member</param>
-        private static void AddRichContent(XmlElement node, IContentMember parent)
+        private static void AddRichContent(XmlElement node, IContentMember parent, IRichContentResource resource)
         {
             Guid type;
             IContentMember member = null;
 
             if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
             {
-                member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                member = ContentMemberManager.CreateInstanceOf(type, node, null, resource);
             }
             else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
             {
-                member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                member = ContentMemberManager.CreateInstanceOf(type, node, null, resource);
             }
 
             if (member != null)
@@ -376,7 +376,7 @@ namespace ChameleonCoder
                 parent.Children.Add(member);
                 foreach (XmlElement child in node.ChildNodes)
                 {
-                    AddRichContent(child, member);
+                    AddRichContent(child, member, resource);
                 }
             }
         }
