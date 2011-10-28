@@ -21,9 +21,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="data">the XmlElement containing the resource's definition</param>
         /// <param name="parent">the resource's parent resource,
         /// or null if the resource is a top-level resource.</param>
-        public override void Initialize(XmlElement data, IResource parent)
+        public override void Update(XmlElement data, IResource parent)
         {
-            base.Initialize(data, parent);
+            base.Update(data, parent);
             // todo: parse compatible languages
         }
 

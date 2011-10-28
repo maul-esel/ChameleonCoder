@@ -201,7 +201,7 @@ namespace ChameleonCoder.ComponentCore
         {
             IResource resource = Activator.CreateInstance(resourceType) as IResource;
 
-            resource.Initialize(data, parent);
+            resource.Update(data, parent);
 
             return resource;
         }
