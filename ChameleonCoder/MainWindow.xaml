@@ -7,11 +7,6 @@
                   xmlns:inter="clr-namespace:ChameleonCoder.Shared"
                   Title="{Binding Path=Title}" Icon="Images\logo.ico"
                   IsGlassEnabled="True" WindowState="Maximized">
-
-    <!--TODO:
-        * remove control names where possible
-        * remove event handlers where possible, introduce commands
-        * bind to view model properties-->
        
     <odc:RibbonWindow.Resources>
 
