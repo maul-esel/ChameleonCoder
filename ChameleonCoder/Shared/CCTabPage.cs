@@ -44,5 +44,10 @@
         /// a page showing a file's properties
         /// </summary>
         FileManagement,
+
+        /// <summary>
+        /// a page showing a resource's RichContent (as rendered HTML)
+        /// </summary>
+        RichContentView
     }
 }
