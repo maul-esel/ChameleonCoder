@@ -503,4 +503,13 @@ resources cannot be moved to descendants.</value>
   <data name="PP_TypesRichContentFactory" xml:space="preserve">
     <value>RichContent types</value>
   </data>
+  <data name="File_CloseAll" xml:space="preserve">
+    <value>close all files</value>
+  </data>
+  <data name="File_Create" xml:space="preserve">
+    <value>create a file</value>
+  </data>
+  <data name="File_Open" xml:space="preserve">
+    <value>open a file</value>
+  </data>
 </root>

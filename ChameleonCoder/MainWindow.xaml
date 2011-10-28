@@ -441,15 +441,15 @@
             
             <odc:RibbonTabItem Title="{Binding Item_Home}">
                 <odc:RibbonGroup>
-                    <odc:RibbonButton Content="create file" LargeImage="Images/create_ccr.png"
+                    <odc:RibbonButton Content="{Binding File_Create}" LargeImage="Images/create_ccr.png"
                                       Command="{x:Static cc:ChameleonCoderCommands.CreateFile}"
                                       odc:RibbonBar.MaxSize="Large"/>
                     
-                    <odc:RibbonButton Content="open file" LargeImage="Images/open_ccr.png"
+                    <odc:RibbonButton Content="{Binding File_Open}" LargeImage="Images/open_ccr.png"
                                       Command="{x:Static cc:ChameleonCoderCommands.OpenFile}"
                                       odc:RibbonBar.MaxSize="Large"/>
                     
-                    <odc:RibbonButton Content="close files" LargeImage="Images/close_ccr.png"
+                    <odc:RibbonButton Content="{Binding File_CloseAll}" LargeImage="Images/close_ccr.png"
                                       Command="{x:Static cc:ChameleonCoderCommands.CloseFiles}"
                                       odc:RibbonBar.Size="Large"/>
                 </odc:RibbonGroup>

@@ -504,4 +504,13 @@ Ressourcen können nicht zu untergeordneten Ressourcen verschoben werden.</value
   <data name="PP_TypesRichContentFactory" xml:space="preserve">
     <value>RichContent-Typen</value>
   </data>
+  <data name="File_CloseAll" xml:space="preserve">
+    <value>Alle Dateien schließen</value>
+  </data>
+  <data name="File_Create" xml:space="preserve">
+    <value>Datei erstellen</value>
+  </data>
+  <data name="File_Open" xml:space="preserve">
+    <value>Datei öffnen</value>
+  </data>
 </root>
