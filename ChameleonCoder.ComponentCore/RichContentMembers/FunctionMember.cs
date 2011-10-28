@@ -26,7 +26,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         /// <param name="param">a parameter passed to the method, no special use</param>
         /// <returns>the representation as HTML text</returns>
-        public string GetHtml(object param)
+        public override string GetHtml(object param)
         {
             return string.Empty;
         }
@@ -34,7 +34,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// saves the current instance
         /// </summary>
-        public virtual void Save() { }
+        public override void Save() { }
 
         #endregion
 
