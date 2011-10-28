@@ -237,6 +237,7 @@
     <Compile Include="ViewModel\ResourceListPageModel.cs" />
     <Compile Include="ViewModel\ResourceSelectorModel.cs" />
     <Compile Include="ViewModel\ResourceViewPageModel.cs" />
+    <Compile Include="ViewModel\RichContentViewPageModel.cs" />
     <Compile Include="ViewModel\SearchReplaceModel.cs" />
     <Compile Include="ViewModel\SettingsPageModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
