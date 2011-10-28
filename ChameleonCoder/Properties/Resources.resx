@@ -503,4 +503,7 @@ resources cannot be moved to descendants.</value>
   <data name="PP_TypesRichContentFactory" xml:space="preserve">
     <value>RichContent types</value>
   </data>
+  <data name="View_ShowRichContent" xml:space="preserve">
+    <value>show RichContent</value>
+  </data>
 </root>

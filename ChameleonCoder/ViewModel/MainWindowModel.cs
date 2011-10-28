@@ -787,6 +787,7 @@ namespace ChameleonCoder.ViewModel
         public static string View_Copy { get { return Res.View_Copy; } }
 
         public static string View_Edit { get { return Res.View_Edit; } }
+        public static string View_ShowRichContent { get { return Res.View_ShowRichContent; } }
         #endregion
 
         public static string Ref_AddFileRef { get { return Res.Ref_AddFileRef; } }

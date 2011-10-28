@@ -1151,6 +1151,15 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to show RichContent.
+        /// </summary>
+        internal static string View_ShowRichContent {
+            get {
+                return ResourceManager.GetString("View_ShowRichContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to create a new resource.
         /// </summary>
         internal static string WP_CreateResource {
