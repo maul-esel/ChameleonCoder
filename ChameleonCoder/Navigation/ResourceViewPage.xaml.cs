@@ -11,7 +11,7 @@ namespace ChameleonCoder.Navigation
     internal sealed partial class ResourceViewPage : System.Windows.Controls.Page
     {
         /// <summary>
-        /// creates a new instance of this page, given a resource to display
+        /// creates a new instance of this page, given a model to display
         /// </summary>
         /// <param name="model">the view model to display</param>
         internal ResourceViewPage(ViewModel.ResourceViewPageModel model)
