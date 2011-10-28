@@ -100,6 +100,8 @@ namespace ChameleonCoder.ComponentCore
         /// <returns>the Type-Array</returns>
         public IEnumerable<Type> RegisteredTypes { get { return registeredTypesArray; } }
 
-        private static Type[] registeredTypesArray = new Type[0];
+        private static Type[] registeredTypesArray = new Type[6] { typeof(FieldMember), typeof(MethodMember),
+                                                                   typeof(VariableMember), typeof(FunctionMember),
+                                                                   typeof(ParameterMember), typeof(ReturnValueMember) };
     }
 }
