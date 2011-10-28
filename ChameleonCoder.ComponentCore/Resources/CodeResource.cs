@@ -137,7 +137,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="classStyle">the style to register</param>
         public void RegisterClassStyle(ChameleonCoder.Resources.RichContent.Css.CssClassStyle classStyle)
         {
-            StyleSheet += classStyle.ToString();
+            StyleSheet += classStyle.ToString() + '\n';
         }
 
         private string StyleSheet = null;
