@@ -11,7 +11,7 @@
             <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Name="box" Text="{Binding Path=Number, Mode=OneWay}" PreviewTextInput="InputEventHandler" TextChanged="TextBoxChanged" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"/>
+        <TextBox Name="box" Text="{Binding Number, Mode=OneWay}" PreviewTextInput="InputEventHandler" TextChanged="TextBoxChanged" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"/>
         
         <RepeatButton Padding="0" Name="btnUp" Grid.Row="0" Grid.Column="1" ClickMode="Press" Click="Increase">
             <Polygon Fill="Gray" Points="0,3 10,3 5,0"/>

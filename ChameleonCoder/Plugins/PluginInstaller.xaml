@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Width="300" SizeToContent="Height" ShowInTaskbar="False">
     <StackPanel>
-        <ListView Name="list" ItemsSource="{Binding Path=PluginList}" Height="225">
+        <ListView Name="list" ItemsSource="{Binding PluginList}" Height="225">
             <ListView.View>
                 <GridView>
                     <GridViewColumn>
@@ -13,17 +13,17 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Orientation="Vertical" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Center">
             <Button Width="Auto" Height="Auto"
-                    Content="{Binding Path=Cancel}" Margin="5" IsCancel="True"/><!--cancel-->
+                    Content="{Binding Cancel}" Margin="5" IsCancel="True"/><!--cancel-->
             <Button Width="Auto" Height="Auto"
-                    Content="{Binding Path=InstallSelected}" Margin="5" Click="InstallSelected"/><!--install selected-->
+                    Content="{Binding InstallSelected}" Margin="5" Click="InstallSelected"/><!--install selected-->
             <Button Width="Auto" Height="Auto"
-                    Content="{Binding Path=InstallAll}" Margin="5" Click="InstallAll"/><!--install all-->
+                    Content="{Binding InstallAll}" Margin="5" Click="InstallAll"/><!--install all-->
         </StackPanel>
     </StackPanel>
 </Window>

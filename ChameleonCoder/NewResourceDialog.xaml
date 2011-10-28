@@ -4,7 +4,7 @@
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         Height="600" Width="800" ShowInTaskbar="False" ResizeMode="NoResize">
     <Window.Resources>
-        <CollectionViewSource Source="{Binding Path=Templates}" x:Key="ListSource" Filter="Filter"/>
+        <CollectionViewSource Source="{Binding Templates}" x:Key="ListSource" Filter="Filter"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,7 +16,7 @@
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
-        <ListBox Name="groupList" ItemsSource="{Binding Path=Groups}" Grid.Column="0" SelectionChanged="RefreshFilter">
+        <ListBox Name="groupList" ItemsSource="{Binding Groups}" Grid.Column="0" SelectionChanged="RefreshFilter">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" Foreground="Blue" FontFamily="Arial" Margin="5"/>
@@ -41,25 +41,25 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=Name}" FontWeight="DemiBold" FontSize="14" Foreground="Red"/>
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=Description}" TextWrapping="Wrap"/>
-                            <Image Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Source="{Binding Path=Icon}" Width="25" Margin="5" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}" FontWeight="DemiBold" FontSize="14" Foreground="Red"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap"/>
+                            <Image Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Source="{Binding Icon}" Width="25" Margin="5" HorizontalAlignment="Right"/>
                             
                             <BulletDecorator Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
                                 <BulletDecorator.Bullet>
                                     <TextBlock Text="{Binding ElementName=list, Path=DataContext.Info_Author}" Margin="2"/>
                                 </BulletDecorator.Bullet>
-                                <TextBlock Text="{Binding Path=Author}" Margin="10,2,2,2"/>
+                                <TextBlock Text="{Binding Author}" Margin="10,2,2,2"/>
                             </BulletDecorator>
 
                             <BulletDecorator Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3">
                                 <BulletDecorator.Bullet>
                                     <TextBlock Text="{Binding ElementName=list, Path=DataContext.Info_Version}" Margin="2"/>
                                 </BulletDecorator.Bullet>
-                                <TextBlock Text="{Binding Path=Version}" Margin="10,2,2,2"/>
+                                <TextBlock Text="{Binding Version}" Margin="10,2,2,2"/>
                             </BulletDecorator>
 
-                            <TextBlock Text="{Binding Path=About}" FontStyle="Italic" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" TextWrapping="Wrap" Margin="5"/>
+                            <TextBlock Text="{Binding About}" FontStyle="Italic" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" TextWrapping="Wrap" Margin="5"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -68,8 +68,8 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
             <TextBox Text="{Binding ElementName=list, Path=SelectedItem.DefaultName, Mode=OneWay}" Name="newName" Margin="2"/>
-            <Button IsCancel="True" Content="{Binding Path=Action_Cancel}"/>
-            <Button IsDefault="True" Content="{Binding Path=Action_OK}" Click="FinishDialog"/>
+            <Button IsCancel="True" Content="{Binding Action_Cancel}"/>
+            <Button IsDefault="True" Content="{Binding Action_OK}" Click="FinishDialog"/>
         </StackPanel>
     </Grid>
 </Window>

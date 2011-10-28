@@ -4,8 +4,8 @@
       xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit">
     <avalon:TextEditor x:Name="editor" x:FieldModifier="private"
                        ShowLineNumbers="True"
-                       FontSize="{Binding Path=CodeFontSize}"
-                       FontFamily="{Binding Path=CodeFont}"
-                       Document="{Binding Path=Document}"
-                       SyntaxHighlighting="{Binding Path=Highlighting}"/>
+                       FontSize="{Binding CodeFontSize}"
+                       FontFamily="{Binding CodeFont}"
+                       Document="{Binding Document}"
+                       SyntaxHighlighting="{Binding Highlighting}"/>
 </Page>

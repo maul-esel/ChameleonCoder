@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Cursor="Hand">
 
-    <TreeView x:Name="TreeView" ItemsSource="{Binding Path=Collection}"
+    <TreeView x:Name="TreeView" ItemsSource="{Binding Collection}"
               SelectedItemChanged="Expand"
               VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling"
               VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -31,13 +31,13 @@
                     
                     <Border Background="Chocolate" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5" Width="20" Height="20">
                         
-                        <Image Source="{Binding Path=Icon}" Width="19" Height="19"/>
+                        <Image Source="{Binding Icon}" Width="19" Height="19"/>
                         
                     </Border>
                     
-                    <Image Source="{Binding Path=SpecialVisualProperty}" Margin="5,0,0,0" Grid.Column="1" MaxWidth="20" MaxHeight="20"/>
+                    <Image Source="{Binding SpecialVisualProperty}" Margin="5,0,0,0" Grid.Column="1" MaxWidth="20" MaxHeight="20"/>
                     
-                    <TextBlock Grid.Column="2" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Name}" Margin="5,0,0,0"/>
                     
                 </Grid>
                 
