@@ -39,7 +39,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         /// <param name="data">the XmlNode that contains the resource</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Initialize(XmlElement data, IResource parent)
+        public virtual void Update(XmlElement data, IResource parent)
         {
             referenceCollection.CollectionChanged += (s, e) => OnPropertyChanged("References");
             childrenCollection.CollectionChanged += (s, e) => OnPropertyChanged("Children");
@@ -60,7 +60,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the XmlElement representing the resource
         /// </summary>
-        /// <value>This value is the XmlElement given to the resource in the <see cref="Initialize"/> method.</value>
+        /// <value>This value is the XmlElement given to the resource in the <see cref="Update"/> method.</value>
         public XmlElement Xml { get; private set; }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the current instance's parent resource
         /// </summary>
-        /// <value>This value is given to the resource in the <see cref="Initialize"/> method.</value>
+        /// <value>This value is given to the resource in the <see cref="Update"/> method.</value>
         public IResource Parent { get; private set; }
 
         /// <summary>

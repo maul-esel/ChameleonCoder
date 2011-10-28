@@ -51,10 +51,10 @@ namespace ChameleonCoder.Resources.Interfaces
         ReferenceCollection References { get; }
 
         /// <summary>
-        /// (re-) initializes the resource
+        /// updates the resource
         /// </summary>
         /// <param name="data">the XmlNode containing the resource data.</param>
         /// <param name="parent">the parent resource for the resource</param>
-        void Initialize(XmlElement data, IResource parent);
+        void Update(XmlElement data, IResource parent);
     }
 }

@@ -74,7 +74,7 @@ namespace ChameleonCoder
             if (moveGUID) // if the copy should receive the original Identifier:
             {
                 resource.Xml.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the Identifier-attribute of the old instance
-                resource.Initialize(resource.Xml, resource.Parent); // re-init it to apply the changes
+                resource.Update(resource.Xml, resource.Parent); // update it to apply the changes
             }
             else // if the copy receives a new Identifier:
                 element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
