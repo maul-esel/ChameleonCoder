@@ -17,7 +17,7 @@
         /// <param name="classStyle">the style to register</param>
         /// <remarks>Implementors can decide whether they really implement this or provide own CSS.
         /// In case this is not 'really' implemented, just do nothing.</remarks>
-        void RegisterClassStyle(CssClassStyle classStyle);
+        void RegisterClassStyle(RichContent.Css.CssClassStyle classStyle);
 
         /// <summary>
         /// the collection holding the RichContent

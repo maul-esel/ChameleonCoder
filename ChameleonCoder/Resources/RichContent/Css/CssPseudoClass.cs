@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace ChameleonCoder.Resources
+namespace ChameleonCoder.Resources.RichContent.Css
 {
     public static class CssPseudoClass
     {
