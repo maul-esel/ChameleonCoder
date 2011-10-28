@@ -36,6 +36,9 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.ExecuteService,
                 ExecuteServiceCommandExecuted));
 
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.ViewRichContent,
+                ViewRichContentCommandExecuted));
+
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateResource,
                 CreateResourceCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenResourceView,
@@ -308,6 +311,13 @@ namespace ChameleonCoder.ViewModel
             CreateFile();
         }
 
+        private void ViewRichContentCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (e.Parameter is IRichContentResource)
+                ViewRichContent(e.Parameter as IRichContentResource);
+        }
+
         #endregion
 
         private static void Close(bool restart)
@@ -396,6 +406,11 @@ namespace ChameleonCoder.ViewModel
         }
 
         #endregion
+
+        private void ViewRichContent(IRichContentResource resource)
+        {
+            throw new NotImplementedException();
+        }
 
         #region resources
 
