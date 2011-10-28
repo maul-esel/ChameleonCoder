@@ -116,7 +116,10 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <returns>the HTML as string</returns>
         public string GetHtml()
         {
-            return string.Empty;
+            // just for debugging:
+            return "<!DOCTYPE html>\n<html><head><style type='text/css'>"
+                + StyleSheet
+                + "</style></head><body bgcolor='blue'>Hi!</body></html>";
         }
 
         /// <summary>
