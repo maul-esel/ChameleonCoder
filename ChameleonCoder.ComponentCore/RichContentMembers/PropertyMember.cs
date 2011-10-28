@@ -1,14 +1,21 @@
-﻿using ChameleonCoder.Resources.RichContent;
+﻿using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
     /// <summary>
-    /// represnts a struct or class property
+    /// represents a struct or class property
     /// </summary>
     public class PropertyMember : VariableMember
     {
-        public PropertyMember(System.Xml.XmlElement node, IContentMember parent)
-            : base(node, parent)
+        /// <summary>
+        /// creates a new instance of the PropertyMember class
+        /// </summary>
+        /// <param name="node">the XmlElement representing the member</param>
+        /// <param name="parent">the member's parent</param>
+        /// <param name="resource">the resource the member belongs to</param>
+        public PropertyMember(System.Xml.XmlElement node, IContentMember parent, IRichContentResource resource)
+            : base(node, parent, resource)
         {
         }
 

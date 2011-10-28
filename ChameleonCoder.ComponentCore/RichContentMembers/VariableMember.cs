@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.ComponentCore.RichContentMembers
@@ -6,48 +6,48 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
     /// <summary>
     /// represents a variable
     /// </summary>
-    public class VariableMember : IContentMember
+    public class VariableMember : MemberBase
     {
-        public VariableMember(System.Xml.XmlElement node, IContentMember parent)
+        /// <summary>
+        /// creates a new instance of the VariableMember class
+        /// </summary>
+        /// <param name="node">the XmlElement representing the member</param>
+        /// <param name="parent">the member's parent</param>
+        /// <param name="resource">the resource the member belongs to</param>
+        public VariableMember(System.Xml.XmlElement node, IContentMember parent, IRichContentResource resource)
+            : base(node, parent, resource)
         {
         }
-
-        /// <summary>
-        /// gets the collection of child members
-        /// </summary>
-        public RichContentCollection Children { get { return childrenCollection; } }
-
-        private readonly RichContentCollection childrenCollection = new RichContentCollection();
 
         /// <summary>
         /// gets the member's HTML representation
         /// </summary>
         /// <param name="param">a parameter passed to the method, no special use</param>
         /// <returns>the representation as HTML text</returns>
-        public string GetHtml(object param)
+        public override string GetHtml(object param)
         {
-            return string.Empty;
+            return "<div id='" + Identifier.ToString("b") + "'><h3>Variable: " + Name + "</h3></div>";
         }
 
         /// <summary>
         /// saves the current instance
         /// </summary>
-        public virtual void Save() { }
-
-        /// <summary>
-        /// gets the member's parent member
-        /// </summary>
-        public IContentMember Parent { get; protected set; }
+        public override void Save() { }
 
         /// <summary>
         /// gets the name of the member
         /// </summary>
-        public string Name { get; protected set; }
-
-        /// <summary>
-        /// gets the identifier of the member
-        /// </summary>
-        public Guid Identifier { get; protected set; }
+        public string Name
+        {
+            get
+            {
+                return Xml.GetAttribute("name", DataFile.NamespaceUri);
+            }
+            protected set
+            {
+                Xml.SetAttribute("name", DataFile.NamespaceUri, value);
+            }
+        }
 
         /// <summary>
         /// gets the icon representing this instance to the user

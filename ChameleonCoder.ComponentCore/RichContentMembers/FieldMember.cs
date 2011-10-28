@@ -1,4 +1,5 @@
-﻿using ChameleonCoder.Resources.RichContent;
+﻿using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
@@ -7,8 +8,14 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
     /// </summary>
     public class FieldMember : VariableMember
     {
-        public FieldMember(System.Xml.XmlElement node, IContentMember parent)
-            : base(node, parent)
+        /// <summary>
+        /// creates a new instance of the FieldMember class
+        /// </summary>
+        /// <param name="node">the XmlElement representing the member</param>
+        /// <param name="parent">the member's parent</param>
+        /// <param name="resource">the resource the member belongs to</param>
+        public FieldMember(System.Xml.XmlElement node, IContentMember parent, IRichContentResource resource)
+            : base(node, parent, resource)
         {
         }
 
