@@ -124,6 +124,9 @@
     <Compile Include="Navigation\FileManagementPage.xaml.cs">
       <DependentUpon>FileManagementPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Navigation\RichContentViewPage.xaml.cs">
+      <DependentUpon>RichContentViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\RichContent\Css\CssClassStyle.cs" />
     <Compile Include="Resources\RichContent\Css\CssStyleSelector.cs" />
     <Compile Include="Resources\RichContent\Css\CssPseudoClass.cs" />
@@ -238,6 +241,10 @@
     <Compile Include="ViewModel\SettingsPageModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WelcomePageModel.cs" />
+    <Page Include="Navigation\RichContentViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shared\CCNumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
