@@ -22,7 +22,11 @@ namespace ChameleonCoder.Resources.RichContent.Css
         [System.ContextStatic]
         public static readonly string NthLastOfType = @"nth-last-of-type\((\dn+\d|odd|even|\d|n)\)";
 
+        [System.ContextStatic]
         public static readonly string Not = @"not\(.*\)";
+
+        public static readonly string After = "after";
+        public static readonly string Before = "before";
 
         public static readonly string Link = "link";
         public static readonly string Visited = "visited";
