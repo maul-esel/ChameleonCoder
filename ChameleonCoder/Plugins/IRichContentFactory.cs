@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
+using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.Plugins
@@ -30,7 +32,8 @@ namespace ChameleonCoder.Plugins
         /// <param name="memberType">the type to create an instance of</param>
         /// <param name="data">the XmlElement representing the member</param>
         /// <param name="parent">the parent member</param>
+        /// <param name="resource">the resource the member belongs to</param>
         /// <returns>the newly created instance</returns>
-        IContentMember CreateInstance(Type memberType, System.Xml.XmlElement data, IContentMember parent);
+        IContentMember CreateInstance(Type memberType, XmlElement data, IContentMember parent, IRichContentResource resource);
     }
 }

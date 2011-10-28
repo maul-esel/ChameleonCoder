@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using System.Xml;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.ComponentCore.RichContentMembers;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.RichContent;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.ComponentCore
 {
@@ -74,10 +76,11 @@ namespace ChameleonCoder.ComponentCore
         /// <param name="memberType">the type to create an instance of</param>
         /// <param name="data">the XmlElement representing the member</param>
         /// <param name="parent">the parent member</param>
+        /// <param name="resource">the resource the member belongs to</param>
         /// <returns>the newly created instance</returns>
-        public IContentMember CreateInstance(Type memberType, System.Xml.XmlElement data, IContentMember parent)
+        public IContentMember CreateInstance(Type memberType, XmlElement data, IContentMember parent, IRichContentResource resource)
         {
-            IContentMember member = Activator.CreateInstance(memberType, new object[2] { data, parent }) as IContentMember;
+            IContentMember member = Activator.CreateInstance(memberType, new object[3] { data, parent, resource }) as IContentMember;
 
             return member;
         }
