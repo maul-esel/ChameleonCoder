@@ -409,7 +409,17 @@ namespace ChameleonCoder.ViewModel
 
         private void ViewRichContent(IRichContentResource resource)
         {
-            throw new NotImplementedException();
+            var args = OnRepresentationNeeded(new RichContentViewPageModel(resource), false);
+            if (args.Cancel)
+                return;
+
+            var context = ActiveTab;
+            context.Resource = resource;
+            context.Type = CCTabPage.RichContentView;
+            context.Content = args.Representation;
+
+            OnViewChanged();
+            OnPropertyChanged("BreadcrumbPath");
         }
 
         #region resources
