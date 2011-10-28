@@ -86,6 +86,9 @@ namespace ChameleonCoder
 
                     break;
 
+                case CCTabPage.RichContentView:
+                    break;
+
                 default:
                 case CCTabPage.None:
                     throw new InvalidOperationException("page type is not known");
