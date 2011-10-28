@@ -77,7 +77,7 @@ namespace ChameleonCoder.Resources.RichContent.Css
                 builder.Append(", ");
             }
             builder.Remove(builder.Length - 2, 2);
-            builder.Append("{\n");
+            builder.Append(" {\n");
 
             foreach (var pair in rules)
             {
