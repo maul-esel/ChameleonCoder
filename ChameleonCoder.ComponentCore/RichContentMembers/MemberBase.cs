@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
+using ChameleonCoder.Resources.RichContent.Css;
 
 namespace ChameleonCoder.ComponentCore.RichContentMembers
 {
@@ -22,6 +24,8 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             xmlData = data;
 
             Identifier = Guid.Parse(data.GetAttribute("id", DataFile.NamespaceUri));
+
+            RegisterStyles(resource);
         }
 
         private readonly IContentMember parentMember;
@@ -58,5 +62,100 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public abstract void Save();
 
         public abstract string GetHtml(object data);
+
+
+        private void RegisterStyles(IRichContentResource resource)
+        {
+            #region pre.builtin-syntax
+            var selector1 = new CssStyleSelector("builtin-syntax", "pre", null);
+
+            var dict1 = new Dictionary<string, string>();
+            dict1.Add("background-color", "#FFFFAA");
+            dict1.Add("border", "solid #FFEE00 1px");
+            dict1.Add("padding", "5px");
+
+            resource.RegisterClassStyle(new CssClassStyle(selector1, dict1));
+            #endregion
+
+            #region pre.builtin-example
+            var selector2 = new CssStyleSelector("builtin-example", "pre", null);
+
+            var dict2 = new Dictionary<string, string>();
+            dict2.Add("background-color", "#DEDEDE");
+            dict2.Add("border", "solid gray 1px");
+            dict2.Add("padding", "5px");
+
+            resource.RegisterClassStyle(new CssClassStyle(selector2, dict2));
+            #endregion
+
+            #region pre em.builtin-comment
+
+            var commentSelectors = new CssStyleSelector[2]
+            {
+                new CssStyleSelector("builtin-syntax", "pre", null),
+                new CssStyleSelector("builtin-example", "pre", null)
+            };
+            foreach (var selector in commentSelectors)
+                selector.AddNestedSelector(new CssStyleSelector("builtin-comment", "em", null));
+            
+            var commentDict = new Dictionary<string, string>();
+            commentDict.Add("color", "green");
+
+            resource.RegisterClassStyle(new CssClassStyle(commentSelectors, commentDict));
+
+            #endregion
+
+            #region pre span.builtin-string
+
+            var stringSelectors = new CssStyleSelector[2]
+            {
+                new CssStyleSelector("builtin-syntax", "pre", null),
+                new CssStyleSelector("builtin-example", "pre", null)
+            };
+            foreach (var selector in stringSelectors)
+                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", null));
+
+            var stringDict = new Dictionary<string, string>();
+            stringDict.Add("color", "blue");
+            stringDict.Add("font-style", "italic");
+
+            resource.RegisterClassStyle(new CssClassStyle(stringSelectors, stringDict));
+
+            #endregion
+
+            #region pre span.builtin-string:before
+
+            var beforeSelectors = new CssStyleSelector[2]
+            {
+                new CssStyleSelector("builtin-syntax", "pre", null),
+                new CssStyleSelector("builtin-example", "pre", null)
+            };
+            foreach (var selector in beforeSelectors)
+                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", CssPseudoClass.Before));
+
+            var beforeDict = new Dictionary<string, string>();
+            beforeDict.Add("content", @"'\''");
+
+            resource.RegisterClassStyle(new CssClassStyle(beforeSelectors, beforeDict));
+
+            #endregion
+
+            #region pre span.builtin-string:after
+
+            var afterSelectors = new CssStyleSelector[2]
+            {
+                new CssStyleSelector("builtin-syntax", "pre", null),
+                new CssStyleSelector("builtin-example", "pre", null)
+            };
+            foreach (var selector in afterSelectors)
+                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", CssPseudoClass.After));
+
+            var afterDict = new Dictionary<string, string>();
+            afterDict.Add("content", @"'\''");
+
+            resource.RegisterClassStyle(new CssClassStyle(afterSelectors, afterDict));
+
+            #endregion
+        }
     }
 }
