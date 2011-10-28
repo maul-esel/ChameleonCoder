@@ -74,9 +74,14 @@ namespace ChameleonCoder.Resources.RichContent.Css
             {
                 representation += ":" + PseudoClass.ToString();
             }
+            int i = 0;
             foreach (var selector in NestedSelectors)
             {
+                i++;
                 representation += " " + selector.ToString();
+
+                if (i != nested.Count)
+                    representation += ", ";
             }
 
             return representation;
