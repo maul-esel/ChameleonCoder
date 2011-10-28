@@ -66,25 +66,28 @@ namespace ChameleonCoder.Resources.RichContent.Css
             nested.Add(selector);
         }
 
+        /// <summary>
+        /// converts this instance into a string in CSS selector format
+        /// </summary>
+        /// <returns>the CSS selector string</returns>
         public override string ToString()
         {
-            string representation = ElementName + "." + ClassName;
+            var builder = new System.Text.StringBuilder(ElementName + "." + ClassName);
 
             if (PseudoClass != null)
-            {
-                representation += ":" + PseudoClass.ToString();
-            }
+                builder.Append(":" + PseudoClass.ToString());
+
             int i = 0;
             foreach (var selector in NestedSelectors)
             {
                 i++;
-                representation += " " + selector.ToString();
+                builder.Append(" " + selector.ToString());
 
                 if (i != nested.Count)
-                    representation += ", ";
+                    builder.Append(", ");
             }
 
-            return representation;
+            return builder.ToString();
         }
 
         #endregion
