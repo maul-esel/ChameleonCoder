@@ -16,7 +16,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <param name="node">the XmlElement representing the member</param>
         /// <param name="parent">the member's parent</param>
         /// <param name="resource">the resource the member belongs to</param>
-        protected MemberBase(XmlElement data, IContentMember parent, IResource resource)
+        protected MemberBase(XmlElement data, IContentMember parent, IRichContentResource resource)
         {
             parentMember = parent;
             xmlData = data;
@@ -58,6 +58,5 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public abstract void Save();
 
         public abstract string GetHtml(object data);
-
     }
 }
