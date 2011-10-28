@@ -125,6 +125,13 @@ namespace ChameleonCoder
             = new RoutedCommand("ExecuteService",
                                 typeof(ChameleonCoderCommands));
 
+        /// <summary>
+        /// the command for viewing the RichContent of a resource
+        /// </summary>
+        public static readonly RoutedCommand ViewRichContent
+            = new RoutedCommand("ViewRichContent",
+                                typeof(ChameleonCoderCommands));
+
         #region metadata
         /// <summary>
         /// the command for adding metadata on a resource or DataFile
