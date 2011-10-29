@@ -56,6 +56,17 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public RichContentCollection Children { get { return childrenCollection; } }
 
         /// <summary>
+        /// gets a description for the member
+        /// </summary>
+        public string Description
+        {
+            get
+            {
+                return Xml.GetAttribute("description", DataFile.NamespaceUri);
+            }
+        }
+
+        /// <summary>
         /// gets the member's name
         /// </summary>
         public string Name
