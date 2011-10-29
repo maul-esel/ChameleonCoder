@@ -48,6 +48,17 @@ namespace ChameleonCoder.Resources
                 return Xml.GetAttribute("name", DataFile.NamespaceUri);
             }
         }
+        
+        /// <summary>
+        /// implements IComponent.Description, redirecting the request to the target
+        /// </summary>
+        public string Description
+        {
+            get
+            {
+                return Resolve().Description;
+            }
+        }
 
         /// <summary>
         /// gets the target's special visual property
