@@ -15,7 +15,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// a base constructor for inherited types
         /// </summary>
-        /// <param name="node">the XmlElement representing the member</param>
+        /// <param name="data">the XmlElement representing the member</param>
         /// <param name="parent">the member's parent</param>
         /// <param name="resource">the resource the member belongs to</param>
         protected MemberBase(XmlElement data, IContentMember parent, IRichContentResource resource)
