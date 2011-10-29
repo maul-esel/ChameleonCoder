@@ -188,6 +188,17 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             resource.RegisterClassStyle(new CssClassStyle(afterSelectors, afterDict));
 
             #endregion
+
+            #region div.builtin-container
+            var selector3 = new CssStyleSelector("builtin-container", "div", null);
+
+            var dict3 = new Dictionary<string, string>();
+            dict3.Add("border", "solid gray 1px");
+            dict3.Add("padding", "3px");
+            dict3.Add("margin", "2px");
+
+            resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
+            #endregion
         }
     }
 }
