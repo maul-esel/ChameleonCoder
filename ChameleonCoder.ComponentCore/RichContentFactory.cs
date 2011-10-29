@@ -10,6 +10,9 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.ComponentCore
 {
+    /// <summary>
+    /// an IRichContentFactory plugin providing the included RichContent types
+    /// </summary>
     [CCPlugin]
     public sealed class RichContentFactory : IRichContentFactory
     {

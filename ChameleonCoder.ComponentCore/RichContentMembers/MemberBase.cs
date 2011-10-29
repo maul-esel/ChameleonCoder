@@ -34,14 +34,22 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
         private readonly RichContentCollection childrenCollection = new RichContentCollection();
 
-
+        
         protected XmlElement Xml { get { return xmlData; } }
 
-
+        /// <summary>
+        /// gets the member's parent member
+        /// </summary>
         public IContentMember Parent { get { return parentMember; } }
 
+        /// <summary>
+        /// gets the collection of child-members
+        /// </summary>
         public RichContentCollection Children { get { return childrenCollection; } }
 
+        /// <summary>
+        /// gets the member's name
+        /// </summary>
         public string Name
         {
             get
@@ -54,13 +62,23 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             }
         }
 
+        /// <summary>
+        /// uniquely identifies the member
+        /// </summary>
         public Guid Identifier { get; private set; }
 
         public virtual System.Windows.Media.ImageSource Icon { get { return null; } }
 
-
+        /// <summary>
+        /// saves any changes to the member
+        /// </summary>
         public abstract void Save();
 
+        /// <summary>
+        /// gets the member's representation
+        /// </summary>
+        /// <param name="data">an optional parameter</param>
+        /// <returns>an HTML string representing the member</returns>
         public abstract string GetHtml(object data);
 
 
