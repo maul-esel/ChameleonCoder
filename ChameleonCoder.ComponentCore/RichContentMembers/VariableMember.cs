@@ -34,12 +34,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         public override void Save() { }
 
-        /// <summary>
-        /// gets the icon representing this instance to the user
-        /// </summary>
-        /// <value>null, as this is not yet implemented</value>
-        public System.Windows.Media.ImageSource Icon { get; private set; }
-
         internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";
     }
 }
