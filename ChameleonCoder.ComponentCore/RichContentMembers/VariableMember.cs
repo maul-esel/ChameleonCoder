@@ -35,21 +35,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public override void Save() { }
 
         /// <summary>
-        /// gets the name of the member
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return Xml.GetAttribute("name", DataFile.NamespaceUri);
-            }
-            protected set
-            {
-                Xml.SetAttribute("name", DataFile.NamespaceUri, value);
-            }
-        }
-
-        /// <summary>
         /// gets the icon representing this instance to the user
         /// </summary>
         /// <value>null, as this is not yet implemented</value>
