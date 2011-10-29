@@ -22,5 +22,10 @@ namespace ChameleonCoder
         /// the component's display name
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// the component's description
+        /// </summary>
+        string Description { get; }
     }
 }

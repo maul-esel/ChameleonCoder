@@ -11,11 +11,6 @@ namespace ChameleonCoder.Resources.Interfaces
     public interface IResource : INotifyPropertyChanged, IComponent
     {
         /// <summary>
-        /// a user-defined short description of the resource
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
         /// any user-defined notes related to the resource
         /// </summary>
         string Notes { get; }

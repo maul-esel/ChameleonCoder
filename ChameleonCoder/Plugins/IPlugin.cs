@@ -16,11 +16,6 @@
         string Author { get; }
 
         /// <summary>
-        /// a brief description of what the service does
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
         /// the component version
         /// </summary>
         string Version { get; }
