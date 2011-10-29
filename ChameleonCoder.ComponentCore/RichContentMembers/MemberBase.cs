@@ -21,6 +21,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         protected MemberBase(XmlElement data, IContentMember parent, IRichContentResource resource)
         {
             parentMember = parent;
+            resourceAncestor = resource;
             xmlData = data;
 
             Identifier = Guid.Parse(data.GetAttribute("id", DataFile.NamespaceUri));
@@ -29,6 +30,8 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         private readonly IContentMember parentMember;
+
+        private readonly IResource resourceAncestor;
 
         private readonly XmlElement xmlData;
 
@@ -41,6 +44,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// gets the member's parent member
         /// </summary>
         public IContentMember Parent { get { return parentMember; } }
+
+        /// <summary>
+        /// gets the resource the member belongs to
+        /// </summary>
+        public IResource Resource { get { return resourceAncestor; } }
 
         /// <summary>
         /// gets the collection of child-members

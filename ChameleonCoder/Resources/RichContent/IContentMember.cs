@@ -16,6 +16,11 @@
         IContentMember Parent { get; }
 
         /// <summary>
+        /// the resource the member belongs to
+        /// </summary>
+        Interfaces.IResource Resource { get; }
+
+        /// <summary>
         /// gets the member's html representation
         /// </summary>
         /// <param name="param">optional information for the member</param>
