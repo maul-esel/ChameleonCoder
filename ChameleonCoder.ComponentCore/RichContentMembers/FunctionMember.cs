@@ -28,7 +28,32 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <returns>the representation as HTML text</returns>
         public override string GetHtml(object param)
         {
-            return string.Empty;
+            string Syntax = "<pre class='builtin-syntax'>" + Name + "({0})";
+
+            string paramTable = null;
+            string paramList = null;
+            
+            foreach (var child in Children)
+            {
+                var parameter = child as ParameterMember;
+                if (parameter != null)
+                {
+                    paramTable += "<tr><td>" + parameter.Name + "</td><td>" + parameter.Description + "</td></tr>";
+                    paramList += (string.IsNullOrWhiteSpace(parameter.Type) ? "" : parameter.Type + " ")
+                        + parameter.Name
+                        + (string.IsNullOrWhiteSpace(parameter.DefaultValue) ? "" : " = " + parameter.DefaultValue)
+                        + (Children[Children.Count - 1] == parameter ? "" : ", ");
+                }
+            }
+
+            string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
+                + "<h3>Function: " + Name + "</h3>"
+                + "<p>[summary]</p>"
+                + "<pre class='builtin-syntax'>" + Name + "(" + paramList + ")</pre>"
+                + (string.IsNullOrWhiteSpace(paramTable) ? "" : "<table border='1'><thead><tr><th>Name:</th><th>Description:</th></thead><tbody>" + paramTable + "</tbody></table>")
+                + "<p>" + Description + "</p>"
+                + "</div>";
+            return representation;
         }
 
         #endregion
