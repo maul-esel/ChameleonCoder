@@ -14,6 +14,8 @@
 	<cc:resources>
 		<cc:resource cc:type="{408b6770-3e25-4567-86c8-5182e7fdc9c9}" cc:id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}"
                  cc:name="NewParentGroup" cc:description="the new parent group" cc:notes=""/>
+    <cc:resource cc:type="{408b6770-3e25-4567-86c8-5182e7fdc9c9}" cc:id="{86fc6f69-1dcc-4e03-8d06-fc7caf02a049}"
+                 cc:name="NewParentGroup" cc:description="the new parent group" cc:notes=""/>
 		<cc:resource cc:type="{826ab0e7-00d5-45be-88e5-7bb2f1d565ab}" cc:id="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}"
                  cc:name="Formulator.exe" cc:description="main executable" cc:notes=""
                  cc:path="Projekte\[que] KAPROG\Formulator.exe"/>
@@ -87,6 +89,9 @@
 			</cc:metadata>
 			<cc:created>2011-10-12T18:45:00</cc:created>
 		</cc:resourcedata>
+    <cc:resourcedata cc:id="{589c6090-10c3-4e39-8dbc-ced80c4abbb6}">
+      <cc:created>2011-10-30T00:44:00</cc:created>
+    </cc:resourcedata>
 		<cc:resourcedata cc:id="{6ef3c403-9197-47cd-9515-fcf00898c566}">
 			<cc:metadata>
 				<cc:metadata cc:key="Einsatz" cc:value="Config-Explorer"/>
@@ -114,6 +119,7 @@
           <cc:member cc:id="{564205d3-ef11-49ef-a9fe-da221b8e7abd}" cc:type="{d78144be-71b4-46f9-a947-4a5e3bf0caa9}" cc:name="param1" cc:description="this is the 1st param."
                      cc:default-value="'abc'" cc:param-type="string"/>
         </cc:member>
+        <cc:member cc:id="{59473c3e-7159-4ae3-bbbd-aefc09a1cbca}" cc:type="{23f3716c-08a1-44d3-8a54-ac01c29435a2}" cc:name="test member"/>
       </cc:richcontent>
 		</cc:resourcedata>
 		<cc:resourcedata cc:id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}">
@@ -121,6 +127,7 @@
 				<cc:reference cc:id="{36ce7a96-bb6c-49a1-9c57-9e7d264e1466}" cc:target="{5e4b60e7-1e13-4bf3-9fc5-086618b71339}" cc:name="Formulator.exe" />
 				<cc:reference cc:id="{7421c5b8-6375-454b-b971-c6e3bd8a6bd6}" cc:target="{553843bf-7cbb-4c88-ae97-4d9dffcf3a6d}" cc:name="InterProcess library" />
 				<cc:reference cc:id="{2caca642-c1f9-4885-b77d-42d35574cabb}" cc:target="{f5053dd6-a7ab-4dee-844b-24542767ecae}" cc:name="TextFile library" />
+        <cc:reference cc:id="{898d8d1f-9cec-4401-a460-347e03862ba5}" cc:target="{898d8d1f-9cec-4401-a460-347e03862ba5}" cc:name="myReference"/>
 			</cc:references>
 			<cc:created>2011-10-12T18:45:00</cc:created>
 		</cc:resourcedata>
