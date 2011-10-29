@@ -29,11 +29,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             return "<div id='" + Identifier.ToString("b") + "'><h3>Variable: " + Name + "</h3></div>";
         }
 
-        /// <summary>
-        /// saves the current instance
-        /// </summary>
-        public override void Save() { }
-
         internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";
     }
 }

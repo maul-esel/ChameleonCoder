@@ -30,10 +30,5 @@
         /// but it can also just use a property of the child member and add it,
         /// or it can even ignore it.</remarks>
         string GetHtml(object param);
-
-        /// <summary>
-        /// saves the instance
-        /// </summary>
-        void Save();
     }
 }

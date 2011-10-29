@@ -31,11 +31,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             return string.Empty;
         }
 
-        /// <summary>
-        /// saves the current instance
-        /// </summary>
-        public override void Save() { }
-
         #endregion
 
         internal const string Key = "{2fc4ddba-0af1-474b-8af7-3154103fa77e}";

@@ -78,11 +78,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         public virtual System.Windows.Media.ImageSource Icon { get { return null; } }
 
         /// <summary>
-        /// saves any changes to the member
-        /// </summary>
-        public abstract void Save();
-
-        /// <summary>
         /// gets the member's representation
         /// </summary>
         /// <param name="data">an optional parameter</param>
