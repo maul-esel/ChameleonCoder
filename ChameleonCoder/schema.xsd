@@ -162,6 +162,10 @@
 			<xsd:selector xpath="data/resourcedata"/>
 			<xsd:field xpath="@id"/>
 		</xsd:keyref>
+    <xsd:keyref name="uniqueReferenceKey" refer="uniqueResourceGuidKey">
+      <xsd:selector xpath="data/resourcedata/references/reference"/>
+      <xsd:field xpath="@target"/>
+    </xsd:keyref>
 	</xsd:element>
 
 </xsd:schema>
