@@ -110,6 +110,10 @@
 			<cc:created>2011-10-12T18:45:00</cc:created>
       <cc:richcontent>
         <cc:member cc:id="{59473c3e-7159-4ae3-bbbd-aefc09a1cbca}" cc:type="{23f3716c-08a1-44d3-8a54-ac01c29435a2}" cc:name="test member"/>
+        <cc:member cc:id="{299d2bdf-e9f8-4222-856f-dba4fbfa7681}" cc:type="{2fc4ddba-0af1-474b-8af7-3154103fa77e}" cc:name="MyFunction">
+          <cc:member cc:id="{564205d3-ef11-49ef-a9fe-da221b8e7abd}" cc:type="{d78144be-71b4-46f9-a947-4a5e3bf0caa9}" cc:name="param1" cc:description="this is the 1st param."
+                     cc:default-value="'abc'" cc:param-type="string"/>
+        </cc:member>
       </cc:richcontent>
 		</cc:resourcedata>
 		<cc:resourcedata cc:id="{a2711089-d2a3-4ef7-aaea-15989ab9c002}">
