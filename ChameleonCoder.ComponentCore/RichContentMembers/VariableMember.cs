@@ -28,6 +28,16 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             protected set { Xml.SetAttribute("var-type", DataFile.NamespaceUri, value); }
         }
 
+        /// <summary>
+        /// gets if a variable is readonly or not
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return bool.Parse(Xml.GetAttribute("isreadonly", DataFile.NamespaceUri)); }
+            protected set { Xml.SetAttribute("isreadonly", DataFile.NamespaceUri, value.ToString()); }
+        }
+
+
         protected override string ElementName
         {
             get { return "Variable"; }
