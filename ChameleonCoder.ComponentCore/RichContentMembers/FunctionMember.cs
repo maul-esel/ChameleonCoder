@@ -42,9 +42,10 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
                     paramList += (string.IsNullOrWhiteSpace(parameter.Type) ? "" : parameter.Type + " ")
                         + parameter.Name
                         + (string.IsNullOrWhiteSpace(parameter.DefaultValue) ? "" : " = " + parameter.DefaultValue)
-                        + (Children[Children.Count - 1] == parameter ? "" : ", ");
+                        + ", ";
                 }
             }
+            paramList = paramList.TrimEnd(',', ' '); // remove last space + comma
 
             string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
                 + "<h3>Function: " + Name + "</h3>"
