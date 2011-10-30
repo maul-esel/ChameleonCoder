@@ -31,7 +31,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
         private readonly IContentMember parentMember;
 
-        private readonly IResource resourceAncestor;
+        private readonly IRichContentResource resourceAncestor;
 
         private readonly XmlElement xmlData;
 
@@ -48,7 +48,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// gets the resource the member belongs to
         /// </summary>
-        public IResource Resource { get { return resourceAncestor; } }
+        public IRichContentResource Resource { get { return resourceAncestor; } }
 
         /// <summary>
         /// gets the collection of child-members

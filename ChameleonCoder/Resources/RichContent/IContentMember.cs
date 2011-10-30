@@ -23,7 +23,7 @@
         /// <summary>
         /// the resource the member belongs to
         /// </summary>
-        Interfaces.IResource Resource { get; }
+        Interfaces.IRichContentResource Resource { get; }
 
         /// <summary>
         /// gets the member's html representation
