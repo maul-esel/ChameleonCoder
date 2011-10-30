@@ -19,6 +19,15 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         {
         }
 
+        /// <summary>
+        /// gets a variable's type
+        /// </summary>
+        public string Type
+        {
+            get { return Xml.GetAttribute("var-type", DataFile.NamespaceUri); }
+            protected set { Xml.SetAttribute("var-type", DataFile.NamespaceUri, value); }
+        }
+
         protected override string ElementName
         {
             get { return "Variable"; }

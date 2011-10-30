@@ -20,15 +20,6 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         /// <summary>
-        /// gets a parameter's type
-        /// </summary>
-        public string Type
-        {
-            get { return Xml.GetAttribute("param-type", DataFile.NamespaceUri); }
-            protected set { Xml.SetAttribute("param-type", DataFile.NamespaceUri, value); }
-        }
-
-        /// <summary>
         /// gets a parameter's default value
         /// </summary>
         public string DefaultValue

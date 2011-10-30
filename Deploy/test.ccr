@@ -110,12 +110,13 @@
 			<cc:created>2011-10-12T18:45:00</cc:created>
       <cc:richcontent>
         <cc:member cc:id="{59473c3e-7159-4ae3-bbbd-aefc09a1cbca}" cc:type="{23f3716c-08a1-44d3-8a54-ac01c29435a2}" cc:name="test_member"
-                   cc:description="This is a dummy member for RichContent. You can use the value, but it will always be 'null'." cc:summary="a dummy member to test RichContent"/>
+                   cc:description="This is a dummy member for RichContent. You can use the value, but it will always be 'null'." cc:summary="a dummy member to test RichContent"
+                   cc:example="test_member.ToString() ; throws a NullReferenceException"/>
         <cc:member cc:id="{299d2bdf-e9f8-4222-856f-dba4fbfa7681}" cc:type="{2fc4ddba-0af1-474b-8af7-3154103fa77e}" cc:name="MyFunction"
                    cc:description="This function calls itself recursively a hundred times. It doesn't do anything else, so it's absolutely useless. ;-)" cc:summary="A user-defined function for testing RichContent"
                    cc:example="MyFunction(&quot;:)&quot;) ; this is a test">
           <cc:member cc:id="{564205d3-ef11-49ef-a9fe-da221b8e7abd}" cc:type="{d78144be-71b4-46f9-a947-4a5e3bf0caa9}" cc:name="param1"
-                     cc:default-value='"abc"' cc:param-type="string"
+                     cc:default-value='"abc"' cc:var-type="string"
                      cc:summary="the first param to the useless function" cc:description="This parameter can be set to whatever you want. It does absolutely nothing, it's just to annoy you :D"/>
         </cc:member>
       </cc:richcontent>
