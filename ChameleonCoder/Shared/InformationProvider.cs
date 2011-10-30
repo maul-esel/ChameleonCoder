@@ -240,6 +240,28 @@ namespace ChameleonCoder.Shared
             return path;
         }
 
+        public static string HtmlColorizeCode(string code, ICSharpCode.AvalonEdit.Highlighting.HighlightingRuleSet rules)
+        {
+            var document = new ICSharpCode.AvalonEdit.Document.TextDocument(code);
+            var highlighter = new ICSharpCode.AvalonEdit.Highlighting.DocumentHighlighter(document, rules);
+
+            string highlightedCode = null;
+
+            foreach (var line in document.Lines)
+            {
+                highlightedCode += highlighter.HighlightLine(line).ToHtml(new ICSharpCode.AvalonEdit.Highlighting.HtmlOptions());
+            }
+
+            return highlightedCode;
+        }
+
+        public static string HtmlColorizeCode(string code, ILanguageModule module)
+        {
+            if (module.Highlighting != null)
+                return HtmlColorizeCode(code, module.Highlighting.MainRuleSet);
+            return code;
+        }
+
         #endregion
 
         #region events
