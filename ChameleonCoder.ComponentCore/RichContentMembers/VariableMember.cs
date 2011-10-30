@@ -19,16 +19,9 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         {
         }
 
-        /// <summary>
-        /// gets the member's HTML representation
-        /// </summary>
-        /// <param name="param">a parameter passed to the method, no special use</param>
-        /// <returns>the representation as HTML text</returns>
-        public override string GetHtml(object param)
+        protected override string ElementName
         {
-            return "<div class='builtin-container' id='" + Identifier.ToString("b") + "'><h3>Variable: " + Name + "</h3><p>" + Summary + "</p><hr/><p>" + Description
-                + (string.IsNullOrWhiteSpace(Example) ? null : "<pre class='builtin-example'>" + HighlightCode(Example) + "</pre>")
-                + "</div>";
+            get { return "Variable"; }
         }
 
         internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";

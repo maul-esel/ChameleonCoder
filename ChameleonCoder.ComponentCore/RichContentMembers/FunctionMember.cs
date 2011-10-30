@@ -24,7 +24,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// gets the member's HTML representation
         /// </summary>
-        /// <param name="param">a parameter passed to the method, no special use</param>
+        /// <param name="param">not used.</param>
         /// <returns>the representation as HTML text</returns>
         public override string GetHtml(object param)
         {
@@ -59,6 +59,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         #endregion
+
+        protected override string ElementName
+        {
+            get { return "Function"; }
+        }
 
         internal const string Key = "{2fc4ddba-0af1-474b-8af7-3154103fa77e}";
     }

@@ -37,6 +37,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             protected set { Xml.SetAttribute("default-value", DataFile.NamespaceUri, value); }
         }
 
+        protected override string ElementName
+        {
+            get { return "Parameter"; }
+        }
+
         internal new const string Key = "{d78144be-71b4-46f9-a947-4a5e3bf0caa9}";
     }
 }
