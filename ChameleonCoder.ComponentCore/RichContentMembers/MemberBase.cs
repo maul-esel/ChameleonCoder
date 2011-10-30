@@ -202,7 +202,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
             var dict3 = new Dictionary<string, string>();
             dict3.Add("border", "solid gray 1px");
-            dict3.Add("padding", "3px");
+            dict3.Add("padding", "5px");
             dict3.Add("margin", "2px");
 
             resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
