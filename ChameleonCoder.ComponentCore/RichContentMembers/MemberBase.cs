@@ -90,6 +90,14 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         /// <summary>
+        /// gets a code example if one exists
+        /// </summary>
+        public string Example
+        {
+            get { return Xml.GetAttribute("example", DataFile.NamespaceUri); }
+        }
+
+        /// <summary>
         /// uniquely identifies the member
         /// </summary>
         public Guid Identifier { get; private set; }
