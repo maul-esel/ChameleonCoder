@@ -11,11 +11,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// creates a new instance of the ParameterMember class
         /// </summary>
-        /// <param name="node">the XmlElement representing the member</param>
+        /// <param name="data">the XmlElement representing the member</param>
         /// <param name="parent">the member's parent</param>
         /// <param name="resource">the resource the member belongs to</param>
-        public ParameterMember(System.Xml.XmlElement node, IContentMember parent, IRichContentResource resource)
-            : base(node, parent, resource)
+        public ParameterMember(System.Xml.XmlElement data, IContentMember parent, IRichContentResource resource)
+            : base(data, parent, resource)
         {
         }
 
@@ -27,6 +27,16 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             get { return Xml.GetAttribute("default-value", DataFile.NamespaceUri); }
             protected set { Xml.SetAttribute("default-value", DataFile.NamespaceUri, value); }
         }
+
+        /// <summary>
+        /// gets if a parameter is byRef or not
+        /// </summary>
+        public string IsByRef
+        {
+            get { return Xml.GetAttribute("isbyref", DataFile.NamespaceUri); }
+            protected set { Xml.SetAttribute("isbyRef", DataFile.NamespaceUri, value); }
+        }
+
 
         protected override string ElementName
         {
