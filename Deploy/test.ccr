@@ -63,13 +63,13 @@
 						<cc:resource cc:type="{478e8dd0-b37e-4616-8246-31984077bb64}" cc:id="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}"
                          cc:name="AutomaticGuiCreator.ahk" cc:description="auto-creates and reworks GUI code" cc:notes="this script is incredible! It creates code from drawings and optimizes them!"
                          cc:path="C:\anywhere\AGC.ahk"
-                         cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}"/>
+                         cc:language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}"/>
 					</cc:resource>
 				</cc:resource>
 			</cc:resource>
 			<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}"
                    cc:name="SVS-Funktionen" cc:description="divers functions" cc:notes=""
-                   cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" cc:priority="2"/>
+                   cc:language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" cc:priority="2"/>
 		</cc:resource>
 		<cc:resource cc:type="{14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}" cc:id="{31efc3af-111f-4a6a-a7a7-56318d73449e}"
                  cc:name="Aufgabe1" cc:description="a new task" cc:notes=""
