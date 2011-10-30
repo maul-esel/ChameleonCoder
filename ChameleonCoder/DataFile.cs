@@ -287,8 +287,14 @@ namespace ChameleonCoder
         {
             var elements = new List<XmlElement>();
 
-            foreach (XmlElement element in Document.SelectNodes("/cc:ChameleonCoder/cc:resources/cc:resource", manager))
-                elements.Add(element);
+            foreach (var node in Document.SelectNodes("/cc:ChameleonCoder/cc:resources/cc:resource", manager))
+            {
+                var element = node as XmlElement;
+                if (element != null)
+                {
+                    elements.Add(element);
+                }
+            }
 
             return elements;
         }
