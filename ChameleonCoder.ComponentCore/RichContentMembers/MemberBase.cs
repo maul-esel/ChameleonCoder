@@ -208,5 +208,24 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
             #endregion
         }
+
+        /// <summary>
+        /// converts code into Html highlighted code, using the <see cref="ChameleonCoder.Shared.InformationProvider.HtmlColorize"/> method.
+        /// </summary>
+        /// <param name="code">the code to highlight</param>
+        /// <returns>the HTML representing the highlighted code if possible, the original code if highlighting fails</returns>
+        protected string HighlightCode(string code)
+        {
+            var langResource = Resource as ILanguageResource;
+            if (langResource != null)
+            {
+                if (Plugins.PluginManager.IsModuleRegistered(langResource.Language))
+                {
+                    var module = Plugins.PluginManager.GetModule(langResource.Language);
+                    return Shared.InformationProvider.HtmlColorizeCode(code, module);
+                }
+            }
+            return code;
+        }
     }
 }
