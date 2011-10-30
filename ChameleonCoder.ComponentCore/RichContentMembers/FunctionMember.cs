@@ -49,7 +49,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
                 + "<h3>Function: " + Name + "</h3>"
                 + "<p>" + Summary + "</p><hr/>"
-                + "<pre class='builtin-syntax'>" + Name + "(" + paramList + ")</pre>"
+                + "<pre class='builtin-syntax'>" + HighlightCode(Name + "(" + paramList + ")") + "</pre>"
                 + (string.IsNullOrWhiteSpace(paramTable) ? "" : "<table border='1' cellpadding='5px'><thead><tr><th>Name:</th><th>Description:</th></thead><tbody>" + paramTable + "</tbody></table>")
                 + "<p>" + Description + "</p>"
                 + "</div>";
