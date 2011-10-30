@@ -26,6 +26,11 @@
         Interfaces.IRichContentResource Resource { get; }
 
         /// <summary>
+        /// a list of related members' ids
+        /// </summary>
+        System.Collections.Generic.IEnumerable<System.Guid> Related { get; }
+
+        /// <summary>
         /// gets the member's html representation
         /// </summary>
         /// <param name="param">optional information for the member</param>

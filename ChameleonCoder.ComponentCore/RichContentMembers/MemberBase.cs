@@ -27,6 +27,15 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             Identifier = Guid.Parse(data.GetAttribute("id", DataFile.NamespaceUri));
 
             RegisterStyles();
+
+            var list = Xml.GetAttribute("related", DataFile.NamespaceUri);
+            if (!string.IsNullOrWhiteSpace(list))
+            {
+                foreach (var entry in list.Split(new char[1] {' '}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    relatedIds.Add(Guid.Parse(entry));
+                }
+            }
         }
 
         private readonly IContentMember parentMember;
@@ -36,6 +45,8 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         private readonly XmlElement xmlData;
 
         private readonly RichContentCollection childrenCollection = new RichContentCollection();
+
+        private readonly List<Guid> relatedIds = new List<Guid>();
 
         /// <summary>
         /// the XmlElement representing the member
@@ -61,6 +72,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// gets the collection of child-members
         /// </summary>
         public RichContentCollection Children { get { return childrenCollection; } }
+
+        /// <summary>
+        /// gets a list of ids of related members
+        /// </summary>
+        public IEnumerable<Guid> Related { get { return relatedIds; } }
 
         /// <summary>
         /// gets a description for the member
