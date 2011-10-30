@@ -247,9 +247,9 @@ namespace ChameleonCoder.Shared
 
             string highlightedCode = null;
 
-            foreach (var line in document.Lines)
+            for (int i = 1; i <= document.LineCount; i++)
             {
-                highlightedCode += highlighter.HighlightLine(line).ToHtml(new ICSharpCode.AvalonEdit.Highlighting.HtmlOptions());
+                highlightedCode += highlighter.HighlightLine(i).ToHtml(new ICSharpCode.AvalonEdit.Highlighting.HtmlOptions());
             }
 
             return highlightedCode;
