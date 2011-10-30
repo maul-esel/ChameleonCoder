@@ -26,7 +26,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
             Identifier = Guid.Parse(data.GetAttribute("id", DataFile.NamespaceUri));
 
-            RegisterStyles(resource);
+            RegisterStyles();
         }
 
         private readonly IContentMember parentMember;
@@ -103,8 +103,10 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <returns>an HTML string representing the member</returns>
         public abstract string GetHtml(object data);
 
-
-        private void RegisterStyles(IRichContentResource resource)
+        /// <summary>
+        /// registers CSS style information to be used by the builtin members (or any others)
+        /// </summary>
+        private void RegisterStyles()
         {
             #region pre.builtin-syntax
             var selector1 = new CssStyleSelector("builtin-syntax", "pre", null);
@@ -114,7 +116,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             dict1.Add("border", "solid #FFEE00 1px");
             dict1.Add("padding", "5px");
 
-            resource.RegisterClassStyle(new CssClassStyle(selector1, dict1));
+            Resource.RegisterClassStyle(new CssClassStyle(selector1, dict1));
             #endregion
 
             #region pre.builtin-example
@@ -125,76 +127,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             dict2.Add("border", "solid gray 1px");
             dict2.Add("padding", "5px");
 
-            resource.RegisterClassStyle(new CssClassStyle(selector2, dict2));
-            #endregion
-
-            #region pre em.builtin-comment
-
-            var commentSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in commentSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-comment", "em", null));
-            
-            var commentDict = new Dictionary<string, string>();
-            commentDict.Add("color", "green");
-
-            resource.RegisterClassStyle(new CssClassStyle(commentSelectors, commentDict));
-
-            #endregion
-
-            #region pre span.builtin-string
-
-            var stringSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in stringSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", null));
-
-            var stringDict = new Dictionary<string, string>();
-            stringDict.Add("color", "blue");
-            stringDict.Add("font-style", "italic");
-
-            resource.RegisterClassStyle(new CssClassStyle(stringSelectors, stringDict));
-
-            #endregion
-
-            #region pre span.builtin-string:before
-
-            var beforeSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in beforeSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", CssPseudoClass.Before));
-
-            var beforeDict = new Dictionary<string, string>();
-            beforeDict.Add("content", @"'\''");
-
-            resource.RegisterClassStyle(new CssClassStyle(beforeSelectors, beforeDict));
-
-            #endregion
-
-            #region pre span.builtin-string:after
-
-            var afterSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in afterSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", CssPseudoClass.After));
-
-            var afterDict = new Dictionary<string, string>();
-            afterDict.Add("content", @"'\''");
-
-            resource.RegisterClassStyle(new CssClassStyle(afterSelectors, afterDict));
-
+            Resource.RegisterClassStyle(new CssClassStyle(selector2, dict2));
             #endregion
 
             #region div.builtin-container
@@ -205,12 +138,12 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             dict3.Add("padding", "5px");
             dict3.Add("margin", "2px");
 
-            resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
+            Resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
             #endregion
         }
 
         /// <summary>
-        /// converts code into Html highlighted code, using the <see cref="ChameleonCoder.Shared.InformationProvider.HtmlColorize"/> method.
+        /// converts code into Html highlighted code, using the <see cref="ChameleonCoder.Shared.InformationProvider.HtmlColorizeCode"/> method.
         /// </summary>
         /// <param name="code">the code to highlight</param>
         /// <returns>the HTML representing the highlighted code if possible, the original code if highlighting fails</returns>
