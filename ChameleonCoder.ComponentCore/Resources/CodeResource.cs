@@ -126,7 +126,7 @@ namespace ChameleonCoder.ComponentCore.Resources
 
             return "<!DOCTYPE html>\n<html><head><style type='text/css'>"
                 + StyleSheet
-                + "</style></head><body style='margin: 2.5px; border: solid gray 2px; padding: 2.5px'>"
+                + "</style></head><body style='margin: 2.5px; border: solid gray 2px; padding: 2.5px; font-family: Calibri, MS Sans Serif, sans-serif'>"
                 + markup
                 + "</body></html>";
         }

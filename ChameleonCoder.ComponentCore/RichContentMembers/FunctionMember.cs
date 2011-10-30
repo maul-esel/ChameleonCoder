@@ -38,7 +38,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
                 var parameter = child as ParameterMember;
                 if (parameter != null)
                 {
-                    paramTable += "<tr><td>" + parameter.Name + "</td><td>" + parameter.Description + "</td></tr>";
+                    paramTable += "<tr><td>" + parameter.Name + "</td><td><p>" + parameter.Summary + "</p><p>" + parameter.Description + "</p></td></tr>";
                     paramList += (string.IsNullOrWhiteSpace(parameter.Type) ? "" : parameter.Type + " ")
                         + parameter.Name
                         + (string.IsNullOrWhiteSpace(parameter.DefaultValue) ? "" : " = " + parameter.DefaultValue)
@@ -48,9 +48,9 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
             string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
                 + "<h3>Function: " + Name + "</h3>"
-                + "<p>[summary]</p>"
+                + "<p>" + Summary + "</p><hr/>"
                 + "<pre class='builtin-syntax'>" + Name + "(" + paramList + ")</pre>"
-                + (string.IsNullOrWhiteSpace(paramTable) ? "" : "<table border='1'><thead><tr><th>Name:</th><th>Description:</th></thead><tbody>" + paramTable + "</tbody></table>")
+                + (string.IsNullOrWhiteSpace(paramTable) ? "" : "<table border='1' cellpadding='5px'><thead><tr><th>Name:</th><th>Description:</th></thead><tbody>" + paramTable + "</tbody></table>")
                 + "<p>" + Description + "</p>"
                 + "</div>";
             return representation;

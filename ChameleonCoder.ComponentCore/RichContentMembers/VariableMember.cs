@@ -26,7 +26,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <returns>the representation as HTML text</returns>
         public override string GetHtml(object param)
         {
-            return "<div class='builtin-container' id='" + Identifier.ToString("b") + "'><h3>Variable: " + Name + "</h3><p>[description]</p><pre class='builtin-example'>[example here] <em class='builtin-comment'> ; comment here</em></pre></div>";
+            return "<div class='builtin-container' id='" + Identifier.ToString("b") + "'><h3>Variable: " + Name + "</h3><p>" + Summary + "</p><hr/><p>" + Description + "<pre class='builtin-example'>[example here] <em class='builtin-comment'> ; comment here</em></pre></div>";
         }
 
         internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";
