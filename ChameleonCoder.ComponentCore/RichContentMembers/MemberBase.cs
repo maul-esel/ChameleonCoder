@@ -37,8 +37,15 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
         private readonly RichContentCollection childrenCollection = new RichContentCollection();
 
-        
+        /// <summary>
+        /// the XmlElement representing the member
+        /// </summary>
         protected XmlElement Xml { get { return xmlData; } }
+
+        /// <summary>
+        /// when overridden in a derived class, gets the member's type name
+        /// </summary>
+        protected abstract string ElementName { get; }
 
         /// <summary>
         /// gets the member's parent member
@@ -109,7 +116,15 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         /// <param name="data">an optional parameter</param>
         /// <returns>an HTML string representing the member</returns>
-        public abstract string GetHtml(object data);
+        public virtual string GetHtml(object data)
+        {
+            return "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
+                + "<h3>" + ElementName + ": " + Name + "</h3>"
+                + "<p>" +  Summary + "</p><hr/>"
+                + "<p>" + Description + "</p>"
+                + (string.IsNullOrWhiteSpace(Example) ? null : "<hr/><pre class='builtin-example'>" + HighlightCode(Example) + "</pre>")
+                + "</div>";
+        }
 
         /// <summary>
         /// registers CSS style information to be used by the builtin members (or any others)
