@@ -114,7 +114,7 @@
                    cc:example="test_member.ToString() ; throws a NullReferenceException"/>
         <cc:member cc:id="{299d2bdf-e9f8-4222-856f-dba4fbfa7681}" cc:type="{2fc4ddba-0af1-474b-8af7-3154103fa77e}" cc:name="MyFunction"
                    cc:description="This function calls itself recursively a hundred times. It doesn't do anything else, so it's absolutely useless. ;-)" cc:summary="A user-defined function for testing RichContent"
-                   cc:example="MyFunction(&quot;:)&quot;) ; this is a test">
+                   cc:example="MyFunction(&quot;;-)&quot;) ; this is a test">
           <cc:member cc:id="{564205d3-ef11-49ef-a9fe-da221b8e7abd}" cc:type="{d78144be-71b4-46f9-a947-4a5e3bf0caa9}" cc:name="param1"
                      cc:default-value='"abc"' cc:var-type="string"
                      cc:summary="the first param to the useless function" cc:description="This parameter can be set to whatever you want. It does absolutely nothing, it's just to annoy you :D"/>
