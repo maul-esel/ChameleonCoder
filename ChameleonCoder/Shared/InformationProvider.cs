@@ -240,6 +240,12 @@ namespace ChameleonCoder.Shared
             return path;
         }
 
+        /// <summary>
+        /// outputs HTML-colored code
+        /// </summary>
+        /// <param name="code">the code to highlight</param>
+        /// <param name="rules">the AvalonEdit ruleset to apply</param>
+        /// <returns>the HTML markup representing the highlighted code</returns>
         public static string HtmlColorizeCode(string code, ICSharpCode.AvalonEdit.Highlighting.HighlightingRuleSet rules)
         {
             var document = new ICSharpCode.AvalonEdit.Document.TextDocument(code);
@@ -255,6 +261,13 @@ namespace ChameleonCoder.Shared
             return highlightedCode;
         }
 
+        /// <summary>
+        /// outputs HTML-colored code
+        /// </summary>
+        /// <param name="code">the code to highlight</param>
+        /// <param name="module">the ILanguageModule whose ruleset should be applied.</param>
+        /// <returns>the HTML markup representing the highlighted code</returns>
+        /// <remarks>If highlighting fails, the original code is returned.</remarks>
         public static string HtmlColorizeCode(string code, ILanguageModule module)
         {
             if (module.Highlighting != null)
