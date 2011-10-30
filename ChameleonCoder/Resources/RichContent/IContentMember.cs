@@ -6,6 +6,11 @@
     public interface IContentMember : IComponent
     {
         /// <summary>
+        /// the user's summary of the member
+        /// </summary>
+        string Summary { get; }
+
+        /// <summary>
         /// the list of Children the content member has
         /// </summary>
         RichContentCollection Children { get; }

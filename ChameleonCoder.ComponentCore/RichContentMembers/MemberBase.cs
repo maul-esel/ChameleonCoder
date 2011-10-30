@@ -82,6 +82,14 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         /// <summary>
+        /// gets the user's summary for the member
+        /// </summary>
+        public string Summary
+        {
+            get { return Xml.GetAttribute("summary", DataFile.NamespaceUri); }
+        }
+
+        /// <summary>
         /// uniquely identifies the member
         /// </summary>
         public Guid Identifier { get; private set; }
