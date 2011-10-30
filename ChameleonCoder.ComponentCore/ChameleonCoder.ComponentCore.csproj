@@ -38,6 +38,10 @@
       <HintPath>..\Deploy\ChameleonCoder.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Odyssey">
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -55,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RichContentFactory.cs" />
+    <Compile Include="RichContentMembers\ConstantMember.cs" />
     <Compile Include="RichContentMembers\FieldMember.cs" />
     <Compile Include="RichContentMembers\FunctionMember.cs" />
     <Compile Include="RichContentMembers\MemberBase.cs" />
