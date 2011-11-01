@@ -262,7 +262,7 @@
                                               CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.MaxSize="Large"/>
 
-                            <odc:RibbonButton Content="{Binding View_ShowRichContent}" LargeImage="Images\LargeIcon.png"
+                            <odc:RibbonButton Content="{Binding View_ShowRichContent}" LargeImage="Images\RichContent.png"
                                               Command="{x:Static cc:ChameleonCoderCommands.ViewRichContent}"
                                               CommandParameter="{Binding Path=ActiveTab.Content.DataContext.Resource}"
                                               odc:RibbonBar.Size="Large"/>
