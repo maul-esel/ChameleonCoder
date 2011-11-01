@@ -51,6 +51,12 @@
 
         Constructor,
 
-        Destructor
+        Destructor,
+
+        ClassInheritance,
+
+        StructInheritance,
+
+        InterfaceInheritance
     }
 }
