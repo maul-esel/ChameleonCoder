@@ -63,7 +63,7 @@
 						<cc:resource cc:type="{478e8dd0-b37e-4616-8246-31984077bb64}" cc:id="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}"
                          cc:name="AutomaticGuiCreator.ahk" cc:description="auto-creates and reworks GUI code" cc:notes="this script is incredible! It creates code from drawings and optimizes them!"
                          cc:path="C:\anywhere\AGC.ahk"
-                         cc:language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}"/>
+                         cc:language="{17176460-6d4b-4cca-b64d-b51ac96ab584}"/>
 					</cc:resource>
 				</cc:resource>
 			</cc:resource>
