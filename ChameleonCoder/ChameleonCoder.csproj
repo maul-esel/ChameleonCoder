@@ -124,6 +124,7 @@
     <Compile Include="Navigation\FileManagementPage.xaml.cs">
       <DependentUpon>FileManagementPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
     <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
     <Compile Include="SecureNotifyPropertyChanged.cs" />
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
