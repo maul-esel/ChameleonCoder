@@ -1,0 +1,37 @@
+===========================
+master
+===========================
+- avoid direct dialog creation in
+	- EditPageModel.SearchReplace()
+	- MainWindowModel.CreateResourceCommandExecuted()
+- resource references:
+	- management
+		- rename
+		- set
+- "ContentChanging" event für MainWindowModel -> avoid binding errors
+- avoid binding errors ("Children" on ResourceReference)
+- ResourceListPage
+	- avoid hack in Filter()
+	- avoid OpenResource()
+- ResourceViewPage: move SaveMetadata() to model
+- implement FileManagementPage
+
+===========================
+RichContent
+===========================
+- ContentMember->ToHtml()
+	- query language module for IProvideSyntaxInfo
+	- if feature/member not supported: border red
+	
+===========================
+RichContent -> new branch
+===========================
+- breadcrumb: show difference between view, edit und RichContent (button / icon?)
+- buttons in edit + RichContent view
+	=> switch to others
+
+===========================
+RichContent -> new branch
+===========================
+- new resource class:
+	- "CompiledSource" : FileResource, ILanguageResource, IRichContentResource
