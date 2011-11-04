@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -24,6 +26,23 @@ namespace ChameleonCoder.ComponentCore.Resources
             base.Update(data, parent);
             // todo: parse compatible languages
         }
+
+        #region IResource
+
+        /// <summary>
+        /// gets the icon that represents this instance to the user
+        /// </summary>
+        /// <value>This is always the same as the CompiledResource's type icon.</value>
+        public override ImageSource Icon
+        {
+            get
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/compiled.png"))
+                    .GetAsFrozen() as ImageSource;
+            }
+        }
+
+        #endregion
 
         #region ILanguageResource
 
