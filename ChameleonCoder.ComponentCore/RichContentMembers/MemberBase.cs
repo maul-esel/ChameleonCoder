@@ -26,19 +26,37 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
             Identifier = Guid.Parse(data.GetAttribute("id", DataFile.NamespaceUri));
 
-            RegisterStyles(resource);
+            RegisterStyles();
+
+            var list = Xml.GetAttribute("related", DataFile.NamespaceUri);
+            if (!string.IsNullOrWhiteSpace(list))
+            {
+                foreach (var entry in list.Split(new char[1] {' '}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    relatedIds.Add(Guid.Parse(entry));
+                }
+            }
         }
 
         private readonly IContentMember parentMember;
 
-        private readonly IResource resourceAncestor;
+        private readonly IRichContentResource resourceAncestor;
 
         private readonly XmlElement xmlData;
 
         private readonly RichContentCollection childrenCollection = new RichContentCollection();
 
-        
+        private readonly List<Guid> relatedIds = new List<Guid>();
+
+        /// <summary>
+        /// the XmlElement representing the member
+        /// </summary>
         protected XmlElement Xml { get { return xmlData; } }
+
+        /// <summary>
+        /// when overridden in a derived class, gets the member's type name
+        /// </summary>
+        protected abstract string ElementName { get; }
 
         /// <summary>
         /// gets the member's parent member
@@ -48,12 +66,17 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// gets the resource the member belongs to
         /// </summary>
-        public IResource Resource { get { return resourceAncestor; } }
+        public IRichContentResource Resource { get { return resourceAncestor; } }
 
         /// <summary>
         /// gets the collection of child-members
         /// </summary>
         public RichContentCollection Children { get { return childrenCollection; } }
+
+        /// <summary>
+        /// gets a list of ids of related members
+        /// </summary>
+        public IEnumerable<Guid> Related { get { return relatedIds; } }
 
         /// <summary>
         /// gets a description for the member
@@ -82,6 +105,22 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         /// <summary>
+        /// gets the user's summary for the member
+        /// </summary>
+        public string Summary
+        {
+            get { return Xml.GetAttribute("summary", DataFile.NamespaceUri); }
+        }
+
+        /// <summary>
+        /// gets a code example if one exists
+        /// </summary>
+        public string Example
+        {
+            get { return Xml.GetAttribute("example", DataFile.NamespaceUri); }
+        }
+
+        /// <summary>
         /// uniquely identifies the member
         /// </summary>
         public Guid Identifier { get; private set; }
@@ -93,10 +132,20 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         /// <param name="data">an optional parameter</param>
         /// <returns>an HTML string representing the member</returns>
-        public abstract string GetHtml(object data);
+        public virtual string GetHtml(object data)
+        {
+            return "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
+                + "<h3>" + ElementName + ": " + Name + "</h3>"
+                + "<p>" +  Summary + "</p><hr/>"
+                + "<p>" + Description + "</p>"
+                + (string.IsNullOrWhiteSpace(Example) ? null : "<hr/><pre class='builtin-example'>" + HighlightCode(Example) + "</pre>")
+                + "</div>";
+        }
 
-
-        private void RegisterStyles(IRichContentResource resource)
+        /// <summary>
+        /// registers CSS style information to be used by the builtin members (or any others)
+        /// </summary>
+        private void RegisterStyles()
         {
             #region pre.builtin-syntax
             var selector1 = new CssStyleSelector("builtin-syntax", "pre", null);
@@ -106,7 +155,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             dict1.Add("border", "solid #FFEE00 1px");
             dict1.Add("padding", "5px");
 
-            resource.RegisterClassStyle(new CssClassStyle(selector1, dict1));
+            Resource.RegisterClassStyle(new CssClassStyle(selector1, dict1));
             #endregion
 
             #region pre.builtin-example
@@ -117,76 +166,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             dict2.Add("border", "solid gray 1px");
             dict2.Add("padding", "5px");
 
-            resource.RegisterClassStyle(new CssClassStyle(selector2, dict2));
-            #endregion
-
-            #region pre em.builtin-comment
-
-            var commentSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in commentSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-comment", "em", null));
-            
-            var commentDict = new Dictionary<string, string>();
-            commentDict.Add("color", "green");
-
-            resource.RegisterClassStyle(new CssClassStyle(commentSelectors, commentDict));
-
-            #endregion
-
-            #region pre span.builtin-string
-
-            var stringSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in stringSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", null));
-
-            var stringDict = new Dictionary<string, string>();
-            stringDict.Add("color", "blue");
-            stringDict.Add("font-style", "italic");
-
-            resource.RegisterClassStyle(new CssClassStyle(stringSelectors, stringDict));
-
-            #endregion
-
-            #region pre span.builtin-string:before
-
-            var beforeSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in beforeSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", CssPseudoClass.Before));
-
-            var beforeDict = new Dictionary<string, string>();
-            beforeDict.Add("content", @"'\''");
-
-            resource.RegisterClassStyle(new CssClassStyle(beforeSelectors, beforeDict));
-
-            #endregion
-
-            #region pre span.builtin-string:after
-
-            var afterSelectors = new CssStyleSelector[2]
-            {
-                new CssStyleSelector("builtin-syntax", "pre", null),
-                new CssStyleSelector("builtin-example", "pre", null)
-            };
-            foreach (var selector in afterSelectors)
-                selector.AddNestedSelector(new CssStyleSelector("builtin-string", "span", CssPseudoClass.After));
-
-            var afterDict = new Dictionary<string, string>();
-            afterDict.Add("content", @"'\''");
-
-            resource.RegisterClassStyle(new CssClassStyle(afterSelectors, afterDict));
-
+            Resource.RegisterClassStyle(new CssClassStyle(selector2, dict2));
             #endregion
 
             #region div.builtin-container
@@ -194,11 +174,30 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
             var dict3 = new Dictionary<string, string>();
             dict3.Add("border", "solid gray 1px");
-            dict3.Add("padding", "3px");
+            dict3.Add("padding", "5px");
             dict3.Add("margin", "2px");
 
-            resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
+            Resource.RegisterClassStyle(new CssClassStyle(selector3, dict3));
             #endregion
+        }
+
+        /// <summary>
+        /// converts code into Html highlighted code, using the <see cref="ChameleonCoder.Shared.InformationProvider.HtmlColorizeCode"/> method.
+        /// </summary>
+        /// <param name="code">the code to highlight</param>
+        /// <returns>the HTML representing the highlighted code if possible, the original code if highlighting fails</returns>
+        protected string HighlightCode(string code)
+        {
+            var langResource = Resource as ILanguageResource;
+            if (langResource != null)
+            {
+                if (Plugins.PluginManager.IsModuleRegistered(langResource.Language))
+                {
+                    var module = Plugins.PluginManager.GetModule(langResource.Language);
+                    return Shared.InformationProvider.HtmlColorizeCode(code, module);
+                }
+            }
+            return code;
         }
     }
 }

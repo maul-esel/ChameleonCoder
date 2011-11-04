@@ -63,13 +63,13 @@
 						<cc:resource cc:type="{478e8dd0-b37e-4616-8246-31984077bb64}" cc:id="{46f73fd9-a112-4bb2-ab27-5d12b717dc3d}"
                          cc:name="AutomaticGuiCreator.ahk" cc:description="auto-creates and reworks GUI code" cc:notes="this script is incredible! It creates code from drawings and optimizes them!"
                          cc:path="C:\anywhere\AGC.ahk"
-                         cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}"/>
+                         cc:language="{17176460-6d4b-4cca-b64d-b51ac96ab584}"/>
 					</cc:resource>
 				</cc:resource>
 			</cc:resource>
 			<cc:resource cc:type="{4c6175ed-aed4-4b1d-b39d-f66f400f8d23}" cc:id="{9dcb55f1-9fed-43bf-98b7-da8b9a1700a1}"
                    cc:name="SVS-Funktionen" cc:description="divers functions" cc:notes=""
-                   cc:language="{82ff6b49-18fd-42ba-bd1e-e150af60e0a5}" cc:priority="2"/>
+                   cc:language="{c3da3961-e7ef-4ec2-9576-63a91e0916cb}" cc:priority="2"/>
 		</cc:resource>
 		<cc:resource cc:type="{14ef6d0d-df62-4519-8bd7-bd1aff5bc44c}" cc:id="{31efc3af-111f-4a6a-a7a7-56318d73449e}"
                  cc:name="Aufgabe1" cc:description="a new task" cc:notes=""
@@ -79,6 +79,9 @@
                  cc:path="#Include\Thumbnail.ahk"
                  cc:language="3b737871-bc94-4eda-a3f6-0c1b7da0c7fd"
                  cc:author="maul.esel" cc:license="" cc:version="1"/>
+    <cc:resource cc:type="{20bde16c-4201-452d-af66-215734686fa7}" cc:id="{844c5e08-07b9-4486-bede-156c44f171bb}"
+                 cc:name="compiled_source1" cc:description="a .NET assembly created from an IA script" cc:notes=""
+                 cc:language="{2db75a0a-eafa-46ad-90b6-1143094e3ed1}" />
 	</cc:resources>
 	<cc:data>
 		<cc:resourcedata cc:id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
@@ -109,10 +112,15 @@
 			</cc:metadata>
 			<cc:created>2011-10-12T18:45:00</cc:created>
       <cc:richcontent>
-        <cc:member cc:id="{59473c3e-7159-4ae3-bbbd-aefc09a1cbca}" cc:type="{23f3716c-08a1-44d3-8a54-ac01c29435a2}" cc:name="test member"/>
-        <cc:member cc:id="{299d2bdf-e9f8-4222-856f-dba4fbfa7681}" cc:type="{2fc4ddba-0af1-474b-8af7-3154103fa77e}" cc:name="MyFunction">
-          <cc:member cc:id="{564205d3-ef11-49ef-a9fe-da221b8e7abd}" cc:type="{d78144be-71b4-46f9-a947-4a5e3bf0caa9}" cc:name="param1" cc:description="this is the 1st param."
-                     cc:default-value="'abc'" cc:param-type="string"/>
+        <cc:member cc:id="{59473c3e-7159-4ae3-bbbd-aefc09a1cbca}" cc:type="{23f3716c-08a1-44d3-8a54-ac01c29435a2}" cc:name="test_member"
+                   cc:description="This is a dummy member for RichContent. You can use the value, but it will always be 'null'." cc:summary="a dummy member to test RichContent"
+                   cc:example="test_member.ToString() ; throws a NullReferenceException"/>
+        <cc:member cc:id="{299d2bdf-e9f8-4222-856f-dba4fbfa7681}" cc:type="{2fc4ddba-0af1-474b-8af7-3154103fa77e}" cc:name="MyFunction"
+                   cc:description="This function calls itself recursively a hundred times. It doesn't do anything else, so it's absolutely useless. ;-)" cc:summary="A user-defined function for testing RichContent"
+                   cc:example="MyFunction(&quot;;-)&quot;) ; this is a test">
+          <cc:member cc:id="{564205d3-ef11-49ef-a9fe-da221b8e7abd}" cc:type="{d78144be-71b4-46f9-a947-4a5e3bf0caa9}" cc:name="param1"
+                     cc:default-value='"abc"' cc:var-type="string"
+                     cc:summary="the first param to the useless function" cc:description="This parameter can be set to whatever you want. It does absolutely nothing, it's just to annoy you :D"/>
         </cc:member>
       </cc:richcontent>
 		</cc:resourcedata>

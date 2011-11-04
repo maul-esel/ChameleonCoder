@@ -69,6 +69,7 @@ namespace ChameleonCoder.ComponentCore
             ResourceTypeManager.RegisterComponent(typeof(GroupResource), Guid.Parse(GroupResource.Key), this);
             ResourceTypeManager.RegisterComponent(typeof(LibraryResource), Guid.Parse(LibraryResource.Key), this);
             ResourceTypeManager.RegisterComponent(typeof(ProjectResource), Guid.Parse(ProjectResource.Key), this);
+            ResourceTypeManager.RegisterComponent(typeof(CompiledResource), Guid.Parse(CompiledResource.Key), this);
         }
 
         /// <summary>
@@ -102,6 +103,8 @@ namespace ChameleonCoder.ComponentCore
                 name = Res.Display_Project;
             else if (type == typeof(TaskResource))
                 name = Res.Display_Task;
+            else if (type == typeof(CompiledResource))
+                name = Res.Display_Compiled;
 
             return name;
         }
@@ -126,6 +129,8 @@ namespace ChameleonCoder.ComponentCore
                 name = "project";
             else if (type == typeof(TaskResource))
                 name = "task";
+            else if (type == typeof(CompiledResource))
+                name = "compiled";
 
             return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/" + name + ".png"));
         }
@@ -153,6 +158,8 @@ namespace ChameleonCoder.ComponentCore
                 bottom = Colors.Red;
             else if (type == typeof(TaskResource))
                 bottom = Colors.Lime;
+            else if (type == typeof(CompiledResource))
+                bottom = Colors.Coral;
 
             var brush = new LinearGradientBrush(top, bottom,
                 new System.Windows.Point(0.5, 0), new System.Windows.Point(0.5, 1)).GetAsFrozen() as Brush;
@@ -186,9 +193,10 @@ namespace ChameleonCoder.ComponentCore
             get { return registeredTypesArray; }
         }
 
-        private static Type[] registeredTypesArray = new Type[6] { typeof(FileResource), typeof(CodeResource),
+        private static Type[] registeredTypesArray = new Type[7] { typeof(FileResource), typeof(CodeResource),
                                                                    typeof(LibraryResource), typeof(ProjectResource),
-                                                                   typeof(TaskResource), typeof(GroupResource) };
+                                                                   typeof(TaskResource), typeof(GroupResource),
+                                                                   typeof(CompiledResource) };
 
         /// <summary>
         /// creates a new instance of a resource type registered by this factory

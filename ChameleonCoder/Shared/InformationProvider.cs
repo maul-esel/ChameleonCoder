@@ -240,6 +240,41 @@ namespace ChameleonCoder.Shared
             return path;
         }
 
+        /// <summary>
+        /// outputs HTML-colored code
+        /// </summary>
+        /// <param name="code">the code to highlight</param>
+        /// <param name="rules">the AvalonEdit ruleset to apply</param>
+        /// <returns>the HTML markup representing the highlighted code</returns>
+        public static string HtmlColorizeCode(string code, ICSharpCode.AvalonEdit.Highlighting.HighlightingRuleSet rules)
+        {
+            var document = new ICSharpCode.AvalonEdit.Document.TextDocument(code);
+            var highlighter = new ICSharpCode.AvalonEdit.Highlighting.DocumentHighlighter(document, rules);
+
+            string highlightedCode = null;
+
+            for (int i = 1; i <= document.LineCount; i++)
+            {
+                highlightedCode += highlighter.HighlightLine(i).ToHtml(new ICSharpCode.AvalonEdit.Highlighting.HtmlOptions());
+            }
+
+            return highlightedCode;
+        }
+
+        /// <summary>
+        /// outputs HTML-colored code
+        /// </summary>
+        /// <param name="code">the code to highlight</param>
+        /// <param name="module">the ILanguageModule whose ruleset should be applied.</param>
+        /// <returns>the HTML markup representing the highlighted code</returns>
+        /// <remarks>If highlighting fails, the original code is returned.</remarks>
+        public static string HtmlColorizeCode(string code, ILanguageModule module)
+        {
+            if (module.Highlighting != null)
+                return HtmlColorizeCode(code, module.Highlighting.MainRuleSet);
+            return code;
+        }
+
         #endregion
 
         #region events

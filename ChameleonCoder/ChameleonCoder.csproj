@@ -130,6 +130,8 @@
     <Compile Include="Resources\RichContent\Css\CssClassStyle.cs" />
     <Compile Include="Resources\RichContent\Css\CssStyleSelector.cs" />
     <Compile Include="Resources\RichContent\Css\CssPseudoClass.cs" />
+    <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
+    <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
     <Compile Include="SecureNotifyPropertyChanged.cs" />
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
@@ -457,6 +459,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChameleonCoder.rc" />
+    <Resource Include="Images\resource_view.png" />
+    <Resource Include="Images\RichContent.png" />
     <Resource Include="Images\create_ccr.png" />
     <Resource Include="Images\close_ccr.png" />
     <Resource Include="Images\open_ccr.png" />

@@ -24,7 +24,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// gets the member's HTML representation
         /// </summary>
-        /// <param name="param">a parameter passed to the method, no special use</param>
+        /// <param name="param">not used.</param>
         /// <returns>the representation as HTML text</returns>
         public override string GetHtml(object param)
         {
@@ -38,25 +38,32 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
                 var parameter = child as ParameterMember;
                 if (parameter != null)
                 {
-                    paramTable += "<tr><td>" + parameter.Name + "</td><td>" + parameter.Description + "</td></tr>";
+                    paramTable += "<tr><td>" + parameter.Name + "</td><td><p>" + parameter.Summary + "</p><p>" + parameter.Description + "</p></td></tr>";
                     paramList += (string.IsNullOrWhiteSpace(parameter.Type) ? "" : parameter.Type + " ")
                         + parameter.Name
                         + (string.IsNullOrWhiteSpace(parameter.DefaultValue) ? "" : " = " + parameter.DefaultValue)
-                        + (Children[Children.Count - 1] == parameter ? "" : ", ");
+                        + ", ";
                 }
             }
+            paramList = paramList.TrimEnd(',', ' '); // remove last space + comma
 
             string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
-                + "<h3>Function: " + Name + "</h3>"
-                + "<p>[summary]</p>"
-                + "<pre class='builtin-syntax'>" + Name + "(" + paramList + ")</pre>"
-                + (string.IsNullOrWhiteSpace(paramTable) ? "" : "<table border='1'><thead><tr><th>Name:</th><th>Description:</th></thead><tbody>" + paramTable + "</tbody></table>")
+                + "<h3>" + ElementName + ": " + Name + "</h3>"
+                + "<p>" + Summary + "</p><hr/>"
+                + "<pre class='builtin-syntax'>" + HighlightCode(Name + "(" + paramList + ")") + "</pre>"
+                + (string.IsNullOrWhiteSpace(paramTable) ? "" : "<table border='1' cellpadding='5px'><thead><tr><th>Name:</th><th>Description:</th></thead><tbody>" + paramTable + "</tbody></table><hr/>")
                 + "<p>" + Description + "</p>"
+                + (string.IsNullOrWhiteSpace(Example) ? null : "<pre class='builtin-example'>" + HighlightCode(Example) + "</pre>")
                 + "</div>";
             return representation;
         }
 
         #endregion
+
+        protected override string ElementName
+        {
+            get { return "Function"; }
+        }
 
         internal const string Key = "{2fc4ddba-0af1-474b-8af7-3154103fa77e}";
     }

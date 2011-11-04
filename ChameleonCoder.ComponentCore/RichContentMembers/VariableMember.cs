@@ -20,13 +20,27 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         }
 
         /// <summary>
-        /// gets the member's HTML representation
+        /// gets a variable's type
         /// </summary>
-        /// <param name="param">a parameter passed to the method, no special use</param>
-        /// <returns>the representation as HTML text</returns>
-        public override string GetHtml(object param)
+        public string Type
         {
-            return "<div class='builtin-container' id='" + Identifier.ToString("b") + "'><h3>Variable: " + Name + "</h3><p>[description]</p><pre class='builtin-example'>[example here] <em class='builtin-comment'> ; comment here</em></pre></div>";
+            get { return Xml.GetAttribute("var-type", DataFile.NamespaceUri); }
+            protected set { Xml.SetAttribute("var-type", DataFile.NamespaceUri, value); }
+        }
+
+        /// <summary>
+        /// gets if a variable is readonly or not
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return bool.Parse(Xml.GetAttribute("isreadonly", DataFile.NamespaceUri)); }
+            protected set { Xml.SetAttribute("isreadonly", DataFile.NamespaceUri, value.ToString()); }
+        }
+
+
+        protected override string ElementName
+        {
+            get { return "Variable"; }
         }
 
         internal const string Key = "{23f3716c-08a1-44d3-8a54-ac01c29435a2}";

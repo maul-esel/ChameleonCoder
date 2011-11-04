@@ -65,7 +65,14 @@
       <xsd:attribute name="type"        type="guidType"		use="required"/>
       <xsd:attribute name="name"        type="xsd:string"	use="required"/>
       <xsd:attribute name="id"          type="guidType"		use="required"/>
+      <xsd:attribute name="description" type="xsd:string" use="required"/>
+      <xsd:attribute name="summary"     type="xsd:string" use="required"/>
       <xsd:attribute name="fallback"    type="guidType"   use="optional"/>
+      <xsd:attribute name="related"     use="optional">
+        <xsd:simpleType>
+          <xsd:list itemType="guidType"/>
+        </xsd:simpleType>
+      </xsd:attribute>
       <xsd:anyAttribute processContents="skip"/>
     </xsd:complexType>
   </xsd:element>

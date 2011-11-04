@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Xml;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -11,9 +11,9 @@ using ChameleonCoder.Resources.RichContent;
 namespace ChameleonCoder.ComponentCore.Resources
 {
     /// <summary>
-    /// represents a file containing source code
+    /// represents a file compiled from source code
     /// </summary>
-    public class CodeResource : FileResource, ICompilable, IRichContentResource
+    public class CompiledResource : FileResource, ILanguageResource, IRichContentResource
     {
         /// <summary>
         /// initializes the current instance with the given information
@@ -32,12 +32,12 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the icon that represents this instance to the user
         /// </summary>
-        /// <value>This is always the same as the CodeResource's type icon.</value>
+        /// <value>This is always the same as the CompiledResource's type icon.</value>
         public override ImageSource Icon
         {
             get
             {
-                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/code.png"))
+                return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.ComponentCore;component/Images/compiled.png"))
                     .GetAsFrozen() as ImageSource;
             }
         }
@@ -80,31 +80,6 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         private List<Guid> languages = new List<Guid>();
-
-        #endregion
-
-        #region ICompilable
-
-        /// <summary>
-        /// gets or sets the path to save the file if it is compiled.
-        /// </summary>
-        /// <value>The value is taken from the "compilation-path" attribute in the resource's XML.</value>
-        [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
-        public string CompilationPath
-        {
-            get
-            {
-                string result = Xml.GetAttribute("compilation-path", DataFile.NamespaceUri);
-                if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(Path))
-                    result = Path + ".exe";
-                return result;
-            }
-            set
-            {
-                Xml.SetAttribute("compilation-path", DataFile.NamespaceUri, value);
-                OnPropertyChanged("CompilationPath");
-            }
-        }
 
         #endregion
 
@@ -192,6 +167,6 @@ namespace ChameleonCoder.ComponentCore.Resources
 
         #endregion
 
-        internal new const string Key = "{478e8dd0-b37e-4616-8246-31984077bb64}";
+        internal new const string Key = "{20bde16c-4201-452d-af66-215734686fa7}";
     }
 }
