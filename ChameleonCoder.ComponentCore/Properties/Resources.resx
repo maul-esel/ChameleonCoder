@@ -120,6 +120,9 @@
   <data name="Display_Code" xml:space="preserve">
     <value>source code</value>
   </data>
+  <data name="Display_Compiled" xml:space="preserve">
+    <value>compiled source</value>
+  </data>
   <data name="Display_File" xml:space="preserve">
     <value>file</value>
   </data>
