@@ -29,9 +29,3 @@ RichContent -> new branch
 - breadcrumb: show difference between view, edit und RichContent (button / icon?)
 - buttons in edit + RichContent view
 	=> switch to others
-
-===========================
-RichContent -> new branch
-===========================
-- new resource class:
-	- "CompiledSource" : FileResource, ILanguageResource, IRichContentResource
