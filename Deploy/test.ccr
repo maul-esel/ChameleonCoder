@@ -79,6 +79,9 @@
                  cc:path="#Include\Thumbnail.ahk"
                  cc:language="3b737871-bc94-4eda-a3f6-0c1b7da0c7fd"
                  cc:author="maul.esel" cc:license="" cc:version="1"/>
+    <cc:resource cc:type="{20bde16c-4201-452d-af66-215734686fa7}" cc:id="{844c5e08-07b9-4486-bede-156c44f171bb}"
+                 cc:name="compiled_source1" cc:description="a .NET assembly created from an IA script" cc:notes=""
+                 cc:language="{2db75a0a-eafa-46ad-90b6-1143094e3ed1}" />
 	</cc:resources>
 	<cc:data>
 		<cc:resourcedata cc:id="{439bccec-fa17-4ef6-9037-cc93be66cb95}">
