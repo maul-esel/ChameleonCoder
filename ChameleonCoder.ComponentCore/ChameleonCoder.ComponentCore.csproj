@@ -58,6 +58,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\CompiledResource.cs" />
     <Compile Include="RichContentFactory.cs" />
     <Compile Include="RichContentMembers\ConstantMember.cs" />
     <Compile Include="RichContentMembers\FieldMember.cs" />
