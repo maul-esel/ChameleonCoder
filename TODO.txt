@@ -17,6 +17,16 @@ master
 - implement FileManagementPage
 
 ===========================
+master -> new branch
+===========================
+- allow custom tab pages for plugins
+- necessary to do so: make some classes public
+	- TabContext (?)
+	- ViewModelBase
+	- ViewModel - EventArgs
+	- ...
+
+===========================
 RichContent
 ===========================
 - ContentMember->ToHtml()
