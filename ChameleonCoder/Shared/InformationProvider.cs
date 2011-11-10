@@ -270,7 +270,7 @@ namespace ChameleonCoder.Shared
         /// <remarks>If highlighting fails, the original code is returned.</remarks>
         public static string HtmlColorizeCode(string code, ILanguageModule module)
         {
-            if (module.Highlighting != null)
+            if (module != null && module.Highlighting != null)
                 return HtmlColorizeCode(code, module.Highlighting.MainRuleSet);
             return code;
         }
