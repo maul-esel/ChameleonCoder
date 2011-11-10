@@ -5,6 +5,8 @@
     /// </summary>
     public enum SyntaxElement
     {
+        None,
+
         LineEnd,
 
         Assignment,
@@ -57,6 +59,8 @@
 
         StructInheritance,
 
-        InterfaceInheritance
+        InterfaceInheritance,
+
+        Constant
     }
 }
