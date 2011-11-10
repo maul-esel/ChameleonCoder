@@ -45,7 +45,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
         protected override Plugins.Syntax.SyntaxElement Element
         {
-            get { throw new System.NotSupportedException(); /*return Plugins.Syntax.SyntaxElement.Parameter;*/ }
+            get { return Plugins.Syntax.SyntaxElement.Parameter; }
         }
 
         internal new const string Key = "{d78144be-71b4-46f9-a947-4a5e3bf0caa9}";

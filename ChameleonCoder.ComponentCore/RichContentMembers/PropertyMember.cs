@@ -26,7 +26,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
         protected override Plugins.Syntax.SyntaxElement Element
         {
-            get { return Plugins.Syntax.SyntaxElement.ClassProperty; } // TODO: avoid assuming class here
+            get { return Plugins.Syntax.SyntaxElement.Property; }
         }
 
         internal new const string Key = "{419bc576-0817-4b7a-8127-f5ad4f7863e7}";
