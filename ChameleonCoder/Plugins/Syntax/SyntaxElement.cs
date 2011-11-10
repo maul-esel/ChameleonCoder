@@ -21,6 +21,20 @@
 
         ExtendedSignature,
 
+        ReturnValue,
+
+        Field,
+
+        Property,
+
+        Parameter,
+
+        Variable,
+
+        ExplicitVariableDeclaration,
+
+        TypedVariableDeclaration,
+
 
         Assignment,
 
