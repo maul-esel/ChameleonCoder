@@ -28,6 +28,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <returns>the representation as HTML text</returns>
         public override string GetHtml(object param)
         {
+            string style = QuerySupported(Element) == false ? " style='border: dashed red 3px'" : null;
             string Syntax = "<pre class='builtin-syntax'>" + Name + "({0})";
 
             string paramTable = null;
@@ -38,7 +39,8 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
                 var parameter = child as ParameterMember;
                 if (parameter != null)
                 {
-                    paramTable += "<tr><td>" + parameter.Name + "</td><td><p>" + parameter.Summary + "</p><p>" + parameter.Description + "</p></td></tr>";
+                    string cellStyle = QuerySupported(Plugins.Syntax.SyntaxElement.ParamDefaultValueAssignment) == false && parameter.DefaultValue != null ? " style='border: dashed red 3px'" : null;
+                    paramTable += "<tr><td" + cellStyle + ">" + parameter.Name + "</td><td><p>" + parameter.Summary + "</p><p>" + parameter.Description + "</p></td></tr>";
                     paramList += (string.IsNullOrWhiteSpace(parameter.Type) ? "" : parameter.Type + " ")
                         + parameter.Name
                         + (string.IsNullOrWhiteSpace(parameter.DefaultValue) ? "" : " = " + parameter.DefaultValue)
@@ -47,7 +49,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             }
             paramList = paramList.TrimEnd(',', ' '); // remove last space + comma
 
-            string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'>"
+            string representation = "<div class='builtin-container' id='" + Identifier.ToString("b") + "'" + style + ">"
                 + "<h3>" + ElementName + ": " + Name + "</h3>"
                 + "<p>" + Summary + "</p><hr/>"
                 + "<pre class='builtin-syntax'>" + HighlightCode(Name + "(" + paramList + ")") + "</pre>"
@@ -63,6 +65,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         protected override string ElementName
         {
             get { return "Function"; }
+        }
+
+        protected override Plugins.Syntax.SyntaxElement Element
+        {
+            get { return Plugins.Syntax.SyntaxElement.Function; }
         }
 
         internal const string Key = "{2fc4ddba-0af1-474b-8af7-3154103fa77e}";

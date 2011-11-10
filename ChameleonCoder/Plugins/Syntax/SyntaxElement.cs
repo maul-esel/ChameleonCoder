@@ -5,7 +5,36 @@
     /// </summary>
     public enum SyntaxElement
     {
+        None,
+
+        Array,
+
+        Function,
+
         LineEnd,
+
+        Method,
+
+        Constant,        
+
+        ScriptingObject,
+
+        ExtendedSignature,
+
+        ReturnValue,
+
+        Field,
+
+        Property,
+
+        Parameter,
+
+        Variable,
+
+        ExplicitVariableDeclaration,
+
+        TypedVariableDeclaration,
+
 
         Assignment,
 
@@ -13,50 +42,79 @@
 
         ParamDefaultValueAssignment,
 
+
         StringDelimiter,
 
         AltStringDelimiter,
+
 
         VariableDelimiterBegin,
 
         VariableDelimiterEnd,
 
+
         Comment,
+
+        MultiLineComment,
 
         MultiLineCommentBegin,
 
         MultiLineCommentEnd,
 
+
         Class,
 
-        Struct,
+        ClassAccessor,
 
-        Interface,
+        ClassField,
 
-        Function,
+        ClassInheritance,
+
+        MultipleClassInheritance,
+
+        ClassMethod,
 
         ClassProperty,
 
-        ClassField,
+
+        Struct,
+
+        StructAccessor,
+
+        StructInheritance,
+
+        MultipleStructInheritance,
+
+        StructMethod,
+
+
+        Interface,
+
+        InterfaceAccessor,
+
+        InterfaceInheritance,
+
+        MultipleInterfaceInheritance,
+
+        InterfaceImplementation,
+
+        MultipleInterfaceImplementation,
+
+        InterfaceMethod,
+
 
         PropertyAccessor,
 
         FieldAccessor,
 
-        ClassAccessor,
-
-        StructAccessor,
-
-        InterfaceAccessor,
 
         Constructor,
 
         Destructor,
 
-        ClassInheritance,
 
-        StructInheritance,
+        Operator,
 
-        InterfaceInheritance
+        CustomOperator
     }
 }

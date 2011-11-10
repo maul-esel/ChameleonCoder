@@ -24,6 +24,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             get { return "Field"; }
         }
 
+        protected override Plugins.Syntax.SyntaxElement Element
+        {
+            get { return Plugins.Syntax.SyntaxElement.Field; } // TODO: avoid assuming class here
+        }
+
         internal new const string Key = "{b98b04ea-71ff-4550-a4c1-2a8bf4b9121c}";
     }
 }

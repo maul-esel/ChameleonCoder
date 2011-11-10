@@ -43,6 +43,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             get { return "Parameter"; }
         }
 
+        protected override Plugins.Syntax.SyntaxElement Element
+        {
+            get { return Plugins.Syntax.SyntaxElement.Parameter; }
+        }
+
         internal new const string Key = "{d78144be-71b4-46f9-a947-4a5e3bf0caa9}";
     }
 }

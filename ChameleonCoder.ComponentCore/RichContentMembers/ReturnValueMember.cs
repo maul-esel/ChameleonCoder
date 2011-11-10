@@ -24,6 +24,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
             get { return "ReturnValue"; }
         }
 
+        protected override Plugins.Syntax.SyntaxElement Element
+        {
+            get { return Plugins.Syntax.SyntaxElement.ReturnValue; }
+        }
+
         internal new const string Key = "{3cbd3e0a-a17c-4c04-866a-5f1bf6796727}";
     }
 }

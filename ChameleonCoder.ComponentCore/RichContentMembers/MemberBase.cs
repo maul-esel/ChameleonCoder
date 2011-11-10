@@ -59,6 +59,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         protected abstract string ElementName { get; }
 
         /// <summary>
+        /// when overridden in a derived class, gets the member's type
+        /// </summary>
+        protected abstract Plugins.Syntax.SyntaxElement Element { get; }
+
+        /// <summary>
         /// gets the member's parent member
         /// </summary>
         public IContentMember Parent { get { return parentMember; } }
@@ -198,6 +203,51 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
                 }
             }
             return code;
+        }
+
+        /// <summary>
+        /// querys the Resource for ILanguageResource, and if it is one, the module for IProvideSyntaxInfo
+        /// </summary>
+        /// <returns>the IrovideSyntaxInfo instance (or null on failure)</returns>
+        protected Plugins.Syntax.IProvideSyntaxInfo QuerySyntaxModuleInterface()
+        {
+            var langResource = Resource as ILanguageResource;
+            if (langResource != null)
+            {
+                if (Plugins.PluginManager.IsModuleRegistered(langResource.Language))
+                {
+                    return Plugins.PluginManager.GetModule(langResource.Language) as Plugins.Syntax.IProvideSyntaxInfo;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// querys for the given SyntaxElement whether it is supported by the Resource's ILanguageModule
+        /// </summary>
+        /// <remarks>For this to work, the Resource must be an ILanguageResource and its module must be a IProvideSyntaxInfo</remarks>
+        /// <param name="element">the element to test</param>
+        /// <returns>true if supported, false if not supported, and null if querying fails</returns>
+        protected bool? QuerySupported(Plugins.Syntax.SyntaxElement element)
+        {
+            var module = QuerySyntaxModuleInterface();
+            if (module == null)
+                return null;
+            return module.IsSupported(element);
+        }
+
+        /// <summary>
+        /// querys for the given SyntaxElement for the syntax used for it
+        /// </summary>
+        /// <remarks>For this to work, the Resource must be an ILanguageResource and its module must be a IProvideSyntaxInfo</remarks>
+        /// <param name="element">the element to query for</param>
+        /// <returns>a string array, or null if querying fails</returns>
+        protected string[] QuerySyntax(Plugins.Syntax.SyntaxElement element)
+        {
+            var module = QuerySyntaxModuleInterface();
+            if (module == null)
+                return null;
+            return module.GetSyntax(element);
         }
     }
 }
