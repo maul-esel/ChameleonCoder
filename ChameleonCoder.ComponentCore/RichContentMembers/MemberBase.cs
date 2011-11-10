@@ -59,6 +59,11 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         protected abstract string ElementName { get; }
 
         /// <summary>
+        /// when overridden in a derived class, gets the member's type
+        /// </summary>
+        protected abstract Plugins.Syntax.SyntaxElement Element { get; }
+
+        /// <summary>
         /// gets the member's parent member
         /// </summary>
         public IContentMember Parent { get { return parentMember; } }

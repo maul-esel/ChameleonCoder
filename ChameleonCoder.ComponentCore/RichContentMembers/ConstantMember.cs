@@ -39,5 +39,10 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         {
             get { return "Constant"; }
         }
+
+        protected override Plugins.Syntax.SyntaxElement Element
+        {
+            get { return Plugins.Syntax.SyntaxElement.Constant; }
+        }
     }
 }
