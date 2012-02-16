@@ -9,101 +9,104 @@
                   IsGlassEnabled="True" WindowState="Maximized">
        
     <odc:RibbonWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="GlobalResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="serviceStyle" TargetType="odc:RibbonApplicationMenuItem">
+                <Setter Property="Header" Value="{Binding Name}"/>
+                <Setter Property="Image" Value="{Binding Icon}"/>
+                <Setter Property="Command" Value="{x:Static cc:ChameleonCoderCommands.ExecuteService}"/>
+                <Setter Property="CommandParameter" Value="{Binding}"/>
+            </Style>
 
-        <Style x:Key="serviceStyle" TargetType="odc:RibbonApplicationMenuItem">
-            <Setter Property="Header" Value="{Binding Name}"/>
-            <Setter Property="Image" Value="{Binding Icon}"/>
-            <Setter Property="Command" Value="{x:Static cc:ChameleonCoderCommands.ExecuteService}"/>
-            <Setter Property="CommandParameter" Value="{Binding}"/>
-        </Style>
-
-        <ControlTemplate TargetType="Button" x:Key="CloseButton">
-            <Border CornerRadius="2" BorderThickness="1" Width="12" Height="12">
-                <Border.BorderBrush>
-                    <RadialGradientBrush x:Name="borderBrush" Opacity="0.0" SpreadMethod="Reflect" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="Gray" Offset="1"/>
-                    </RadialGradientBrush>
-                </Border.BorderBrush>
-                <Border.Background>
-                    <LinearGradientBrush x:Name="bgBrush" StartPoint="0,0" EndPoint="1,1" Opacity="0.0">
-                        <GradientStop Color="DarkRed" Offset="0"/>
-                        <GradientStop Color="Red" Offset="0.5"/>
-                        <GradientStop Color="DarkRed" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <TextBlock Text="X" FontWeight="DemiBold" FontFamily="Arial" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ControlTemplate TargetType="Button" x:Key="CloseButton">
+                <Border CornerRadius="2" BorderThickness="1" Width="12" Height="12">
+                    <Border.BorderBrush>
+                        <RadialGradientBrush x:Name="borderBrush" Opacity="0.0" SpreadMethod="Reflect" GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Gray" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Border.BorderBrush>
+                    <Border.Background>
+                        <LinearGradientBrush x:Name="bgBrush" StartPoint="0,0" EndPoint="1,1" Opacity="0.0">
+                            <GradientStop Color="DarkRed" Offset="0"/>
+                            <GradientStop Color="Red" Offset="0.5"/>
+                            <GradientStop Color="DarkRed" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="X" FontWeight="DemiBold" FontFamily="Arial" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="Gray" x:Name="fgBrush"/>
                     </TextBlock.Foreground>
-                </TextBlock>
-            </Border>
-            <ControlTemplate.Triggers>
-                <EventTrigger RoutedEvent="Mouse.MouseDown">
-                    <BeginStoryboard>
-                        <Storyboard Duration="0:0:1">
-                            <DoubleAnimation To="1.0" Storyboard.TargetName="bgBrush" Storyboard.TargetProperty="Opacity"/>
-                            <ColorAnimation To="White" Storyboard.TargetName="fgBrush" Storyboard.TargetProperty="Color"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Mouse.MouseUp">
-                    <BeginStoryboard>
-                        <Storyboard Duration="0:0:1">
-                            <DoubleAnimation To="0.0" Storyboard.TargetName="bgBrush" Storyboard.TargetProperty="Opacity"/>
-                            <ColorAnimation To="Gray" Storyboard.TargetName="fgBrush" Storyboard.TargetProperty="Color"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard Duration="0:0:0.5">
-                            <DoubleAnimation To="1.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                    <BeginStoryboard>
-                        <Storyboard Duration="0:0:0.5">
-                            <DoubleAnimation To="0.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        
-       <Style TargetType="TabItem">
+                    </TextBlock>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <EventTrigger RoutedEvent="Mouse.MouseDown">
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:1">
+                                <DoubleAnimation To="1.0" Storyboard.TargetName="bgBrush" Storyboard.TargetProperty="Opacity"/>
+                                <ColorAnimation To="White" Storyboard.TargetName="fgBrush" Storyboard.TargetProperty="Color"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Mouse.MouseUp">
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:1">
+                                <DoubleAnimation To="0.0" Storyboard.TargetName="bgBrush" Storyboard.TargetProperty="Opacity"/>
+                                <ColorAnimation To="Gray" Storyboard.TargetName="fgBrush" Storyboard.TargetProperty="Color"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:0.5">
+                                <DoubleAnimation To="1.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:0.5">
+                                <DoubleAnimation To="0.0" Storyboard.TargetName="borderBrush" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
 
-            <Setter Property="HeaderTemplate">
-                <Setter.Value>
-                    
-                    <DataTemplate>
-                        
-                        <StackPanel Orientation="Horizontal">
-                            
-                            <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="2"/>
-                            
-                            <Button Template="{StaticResource CloseButton}" HorizontalAlignment="Right"
+            <Style TargetType="TabItem">
+
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+
+                        <DataTemplate>
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="2"/>
+
+                                <Button Template="{StaticResource CloseButton}" HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Command="{x:Static cc:ChameleonCoderCommands.CloseTab}"
                                     CommandParameter="{TemplateBinding Property=DataContext}"/>
-                            
-                        </StackPanel>
-                        
-                    </DataTemplate>
-                    
-                </Setter.Value>
-            </Setter>
-           
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <Frame Content="{Binding Content}" NavigationUIVisibility="Hidden"/>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
+                            </StackPanel>
+
+                        </DataTemplate>
+
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Frame Content="{Binding Content}" NavigationUIVisibility="Hidden"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </odc:RibbonWindow.Resources>
     
     <Grid>

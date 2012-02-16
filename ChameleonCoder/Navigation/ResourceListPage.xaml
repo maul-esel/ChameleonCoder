@@ -5,16 +5,19 @@
       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
     
     <Page.Resources>
-
-        <CollectionViewSource Source="{StaticResource resources}" Filter="Filter" x:Key="ResListSource">
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription Converter="{StaticResource CustomGroupConverter}"/>
-            </CollectionViewSource.GroupDescriptions>
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Name"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../GlobalResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <CollectionViewSource Source="{StaticResource resources}" Filter="Filter" x:Key="ResListSource">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription Converter="{StaticResource CustomGroupConverter}"/>
+                </CollectionViewSource.GroupDescriptions>
+                <CollectionViewSource.SortDescriptions>
+                    <scm:SortDescription PropertyName="Name"/>
+                </CollectionViewSource.SortDescriptions>
+            </CollectionViewSource>
+        </ResourceDictionary>
     </Page.Resources>
 
     <ListBox x:Name="ResourceList"
