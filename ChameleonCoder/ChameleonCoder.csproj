@@ -116,6 +116,7 @@
     <Compile Include="CCSearchReplaceDialog.xaml.cs">
       <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ChameleonCoderCommands.cs" />
     <Compile Include="DataFileReference.cs" />
     <Compile Include="DefaultRepresentationAttribute.cs" />
@@ -126,6 +127,7 @@
     </Compile>
     <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
     <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
+    <Compile Include="RegistryManager.cs" />
     <Compile Include="Resources\CommonResourceProperty.cs" />
     <Compile Include="Resources\ResourcePropertyGroup.cs" />
     <Compile Include="SecureNotifyPropertyChanged.cs" />
