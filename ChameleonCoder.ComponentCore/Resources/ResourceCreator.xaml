@@ -77,19 +77,6 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <!--ICompilable-->
-            <TextBlock Margin="5" Grid.Column="0" Grid.Row="8" Text="Compilation path:" Name="_CompilePath1"/>
-            <Grid Grid.Column="1" Grid.Row="8" Name="_CompilePath2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBox Margin="5" Grid.Column="0" Grid.ColumnSpan="1" Name="ResourceCompilePath"
-                         Text="{Binding Path=ResCompilationPath}"/>
-                <Button Margin="5" Grid.Column="1" Height="25" Content="Select compilation path"/>
-            </Grid>
-            
             <!--LibraryResource-->
             <TextBlock Margin="5" Grid.Column="0" Grid.Row="9" Text="Author:" Name="_Author"/>
             <TextBox Margin="5" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Name="ResourceAuthor"

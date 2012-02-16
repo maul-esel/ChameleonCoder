@@ -13,7 +13,7 @@ namespace ChameleonCoder.ComponentCore.Resources
     /// <summary>
     /// represents a file containing source code
     /// </summary>
-    public class CodeResource : FileResource, ICompilable, IRichContentResource
+    public class CodeResource : FileResource, IRichContentResource
     {
         /// <summary>
         /// initializes the current instance with the given information
@@ -80,31 +80,6 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         private List<Guid> languages = new List<Guid>();
-
-        #endregion
-
-        #region ICompilable
-
-        /// <summary>
-        /// gets or sets the path to save the file if it is compiled.
-        /// </summary>
-        /// <value>The value is taken from the "compilation-path" attribute in the resource's XML.</value>
-        [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
-        public string CompilationPath
-        {
-            get
-            {
-                string result = Xml.GetAttribute("compilation-path", DataFile.NamespaceUri);
-                if (string.IsNullOrWhiteSpace(result) && !string.IsNullOrWhiteSpace(Path))
-                    result = Path + ".exe";
-                return result;
-            }
-            set
-            {
-                Xml.SetAttribute("compilation-path", DataFile.NamespaceUri, value);
-                OnPropertyChanged("CompilationPath");
-            }
-        }
 
         #endregion
 

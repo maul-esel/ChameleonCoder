@@ -440,15 +440,6 @@ namespace ChameleonCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to compiled Path:.
-        /// </summary>
-        internal static string Info_CompilationPath {
-            get {
-                return ResourceManager.GetString("Info_CompilationPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Description:.
         /// </summary>
         internal static string Info_Description {

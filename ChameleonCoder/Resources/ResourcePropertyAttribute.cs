@@ -35,7 +35,6 @@ namespace ChameleonCoder.Resources
                 case CommonResourceProperty.Name: name = Name_Name; break;
                 case CommonResourceProperty.Description: name = Description_Name; break;
                 case CommonResourceProperty.Parent: name = Parent_Name; break;
-                case CommonResourceProperty.CompilationPath: name = CompilationPath_Name; break;
                 case CommonResourceProperty.FSPath: name = FSPath_Name; break;
                 case CommonResourceProperty.Language: name = Language_Name; break;
                 case CommonResourceProperty.CompatibleLanguages: name = CompatibleLanguages_Name; break;
@@ -78,8 +77,6 @@ namespace ChameleonCoder.Resources
         private static string Description_Name { get { return Res.Info_Description; } }
 
         private static string Parent_Name { get { return Res.Info_Parent; } }
-
-        private static string CompilationPath_Name { get { return Res.Info_CompilationPath; } }
 
         private static string FSPath_Name { get { return Res.Info_FSPath; } }
 
@@ -140,11 +137,6 @@ namespace ChameleonCoder.Resources
         /// the resource's parent
         /// </summary>
         Parent,
-
-        /// <summary>
-        /// the resource's compilation path (for <see cref="ChameleonCoder.Resources.Interfaces.ICompilable"/> resources)
-        /// </summary>
-        CompilationPath,
 
         /// <summary>
         /// the resource's file system path (for <see cref="ChameleonCoder.Resources.Interfaces.IFSComponent"/> resources)

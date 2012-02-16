@@ -183,9 +183,6 @@
   <data name="Info_Author" xml:space="preserve">
     <value>Author:</value>
   </data>
-  <data name="Info_CompilationPath" xml:space="preserve">
-    <value>compiled Path:</value>
-  </data>
   <data name="Info_Description" xml:space="preserve">
     <value>Description:</value>
   </data>

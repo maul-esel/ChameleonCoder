@@ -122,11 +122,6 @@ namespace ChameleonCoder.ComponentCore.Resources
                 customAttributes.Add("language", () => ResLanguage.Identifier.ToString("b"));
             }
 
-            if (target.GetInterface(typeof(ICompilable).FullName) == null)
-                _CompilePath1.Visibility = _CompilePath2.Visibility = Visibility.Collapsed;
-            else
-                customAttributes.Add("compilation-path", () => ResCompilationPath);
-
             if (target != typeof(LibraryResource))
                 _Author.Visibility = _Version.Visibility = _License.Visibility
                     = ResourceAuthor.Visibility = ResourceVersion.Visibility = ResourceLicense.Visibility

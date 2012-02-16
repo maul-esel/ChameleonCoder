@@ -12,7 +12,7 @@ namespace ChameleonCoder.ComponentCore.Resources
     /// represents a project resource,
     /// inherits from ResourceBase
     /// </summary>
-    public class ProjectResource : ResourceBase, ICompilable
+    public class ProjectResource : ResourceBase
     {
         /// <summary>
         /// initializes the current instance with the given information
@@ -99,28 +99,6 @@ namespace ChameleonCoder.ComponentCore.Resources
         }
 
         private List<Guid> languages = new List<Guid>();
-
-        #endregion
-
-        #region ICompilable
-
-        /// <summary>
-        /// gets or sets the path to save the file if it is compiled.
-        /// </summary>
-        /// <value>The value is taken from the "compilation-path" attribute in the resource's XML.</value>
-        [ResourceProperty(CommonResourceProperty.CompilationPath, ResourcePropertyGroup.ThisClass)]
-        public string CompilationPath
-        {
-            get
-            {
-                return Xml.GetAttribute("compilation-path", DataFile.NamespaceUri);
-            }
-            set
-            {
-                Xml.SetAttribute("compilation-path", DataFile.NamespaceUri, value);
-                OnPropertyChanged("CompilationPath");
-            }
-        }
 
         #endregion
 
