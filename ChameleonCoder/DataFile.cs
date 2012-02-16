@@ -15,6 +15,20 @@ namespace ChameleonCoder
         /// </summary>
         public const string NamespaceUri = "ChameleonCoder://Resources/Schema/2011";
 
+        /// <summary>
+        /// a template for a new data file
+        /// </summary>
+        /// <remarks>{0} contains the datafile name, {1} the created data</remarks>
+        internal const string fileTemplate = @"<cc:ChameleonCoder xmlns:cc='ChameleonCoder://Resources/Schema/2011'>"
+                                                + "<cc:resources/>"
+                                                + "<cc:data/>"
+                                                + "<cc:settings>"
+                                                    + "<cc:name>{0}</cc:name>"
+                                                    + "<cc:created>{1}</cc:created>"
+                                                + "</cc:settings>"
+                                                + "<cc:references/>"
+                                            + "</cc:ChameleonCoder>";
+
         #region instance
 
         /// <summary>
