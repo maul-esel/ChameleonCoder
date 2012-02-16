@@ -7,7 +7,6 @@ using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
-using Microsoft.Win32;
 
 namespace ChameleonCoder
 {
@@ -16,6 +15,9 @@ namespace ChameleonCoder
     /// </summary>
     public partial class App : Application
     {
+        // this field is for temporary use only, it will be removed / changed later
+        internal static readonly ChameleonCoderApp instance = new ChameleonCoderApp();
+
         internal const string pathSeparator = "/";
 
         internal const string fileTemplate = @"<cc:ChameleonCoder xmlns:cc='ChameleonCoder://Resources/Schema/2011'>"
@@ -27,6 +29,30 @@ namespace ChameleonCoder
                                                 + "</cc:settings>"
                                                 + "<cc:references/>"
                                             + "</cc:ChameleonCoder>";
+
+        #region parameter constants
+
+        /// <summary>
+        /// param to install file extension
+        /// </summary>
+        private const string paramInstallExt = "--install_ext";
+
+        /// <summary>
+        /// param to uninstall file extension
+        /// </summary>
+        private const string paramUnInstallExt = "--uninstall_ext";
+
+        /// <summary>
+        /// param to install COM support
+        /// </summary>
+        private const string paramInstallCOM = "--install_COM";
+
+        /// <summary>
+        /// param to uninstall COM support
+        /// </summary>
+        private const string paramUnInstallCOM = "--uninstall_COM";
+
+        #endregion
 
         #region properties
 
@@ -59,49 +85,44 @@ namespace ChameleonCoder
         /// <param name="e">additional data containing the cmd arguments</param>
         private void InitHandler(object sender, StartupEventArgs e)
         {
-            // finding the path of the file to open:
             string path = null;
+            int exitCode = 0;
 
-            // parsing command line: 
-            if (e.Args.Length > 0)
+            // parsing command line:
+            int argIndex = 0;
+            foreach (string arg in e.Args)
             {
-                if (File.Exists(e.Args[0])) // if a file path is passed: use it as path
+                if (argIndex == e.Args.Length - 1 && File.Exists(arg))
+                    path = arg;
+                else
                 {
-                    path = e.Args[0];
+                    if (arg.Equals(paramInstallExt, StringComparison.OrdinalIgnoreCase))
+                    {
+                        //if (Registry.ClassesRoot.OpenSubKey(".ccr") == null) // this step is done in the RegistryManager class now
+                            RegisterExtension();
+                        // Environment.Exit(0); // shutdown the app (this is now done below the if)
+                    }
+                    else if (arg.Equals(paramUnInstallExt, StringComparison.OrdinalIgnoreCase))
+                    {
+                        //if (Registry.ClassesRoot.OpenSubKey(".ccr") != null) // this step is done in the RegistryManager class now
+                            UnRegisterExtension();
+                        // Environment.Exit(0); // shutdown the app (this is now done below the if)
+                    }
+                    else if (arg.Equals(paramInstallCOM, StringComparison.OrdinalIgnoreCase))
+                    {
+                        //Environment.Exit(-3); // not yet implemented
+                        exitCode = -3;
+                    }
+                    else if (arg.Equals(paramUnInstallCOM, StringComparison.OrdinalIgnoreCase))
+                    {
+                        //Environment.Exit(-3); // not yet implemented
+                        exitCode = -3;
+                    }
                 }
-                else if (e.Args[0].Equals("--install_ext", StringComparison.OrdinalIgnoreCase)) // param to install file extension
-                {
-                    if (Registry.ClassesRoot.OpenSubKey(".ccr") == null)
-                        RegisterExtension();
-                    Environment.Exit(0); // shutdown the app
-                }
-                else if (e.Args[0].Equals("--uninstall_ext", StringComparison.OrdinalIgnoreCase)) // param to uninstall file extension
-                {
-                    if (Registry.ClassesRoot.OpenSubKey(".ccr") != null)
-                        UnRegisterExtension();
-                    Environment.Exit(0); // shutdown the app
-                }
-                else if (e.Args[0].Equals("--install_COM", StringComparison.OrdinalIgnoreCase)) // param to install COM support
-                {
-                    Environment.Exit(-3); // not yet implemented
-                }
-                else if (e.Args[0].Equals("--uninstall_COM", StringComparison.OrdinalIgnoreCase)) // param to uninstall COM support
-                {
-                    Environment.Exit(-3); // not yet implemented
-                }
-                else if (e.Args[0].Equals("--install_full", StringComparison.OrdinalIgnoreCase)) // param to install file extensions and COM support
-                {
-                    System.Diagnostics.Process.Start(AppPath, "--install_ext");
-                    System.Diagnostics.Process.Start(AppPath, "--install_COM");
-                    Environment.Exit(0);
-                }
-                else if (e.Args[0].Equals("--uninstall_full", StringComparison.OrdinalIgnoreCase)) // param to uninstall file extensions and COM support
-                {
-                    System.Diagnostics.Process.Start(AppPath, "--uninstall_ext");
-                    System.Diagnostics.Process.Start(AppPath, "--uninstall_COM");
-                    Environment.Exit(0);
-                }
+                argIndex++;
             }
+            if (path == null) // no file to open was specified
+                Environment.Exit(exitCode);
 
             // setting the Language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);
@@ -220,27 +241,19 @@ namespace ChameleonCoder
         /// <summary>
         /// registers the file extensions *.ccr
         /// </summary>
+        [Obsolete("use ChameleonCoderApp.RegisterExtension() instead.")]
         internal static void RegisterExtension()
         {
-            RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(".ccr", RegistryKeyPermissionCheck.ReadWriteSubTree);
-            regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
-            regCCR.Close();
-
-            regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\Shell\\Open\\command");
-            regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
-            regCCR.Close();
-
-            regCCR = Registry.ClassesRoot.CreateSubKey(".ccr\\DefaultIcon");
-            regCCR.SetValue("", AppPath + ", 1");
-            regCCR.Close();
+            instance.RegisterExtension();
         }
 
         /// <summary>
         /// unregisters the file extensions *.ccr
         /// </summary>
+         [Obsolete("use ChameleonCoderApp.UnRegisterExtension() instead.")]
         internal static void UnRegisterExtension()
         {
-            Registry.ClassesRoot.DeleteSubKeyTree(".ccr");
+            instance.UnRegisterExtension();
         }
         #endregion
 
