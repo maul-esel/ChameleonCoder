@@ -1,24 +1,13 @@
 ﻿using ICSharpCode.AvalonEdit.Highlighting;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
-    /// defines the interface all Language modules must implement
+    /// defines the interface all language modules must implement
     /// </summary>
     public interface ILanguageModule : IPlugin
     {
-        /// <summary>
-        /// called when the user requests to compile a resource
-        /// </summary>
-        /// <param name="resource">the Identifier of the resource to be compiled</param>
-        void Compile(Resources.Interfaces.ICompilable resource);
-
-        /// <summary>
-        /// called when the user requests to execute a resource
-        /// </summary>
-        /// <param name="resource">the Identifier of the resource to be executed</param>
-        void Execute(Resources.Interfaces.IExecutable resource);
-
         /// <summary>
         /// called when the user opens a resource or switches to the editing panel
         /// </summary>
@@ -28,6 +17,39 @@ namespace ChameleonCoder.Plugins
         /// called when the user leaves a resource or switches away from the editing panel
         /// </summary>
         void Unload();
+
+        /// <summary>
+        /// checks if the language module can compile the specified resource
+        /// </summary>
+        /// <param name="resource">the resource to check</param>
+        /// <returns>true if the resource can likely be compiled, false otherwise</returns>
+        /// <remarks>For language resources, this is called on the specified language module. Otherwise, the user can choose from the available modules.</remarks>
+        bool CanCompile(IResource resource);
+
+        /// <summary>
+        /// called when the user requests to compile a resource
+        /// </summary>
+        /// <param name="resource">the resource to be compiled</param>
+        /// <remarks>This is only called if <see cref="CanCompile"/> returns true.
+        /// Todo: possibly a return value indicating success or failure.</remarks>
+        void Compile(IResource resource);
+
+        /// <summary>
+        /// checks if the language module can execute the specified resource
+        /// </summary>
+        /// <param name="resource">the resource to check</param>
+        /// <returns>true if the resource can likely be executed, false otherwise</returns>
+        /// <remarks>For language resources, this is called on the specified language module. Otherwise, the user can choose from the available modules.
+        /// TODO: how to handle *.exe files?</remarks>
+        bool CanExecute(IResource resource);
+
+        /// <summary>
+        /// called when the user requests to execute a resource
+        /// </summary>
+        /// <param name="resource">the resource to be executed</param>
+        /// <remarks>This is only called if <see cref="CanExecute"/> returns true.
+        /// Todo: possibly a return value indicating success or failure.</remarks>
+        void Execute(IResource resource);
 
         /// <summary>
         /// the highlighting definition for the language, or null if none is available

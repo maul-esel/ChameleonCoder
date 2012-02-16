@@ -3,6 +3,7 @@
     /// <summary>
     /// an interface to implement by resources that can be compiled
     /// </summary>
+    [System.Obsolete("Replaced by ILanguageModule::Compile")]
     public interface ICompilable : ILanguageResource
     {
         /// <summary>

@@ -180,13 +180,13 @@
       <DependentUpon>NewResourceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\TemplateDefaultNameAttribute.cs" />
-    <Compile Include="Resources\Interfaces\IExecutable.cs" />
+    <Compile Include="Obsolete\IExecutable.cs" />
     <Compile Include="Resources\Interfaces\IFSComponent.cs" />
     <Compile Include="Plugins\ITemplate.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\Interfaces\IEditable.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
-    <Compile Include="Resources\Interfaces\ICompilable.cs" />
+    <Compile Include="Obsolete\ICompilable.cs" />
     <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
     <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\Management\ResourceTypeManager.cs" />
