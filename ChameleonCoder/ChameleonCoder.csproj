@@ -126,6 +126,8 @@
     </Compile>
     <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
     <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
+    <Compile Include="Resources\CommonResourceProperty.cs" />
+    <Compile Include="Resources\ResourcePropertyGroup.cs" />
     <Compile Include="SecureNotifyPropertyChanged.cs" />
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
