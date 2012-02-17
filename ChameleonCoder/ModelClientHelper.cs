@@ -8,6 +8,7 @@ namespace ChameleonCoder
     /// <summary>
     /// a helper class for model clients to avoid duplicate code
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal static class ModelClientHelper
     {
         /// <summary>

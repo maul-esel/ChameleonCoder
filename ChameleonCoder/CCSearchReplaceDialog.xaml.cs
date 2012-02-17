@@ -7,6 +7,7 @@ namespace ChameleonCoder
     /// <summary>
     /// Interaktionslogik für CCSearchReplaceDialog.xaml
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed partial class CCSearchReplaceDialog : Window
     {
         /// <summary>

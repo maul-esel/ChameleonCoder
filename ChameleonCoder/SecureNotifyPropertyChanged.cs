@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace ChameleonCoder
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal abstract class SecureNotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

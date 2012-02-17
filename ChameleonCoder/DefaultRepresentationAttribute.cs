@@ -1,6 +1,6 @@
 ﻿namespace ChameleonCoder
 {
-    [System.AttributeUsage(System.AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    [System.AttributeUsage(System.AttributeTargets.Class, Inherited = false, AllowMultiple = false), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class DefaultRepresentationAttribute : System.Attribute
     {
         internal DefaultRepresentationAttribute(System.Type representationType)

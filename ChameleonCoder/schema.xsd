@@ -16,7 +16,7 @@
 	<xsd:complexType name="metadataElementType">
 		<xsd:attribute name="key" type="xsd:string" use="required"/>
 		<xsd:attribute name="value" type="xsd:string" use="required"/>
-    <xsd:anyAttribute processContents="skip"/>
+		<xsd:anyAttribute processContents="skip"/>
 	</xsd:complexType>
 
 	<!-- DONE: the element containing metadata -->

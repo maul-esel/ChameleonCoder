@@ -5,6 +5,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class BreadcrumbContext : SecureNotifyPropertyChanged
     {
         internal BreadcrumbContext(Uri icon, IEnumerable children, CCTabPage pageType)

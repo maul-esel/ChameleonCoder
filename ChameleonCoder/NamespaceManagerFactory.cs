@@ -3,6 +3,7 @@ using System.Xml;
 
 namespace ChameleonCoder
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal static class NamespaceManagerFactory
     {
         internal static XmlNamespaceManager GetManager(XmlDocument doc)

@@ -14,7 +14,7 @@ namespace ChameleonCoder
     /// <item>apply this attribute on the class itself</item>
     /// </list>
     /// </remarks>
-    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class), System.Runtime.InteropServices.ComVisible(false)]
     public sealed class CCPluginAttribute : Attribute
     {
     }

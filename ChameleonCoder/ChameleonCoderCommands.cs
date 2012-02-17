@@ -5,6 +5,7 @@ namespace ChameleonCoder
     /// <summary>
     /// a class containing RoutedCommands special to ChameleonCoder
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     public static class ChameleonCoderCommands
     {
         #region page management
