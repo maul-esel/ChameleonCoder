@@ -9,7 +9,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// gets the properties of an IResource instance
     /// </summary>
-    [ValueConversion(typeof(Resources.Interfaces.IResource), typeof(List<PropertyDescription>))]
+    [ValueConversion(typeof(Resources.Interfaces.IResource), typeof(List<PropertyDescription>)), System.Runtime.InteropServices.ComVisible(false)]
     internal class ResourcePropertyConverter : IValueConverter
     {
         /// <summary>

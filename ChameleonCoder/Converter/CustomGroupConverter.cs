@@ -7,7 +7,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// this converter converts an IResource instance into the corresponding Type.
     /// </summary>
-    [ValueConversion(typeof(IResource), typeof(Type))]
+    [ValueConversion(typeof(IResource), typeof(Type)), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class CustomGroupConverter : IValueConverter
     {
         /// <summary>

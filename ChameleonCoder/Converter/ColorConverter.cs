@@ -8,7 +8,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// this converter returns the 'Background'-brush from a ResourceTypeInfo instance
     /// </summary>
-    [ValueConversion(typeof(IResource), typeof(System.Windows.Media.Brush))]
+    [ValueConversion(typeof(IResource), typeof(System.Windows.Media.Brush)), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class ColorConverter : IValueConverter
     {
         /// <summary>

@@ -9,7 +9,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// converts an IResource instance to the corresponding Language module's icon.
     /// </summary>
-    [ValueConversion(typeof(IResource), typeof(ImageSource))]
+    [ValueConversion(typeof(IResource), typeof(ImageSource)), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class ModuleIconConverter : IValueConverter
     {
         /// <summary>

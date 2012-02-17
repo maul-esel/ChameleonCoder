@@ -7,7 +7,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// this converter converts an integer into the corresponding culture name.
     /// </summary>
-    [ValueConversion(typeof(int), typeof(string))]
+    [ValueConversion(typeof(int), typeof(string)), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class CultureConverter : IValueConverter
     {
         /// <summary>

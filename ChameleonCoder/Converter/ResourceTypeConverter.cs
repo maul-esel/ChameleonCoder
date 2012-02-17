@@ -7,7 +7,7 @@ namespace ChameleonCoder.Converter
     /// <summary>
     /// this converter returns the "static" (localized) DisplayName of an IResource implmentation, given a Type object
     /// </summary>
-    [ValueConversion(typeof(Type), typeof(object))]
+    [ValueConversion(typeof(Type), typeof(object)), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class ResourceTypeConverter : IValueConverter
     {
         /// <summary>

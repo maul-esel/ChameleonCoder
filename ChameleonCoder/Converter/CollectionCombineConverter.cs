@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace ChameleonCoder.Converter
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal class CollectionCombineConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type target, object param, System.Globalization.CultureInfo culture)
