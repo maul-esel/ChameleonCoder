@@ -1,5 +1,6 @@
 /*/obj/
 /Deploy/Components/*
+/Deploy/*
 *.log
 *.pdb
 *.xml
