@@ -125,7 +125,7 @@ namespace ChameleonCoder.ViewModel
             if (!Attribute.IsDefined(dll, typeof(CCPluginAttribute)))
             {
                 OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallNoPlugin, path), Interaction.MessageSeverity.Error);
-                App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                ChameleonCoderApp.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
                     "refused plugin install: Assembly does not have CCPluginAttribute defined (" + path + ").",
                     null);
                 return;
@@ -149,7 +149,7 @@ namespace ChameleonCoder.ViewModel
             if (newPlugins.Count == 0)
             {
                 OnReport(Res.Status_InstallPlugin, string.Format(Res.Error_InstallEmptyAssembly, path), Interaction.MessageSeverity.Critical);
-                App.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
+                ChameleonCoderApp.Log(GetType().ToString() + " --> private void Install(object, EventArgs)",
                     "refused plugin install: Assembly does not contain plugin classes that aren't already installed (" + path + ").",
                     null);
                 return;
