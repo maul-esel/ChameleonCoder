@@ -27,5 +27,38 @@ namespace ChameleonCoder
         {
             RegistryManager.UnRegisterExtension();
         }
+        #region logging
+
+        /// <summary>
+        /// the path to the log file for the app
+        /// </summary>
+        [ComVisible(false)]
+        internal static readonly string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
+
+        /// <summary>
+        /// a template for the logging
+        /// </summary>
+        [ComVisible(false)]
+        internal const string logTemplate = "new event:"
+                                          + "\n\tsender: {0}"
+                                          + "\n\treason: {1}"
+                                          + "\n\t\t{2}"
+                                          + "\n===========================================\n\n";
+
+        /// <summary>
+        /// logs a message, such as a warning, an error, ...
+        /// </summary>
+        /// <param name="sender">the sender calling this method</param>
+        /// <param name="reason">the reason for the logging</param>
+        /// <param name="text">more information about the event</param>
+        [ComVisible(false)]
+        public static void Log(string sender, string reason, string text)
+        {
+            if (!File.Exists(logPath)) // create file if necessary
+                File.Create(logPath).Close(); // (and immediately close the stream)
+            File.AppendAllText(logPath, string.Format(logTemplate, sender, reason, text)); // log
+        }
+
+        #endregion
     }
 }
