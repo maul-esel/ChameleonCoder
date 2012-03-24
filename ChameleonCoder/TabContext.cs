@@ -141,32 +141,32 @@ namespace ChameleonCoder
                     case CCTabPage.FileManagement:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            App.pathSeparator,
+                            ChameleonCoderApp.resourcePathSeparator,
                             Res.Item_FileManagement);
 
                     case CCTabPage.Plugins:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            App.pathSeparator,
+                            ChameleonCoderApp.resourcePathSeparator,
                             Res.Item_Plugins);
 
                     case CCTabPage.ResourceList:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            App.pathSeparator,
+                            ChameleonCoderApp.resourcePathSeparator,
                             Res.Item_List);
 
                     case CCTabPage.Settings:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            App.pathSeparator,
+                            ChameleonCoderApp.resourcePathSeparator,
                             Res.Item_Settings);
 
                     case CCTabPage.ResourceView:
                     case CCTabPage.ResourceEdit:
                         return string.Format("{0}{1}{2}{3}",
                             Res.Item_Home,
-                            App.pathSeparator,
+                            ChameleonCoderApp.resourcePathSeparator,
                             Res.Item_List,
                             Resource.GetPath());
 

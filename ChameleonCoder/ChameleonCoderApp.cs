@@ -16,6 +16,11 @@ namespace ChameleonCoder
         /// <summary>
         /// registers the file extensions *.ccr
         /// </summary>
+        /// <summary>
+        /// the string used to separate resource paths
+        /// </summary>
+        [ComVisible(false)]
+        internal const string resourcePathSeparator = "/";
         internal void RegisterExtension()
         {
             RegistryManager.RegisterExtension();

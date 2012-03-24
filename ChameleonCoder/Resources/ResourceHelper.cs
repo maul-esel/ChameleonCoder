@@ -418,7 +418,7 @@ namespace ChameleonCoder
 
         public static string GetPath(this IResource resource)
         {
-            return resource.GetPath(App.pathSeparator);
+            return resource.GetPath(ChameleonCoderApp.resourcePathSeparator);
         }
 
         public static IResource GetResourceFromPath(string path, string separator)
@@ -451,7 +451,7 @@ namespace ChameleonCoder
 
         public static IResource GetResourceFromPath(string path)
         {
-            return GetResourceFromPath(path, App.pathSeparator);
+            return GetResourceFromPath(path, ChameleonCoderApp.resourcePathSeparator);
         }
 
         public static bool IsDescendantOf(this IResource resource, IResource ancestor)
