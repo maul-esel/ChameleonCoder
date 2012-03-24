@@ -44,6 +44,17 @@ namespace ChameleonCoder
         /// <summary>
         /// registers the file extensions *.ccr
         /// </summary>
+
+        /// <summary>
+        /// gets the directory containing the application
+        /// </summary>
+        internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
+
+        /// <summary>
+        /// gets the full path to the application
+        /// </summary>
+        internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
+
         /// <summary>
         /// the string used to separate resource paths
         /// </summary>

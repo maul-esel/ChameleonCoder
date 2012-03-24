@@ -17,7 +17,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         internal static void Load()
         {
-            Parallel.ForEach(Directory.GetFiles(Path.Combine(App.AppDir, "Components"), "*.dll"),
+            Parallel.ForEach(Directory.GetFiles(Path.Combine(ChameleonCoderApp.AppDir, "Components"), "*.dll"),
                 dll =>
                 {
                     System.Reflection.Assembly ass = null;

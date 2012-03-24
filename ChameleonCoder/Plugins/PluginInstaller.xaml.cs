@@ -60,9 +60,9 @@ namespace ChameleonCoder.Plugins
                 pluginTypes.Add(plugin.GetType());
                 pluginList.Remove(plugin);
 
-                if (Path.GetDirectoryName(plugin.GetType().Assembly.Location) != Path.Combine(App.AppDir, "Components"))
+                if (Path.GetDirectoryName(plugin.GetType().Assembly.Location) != Path.Combine(ChameleonCoderApp.AppDir, "Components"))
                     File.Copy(plugin.GetType().Assembly.Location,
-                        Path.Combine(App.AppDir, "Components\\",
+                        Path.Combine(ChameleonCoderApp.AppDir, "Components\\",
                         Path.GetFileName(plugin.GetType().Assembly.Location)));
 
                 Shared.InformationProvider.OnPluginInstalled(plugin);

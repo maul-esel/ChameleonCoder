@@ -54,7 +54,7 @@ namespace ChameleonCoder.Shared
         /// <summary>
         /// the directory which contains the ChameleonCoder executable
         /// </summary>
-        public static string AppDir { get { return App.AppDir; } }
+        public static string AppDir { get { return ChameleonCoderApp.AppDir; } }
 
         /// <summary>
         /// gets the type of page that is currently active

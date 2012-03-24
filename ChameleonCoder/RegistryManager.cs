@@ -19,11 +19,11 @@ namespace ChameleonCoder
                 regCCR.Close();
 
                 regCCR = Registry.ClassesRoot.CreateSubKey(fileExtension + "\\Shell\\Open\\command");
-                regCCR.SetValue("", "\"" + App.AppPath + "\" \"%1\"");
+                regCCR.SetValue("", "\"" + ChameleonCoderApp.AppPath + "\" \"%1\"");
                 regCCR.Close();
 
                 regCCR = Registry.ClassesRoot.CreateSubKey(fileExtension + "\\DefaultIcon");
-                regCCR.SetValue("", App.AppPath + ", 1");
+                regCCR.SetValue("", ChameleonCoderApp.AppPath + ", 1");
                 regCCR.Close();
             }
         }
