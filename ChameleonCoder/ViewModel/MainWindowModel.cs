@@ -652,7 +652,7 @@ namespace ChameleonCoder.ViewModel
                 {
                     foreach (var element in file.GetResources())
                     {
-                        App.AddResource(element, null);
+                        file.LoadResource(element, null);
                     }
                 }
             }
@@ -698,7 +698,7 @@ namespace ChameleonCoder.ViewModel
             {
                 using (var writer = new System.IO.StreamWriter(stream))
                 {
-                    writer.Write(string.Format(App.fileTemplate, input_args.Input, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")));
+                    writer.Write(string.Format(DataFile.fileTemplate, input_args.Input, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")));
                 }
             }
 

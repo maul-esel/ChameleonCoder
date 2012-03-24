@@ -59,7 +59,8 @@ namespace ChameleonCoder
         /// <param name="moveGUID">a bool defining whether the copy should receive the original Identifier or not.</param>
         public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
         {
-            var doc = (newParent == null ? resource.GetResourceFile() : newParent.GetResourceFile()).Document;
+            var file = newParent == null ? resource.GetResourceFile() : newParent.GetResourceFile();
+            var doc = file.Document;
             var manager = NamespaceManagerFactory.GetManager(doc);
 
             var element = (XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
@@ -79,7 +80,7 @@ namespace ChameleonCoder
             else // if the copy receives a new Identifier:
                 element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
 
-            App.AddResource(element, newParent); // let the App class create an instance, add it to the lists, init it, ...
+            file.LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ...
 
             resource.GetResourceFile().Save(); // save the documents
             if (newParent != null)
