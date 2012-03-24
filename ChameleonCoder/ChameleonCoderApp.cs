@@ -13,6 +13,34 @@ namespace ChameleonCoder
     [ComVisible(true), ProgId("ChameleonCoder.Application"), Guid("712fc748-468f-45db-ab09-e472b6a97b69"), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ChameleonCoderApp
     {
+        #region parameter constants
+
+        /// <summary>
+        /// param to install file extension
+        /// </summary>
+        [ComVisible(false)]
+        private const string paramInstallExt = "--install_ext";
+
+        /// <summary>
+        /// param to uninstall file extension
+        /// </summary>
+        [ComVisible(false)]
+        private const string paramUnInstallExt = "--uninstall_ext";
+
+        /// <summary>
+        /// param to install COM support
+        /// </summary>
+        [ComVisible(false)]
+        private const string paramInstallCOM = "--install_COM";
+
+        /// <summary>
+        /// param to uninstall COM support
+        /// </summary>
+        [ComVisible(false)]
+        private const string paramUnInstallCOM = "--uninstall_COM";
+
+        #endregion
+
         /// <summary>
         /// registers the file extensions *.ccr
         /// </summary>
