@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
 {
@@ -311,6 +313,53 @@ namespace ChameleonCoder
             }
 
             return elements;
+        }
+
+        /// <summary>
+        /// parses a XmlElement and its child elements for resource definitions
+        /// and creates instances for them, adding them to the global resource list
+        /// and to the given parent resource.
+        /// </summary>
+        /// <param name="node">the XmlElement to parse</param>
+        /// <param name="parent">the parent resource or null,
+        /// if the resource represented by <paramref name="node"/> is a top-level resource.</param>
+        internal void LoadResource(XmlElement node, IResource parent)
+        {
+            Guid type;
+            IResource resource = null;
+
+            if (Guid.TryParse(node.GetAttribute("type", NamespaceUri), out type))
+            {
+                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent); // try to use the element's name as resource alias
+            }
+            else if (Guid.TryParse(node.GetAttribute("fallback", NamespaceUri), out type))
+            {
+                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent); // give it a "2nd chance"
+            }
+
+            if (resource == null) // if creation failed:
+            {
+                ChameleonCoderApp.Log("DataFile  --> internal void LoadResource(XmlElement, IResource)",
+                    "failed to create resource",
+                    "resource-creation failed on:\n\t" +
+                     node.OuterXml + " in " + GetResourceFile(node.OwnerDocument).FilePath); // log
+                return; // ignore
+            }
+
+            ResourceManager.Add(resource, parent); // and add it to all required lists
+
+            foreach (XmlElement child in node.ChildNodes)
+            {
+                LoadResource(child, resource); // parse all child resources
+            }
+            resource.LoadReferences();
+
+            // convert it into a RichContentResource
+            IRichContentResource richResource = resource as IRichContentResource;
+            if (richResource != null) // if it is really a RichContentResource:
+            {
+                richResource.MakeRichContent(); // parse the RichContent
+            }
         }
 
         #endregion // instance
