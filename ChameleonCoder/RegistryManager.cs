@@ -2,6 +2,7 @@
 
 namespace ChameleonCoder
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal static class RegistryManager
     {
         public static readonly string fileExtension = ".ccr";

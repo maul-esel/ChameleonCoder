@@ -10,6 +10,7 @@ namespace ChameleonCoder
     /// <summary>
     /// the dialog to let the user create a new resource
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed partial class NewResourceDialog : Window
     {
         #region constructors

@@ -6,6 +6,7 @@ using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class TabContext : SecureNotifyPropertyChanged
     {
         #region constructors
