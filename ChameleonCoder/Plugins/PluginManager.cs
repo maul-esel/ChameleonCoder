@@ -27,7 +27,7 @@ namespace ChameleonCoder.Plugins
                     }
                     catch (BadImageFormatException e)
                     {
-                        App.Log("ChameleonCoder.Plugins.PluginManager->Load()",
+                        ChameleonCoderApp.Log("ChameleonCoder.Plugins.PluginManager->Load()",
                             "could not assembly '" + dll + "'",
                             e.ToString());
                     }
