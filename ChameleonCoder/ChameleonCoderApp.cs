@@ -60,6 +60,29 @@ namespace ChameleonCoder
         /// </summary>
         [ComVisible(false)]
         internal const string resourcePathSeparator = "/";
+
+        /// <summary>
+        /// destructor for the class
+        /// </summary>
+        ~ChameleonCoderApp()
+        {
+            Exit(0);
+        }
+
+        /// <summary>
+        /// exits the program
+        /// <param name="exitCode">the exit code</param>
+        /// </summary>
+        [DispId(0)]
+        public void Exit(int exitCode)
+        {
+            Plugins.PluginManager.Shutdown(); // inform plugins
+            DataFile.SaveAll(); // save changes to the opened files
+            DataFile.CloseAll();
+
+            Environment.Exit(exitCode);
+        }
+
         internal void RegisterExtension()
         {
             RegistryManager.RegisterExtension();
