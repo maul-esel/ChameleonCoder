@@ -27,7 +27,7 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// unregisters the file extensions *.ccr
+        /// unregisters the file extension *.ccr
         /// </summary>
         internal void UnRegisterExtension()
         {
