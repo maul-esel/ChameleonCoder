@@ -7,9 +7,10 @@ using Microsoft.Win32;
 
 namespace ChameleonCoder
 {
-    [ComVisible(true)]
-    [ProgId("ChameleonCoder.Application"), Guid("{712fc748-468f-45db-ab09-e472b6a97b69}")]
-    [InterfaceType(ComInterfaceType.InterfaceIsDual), ClassInterface(ClassInterfaceType.AutoDual)]
+    /// <summary>
+    /// The COM-visible new main class for the app
+    /// </summary>
+    [ComVisible(true), ProgId("ChameleonCoder.Application"), Guid("712fc748-468f-45db-ab09-e472b6a97b69"), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ChameleonCoderApp
     {
         /// <summary>
