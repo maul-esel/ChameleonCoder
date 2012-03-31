@@ -650,10 +650,7 @@ namespace ChameleonCoder.ViewModel
             {
                 if (!filesBefore.Contains(file))
                 {
-                    foreach (var element in file.GetResources())
-                    {
-                        file.LoadResource(element, null);
-                    }
+                    file.Load();
                 }
             }
         }

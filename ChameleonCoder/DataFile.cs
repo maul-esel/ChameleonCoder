@@ -299,7 +299,7 @@ namespace ChameleonCoder
         /// gets a list with the XML representation of all top-level resources in all opened files
         /// </summary>
         /// <returns>the list, containing of XmlElement instances</returns>
-        internal IEnumerable<XmlElement> GetResources()
+        private IEnumerable<XmlElement> GetResources()
         {
             var elements = new List<XmlElement>();
 
@@ -313,6 +313,12 @@ namespace ChameleonCoder
             }
 
             return elements;
+        }
+
+        public bool FileIsLoaded
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -380,6 +386,24 @@ namespace ChameleonCoder
             dirlist.Add(Path.GetDirectoryName(file.FilePath));
 
             return file;
+        }
+
+        // TODO:
+        // * rename "LoadedFiles" etc. to "OpenedFiles"
+        public void Load()
+        {
+            foreach (XmlElement element in GetResources())
+                LoadResource(element, null); // and parse the Xml
+            FileIsLoaded = true;
+        }
+
+        internal static void LoadAll()
+        {
+            foreach (var file in LoadedFiles)
+            {
+                if (!file.FileIsLoaded)
+                    file.Load();
+            }
         }
 
         /// <summary>

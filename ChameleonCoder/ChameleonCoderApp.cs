@@ -229,11 +229,7 @@ namespace ChameleonCoder
                 throw; // Todo: inform user, log
             }
 
-            foreach (var file in DataFile.LoadedFiles)
-            {
-                foreach (XmlElement element in file.GetResources())
-                    file.LoadResource(element, null); // and parse the Xml
-            }
+            DataFile.LoadAll();
         }
 
         /// <summary>
