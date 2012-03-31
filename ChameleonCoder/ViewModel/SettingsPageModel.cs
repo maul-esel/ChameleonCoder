@@ -71,7 +71,7 @@ namespace ChameleonCoder.ViewModel
                 Shared.InformationProvider.OnLanguageChanged();
 
                 // HACK: this should be done in main window or its model, not here
-                var breadcrumb = App.Gui.breadcrumb;
+                var breadcrumb = ChameleonCoderApp.Gui.breadcrumb;
 
                 breadcrumb.Path = breadcrumb.PathFromBreadcrumbItem(breadcrumb.RootItem)
                                 + breadcrumb.SeparatorString + Item_Settings;

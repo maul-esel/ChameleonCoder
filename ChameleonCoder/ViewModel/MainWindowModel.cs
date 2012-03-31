@@ -315,7 +315,7 @@ namespace ChameleonCoder.ViewModel
             if (restart)
                 System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
 
-            App.Current.Shutdown(0);
+            ChameleonCoderApp.RunningObject.Exit(0);
         }
 
         #region page management

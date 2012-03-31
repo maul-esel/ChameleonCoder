@@ -27,8 +27,8 @@ namespace ChameleonCoder
             if (!instances.ContainsKey(key))
             {
                 instances.TryAdd(key, value);
-                if (!App.Current.Dispatcher.CheckAccess())
-                    App.Current.Dispatcher.BeginInvoke(new Action(() => base.Add(value)));
+                if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
+                    ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() => base.Add(value)));
                 else
                     base.Add(value);
             }

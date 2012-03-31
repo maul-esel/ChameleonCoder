@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 using System.Threading.Tasks;
 using IF = ChameleonCoder.Shared.InformationProvider;
 
@@ -179,14 +180,14 @@ namespace ChameleonCoder.Plugins
                 module.Load();
                 ActiveModule = module;
 
-                if (!App.Current.Dispatcher.CheckAccess())
+                if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
                 {
-                    App.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                    ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
+                        ChameleonCoderApp.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                         module.Name, module.Version, module.Author, module.About)));
                 }
                 else
-                    App.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                    ChameleonCoderApp.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                         module.Name, module.Version, module.Author, module.About);
 
                 IF.OnModuleLoaded(module, new EventArgs());
@@ -210,13 +211,13 @@ namespace ChameleonCoder.Plugins
             ActiveModule.Unload();
             ActiveModule = null;
 
-            if (!App.Current.Dispatcher.CheckAccess())
+            if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
             {
-                App.Current.Dispatcher.BeginInvoke(new Action(() =>
-                    App.Gui.CurrentModule.Text = string.Empty));
+                ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
+                    ChameleonCoderApp.Gui.CurrentModule.Text = string.Empty));
             }
             else
-                App.Gui.CurrentModule.Text = string.Empty;
+                ChameleonCoderApp.Gui.CurrentModule.Text = string.Empty;
 
             IF.OnModuleUnloaded(module, new EventArgs());
         }
@@ -286,15 +287,15 @@ namespace ChameleonCoder.Plugins
 
             IF.OnServiceExecute(service, new EventArgs());
 
-            App.Gui.CurrentActionProgress.IsIndeterminate = true;
-            App.Gui.CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
+            ChameleonCoderApp.Gui.CurrentActionProgress.IsIndeterminate = true;
+            ChameleonCoderApp.Gui.CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
 
             service.Execute();
             while (service.IsBusy)
                 System.Threading.Thread.Sleep(100);
 
-            App.Gui.CurrentActionProgress.IsIndeterminate = false;
-            App.Gui.CurrentAction.Text = string.Empty;
+            ChameleonCoderApp.Gui.CurrentActionProgress.IsIndeterminate = false;
+            ChameleonCoderApp.Gui.CurrentAction.Text = string.Empty;
 
             IF.OnServiceExecuted(service, new EventArgs());
         }

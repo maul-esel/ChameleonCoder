@@ -87,7 +87,7 @@ namespace ChameleonCoder.Shared
                     if (!args.Handled)
                         InsertCode(args.Code);
                 };
-            App.Gui.CustomGroup1.Controls.Add(button);
+            ChameleonCoderApp.Gui.CustomGroup1.Controls.Add(button);
         }
 
         /// <summary>
