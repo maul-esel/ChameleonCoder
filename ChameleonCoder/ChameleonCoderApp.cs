@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Xml;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Management;
 
@@ -115,13 +114,13 @@ namespace ChameleonCoder
         /// gets the directory containing the application
         /// </summary>
         [ComVisible(false)]
-        internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } }
+        internal static string AppDir { get { return Path.GetDirectoryName(AppPath); } } // possibly make COM-visible
 
         /// <summary>
         /// gets the full path to the application
         /// </summary>
         [ComVisible(false)]
-        internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } }
+        internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } } // possibly make COM-visible
 
         /// <summary>
         /// gets the initially loaded file
@@ -162,44 +161,10 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// destructor for the class
-        /// </summary>
-        ~ChameleonCoderApp()
-        {
-            Exit(0);
-        }
-
-        public void LoadPlugins()
-        {
-            Plugins.PluginManager.Load();
-        }
-
-        public void InitWindow()
-        {
-            if (Gui != null)
-                throw new InvalidOperationException("Window has already been initialized.");
-            Gui = new MainWindow();
-        }
-
-        public void Show()
-        {
-            if (Gui == null)
-                this.InitWindow();
-            Gui.Show();
-        }
-
-        public void Hide()
-        {
-            if (Gui == null)
-                throw new InvalidOperationException("Window has not yet been initialized.");
-            Gui.Hide();
-        }
-
-        /// <summary>
         /// exits the program
         /// <param name="exitCode">the exit code</param>
         /// </summary>
-        [DispId(0)]
+        [DispId(1)]
         public void Exit(int exitCode)
         {
             Plugins.PluginManager.Shutdown(); // inform plugins
@@ -213,7 +178,7 @@ namespace ChameleonCoder
         /// opens the specified file
         /// </summary>
         /// <param name="path"></param>
-        [DispId(1)]
+        [DispId(2)]
         public void OpenFile(string path)
         {
             try
@@ -232,10 +197,12 @@ namespace ChameleonCoder
             DataFile.LoadAll();
         }
 
+        #region file extensions
+
         /// <summary>
         /// registers the file extension *.ccr
         /// </summary>
-        [DispId(2)]
+        [DispId(3)]
         internal void RegisterExtension()
         {
             RegistryManager.RegisterExtension();
@@ -244,11 +211,62 @@ namespace ChameleonCoder
         /// <summary>
         /// unregisters the file extension *.ccr
         /// </summary>
-        [DispId(3)]
+        [DispId(4)]
         internal void UnRegisterExtension()
         {
             RegistryManager.UnRegisterExtension();
         }
+
+        #endregion
+
+        /// <summary>
+        /// loads all the plugins
+        /// </summary>
+        [DispId(5)]
+        public void LoadPlugins()
+        {
+            Plugins.PluginManager.Load();
+        }
+
+        #region window management
+
+        /// <summary>
+        /// creates the main window
+        /// </summary>
+        /// <exception cref="InvalidOperationException">thrown if the window had already been initialized</exception>
+        [DispId(6)]
+        public void InitWindow()
+        {
+            if (Gui != null)
+                throw new InvalidOperationException("Window has already been initialized.");
+            Gui = new MainWindow();
+        }
+
+        /// <summary>
+        /// shows the main window
+        /// </summary>
+        /// <remarks>If <see cref="InitWindow"/> has not yet been called, it is called before showing thew window.</remarks>
+        [DispId(7)]
+        public void Show()
+        {
+            if (Gui == null)
+                this.InitWindow();
+            Gui.Show();
+        }
+
+        /// <summary>
+        /// hides the main window
+        /// </summary>
+        /// <exception cref="InvalidOperationException">throw if the window has not yet been initialized</exception>
+        [DispId(8)]
+        public void Hide()
+        {
+            if (Gui == null)
+                throw new InvalidOperationException("Window has not yet been initialized.");
+            Gui.Hide();
+        }
+
+        #endregion
 
         #region logging
 
