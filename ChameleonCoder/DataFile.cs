@@ -372,24 +372,22 @@ namespace ChameleonCoder
 
         #region static
 
-        internal static bool IsLoaded(string path)
+        internal static bool IsOpen(string path)
         {
-            return loadedFilePaths.Contains(path);
+            return pathsOpen.Contains(path);
         }
 
         internal static DataFile Open(string path)
         {
             var file = new DataFile(Path.GetFullPath(path));
 
-            loadedFiles.Add(file);
-            loadedFilePaths.Add(file.FilePath);
-            dirlist.Add(Path.GetDirectoryName(file.FilePath));
+            OpenFiles.Add(file);
+            pathsOpen.Add(file.FilePath);
+            dirList.Add(Path.GetDirectoryName(file.FilePath));
 
             return file;
         }
 
-        // TODO:
-        // * rename "LoadedFiles" etc. to "OpenedFiles"
         public void Load()
         {
             foreach (XmlElement element in GetResources())
@@ -399,7 +397,7 @@ namespace ChameleonCoder
 
         internal static void LoadAll()
         {
-            foreach (var file in LoadedFiles)
+            foreach (var file in OpenFiles)
             {
                 if (!file.FileIsLoaded)
                     file.Load();
@@ -437,7 +435,7 @@ namespace ChameleonCoder
         /// </summary>
         internal static void SaveAll()
         {
-            foreach (DataFile file in LoadedFiles)
+            foreach (DataFile file in OpenFiles)
                 file.Save();
         }
 
@@ -446,11 +444,11 @@ namespace ChameleonCoder
         /// </summary>
         internal static void CloseAll()
         {
-            foreach (DataFile file in LoadedFiles)
+            foreach (DataFile file in OpenFiles)
                 file.Close();
 
-            LoadedFiles.Clear();
-            loadedFilePaths.Clear();
+            OpenFiles.Clear();
+            pathsOpen.Clear();
             Directories.Clear();
         }
 
@@ -462,7 +460,7 @@ namespace ChameleonCoder
         /// <exception cref="InvalidOperationException">thrown if the corresponding DataFile is not found</exception>
         internal static DataFile GetResourceFile(XmlDocument doc)
         {
-            foreach (DataFile file in LoadedFiles)
+            foreach (DataFile file in OpenFiles)
                 if (file.Document == doc)
                     return file;
             throw new InvalidOperationException("this document's resource file cannot be detected:\n\n" + doc.DocumentElement.OuterXml);
@@ -475,29 +473,29 @@ namespace ChameleonCoder
         {
         	get
         	{
-        		return dirlist;
+        		return dirList;
         	}
         }
 
-        internal static IList<DataFile> LoadedFiles
+        internal static IList<DataFile> OpenFiles
         {
             get
             {
-                return loadedFiles;
+                return filesOpen;
             }
         }
         
-        private static readonly List<string> dirlist = new List<string>(new string[1] { Environment.CurrentDirectory });
+        private static readonly List<string> dirList = new List<string>(new string[1] { Environment.CurrentDirectory });
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths
         /// </summary>
-        private static readonly IList<string> loadedFilePaths = new List<string>();
+        private static readonly IList<string> pathsOpen = new List<string>();
 
         /// <summary>
         /// contains a list of all loaded files in form of their DataFile instances
         /// </summary>
-        private static readonly IList<DataFile> loadedFiles = new List<DataFile>();
+        private static readonly IList<DataFile> filesOpen = new List<DataFile>();
 
         #endregion
     }

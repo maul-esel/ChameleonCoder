@@ -51,7 +51,7 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
                 CloseFilesCommandExecuted,
-                (s, e) => e.CanExecute = DataFile.LoadedFiles.Count > 0));
+                (s, e) => e.CanExecute = DataFile.OpenFiles.Count > 0));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFile,
                 OpenFileCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
@@ -635,18 +635,18 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFile(string path)
         {
-            if (DataFile.IsLoaded(path))
+            if (DataFile.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);
                 return;
             }
 
-            var filesBefore = DataFile.LoadedFiles;
+            var filesBefore = DataFile.OpenFiles;
 
             DataFile.Open(path);
 
-            foreach (var file in DataFile.LoadedFiles)
+            foreach (var file in DataFile.OpenFiles)
             {
                 if (!filesBefore.Contains(file))
                 {
@@ -670,7 +670,7 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreatingFile, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
                 return;
             }
-            if (DataFile.IsLoaded(path))
+            if (DataFile.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);

@@ -30,7 +30,7 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return DataFile.LoadedFiles;
+                return DataFile.OpenFiles;
             }
         }
 
