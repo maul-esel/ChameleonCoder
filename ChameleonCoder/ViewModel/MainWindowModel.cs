@@ -642,17 +642,8 @@ namespace ChameleonCoder.ViewModel
                 return;
             }
 
-            var filesBefore = DataFile.OpenFiles;
-
             DataFile.Open(path);
-
-            foreach (var file in DataFile.OpenFiles)
-            {
-                if (!filesBefore.Contains(file))
-                {
-                    file.Load();
-                }
-            }
+            DataFile.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
         private void CreateFile()
