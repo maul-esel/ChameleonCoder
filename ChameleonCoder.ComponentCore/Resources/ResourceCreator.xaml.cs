@@ -155,7 +155,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         private void SearchFile(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
-            dialog.InitialDirectory = DataFile.Directories[0];
+            dialog.InitialDirectory = Environment.CurrentDirectory;
             dialog.DereferenceLinks = false;
 
             dialog.FileOk += (s, e2) =>
