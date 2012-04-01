@@ -1,4 +1,4 @@
-﻿namespace ChameleonCoder
+﻿namespace ChameleonCoder.Files
 {
     /// <summary>
     /// identifies the type of a reference in a DataFile

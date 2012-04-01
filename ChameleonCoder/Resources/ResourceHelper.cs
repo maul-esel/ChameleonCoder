@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using ChameleonCoder.Files;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources.RichContent;
@@ -472,7 +473,7 @@ namespace ChameleonCoder
         {
             try
             {
-                return DataFile.GetResourceFile(resource.Xml.OwnerDocument);
+                return ChameleonCoderApp.RunningObject.FileManager.GetResourceFile(resource.Xml.OwnerDocument);
             }
             catch (InvalidOperationException e)
             {

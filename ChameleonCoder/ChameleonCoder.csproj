@@ -117,9 +117,11 @@
     </Compile>
     <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ChameleonCoderCommands.cs" />
-    <Compile Include="DataFileReference.cs" />
-    <Compile Include="DataFileReferenceType.cs" />
+    <Compile Include="Files\DataFileReference.cs" />
+    <Compile Include="Files\DataFileReferenceType.cs" />
     <Compile Include="DefaultRepresentationAttribute.cs" />
+    <Compile Include="Files\DocumentXPath.cs" />
+    <Compile Include="Files\FileManager.cs" />
     <Compile Include="ModelClientHelper.cs" />
     <Compile Include="NamespaceManagerFactory.cs" />
     <Compile Include="Navigation\FileManagementPage.xaml.cs">
@@ -133,7 +135,7 @@
     <Compile Include="SecureNotifyPropertyChanged.cs" />
     <Compile Include="Settings\ChameleonCoderSettings.cs" />
     <Compile Include="Settings\CCSettingsProvider.cs" />
-    <Compile Include="DataFile.cs" />
+    <Compile Include="Files\DataFile.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="Shared\CCNumericUpDown.xaml.cs">
       <DependentUpon>CCNumericUpDown.xaml</DependentUpon>

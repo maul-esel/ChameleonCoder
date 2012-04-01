@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Management;
+using ChameleonCoder.Files;
 
 namespace ChameleonCoder
 {
@@ -95,7 +96,8 @@ namespace ChameleonCoder
             var load = Task.Factory.StartNew(() =>
                 {
                     RunningObject.LoadPlugins(); // load all plugins in the /Component/ folder
-                    RunningObject.OpenFile(path); // open the file(s)
+                    RunningObject.FileManager.Open(path); // open the file(s)
+                    RunningObject.FileManager.LoadAll();
                 });
 
             RunningObject.InitWindow(); // create the window during plugin & file loading
@@ -151,6 +153,7 @@ namespace ChameleonCoder
         /// <remarks>This must be COM-compatible! Do not add parameters!</remarks>
         public ChameleonCoderApp()
         {
+            FileManager = new Files.FileManager();
             RunningObject = this;
 
             // setting the Language the user chose
@@ -168,33 +171,17 @@ namespace ChameleonCoder
         public void Exit(int exitCode)
         {
             Plugins.PluginManager.Shutdown(); // inform plugins
-            DataFile.SaveAll(); // save changes to the opened files
-            DataFile.CloseAll();
+            FileManager.SaveAll(); // save changes to the opened files
+            FileManager.CloseAll();
 
             Environment.Exit(exitCode);
         }
 
-        /// <summary>
-        /// opens the specified file
-        /// </summary>
-        /// <param name="path"></param>
         [DispId(2)]
-        public void OpenFile(string path)
+        public FileManager FileManager
         {
-            try
-            {
-                DefaultFile = DataFile.Open(path); // open the file
-            }
-            catch (FileFormatException)
-            {
-                throw; // Todo: inform user, log
-            }
-            catch (FileNotFoundException)
-            {
-                throw; // Todo: inform user, log
-            }
-
-            DataFile.LoadAll();
+            get;
+            private set;
         }
 
         #region file extensions

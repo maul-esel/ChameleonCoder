@@ -12,7 +12,7 @@ namespace ChameleonCoder
                 return loadedManagers[doc];
 
             var manager = new XmlNamespaceManager(doc.NameTable);
-            manager.AddNamespace("cc", DataFile.NamespaceUri);
+            manager.AddNamespace("cc", Files.DataFile.NamespaceUri);
             loadedManagers.Add(doc, manager);
 
             return manager;

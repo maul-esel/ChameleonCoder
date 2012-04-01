@@ -51,7 +51,7 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
                 CloseFilesCommandExecuted,
-                (s, e) => e.CanExecute = DataFile.OpenFiles.Count > 0));
+                (s, e) => e.CanExecute = ChameleonCoderApp.RunningObject.FileManager.Files.Count > 0));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFile,
                 OpenFileCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
@@ -608,7 +608,7 @@ namespace ChameleonCoder.ViewModel
             {
                 Resources.Management.ResourceManager.GetChildren().Clear();
                 Resources.Management.ResourceManager.GetList().Clear();
-                DataFile.CloseAll();
+                ChameleonCoderApp.RunningObject.FileManager.CloseAll();
                 NamespaceManagerFactory.ClearManagers();
             }
         }
@@ -635,15 +635,15 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFile(string path)
         {
-            if (DataFile.IsOpen(path))
+            if (ChameleonCoderApp.RunningObject.FileManager.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);
                 return;
             }
 
-            DataFile.Open(path);
-            DataFile.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
+            ChameleonCoderApp.RunningObject.FileManager.Open(path);
+            ChameleonCoderApp.RunningObject.FileManager.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
         private void CreateFile()
@@ -661,7 +661,7 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreatingFile, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
                 return;
             }
-            if (DataFile.IsOpen(path))
+            if (ChameleonCoderApp.RunningObject.FileManager.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);
@@ -686,7 +686,7 @@ namespace ChameleonCoder.ViewModel
             {
                 using (var writer = new System.IO.StreamWriter(stream))
                 {
-                    writer.Write(string.Format(DataFile.fileTemplate, input_args.Input, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")));
+                    writer.Write(string.Format(Files.DataFile.fileTemplate, input_args.Input, DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")));
                 }
             }
 

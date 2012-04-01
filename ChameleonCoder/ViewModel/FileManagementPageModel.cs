@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using ChameleonCoder.Files;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
@@ -30,7 +31,7 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return DataFile.OpenFiles;
+                return ChameleonCoderApp.RunningObject.FileManager.Files;
             }
         }
 

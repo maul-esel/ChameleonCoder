@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Windows.Media;
+using ChameleonCoder.Files;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 

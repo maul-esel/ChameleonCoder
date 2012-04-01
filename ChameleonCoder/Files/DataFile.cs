@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
 
-namespace ChameleonCoder
+namespace ChameleonCoder.Files
 {
     /// <summary>
     /// represents an opened resource file
     /// </summary>
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual), Guid("D0EB188C-E42E-4D32-BAB4-9F1F8417EC4D")]
     public sealed class DataFile
     {
         /// <summary>
         /// the Uri of the resource document schema
         /// </summary>
+        [DispId(1)]
         public const string NamespaceUri = "ChameleonCoder://Resources/Schema/2011";
 
         /// <summary>
         /// a template for a new data file
         /// </summary>
         /// <remarks>{0} contains the datafile name, {1} the created data</remarks>
+        [ComVisible(false)]
         internal const string fileTemplate = @"<cc:ChameleonCoder xmlns:cc='" + NamespaceUri + "'>"
                                                 + "<cc:resources/>"
                                                 + "<cc:data/>"
@@ -31,15 +35,13 @@ namespace ChameleonCoder
                                                 + "<cc:references/>"
                                             + "</cc:ChameleonCoder>";
 
-        #region instance
-
         /// <summary>
         /// creates a new instance of the DataFile class
         /// </summary>
         /// <param name="path">the path to the file</param>
         /// <exception cref="FileFormatException">thrown if the Xml is not valid or could not be read.</exception>
         /// <exception cref="FileNotFoundException">the specified file does not exist</exception>
-        private DataFile(string path)
+        public DataFile(string path)
         {
             if (File.Exists(path) && !string.IsNullOrWhiteSpace(path))
             {
@@ -79,58 +81,104 @@ namespace ChameleonCoder
                 throw new FileNotFoundException("the specified file could not be found", path);
         }
 
+        [ComVisible(false)]
         private void ValidateXmlHandler(object sender, System.Xml.Schema.ValidationEventArgs e)
         {
             if (e.Severity == System.Xml.Schema.XmlSeverityType.Error)
-                throw new XmlException(string.Format("The document at {0} is not valid according to the schema!", path), e.Exception);
+                throw new XmlException(string.Format("The document at {0} is not valid according to the schema!", FilePath), e.Exception);
         }
 
-        /// <summary>
-        /// returns the path to the file represented by the instance
-        /// </summary>
-        public string FilePath { get { return path; } }
+        #region private fields
 
+        [ComVisible(false)]
         private readonly string path;
+
+        [ComVisible(false)]
+        private readonly XmlDocument doc = new XmlDocument();
+
+        [ComVisible(false)]
+        private readonly XmlNamespaceManager manager;
+
+        #endregion // private fields
+
+        #region properties
 
         /// <summary>
         /// returns the XmlDocument
         /// </summary>
+        [ComVisible(false)]
         internal XmlDocument Document { get { return doc; } }
 
-        private readonly XmlDocument doc = new XmlDocument();
+        /// <summary>
+        /// returns the path to the file represented by the instance
+        /// </summary>
+        [DispId(2)]
+        public string FilePath { get { return path; } }
 
-        private readonly XmlNamespaceManager manager;
+        /// <summary>
+        /// gets the name the user chose for this file
+        /// </summary>
+        [DispId(3)]
+        public string Name
+        {
+            get
+            {
+                return Document.SelectSingleNode(DocumentXPath.SettingName, manager).InnerText;
+            }
+        }
+
+        /// <summary>
+        /// gets whether the file instance is loaded or not
+        /// </summary>
+        [DispId(4)]
+        public bool IsLoaded
+        {
+            get;
+            private set;
+        }
+
+        #endregion // properties
+
+        #region methods
 
         /// <summary>
         /// closes the instance
         /// </summary>
-        internal void Close() { /* currently we don't need to do something here */ }
+        [DispId(5)]
+        public void Close()
+        {
+            ChameleonCoderApp.RunningObject.FileManager.Files.Remove(this);
+            ChameleonCoderApp.RunningObject.FileManager.Paths.Remove(FilePath);
+        }
 
         /// <summary>
         /// saves the changes made to the file
         /// </summary>
+        [DispId(6)]
         public void Save()
         {
             Document.Save(FilePath);
         }
 
         /// <summary>
-        /// gets the name the user chose for this file
+        /// loads the resources contained in the file
         /// </summary>
-        public string Name
+        [DispId(7)]
+        public void Load()
         {
-            get
-            {
-                return Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:name", manager).InnerText;
-            }
+            foreach (XmlElement element in GetResources())
+                LoadResource(element, null); // and parse the Xml
+            IsLoaded = true;
         }
 
         #region metadata
+
         /// <summary>
         /// sets datafile metadata, creating it if necessary
         /// </summary>
         /// <param name="key">the metadata's name</param>
         /// <param name="value">the metadata's new value</param>
+        [DispId(8)]
         public void SetMetadata(string key, string value)
         {
             var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
@@ -149,6 +197,7 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="key">the metadata's name</param>
         /// <returns>the metadata's value</returns>
+        [DispId(9)]
         public string GetMetadata(string key)
         {
             var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
@@ -162,6 +211,7 @@ namespace ChameleonCoder
         /// gets all metadata related to the file
         /// </summary>
         /// <returns>a dictionary containing the metadata</returns>
+        [DispId(10)]
         public IDictionary<string, string> GetMetadata()
         {
             var set = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata", manager);
@@ -185,12 +235,14 @@ namespace ChameleonCoder
         /// deletes datafile metadata
         /// </summary>
         /// <param name="key">the metadata's name</param>
+        [DispId(11)]
         public void DeleteMetadata(string key)
         {
             var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
             if (meta != null)
                 meta.ParentNode.RemoveChild(meta);
         }
+
         #endregion // metadata
 
         #region references
@@ -201,16 +253,16 @@ namespace ChameleonCoder
         /// <param name="path">the path to the referenced object</param>
         /// <param name="isFile">true if the reference references a file, false it if references a directory</param>
         /// <returns>the reference's uinque id</returns>
+        [DispId(12)]
         public Guid AddReference(string path, DataFileReferenceType type)
         {
             var id = Guid.NewGuid();
-
             var reference = Document.CreateElement(type == DataFileReferenceType.File ? "cc:file" : "cc:directory", NamespaceUri);
 
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
 
-            Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:references", manager).AppendChild(reference);
+            Document.SelectSingleNode(DocumentXPath.References, manager).AppendChild(reference);
 
             return id;
         }
@@ -219,9 +271,10 @@ namespace ChameleonCoder
         /// deletes a reference from the DataFile
         /// </summary>
         /// <param name="id">the reference's unique id</param>
+        [DispId(13)]
         public void DeleteReference(Guid id)
         {
-            var reference = Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:references/cc:reference[@id='" + id.ToString("b") + "']", manager);
+            var reference = Document.SelectSingleNode(DocumentXPath.SingleReference + "[@id='" + id.ToString("b") + "']", manager);
 
             if (reference != null)
                 reference.ParentNode.RemoveChild(reference);
@@ -230,6 +283,7 @@ namespace ChameleonCoder
         /// <summary>
         /// loads the referenced files and directories
         /// </summary>
+        [ComVisible(false)]
         private void LoadReferences()
         {
             foreach (var reference in GetReferences())
@@ -237,10 +291,10 @@ namespace ChameleonCoder
                 switch (reference.Type)
                 {
                     case DataFileReferenceType.File:
-                        Open(reference.Path);
+                        ChameleonCoderApp.RunningObject.FileManager.Open(reference.Path);
                         break;
                     case DataFileReferenceType.Directory:
-                        Directories.Add(reference.Path);
+                        ChameleonCoderApp.RunningObject.FileManager.Directories.Add(reference.Path);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -252,21 +306,15 @@ namespace ChameleonCoder
         /// gets a list of all referenced files and directories
         /// </summary>
         /// <returns>a list of DataFileReference instances</returns>
+        [DispId(14)]
         internal IList<DataFileReference> GetReferences()
         {
             var list = new List<DataFileReference>();
 
-            foreach (XmlElement element in Document.SelectNodes("/cc:ChameleonCoder/cc:settings/cc:references/cc:reference", manager))
+            foreach (XmlElement element in Document.SelectNodes(DocumentXPath.SingleReference, manager))
             {
-                try
-                {
-                    var reference = DataFileReference.CreateReference(element);
-                    list.Add(reference);
-                }
-                catch (FileNotFoundException)
-                {
-                    continue;
-                }
+                var reference = DataFileReference.CreateReference(element);
+                list.Add(reference);
             }
 
             return list;
@@ -274,39 +322,44 @@ namespace ChameleonCoder
 
         #endregion // references
 
+        #endregion // methods
+
         /// <summary>
         /// appends the given text to the file's changelog, including an exact date-time stamp
         /// </summary>
         /// <param name="changelog">the text to append</param>
-        [Obsolete("not implemented", true)]
+        [Obsolete("Not implemented!", true), ComVisible(false)]
         public void AppendChangelog(string changelog)
         {
             throw new NotImplementedException();
 
-            /*var log = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:changelog", manager);
+            /*
+            var log = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:changelog", manager);
 
             if (log == null)
             {
                 log = Document.CreateElement("cc:changelog", NamespaceUri);
-                Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings", manager).AppendChild(log);
+                Document.SelectSingleNode(DocumentXPath.Settings, manager).AppendChild(log);
             }
 
             var change = Document.CreateElement("cc:change", NamespaceUri);
             change.SetAttribute("time", NamespaceUri, DateTime.Now.ToString("yyyyMMddHHmmss"));
             change.InnerText = changelog;
 
-            log.AppendChild(change);*/
+            log.AppendChild(change);
+            */
         }
 
         /// <summary>
         /// gets a list with the XML representation of all top-level resources in all opened files
         /// </summary>
         /// <returns>the list, containing of XmlElement instances</returns>
+        [ComVisible(false)]
         private IEnumerable<XmlElement> GetResources()
         {
             var elements = new List<XmlElement>();
 
-            foreach (var node in Document.SelectNodes("/cc:ChameleonCoder/cc:resources/cc:resource", manager))
+            foreach (var node in Document.SelectNodes(DocumentXPath.SingleResource, manager))
             {
                 var element = node as XmlElement;
                 if (element != null)
@@ -318,12 +371,6 @@ namespace ChameleonCoder
             return elements;
         }
 
-        public bool IsLoaded
-        {
-            get;
-            private set;
-        }
-
         /// <summary>
         /// parses a XmlElement and its child elements for resource definitions
         /// and creates instances for them, adding them to the global resource list
@@ -332,6 +379,7 @@ namespace ChameleonCoder
         /// <param name="node">the XmlElement to parse</param>
         /// <param name="parent">the parent resource or null,
         /// if the resource represented by <paramref name="node"/> is a top-level resource.</param>
+        [ComVisible(false)]
         internal void LoadResource(XmlElement node, IResource parent)
         {
             Guid type;
@@ -351,7 +399,7 @@ namespace ChameleonCoder
                 ChameleonCoderApp.Log("DataFile  --> internal void LoadResource(XmlElement, IResource)",
                     "failed to create resource",
                     "resource-creation failed on:\n\t" +
-                     node.OuterXml + " in " + GetResourceFile(node.OwnerDocument).FilePath); // log
+                     node.OuterXml + " in " + ChameleonCoderApp.RunningObject.FileManager.GetResourceFile(node.OwnerDocument).FilePath); // log
                 return; // ignore
             }
 
@@ -370,136 +418,5 @@ namespace ChameleonCoder
                 richResource.MakeRichContent(); // parse the RichContent
             }
         }
-
-        #endregion // instance
-
-        #region static
-
-        internal static bool IsOpen(string path)
-        {
-            return pathsOpen.Contains(path);
-        }
-
-        internal static DataFile Open(string path)
-        {
-            var file = new DataFile(Path.GetFullPath(path));
-
-            OpenFiles.Add(file);
-            pathsOpen.Add(file.FilePath);
-            dirList.Add(Path.GetDirectoryName(file.FilePath));
-
-            return file;
-        }
-
-        public void Load()
-        {
-            foreach (XmlElement element in GetResources())
-                LoadResource(element, null); // and parse the Xml
-            IsLoaded = true;
-        }
-
-        internal static void LoadAll()
-        {
-            foreach (var file in OpenFiles)
-            {
-                if (!file.IsLoaded)
-                    file.Load();
-            }
-        }
-
-        /// <summary>
-        /// tries to find the absolute path for a given relative path
-        /// </summary>
-        /// <param name="relativePath">the (relative) path</param>
-        /// <returns>the absolute path, or null if not found</returns>
-        public static string MakeAbsolutePath(string relativePath)
-        {
-            if (!string.IsNullOrWhiteSpace(relativePath))
-            {
-                if (File.Exists(relativePath) || Directory.Exists(relativePath))
-                {
-                    if (Path.IsPathRooted(relativePath))
-                        return relativePath;
-                    return Path.GetFullPath(relativePath);
-                }
-
-                foreach (var dir in Directories)
-                {
-                    string fullpath = Path.Combine(dir, relativePath);
-                    if (File.Exists(fullpath) || Directory.Exists(fullpath))
-                        return fullpath;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// saves all loaded instances
-        /// </summary>
-        internal static void SaveAll()
-        {
-            foreach (DataFile file in OpenFiles)
-                file.Save();
-        }
-
-        /// <summary>
-        /// closes all loaded instances
-        /// </summary>
-        internal static void CloseAll()
-        {
-            foreach (DataFile file in OpenFiles)
-                file.Close();
-
-            OpenFiles.Clear();
-            pathsOpen.Clear();
-            Directories.Clear();
-        }
-
-        /// <summary>
-        /// gets the DataFile instance for a given XmlDocument
-        /// </summary>
-        /// <param name="doc">the XmlDocument</param>
-        /// <returns>the DataFile instance</returns>
-        /// <exception cref="InvalidOperationException">thrown if the corresponding DataFile is not found</exception>
-        internal static DataFile GetResourceFile(XmlDocument doc)
-        {
-            foreach (DataFile file in OpenFiles)
-                if (file.Document == doc)
-                    return file;
-            throw new InvalidOperationException("this document's resource file cannot be detected:\n\n" + doc.DocumentElement.OuterXml);
-        }
-
-        /// <summary>
-        /// contains a list of all referenced directories
-        /// </summary>
-        public static IList<string> Directories
-        {
-        	get
-        	{
-        		return dirList;
-        	}
-        }
-
-        internal static IList<DataFile> OpenFiles
-        {
-            get
-            {
-                return filesOpen;
-            }
-        }
-        
-        private static readonly List<string> dirList = new List<string>(new string[1] { Environment.CurrentDirectory });
-
-        /// <summary>
-        /// contains a list of all loaded files in form of their file paths
-        /// </summary>
-        private static readonly IList<string> pathsOpen = new List<string>();
-
-        /// <summary>
-        /// contains a list of all loaded files in form of their DataFile instances
-        /// </summary>
-        private static readonly IList<DataFile> filesOpen = new List<DataFile>();
-
-        #endregion
     }
 }
