@@ -315,7 +315,7 @@ namespace ChameleonCoder
             return elements;
         }
 
-        public bool FileIsLoaded
+        public bool IsLoaded
         {
             get;
             private set;
@@ -392,14 +392,14 @@ namespace ChameleonCoder
         {
             foreach (XmlElement element in GetResources())
                 LoadResource(element, null); // and parse the Xml
-            FileIsLoaded = true;
+            IsLoaded = true;
         }
 
         internal static void LoadAll()
         {
             foreach (var file in OpenFiles)
             {
-                if (!file.FileIsLoaded)
+                if (!file.IsLoaded)
                     file.Load();
             }
         }
