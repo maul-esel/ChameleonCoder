@@ -1,30 +1,31 @@
 ﻿using System;
 using System.IO;
-using System.Xml;
 
 namespace ChameleonCoder
 {
     internal struct DataFileReference
     {
-        internal DataFileReference(Guid id, string path, bool isFile)
+        internal DataFileReference(Guid id, string path, DataFileReferenceType type)
             : this()
         {
             Identifier = id;
             Path = path;
-            IsFile = isFile;
+            Type = type;
         }
 
-        internal static DataFileReference CreateReference(XmlElement element)
+        internal static DataFileReference CreateReference(System.Xml.XmlElement element)
         {
             string path = element.GetAttribute("path", DataFile.NamespaceUri);
-            bool isFile = element.Name == "file";
+            DataFileReferenceType type = element.Name == "file" ? DataFileReferenceType.File : DataFileReferenceType.Directory;
 
             if (!string.IsNullOrWhiteSpace(path)
-                && (isFile) ? File.Exists(path) : Directory.Exists(path))
+                && (type == DataFileReferenceType.File)
+                    ? File.Exists(path)
+                    : Directory.Exists(path))
             {
                 return new DataFileReference(Guid.Parse(element.GetAttribute("id", DataFile.NamespaceUri)),
                     element.InnerText,
-                    isFile);
+                    type);
             }
             throw new FileNotFoundException();
         }
@@ -41,7 +42,7 @@ namespace ChameleonCoder
             private set;
         }
 
-        internal bool IsFile
+        internal DataFileReferenceType Type
         {
             get;
             private set;

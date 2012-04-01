@@ -118,6 +118,7 @@
     <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ChameleonCoderCommands.cs" />
     <Compile Include="DataFileReference.cs" />
+    <Compile Include="DataFileReferenceType.cs" />
     <Compile Include="DefaultRepresentationAttribute.cs" />
     <Compile Include="ModelClientHelper.cs" />
     <Compile Include="NamespaceManagerFactory.cs" />

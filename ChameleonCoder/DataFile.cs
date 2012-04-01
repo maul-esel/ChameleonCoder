@@ -201,11 +201,11 @@ namespace ChameleonCoder
         /// <param name="path">the path to the referenced object</param>
         /// <param name="isFile">true if the reference references a file, false it if references a directory</param>
         /// <returns>the reference's uinque id</returns>
-        public Guid AddReference(string path, bool isFile)
+        public Guid AddReference(string path, DataFileReferenceType type)
         {
             var id = Guid.NewGuid();
 
-            var reference = Document.CreateElement(isFile ? "cc:file" : "cc:directory", NamespaceUri);
+            var reference = Document.CreateElement(type == DataFileReferenceType.File ? "cc:file" : "cc:directory", NamespaceUri);
 
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
@@ -234,13 +234,16 @@ namespace ChameleonCoder
         {
             foreach (var reference in GetReferences())
             {
-                if (reference.IsFile)
+                switch (reference.Type)
                 {
-                    Open(reference.Path);
-                }
-                else
-                {
-                    Directories.Add(reference.Path);
+                    case DataFileReferenceType.File:
+                        Open(reference.Path);
+                        break;
+                    case DataFileReferenceType.Directory:
+                        Directories.Add(reference.Path);
+                        break;
+                    default:
+                        throw new NotImplementedException();
                 }
             }
         }
