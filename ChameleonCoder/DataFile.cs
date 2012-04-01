@@ -21,7 +21,7 @@ namespace ChameleonCoder
         /// a template for a new data file
         /// </summary>
         /// <remarks>{0} contains the datafile name, {1} the created data</remarks>
-        internal const string fileTemplate = @"<cc:ChameleonCoder xmlns:cc='ChameleonCoder://Resources/Schema/2011'>"
+        internal const string fileTemplate = @"<cc:ChameleonCoder xmlns:cc='" + NamespaceUri + "'>"
                                                 + "<cc:resources/>"
                                                 + "<cc:data/>"
                                                 + "<cc:settings>"
