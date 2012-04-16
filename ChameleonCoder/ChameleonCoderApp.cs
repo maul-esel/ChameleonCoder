@@ -2,11 +2,10 @@
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows;
+using ChameleonCoder.Files;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Management;
-using ChameleonCoder.Files;
 
 namespace ChameleonCoder
 {
@@ -16,43 +15,16 @@ namespace ChameleonCoder
     [ComVisible(true), ProgId("ChameleonCoder.Application"), Guid("712fc748-468f-45db-ab09-e472b6a97b69"), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ChameleonCoderApp
     {
-        #region parameter constants
-
-        /// <summary>
-        /// param to install file extension
-        /// </summary>
-        [ComVisible(false)]
-        private const string paramInstallExt = "--install_ext";
-
-        /// <summary>
-        /// param to uninstall file extension
-        /// </summary>
-        [ComVisible(false)]
-        private const string paramUnInstallExt = "--uninstall_ext";
-
-        /// <summary>
-        /// param to install COM support
-        /// </summary>
-        [ComVisible(false)]
-        private const string paramInstallCOM = "--install_COM";
-
-        /// <summary>
-        /// param to uninstall COM support
-        /// </summary>
-        [ComVisible(false)]
-        private const string paramUnInstallCOM = "--uninstall_COM";
-
-        #endregion
-
+        /*
         /// <summary>
         /// acts as the main entry point for the program
         /// </summary>
         /// <param name="app">receives the running <see cref="ChameleonCoder.App"/> instance</param>
         /// <param name="args">receives the command line arguments</param>
-        [ComVisible(false)]
+        [ComVisible(false), Obsolete("Use App.InitHandler()", true)]
         internal static void Open(App app, string[] args)
         {
-            RunningApp = app; // set the instance of the app
+            //RunningApp = app; // set the instance of the app
             RunningObject = new ChameleonCoderApp();
 
             #region command line
@@ -105,6 +77,7 @@ namespace ChameleonCoder
             load.Wait(); // wait for plugins / files to be loaded
             RunningObject.Show(); // show the GUI
         }
+        */
 
         /// <summary>
         /// gets the application's main window
@@ -133,13 +106,20 @@ namespace ChameleonCoder
         /// the running System.Windows.Application instance
         /// </summary>
         [ComVisible(false), Obsolete("Attention: must check if it is null before usage!")]
-        internal static Application RunningApp { get; private set; }
+        internal static Application RunningApp
+        {
+            get
+            {
+                return System.Windows.Application.Current;
+            }
+            //private set;
+        }
 
         /// <summary>
         /// the running ChameleonCoderApp instance
         /// </summary>
-        [ComVisible(false)]
-        internal static ChameleonCoderApp RunningObject { get; private set; }
+        [ComVisible(false), Obsolete("Don't use if avoidable!")]
+        internal static ChameleonCoderApp RunningObject { get; set; } // todo: remove or restrict
 
         /// <summary>
         /// the string used to separate resource paths
