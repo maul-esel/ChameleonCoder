@@ -34,7 +34,7 @@ namespace ChameleonCoder
 
             ResourceManager.Remove(resource);
 
-            resource.GetResourceFile().Save(); // save changes
+            resource.File.Save(); // save changes
         }
 
         #region Copy & Move
@@ -60,7 +60,7 @@ namespace ChameleonCoder
         /// <param name="moveGUID">a bool defining whether the copy should receive the original Identifier or not.</param>
         public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
         {
-            var file = newParent == null ? resource.GetResourceFile() : newParent.GetResourceFile();
+            var file = newParent == null ? resource.File : newParent.File;
             var doc = file.Document;
             var manager = NamespaceManagerFactory.GetManager(doc);
 
@@ -83,9 +83,9 @@ namespace ChameleonCoder
 
             file.LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ...
 
-            resource.GetResourceFile().Save(); // save the documents
+            resource.File.Save(); // save the documents
             if (newParent != null)
-                newParent.GetResourceFile().Save();
+                newParent.File.Save();
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace ChameleonCoder
         /// <param name="value">the value</param>
         public static void SetMetadata(this IResource resource, string key, string value)
         {
-            var doc = resource.GetResourceFile().Document;
+            var doc = resource.File.Document;
             var manager = NamespaceManagerFactory.GetManager(doc);
 
             // get the resource-data element for the resource
@@ -136,7 +136,7 @@ namespace ChameleonCoder
         /// <returns>the metadata's value if found, null otherwise</returns>
         public static string GetMetadata(this IResource resource, string key)
         {
-            var doc = resource.GetResourceFile().Document;
+            var doc = resource.File.Document;
 
             var manager = NamespaceManagerFactory.GetManager(doc);
 
@@ -160,7 +160,7 @@ namespace ChameleonCoder
         /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
         public static Dictionary<string, string> GetMetadata(this IResource resource)
         {
-            var doc = resource.GetResourceFile().Document;
+            var doc = resource.File.Document;
             var manager = NamespaceManagerFactory.GetManager(doc);
 
             var dict = new Dictionary<string, string>();
@@ -191,7 +191,7 @@ namespace ChameleonCoder
         /// <param name="key">the metadata's key</param>
         public static void DeleteMetadata(this IResource resource, string key)
         {
-            var doc = resource.GetResourceFile().Document;
+            var doc = resource.File.Document;
             var manager = NamespaceManagerFactory.GetManager(doc);
 
             // get the resource's data element
@@ -391,7 +391,7 @@ namespace ChameleonCoder
         /// <returns>the XmlElement containing the resource's data</returns>
         internal static XmlElement GetDataElement(IResource resource, bool create)
         {
-            var doc = resource.GetResourceFile().Document;
+            var doc = resource.File.Document;
             var manager = NamespaceManagerFactory.GetManager(doc);
 
             var data = (XmlElement)doc.SelectSingleNode("/cc:ChameleonCoder/cc:data/cc:resourcedata[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
@@ -468,17 +468,5 @@ namespace ChameleonCoder
         }
 
         #endregion
-
-        public static DataFile GetResourceFile(this IResource resource)
-        {
-            try
-            {
-                return ChameleonCoderApp.RunningObject.FileManager.GetResourceFile(resource.Xml.OwnerDocument);
-            }
-            catch (InvalidOperationException e)
-            {
-                throw new InvalidOperationException("this resource's resource file cannot be detected: " + resource.Name, e);
-            }            
-        }
     }
 }
