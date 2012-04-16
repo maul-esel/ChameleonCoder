@@ -158,21 +158,6 @@ namespace ChameleonCoder.Files
             return null;
         }
 
-        /// <summary>
-        /// gets the DataFile instance for a given XmlDocument
-        /// </summary>
-        /// <param name="doc">the XmlDocument</param>
-        /// <returns>the DataFile instance</returns>
-        /// <exception cref="InvalidOperationException">thrown if the corresponding DataFile is not found</exception>
-        [ComVisible(false)]
-        internal DataFile GetResourceFile(XmlDocument doc)
-        {
-            foreach (DataFile file in Files)
-                if (file.Document == doc)
-                    return file;
-            throw new InvalidOperationException("This document's resource file cannot be detected:\n\n" + doc.DocumentElement.OuterXml);
-        }
-
         #region private fields
 
         /// <summary>

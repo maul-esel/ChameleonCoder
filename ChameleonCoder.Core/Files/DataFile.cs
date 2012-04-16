@@ -405,7 +405,7 @@ namespace ChameleonCoder.Files
                 ChameleonCoderApp.Log("DataFile  --> internal void LoadResource(XmlElement, IResource)",
                     "failed to create resource",
                     "resource-creation failed on:\n\t" +
-                     node.OuterXml + " in " + App.FileManager.GetResourceFile(node.OwnerDocument).FilePath); // log
+                     node.OuterXml + " in " + parent.File.FilePath); // log
                 return; // ignore
             }
 
