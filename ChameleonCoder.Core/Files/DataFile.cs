@@ -172,7 +172,7 @@ namespace ChameleonCoder.Files
         [DispId(7)]
         public void Load()
         {
-            foreach (XmlNode node in Document.SelectNodes(DocumentXPath.SingleResource, manager))
+            foreach (XmlNode node in Document.SelectNodes(DocumentXPath.Resources, manager))
             {
                 var element = node as XmlElement;
                 if (element != null)
@@ -191,12 +191,12 @@ namespace ChameleonCoder.Files
         [DispId(8)]
         public void SetMetadata(string key, string value)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
+            var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
             if (meta == null)
             {
                 meta = (XmlElement)Document.CreateElement("cc:metadata", NamespaceUri);
                 meta.SetAttribute("key", NamespaceUri, key);
-                Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata", manager).AppendChild(meta);
+                Document.SelectSingleNode(DocumentXPath.MetadataRoot, manager).AppendChild(meta);
             }
 
             meta.SetAttribute("value", NamespaceUri, value);
@@ -210,7 +210,7 @@ namespace ChameleonCoder.Files
         [DispId(9)]
         public string GetMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
+            var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
             if (meta == null)
                 return null;
 
@@ -224,7 +224,7 @@ namespace ChameleonCoder.Files
         [DispId(10)]
         public IDictionary<string, string> GetMetadata()
         {
-            var set = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata", manager);
+            var set = (XmlElement)Document.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
             if (set == null)
                 return null;
 
@@ -248,7 +248,7 @@ namespace ChameleonCoder.Files
         [DispId(11)]
         public void DeleteMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode("/cc:ChameleonCoder/cc:settings/cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
+            var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
             if (meta != null)
                 meta.ParentNode.RemoveChild(meta);
         }
@@ -272,7 +272,7 @@ namespace ChameleonCoder.Files
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
 
-            Document.SelectSingleNode(DocumentXPath.References, manager).AppendChild(reference);
+            Document.SelectSingleNode(DocumentXPath.ReferenceRoot, manager).AppendChild(reference);
 
             return id;
         }
@@ -284,7 +284,7 @@ namespace ChameleonCoder.Files
         [DispId(13)]
         public void DeleteReference(Guid id)
         {
-            var reference = Document.SelectSingleNode(DocumentXPath.SingleReference + "[@id='" + id.ToString("b") + "']", manager);
+            var reference = Document.SelectSingleNode(DocumentXPath.References + "[@id='" + id.ToString("b") + "']", manager);
 
             if (reference != null)
                 reference.ParentNode.RemoveChild(reference);
@@ -321,7 +321,7 @@ namespace ChameleonCoder.Files
         {
             var list = new List<DataFileReference>();
 
-            foreach (XmlElement element in Document.SelectNodes(DocumentXPath.SingleReference, manager))
+            foreach (XmlElement element in Document.SelectNodes(DocumentXPath.References, manager))
             {
                 var reference = DataFileReference.CreateReference(element);
                 list.Add(reference);

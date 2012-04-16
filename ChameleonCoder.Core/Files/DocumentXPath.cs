@@ -10,10 +10,13 @@
 
         internal const string SettingName = Settings + "/" + prefix + "name";
 
-        internal const string References = Settings + "/" + prefix + "references";
-        internal const string SingleReference = References + "/" + prefix + "reference";
+        internal const string MetadataRoot = Settings + "/" + prefix + "metadata";
+        internal const string Metadata = MetadataRoot + "/" + prefix + "metadata";
 
-        internal const string Resources = Root + "/" + prefix + "resources";
-        internal const string SingleResource = Resources + "/" + prefix + "resource";
+        internal const string ReferenceRoot = Settings + "/" + prefix + "references";
+        internal const string References = ReferenceRoot + "/" + prefix + "reference";
+
+        internal const string ResourceRoot = Root + "/" + prefix + "resources";
+        internal const string Resources = ResourceRoot + "/" + prefix + "resource";
     }
 }
