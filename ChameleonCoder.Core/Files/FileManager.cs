@@ -25,7 +25,7 @@ namespace ChameleonCoder.Files
                 throw new InvalidOperationException("The file has already been opened.");
             }
 
-            DataFile file = new DataFile(Path.GetFullPath(path)); // use MakeAbsolutePath() (?)
+            DataFile file = new DataFile(Path.GetFullPath(path)) { App = this.App }; // use MakeAbsolutePath() (?)
 
             Files.Add(file);
             pathsOpen.Add(file.FilePath);
@@ -122,6 +122,12 @@ namespace ChameleonCoder.Files
             {
                 return pathsOpen;
             }
+        }
+
+        public ChameleonCoderApp App
+        {
+            get;
+            internal set; // TODO: restrict
         }
 
         #endregion // "properties"

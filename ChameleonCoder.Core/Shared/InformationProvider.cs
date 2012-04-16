@@ -63,7 +63,7 @@ namespace ChameleonCoder.Shared
         {
             get
             {
-                return ViewModel.MainWindowModel.Instance.ActiveTab.Type;
+                return CCTabPage.None; // ViewModel.MainWindowModel.Instance.ActiveTab.Type; // TODO!
             }
         }
 

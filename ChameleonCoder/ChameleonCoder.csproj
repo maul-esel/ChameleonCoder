@@ -115,67 +115,43 @@
     <Compile Include="CCSearchReplaceDialog.xaml.cs">
       <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ChameleonCoderCommands.cs" />
-    <Compile Include="Files\DataFileReference.cs" />
-    <Compile Include="Files\DataFileReferenceType.cs" />
     <Compile Include="DefaultRepresentationAttribute.cs" />
-    <Compile Include="Files\DocumentXPath.cs" />
-    <Compile Include="Files\FileManager.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModelClientHelper.cs" />
-    <Compile Include="NamespaceManagerFactory.cs" />
     <Compile Include="Navigation\FileManagementPage.xaml.cs">
       <DependentUpon>FileManagementPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
-    <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
-    <Compile Include="RegistryManager.cs" />
-    <Compile Include="Resources\CommonResourceProperty.cs" />
-    <Compile Include="Resources\ResourcePropertyGroup.cs" />
-    <Compile Include="SecureNotifyPropertyChanged.cs" />
-    <Compile Include="Settings\ChameleonCoderSettings.cs" />
-    <Compile Include="Settings\CCSettingsProvider.cs" />
-    <Compile Include="Files\DataFile.cs" />
-    <Compile Include="IComponent.cs" />
+    <Compile Include="Plugins\PluginInstaller.xaml.cs">
+      <DependentUpon>PluginInstaller.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\CCNumericUpDown.xaml.cs">
       <DependentUpon>CCNumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shared\CCTabPage.cs" />
     <Compile Include="Converter\CollectionCombineConverter.cs" />
     <Compile Include="Shared\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\IRichContentFactory.cs" />
-    <Compile Include="Plugins\PluginInstaller.xaml.cs">
-      <DependentUpon>PluginInstaller.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Navigation\PluginPage.xaml.cs">
       <DependentUpon>PluginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\AutoTemplate.cs" />
     <Compile Include="BreadcrumbContext.cs" />
-    <Compile Include="CCPluginAttribute.cs" />
-    <Compile Include="Plugins\IResourceFactory.cs" />
-    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Converter\CultureConverter.cs" />
     <Compile Include="Converter\ResourcePropertyConverter.cs" />
-    <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Shared\CCResourceCatalog.xaml.cs">
       <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\ColorConverter.cs" />
     <Compile Include="Converter\CustomGroupConverter.cs" />
-    <Compile Include="Shared\InformationProvider.cs" />
     <Compile Include="Shared\InvalidInputAdorner.cs" />
     <Compile Include="Shared\ResourceSelector.xaml.cs">
       <DependentUpon>ResourceSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\CodeGeneratorEventArgs.cs" />
     <Compile Include="Navigation\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InstanceCollection.cs" />
-    <Compile Include="Plugins\ILanguageModule.cs" />
     <Compile Include="Navigation\ResourceListPage.xaml.cs">
       <DependentUpon>ResourceListPage.xaml</DependentUpon>
     </Compile>
@@ -185,38 +161,14 @@
     <Compile Include="NewResourceDialog.xaml.cs">
       <DependentUpon>NewResourceDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\TemplateDefaultNameAttribute.cs" />
-    <Compile Include="Resources\Interfaces\IFSComponent.cs" />
-    <Compile Include="Plugins\ITemplate.cs" />
-    <Compile Include="Resources\PropertyDescription.cs" />
-    <Compile Include="Resources\Interfaces\IEditable.cs" />
-    <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
-    <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
-    <Compile Include="Resources\Interfaces\IResource.cs" />
-    <Compile Include="Resources\Management\ResourceTypeManager.cs" />
-    <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
-    <Compile Include="Resources\ReferenceCollection.cs" />
-    <Compile Include="Resources\ResourceHelper.cs" />
-    <Compile Include="Resources\ResourcePropertyAttribute.cs" />
-    <Compile Include="Resources\ResourceReference.cs" />
-    <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
-    <Compile Include="Resources\RichContent\RichContentCollection.cs" />
     <Compile Include="Navigation\ResourceViewPage.xaml.cs">
       <DependentUpon>ResourceViewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\IService.cs" />
-    <Compile Include="Resources\Management\ResourceManager.cs" />
-    <Compile Include="Resources\ResourceCollection.cs" />
     <Compile Include="Converter\ResourceTypeConverter.cs" />
     <Compile Include="Converter\ModuleIconConverter.cs" />
-    <Compile Include="ComponentCollection.cs" />
-    <Compile Include="Resources\RichContent\ContentMemberCollection.cs" />
-    <Compile Include="Resources\RichContent\IContentMember.cs" />
     <Compile Include="Navigation\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
-    <Compile Include="Resources\RichContent\RichContentManager.cs" />
     <Compile Include="TabContext.cs" />
     <Compile Include="ViewModel\EditPageModel.cs" />
     <Compile Include="ViewModel\FileManagementPageModel.cs" />
@@ -241,6 +193,14 @@
     <Compile Include="ViewModel\SettingsPageModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WelcomePageModel.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\PluginInstaller.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Shared\CCNumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,23 +225,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Navigation\FileManagementPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Plugins\PluginInstaller.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -314,25 +262,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.de-DE.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="ChameleonCoder.res" />
     <AppDesigner Include="Properties\" />
-    <EmbeddedResource Include="schema.xsd">
-      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
-    </EmbeddedResource>
     <None Include="test.ccr">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -457,6 +389,12 @@
     <Resource Include="Images\open_ccr.png" />
     <Resource Include="Images\files.png" />
     <Resource Include="Images\plugins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChameleonCoder.Core\ChameleonCoder.Core.csproj">
+      <Project>{4DC8B45C-8AF4-4D36-968F-BEE5645C460E}</Project>
+      <Name>ChameleonCoder.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

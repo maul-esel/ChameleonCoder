@@ -137,6 +137,12 @@ namespace ChameleonCoder.Files
             private set;
         }
 
+        public ChameleonCoderApp App
+        {
+            get;
+            internal set; // TODO: restrict!
+        }
+
         #endregion // properties
 
         #region methods
@@ -147,8 +153,8 @@ namespace ChameleonCoder.Files
         [DispId(5)]
         public void Close()
         {
-            ChameleonCoderApp.RunningObject.FileManager.Files.Remove(this);
-            ChameleonCoderApp.RunningObject.FileManager.Paths.Remove(FilePath);
+            App.FileManager.Files.Remove(this);
+            App.FileManager.Paths.Remove(FilePath);
         }
 
         /// <summary>
@@ -291,10 +297,10 @@ namespace ChameleonCoder.Files
                 switch (reference.Type)
                 {
                     case DataFileReferenceType.File:
-                        ChameleonCoderApp.RunningObject.FileManager.Open(reference.Path);
+                        App.FileManager.Open(reference.Path);
                         break;
                     case DataFileReferenceType.Directory:
-                        ChameleonCoderApp.RunningObject.FileManager.Directories.Add(reference.Path);
+                        App.FileManager.Directories.Add(reference.Path);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -399,7 +405,7 @@ namespace ChameleonCoder.Files
                 ChameleonCoderApp.Log("DataFile  --> internal void LoadResource(XmlElement, IResource)",
                     "failed to create resource",
                     "resource-creation failed on:\n\t" +
-                     node.OuterXml + " in " + ChameleonCoderApp.RunningObject.FileManager.GetResourceFile(node.OwnerDocument).FilePath); // log
+                     node.OuterXml + " in " + App.FileManager.GetResourceFile(node.OwnerDocument).FilePath); // log
                 return; // ignore
             }
 

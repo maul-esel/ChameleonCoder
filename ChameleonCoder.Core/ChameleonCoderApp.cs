@@ -15,70 +15,6 @@ namespace ChameleonCoder
     [ComVisible(true), ProgId("ChameleonCoder.Application"), Guid("712fc748-468f-45db-ab09-e472b6a97b69"), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ChameleonCoderApp
     {
-        /*
-        /// <summary>
-        /// acts as the main entry point for the program
-        /// </summary>
-        /// <param name="app">receives the running <see cref="ChameleonCoder.App"/> instance</param>
-        /// <param name="args">receives the command line arguments</param>
-        [ComVisible(false), Obsolete("Use App.InitHandler()", true)]
-        internal static void Open(App app, string[] args)
-        {
-            //RunningApp = app; // set the instance of the app
-            RunningObject = new ChameleonCoderApp();
-
-            #region command line
-
-            string path = null;
-            int exitCode = 0;
-            int argIndex = 0;
-
-            // loop through all arguments
-            foreach (string arg in args)
-            {
-                if (argIndex == args.Length - 1 && File.Exists(arg)) // the last argument is an existing file
-                    path = arg;
-                else // handle other parameters
-                {
-                    if (arg.Equals(paramInstallExt, StringComparison.OrdinalIgnoreCase))
-                    {
-                        RunningObject.RegisterExtension();
-                    }
-                    else if (arg.Equals(paramUnInstallExt, StringComparison.OrdinalIgnoreCase))
-                    {
-                        RunningObject.UnRegisterExtension();
-                    }
-                    else if (arg.Equals(paramInstallCOM, StringComparison.OrdinalIgnoreCase))
-                    {
-                        exitCode = -3; // not yet implemented
-                    }
-                    else if (arg.Equals(paramUnInstallCOM, StringComparison.OrdinalIgnoreCase))
-                    {
-                        exitCode = -3; // not yet implemented
-                    }
-                }
-                argIndex++;
-            }
-
-            if (path == null) // no file to open was specified:
-                RunningObject.Exit(exitCode); // exit now (may this be changed to allow opening an empty app / new file?)
-
-            #endregion
-
-            var load = Task.Factory.StartNew(() =>
-                {
-                    RunningObject.LoadPlugins(); // load all plugins in the /Component/ folder
-                    RunningObject.FileManager.Open(path); // open the file(s)
-                    RunningObject.FileManager.LoadAll();
-                });
-
-            RunningObject.InitWindow(); // create the window during plugin & file loading
-
-            load.Wait(); // wait for plugins / files to be loaded
-            RunningObject.Show(); // show the GUI
-        }
-        */
-
         /// <summary>
         /// gets the application's main window
         /// </summary>
@@ -133,8 +69,8 @@ namespace ChameleonCoder
         /// <remarks>This must be COM-compatible! Do not add parameters!</remarks>
         public ChameleonCoderApp()
         {
-            FileManager = new Files.FileManager();
-            RunningObject = this;
+            FileManager = new Files.FileManager() { App = this };
+            RunningObject = this; // TODO!
 
             // setting the Language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);

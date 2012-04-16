@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4DC8B45C-8AF4-4D36-968F-BEE5645C460E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChameleonCoder</RootNamespace>
+    <AssemblyName>ChameleonCoder.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=4.0.0.7070, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="Odyssey">
+      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CCPluginAttribute.cs" />
+    <Compile Include="ChameleonCoderApp.cs" />
+    <Compile Include="ComponentCollection.cs" />
+    <Compile Include="Files\DataFile.cs" />
+    <Compile Include="Files\DataFileReference.cs" />
+    <Compile Include="Files\DataFileReferenceType.cs" />
+    <Compile Include="Files\DocumentXPath.cs" />
+    <Compile Include="Files\FileManager.cs" />
+    <Compile Include="IComponent.cs" />
+    <Compile Include="InstanceCollection.cs" />
+    <Compile Include="NamespaceManagerFactory.cs" />
+    <Compile Include="Plugins\AutoTemplate.cs" />
+    <Compile Include="Plugins\CodeGeneratorEventArgs.cs" />
+    <Compile Include="Plugins\ILanguageModule.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\IResourceFactory.cs" />
+    <Compile Include="Plugins\IRichContentFactory.cs" />
+    <Compile Include="Plugins\IService.cs" />
+    <Compile Include="Plugins\ITemplate.cs" />
+    <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
+    <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
+    <Compile Include="Plugins\TemplateDefaultNameAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RegistryManager.cs" />
+    <Compile Include="Resources\CommonResourceProperty.cs" />
+    <Compile Include="Resources\Interfaces\IEditable.cs" />
+    <Compile Include="Resources\Interfaces\IFSComponent.cs" />
+    <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
+    <Compile Include="Resources\Interfaces\IResource.cs" />
+    <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
+    <Compile Include="Resources\Management\ResourceManager.cs" />
+    <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
+    <Compile Include="Resources\Management\ResourceTypeManager.cs" />
+    <Compile Include="Resources\PropertyDescription.cs" />
+    <Compile Include="Resources\ReferenceCollection.cs" />
+    <Compile Include="Resources\ResourceCollection.cs" />
+    <Compile Include="Resources\ResourceHelper.cs" />
+    <Compile Include="Resources\ResourcePropertyAttribute.cs" />
+    <Compile Include="Resources\ResourcePropertyGroup.cs" />
+    <Compile Include="Resources\ResourceReference.cs" />
+    <Compile Include="Resources\RichContent\ContentMemberCollection.cs" />
+    <Compile Include="Resources\RichContent\ContentMemberManager.cs" />
+    <Compile Include="Resources\RichContent\IContentMember.cs" />
+    <Compile Include="Resources\RichContent\RichContentCollection.cs" />
+    <Compile Include="Resources\RichContent\RichContentManager.cs" />
+    <Compile Include="SecureNotifyPropertyChanged.cs" />
+    <Compile Include="Settings\CCSettingsProvider.cs" />
+    <Compile Include="Settings\ChameleonCoderSettings.cs" />
+    <Compile Include="Shared\CCTabPage.cs" />
+    <Compile Include="Shared\InformationProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.de-DE.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="schema.xsd">
+      <CustomToolNamespace>ChameleonCoder</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
