@@ -393,11 +393,11 @@ namespace ChameleonCoder.Files
 
             if (Guid.TryParse(node.GetAttribute("type", NamespaceUri), out type))
             {
-                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent); // try to use the element's name as resource alias
+                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent, this); // try to use the element's name as resource alias
             }
             else if (Guid.TryParse(node.GetAttribute("fallback", NamespaceUri), out type))
             {
-                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent); // give it a "2nd chance"
+                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent, this); // give it a "2nd chance"
             }
 
             if (resource == null) // if creation failed:

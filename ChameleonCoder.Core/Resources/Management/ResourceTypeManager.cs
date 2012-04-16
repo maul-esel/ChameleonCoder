@@ -50,14 +50,14 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="data">the XmlElement representing the resource</param>
         /// <param name="parent">the resource's parent</param>
         /// <returns>the new instance</returns>
-        internal static IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent)
+        internal static IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, DataFile file)
         {
             Type resourceType = GetResourceType(key);
             if (resourceType != null)
             {
                 var factory = GetFactory(resourceType);
                 if (factory != null)
-                    return factory.CreateInstance(resourceType, data, parent);
+                    return factory.CreateInstance(resourceType, data, parent, file);
             }
             return null;
         }
@@ -72,7 +72,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent)
+        public static IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
         {
             var document = (parent == null) ? ChameleonCoderApp.DefaultFile.Document : parent.GetResourceFile().Document;
             var manager = NamespaceManagerFactory.GetManager(document);
@@ -92,7 +92,7 @@ namespace ChameleonCoder.Resources.Management
 
             element.SetAttribute("name", DataFile.NamespaceUri, name);
 
-            IResource resource = GetFactory(type).CreateInstance(type, element, parent);
+            IResource resource = GetFactory(type).CreateInstance(type, element, parent, file);
             if (resource != null)
             {
                 ResourceManager.Add(resource, parent);
@@ -116,9 +116,9 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateNewResource(Guid key, string name, IDictionary<string, string> attributes, IResource parent)
+        public static IResource CreateNewResource(Guid key, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
         {
-            return CreateNewResource(GetResourceType(key), name, attributes, parent);
+            return CreateNewResource(GetResourceType(key), name, attributes, parent, file);
         }
 
         /// <summary>

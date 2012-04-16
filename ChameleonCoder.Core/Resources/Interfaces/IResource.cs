@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Windows.Media;
 using System.Xml;
-using System.ComponentModel;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
@@ -30,6 +29,11 @@ namespace ChameleonCoder.Resources.Interfaces
         /// Any changes to the resource should be immediately saved to this XmlNode.
         /// </summary>
         XmlElement Xml { get; }
+
+        /// <summary>
+        /// will contain the file in which the resource is defined
+        /// </summary>
+        Files.DataFile File { get; }
 
         /// <summary>
         /// holds a reference to the resource's parent
