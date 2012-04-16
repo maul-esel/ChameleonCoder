@@ -172,8 +172,12 @@ namespace ChameleonCoder.Files
         [DispId(7)]
         public void Load()
         {
-            foreach (XmlElement element in GetResources())
-                LoadResource(element, null); // and parse the Xml
+            foreach (XmlNode node in Document.SelectNodes(DocumentXPath.SingleResource, manager))
+            {
+                var element = node as XmlElement;
+                if (element != null)
+                    LoadResource(element, null); // parse the Xml
+            }
             IsLoaded = true;
         }
 
@@ -263,7 +267,7 @@ namespace ChameleonCoder.Files
         public Guid AddReference(string path, DataFileReferenceType type)
         {
             var id = Guid.NewGuid();
-            var reference = Document.CreateElement(type == DataFileReferenceType.File ? "cc:file" : "cc:directory", NamespaceUri);
+            var reference = Document.CreateElement(type == DataFileReferenceType.File ? "cc:file" : "cc:directory", NamespaceUri); // TODO: switch-case
 
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
@@ -354,27 +358,6 @@ namespace ChameleonCoder.Files
 
             log.AppendChild(change);
             */
-        }
-
-        /// <summary>
-        /// gets a list with the XML representation of all top-level resources in all opened files
-        /// </summary>
-        /// <returns>the list, containing of XmlElement instances</returns>
-        [ComVisible(false)]
-        private IEnumerable<XmlElement> GetResources()
-        {
-            var elements = new List<XmlElement>();
-
-            foreach (var node in Document.SelectNodes(DocumentXPath.SingleResource, manager))
-            {
-                var element = node as XmlElement;
-                if (element != null)
-                {
-                    elements.Add(element);
-                }
-            }
-
-            return elements;
         }
 
         /// <summary>

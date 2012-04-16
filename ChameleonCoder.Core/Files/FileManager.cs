@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Xml;
 
 namespace ChameleonCoder.Files
 {
@@ -17,6 +16,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="path">the path to the file to open</param>
         /// <returns>the opened file as <see cref="DataFile"/> instance</returns>
+        /// <exception cref="InvalidOperationException">thrown if the file is already opened. Use <see cref="IsOpen"/> to check this before.</exception>
         [DispId(1)]
         public DataFile Open(string path)
         {
@@ -124,6 +124,10 @@ namespace ChameleonCoder.Files
             }
         }
 
+        /// <summary>
+        /// a reference to the App that created this instance
+        /// </summary>
+        [DispId(9)]
         public ChameleonCoderApp App
         {
             get;
