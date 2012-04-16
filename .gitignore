@@ -1,4 +1,5 @@
 /*/obj/
+/*/bin/
 /Deploy/Components/*
 /Deploy/*
 *.log
