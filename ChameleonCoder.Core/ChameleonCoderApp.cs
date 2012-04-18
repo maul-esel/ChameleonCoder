@@ -69,7 +69,7 @@ namespace ChameleonCoder
         /// <remarks>This must be COM-compatible! Do not add parameters!</remarks>
         public ChameleonCoderApp()
         {
-            FileManager = new Files.FileManager() { App = this };
+            FileManager = new Files.FileManager(this);
             RunningObject = this; // TODO!
 
             // setting the Language the user chose

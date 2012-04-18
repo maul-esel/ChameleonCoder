@@ -11,6 +11,11 @@ namespace ChameleonCoder.Files
     [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual), Guid("058BDE94-D8FA-4867-BFF6-98E1CD16470D")]
     public sealed class FileManager
     {
+        internal FileManager(ChameleonCoderApp app)
+        {
+            App = app;
+        }
+
         /// <summary>
         /// opens a given file
         /// </summary>
@@ -131,7 +136,7 @@ namespace ChameleonCoder.Files
         public ChameleonCoderApp App
         {
             get;
-            internal set; // TODO: restrict
+            private set;
         }
 
         #endregion // "properties"
