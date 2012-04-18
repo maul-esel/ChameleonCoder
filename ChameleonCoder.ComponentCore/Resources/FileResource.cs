@@ -39,12 +39,12 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// or an error message if the text could not be btained (missing or binary file).</returns>
         public string GetText()
         {
-            if (!string.IsNullOrWhiteSpace(Path) && File.Exists(Path))
+            if (!string.IsNullOrWhiteSpace(Path) && System.IO.File.Exists(Path))
             {
                 if (IsBinary(Path))
                     return "file is binary (contains null chars) and can't be loaded";
 
-                return File.ReadAllText(Path);
+                return System.IO.File.ReadAllText(Path);
             }
             return string.Format("path cannot be found: '{0}'", Path);
         }
@@ -57,7 +57,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             if (!string.IsNullOrWhiteSpace(Path))
                 if (!IsBinary(Path))
-                    File.WriteAllText(Path, text);
+                    System.IO.File.WriteAllText(Path, text);
         }
 
         #endregion

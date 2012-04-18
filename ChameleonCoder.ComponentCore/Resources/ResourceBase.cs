@@ -40,12 +40,13 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         /// <param name="data">the XmlNode that contains the resource</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Update(XmlElement data, IResource parent)
+        public virtual void Update(XmlElement data, IResource parent, DataFile file)
         {
             referenceCollection.CollectionChanged += (s, e) => OnPropertyChanged("References");
             childrenCollection.CollectionChanged += (s, e) => OnPropertyChanged("Children");
 
             Xml = data;
+            File = file;
             Parent = parent;
 
             string guid = Xml.GetAttribute("id", DataFile.NamespaceUri);
@@ -73,6 +74,8 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// gets the resource's unique identifier
         /// </summary>
         public Guid Identifier { get; protected set; }
+
+        public DataFile File { get; protected set; }
 
         /// <summary>
         /// gets a list containing the resource's references
