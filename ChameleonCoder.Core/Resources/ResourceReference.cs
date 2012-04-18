@@ -14,12 +14,19 @@ namespace ChameleonCoder.Resources
         /// creates a new instance of the ResourceReference class
         /// </summary>
         /// <param name="data">the XmlElement representing the reference</param>
-        internal ResourceReference(System.Xml.XmlElement data)
+        internal ResourceReference(System.Xml.XmlElement data, DataFile file)
         {
             Xml = data;
+            File = file;
 
             Identifier = Guid.Parse(Xml.GetAttribute("id", DataFile.NamespaceUri));
             Target = Guid.Parse(Xml.GetAttribute("target", DataFile.NamespaceUri));
+        }
+
+        public DataFile File
+        {
+            get;
+            private set;
         }
 
         /// <summary>
