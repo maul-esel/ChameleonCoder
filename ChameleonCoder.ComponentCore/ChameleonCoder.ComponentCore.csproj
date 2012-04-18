@@ -121,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChameleonCoder.Core\ChameleonCoder.Core.csproj">
+      <Project>{4DC8B45C-8AF4-4D36-968F-BEE5645C460E}</Project>
+      <Name>ChameleonCoder.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
