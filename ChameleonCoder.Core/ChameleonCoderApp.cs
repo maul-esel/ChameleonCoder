@@ -19,7 +19,7 @@ namespace ChameleonCoder
         /// gets the application's main window
         /// </summary>
         [ComVisible(false)]
-        internal static MainWindow Gui { get; private set; }
+        internal static Window Gui { get; private set; }
 
         /// <summary>
         /// gets the directory containing the application
@@ -142,7 +142,7 @@ namespace ChameleonCoder
         {
             if (Gui != null)
                 throw new InvalidOperationException("Window has already been initialized.");
-            Gui = new MainWindow();
+            Gui = new Window(); // TODO!
         }
 
         /// <summary>
