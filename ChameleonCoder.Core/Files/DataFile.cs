@@ -41,8 +41,9 @@ namespace ChameleonCoder.Files
         /// <param name="path">the path to the file</param>
         /// <exception cref="FileFormatException">thrown if the Xml is not valid or could not be read.</exception>
         /// <exception cref="FileNotFoundException">the specified file does not exist</exception>
-        public DataFile(string path)
+        public DataFile(string path, ChameleonCoderApp app)
         {
+            App = app;
             if (File.Exists(path) && !string.IsNullOrWhiteSpace(path))
             {
                 try
@@ -140,7 +141,7 @@ namespace ChameleonCoder.Files
         public ChameleonCoderApp App
         {
             get;
-            internal set; // TODO: restrict!
+            private set;
         }
 
         #endregion // properties

@@ -30,7 +30,7 @@ namespace ChameleonCoder.Files
                 throw new InvalidOperationException("The file has already been opened.");
             }
 
-            DataFile file = new DataFile(Path.GetFullPath(path)) { App = this.App }; // use MakeAbsolutePath() (?)
+            DataFile file = new DataFile(Path.GetFullPath(path), App); // use MakeAbsolutePath() (?)
 
             Files.Add(file);
             pathsOpen.Add(file.FilePath);
