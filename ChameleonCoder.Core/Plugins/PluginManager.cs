@@ -180,6 +180,8 @@ namespace ChameleonCoder.Plugins
                 module.Load();
                 ActiveModule = module;
 
+                /*
+                 * moved to MainWindow using event handler for IF.ModuleLoaded event
                 if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
                 {
                     ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
@@ -189,6 +191,7 @@ namespace ChameleonCoder.Plugins
                 else
                     ChameleonCoderApp.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                         module.Name, module.Version, module.Author, module.About);
+                */
 
                 IF.OnModuleLoaded(module, new EventArgs());
             }
@@ -211,6 +214,8 @@ namespace ChameleonCoder.Plugins
             ActiveModule.Unload();
             ActiveModule = null;
 
+            /*
+             * moved to Mainwindow using event handler for IF.ModuleUnloaded event
             if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
             {
                 ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
@@ -218,6 +223,7 @@ namespace ChameleonCoder.Plugins
             }
             else
                 ChameleonCoderApp.Gui.CurrentModule.Text = string.Empty;
+            */
 
             IF.OnModuleUnloaded(module, new EventArgs());
         }
@@ -287,15 +293,21 @@ namespace ChameleonCoder.Plugins
 
             IF.OnServiceExecute(service, new EventArgs());
 
+            /*
+             * moved to Mainwindow using event handler for IF.ServiceExecute
             ChameleonCoderApp.Gui.CurrentActionProgress.IsIndeterminate = true;
             ChameleonCoderApp.Gui.CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
+            */
 
             service.Execute();
             while (service.IsBusy)
                 System.Threading.Thread.Sleep(100);
 
+            /*
+             * moved to Mainwindow using event handler for IF.ServiceExecuted
             ChameleonCoderApp.Gui.CurrentActionProgress.IsIndeterminate = false;
             ChameleonCoderApp.Gui.CurrentAction.Text = string.Empty;
+            */
 
             IF.OnServiceExecuted(service, new EventArgs());
         }

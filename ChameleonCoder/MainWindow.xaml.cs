@@ -28,6 +28,10 @@ namespace ChameleonCoder
             CommandBindings.AddRange(MVVM.Instance.Commands);
 
             InitializeComponent();
+            InformationProvider.ModuleLoaded += ModuleLoaded;
+            InformationProvider.ModuleUnloaded += ModuleUnloaded;
+            InformationProvider.ServiceExecute += ServiceExecute;
+            InformationProvider.ServiceExecuted += ServiceExecuted;
 
             ChameleonCoderCommands.OpenNewTab.Execute(null, this);
         }
@@ -98,6 +102,60 @@ namespace ChameleonCoder
         {
             System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as IInputElement);
         }
+
+        #region temp
+        private void ModuleLoaded(object sender, EventArgs e)
+        {
+            var module = sender as Plugins.ILanguageModule;
+            if (module != null)
+            {
+                if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
+                {
+                    ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
+                        CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                        module.Name, module.Version, module.Author, module.About)));
+                }
+                else
+                    CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                        module.Name, module.Version, module.Author, module.About);
+            }
+        }
+
+        private void ModuleUnloaded(object sender, EventArgs e)
+        {
+            var module = sender as Plugins.ILanguageModule;
+            if (module != null)
+            {
+                if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
+                {
+                    ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
+                        CurrentModule.Text = string.Empty));
+                }
+                else
+                    CurrentModule.Text = string.Empty;
+            }
+        }
+
+        private void ServiceExecute(object sender, EventArgs e)
+        {
+            var service = sender as Plugins.IService;
+            if (service != null)
+            {
+                CurrentActionProgress.IsIndeterminate = true;
+                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
+            }
+        }
+
+        private void ServiceExecuted(object sender, EventArgs e)
+        {
+            var service = sender as Plugins.IService;
+            if (service != null)
+            {
+                CurrentActionProgress.IsIndeterminate = false;
+                CurrentAction.Text = string.Empty;
+            }
+        }
+        #endregion
 
         private void GroupsChanged(object sender, RoutedEventArgs e)
         {
