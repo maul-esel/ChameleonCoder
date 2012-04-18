@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
 using System.Threading.Tasks;
 using IF = ChameleonCoder.Shared.InformationProvider;
 

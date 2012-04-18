@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Media;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.Management;
-using Odyssey.Controls;
 
 namespace ChameleonCoder.Shared
 {
