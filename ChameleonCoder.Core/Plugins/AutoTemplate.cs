@@ -137,7 +137,7 @@ namespace ChameleonCoder.Plugins
         {
             var attr = ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
             if (attr != null)
-                return ResourceTypeManager.CreateNewResource(ResourceType, name, attr, parent);
+                return ResourceTypeManager.CreateNewResource(ResourceType, name, attr, parent, parent != null ? parent.File : ChameleonCoderApp.DefaultFile);
             return null;
         }
         #endregion
