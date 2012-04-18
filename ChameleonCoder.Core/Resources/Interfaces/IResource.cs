@@ -59,6 +59,6 @@ namespace ChameleonCoder.Resources.Interfaces
         /// </summary>
         /// <param name="data">the XmlNode containing the resource data.</param>
         /// <param name="parent">the parent resource for the resource</param>
-        void Update(XmlElement data, IResource parent);
+        void Update(XmlElement data, IResource parent, Files.DataFile file);
     }
 }
