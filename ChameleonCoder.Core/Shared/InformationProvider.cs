@@ -69,6 +69,7 @@ namespace ChameleonCoder.Shared
 
         #region tools
 
+#if ALL_STUFF
         /// <summary>
         /// registers a new CodeGenerator
         /// </summary>
@@ -87,6 +88,7 @@ namespace ChameleonCoder.Shared
                 };
             ChameleonCoderApp.Gui.CustomGroup1.Controls.Add(button);
         }
+#endif
 
         /// <summary>
         /// registers a new StubCreator
@@ -99,6 +101,7 @@ namespace ChameleonCoder.Shared
 
         #region Editing
 
+#if ALL_STUFF
         /// <summary>
         /// appends code to the currently edited resource
         /// </summary>
@@ -147,6 +150,7 @@ namespace ChameleonCoder.Shared
             }
             return null;
         }
+#endif
 
         #endregion
 
