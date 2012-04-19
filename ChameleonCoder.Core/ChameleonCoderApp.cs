@@ -55,7 +55,7 @@ namespace ChameleonCoder
         /// the running ChameleonCoderApp instance
         /// </summary>
         [ComVisible(false), Obsolete("Don't use if avoidable!")]
-        public static ChameleonCoderApp RunningObject { get; set; } // todo: remove or restrict
+        public static ChameleonCoderApp RunningObject { get; private set; }
 
         /// <summary>
         /// the string used to separate resource paths
