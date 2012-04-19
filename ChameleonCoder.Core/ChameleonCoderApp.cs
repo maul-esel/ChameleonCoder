@@ -77,7 +77,7 @@ namespace ChameleonCoder
             RunningObject = this; // TODO!
 
             // setting the Language the user chose
-            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language); // setting retrieval fails if invoked from cOM
+            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language); // setting retrieval fails if invoked from COM
 
             // associate the instances created in XAML with the classes
             ResourceMan.SetCollections((ResourceCollection)RunningApp.Resources["resources"], (ResourceCollection)RunningApp.Resources["resourceHierarchy"]); // fails if invoked from cOM (App == null)
