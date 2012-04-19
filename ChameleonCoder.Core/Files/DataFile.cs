@@ -267,8 +267,19 @@ namespace ChameleonCoder.Files
         [DispId(12)]
         public Guid AddReference(string path, DataFileReferenceType type)
         {
-            var id = Guid.NewGuid();
-            var reference = Document.CreateElement(type == DataFileReferenceType.File ? "cc:file" : "cc:directory", NamespaceUri); // TODO: switch-case
+            Guid id = Guid.NewGuid();
+
+            string elementName = null;
+            switch (type)
+            {
+                case DataFileReferenceType.File:
+                    elementName = "cc:file"; break;
+                case DataFileReferenceType.Directory:
+                    elementName = "cc:directory"; break;
+                default:
+                    throw new NotSupportedException("The given reference type is not known: " + type);
+            }
+            var reference = Document.CreateElement(elementName, NamespaceUri);
 
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
