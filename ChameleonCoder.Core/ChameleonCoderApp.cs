@@ -190,13 +190,13 @@ namespace ChameleonCoder
         /// the path to the log file for the app
         /// </summary>
         [ComVisible(false)]
-        internal static readonly string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
+        private static readonly string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ChameleonCoder.log");
 
         /// <summary>
         /// a template for the logging
         /// </summary>
         [ComVisible(false)]
-        internal const string logTemplate = "new event:"
+        private const string logTemplate = "new event:"
                                           + "\n\tsender: {0}"
                                           + "\n\treason: {1}"
                                           + "\n\t\t{2}"
