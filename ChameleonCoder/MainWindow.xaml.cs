@@ -54,7 +54,7 @@ namespace ChameleonCoder
                 case CCTabPage.Plugins:
                 case CCTabPage.Settings:
 
-                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem != null)
+                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveResource != null)
                         ChameleonCoderApp.RunningObject.ResourceMan.Close();
                     break;
 
@@ -63,7 +63,7 @@ namespace ChameleonCoder
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[0];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
 
-                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem != null)
+                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveResource != null)
                         ChameleonCoderApp.RunningObject.ResourceMan.Close();
                     break;
 
@@ -81,7 +81,7 @@ namespace ChameleonCoder
 
                 case CCTabPage.FileManagement:
 
-                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem != null)
+                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveResource != null)
                         ChameleonCoderApp.RunningObject.ResourceMan.Close();
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[3];

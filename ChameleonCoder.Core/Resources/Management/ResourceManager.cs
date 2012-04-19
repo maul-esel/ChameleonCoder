@@ -40,7 +40,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// gets the currently loaded resource
         /// </summary>
-        public IResource ActiveItem
+        public IResource ActiveResource
         {
             get;
             private set;
@@ -135,13 +135,13 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="resource">the resource to open</param>
         public void Open(IResource resource)
         {
-            if (ActiveItem != null)
+            if (ActiveResource != null)
                 Close();
 
             Shared.InformationProvider.OnResourceLoad(resource, new EventArgs());
             OnResourceLoad(resource, new EventArgs());
 
-            ActiveItem = resource;
+            ActiveResource = resource;
 
             ILanguageResource langRes;
 
@@ -164,20 +164,20 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         public void Close()
         {
-            if (ActiveItem != null)
+            if (ActiveResource != null)
             {
-                Shared.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
-                OnResourceUnload(ActiveItem, new EventArgs());
+                Shared.InformationProvider.OnResourceUnload(ActiveResource, new EventArgs());
+                OnResourceUnload(ActiveResource, new EventArgs());
 
-                ILanguageResource langRes = ActiveItem as ILanguageResource;
+                ILanguageResource langRes = ActiveResource as ILanguageResource;
                 if (langRes != null)
                 {
                     if (App.PluginMan.ActiveModule != null && App.PluginMan.ActiveModule.Identifier == langRes.Language)
                         App.PluginMan.UnloadModule();
                 }
 
-                var item = ActiveItem;
-                ActiveItem = null;
+                var item = ActiveResource;
+                ActiveResource = null;
 
                 Shared.InformationProvider.OnResourceUnloaded(item, new EventArgs());
                 OnResourceUnloaded(item, new EventArgs());

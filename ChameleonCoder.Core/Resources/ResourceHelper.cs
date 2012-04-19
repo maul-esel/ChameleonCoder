@@ -23,12 +23,12 @@ namespace ChameleonCoder
             var resMan = resource.File.App.ResourceMan;
             foreach (IResource child in resource.Children) // remove references to all child resources
             {
-                if (resMan.ActiveItem == child)
+                if (resMan.ActiveResource == child)
                     resMan.Close(); // if a child is loaded: unload it
                 resMan.Remove(child);
             }
 
-            if (resMan.ActiveItem == resource)
+            if (resMan.ActiveResource == resource)
                 resMan.Close(); // unload the resource to delete
 
             resource.Xml.ParentNode.RemoveChild(resource.Xml);
