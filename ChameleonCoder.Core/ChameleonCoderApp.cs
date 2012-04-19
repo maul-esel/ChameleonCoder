@@ -60,7 +60,7 @@ namespace ChameleonCoder
         /// <summary>
         /// the string used to separate resource paths
         /// </summary>
-        [ComVisible(false)]
+        [ComVisible(false), Obsolete]
         internal const string resourcePathSeparator = "/";
 
         /// <summary>
