@@ -36,19 +36,19 @@ namespace ChameleonCoder
         /// <summary>
         /// gets the initially loaded file
         /// </summary>
-        internal static DataFile DefaultFile { get; set; }
+        [Obsolete]
+        public static DataFile DefaultFile { get; private set; }
 
         /// <summary>
         /// the running System.Windows.Application instance
         /// </summary>
-        [ComVisible(false), Obsolete("Attention: must check if it is null before usage!")]
+        [ComVisible(false), Obsolete("Attention: null if the instance is created via COM!")]
         internal static Application RunningApp
         {
             get
             {
                 return System.Windows.Application.Current;
             }
-            //private set;
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace ChameleonCoder
             RunningObject = this; // TODO!
 
             // setting the Language the user chose
-            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);
+            ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language); // setting retrieval fails if invoked from cOM
 
             // associate the instances created in XAML with the classes
-            ResourceMan.SetCollections((ResourceCollection)RunningApp.Resources["resources"], (ResourceCollection)RunningApp.Resources["resourceHierarchy"]);
+            ResourceMan.SetCollections((ResourceCollection)RunningApp.Resources["resources"], (ResourceCollection)RunningApp.Resources["resourceHierarchy"]); // fails if invoked from cOM (App == null)
         }
 
         /// <summary>
