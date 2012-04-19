@@ -8,6 +8,24 @@ using IF = ChameleonCoder.Shared.InformationProvider;
 
 namespace ChameleonCoder.Plugins
 {
+    #region event delegate types
+
+    /// <summary>
+    /// a delegate for LanguageModule events
+    /// </summary>
+    /// <param name="sender">the LanguageModule raising the event</param>
+    /// <param name="e">additional data</param>
+    public delegate void LanguageModuleEventHandler(object sender, EventArgs e);
+
+    /// <summary>
+    /// a delegate for Service Events
+    /// </summary>
+    /// <param name="sender">the service raising the event</param>
+    /// <param name="e">additional data</param>
+    public delegate void ServiceEventHandler(object sender, EventArgs e);
+
+    #endregion
+
     /// <summary>
     /// a class managing the plugins installed
     /// </summary>
@@ -184,6 +202,7 @@ namespace ChameleonCoder.Plugins
             if (Modules.TryGetValue(id, out module))
             {
                 IF.OnModuleLoad(module, new EventArgs());
+                OnModuleLoad(module, new EventArgs());
 
                 module.Load();
                 ActiveModule = module;
@@ -202,6 +221,7 @@ namespace ChameleonCoder.Plugins
                 */
 
                 IF.OnModuleLoaded(module, new EventArgs());
+                OnModuleLoaded(module, new EventArgs());
             }
             else
                 throw new ArgumentException("this module is not registered!\nGuid: " + id.ToString("b"));
@@ -218,6 +238,7 @@ namespace ChameleonCoder.Plugins
 
             ILanguageModule module = ActiveModule;
             IF.OnModuleUnload(ActiveModule, new EventArgs());
+            OnModuleUnload(ActiveModule, new EventArgs());
 
             ActiveModule.Unload();
             ActiveModule = null;
@@ -234,6 +255,7 @@ namespace ChameleonCoder.Plugins
             */
 
             IF.OnModuleUnloaded(module, new EventArgs());
+            OnModuleUnloaded(module, new EventArgs());
         }
 
         /// <summary>
@@ -300,6 +322,7 @@ namespace ChameleonCoder.Plugins
             IService service = GetService(id);
 
             IF.OnServiceExecute(service, new EventArgs());
+            OnServiceExecute(service, new EventArgs());
 
             /*
              * moved to Mainwindow using event handler for IF.ServiceExecute
@@ -318,6 +341,7 @@ namespace ChameleonCoder.Plugins
             */
 
             IF.OnServiceExecuted(service, new EventArgs());
+            OnServiceExecuted(service, new EventArgs());
         }
 
         /// <summary>
@@ -411,6 +435,116 @@ namespace ChameleonCoder.Plugins
         internal bool IsRichContentFactoryRegistered(IRichContentFactory factory)
         {
             return RichContentFactories.Values.Contains(factory);
+        }
+
+        #endregion
+
+        #region events
+
+        /// <summary>
+        /// raised when a Language module is going to be loaded
+        /// </summary>
+        public static event LanguageModuleEventHandler ModuleLoad;
+
+        /// <summary>
+        /// raised when a Language module was loaded
+        /// </summary>
+        public static event LanguageModuleEventHandler ModuleLoaded;
+
+        /// <summary>
+        /// raised when a Language module is going to be unloaded
+        /// </summary>
+        public static event LanguageModuleEventHandler ModuleUnload;
+
+        /// <summary>
+        /// raised when a Language module was unloaded
+        /// </summary>
+        public static event LanguageModuleEventHandler ModuleUnloaded;
+
+        /// <summary>
+        /// raised when a service is going to be executed
+        /// </summary>
+        public static event ServiceEventHandler ServiceExecute;
+
+        /// <summary>
+        /// raised when a service was executed
+        /// </summary>
+        public static event ServiceEventHandler ServiceExecuted;
+
+        #endregion
+
+        #region event infrastructure
+
+        /// <summary>
+        /// raises the ModuleLoad event
+        /// </summary>
+        /// <param name="sender">the module raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnModuleLoad(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleLoad;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ModuleLoaded event
+        /// </summary>
+        /// <param name="sender">the module raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnModuleLoaded(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleLoaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ModuleUnload event
+        /// </summary>
+        /// <param name="sender">the module raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnModuleUnload(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleUnload;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ModuleUnloaded event
+        /// </summary>
+        /// <param name="sender">the module raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
+        {
+            LanguageModuleEventHandler handler = ModuleUnloaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ServiceExecute event
+        /// </summary>
+        /// <param name="sender">the service raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnServiceExecute(IService sender, EventArgs e)
+        {
+            ServiceEventHandler handler = ServiceExecute;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ServiceExecuted event
+        /// </summary>
+        /// <param name="sender">the service raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnServiceExecuted(IService sender, EventArgs e)
+        {
+            ServiceEventHandler handler = ServiceExecuted;
+            if (handler != null)
+                handler(sender, e);
         }
 
         #endregion

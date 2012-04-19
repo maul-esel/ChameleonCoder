@@ -1,5 +1,5 @@
-﻿using ICSharpCode.AvalonEdit.Highlighting;
-using ChameleonCoder.Resources.Interfaces;
+﻿using ChameleonCoder.Resources.Interfaces;
+using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace ChameleonCoder.Plugins
 {
