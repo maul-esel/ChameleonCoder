@@ -163,7 +163,7 @@ namespace ChameleonCoder.Shared
         /// <returns>the resource if it exists</returns>
         public static IResource GetResourceInstance(Guid id)
         {
-            return ResourceManager.GetList().GetInstance(id);
+            return ChameleonCoderApp.RunningObject.ResourceMan.GetList().GetInstance(id);
         }
 
         /// <summary>
@@ -171,8 +171,8 @@ namespace ChameleonCoder.Shared
         /// </summary>
         public static IResource CurrentResource
         {
-            get { return ResourceManager.ActiveItem; }
-            set { ResourceManager.Open(value); }
+            get { return ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem; }
+            set { ChameleonCoderApp.RunningObject.ResourceMan.Open(value); }
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace ChameleonCoder.Shared
         /// <param name="parent">the parent resource or null if it is a top-level resource</param>
         public static void AddResource(IResource resource, IResource parent)
         {
-            ResourceManager.Add(resource, parent);
+            ChameleonCoderApp.RunningObject.ResourceMan.Add(resource, parent);
         }
 
         #endregion

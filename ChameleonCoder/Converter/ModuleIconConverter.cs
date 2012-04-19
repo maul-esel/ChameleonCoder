@@ -34,7 +34,7 @@ namespace ChameleonCoder.Converter
                 {
                     ILanguageModule module;
                     // check if the corresponding Language module is registered and it has a non-null icon
-                    if (PluginManager.TryGetModule(langRes.Language, out module) && module.Icon != null)
+                    if (ChameleonCoderApp.RunningObject.PluginMan.TryGetModule(langRes.Language, out module) && module.Icon != null)
                         // if so: return its icon
                         return module.Icon.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
                 }

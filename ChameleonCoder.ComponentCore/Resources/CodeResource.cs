@@ -118,7 +118,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 ILanguageModule module;
-                if (PluginManager.TryGetModule(Language, out module))
+                if (File.App.PluginMan.TryGetModule(Language, out module))
                     return module.Name;
                 return "error: module could not be found";
             }
@@ -136,7 +136,7 @@ namespace ChameleonCoder.ComponentCore.Resources
                 foreach (Guid lang in CompatibleLanguages)
                 {
                     ILanguageModule module;
-                    if (PluginManager.TryGetModule(lang, out module))
+                    if (File.App.PluginMan.TryGetModule(lang, out module))
                         list += module.Name + "; ";
                 }
                 return list;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Runtime.InteropServices;
 using System.Xml;
 using ChameleonCoder.Plugins;
 
@@ -8,17 +9,29 @@ namespace ChameleonCoder.Resources.RichContent
     /// <summary>
     /// a class for managing the registered RichContent types
     /// </summary>
-    public static class ContentMemberManager
+    [ComVisible(true)]
+    public sealed class ContentMemberManager
     {
+        internal ContentMemberManager(ChameleonCoderApp app)
+        {
+            App = app;
+        }
+
+        public ChameleonCoderApp App
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// the collection holding the RichContent types
         /// </summary>
-        private static ContentMemberCollection ContentMembers = new ContentMemberCollection();
+        private ContentMemberCollection ContentMembers = new ContentMemberCollection();
 
         /// <summary>
         /// a dictionary associating the resource types with the registering component factory
         /// </summary>
-        private static ConcurrentDictionary<Type, IRichContentFactory> Factories = new ConcurrentDictionary<Type, IRichContentFactory>();
+        private ConcurrentDictionary<Type, IRichContentFactory> Factories = new ConcurrentDictionary<Type, IRichContentFactory>();
 
         /// <summary>
         /// registers a RichContent-type
@@ -26,13 +39,13 @@ namespace ChameleonCoder.Resources.RichContent
         /// <param name="member">a Type object representing the registered class</param>
         /// <param name="key">the resource type key of the class</param>
         /// <param name="factory">the factory working with the class</param>
-        public static void RegisterContentMember(Type member, Guid key, IRichContentFactory factory)
+        public void RegisterContentMember(Type member, Guid key, IRichContentFactory factory)
         {
             if (member.GetInterface(typeof(IContentMember).FullName) != null
                 && !member.IsAbstract && !member.IsInterface && !member.IsNotPublic // scope and type
                 && member.GetConstructor(Type.EmptyTypes) != null // creation
                 && !IsRegistered(key) && !IsRegistered(member) // no double-registration
-                && PluginManager.IsRichContentFactoryRegistered(factory)) // no anonymous registration
+                && App.PluginMan.IsRichContentFactoryRegistered(factory)) // no anonymous registration
             {
                 ContentMembers.RegisterContentMember(key, member);
                 Factories.TryAdd(member, factory);
@@ -44,7 +57,7 @@ namespace ChameleonCoder.Resources.RichContent
         /// </summary>
         /// <param name="key">the resource type key to test</param>
         /// <returns>true if a RichContent type with this key is already registered, false otherwise.</returns>
-        public static bool IsRegistered(Guid key)
+        public bool IsRegistered(Guid key)
         {
             return ContentMembers.IsRegistered(key);
         }
@@ -54,7 +67,7 @@ namespace ChameleonCoder.Resources.RichContent
         /// </summary>
         /// <param name="type">the Type to test</param>
         /// <returns>true if the given Type is already registered, false otherwise.</returns>
-        public static bool IsRegistered(Type type)
+        public bool IsRegistered(Type type)
         {
             return ContentMembers.IsRegistered(type);
         }
@@ -65,7 +78,7 @@ namespace ChameleonCoder.Resources.RichContent
         /// <param name="component">the type to get the factory for</param>
         /// <returns>the <see cref="ChameleonCoder.Plugins.IRichContentFactory"/> instance</returns>
         /// <exception cref="System.ArgumentException">thown if the given type is not registered.</exception>
-        public static IRichContentFactory GetFactory(Type component)
+        public IRichContentFactory GetFactory(Type component)
         {
             IRichContentFactory factory;
             if (Factories.TryGetValue(component, out factory))
@@ -73,7 +86,7 @@ namespace ChameleonCoder.Resources.RichContent
             throw new ArgumentException("this is not a registered content member type", "component");
         }
 
-        internal static IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent)
+        internal IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent)
         {
             Type member = ContentMembers.GetMember(key);
             if (member != null)

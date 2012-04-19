@@ -51,7 +51,7 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
                 CloseFilesCommandExecuted,
-                (s, e) => e.CanExecute = ChameleonCoderApp.RunningObject.FileManager.Files.Count > 0));
+                (s, e) => e.CanExecute = ChameleonCoderApp.RunningObject.FileMan.Files.Count > 0));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFile,
                 OpenFileCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
@@ -171,7 +171,7 @@ namespace ChameleonCoder.ViewModel
 
             var service = e.Parameter as Plugins.IService;
             if (service != null)
-                Plugins.PluginManager.CallService(service.Identifier);
+                ChameleonCoderApp.RunningObject.PluginMan.CallService(service.Identifier);
         }
 
         /// <summary>
@@ -439,7 +439,7 @@ namespace ChameleonCoder.ViewModel
 
         private void CopyResource(IResource resource)
         {
-            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            var model = new ViewModel.ResourceSelectorModel(resource.File.App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
             var args = OnRepresentationNeeded(model, true);
 
             if (args.Cancel)
@@ -454,7 +454,7 @@ namespace ChameleonCoder.ViewModel
 
         private void MoveResource(IResource resource)
         {
-            var model = new ViewModel.ResourceSelectorModel(ResourceManager.GetChildren(), 1) { ShowReferences = false };
+            var model = new ViewModel.ResourceSelectorModel(resource.File.App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
             var args = OnRepresentationNeeded(model, true);
 
             if (args.Cancel)
@@ -462,7 +462,7 @@ namespace ChameleonCoder.ViewModel
 
             if (model.SelectedResources.Count > 0 // user selected 1 resource
                 && model.SelectedResources[0] != null // resource is not null
-                && model.SelectedResources[0] != ResourceManager.ActiveItem.Parent) // resource is not already parent
+                && model.SelectedResources[0] != resource.Parent) // resource is not already parent
             {
                 if (!(model.SelectedResources[0] as IResource).IsDescendantOf(resource)) // can't be moved to descendant
                 {
@@ -510,7 +510,7 @@ namespace ChameleonCoder.ViewModel
                     new BreadcrumbContext[4]
                         {
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/list.png"),
-                            ResourceManager.GetChildren(),
+                            ChameleonCoderApp.RunningObject.ResourceMan.GetChildren(),
                             CCTabPage.ResourceList),
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png"),
                             null,
@@ -578,14 +578,14 @@ namespace ChameleonCoder.ViewModel
 
         public static bool EnableServices
         {
-            get { return Plugins.PluginManager.ServiceCount > 0; }
+            get { return ChameleonCoderApp.RunningObject.PluginMan.ServiceCount > 0; }
         }
 
         public static IEnumerable<Plugins.IService> ServiceList
         {
             get
             {
-                return Plugins.PluginManager.GetServices();
+                return ChameleonCoderApp.RunningObject.PluginMan.GetServices();
             }
         }
 
@@ -606,9 +606,9 @@ namespace ChameleonCoder.ViewModel
         {
             if (OnConfirm(Res.Status_ClosingFiles, Res.File_ConfirmClose) == true)
             {
-                Resources.Management.ResourceManager.GetChildren().Clear();
-                Resources.Management.ResourceManager.GetList().Clear();
-                ChameleonCoderApp.RunningObject.FileManager.CloseAll();
+                ChameleonCoderApp.RunningObject.ResourceMan.GetChildren().Clear();
+                ChameleonCoderApp.RunningObject.ResourceMan.GetList().Clear();
+                ChameleonCoderApp.RunningObject.FileMan.CloseAll();
                 NamespaceManagerFactory.ClearManagers();
             }
         }
@@ -635,15 +635,15 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFile(string path)
         {
-            if (ChameleonCoderApp.RunningObject.FileManager.IsOpen(path))
+            if (ChameleonCoderApp.RunningObject.FileMan.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);
                 return;
             }
 
-            ChameleonCoderApp.RunningObject.FileManager.Open(path);
-            ChameleonCoderApp.RunningObject.FileManager.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
+            ChameleonCoderApp.RunningObject.FileMan.Open(path);
+            ChameleonCoderApp.RunningObject.FileMan.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
         private void CreateFile()
@@ -661,7 +661,7 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreatingFile, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
                 return;
             }
-            if (ChameleonCoderApp.RunningObject.FileManager.IsOpen(path))
+            if (ChameleonCoderApp.RunningObject.FileMan.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);

@@ -118,7 +118,7 @@ namespace ChameleonCoder.ComponentCore.Resources
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
-                this.ResourceLanguage.ItemsSource = Plugins.PluginManager.GetModules();
+                this.ResourceLanguage.ItemsSource = ChameleonCoderApp.RunningObject.PluginMan.GetModules();
                 customAttributes.Add("language", () => ResLanguage.Identifier.ToString("b"));
             }
 

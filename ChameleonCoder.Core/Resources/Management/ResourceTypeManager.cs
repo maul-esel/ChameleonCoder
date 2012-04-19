@@ -95,7 +95,7 @@ namespace ChameleonCoder.Resources.Management
             IResource resource = GetFactory(type).CreateInstance(type, element, parent, file);
             if (resource != null)
             {
-                ResourceManager.Add(resource, parent);
+                file.App.ResourceMan.Add(resource, parent);
 
                 var data = ResourceHelper.GetDataElement(resource, true);
                 var created = (System.Xml.XmlElement)document.CreateElement("cc:created", DataFile.NamespaceUri);
@@ -204,7 +204,7 @@ namespace ChameleonCoder.Resources.Management
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic // scope and type
                 && !IsRegistered(key) && !IsRegistered(component) // no double-registration
-                && PluginManager.IsResourceFactoryRegistered(factory)) // no anonymous registration
+                && ChameleonCoderApp.RunningObject.PluginMan.IsResourceFactoryRegistered(factory)) // no anonymous registration
             {
                 ResourceTypes.RegisterResourceType(key, component);
                 Factories.TryAdd(component, factory);

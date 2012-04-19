@@ -68,7 +68,7 @@ namespace ChameleonCoder.Plugins
                 Shared.InformationProvider.OnPluginInstalled(plugin);
             }
 
-            PluginManager.Load(pluginTypes);
+            ChameleonCoderApp.RunningObject.PluginMan.Load(pluginTypes);
         }
 
         ObservableCollection<IPlugin> pluginList;

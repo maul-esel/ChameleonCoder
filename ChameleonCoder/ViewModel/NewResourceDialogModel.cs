@@ -28,7 +28,7 @@ namespace ChameleonCoder.ViewModel
             get { return templateList; }
         }
 
-        private readonly List<ITemplate> templateList = new List<ITemplate>(PluginManager.GetTemplates());
+        private readonly List<ITemplate> templateList = new List<ITemplate>(ChameleonCoderApp.RunningObject.PluginMan.GetTemplates());
 
         public IList<string> Groups
         {

@@ -1,25 +1,37 @@
 ﻿using System;
-using ChameleonCoder.Plugins;
+using System.Runtime.InteropServices;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
 {
-    internal static class ResourceManager
+    [ComVisible(true)]
+    public sealed class ResourceManager
     {
+        internal ResourceManager(ChameleonCoderApp app)
+        {
+            App = app;
+        }
+
+        public ChameleonCoderApp App
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
-        private static ResourceCollection Children;
+        private ResourceCollection Children;
 
         /// <summary>
         /// contains a list of ALL resources
         /// </summary>
-        private static ResourceCollection FlatList;
+        private ResourceCollection FlatList;
 
         /// <summary>
         /// gets the currently loaded resource
         /// </summary>
-        internal static IResource ActiveItem
+        internal IResource ActiveItem
         {
             get;
             private set;
@@ -32,7 +44,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="hierarchy">the instance to use as list of top-level resources</param>
         /// <remarks>this is needed to make it possible to create the instances in XAML,
         /// from where they can be referenced in the UI.</remarks>
-        internal static void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
+        internal void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
         {
             FlatList = flat;
             Children = hierarchy;
@@ -47,7 +59,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="instance">the resource to add</param>
         /// <param name="parent">the parent to add the resource to.
         /// If this is null, it will be added to the list of top-level resources</param>
-        internal static void Add(IResource instance, IResource parent)
+        internal void Add(IResource instance, IResource parent)
         {
             FlatList.Add(instance);
             if (parent == null)
@@ -68,7 +80,7 @@ namespace ChameleonCoder.Resources.Management
         /// It also removes the handler from the 'PropertyChanged' event.
         /// </summary>
         /// <param name="instance">the instance to remove</param>
-        internal static void Remove(IResource instance)
+        internal void Remove(IResource instance)
         {
             FlatList.Remove(instance);
 
@@ -88,7 +100,7 @@ namespace ChameleonCoder.Resources.Management
         /// gets the Children list
         /// </summary>
         /// <returns></returns>
-        internal static ResourceCollection GetChildren()
+        internal ResourceCollection GetChildren()
         {
             return Children;
         }
@@ -97,12 +109,12 @@ namespace ChameleonCoder.Resources.Management
         /// gets the complete list of all resources
         /// </summary>
         /// <returns></returns>
-        internal static ResourceCollection GetList()
+        internal ResourceCollection GetList()
         {
             return FlatList;
         }
 
-        public static IResource GetResource(Guid id)
+        public IResource GetResource(Guid id)
         {
             return FlatList.GetInstance(id);
         }
@@ -111,7 +123,7 @@ namespace ChameleonCoder.Resources.Management
         /// opens a resource
         /// </summary>
         /// <param name="resource">the resource to open</param>
-        internal static void Open(IResource resource)
+        internal void Open(IResource resource)
         {
             if (ActiveItem != null)
                 Close();
@@ -124,12 +136,12 @@ namespace ChameleonCoder.Resources.Management
 
             if ((langRes = resource as ILanguageResource) != null)
             {
-                if (PluginManager.ActiveModule != null
-                    && langRes.Language != PluginManager.ActiveModule.Identifier)
+                if (App.PluginMan.ActiveModule != null
+                    && langRes.Language != App.PluginMan.ActiveModule.Identifier)
                 {
-                    PluginManager.UnloadModule();
-                    if (PluginManager.IsModuleRegistered(langRes.Language))
-                        PluginManager.LoadModule(langRes.Language);
+                    App.PluginMan.UnloadModule();
+                    if (App.PluginMan.IsModuleRegistered(langRes.Language))
+                        App.PluginMan.LoadModule(langRes.Language);
                 }
             }
             Shared.InformationProvider.OnResourceLoaded(resource, new EventArgs());
@@ -138,7 +150,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// closes the loaded resource
         /// </summary>
-        internal static void Close()
+        internal void Close()
         {
             if (ActiveItem != null)
             {
@@ -147,8 +159,8 @@ namespace ChameleonCoder.Resources.Management
                 ILanguageResource langRes = ActiveItem as ILanguageResource;
                 if (langRes != null)
                 {
-                    if (PluginManager.ActiveModule != null && PluginManager.ActiveModule.Identifier == langRes.Language)
-                        PluginManager.UnloadModule();
+                    if (App.PluginMan.ActiveModule != null && App.PluginMan.ActiveModule.Identifier == langRes.Language)
+                        App.PluginMan.UnloadModule();
                 }
 
                 var item = ActiveItem;
@@ -165,7 +177,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="sender">the resource that changed</param>
         /// <param name="args">additional data</param>
-        private static void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             IResource resource = sender as IResource;
             resource.UpdateLastModified();

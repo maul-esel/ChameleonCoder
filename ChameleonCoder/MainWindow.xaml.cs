@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Shared;
 using ChameleonCoder.ViewModel.Interaction;
 using Odyssey.Controls;
@@ -55,8 +54,8 @@ namespace ChameleonCoder
                 case CCTabPage.Plugins:
                 case CCTabPage.Settings:
 
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
+                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem != null)
+                        ChameleonCoderApp.RunningObject.ResourceMan.Close();
                     break;
 
                 case CCTabPage.ResourceList:
@@ -64,8 +63,8 @@ namespace ChameleonCoder
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[0];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
 
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
+                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem != null)
+                        ChameleonCoderApp.RunningObject.ResourceMan.Close();
                     break;
 
                 case CCTabPage.ResourceView:
@@ -82,8 +81,8 @@ namespace ChameleonCoder
 
                 case CCTabPage.FileManagement:
 
-                    if (ResourceManager.ActiveItem != null)
-                        ResourceManager.Close();
+                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem != null)
+                        ChameleonCoderApp.RunningObject.ResourceMan.Close();
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[3];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];

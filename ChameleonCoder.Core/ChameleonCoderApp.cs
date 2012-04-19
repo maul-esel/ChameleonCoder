@@ -55,7 +55,7 @@ namespace ChameleonCoder
         /// the running ChameleonCoderApp instance
         /// </summary>
         [ComVisible(false), Obsolete("Don't use if avoidable!")]
-        internal static ChameleonCoderApp RunningObject { get; set; } // todo: remove or restrict
+        public static ChameleonCoderApp RunningObject { get; set; } // todo: remove or restrict
 
         /// <summary>
         /// the string used to separate resource paths
@@ -69,14 +69,18 @@ namespace ChameleonCoder
         /// <remarks>This must be COM-compatible! Do not add parameters!</remarks>
         public ChameleonCoderApp()
         {
-            FileManager = new Files.FileManager(this);
+            FileMan = new Files.FileManager(this);
+            PluginMan = new Plugins.PluginManager(this);
+            ResourceMan = new ResourceManager(this);
+            ContentMemberMan = new Resources.RichContent.ContentMemberManager(this);
+
             RunningObject = this; // TODO!
 
             // setting the Language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language);
 
             // associate the instances created in XAML with the classes
-            ResourceManager.SetCollections((ResourceCollection)RunningApp.Resources["resources"], (ResourceCollection)RunningApp.Resources["resourceHierarchy"]);
+            ResourceMan.SetCollections((ResourceCollection)RunningApp.Resources["resources"], (ResourceCollection)RunningApp.Resources["resourceHierarchy"]);
         }
 
         /// <summary>
@@ -86,15 +90,33 @@ namespace ChameleonCoder
         [DispId(1)]
         public void Exit(int exitCode)
         {
-            Plugins.PluginManager.Shutdown(); // inform plugins
-            FileManager.SaveAll(); // save changes to the opened files
-            FileManager.CloseAll();
+            PluginMan.Shutdown(); // inform plugins
+            FileMan.SaveAll(); // save changes to the opened files
+            FileMan.CloseAll();
 
             Environment.Exit(exitCode);
         }
 
         [DispId(2)]
-        public FileManager FileManager
+        public FileManager FileMan
+        {
+            get;
+            private set;
+        }
+
+        public Plugins.PluginManager PluginMan
+        {
+            get;
+            private set;
+        }
+
+        public ResourceManager ResourceMan
+        {
+            get;
+            private set;
+        }
+
+        public Resources.RichContent.ContentMemberManager ContentMemberMan
         {
             get;
             private set;
@@ -128,7 +150,7 @@ namespace ChameleonCoder
         [DispId(5)]
         public void LoadPlugins()
         {
-            Plugins.PluginManager.Load();
+            PluginMan.Load();
         }
 
         #region window management

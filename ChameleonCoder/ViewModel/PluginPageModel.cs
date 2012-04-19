@@ -65,7 +65,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        private readonly ObservableCollection<IPlugin> plugins = new ObservableCollection<IPlugin>(PluginManager.GetPlugins());
+        private readonly ObservableCollection<IPlugin> plugins = new ObservableCollection<IPlugin>(ChameleonCoderApp.RunningObject.PluginMan.GetPlugins());
 
         #region localization
 

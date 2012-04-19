@@ -20,19 +20,20 @@ namespace ChameleonCoder
         /// <param name="resource">the resource to delete</param>
         public static void Delete(this IResource resource)
         {
+            var resMan = resource.File.App.ResourceMan;
             foreach (IResource child in resource.Children) // remove references to all child resources
             {
-                if (ResourceManager.ActiveItem == child)
-                    ResourceManager.Close(); // if a child is loaded: unload it
-                ResourceManager.Remove(child);
+                if (resMan.ActiveItem == child)
+                    resMan.Close(); // if a child is loaded: unload it
+                resMan.Remove(child);
             }
 
-            if (ResourceManager.ActiveItem == resource)
-                ResourceManager.Close(); // unload the resource to delete            
+            if (resMan.ActiveItem == resource)
+                resMan.Close(); // unload the resource to delete
 
             resource.Xml.ParentNode.RemoveChild(resource.Xml);
 
-            ResourceManager.Remove(resource);
+            resMan.Remove(resource);
 
             resource.File.Save(); // save changes
         }
@@ -261,6 +262,7 @@ namespace ChameleonCoder
             if (content == null)
                 return;
 
+            var contentMemberMan = resource.File.App.ContentMemberMan;
             foreach (XmlElement node in content.ChildNodes)
             {
                 Guid type;
@@ -268,11 +270,11 @@ namespace ChameleonCoder
 
                 if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
                 {
-                    member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                    member = contentMemberMan.CreateInstanceOf(type, node, null);
                 }
                 else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
                 {
-                    member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                    member = contentMemberMan.CreateInstanceOf(type, node, null);
                 }
 
                 if (member != null)
@@ -280,7 +282,7 @@ namespace ChameleonCoder
                     resource.RichContent.Add(member);
                     foreach (XmlElement child in node.ChildNodes)
                     {
-                        AddRichContent(child, member);
+                        AddRichContent(child, member, contentMemberMan);
                     }
                 }
             }
@@ -359,18 +361,18 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="node">the XmlElement representing the child member</param>
         /// <param name="parent">the parent member</param>
-        private static void AddRichContent(XmlElement node, IContentMember parent)
+        private static void AddRichContent(XmlElement node, IContentMember parent, ContentMemberManager contentMemberMan)
         {
             Guid type;
             IContentMember member = null;
 
             if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
             {
-                member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                member = contentMemberMan.CreateInstanceOf(type, node, null);
             }
             else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
             {
-                member = ContentMemberManager.CreateInstanceOf(type, node, null);
+                member = contentMemberMan.CreateInstanceOf(type, node, null);
             }
 
             if (member != null)
@@ -378,7 +380,7 @@ namespace ChameleonCoder
                 parent.Children.Add(member);
                 foreach (XmlElement child in node.ChildNodes)
                 {
-                    AddRichContent(child, member);
+                    AddRichContent(child, member, contentMemberMan);
                 }
             }
         }
@@ -429,7 +431,7 @@ namespace ChameleonCoder
             if (path.StartsWith(start, StringComparison.Ordinal))
                 path = path.Remove(0, start.Length);
 
-            var collection = ResourceManager.GetChildren();
+            var collection = ChameleonCoderApp.RunningObject.ResourceMan.GetChildren();
             string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;

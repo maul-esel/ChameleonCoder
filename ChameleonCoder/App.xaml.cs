@@ -84,8 +84,8 @@ namespace ChameleonCoder
             var load = System.Threading.Tasks.Task.Factory.StartNew(() =>
             {
                 obj.LoadPlugins(); // load all plugins in the /Component/ folder
-                obj.FileManager.Open(path); // open the file(s)
-                obj.FileManager.LoadAll();
+                obj.FileMan.Open(path); // open the file(s)
+                obj.FileMan.LoadAll();
             });
 
             obj.InitWindow(); // create the window during plugin & file loading

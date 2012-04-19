@@ -154,8 +154,8 @@ namespace ChameleonCoder.Files
         [DispId(5)]
         public void Close()
         {
-            App.FileManager.Files.Remove(this);
-            App.FileManager.Paths.Remove(FilePath);
+            App.FileMan.Files.Remove(this);
+            App.FileMan.Paths.Remove(FilePath);
         }
 
         /// <summary>
@@ -302,10 +302,10 @@ namespace ChameleonCoder.Files
                 switch (reference.Type)
                 {
                     case DataFileReferenceType.File:
-                        App.FileManager.Open(reference.Path);
+                        App.FileMan.Open(reference.Path);
                         break;
                     case DataFileReferenceType.Directory:
-                        App.FileManager.Directories.Add(reference.Path);
+                        App.FileMan.Directories.Add(reference.Path);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -393,7 +393,7 @@ namespace ChameleonCoder.Files
                 return; // ignore
             }
 
-            ResourceManager.Add(resource, parent); // and add it to all required lists
+            App.ResourceMan.Add(resource, parent); // and add it to all required lists
 
             foreach (XmlElement child in node.ChildNodes)
             {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Navigation
 {
@@ -18,7 +17,7 @@ namespace ChameleonCoder.Navigation
         {
             ModelClientHelper.InitializeModel(model);
 
-            ResourceManager.Open(model.Resource);
+            model.Resource.File.App.ResourceMan.Open(model.Resource);
 
             DataContext = model;
             CommandBindings.AddRange(model.Commands);

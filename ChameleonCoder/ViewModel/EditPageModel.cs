@@ -19,7 +19,7 @@ namespace ChameleonCoder.ViewModel
         internal EditPageModel(IEditable resource)
         {
             resourceInstance = resource;
-            Resources.Management.ResourceManager.Open(resource);
+            resource.File.App.ResourceMan.Open(resource);
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.SaveResource,
                 SaveResourceCommandExecuted));
@@ -144,9 +144,9 @@ namespace ChameleonCoder.ViewModel
             get
             {
                 ILanguageResource langRes = Resource as ILanguageResource;
-                if (langRes != null && PluginManager.IsModuleRegistered(langRes.Language))
+                if (langRes != null && Resource.File.App.PluginMan.IsModuleRegistered(langRes.Language))
                 {
-                    return PluginManager.GetModule(langRes.Language).Highlighting;
+                    return Resource.File.App.PluginMan.GetModule(langRes.Language).Highlighting;
                 }
                 return null;
             }

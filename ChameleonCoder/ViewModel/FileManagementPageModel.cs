@@ -31,7 +31,7 @@ namespace ChameleonCoder.ViewModel
         {
             get
             {
-                return ChameleonCoderApp.RunningObject.FileManager.Files;
+                return ChameleonCoderApp.RunningObject.FileMan.Files;
             }
         }
 
