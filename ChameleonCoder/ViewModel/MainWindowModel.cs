@@ -460,13 +460,15 @@ namespace ChameleonCoder.ViewModel
             if (args.Cancel)
                 return;
 
+            IResource newParent = model.SelectedResources[0] as IResource;
+
             if (model.SelectedResources.Count > 0 // user selected 1 resource
-                && model.SelectedResources[0] != null // resource is not null
-                && model.SelectedResources[0] != resource.Parent) // resource is not already parent
+                && newParent != null) // resource is not null
             {
-                if (!(model.SelectedResources[0] as IResource).IsDescendantOf(resource)) // can't be moved to descendant
+                if (!resource.File.App.ResourceMan.IsDescendantOf(resource, newParent) // can't be moved to descendant
+                    && newParent != resource.Parent) // resource is not already parent
                 {
-                    resource.Move(model.SelectedResources[0] as IResource);
+                    resource.Move(newParent);
                 }
                 else
                 {
