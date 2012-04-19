@@ -75,7 +75,7 @@ namespace ChameleonCoder.Resources.Management
         public static IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
         {
             var document = (parent == null) ? ChameleonCoderApp.DefaultFile.Document : parent.File.Document;
-            var manager = NamespaceManagerFactory.GetManager(document);
+            var manager = XmlNamespaceManagerFactory.GetManager(document);
 
             var element = document.CreateElement("cc:resource", DataFile.NamespaceUri);
             element.SetAttribute("type", DataFile.NamespaceUri, GetKey(type).ToString("b"));

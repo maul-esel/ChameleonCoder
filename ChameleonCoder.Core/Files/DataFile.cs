@@ -55,7 +55,7 @@ namespace ChameleonCoder.Files
                     throw new FileFormatException(new Uri(path), "Invalid format: not a well-formed XML file.", e);
                 }
 
-                manager = NamespaceManagerFactory.GetManager(doc);
+                manager = XmlNamespaceManagerFactory.GetManager(doc);
 
                 using (var stream = GetType().Assembly.GetManifestResourceStream("ChameleonCoder.schema.xsd"))
                 {

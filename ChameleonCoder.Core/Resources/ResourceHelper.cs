@@ -63,7 +63,7 @@ namespace ChameleonCoder
         {
             var file = newParent == null ? resource.File : newParent.File;
             var doc = file.Document;
-            var manager = NamespaceManagerFactory.GetManager(doc);
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             var element = (XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
             if (element.OwnerDocument != doc) //if we switch the document:
@@ -112,7 +112,7 @@ namespace ChameleonCoder
         public static void SetMetadata(this IResource resource, string key, string value)
         {
             var doc = resource.File.Document;
-            var manager = NamespaceManagerFactory.GetManager(doc);
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             // get the resource-data element for the resource
             XmlElement res = GetDataElement(resource, true);
@@ -139,7 +139,7 @@ namespace ChameleonCoder
         {
             var doc = resource.File.Document;
 
-            var manager = NamespaceManagerFactory.GetManager(doc);
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             // get the resource's data element
             XmlElement res = GetDataElement(resource, false);
@@ -162,7 +162,7 @@ namespace ChameleonCoder
         public static Dictionary<string, string> GetMetadata(this IResource resource)
         {
             var doc = resource.File.Document;
-            var manager = NamespaceManagerFactory.GetManager(doc);
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             var dict = new Dictionary<string, string>();
 
@@ -193,7 +193,7 @@ namespace ChameleonCoder
         public static void DeleteMetadata(this IResource resource, string key)
         {
             var doc = resource.File.Document;
-            var manager = NamespaceManagerFactory.GetManager(doc);
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             // get the resource's data element
             XmlElement res = GetDataElement(resource, false);
@@ -216,7 +216,7 @@ namespace ChameleonCoder
         public static void UpdateLastModified(this IResource resource)
         {
             var res = GetDataElement(resource, true);
-            var manager = NamespaceManagerFactory.GetManager(res.OwnerDocument);
+            var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
 
             var lastmod = res.SelectSingleNode("cc:lastmodified", manager);
 
@@ -257,7 +257,7 @@ namespace ChameleonCoder
             if (res == null)
                 return;
 
-            var manager = NamespaceManagerFactory.GetManager(res.OwnerDocument);
+            var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
             var content = (XmlElement)res.SelectSingleNode("cc:richcontent", manager);
             if (content == null)
                 return;
@@ -302,7 +302,7 @@ namespace ChameleonCoder
 
                 if (res != null)
                 {
-                    var manager = NamespaceManagerFactory.GetManager(res.OwnerDocument);
+                    var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
 
                     foreach (XmlElement reference in res.SelectNodes("cc:references/cc:reference", manager))
                         resource.References.Add(new Resources.ResourceReference(reference, resource.File));
@@ -394,7 +394,7 @@ namespace ChameleonCoder
         internal static XmlElement GetDataElement(IResource resource, bool create)
         {
             var doc = resource.File.Document;
-            var manager = NamespaceManagerFactory.GetManager(doc);
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             var data = (XmlElement)doc.SelectSingleNode("/cc:ChameleonCoder/cc:data/cc:resourcedata[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)

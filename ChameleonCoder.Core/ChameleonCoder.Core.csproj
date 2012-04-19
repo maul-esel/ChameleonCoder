@@ -62,7 +62,7 @@
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="InstanceCollection.cs" />
-    <Compile Include="NamespaceManagerFactory.cs" />
+    <Compile Include="XmlNamespaceManagerFactory.cs" />
     <Compile Include="Plugins\AutoTemplate.cs" />
     <Compile Include="Plugins\CodeGeneratorEventArgs.cs" />
     <Compile Include="Plugins\ILanguageModule.cs" />

@@ -611,7 +611,7 @@ namespace ChameleonCoder.ViewModel
                 ChameleonCoderApp.RunningObject.ResourceMan.GetChildren().Clear();
                 ChameleonCoderApp.RunningObject.ResourceMan.GetList().Clear();
                 ChameleonCoderApp.RunningObject.FileMan.CloseAll();
-                NamespaceManagerFactory.ClearManagers();
+                XmlNamespaceManagerFactory.ClearManagers();
             }
         }
 
