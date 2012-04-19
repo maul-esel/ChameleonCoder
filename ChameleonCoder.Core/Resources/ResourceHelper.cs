@@ -408,23 +408,21 @@ namespace ChameleonCoder
         }
 
         #region path
-        public static string GetPath(this IResource resource, string delimiter)
+
+        [Obsolete("Use ResourceManager.GetIdPath()")]
+        public static string GetPath(this IResource resource)
         {
             string path = string.Empty;
 
             while (resource != null)
             {
-                path = delimiter + resource.Name + path;
+                path = ChameleonCoderApp.resourcePathSeparator + resource.Name + path;
                 resource = resource.Parent;
             }
             return path;
         }
 
-        public static string GetPath(this IResource resource)
-        {
-            return resource.GetPath(ChameleonCoderApp.resourcePathSeparator);
-        }
-
+        [Obsolete("Use ResourceManager.GetResourceFromIdPath()")]
         public static IResource GetResourceFromPath(string path, string separator)
         {
             var start = Res.Item_Home + separator + Res.Item_List;
@@ -451,22 +449,6 @@ namespace ChameleonCoder
                 }
             }
             return result;
-        }
-
-        public static IResource GetResourceFromPath(string path)
-        {
-            return GetResourceFromPath(path, ChameleonCoderApp.resourcePathSeparator);
-        }
-
-        public static bool IsDescendantOf(this IResource resource, IResource ancestor)
-        {
-            return resource.GetPath().StartsWith(ancestor.GetPath(), StringComparison.Ordinal);
-            // todo: find a better way to do this, as duplicate names are allowed
-        }
-
-        public static bool IsAncestorOf(this IResource resource, IResource descendant)
-        {
-            return descendant.IsDescendantOf(resource);
         }
 
         #endregion

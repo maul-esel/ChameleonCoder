@@ -175,6 +175,92 @@ namespace ChameleonCoder.Resources.Management
                 throw new InvalidOperationException("no resource can be closed.");
         }
 
+        #region paths
+
+        /// <summary>
+        /// gets an array of GUIDs representing the path to the resource
+        /// </summary>
+        /// <param name="resource">the resource to get the path for</param>
+        /// <returns>the path array, with the first item being the identifier of top-level ancestor and the last one the identifier of the passed resource</returns>
+        public Guid[] GetIdPath(IResource resource)
+        {
+            var path = new System.Collections.Generic.List<Guid>();
+
+            while (resource != null)
+            {
+                path.Add(resource.Identifier);
+                resource = resource.Parent; // go up the resource tree
+            }
+
+            path.Reverse(); // make the GUID of the top-level ancestor be the first, the resource itself the last item
+            return path.ToArray();
+        }
+
+        /// <summary>
+        /// gets a resource from a given GUID path as returned by <see cref="GetIdPath"/>.
+        /// </summary>
+        /// <param name="path">the path array of GUIDs</param>
+        /// <returns>the resource if it exists within this ResourceManager, null otherwise</returns>
+        public IResource GetResourceFromIdPath(Guid[] path)
+        {
+            IResource result = null;
+            var collection = GetChildren();
+            int currentIndex = 0;
+
+            foreach (Guid currentId in path)
+            {
+                currentIndex++;
+                foreach (IResource res in collection)
+                {
+                    if (res.Identifier.Equals(currentId))
+                    {
+                        if (path.Length > currentIndex)
+                            collection = res.Children;
+                        else if (path.Length == currentIndex)
+                            result = res;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// determines whether a resource is an ancestor of another one
+        /// </summary>
+        /// <param name="descendant">the resource to test</param>
+        /// <param name="ancestor">the resource that may be an ancestor of <paramref name="descendant"/>.</param>
+        /// <returns>true if the <paramref name="ancestor"/> is really an ancestor, false otherwise.</returns>
+        public bool IsAncestorOf(IResource descendant, IResource ancestor)
+        {
+            Guid[] pathAncestor = GetIdPath(ancestor);
+            Guid[] pathDescendant = GetIdPath(descendant);
+            int index = 0;
+
+            foreach (Guid id in pathAncestor)
+            {
+                if (!id.Equals(pathDescendant[index]))
+                    return false;
+                index++;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// determines whether a resource is a descendant of another one
+        /// </summary>
+        /// <param name="ancestor">the resource to test</param>
+        /// <param name="descendant">the resource that may be a descendant of <paramref name="ancestor"/>.</param>
+        /// <returns>true if the <paramref name="descendant"/> is really a descendant, false otherwise.</returns>
+        public bool IsDescendantOf(IResource ancestor, IResource descendant)
+        {
+            return IsAncestorOf(descendant, ancestor);
+        }
+
+        #endregion
+
         /// <summary>
         /// handles changes to a resource and updates the 'last-modified' timestamp
         /// </summary>
