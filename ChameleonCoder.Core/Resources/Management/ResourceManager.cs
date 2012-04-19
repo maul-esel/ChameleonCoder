@@ -21,17 +21,19 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
+        [ComVisible(false)]
         private ResourceCollection Children;
 
         /// <summary>
         /// contains a list of ALL resources
         /// </summary>
+        [ComVisible(false)]
         private ResourceCollection FlatList;
 
         /// <summary>
         /// gets the currently loaded resource
         /// </summary>
-        internal IResource ActiveItem
+        public IResource ActiveItem
         {
             get;
             private set;
@@ -44,6 +46,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="hierarchy">the instance to use as list of top-level resources</param>
         /// <remarks>this is needed to make it possible to create the instances in XAML,
         /// from where they can be referenced in the UI.</remarks>
+        [ComVisible(false)]
         internal void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
         {
             FlatList = flat;
@@ -59,7 +62,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="instance">the resource to add</param>
         /// <param name="parent">the parent to add the resource to.
         /// If this is null, it will be added to the list of top-level resources</param>
-        internal void Add(IResource instance, IResource parent)
+        public void Add(IResource instance, IResource parent)
         {
             FlatList.Add(instance);
             if (parent == null)
@@ -80,7 +83,7 @@ namespace ChameleonCoder.Resources.Management
         /// It also removes the handler from the 'PropertyChanged' event.
         /// </summary>
         /// <param name="instance">the instance to remove</param>
-        internal void Remove(IResource instance)
+        public void Remove(IResource instance)
         {
             FlatList.Remove(instance);
 
@@ -100,7 +103,7 @@ namespace ChameleonCoder.Resources.Management
         /// gets the Children list
         /// </summary>
         /// <returns></returns>
-        internal ResourceCollection GetChildren()
+        public ResourceCollection GetChildren()
         {
             return Children;
         }
@@ -109,7 +112,7 @@ namespace ChameleonCoder.Resources.Management
         /// gets the complete list of all resources
         /// </summary>
         /// <returns></returns>
-        internal ResourceCollection GetList()
+        public ResourceCollection GetList()
         {
             return FlatList;
         }
@@ -123,7 +126,7 @@ namespace ChameleonCoder.Resources.Management
         /// opens a resource
         /// </summary>
         /// <param name="resource">the resource to open</param>
-        internal void Open(IResource resource)
+        public void Open(IResource resource)
         {
             if (ActiveItem != null)
                 Close();
@@ -150,7 +153,7 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// closes the loaded resource
         /// </summary>
-        internal void Close()
+        public void Close()
         {
             if (ActiveItem != null)
             {
@@ -177,6 +180,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="sender">the resource that changed</param>
         /// <param name="args">additional data</param>
+        [ComVisible(false)]
         private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             IResource resource = sender as IResource;
