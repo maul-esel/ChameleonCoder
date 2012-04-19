@@ -50,11 +50,6 @@ namespace ChameleonCoder.Shared
         #region information
 
         /// <summary>
-        /// the directory which contains the ChameleonCoder executable
-        /// </summary>
-        public static string AppDir { get { return ChameleonCoderApp.AppDir; } }
-
-        /// <summary>
         /// gets the type of page that is currently active
         /// </summary>
         public static CCTabPage CurrentPage
@@ -157,25 +152,6 @@ namespace ChameleonCoder.Shared
         #region resource management
 
         /// <summary>
-        /// gets the IResource instance, given the identifier
-        /// </summary>
-        /// <param name="id">the identifier</param>
-        /// <returns>the resource if it exists</returns>
-        public static IResource GetResourceInstance(Guid id)
-        {
-            return ChameleonCoderApp.RunningObject.ResourceMan.GetList().GetInstance(id);
-        }
-
-        /// <summary>
-        /// gets the currently active resource
-        /// </summary>
-        public static IResource CurrentResource
-        {
-            get { return ChameleonCoderApp.RunningObject.ResourceMan.ActiveItem; }
-            set { ChameleonCoderApp.RunningObject.ResourceMan.Open(value); }
-        }
-
-        /// <summary>
         /// tests if a resource type is registered, given its Xml-alias
         /// </summary>
         /// <param name="key">the resource type key to test</param>
@@ -193,17 +169,6 @@ namespace ChameleonCoder.Shared
         public static bool IsResourceTypeRegistered(Type type)
         {
             return ResourceTypeManager.IsRegistered(type);
-        }
-
-        /// <summary>
-        /// adds a resource to the internal collection and to the parent collection.
-        /// If it is a top-level resource, it is added to the collection of top-level resources.
-        /// </summary>
-        /// <param name="resource">the resource to add</param>
-        /// <param name="parent">the parent resource or null if it is a top-level resource</param>
-        public static void AddResource(IResource resource, IResource parent)
-        {
-            ChameleonCoderApp.RunningObject.ResourceMan.Add(resource, parent);
         }
 
         #endregion
