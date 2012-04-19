@@ -216,46 +216,10 @@ namespace ChameleonCoder.Shared
         #region events
 
         /// <summary>
-        /// raised when a resource is going to be loaded
-        /// </summary>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        public static event ResourceEventHandler ResourceLoad;
-
-        /// <summary>
-        /// raised when a resource was loaded
-        /// </summary>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        public static event ResourceEventHandler ResourceLoaded;
-
-        /// <summary>
-        /// raised when a resource is going to be unloaded
-        /// </summary>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        public static event ResourceEventHandler ResourceUnload;
-
-        /// <summary>
-        /// raised when a resource was unloaded
-        /// </summary>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        public static event ResourceEventHandler ResourceUnloaded;
-
-        /// <summary>
-        /// raised when a Language module is going to be loaded
-        /// </summary>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        public static event LanguageModuleEventHandler ModuleLoad;
-
-        /// <summary>
         /// raised when a Language module was loaded
         /// </summary>
         [Obsolete("Use PluginManager infrastructure directly!")]
         public static event LanguageModuleEventHandler ModuleLoaded;
-
-        /// <summary>
-        /// raised when a Language module is going to be unloaded
-        /// </summary>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        public static event LanguageModuleEventHandler ModuleUnload;
 
         /// <summary>
         /// raised when a Language module was unloaded
@@ -295,71 +259,6 @@ namespace ChameleonCoder.Shared
         #region event wrappers
 
         /// <summary>
-        /// raises the ResourceLoad event
-        /// </summary>
-        /// <param name="sender">the resource raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        internal static void OnResourceLoad(IResource sender, EventArgs e)
-        {
-            ResourceEventHandler handler = ResourceLoad;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ResourceLoaded event
-        /// </summary>
-        /// <param name="sender">the resource raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        internal static void OnResourceLoaded(IResource sender, EventArgs e)
-        {
-            ResourceEventHandler handler = ResourceLoaded;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ResourceUnload event
-        /// </summary>
-        /// <param name="sender">the resource raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        internal static void OnResourceUnload(IResource sender, EventArgs e)
-        {
-            ResourceEventHandler handler = ResourceUnload;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ResourceUnloaded event
-        /// </summary>
-        /// <param name="sender">the resource raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use ResourceManager infrastructure directly!")]
-        internal static void OnResourceUnloaded(IResource sender, EventArgs e)
-        {
-            ResourceEventHandler handler = ResourceUnloaded;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ModuleLoad event
-        /// </summary>
-        /// <param name="sender">the module raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        internal static void OnModuleLoad(ILanguageModule sender, EventArgs e)
-        {
-            LanguageModuleEventHandler handler = ModuleLoad;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
         /// raises the ModuleLoaded event
         /// </summary>
         /// <param name="sender">the module raising the event</param>
@@ -368,19 +267,6 @@ namespace ChameleonCoder.Shared
         internal static void OnModuleLoaded(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleLoaded;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ModuleUnload event
-        /// </summary>
-        /// <param name="sender">the module raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        internal static void OnModuleUnload(ILanguageModule sender, EventArgs e)
-        {
-            LanguageModuleEventHandler handler = ModuleUnload;
             if (handler != null)
                 handler(sender, e);
         }

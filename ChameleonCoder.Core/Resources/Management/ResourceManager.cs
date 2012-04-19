@@ -138,7 +138,6 @@ namespace ChameleonCoder.Resources.Management
             if (ActiveResource != null)
                 Close();
 
-            Shared.InformationProvider.OnResourceLoad(resource, new EventArgs());
             OnResourceLoad(resource, new EventArgs());
 
             ActiveResource = resource;
@@ -155,7 +154,6 @@ namespace ChameleonCoder.Resources.Management
                         App.PluginMan.LoadModule(langRes.Language);
                 }
             }
-            Shared.InformationProvider.OnResourceLoaded(resource, new EventArgs());
             OnResourceLoaded(resource, new EventArgs());
         }
 
@@ -166,7 +164,6 @@ namespace ChameleonCoder.Resources.Management
         {
             if (ActiveResource != null)
             {
-                Shared.InformationProvider.OnResourceUnload(ActiveResource, new EventArgs());
                 OnResourceUnload(ActiveResource, new EventArgs());
 
                 ILanguageResource langRes = ActiveResource as ILanguageResource;
@@ -179,7 +176,6 @@ namespace ChameleonCoder.Resources.Management
                 var item = ActiveResource;
                 ActiveResource = null;
 
-                Shared.InformationProvider.OnResourceUnloaded(item, new EventArgs());
                 OnResourceUnloaded(item, new EventArgs());
             }
             else

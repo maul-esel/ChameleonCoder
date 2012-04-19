@@ -210,7 +210,6 @@ namespace ChameleonCoder.Plugins
             ILanguageModule module;
             if (Modules.TryGetValue(id, out module))
             {
-                IF.OnModuleLoad(module, new EventArgs());
                 OnModuleLoad(module, new EventArgs());
 
                 module.Load();
@@ -246,7 +245,6 @@ namespace ChameleonCoder.Plugins
                 throw new InvalidOperationException("Module cannot be unloaded: no module loaded!");
 
             ILanguageModule module = ActiveModule;
-            IF.OnModuleUnload(ActiveModule, new EventArgs());
             OnModuleUnload(ActiveModule, new EventArgs());
 
             ActiveModule.Unload();
