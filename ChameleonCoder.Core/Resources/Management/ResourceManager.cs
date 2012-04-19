@@ -4,6 +4,13 @@ using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources.Management
 {
+    /// <summary>
+    /// a delegate for resource events
+    /// </summary>
+    /// <param name="sender">the resource raising the event</param>
+    /// <param name="e">additional data</param>
+    public delegate void ResourceEventHandler(object sender, EventArgs e);
+
     [ComVisible(true)]
     public sealed class ResourceManager
     {
@@ -105,7 +112,7 @@ namespace ChameleonCoder.Resources.Management
         /// <returns></returns>
         public ResourceCollection GetChildren()
         {
-            return Children;
+            return Children; // TODO: return clone?
         }
 
         /// <summary>
@@ -114,7 +121,7 @@ namespace ChameleonCoder.Resources.Management
         /// <returns></returns>
         public ResourceCollection GetList()
         {
-            return FlatList;
+            return FlatList; // TODO: return clone?
         }
 
         public IResource GetResource(Guid id)
@@ -132,6 +139,7 @@ namespace ChameleonCoder.Resources.Management
                 Close();
 
             Shared.InformationProvider.OnResourceLoad(resource, new EventArgs());
+            OnResourceLoad(resource, new EventArgs());
 
             ActiveItem = resource;
 
@@ -148,6 +156,7 @@ namespace ChameleonCoder.Resources.Management
                 }
             }
             Shared.InformationProvider.OnResourceLoaded(resource, new EventArgs());
+            OnResourceLoaded(resource, new EventArgs());
         }
 
         /// <summary>
@@ -158,6 +167,7 @@ namespace ChameleonCoder.Resources.Management
             if (ActiveItem != null)
             {
                 Shared.InformationProvider.OnResourceUnload(ActiveItem, new EventArgs());
+                OnResourceUnload(ActiveItem, new EventArgs());
 
                 ILanguageResource langRes = ActiveItem as ILanguageResource;
                 if (langRes != null)
@@ -170,6 +180,7 @@ namespace ChameleonCoder.Resources.Management
                 ActiveItem = null;
 
                 Shared.InformationProvider.OnResourceUnloaded(item, new EventArgs());
+                OnResourceUnloaded(item, new EventArgs());
             }
             else
                 throw new InvalidOperationException("no resource can be closed.");
@@ -257,6 +268,82 @@ namespace ChameleonCoder.Resources.Management
         public bool IsDescendantOf(IResource ancestor, IResource descendant)
         {
             return IsAncestorOf(descendant, ancestor);
+        }
+
+        #endregion
+
+        #region events
+
+        /// <summary>
+        /// raised when a resource is going to be loaded
+        /// </summary>
+        public static event ResourceEventHandler ResourceLoad;
+
+        /// <summary>
+        /// raised when a resource was loaded
+        /// </summary>
+        public static event ResourceEventHandler ResourceLoaded;
+
+        /// <summary>
+        /// raised when a resource is going to be unloaded
+        /// </summary>
+        public static event ResourceEventHandler ResourceUnload;
+
+        /// <summary>
+        /// raised when a resource was unloaded
+        /// </summary>
+        public static event ResourceEventHandler ResourceUnloaded;
+
+        #endregion
+
+        #region event infrastructure
+
+        /// <summary>
+        /// raises the ResourceLoad event
+        /// </summary>
+        /// <param name="sender">the resource raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnResourceLoad(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceLoad;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ResourceLoaded event
+        /// </summary>
+        /// <param name="sender">the resource raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnResourceLoaded(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceLoaded;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ResourceUnload event
+        /// </summary>
+        /// <param name="sender">the resource raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnResourceUnload(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceUnload;
+            if (handler != null)
+                handler(sender, e);
+        }
+
+        /// <summary>
+        /// raises the ResourceUnloaded event
+        /// </summary>
+        /// <param name="sender">the resource raising the event</param>
+        /// <param name="e">additional data</param>
+        internal static void OnResourceUnloaded(IResource sender, EventArgs e)
+        {
+            ResourceEventHandler handler = ResourceUnloaded;
+            if (handler != null)
+                handler(sender, e);
         }
 
         #endregion

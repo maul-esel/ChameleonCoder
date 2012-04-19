@@ -11,6 +11,7 @@ namespace ChameleonCoder.Shared
     /// </summary>
     /// <param name="sender">the resource raising the event</param>
     /// <param name="e">additional data</param>
+    [Obsolete("Use ResourceManager infrastructure directly!")]
     public delegate void ResourceEventHandler(object sender, EventArgs e);
 
     /// <summary>
@@ -217,21 +218,25 @@ namespace ChameleonCoder.Shared
         /// <summary>
         /// raised when a resource is going to be loaded
         /// </summary>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         public static event ResourceEventHandler ResourceLoad;
 
         /// <summary>
         /// raised when a resource was loaded
         /// </summary>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         public static event ResourceEventHandler ResourceLoaded;
 
         /// <summary>
         /// raised when a resource is going to be unloaded
         /// </summary>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         public static event ResourceEventHandler ResourceUnload;
 
         /// <summary>
         /// raised when a resource was unloaded
         /// </summary>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         public static event ResourceEventHandler ResourceUnloaded;
 
         /// <summary>
@@ -294,6 +299,7 @@ namespace ChameleonCoder.Shared
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         internal static void OnResourceLoad(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceLoad;
@@ -306,6 +312,7 @@ namespace ChameleonCoder.Shared
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         internal static void OnResourceLoaded(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceLoaded;
@@ -318,6 +325,7 @@ namespace ChameleonCoder.Shared
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         internal static void OnResourceUnload(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceUnload;
@@ -330,6 +338,7 @@ namespace ChameleonCoder.Shared
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
+        [Obsolete("Use ResourceManager infrastructure directly!")]
         internal static void OnResourceUnloaded(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceUnloaded;
