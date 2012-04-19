@@ -144,15 +144,6 @@ namespace ChameleonCoder
 
         #endregion
 
-        /// <summary>
-        /// loads all the plugins
-        /// </summary>
-        [DispId(5)]
-        public void LoadPlugins()
-        {
-            PluginMan.Load();
-        }
-
         #region window management
 
         /// <summary>
