@@ -39,11 +39,16 @@ namespace ChameleonCoder.Plugins
 
         public ChameleonCoderApp App { get; private set; }
 
+        public bool HasLoaded { get; private set; }
+
         /// <summary>
         /// loads all assemblies in the \Components\ folder and the contained plugins (if installed)
         /// </summary>
-        internal void Load()
+        public void Load()
         {
+            if (HasLoaded)
+                throw new InvalidOperationException("Manager has already been loaded.");
+
             Parallel.ForEach(Directory.GetFiles(Path.Combine(ChameleonCoderApp.AppDir, "Components"), "*.dll"),
                 dll =>
                 {
@@ -66,12 +71,14 @@ namespace ChameleonCoder.Plugins
                         Load(ass.GetTypes());
                     }
                 });
+            HasLoaded = true;
         }
 
         /// <summary>
         /// loads the given plugins, if installed
         /// </summary>
         /// <param name="plugins">the plugins to load</param>
+        [ComVisible(false)]
         internal void Load(IEnumerable<Type> plugins)
         {
             Parallel.ForEach(Filter(plugins), plugin => Add(plugin));
@@ -82,6 +89,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="types">the list to filter</param>
         /// <returns>the filtered list</returns>
+        [ComVisible(false)]
         private IEnumerable<Type> Filter(IEnumerable<Type> types)
         {
             ConcurrentBag<Type> filtered = new ConcurrentBag<Type>();
@@ -151,7 +159,7 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// calls IPlugin.Shutdown() on all plugins
         /// </summary>
-        internal void Shutdown()
+        public void Shutdown()
         {
             foreach (IPlugin plugin in GetPlugins())
                 plugin.Shutdown();
@@ -179,24 +187,25 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// a dictionary containing the modules loaded
         /// </summary>
+        [ComVisible(false)]
         ConcurrentDictionary<Guid, ILanguageModule> Modules = new ConcurrentDictionary<Guid, ILanguageModule>();
 
         /// <summary>
         /// gets the currently loaded module
         /// </summary>
-        internal ILanguageModule ActiveModule { get; private set; }
+        public ILanguageModule ActiveModule { get; private set; }
 
         /// <summary>
         /// returns the count of Language modules registered
         /// </summary>
-        internal int ModuleCount { get { return Modules.Count; } }
+        public int ModuleCount { get { return Modules.Count; } }
 
         /// <summary>
         /// loads a Language module given its identifier
         /// </summary>
         /// <param name="id">the identifier</param>
         /// <exception cref="ArgumentException">thrown if no module with this identifier is registered.</exception>
-        internal void LoadModule(Guid id)
+        public void LoadModule(Guid id)
         {
             ILanguageModule module;
             if (Modules.TryGetValue(id, out module))
@@ -231,7 +240,7 @@ namespace ChameleonCoder.Plugins
         /// unloads the currently loaded module
         /// </summary>
         /// <exception cref="InvalidOperationException">thrown if no module is loaded.</exception>
-        internal void UnloadModule()
+        public void UnloadModule()
         {
             if (ActiveModule == null)
                 throw new InvalidOperationException("Module cannot be unloaded: no module loaded!");
@@ -299,25 +308,26 @@ namespace ChameleonCoder.Plugins
         /// <returns>a list with all registered modules</returns>
         public IEnumerable<ILanguageModule> GetModules()
         {
-            return Modules.Values;
+            return Modules.Values; // TODO: return clone?
         }
 
         #endregion
 
         #region IService
 
+        [ComVisible(false)]
         ConcurrentDictionary<Guid, IService> Services = new ConcurrentDictionary<Guid, IService>();
 
         /// <summary>
         /// gets the count of registered services
         /// </summary>
-        internal int ServiceCount { get { return Services.Count; } }
+        public int ServiceCount { get { return Services.Count; } }
 
         /// <summary>
         /// calls a service given its identifier
         /// </summary>
         /// <param name="id">the service's identifier</param>
-        internal void CallService(Guid id)
+        public void CallService(Guid id)
         {
             IService service = GetService(id);
 
@@ -350,7 +360,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="id">the service's identifier</param>
         /// <returns>the IService instance</returns>
         /// <exception cref="ArgumentException">thrown if no service with this identifier is registered</exception>
-        internal IService GetService(Guid id)
+        public IService GetService(Guid id)
         {
             IService service;
             if (Services.TryGetValue(id, out service))
@@ -362,27 +372,28 @@ namespace ChameleonCoder.Plugins
         /// gets a list with all registered services
         /// </summary>
         /// <returns>a list with all registered services</returns>
-        internal IEnumerable<IService> GetServices()
+        public IEnumerable<IService> GetServices()
         {
-            return Services.Values;
+            return Services.Values; // TODO: return clone?
         }
 
         #endregion
 
         #region ITemplate
 
+        [ComVisible(false)]
         ConcurrentDictionary<Guid, ITemplate> Templates = new ConcurrentDictionary<Guid, ITemplate>();
 
         /// <summary>
         /// gets the count of registered templates
         /// </summary>
-        int TemplateCount { get { return Templates.Count; } }
+        public int TemplateCount { get { return Templates.Count; } }
 
         /// <summary>
         /// gets a list with all registered templates
         /// </summary>
         /// <returns>a list with all registered templates</returns>
-        internal IEnumerable<ITemplate> GetTemplates()
+        public IEnumerable<ITemplate> GetTemplates()
         {
             return Templates.Values;
         }
@@ -391,23 +402,24 @@ namespace ChameleonCoder.Plugins
 
         #region IResourceFactory
 
+        [ComVisible(false)]
         ConcurrentDictionary<Guid, IResourceFactory> ResourceFactories = new ConcurrentDictionary<Guid, IResourceFactory>();
 
         /// <summary>
         /// gets the count of registered IResourceFactory
         /// </summary>
-        internal int ResourceFactoryCount { get { return ResourceFactories.Count; } }
+        public int ResourceFactoryCount { get { return ResourceFactories.Count; } }
 
         /// <summary>
         /// gets a list of all registered IResourceFactory
         /// </summary>
         /// <returns>the list</returns>
-        internal IEnumerable<IResourceFactory> GetResourceFactories()
+        public IEnumerable<IResourceFactory> GetResourceFactories()
         {
-            return ResourceFactories.Values;
+            return ResourceFactories.Values; // TODO: return clone?
         }
 
-        internal bool IsResourceFactoryRegistered(IResourceFactory factory)
+        public bool IsResourceFactoryRegistered(IResourceFactory factory)
         {
             return ResourceFactories.Values.Contains(factory);
         }
@@ -416,23 +428,24 @@ namespace ChameleonCoder.Plugins
 
         #region IRichContentFactory
 
+        [ComVisible(false)]
         ConcurrentDictionary<Guid, IRichContentFactory> RichContentFactories = new ConcurrentDictionary<Guid, IRichContentFactory>();
 
         /// <summary>
         /// gets the count of registered IRichContentFactory
         /// </summary>
-        internal int RichContentFactoryCount { get { return RichContentFactories.Count; } }
+        public int RichContentFactoryCount { get { return RichContentFactories.Count; } }
 
         /// <summary>
         /// gets a list of all registered IRichContentFactory
         /// </summary>
         /// <returns>the list</returns>
-        internal IEnumerable<IRichContentFactory> GetRichContentFactories()
+        public IEnumerable<IRichContentFactory> GetRichContentFactories()
         {
-            return RichContentFactories.Values;
+            return RichContentFactories.Values; // TODO: return clone?
         }
 
-        internal bool IsRichContentFactoryRegistered(IRichContentFactory factory)
+        public bool IsRichContentFactoryRegistered(IRichContentFactory factory)
         {
             return RichContentFactories.Values.Contains(factory);
         }
@@ -480,6 +493,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
+        [ComVisible(false)]
         internal static void OnModuleLoad(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleLoad;
@@ -492,6 +506,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
+        [ComVisible(false)]
         internal static void OnModuleLoaded(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleLoaded;
@@ -504,6 +519,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
+        [ComVisible(false)]
         internal static void OnModuleUnload(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleUnload;
@@ -516,6 +532,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
+        [ComVisible(false)]
         internal static void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleUnloaded;
@@ -528,6 +545,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
+        [ComVisible(false)]
         internal static void OnServiceExecute(IService sender, EventArgs e)
         {
             ServiceEventHandler handler = ServiceExecute;
@@ -540,6 +558,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
+        [ComVisible(false)]
         internal static void OnServiceExecuted(IService sender, EventArgs e)
         {
             ServiceEventHandler handler = ServiceExecuted;
