@@ -12,8 +12,10 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(MainWindow))]
     internal sealed class MainWindowModel : ViewModelBase
     {
-        private MainWindowModel()
+        private MainWindowModel(ChameleonCoderApp app)
         {
+            App = app;
+
             Commands.Add(new CommandBinding(ApplicationCommands.Close,
                 CloseCommandExecuted));
 
@@ -51,7 +53,7 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
                 CloseFilesCommandExecuted,
-                (s, e) => e.CanExecute = ChameleonCoderApp.RunningObject.FileMan.Files.Length > 0));
+                (s, e) => e.CanExecute = App.FileMan.Files.Length > 0));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFile,
                 OpenFileCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
@@ -63,6 +65,7 @@ namespace ChameleonCoder.ViewModel
         /// <summary>
         /// gets the instance of this model
         /// </summary>
+        [Obsolete("In the future, multiple instances must be allowed.")]
         internal static MainWindowModel Instance
         {
             get
@@ -74,9 +77,22 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        private static readonly MainWindowModel modelInstance = new MainWindowModel();
+        [Obsolete("In the future, multiple instances must be allowed.")]
+        private static MainWindowModel modelInstance = null; // new MainWindowModel();
+
+        [Obsolete("In the future, multiple instances must be allowed.")]
+        internal static void Instantiate(ChameleonCoderApp app)
+        {
+            modelInstance = new MainWindowModel(app);
+        }
 
         #endregion
+
+        public ChameleonCoderApp App
+        {
+            get;
+            private set;
+        }
 
         #region commanding
 
@@ -171,7 +187,7 @@ namespace ChameleonCoder.ViewModel
 
             var service = e.Parameter as Plugins.IService;
             if (service != null)
-                ChameleonCoderApp.RunningObject.PluginMan.CallService(service.Identifier);
+                App.PluginMan.CallService(service.Identifier);
         }
 
         /// <summary>
@@ -315,7 +331,7 @@ namespace ChameleonCoder.ViewModel
             if (restart)
                 System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
 
-            ChameleonCoderApp.RunningObject.Exit(0);
+            Instance.App.Exit(0);
         }
 
         #region page management
@@ -512,7 +528,7 @@ namespace ChameleonCoder.ViewModel
                     new BreadcrumbContext[4]
                         {
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/list.png"),
-                            ChameleonCoderApp.RunningObject.ResourceMan.GetChildren(),
+                            Instance.App.ResourceMan.GetChildren(),
                             CCTabPage.ResourceList),
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png"),
                             null,
@@ -580,14 +596,14 @@ namespace ChameleonCoder.ViewModel
 
         public static bool EnableServices
         {
-            get { return ChameleonCoderApp.RunningObject.PluginMan.ServiceCount > 0; }
+            get { return Instance.App.PluginMan.ServiceCount > 0; }
         }
 
         public static IEnumerable<Plugins.IService> ServiceList
         {
             get
             {
-                return ChameleonCoderApp.RunningObject.PluginMan.GetServices();
+                return Instance.App.PluginMan.GetServices();
             }
         }
 
@@ -608,8 +624,8 @@ namespace ChameleonCoder.ViewModel
         {
             if (OnConfirm(Res.Status_ClosingFiles, Res.File_ConfirmClose) == true)
             {
-                ChameleonCoderApp.RunningObject.ResourceMan.RemoveAll();
-                ChameleonCoderApp.RunningObject.FileMan.CloseAll();
+                App.ResourceMan.RemoveAll();
+                App.FileMan.CloseAll();
                 XmlNamespaceManagerFactory.ClearManagers();
             }
         }
@@ -636,15 +652,15 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFile(string path)
         {
-            if (ChameleonCoderApp.RunningObject.FileMan.IsOpen(path))
+            if (App.FileMan.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);
                 return;
             }
 
-            ChameleonCoderApp.RunningObject.FileMan.Open(path);
-            ChameleonCoderApp.RunningObject.FileMan.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
+            App.FileMan.Open(path);
+            App.FileMan.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
         private void CreateFile()
@@ -662,7 +678,7 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreatingFile, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
                 return;
             }
-            if (ChameleonCoderApp.RunningObject.FileMan.IsOpen(path))
+            if (App.FileMan.IsOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);

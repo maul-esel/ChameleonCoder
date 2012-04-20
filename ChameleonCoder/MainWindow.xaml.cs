@@ -13,8 +13,10 @@ namespace ChameleonCoder
     /// </summary>
     internal sealed partial class MainWindow : RibbonWindow
     {
-        internal MainWindow()
+        public MainWindow(ChameleonCoderApp app)
         {
+            App = app;
+            MVVM.Instantiate(app);
             ModelClientHelper.InitializeModel(MVVM.Instance);
 
             MVVM.Instance.ViewChanged -= AdjustView;
@@ -27,12 +29,18 @@ namespace ChameleonCoder
             CommandBindings.AddRange(MVVM.Instance.Commands);
 
             InitializeComponent();
-            InformationProvider.ModuleLoaded += ModuleLoaded;
-            InformationProvider.ModuleUnloaded += ModuleUnloaded;
-            InformationProvider.ServiceExecute += ServiceExecute;
-            InformationProvider.ServiceExecuted += ServiceExecuted;
+            App.PluginMan.ModuleLoaded += ModuleLoaded;
+            App.PluginMan.ModuleUnloaded += ModuleUnloaded;
+            App.PluginMan.ServiceExecute += ServiceExecute;
+            App.PluginMan.ServiceExecuted += ServiceExecuted;
 
             ChameleonCoderCommands.OpenNewTab.Execute(null, this);
+        }
+
+        internal ChameleonCoderApp App
+        {
+            get;
+            private set;
         }
 
         #region view model interaction
@@ -54,8 +62,8 @@ namespace ChameleonCoder
                 case CCTabPage.Plugins:
                 case CCTabPage.Settings:
 
-                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveResource != null)
-                        ChameleonCoderApp.RunningObject.ResourceMan.Close();
+                    if (App.ResourceMan.ActiveResource != null)
+                        App.ResourceMan.Close();
                     break;
 
                 case CCTabPage.ResourceList:
@@ -63,8 +71,8 @@ namespace ChameleonCoder
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[0];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];
 
-                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveResource != null)
-                        ChameleonCoderApp.RunningObject.ResourceMan.Close();
+                    if (App.ResourceMan.ActiveResource != null)
+                        App.ResourceMan.Close();
                     break;
 
                 case CCTabPage.ResourceView:
@@ -81,8 +89,8 @@ namespace ChameleonCoder
 
                 case CCTabPage.FileManagement:
 
-                    if (ChameleonCoderApp.RunningObject.ResourceMan.ActiveResource != null)
-                        ChameleonCoderApp.RunningObject.ResourceMan.Close();
+                    if (App.ResourceMan.ActiveResource != null)
+                        App.ResourceMan.Close();
 
                     ribbon.ContextualTabSet = ribbon.ContextualTabSets[3];
                     ribbon.SelectedTabItem = ribbon.ContextualTabSet.Tabs[0];

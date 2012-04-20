@@ -155,7 +155,7 @@ namespace ChameleonCoder
         {
             if (Gui != null)
                 throw new InvalidOperationException("Window has already been initialized.");
-            Gui = (Window)Activator.CreateInstance(Assembly.GetEntryAssembly().GetType("ChameleonCoder.MainWindow"), true); // TODO! (not elegant, will fail in COM)
+            Gui = (Window)Activator.CreateInstance(Assembly.GetEntryAssembly().GetType("ChameleonCoder.MainWindow"), new object[1] { this }); // TODO! (not elegant, will fail in COM)
         }
 
         /// <summary>
