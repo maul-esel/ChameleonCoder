@@ -51,7 +51,7 @@ namespace ChameleonCoder.ViewModel
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CloseFiles,
                 CloseFilesCommandExecuted,
-                (s, e) => e.CanExecute = ChameleonCoderApp.RunningObject.FileMan.Files.Count > 0));
+                (s, e) => e.CanExecute = ChameleonCoderApp.RunningObject.FileMan.Files.Length > 0));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.OpenFile,
                 OpenFileCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,

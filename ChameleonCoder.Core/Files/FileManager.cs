@@ -11,6 +11,10 @@ namespace ChameleonCoder.Files
     [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual), Guid("058BDE94-D8FA-4867-BFF6-98E1CD16470D")]
     public sealed class FileManager
     {
+        /// <summary>
+        /// creates a new instance of the class
+        /// </summary>
+        /// <param name="app">the app instrance the manager belongs to</param>
         internal FileManager(ChameleonCoderApp app)
         {
             App = app;
@@ -22,7 +26,6 @@ namespace ChameleonCoder.Files
         /// <param name="path">the path to the file to open</param>
         /// <returns>the opened file as <see cref="DataFile"/> instance</returns>
         /// <exception cref="InvalidOperationException">thrown if the file is already opened. Use <see cref="IsOpen"/> to check this before.</exception>
-        [DispId(1)]
         public DataFile Open(string path)
         {
             if (IsOpen(path))
@@ -40,22 +43,41 @@ namespace ChameleonCoder.Files
         }
 
         /// <summary>
+        /// opens a new directory, i.e. adding it ot the list of directories to use for files
+        /// </summary>
+        /// <param name="path">the path to the directory to use</param>
+        /// <exception cref="DirectoryNotFoundException">thrown if the directory doesn't exist</exception>
+        public void OpenDirectory(string path)
+        {
+            if (Directory.Exists(path))
+                dirList.Add(path);
+            // todo: check if already opened
+            throw new DirectoryNotFoundException();
+        }
+
+        /// <summary>
         /// checks if a given file has already been opened
         /// </summary>
         /// <param name="path">the path to the file to chec</param>
         /// <returns>true if already opened, false otherwise</returns>
-        [DispId(2)]
         public bool IsOpen(string path)
         {
-            return pathsOpen.Contains(path);
+            return pathsOpen.Contains(path); // todo: add possibly support for directories
         }
 
+        /// <summary>
+        /// removes a file instance from the manager
+        /// </summary>
+        /// <param name="file"></param>
         public void Remove(DataFile file)
         {
             filesOpen.Remove(file);
             pathsOpen.Remove(file.FilePath);
         }
 
+        /// <summary>
+        /// shuts down the manager
+        /// </summary>
         public void Shutdown()
         {
             SaveAll();
@@ -64,22 +86,14 @@ namespace ChameleonCoder.Files
             App = null;
         }
 
-        public void OpenDirectory(string path)
-        {
-            if (Directory.Exists(path))
-                dirList.Add(path);
-            throw new DirectoryNotFoundException();
-        }
-
         #region handle all
 
         /// <summary>
         /// loads the resources in all opened files
         /// </summary>
-        [DispId(3)]
         public void LoadAll()
         {
-            foreach (var file in Files)
+            foreach (DataFile file in Files)
             {
                 if (!file.IsLoaded)
                     file.Load();
@@ -89,7 +103,6 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// saves all opened instances
         /// </summary>
-        [DispId(4)]
         public void SaveAll()
         {
             foreach (DataFile file in Files)
@@ -99,7 +112,6 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// closes all opened instances
         /// </summary>
-        [DispId(5)]
         public void CloseAll()
         {
             foreach (DataFile file in Files)
@@ -117,43 +129,39 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// a list of all referenced directories
         /// </summary>
-        [DispId(6)]
-        public IList<string> Directories
+        public string[] Directories
         {
             get
             {
-                return dirList;
+                return dirList.ToArray();
             }
         }
 
         /// <summary>
         /// a list of all opened DataFile instances
         /// </summary>
-        [DispId(7)]
-        public IList<DataFile> Files
+        public DataFile[] Files
         {
             get
             {
-                return filesOpen;
+                return filesOpen.ToArray();
             }
         }
 
         /// <summary>
         /// a list of the paths of all opened files
         /// </summary>
-        [DispId(8)]
-        public IList<string> Paths
+        public string[] Paths
         {
             get
             {
-                return pathsOpen;
+                return pathsOpen.ToArray();
             }
         }
 
         /// <summary>
         /// a reference to the App that created this instance
         /// </summary>
-        [DispId(9)]
         public ChameleonCoderApp App
         {
             get;
@@ -167,6 +175,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="relativePath">the (relative) path</param>
         /// <returns>the absolute path, or null if not found</returns>
+        [ComVisible(false)]
         public string MakeAbsolutePath(string relativePath)
         {
             if (!string.IsNullOrWhiteSpace(relativePath))
@@ -194,20 +203,20 @@ namespace ChameleonCoder.Files
         /// a list of referenced directories
         /// </summary>
         [ComVisible(false)]
-        private readonly List<string> dirList = new List<string>(new string[1] { Environment.CurrentDirectory });
+        private readonly List<string> dirList = new List<string>(new string[1] { Environment.CurrentDirectory }); // todo: remove currentDir and call OpenDirectory() from Main() instead
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths
         /// </summary>
         [ComVisible(false)]
-        private readonly IList<string> pathsOpen = new List<string>();
+        private readonly List<string> pathsOpen = new List<string>();
 
         /// <summary>
         /// contains a list of all loaded files in form of their DataFile instances
         /// </summary>
         [ComVisible(false)]
-        private readonly IList<DataFile> filesOpen = new List<DataFile>();
+        private readonly List<DataFile> filesOpen = new List<DataFile>();
 
-        #endregion // private fields
+        #endregion // "private fields"
     }
 }
