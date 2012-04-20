@@ -85,7 +85,7 @@ namespace ChameleonCoder.Files
                 file.Close();
 
             Files.Clear();
-            pathsOpen.Clear();
+            Paths.Clear();
             Directories.Clear();
         }
 
