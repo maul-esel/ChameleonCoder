@@ -1,35 +1,9 @@
 ﻿using System;
 using System.IO;
 using ChameleonCoder.Plugins;
-using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Shared
 {
-    /// <summary>
-    /// a delegate for resource events
-    /// </summary>
-    /// <param name="sender">the resource raising the event</param>
-    /// <param name="e">additional data</param>
-    [Obsolete("Use ResourceManager infrastructure directly!")]
-    public delegate void ResourceEventHandler(object sender, EventArgs e);
-
-    /// <summary>
-    /// a delegate for LanguageModule events
-    /// </summary>
-    /// <param name="sender">the LanguageModule raising the event</param>
-    /// <param name="e">additional data</param>
-    [Obsolete("Use PluginManager infrastructure directly!")]
-    public delegate void LanguageModuleEventHandler(object sender, EventArgs e);
-
-    /// <summary>
-    /// a delegate for Service Events
-    /// </summary>
-    /// <param name="sender">the service raising the event</param>
-    /// <param name="e">additional data</param>
-    [Obsolete("Use PluginManager infrastructure directly!")]
-    public delegate void ServiceEventHandler(object sender, EventArgs e);
-
     /// <summary>
     /// a delegate for Settings events
     /// </summary>
@@ -193,30 +167,6 @@ namespace ChameleonCoder.Shared
         #region events
 
         /// <summary>
-        /// raised when a Language module was loaded
-        /// </summary>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        public static event LanguageModuleEventHandler ModuleLoaded;
-
-        /// <summary>
-        /// raised when a Language module was unloaded
-        /// </summary>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        public static event LanguageModuleEventHandler ModuleUnloaded;
-
-        /// <summary>
-        /// raised when a service is going to be executed
-        /// </summary>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        public static event ServiceEventHandler ServiceExecute;
-
-        /// <summary>
-        /// raised when a service was executed
-        /// </summary>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        public static event ServiceEventHandler ServiceExecuted;
-
-        /// <summary>
         /// raised when a plugin is installed
         /// </summary>
         public static event EventHandler PluginInstalled;
@@ -234,58 +184,6 @@ namespace ChameleonCoder.Shared
         #endregion
 
         #region event wrappers
-
-        /// <summary>
-        /// raises the ModuleLoaded event
-        /// </summary>
-        /// <param name="sender">the module raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        internal static void OnModuleLoaded(ILanguageModule sender, EventArgs e)
-        {
-            LanguageModuleEventHandler handler = ModuleLoaded;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ModuleUnloaded event
-        /// </summary>
-        /// <param name="sender">the module raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        internal static void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
-        {
-            LanguageModuleEventHandler handler = ModuleUnloaded;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ServiceExecute event
-        /// </summary>
-        /// <param name="sender">the service raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        internal static void OnServiceExecute(IService sender, EventArgs e)
-        {
-            ServiceEventHandler handler = ServiceExecute;
-            if (handler != null)
-                handler(sender, e);
-        }
-
-        /// <summary>
-        /// raises the ServiceExecuted event
-        /// </summary>
-        /// <param name="sender">the service raising the event</param>
-        /// <param name="e">additional data</param>
-        [Obsolete("Use PluginManager infrastructure directly!")]
-        internal static void OnServiceExecuted(IService sender, EventArgs e)
-        {
-            ServiceEventHandler handler = ServiceExecuted;
-            if (handler != null)
-                handler(sender, e);
-        }
 
         /// <summary>
         /// raises the LanguageChanged event

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using IF = ChameleonCoder.Shared.InformationProvider;
 
 namespace ChameleonCoder.Plugins
 {
@@ -239,7 +238,6 @@ namespace ChameleonCoder.Plugins
                         module.Name, module.Version, module.Author, module.About);
                 */
 
-                IF.OnModuleLoaded(module, new EventArgs());
                 OnModuleLoaded(module, new EventArgs());
             }
             else
@@ -272,7 +270,6 @@ namespace ChameleonCoder.Plugins
                 ChameleonCoderApp.Gui.CurrentModule.Text = string.Empty;
             */
 
-            IF.OnModuleUnloaded(module, new EventArgs());
             OnModuleUnloaded(module, new EventArgs());
         }
 
@@ -340,7 +337,6 @@ namespace ChameleonCoder.Plugins
         {
             IService service = GetService(id);
 
-            IF.OnServiceExecute(service, new EventArgs());
             OnServiceExecute(service, new EventArgs());
 
             /*
@@ -359,7 +355,6 @@ namespace ChameleonCoder.Plugins
             ChameleonCoderApp.Gui.CurrentAction.Text = string.Empty;
             */
 
-            IF.OnServiceExecuted(service, new EventArgs());
             OnServiceExecuted(service, new EventArgs());
         }
 
