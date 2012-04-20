@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using ChameleonCoder.Shared;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder

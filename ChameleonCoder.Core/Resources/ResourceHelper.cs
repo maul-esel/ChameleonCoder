@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Xml;
 using ChameleonCoder.Files;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Resources.RichContent;
 using Res = ChameleonCoder.Properties.Resources;
 
