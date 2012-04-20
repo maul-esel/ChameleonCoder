@@ -280,22 +280,22 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// raised when a resource is going to be loaded
         /// </summary>
-        public static event ResourceEventHandler ResourceLoad;
+        public event ResourceEventHandler ResourceLoad;
 
         /// <summary>
         /// raised when a resource was loaded
         /// </summary>
-        public static event ResourceEventHandler ResourceLoaded;
+        public event ResourceEventHandler ResourceLoaded;
 
         /// <summary>
         /// raised when a resource is going to be unloaded
         /// </summary>
-        public static event ResourceEventHandler ResourceUnload;
+        public event ResourceEventHandler ResourceUnload;
 
         /// <summary>
         /// raised when a resource was unloaded
         /// </summary>
-        public static event ResourceEventHandler ResourceUnloaded;
+        public event ResourceEventHandler ResourceUnloaded;
 
         #endregion
 
@@ -306,7 +306,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal static void OnResourceLoad(IResource sender, EventArgs e)
+        internal void OnResourceLoad(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceLoad;
             if (handler != null)
@@ -318,7 +318,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal static void OnResourceLoaded(IResource sender, EventArgs e)
+        internal void OnResourceLoaded(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceLoaded;
             if (handler != null)
@@ -330,7 +330,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal static void OnResourceUnload(IResource sender, EventArgs e)
+        internal void OnResourceUnload(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceUnload;
             if (handler != null)
@@ -342,7 +342,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal static void OnResourceUnloaded(IResource sender, EventArgs e)
+        internal void OnResourceUnloaded(IResource sender, EventArgs e)
         {
             ResourceEventHandler handler = ResourceUnloaded;
             if (handler != null)

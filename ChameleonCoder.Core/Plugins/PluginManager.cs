@@ -466,32 +466,32 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// raised when a Language module is going to be loaded
         /// </summary>
-        public static event LanguageModuleEventHandler ModuleLoad;
+        public event LanguageModuleEventHandler ModuleLoad;
 
         /// <summary>
         /// raised when a Language module was loaded
         /// </summary>
-        public static event LanguageModuleEventHandler ModuleLoaded;
+        public event LanguageModuleEventHandler ModuleLoaded;
 
         /// <summary>
         /// raised when a Language module is going to be unloaded
         /// </summary>
-        public static event LanguageModuleEventHandler ModuleUnload;
+        public event LanguageModuleEventHandler ModuleUnload;
 
         /// <summary>
         /// raised when a Language module was unloaded
         /// </summary>
-        public static event LanguageModuleEventHandler ModuleUnloaded;
+        public event LanguageModuleEventHandler ModuleUnloaded;
 
         /// <summary>
         /// raised when a service is going to be executed
         /// </summary>
-        public static event ServiceEventHandler ServiceExecute;
+        public event ServiceEventHandler ServiceExecute;
 
         /// <summary>
         /// raised when a service was executed
         /// </summary>
-        public static event ServiceEventHandler ServiceExecuted;
+        public event ServiceEventHandler ServiceExecuted;
 
         #endregion
 
@@ -503,7 +503,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal static void OnModuleLoad(ILanguageModule sender, EventArgs e)
+        internal void OnModuleLoad(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleLoad;
             if (handler != null)
@@ -516,7 +516,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal static void OnModuleLoaded(ILanguageModule sender, EventArgs e)
+        internal void OnModuleLoaded(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleLoaded;
             if (handler != null)
@@ -529,7 +529,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal static void OnModuleUnload(ILanguageModule sender, EventArgs e)
+        internal void OnModuleUnload(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleUnload;
             if (handler != null)
@@ -542,7 +542,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal static void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
+        internal void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
         {
             LanguageModuleEventHandler handler = ModuleUnloaded;
             if (handler != null)
@@ -555,7 +555,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal static void OnServiceExecute(IService sender, EventArgs e)
+        internal void OnServiceExecute(IService sender, EventArgs e)
         {
             ServiceEventHandler handler = ServiceExecute;
             if (handler != null)
@@ -568,7 +568,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal static void OnServiceExecuted(IService sender, EventArgs e)
+        internal void OnServiceExecuted(IService sender, EventArgs e)
         {
             ServiceEventHandler handler = ServiceExecuted;
             if (handler != null)
