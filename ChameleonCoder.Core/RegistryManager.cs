@@ -5,24 +5,24 @@ namespace ChameleonCoder
     [System.Runtime.InteropServices.ComVisible(false)]
     internal static class RegistryManager
     {
-        public static readonly string fileExtension = ".ccr";
+        public const string FileExtension = ".ccr";
 
         /// <summary>
         /// registers the file extension
         /// </summary>
         internal static void RegisterExtension()
         {
-            if (Registry.ClassesRoot.OpenSubKey(".ccr") == null)
+            if (Registry.ClassesRoot.OpenSubKey(FileExtension) == null)
             {
-                RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(fileExtension, RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey regCCR = Registry.ClassesRoot.CreateSubKey(FileExtension, RegistryKeyPermissionCheck.ReadWriteSubTree);
                 regCCR.SetValue("", ChameleonCoder.Properties.Resources.Ext_CCR);
                 regCCR.Close();
 
-                regCCR = Registry.ClassesRoot.CreateSubKey(fileExtension + "\\Shell\\Open\\command");
+                regCCR = Registry.ClassesRoot.CreateSubKey(FileExtension + "\\Shell\\Open\\command");
                 regCCR.SetValue("", "\"" + ChameleonCoderApp.AppPath + "\" \"%1\"");
                 regCCR.Close();
 
-                regCCR = Registry.ClassesRoot.CreateSubKey(fileExtension + "\\DefaultIcon");
+                regCCR = Registry.ClassesRoot.CreateSubKey(FileExtension + "\\DefaultIcon");
                 regCCR.SetValue("", ChameleonCoderApp.AppPath + ", 1");
                 regCCR.Close();
             }
@@ -33,9 +33,9 @@ namespace ChameleonCoder
         /// </summary>
         internal static void UnRegisterExtension()
         {
-            if (Registry.ClassesRoot.OpenSubKey(".ccr") != null)
+            if (Registry.ClassesRoot.OpenSubKey(FileExtension) != null)
             {
-                Registry.ClassesRoot.DeleteSubKeyTree(fileExtension);
+                Registry.ClassesRoot.DeleteSubKeyTree(FileExtension);
             }
         }
     }
