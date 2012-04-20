@@ -50,6 +50,12 @@ namespace ChameleonCoder.Files
             return pathsOpen.Contains(path);
         }
 
+        public void Remove(DataFile file)
+        {
+            filesOpen.Remove(file);
+            pathsOpen.Remove(file.FilePath);
+        }
+
         public void Shutdown()
         {
             SaveAll();

@@ -154,8 +154,7 @@ namespace ChameleonCoder.Files
         [DispId(5)]
         public void Close()
         {
-            App.FileMan.Files.Remove(this);
-            App.FileMan.Paths.Remove(FilePath);
+            App.FileMan.Remove(this);
         }
 
         /// <summary>
