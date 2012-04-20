@@ -124,35 +124,35 @@ namespace ChameleonCoder.Plugins
             if (template != null) // if it is a template:
             {
                 Templates.TryAdd(template.Identifier, template); // ...store it
-                template.Initialize(); // ... and initialize it
+                template.Initialize(App); // ... and initialize it
             }
 
             IService service = plugin as IService;
             if (service != null) // if it is a service:
             {
                 Services.TryAdd(service.Identifier, service); // ...store it
-                service.Initialize(); // ... and initialize it
+                service.Initialize(App); // ... and initialize it
             }
 
             ILanguageModule module = plugin as ILanguageModule;
             if (module != null) // if it is a Language module
             {
                 Modules.TryAdd(module.Identifier, module); // ...store it
-                module.Initialize(); // ... and initialize it
+                module.Initialize(App); // ... and initialize it
             }
 
             IResourceFactory resourceFactory = plugin as IResourceFactory;
             if (resourceFactory != null) // if it is a ResourceFactory
             {
                 ResourceFactories.TryAdd(resourceFactory.Identifier, resourceFactory); // ...store it
-                resourceFactory.Initialize(); // ... and initialize it
+                resourceFactory.Initialize(App); // ... and initialize it
             }
 
             IRichContentFactory contentFactory = plugin as IRichContentFactory;
             if (contentFactory != null) // if it is a RichContentFactory
             {
                 RichContentFactories.TryAdd(contentFactory.Identifier, contentFactory); // ...store it
-                contentFactory.Initialize(); // ... and initialize it
+                contentFactory.Initialize(App); // ... and initialize it
             }
         }
 

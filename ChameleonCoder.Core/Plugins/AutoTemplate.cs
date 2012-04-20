@@ -81,12 +81,27 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// initializes the template
         /// </summary>
-        public void Initialize() { }
+        public void Initialize(ChameleonCoderApp app)
+        {
+            App = app;
+        }
 
         /// <summary>
         /// prepares the template for shutdown
         /// </summary>
-        public void Shutdown() { }
+        public void Shutdown()
+        {
+            App = null;
+        }
+
+        /// <summary>
+        /// a backreference to the app instance that loaded the template
+        /// </summary>
+        public ChameleonCoderApp App
+        {
+            get;
+            private set;
+        }
 
         #endregion
 

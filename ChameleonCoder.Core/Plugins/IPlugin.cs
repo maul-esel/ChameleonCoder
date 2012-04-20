@@ -28,11 +28,16 @@
         /// <summary>
         /// called when the app starts and loads all plugins
         /// </summary>
-        void Initialize();
+        void Initialize(ChameleonCoderApp app);
 
         /// <summary>
         /// called when the app is closed, allows plugins to save unfinished work
         /// </summary>
         void Shutdown();
+
+        /// <summary>
+        /// a backreference to the app the plugin is loaded by
+        /// </summary>
+        ChameleonCoderApp App { get; }
     }
 }

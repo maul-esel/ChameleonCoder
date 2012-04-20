@@ -58,8 +58,10 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// initializes the plugin
         /// </summary>
-        public void Initialize()
+        public void Initialize(ChameleonCoderApp app)
         {
+            App = app;
+
             Res.Culture = new CultureInfo(InformationProvider.Language);
             InformationProvider.LanguageChanged += (LCID) => Res.Culture = new CultureInfo((int)LCID);
 
@@ -74,7 +76,16 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// prepares the plugin for closing the application
         /// </summary>
-        public void Shutdown() { }
+        public void Shutdown()
+        {
+            App = null;
+        }
+
+        public ChameleonCoderApp App
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
