@@ -64,6 +64,13 @@ namespace ChameleonCoder.Files
             App = null;
         }
 
+        public void OpenDirectory(string path)
+        {
+            if (Directory.Exists(path))
+                dirList.Add(path);
+            throw new DirectoryNotFoundException();
+        }
+
         #region handle all
 
         /// <summary>

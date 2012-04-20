@@ -315,7 +315,7 @@ namespace ChameleonCoder.Files
                         App.FileMan.Open(reference.Path);
                         break;
                     case DataFileReferenceType.Directory:
-                        App.FileMan.Directories.Add(reference.Path);
+                        App.FileMan.OpenDirectory(reference.Path);
                         break;
                     default:
                         throw new NotImplementedException();
