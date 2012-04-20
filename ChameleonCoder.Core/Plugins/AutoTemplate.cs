@@ -1,7 +1,5 @@
 ﻿using System;
-using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Plugins
 {
@@ -27,7 +25,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string About
         {
-            get { return "© 2011: auto-generated ChameleonCoder Template\n" + ResourceTypeManager.GetFactory(ResourceType).Author; }
+            get { return "© 2011: auto-generated ChameleonCoder Template\n" + App.ResourceTypeMan.GetFactory(ResourceType).Author; }
         }
 
         /// <summary>
@@ -35,7 +33,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string Author
         {
-            get { return string.Format(Properties.Resources.AutoTemplate_Author, ResourceTypeManager.GetFactory(ResourceType).Author); }
+            get { return string.Format(Properties.Resources.AutoTemplate_Author, App.ResourceTypeMan.GetFactory(ResourceType).Author); }
         }
 
         /// <summary>
@@ -43,7 +41,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string Description
         {
-            get { return string.Format(Properties.Resources.AutoTemplate_Description, ResourceTypeManager.GetDisplayName(ResourceType)); }
+            get { return string.Format(Properties.Resources.AutoTemplate_Description, App.ResourceTypeMan.GetDisplayName(ResourceType)); }
         }
 
         /// <summary>
@@ -51,7 +49,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public System.Windows.Media.ImageSource Icon
         {
-            get { return ResourceTypeManager.GetTypeIcon(ResourceType); }
+            get { return App.ResourceTypeMan.GetTypeIcon(ResourceType); }
         }
 
         /// <summary>
@@ -67,7 +65,7 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public string Name
         {
-            get { return ResourceTypeManager.GetDisplayName(ResourceType); }
+            get { return App.ResourceTypeMan.GetDisplayName(ResourceType); }
         }
 
         /// <summary>
@@ -119,7 +117,7 @@ namespace ChameleonCoder.Plugins
                 var attr = (TemplateDefaultNameAttribute)Attribute.GetCustomAttribute(ResourceType, typeof(TemplateDefaultNameAttribute));
                 if (attr != null)
                     return attr.Name;
-                return ResourceTypeManager.GetDisplayName(ResourceType) + i;
+                return App.ResourceTypeMan.GetDisplayName(ResourceType) + i;
             }
         }
 
@@ -150,9 +148,9 @@ namespace ChameleonCoder.Plugins
         /// <returns>the new resource</returns>
         public IResource Create(IResource parent, string name)
         {
-            var attr = ResourceTypeManager.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
+            var attr = App.ResourceTypeMan.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
             if (attr != null)
-                return ResourceTypeManager.CreateNewResource(ResourceType, name, attr, parent, parent != null ? parent.File : ChameleonCoderApp.DefaultFile);
+                return App.ResourceTypeMan.CreateNewResource(ResourceType, name, attr, parent, parent != null ? parent.File : ChameleonCoderApp.DefaultFile);
             return null;
         }
         #endregion

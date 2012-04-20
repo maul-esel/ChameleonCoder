@@ -73,6 +73,7 @@ namespace ChameleonCoder
             PluginMan = new Plugins.PluginManager(this);
             ResourceMan = new ResourceManager(this);
             ContentMemberMan = new Resources.RichContent.ContentMemberManager(this);
+            ResourceTypeMan = new ResourceTypeManager(this);
 
             RunningObject = this; // TODO!
 
@@ -117,6 +118,12 @@ namespace ChameleonCoder
         }
 
         public Resources.RichContent.ContentMemberManager ContentMemberMan
+        {
+            get;
+            private set;
+        }
+
+        public ResourceTypeManager ResourceTypeMan
         {
             get;
             private set;

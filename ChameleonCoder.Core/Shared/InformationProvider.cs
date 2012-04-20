@@ -162,7 +162,7 @@ namespace ChameleonCoder.Shared
         /// <returns>true if a resource type is registered with this key, false otherwise</returns>
         public static bool IsResourceTypeRegistered(Guid key)
         {
-            return ResourceTypeManager.IsRegistered(key);
+            return ChameleonCoderApp.RunningObject.ResourceTypeMan.IsRegistered(key);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace ChameleonCoder.Shared
         /// <returns>true if the resource type is registered, false otherwise</returns>
         public static bool IsResourceTypeRegistered(Type type)
         {
-            return ResourceTypeManager.IsRegistered(type);
+            return ChameleonCoderApp.RunningObject.ResourceTypeMan.IsRegistered(type);
         }
 
         #endregion

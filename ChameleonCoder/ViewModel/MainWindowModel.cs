@@ -613,7 +613,7 @@ namespace ChameleonCoder.ViewModel
 
         public static IEnumerable<Type> LoadedResourceTypes
         {
-            get { return ResourceTypeManager.GetResourceTypes(); }
+            get { return Instance.App.ResourceTypeMan.GetResourceTypes(); }
         }
 
         #endregion

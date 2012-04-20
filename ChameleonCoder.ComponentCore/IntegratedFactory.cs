@@ -6,7 +6,6 @@ using System.Windows.Media.Imaging;
 using ChameleonCoder.ComponentCore.Resources;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 using ChameleonCoder.Shared;
 using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 
@@ -65,12 +64,12 @@ namespace ChameleonCoder.ComponentCore
             Res.Culture = new CultureInfo(InformationProvider.Language);
             InformationProvider.LanguageChanged += (LCID) => Res.Culture = new CultureInfo((int)LCID);
 
-            ResourceTypeManager.RegisterComponent(typeof(FileResource), Guid.Parse(FileResource.Key), this);
-            ResourceTypeManager.RegisterComponent(typeof(CodeResource), Guid.Parse(CodeResource.Key), this);
-            ResourceTypeManager.RegisterComponent(typeof(TaskResource), Guid.Parse(TaskResource.Key), this);
-            ResourceTypeManager.RegisterComponent(typeof(GroupResource), Guid.Parse(GroupResource.Key), this);
-            ResourceTypeManager.RegisterComponent(typeof(LibraryResource), Guid.Parse(LibraryResource.Key), this);
-            ResourceTypeManager.RegisterComponent(typeof(ProjectResource), Guid.Parse(ProjectResource.Key), this);
+            App.ResourceTypeMan.RegisterComponent(typeof(FileResource), Guid.Parse(FileResource.Key), this);
+            App.ResourceTypeMan.RegisterComponent(typeof(CodeResource), Guid.Parse(CodeResource.Key), this);
+            App.ResourceTypeMan.RegisterComponent(typeof(TaskResource), Guid.Parse(TaskResource.Key), this);
+            App.ResourceTypeMan.RegisterComponent(typeof(GroupResource), Guid.Parse(GroupResource.Key), this);
+            App.ResourceTypeMan.RegisterComponent(typeof(LibraryResource), Guid.Parse(LibraryResource.Key), this);
+            App.ResourceTypeMan.RegisterComponent(typeof(ProjectResource), Guid.Parse(ProjectResource.Key), this);
         }
 
         /// <summary>
@@ -182,7 +181,7 @@ namespace ChameleonCoder.ComponentCore
         public IDictionary<string, string> CreateResource(Type type, string name, IResource parent)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
-            ResourceCreator creator = new ResourceCreator(type, parent_name, name);
+            ResourceCreator creator = new ResourceCreator(type, parent_name, name, App);
 
             if (creator.ShowDialog() == true)
                 return creator.GetXmlAttributes();

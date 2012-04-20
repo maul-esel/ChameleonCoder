@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Data;
 using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
 {
@@ -48,13 +47,13 @@ namespace ChameleonCoder.Converter
                             group = Properties.Resources.PropertyGroup_General; // use the localized group name
                             break;
                         case ResourcePropertyGroup.ThisClass: // if it is defined as ResourcePropertyGroup.ThisClass
-                            if (!ResourceTypeManager.IsRegistered(property.DeclaringType))
+                            if (!ChameleonCoderApp.RunningObject.ResourceTypeMan.IsRegistered(property.DeclaringType))
                                 goto default;
-                            group = ResourceTypeManager.GetDisplayName(property.DeclaringType); // get the display name
+                            group = ChameleonCoderApp.RunningObject.ResourceTypeMan.GetDisplayName(property.DeclaringType); // get the display name
                             break;
                         default:
                         case ResourcePropertyGroup.CurrentClass: // if it is defined as ResourcePropertyGroup.CurrentClass
-                            group = ResourceTypeManager.GetDisplayName(type); // use the display name
+                            group = ChameleonCoderApp.RunningObject.ResourceTypeMan.GetDisplayName(type); // use the display name
                             break; // checking is not needed: the current type must be registered
                     }
                     

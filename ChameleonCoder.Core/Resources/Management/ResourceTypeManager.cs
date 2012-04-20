@@ -11,24 +11,35 @@ namespace ChameleonCoder.Resources.Management
     /// <summary>
     /// manages the registered resource types
     /// </summary>
-    public static class ResourceTypeManager
+    public sealed class ResourceTypeManager
     {
+        internal ResourceTypeManager(ChameleonCoderApp app)
+        {
+            App = app;
+        }
+
+        public ChameleonCoderApp App
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// the collection holding the resource types
         /// </summary>
-        private static ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
+        private ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
         /// <summary>
         /// a dictionary associating the resource types with the registering component factory
         /// </summary>
-        private static ConcurrentDictionary<Type, IResourceFactory> Factories = new ConcurrentDictionary<Type, IResourceFactory>();
+        private ConcurrentDictionary<Type, IResourceFactory> Factories = new ConcurrentDictionary<Type, IResourceFactory>();
 
         /// <summary>
         /// gets the resource type that was registered with the specified alias
         /// </summary>
         /// <param name="key">resource type key</param>
         /// <returns>the type</returns>
-        internal static Type GetResourceType(Guid key)
+        internal Type GetResourceType(Guid key)
         {
             return ResourceTypes.GetResourceType(key);
         }
@@ -38,7 +49,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="type">the type</param>
         /// <returns>the alias</returns>
-        internal static Guid GetKey(Type type)
+        internal Guid GetKey(Type type)
         {
             return ResourceTypes.GetAlias(type);
         }
@@ -50,7 +61,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="data">the XmlElement representing the resource</param>
         /// <param name="parent">the resource's parent</param>
         /// <returns>the new instance</returns>
-        internal static IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, DataFile file)
+        internal IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, DataFile file)
         {
             Type resourceType = GetResourceType(key);
             if (resourceType != null)
@@ -72,7 +83,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
+        public IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
         {
             var document = (parent == null) ? ChameleonCoderApp.DefaultFile.Document : parent.File.Document;
             var manager = XmlNamespaceManagerFactory.GetManager(document);
@@ -116,7 +127,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public static IResource CreateNewResource(Guid key, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
+        public IResource CreateNewResource(Guid key, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
         {
             return CreateNewResource(GetResourceType(key), name, attributes, parent, file);
         }
@@ -125,7 +136,7 @@ namespace ChameleonCoder.Resources.Management
         /// gets a list of all registered resource types
         /// </summary>
         /// <returns>the list</returns>
-        internal static IEnumerable<Type> GetResourceTypes()
+        internal IEnumerable<Type> GetResourceTypes()
         {
             return ResourceTypes.GetList();
         }
@@ -135,7 +146,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="component">the resource type</param>
         /// <returns>the IResourceFactory instance</returns>
-        public static IResourceFactory GetFactory(Type component)
+        public IResourceFactory GetFactory(Type component)
         {
             IResourceFactory factory;
             if (Factories.TryGetValue(component, out factory))
@@ -148,7 +159,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="component">the reosurce type to get the name for</param>
         /// <returns>the localized string</returns>
-        public static string GetDisplayName(Type component)
+        public string GetDisplayName(Type component)
         {
             return GetFactory(component).GetDisplayName(component);
         }
@@ -158,7 +169,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="component">the resource type to get the icon for</param>
         /// <returns>the icon as <see cref="System.Windows.Media.ImageSource"/> instance</returns>
-        public static ImageSource GetTypeIcon(Type component)
+        public ImageSource GetTypeIcon(Type component)
         {
             return GetFactory(component).GetTypeIcon(component);
         }
@@ -168,7 +179,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="component">the resource type to get the brush for</param>
         /// <returns>the <see cref="System.Windows.Media.Brush"/> instance</returns>
-        public static Brush GetBackground(Type component)
+        public Brush GetBackground(Type component)
         {
             return GetFactory(component).GetBackground(component);
         }
@@ -178,7 +189,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="key">the resource type key of the type to check</param>
         /// <returns>true if a type with the given key is registered, false otherwise</returns>
-        public static bool IsRegistered(Guid key)
+        public bool IsRegistered(Guid key)
         {
             return ResourceTypes.IsRegistered(key);
         }
@@ -188,7 +199,7 @@ namespace ChameleonCoder.Resources.Management
         /// </summary>
         /// <param name="type">the resource type to check</param>
         /// <returns>true if the type is registered, false otherwise</returns>
-        public static bool IsRegistered(Type type)
+        public bool IsRegistered(Type type)
         {
             return ResourceTypes.IsRegistered(type);
         }
@@ -199,12 +210,12 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="component">the resource type to register</param>
         /// <param name="key">the resource type key to use for the type</param>
         /// <param name="factory">the <see cref="ChameleonCoder.Plugins.IResourceFactory"/> calling this method.</param>
-        public static void RegisterComponent(Type component, Guid key, Plugins.IResourceFactory factory)
+        public void RegisterComponent(Type component, Guid key, Plugins.IResourceFactory factory)
         {
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic // scope and type
                 && !IsRegistered(key) && !IsRegistered(component) // no double-registration
-                && ChameleonCoderApp.RunningObject.PluginMan.IsResourceFactoryRegistered(factory)) // no anonymous registration
+                && App.PluginMan.IsResourceFactoryRegistered(factory)) // no anonymous registration
             {
                 ResourceTypes.RegisterResourceType(key, component);
                 Factories.TryAdd(component, factory);

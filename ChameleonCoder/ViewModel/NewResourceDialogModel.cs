@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ChameleonCoder.Plugins;
-using ChameleonCoder.Resources.Management;
 using Res = ChameleonCoder.Properties.Resources;
 
 namespace ChameleonCoder.ViewModel
@@ -11,7 +10,7 @@ namespace ChameleonCoder.ViewModel
     {
         internal NewResourceDialogModel()
         {
-            foreach (var type in ResourceTypeManager.GetResourceTypes())
+            foreach (var type in ChameleonCoderApp.RunningObject.ResourceTypeMan.GetResourceTypes())
                 if (!Attribute.IsDefined(type, typeof(NoWrapperTemplateAttribute)))
                     templateList.Add(new AutoTemplate(type));
 

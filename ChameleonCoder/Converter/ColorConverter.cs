@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Data;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
 {
@@ -25,7 +24,7 @@ namespace ChameleonCoder.Converter
             if (value != null)
             {
                 // get the background
-                var background = ResourceTypeManager.GetBackground(value.GetType());
+                var background = ChameleonCoderApp.RunningObject.ResourceTypeMan.GetBackground(value.GetType());
                 if (background != null) // check if the type was registered with a null-background
                     return background.GetAsFrozen(); // use GetAsFrozen() to avoid multi-threading issues
                 return null;

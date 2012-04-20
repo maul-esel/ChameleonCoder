@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.ComponentCore.Resources
 {
@@ -97,7 +96,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="target">The type to create a new resource of</param>
         /// <param name="parent">the name of the parent resource</param>
         /// <param name="name">the name of the new reosurce</param>
-        public ResourceCreator(Type target, string parent, string name)
+        public ResourceCreator(Type target, string parent, string name, ChameleonCoderApp app)
         {
             InitializeComponent();
             DataContext = this;
@@ -105,7 +104,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             ResName = name;
             ResourceParent.Text = parent;
 
-            ResourceType.Text = ResourceTypeManager.GetDisplayName(target);
+            ResourceType.Text = app.ResourceTypeMan.GetDisplayName(target);
 
             ResGuid = Guid.NewGuid();
 
@@ -118,7 +117,7 @@ namespace ChameleonCoder.ComponentCore.Resources
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
-                this.ResourceLanguage.ItemsSource = ChameleonCoderApp.RunningObject.PluginMan.GetModules();
+                this.ResourceLanguage.ItemsSource = app.PluginMan.GetModules();
                 customAttributes.Add("language", () => ResLanguage.Identifier.ToString("b"));
             }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Data;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Converter
 {
@@ -28,7 +27,7 @@ namespace ChameleonCoder.Converter
             	string property = parameter as string;
                 if (property== "DisplayName")
                 {
-                    var displayName = ResourceTypeManager.GetDisplayName(type); // get the display name
+                    var displayName = ChameleonCoderApp.RunningObject.ResourceTypeMan.GetDisplayName(type); // get the display name
                     if (!string.IsNullOrWhiteSpace(displayName)) // check if it is a blank
                         return displayName; // return it
                     // else throw an exception
@@ -36,7 +35,7 @@ namespace ChameleonCoder.Converter
                 }
                 else if (property == "Icon")
                 {
-                    var icon = ResourceTypeManager.GetTypeIcon(type); // get the type icon
+                    var icon = ChameleonCoderApp.RunningObject.ResourceTypeMan.GetTypeIcon(type); // get the type icon
                     if (icon != null) // check if it is null
                         return icon; // return it
                     // else throw an exception

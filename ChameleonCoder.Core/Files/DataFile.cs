@@ -4,7 +4,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder.Files
 {
@@ -387,11 +386,11 @@ namespace ChameleonCoder.Files
 
             if (Guid.TryParse(node.GetAttribute("type", NamespaceUri), out type))
             {
-                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent, this); // try to use the element's name as resource alias
+                resource = App.ResourceTypeMan.CreateInstanceOf(type, node, parent, this); // try to use the element's name as resource alias
             }
             else if (Guid.TryParse(node.GetAttribute("fallback", NamespaceUri), out type))
             {
-                resource = ResourceTypeManager.CreateInstanceOf(type, node, parent, this); // give it a "2nd chance"
+                resource = App.ResourceTypeMan.CreateInstanceOf(type, node, parent, this); // give it a "2nd chance"
             }
 
             if (resource == null) // if creation failed:
