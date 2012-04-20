@@ -608,8 +608,7 @@ namespace ChameleonCoder.ViewModel
         {
             if (OnConfirm(Res.Status_ClosingFiles, Res.File_ConfirmClose) == true)
             {
-                ChameleonCoderApp.RunningObject.ResourceMan.GetChildren().Clear();
-                ChameleonCoderApp.RunningObject.ResourceMan.GetList().Clear();
+                ChameleonCoderApp.RunningObject.ResourceMan.RemoveAll();
                 ChameleonCoderApp.RunningObject.FileMan.CloseAll();
                 XmlNamespaceManagerFactory.ClearManagers();
             }

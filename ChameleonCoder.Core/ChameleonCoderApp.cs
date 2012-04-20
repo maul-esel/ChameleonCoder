@@ -91,6 +91,7 @@ namespace ChameleonCoder
         public void Exit(int exitCode)
         {
             PluginMan.Shutdown(); // inform plugins
+            ResourceMan.Shutdown();
             FileMan.SaveAll(); // save changes to the opened files
             FileMan.CloseAll();
 

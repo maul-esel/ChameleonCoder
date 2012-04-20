@@ -115,15 +115,6 @@ namespace ChameleonCoder.Resources.Management
             return Children; // TODO: return clone?
         }
 
-        /// <summary>
-        /// gets the complete list of all resources
-        /// </summary>
-        /// <returns></returns>
-        public ResourceCollection GetList()
-        {
-            return FlatList; // TODO: return clone?
-        }
-
         public IResource GetResource(Guid id)
         {
             return FlatList.GetInstance(id);
@@ -180,6 +171,20 @@ namespace ChameleonCoder.Resources.Management
             }
             else
                 throw new InvalidOperationException("no resource can be closed.");
+        }
+
+        public void RemoveAll()
+        {
+            foreach (IResource resource in FlatList)
+            {
+                Remove(resource); // use this so that event handlers are removed correctly etc.
+            }
+        }
+
+        public void Shutdown()
+        {
+            Close();
+            RemoveAll();
         }
 
         #region paths
