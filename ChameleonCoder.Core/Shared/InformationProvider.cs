@@ -87,7 +87,6 @@ namespace ChameleonCoder.Shared
                 };
             ChameleonCoderApp.Gui.CustomGroup1.Controls.Add(button);
         }
-#endif
 
         /// <summary>
         /// registers a new StubCreator
@@ -95,6 +94,8 @@ namespace ChameleonCoder.Shared
         public static void RegisterStubCreator()
         {
         } // IStubCreator
+
+#endif
 
         #endregion
 
@@ -150,30 +151,6 @@ namespace ChameleonCoder.Shared
             return null;
         }
 #endif
-
-        #endregion
-
-        #region resource management
-
-        /// <summary>
-        /// tests if a resource type is registered, given its Xml-alias
-        /// </summary>
-        /// <param name="key">the resource type key to test</param>
-        /// <returns>true if a resource type is registered with this key, false otherwise</returns>
-        public static bool IsResourceTypeRegistered(Guid key)
-        {
-            return ChameleonCoderApp.RunningObject.ResourceTypeMan.IsRegistered(key);
-        }
-
-        /// <summary>
-        /// tests if a resource type is registered, given a Type instance
-        /// </summary>
-        /// <param name="type">the Type to test</param>
-        /// <returns>true if the resource type is registered, false otherwise</returns>
-        public static bool IsResourceTypeRegistered(Type type)
-        {
-            return ChameleonCoderApp.RunningObject.ResourceTypeMan.IsRegistered(type);
-        }
 
         #endregion
 
