@@ -32,9 +32,9 @@ namespace ChameleonCoder.Files
 
             DataFile file = new DataFile(Path.GetFullPath(path), App); // use MakeAbsolutePath() (?)
 
-            Files.Add(file);
+            filesOpen.Add(file);
             pathsOpen.Add(file.FilePath);
-            Directories.Add(Path.GetDirectoryName(file.FilePath));
+            dirList.Add(Path.GetDirectoryName(file.FilePath));
 
             return file;
         }
@@ -98,9 +98,9 @@ namespace ChameleonCoder.Files
             foreach (DataFile file in Files)
                 file.Close();
 
-            Files.Clear();
-            Paths.Clear();
-            Directories.Clear();
+            filesOpen.Clear();
+            pathsOpen.Clear();
+            dirList.Clear();
         }
 
         #endregion // "handle all"
