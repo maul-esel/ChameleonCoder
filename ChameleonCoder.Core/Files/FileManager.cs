@@ -50,6 +50,14 @@ namespace ChameleonCoder.Files
             return pathsOpen.Contains(path);
         }
 
+        public void Shutdown()
+        {
+            SaveAll();
+            CloseAll();
+
+            App = null;
+        }
+
         #region handle all
 
         /// <summary>

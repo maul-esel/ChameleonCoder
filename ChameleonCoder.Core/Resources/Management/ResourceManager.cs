@@ -185,6 +185,8 @@ namespace ChameleonCoder.Resources.Management
         {
             Close();
             RemoveAll();
+
+            App = null;
         }
 
         #region paths

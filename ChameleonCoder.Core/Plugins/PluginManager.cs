@@ -157,12 +157,23 @@ namespace ChameleonCoder.Plugins
         }
 
         /// <summary>
-        /// calls IPlugin.Shutdown() on all plugins
+        /// calls IPlugin.Shutdown() on all plugins and clears the instance
         /// </summary>
         public void Shutdown()
         {
+            UnloadModule();
+
             foreach (IPlugin plugin in GetPlugins())
-                plugin.Shutdown();
+                plugin.Shutdown(); // inform plugins
+
+            // clear lists
+            Modules.Clear();
+            Services.Clear();
+            Templates.Clear();
+            ResourceFactories.Clear();
+            RichContentFactories.Clear();
+
+            App = null;
         }
 
         /// <summary>
