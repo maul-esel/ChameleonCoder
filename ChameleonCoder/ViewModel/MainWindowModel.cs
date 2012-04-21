@@ -535,7 +535,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenNewTab()
         {
-            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(new WelcomePageModel(App), false));
+            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(new WelcomePageModel(App), false).Representation);
             Tabs.Add(context);
             ActiveTab = context;
 
