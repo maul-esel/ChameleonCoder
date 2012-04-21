@@ -11,7 +11,7 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(MainWindow))]
     internal sealed class MainWindowModel : ViewModelBase
     {
-        private MainWindowModel(ChameleonCoderApp app)
+        internal MainWindowModel(ChameleonCoderApp app)
         {
             App = app;
 
@@ -58,34 +58,6 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
                 CreateFileCommandExecuted));
         }
-
-        #region singleton
-
-        /// <summary>
-        /// gets the instance of this model
-        /// </summary>
-        [Obsolete("In the future, multiple instances must be allowed.")]
-        internal static MainWindowModel Instance
-        {
-            get
-            {
-                lock (modelInstance)
-                {
-                    return modelInstance;
-                }
-            }
-        }
-
-        [Obsolete("In the future, multiple instances must be allowed.")]
-        private static MainWindowModel modelInstance = null; // new MainWindowModel();
-
-        [Obsolete("In the future, multiple instances must be allowed.")]
-        internal static void Instantiate(ChameleonCoderApp app)
-        {
-            modelInstance = new MainWindowModel(app);
-        }
-
-        #endregion
 
         public ChameleonCoderApp App
         {
@@ -325,12 +297,12 @@ namespace ChameleonCoder.ViewModel
 
         #endregion
 
-        private static void Close(bool restart)
+        private void Close(bool restart)
         {
             if (restart)
                 System.Diagnostics.Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location);
 
-            Instance.App.Exit(0);
+            App.Exit(0);
         }
 
         #region page management
@@ -519,7 +491,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        public static BreadcrumbContext BreadcrumbRoot
+        public BreadcrumbContext BreadcrumbRoot
         {
             get
             {
@@ -527,7 +499,7 @@ namespace ChameleonCoder.ViewModel
                     new BreadcrumbContext[4]
                         {
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/list.png"),
-                            Instance.App.ResourceMan.GetChildren(),
+                            App.ResourceMan.GetChildren(),
                             CCTabPage.ResourceList),
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png"),
                             null,
@@ -593,16 +565,16 @@ namespace ChameleonCoder.ViewModel
 
         #region services
 
-        public static bool EnableServices
+        public bool EnableServices
         {
-            get { return Instance.App.PluginMan.ServiceCount > 0; }
+            get { return App.PluginMan.ServiceCount > 0; }
         }
 
-        public static IEnumerable<Plugins.IService> ServiceList
+        public IEnumerable<Plugins.IService> ServiceList
         {
             get
             {
-                return Instance.App.PluginMan.GetServices();
+                return App.PluginMan.GetServices();
             }
         }
 
@@ -610,9 +582,9 @@ namespace ChameleonCoder.ViewModel
 
         #region resource types
 
-        public static IEnumerable<Type> LoadedResourceTypes
+        public IEnumerable<Type> LoadedResourceTypes
         {
-            get { return Instance.App.ResourceTypeMan.GetResourceTypes(); }
+            get { return App.ResourceTypeMan.GetResourceTypes(); }
         }
 
         #endregion

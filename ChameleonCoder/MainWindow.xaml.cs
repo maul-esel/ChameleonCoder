@@ -4,7 +4,6 @@ using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Shared;
 using ChameleonCoder.ViewModel.Interaction;
 using Odyssey.Controls;
-using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
 
 namespace ChameleonCoder
 {
@@ -16,17 +15,18 @@ namespace ChameleonCoder
         public MainWindow(ChameleonCoderApp app)
         {
             App = app;
-            MVVM.Instantiate(app);
-            ModelClientHelper.InitializeModel(MVVM.Instance);
 
-            MVVM.Instance.ViewChanged -= AdjustView;
-            MVVM.Instance.ViewChanged += AdjustView;
+            Model = new ViewModel.MainWindowModel(app);
+            ModelClientHelper.InitializeModel(Model);
 
-            MVVM.Instance.SelectFile -= ModelClientHelper.SelectFile;
-            MVVM.Instance.SelectFile += ModelClientHelper.SelectFile;
+            Model.ViewChanged -= AdjustView;
+            Model.ViewChanged += AdjustView;
 
-            DataContext = MVVM.Instance;
-            CommandBindings.AddRange(MVVM.Instance.Commands);
+            Model.SelectFile -= ModelClientHelper.SelectFile;
+            Model.SelectFile += ModelClientHelper.SelectFile;
+
+            DataContext = Model;
+            CommandBindings.AddRange(Model.Commands);
 
             InitializeComponent();
             App.PluginMan.ModuleLoaded += ModuleLoaded;
@@ -41,6 +41,12 @@ namespace ChameleonCoder
         {
             get;
             private set;
+        }
+
+        private ViewModel.MainWindowModel Model
+        {
+            get;
+            set;
         }
 
         #region view model interaction
@@ -107,7 +113,7 @@ namespace ChameleonCoder
 
         private void FilterChanged(object sender, RoutedEventArgs e)
         {
-            System.Windows.Input.NavigationCommands.Refresh.Execute(null, MVVM.Instance.ActiveTab.Content as IInputElement);
+            System.Windows.Input.NavigationCommands.Refresh.Execute(null, Model.ActiveTab.Content as IInputElement);
         }
 
         #region temp
@@ -168,14 +174,14 @@ namespace ChameleonCoder
         {
             if (IsInitialized)
                 ChameleonCoderCommands.SetGroupingMode.Execute((sender as RibbonToggleButton).IsChecked == true,
-                    MVVM.Instance.ActiveTab.Content as IInputElement);
+                    Model.ActiveTab.Content as IInputElement);
         }
 
         private void SortingChanged(object sender, EventArgs e)
         {
             if (IsInitialized)
                 ChameleonCoderCommands.SetSortingMode.Execute((sender as RibbonToggleButton).IsChecked == true,
-                    MVVM.Instance.ActiveTab.Content as IInputElement);
+                    Model.ActiveTab.Content as IInputElement);
         }
 
         #region resources
