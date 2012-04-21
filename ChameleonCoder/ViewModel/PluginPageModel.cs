@@ -13,35 +13,27 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Navigation.PluginPage))]
     internal sealed class PluginPageModel : ViewModelBase
     {
-        private PluginPageModel()
+        internal PluginPageModel(ChameleonCoderApp app)
         {
+            App = app;
+
             Commands.Add(new CommandBinding(ChameleonCoderCommands.UninstallPlugin,
                 UninstallPluginCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.InstallPlugin,
                 InstallPluginCommandExecuted));
 
+            plugins = new ObservableCollection<IPlugin>(App.PluginMan.GetPlugins());
             plugins.CollectionChanged += (s, e) => OnPropertyChanged("PluginList");
 
             Shared.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
             Shared.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
         }
 
-        #region singleton
-
-        public static PluginPageModel Instance
+        public ChameleonCoderApp App
         {
-            get
-            {
-                lock (modelInstance)
-                {
-                    return modelInstance;
-                }
-            }
+            get;
+            private set;
         }
-
-        private static readonly PluginPageModel modelInstance = new PluginPageModel();
-
-        #endregion
 
         #region commanding
 
@@ -65,7 +57,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        private readonly ObservableCollection<IPlugin> plugins = new ObservableCollection<IPlugin>(ChameleonCoderApp.RunningObject.PluginMan.GetPlugins());
+        private readonly ObservableCollection<IPlugin> plugins = null;
 
         #region localization
 

@@ -12,18 +12,18 @@ namespace ChameleonCoder.Navigation
         /// <summary>
         /// creates a new instance of the page
         /// </summary>
-        public PluginPage()
+        public PluginPage(ViewModel.PluginPageModel model)
         {
-            ModelClientHelper.InitializeModel(ViewModel.PluginPageModel.Instance);
+            ModelClientHelper.InitializeModel(model);
 
-            ViewModel.PluginPageModel.Instance.PluginNeeded -= ModelClientHelper.SelectFile; // remove handler if already attached
-            ViewModel.PluginPageModel.Instance.PluginNeeded += ModelClientHelper.SelectFile; // add handler
+            model.PluginNeeded -= ModelClientHelper.SelectFile; // remove handler if already attached
+            model.PluginNeeded += ModelClientHelper.SelectFile; // add handler
 
-            ViewModel.PluginPageModel.Instance.RepresentationNeeded -= ModelClientHelper.GetModelRepresentation; // see above
-            ViewModel.PluginPageModel.Instance.RepresentationNeeded += ModelClientHelper.GetModelRepresentation;
+            model.RepresentationNeeded -= ModelClientHelper.GetModelRepresentation; // see above
+            model.RepresentationNeeded += ModelClientHelper.GetModelRepresentation;
 
-            DataContext = ViewModel.PluginPageModel.Instance;
-            CommandBindings.AddRange(ViewModel.PluginPageModel.Instance.Commands);
+            DataContext = model;
+            CommandBindings.AddRange(model.Commands);
 
             InitializeComponent();            
         }

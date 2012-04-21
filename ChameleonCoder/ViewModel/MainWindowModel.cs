@@ -339,7 +339,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenPluginPage()
         {
-            var args = OnRepresentationNeeded(PluginPageModel.Instance, false);
+            var args = OnRepresentationNeeded(new PluginPageModel(App), false);
             if (args.Cancel)
                 return;
 
