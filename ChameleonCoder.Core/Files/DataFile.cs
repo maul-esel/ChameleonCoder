@@ -211,14 +211,14 @@ namespace ChameleonCoder.Files
         /// gets all metadata related to the file
         /// </summary>
         /// <returns>a dictionary containing the metadata</returns>
-        public IDictionary<string, string> GetMetadata()
+        public System.Collections.Specialized.StringDictionary GetMetadata()
         {
             var set = (XmlElement)Document.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
             if (set == null)
                 return null;
 
             var data = set.SelectNodes("cc:metadata", manager);
-            var dict = new Dictionary<string, string>();
+            var dict = new System.Collections.Specialized.StringDictionary();
 
             foreach (XmlElement meta in data)
             {

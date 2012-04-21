@@ -36,7 +36,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        public IDictionary<string, string> Metadata
+        public System.Collections.Specialized.StringDictionary Metadata
         {
             get
             {
