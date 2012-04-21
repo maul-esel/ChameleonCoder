@@ -48,7 +48,7 @@ namespace ChameleonCoder.Plugins
         /// gets a list of all types registered by this factory
         /// </summary>
         /// <returns>the Type-Array</returns>
-        IEnumerable<Type> RegisteredTypes { get; }
+        Type[] RegisteredTypes { get; }
 
         /// <summary>
         /// creates an instance of the given type

@@ -15,7 +15,7 @@ namespace ChameleonCoder.Plugins
         /// gets a list of all types registered by this factory
         /// </summary>
         /// <returns>the Type-Array</returns>
-        IEnumerable<Type> RegisteredTypes { get; }
+        Type[] RegisteredTypes { get; }
 
         /// <summary>
         /// creates a new ContentMember of the given Type, using the given name and parent member

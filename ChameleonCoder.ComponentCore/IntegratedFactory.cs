@@ -191,7 +191,7 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// gets a list of all resource types registered by this factory
         /// </summary>
-        public IEnumerable<Type> RegisteredTypes
+        public Type[] RegisteredTypes
         {
             get { return registeredTypesArray; }
         }
