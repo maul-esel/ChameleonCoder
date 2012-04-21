@@ -19,7 +19,7 @@ namespace ChameleonCoder.Navigation
         internal ResourceListPage(ViewModel.ResourceListPageModel model)
         {
             ModelClientHelper.InitializeModel(model);
-            DataContext = model;
+            DataContext = this.model = model;
 
             CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh,
                 RefreshList));
@@ -31,6 +31,8 @@ namespace ChameleonCoder.Navigation
 
             InitializeComponent();
         }
+
+        private readonly ViewModel.ResourceListPageModel model = null;
 
         /// <summary>
         /// filters the items in the list
@@ -54,11 +56,11 @@ namespace ChameleonCoder.Navigation
                  *  - assume all types are enabled
                  *  - disable or re-enable a type via command 
                  */
-                foreach (Type t in ((MainWindow)ChameleonCoderApp.Gui).visTypes.Items) // iterate through types
+                foreach (Type t in ((MainWindow)model.App.Gui).visTypes.Items) // iterate through types
                 {
                     if (t == resType) // if it is a match:
                     {
-                        DependencyObject item = ((MainWindow)ChameleonCoderApp.Gui).visTypes.ItemContainerGenerator.ContainerFromIndex(i); // get the item containing this type
+                        DependencyObject item = ((MainWindow)model.App.Gui).visTypes.ItemContainerGenerator.ContainerFromIndex(i); // get the item containing this type
                         if (item != null)
                         {
                             for (int index = 0; index < 14; index++)

@@ -18,8 +18,7 @@ namespace ChameleonCoder
         /// <summary>
         /// gets the application's main window
         /// </summary>
-        [ComVisible(false)]
-        internal static Window Gui { get; private set; }
+        public Window Gui { get; private set; }
 
         /// <summary>
         /// gets the directory containing the application
