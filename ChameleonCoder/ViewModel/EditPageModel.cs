@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 using ICSharpCode.AvalonEdit.Document;
 
@@ -16,11 +15,14 @@ namespace ChameleonCoder.ViewModel
         /// creates a new instance for the given resource
         /// </summary>
         /// <param name="resource">the resource to edit</param>
-        internal EditPageModel(IEditable resource)
-            : base(null)
+        internal EditPageModel(ChameleonCoderApp app, IEditable resource)
+            : base(app)
         {
-            resourceInstance = resource;
-            resource.File.App.ResourceMan.Open(resource);
+#if DEBUG
+            System.Diagnostics.Debug.Assert(resource.File.App == App, "Attempt to open file from another application instance was made!");
+#endif
+
+            App.ResourceMan.Open(resourceInstance = resource);
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.SaveResource,
                 SaveResourceCommandExecuted));
@@ -33,7 +35,7 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(NavigationCommands.IncreaseZoom,
                 IncreaseZoomCommandExecuted));
 
-            SettingsPageModel.Instance.PropertyChanged += (s, e) =>
+            Settings.ChameleonCoderSettings.Default.PropertyChanged += (s, e) =>
                 {
                     if (e.PropertyName == "CodeFont")
                     {
@@ -132,10 +134,12 @@ namespace ChameleonCoder.ViewModel
         /// <summary>
         /// gets the code font
         /// </summary>
-        public static System.Windows.Media.FontFamily CodeFont
+        public System.Windows.Media.FontFamily CodeFont
         {
-            get { return SettingsPageModel.Instance.CodeFont; }
+            get { return fontFamily; }
         }
+
+        private System.Windows.Media.FontFamily fontFamily = new System.Windows.Media.FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
 
         /// <summary>
         /// gets the highlighting definition
@@ -174,7 +178,7 @@ namespace ChameleonCoder.ViewModel
             get { return resourceInstance; }
         }
 
-        private readonly IEditable resourceInstance;
+        private readonly IEditable resourceInstance = null;
 
         #region events
 

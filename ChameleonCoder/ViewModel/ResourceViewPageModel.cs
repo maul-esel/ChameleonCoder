@@ -11,10 +11,14 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Navigation.ResourceViewPage))]
     internal sealed class ResourceViewPageModel : ViewModelBase
     {
-        internal ResourceViewPageModel(IResource resource)
-            : base(null)
+        internal ResourceViewPageModel(ChameleonCoderApp app, IResource resource)
+            : base(app)
         {
-            resourceInstance = resource;
+#if DEBUG
+            System.Diagnostics.Debug.Assert(resource.File.App == App, "Attempt to open file from another application instance was made!");
+#endif
+
+            App.ResourceMan.Open(resourceInstance = resource);
 
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddMetadata,
                 AddMetadataCommandExecuted));
@@ -30,6 +34,7 @@ namespace ChameleonCoder.ViewModel
         }
 
         #region resource & properties
+
         public IResource Resource { get { return resourceInstance; } }
 
         private readonly IResource resourceInstance;
@@ -54,7 +59,7 @@ namespace ChameleonCoder.ViewModel
             set;
         }
 
-        #endregion
+        #endregion // "resource & properties"
 
         #region localization
         public static string MetadataKey { get { return Res.MetadataKey; } }

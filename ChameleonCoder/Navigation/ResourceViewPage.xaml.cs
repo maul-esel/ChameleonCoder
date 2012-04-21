@@ -17,8 +17,6 @@ namespace ChameleonCoder.Navigation
         {
             ModelClientHelper.InitializeModel(model);
 
-            model.Resource.File.App.ResourceMan.Open(model.Resource);
-
             DataContext = model;
             CommandBindings.AddRange(model.Commands);
 

@@ -381,7 +381,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceView(IResource resource)
         {
-            var args = OnRepresentationNeeded(new ResourceViewPageModel(resource), false);
+            var args = OnRepresentationNeeded(new ResourceViewPageModel(App, resource), false);
             if (args.Cancel)
                 return;
 
@@ -396,7 +396,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceEdit(IEditable resource)
         {
-            var args = OnRepresentationNeeded(new EditPageModel(resource), false);
+            var args = OnRepresentationNeeded(new EditPageModel(App, resource), false);
             if (args.Cancel)
                 return;
 
