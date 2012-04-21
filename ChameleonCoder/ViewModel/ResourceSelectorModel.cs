@@ -8,7 +8,7 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Shared.ResourceSelector))]
     internal sealed class ResourceSelectorModel : ViewModelBase
     {
-        internal ResourceSelectorModel(ResourceCollection resources, int count)
+        internal ResourceSelectorModel(IEnumerable<Resources.Interfaces.IResource> resources, int count)
             : base(null)
         {
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddResource,
@@ -16,7 +16,7 @@ namespace ChameleonCoder.ViewModel
             Commands.Add(new CommandBinding(ChameleonCoderCommands.RemoveResource,
                 RemoveResourceCommandExecuted));
 
-            resourceList = resources;
+            resourceList = new ResourceCollection(resources);
             maxResourceCount = count;
         }
 

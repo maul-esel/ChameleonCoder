@@ -78,7 +78,7 @@ namespace ChameleonCoder.Resources.Management
             }
             else
             {
-                parent.Children.Add(instance);
+                parent.AddChild(instance);
             }
             instance.PropertyChanged += OnPropertyChanged;
         }
@@ -100,7 +100,7 @@ namespace ChameleonCoder.Resources.Management
             }
             else
             {
-                instance.Parent.Children.Remove(instance);
+                instance.Parent.RemoveChild(instance);
             }
 
             instance.PropertyChanged -= OnPropertyChanged;
@@ -110,9 +110,9 @@ namespace ChameleonCoder.Resources.Management
         /// gets the Children list
         /// </summary>
         /// <returns></returns>
-        public ResourceCollection GetChildren()
+        public IResource[] GetChildren()
         {
-            return Children; // TODO: return clone?
+            return Children.Values;
         }
 
         public IResource GetResource(Guid id)
@@ -273,7 +273,7 @@ namespace ChameleonCoder.Resources.Management
             return IsAncestorOf(descendant, ancestor);
         }
 
-        #endregion
+        #endregion // "paths"
 
         #region events
 

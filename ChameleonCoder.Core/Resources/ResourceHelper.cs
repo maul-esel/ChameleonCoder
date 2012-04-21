@@ -304,7 +304,7 @@ namespace ChameleonCoder
                     var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
 
                     foreach (XmlElement reference in res.SelectNodes("cc:references/cc:reference", manager))
-                        resource.References.Add(new Resources.ResourceReference(reference, resource.File));
+                        resource.AddReference(new Resources.ResourceReference(reference, resource.File));
                 }
             }
         }
@@ -329,7 +329,7 @@ namespace ChameleonCoder
                     element.SetAttribute("target", DataFile.NamespaceUri, target.ToString("b"));
                     res.AppendChild(element);
 
-                    resource.References.Add(new Resources.ResourceReference(element, resource.File));
+                    resource.AddReference(new Resources.ResourceReference(element, resource.File));
                 }
             }
         }

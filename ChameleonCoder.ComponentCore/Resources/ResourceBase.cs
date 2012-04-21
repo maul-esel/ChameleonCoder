@@ -42,9 +42,6 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="parent">the parent resource</param>
         public virtual void Update(XmlElement data, IResource parent, DataFile file)
         {
-            referenceCollection.CollectionChanged += (s, e) => OnPropertyChanged("References");
-            childrenCollection.CollectionChanged += (s, e) => OnPropertyChanged("Children");
-
             Xml = data;
             File = file;
             Parent = parent;
@@ -57,6 +54,30 @@ namespace ChameleonCoder.ComponentCore.Resources
                 Xml.SetAttribute("id", DataFile.NamespaceUri, id.ToString("b"));
             }
             Identifier = id;
+        }
+
+        public virtual void AddChild(IResource child)
+        {
+            childrenCollection.Add(child);
+            OnPropertyChanged("Children");
+        }
+
+        public virtual void RemoveChild(IResource child)
+        {
+            childrenCollection.Remove(child);
+            OnPropertyChanged("Children");
+        }
+
+        public virtual void AddReference(ResourceReference reference)
+        {
+            referenceCollection.Add(reference);
+            OnPropertyChanged("References");
+        }
+
+        public virtual void RemoveReference(ResourceReference reference)
+        {
+            referenceCollection.Remove(reference);
+            OnPropertyChanged("References");
         }
 
         /// <summary>
@@ -80,9 +101,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets a list containing the resource's references
         /// </summary>
-        public ReferenceCollection References
+        public ResourceReference[] References
         {
-            get { return referenceCollection; }
+            get { return referenceCollection.Values; }
         }
 
         private ReferenceCollection referenceCollection = new ReferenceCollection();
@@ -154,9 +175,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets the current instance's children
         /// </summary>
-        public ResourceCollection Children
+        public IResource[] Children
         {
-            get { return childrenCollection; }
+            get { return childrenCollection.Values; }
         }
 
         private ResourceCollection childrenCollection = new ResourceCollection();
