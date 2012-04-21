@@ -2,7 +2,9 @@
 {
     /// <summary>
     /// a collection class for <see cref="ChameleonCoder.Resources.Interfaces.IResource"/> instances
+    /// This class is not exposed to COM, it's only for internal usage and usage by plugins.
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     public sealed class ResourceCollection : InstanceCollection<System.Guid, Interfaces.IResource>
     {
         /// <summary>
