@@ -7,7 +7,7 @@ namespace ChameleonCoder.Resources
     /// an attribute to be applied to properties in a resource type
     /// </summary>
     /// <remarks>All properties that have this attribute applied will be shown in the resource view.</remarks>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property), System.Runtime.InteropServices.ComVisible(false)]
     public sealed class ResourcePropertyAttribute : Attribute
     {
         /// <summary>

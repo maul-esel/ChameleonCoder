@@ -6,6 +6,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// provides a wrapper-implementation of ITemplate for resource types
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class AutoTemplate : ITemplate
     {
         /// <summary>

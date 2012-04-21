@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.Plugins
@@ -7,6 +8,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// an interface to be implemented by factories for creation and management of RichContent members
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("924014d0-0788-43e7-acd7-2c9f3275e6f1")]
     public interface IRichContentFactory : IPlugin
     {
         /// <summary>

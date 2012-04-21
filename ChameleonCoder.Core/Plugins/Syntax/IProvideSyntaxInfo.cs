@@ -1,4 +1,6 @@
-﻿namespace ChameleonCoder.Plugins.Syntax
+﻿using System.Runtime.InteropServices;
+
+namespace ChameleonCoder.Plugins.Syntax
 {
     /// <summary>
     /// an interface classes can implement to provide information about a coding language's syntax.
@@ -7,6 +9,7 @@
     /// </summary>
     /// <remarks>Although this is intended to be implemented by language modules, it does not inherit ILanguageModule
     /// and might be used in other places in the future.</remarks>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("4397c23f-bc72-48ad-9b36-bb2845f13eac")]
     public interface IProvideSyntaxInfo
     {
         /// <summary>

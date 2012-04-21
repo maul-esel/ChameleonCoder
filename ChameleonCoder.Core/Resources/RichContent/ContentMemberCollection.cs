@@ -2,6 +2,7 @@
 
 namespace ChameleonCoder.Resources.RichContent
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class ContentMemberCollection : ComponentCollection<Guid, Type>
     {
         internal void RegisterContentMember(Guid key, Type member)

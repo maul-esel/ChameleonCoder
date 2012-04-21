@@ -1,4 +1,5 @@
-﻿using ChameleonCoder.Resources.Interfaces;
+﻿using System.Runtime.InteropServices;
+using ChameleonCoder.Resources.Interfaces;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace ChameleonCoder.Plugins
@@ -6,6 +7,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// defines the interface all language modules must implement
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("b2a1da1d-66fa-499e-9b47-d9b65d26ad6f")]
     public interface ILanguageModule : IPlugin
     {
         /// <summary>

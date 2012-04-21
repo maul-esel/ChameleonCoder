@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
     /// <summary>
     /// an interface to implement by resources that are specific to a special coding langueg
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("83d09260-f106-4fff-b1e2-9bdc5743f8bb")]
     public interface ILanguageResource : IResource
     {
         /// <summary>

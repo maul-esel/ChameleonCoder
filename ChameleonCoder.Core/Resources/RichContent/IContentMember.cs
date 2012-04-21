@@ -1,8 +1,11 @@
-﻿namespace ChameleonCoder.Resources.RichContent
+﻿using System.Runtime.InteropServices;
+
+namespace ChameleonCoder.Resources.RichContent
 {
     /// <summary>
     /// an interface describing a member of the RichContent some resources can have.
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("e86c2761-74dd-4c32-b2f3-8ff95bcdd03c")]
     public interface IContentMember : IComponent
     {
         /// <summary>

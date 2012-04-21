@@ -8,6 +8,7 @@ namespace ChameleonCoder.Resources
     /// <summary>
     /// represents a reference to another resource
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(true), System.Runtime.InteropServices.ClassInterface(System.Runtime.InteropServices.ClassInterfaceType.AutoDual)]
     public sealed class ResourceReference : IComponent
     {
         /// <summary>

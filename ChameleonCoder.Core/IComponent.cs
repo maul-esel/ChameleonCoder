@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows.Media;
+using System.Runtime.InteropServices;
 
 namespace ChameleonCoder
 {
     /// <summary>
     /// a base interface for all external classes CC interacts with
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("dc59c137-2edf-4772-86c8-1fc3028e90df")]
     public interface IComponent
     {
         /// <summary>

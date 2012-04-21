@@ -1,8 +1,11 @@
-﻿namespace ChameleonCoder.Resources.Interfaces
+﻿using System.Runtime.InteropServices;
+
+namespace ChameleonCoder.Resources.Interfaces
 {
     /// <summary>
     /// an interface to be implemented by resource types that correspond to a file system component
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("9f7b9512-bba6-4aa5-abc0-27dd9678fb5a")]
     public interface IFSComponent : IResource
     {
         /// <summary>

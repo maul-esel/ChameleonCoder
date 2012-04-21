@@ -5,7 +5,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// defines a Custom default name for a resource created through the wrapper template
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class), System.Runtime.InteropServices.ComVisible(false)]
     public sealed class TemplateDefaultNameAttribute : Attribute
     {
         /// <summary>

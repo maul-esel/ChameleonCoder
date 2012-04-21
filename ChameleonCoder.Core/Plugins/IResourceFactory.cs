@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Media;
 using ChameleonCoder.Resources.Interfaces;
 
@@ -8,6 +9,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// an interface used to manage components
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("69876e3c-bb40-4847-9d99-fd42508edffe")]
     public interface IResourceFactory : IPlugin
     {
         /// <summary>

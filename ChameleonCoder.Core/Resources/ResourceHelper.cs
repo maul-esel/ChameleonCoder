@@ -11,6 +11,7 @@ namespace ChameleonCoder
     /// <summary>
     /// a static class containing extension methods for IResource instances
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal static class ResourceHelper
     {
         /// <summary>

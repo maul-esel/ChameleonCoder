@@ -10,13 +10,12 @@ namespace ChameleonCoder.Files
     /// <summary>
     /// represents an opened resource file
     /// </summary>
-    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual), Guid("D0EB188C-E42E-4D32-BAB4-9F1F8417EC4D")]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class DataFile
     {
         /// <summary>
         /// the Uri of the resource document schema
         /// </summary>
-        [DispId(1)]
         public const string NamespaceUri = "ChameleonCoder://Resources/Schema/2011";
 
         /// <summary>
@@ -112,13 +111,11 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// returns the path to the file represented by the instance
         /// </summary>
-        [DispId(2)]
         public string FilePath { get { return path; } }
 
         /// <summary>
         /// gets the name the user chose for this file
         /// </summary>
-        [DispId(3)]
         public string Name
         {
             get
@@ -130,7 +127,6 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// gets whether the file instance is loaded or not
         /// </summary>
-        [DispId(4)]
         public bool IsLoaded
         {
             get;
@@ -150,7 +146,6 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// closes the instance
         /// </summary>
-        [DispId(5)]
         public void Close()
         {
             App.FileMan.Remove(this);
@@ -159,7 +154,6 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// saves the changes made to the file
         /// </summary>
-        [DispId(6)]
         public void Save()
         {
             Document.Save(FilePath);
@@ -168,7 +162,6 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// loads the resources contained in the file
         /// </summary>
-        [DispId(7)]
         public void Load()
         {
             foreach (XmlNode node in Document.SelectNodes(DocumentXPath.Resources, manager))
@@ -187,7 +180,6 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="key">the metadata's name</param>
         /// <param name="value">the metadata's new value</param>
-        [DispId(8)]
         public void SetMetadata(string key, string value)
         {
             var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
@@ -206,7 +198,6 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="key">the metadata's name</param>
         /// <returns>the metadata's value</returns>
-        [DispId(9)]
         public string GetMetadata(string key)
         {
             var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
@@ -220,7 +211,6 @@ namespace ChameleonCoder.Files
         /// gets all metadata related to the file
         /// </summary>
         /// <returns>a dictionary containing the metadata</returns>
-        [DispId(10)]
         public IDictionary<string, string> GetMetadata()
         {
             var set = (XmlElement)Document.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
@@ -244,7 +234,6 @@ namespace ChameleonCoder.Files
         /// deletes datafile metadata
         /// </summary>
         /// <param name="key">the metadata's name</param>
-        [DispId(11)]
         public void DeleteMetadata(string key)
         {
             var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
@@ -262,7 +251,6 @@ namespace ChameleonCoder.Files
         /// <param name="path">the path to the referenced object</param>
         /// <param name="isFile">true if the reference references a file, false it if references a directory</param>
         /// <returns>the reference's uinque id</returns>
-        [DispId(12)]
         public Guid AddReference(string path, DataFileReferenceType type)
         {
             Guid id = Guid.NewGuid();
@@ -291,7 +279,6 @@ namespace ChameleonCoder.Files
         /// deletes a reference from the DataFile
         /// </summary>
         /// <param name="id">the reference's unique id</param>
-        [DispId(13)]
         public void DeleteReference(Guid id)
         {
             var reference = Document.SelectSingleNode(DocumentXPath.References + "[@id='" + id.ToString("b") + "']", manager);
@@ -326,7 +313,6 @@ namespace ChameleonCoder.Files
         /// gets a list of all referenced files and directories
         /// </summary>
         /// <returns>a list of DataFileReference instances</returns>
-        [DispId(14)]
         internal IList<DataFileReference> GetReferences()
         {
             var list = new List<DataFileReference>();

@@ -7,6 +7,7 @@ namespace ChameleonCoder
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal abstract class ComponentCollection<TKey, TValue>
     {
         private ConcurrentDictionary<TKey, TValue> components = new ConcurrentDictionary<TKey, TValue>();

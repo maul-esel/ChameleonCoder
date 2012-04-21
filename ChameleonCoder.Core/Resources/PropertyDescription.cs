@@ -5,6 +5,7 @@ namespace ChameleonCoder.Resources
     /// <summary>
     /// encapsulates a resource's property for showing it to the resource view
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class PropertyDescription : SecureNotifyPropertyChanged
     {
         /// <summary>

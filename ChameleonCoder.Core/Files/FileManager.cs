@@ -8,7 +8,7 @@ namespace ChameleonCoder.Files
     /// <summary>
     /// a class to manage the opened files
     /// </summary>
-    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual), Guid("058BDE94-D8FA-4867-BFF6-98E1CD16470D")]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class FileManager
     {
         /// <summary>

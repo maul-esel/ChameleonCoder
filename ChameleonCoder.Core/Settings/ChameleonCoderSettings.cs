@@ -5,7 +5,7 @@ using System.IO;
 
 namespace ChameleonCoder.Settings
 {
-    [SettingsProvider(typeof(CCSettingsProvider))]
+    [SettingsProvider(typeof(CCSettingsProvider)), System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class ChameleonCoderSettings : ApplicationSettingsBase
     {
         private ChameleonCoderSettings()

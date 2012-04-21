@@ -1,8 +1,11 @@
-﻿namespace ChameleonCoder.Resources.Interfaces
+﻿using System.Runtime.InteropServices;
+
+namespace ChameleonCoder.Resources.Interfaces
 {
     /// <summary>
     /// an interface to implement by resources that can be edited
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("e02b3d17-d888-4138-8fc7-41b24024bfb4")]
     public interface IEditable : IResource
     {
         /// <summary>

@@ -9,9 +9,10 @@ namespace ChameleonCoder.Resources.Management
     /// </summary>
     /// <param name="sender">the resource raising the event</param>
     /// <param name="e">additional data</param>
+    [ComVisible(true)]
     public delegate void ResourceEventHandler(object sender, EventArgs e);
 
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ResourceManager
     {
         internal ResourceManager(ChameleonCoderApp app)

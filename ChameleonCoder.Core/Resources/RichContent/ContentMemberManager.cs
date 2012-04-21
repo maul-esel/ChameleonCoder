@@ -9,7 +9,7 @@ namespace ChameleonCoder.Resources.RichContent
     /// <summary>
     /// a class for managing the registered RichContent types
     /// </summary>
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ContentMemberManager
     {
         internal ContentMemberManager(ChameleonCoderApp app)
@@ -26,11 +26,13 @@ namespace ChameleonCoder.Resources.RichContent
         /// <summary>
         /// the collection holding the RichContent types
         /// </summary>
+        [ComVisible(false)]
         private ContentMemberCollection ContentMembers = new ContentMemberCollection();
 
         /// <summary>
         /// a dictionary associating the resource types with the registering component factory
         /// </summary>
+        [ComVisible(false)]
         private ConcurrentDictionary<Type, IRichContentFactory> Factories = new ConcurrentDictionary<Type, IRichContentFactory>();
 
         /// <summary>

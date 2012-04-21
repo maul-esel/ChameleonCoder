@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Xml;
 
@@ -7,6 +8,7 @@ namespace ChameleonCoder.Resources.Interfaces
     /// <summary>
     /// an interface to be implemented by resource types
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("f9307fd2-0b4c-4023-8f62-45d807d1a44b")]
     public interface IResource : INotifyPropertyChanged, IComponent
     {
         /// <summary>

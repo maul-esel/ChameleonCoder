@@ -8,12 +8,13 @@ namespace ChameleonCoder.Shared
     /// a delegate for Settings events
     /// </summary>
     /// <param name="newValue">the setting's new value</param>
+    [System.Runtime.InteropServices.ComVisible(false)]
     public delegate void SettingsEventHandler(object newValue);
 
     /// <summary>
     /// a public class providing information and notification for plugins
     /// </summary>
-    [Obsolete]
+    [Obsolete, System.Runtime.InteropServices.ComVisible(false)]
     public static class InformationProvider
     {
         #region settings

@@ -1,8 +1,11 @@
-﻿namespace ChameleonCoder.Plugins
+﻿using System.Runtime.InteropServices;
+
+namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// a base interface to be implemented by components
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("e9f1d3b0-7e04-4c03-8821-988a9f8aeba0")]
     public interface IPlugin : IComponent
     {
         /// <summary>

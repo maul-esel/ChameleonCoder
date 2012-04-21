@@ -3,6 +3,7 @@
     /// <summary>
     /// defines common properties of resource types
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(true)]
     public enum CommonResourceProperty
     {
         /// <summary>

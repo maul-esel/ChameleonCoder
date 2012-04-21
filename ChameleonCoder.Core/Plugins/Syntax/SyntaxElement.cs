@@ -3,6 +3,7 @@
     /// <summary>
     /// an enumeration to describe elements in a coding language's syntax
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(true)]
     public enum SyntaxElement
     {
         None,

@@ -3,6 +3,7 @@
     /// <summary>
     /// a collection class for <see cref="ChameleonCoder.Resources.ResourceReference"/> instances
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(false)]
     public sealed class ReferenceCollection : InstanceCollection<System.Guid, ResourceReference>
     {
         /// <summary>

@@ -6,6 +6,7 @@ using System.Xml;
 
 namespace ChameleonCoder.Settings
 {
+    [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class CCSettingsProvider : SettingsProvider
     {
         internal const string providerName = "CC.Xml.SettingsProvider";

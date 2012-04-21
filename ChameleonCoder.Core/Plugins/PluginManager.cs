@@ -28,7 +28,7 @@ namespace ChameleonCoder.Plugins
     /// <summary>
     /// a class managing the plugins installed
     /// </summary>
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class PluginManager
     {
         internal PluginManager(ChameleonCoderApp app)

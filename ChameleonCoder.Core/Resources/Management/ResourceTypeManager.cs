@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Media;
 using ChameleonCoder.Files;
 using ChameleonCoder.Plugins;
@@ -11,6 +12,7 @@ namespace ChameleonCoder.Resources.Management
     /// <summary>
     /// manages the registered resource types
     /// </summary>
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ResourceTypeManager
     {
         internal ResourceTypeManager(ChameleonCoderApp app)
@@ -27,11 +29,13 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// the collection holding the resource types
         /// </summary>
+        [ComVisible(false)]
         private ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
 
         /// <summary>
         /// a dictionary associating the resource types with the registering component factory
         /// </summary>
+        [ComVisible(false)]
         private ConcurrentDictionary<Type, IResourceFactory> Factories = new ConcurrentDictionary<Type, IResourceFactory>();
 
         /// <summary>

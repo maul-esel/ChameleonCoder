@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ChameleonCoder.Plugins
 {
     /// <summary>
     /// Custom EventArgs class for CodeGenerators
     /// </summary>
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class CodeGeneratorEventArgs : EventArgs
     {
         /// <summary>
@@ -23,5 +25,6 @@ namespace ChameleonCoder.Plugins
     /// </summary>
     /// <param name="sender">the resource to be worked on</param>
     /// <param name="args">additional data</param>
+    [ComVisible(true)]
     public delegate void CodeGeneratorEventHandler(Resources.Interfaces.IResource sender, CodeGeneratorEventArgs args);
 }

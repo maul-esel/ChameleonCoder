@@ -13,6 +13,7 @@ namespace ChameleonCoder
     /// the <see cref="ChameleonCoder.Resources.ResourceCollection"/>,
     /// the <see cref="ChameleonCoder.Resources.RichContent.RichContentCollection"/> and
     /// the <see cref="ChameleonCoder.Resources.ReferenceCollection"/> classes.</remarks>
+    [System.Runtime.InteropServices.ComVisible(false)]
     public abstract class InstanceCollection<TKey, TValue> : ObservableCollection<TValue>
     {
         ConcurrentDictionary<TKey, TValue> instances = new ConcurrentDictionary<TKey, TValue>();

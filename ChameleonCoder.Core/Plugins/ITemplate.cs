@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Plugins
@@ -8,6 +9,7 @@ namespace ChameleonCoder.Plugins
     /// Templates are a kind of 'macro' on resource-creation:
     /// They create a new resource and perform special actions on it.
     /// </summary>
+    [ComVisible(true), InterfaceType(ComInterfaceType.InterfaceIsDual), Guid("b932e597-bfc9-4a1a-9f08-c6efef1dc159")]
     public interface ITemplate : IPlugin
     {
         /// <summary>

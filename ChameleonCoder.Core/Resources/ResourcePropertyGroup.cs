@@ -4,6 +4,7 @@
     /// an enumeration defining in which property group to place a property
     /// with the <see cref="ChameleonCoder.Resources.ResourcePropertyAttribute"/> applied on it.
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(true)]
     public enum ResourcePropertyGroup
     {
         /// <summary>

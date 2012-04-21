@@ -3,6 +3,7 @@
     /// <summary>
     /// represents the type of the currently opened tab page
     /// </summary>
+    [System.Runtime.InteropServices.ComVisible(true)]
     public enum CCTabPage
     {
         /// <summary>
