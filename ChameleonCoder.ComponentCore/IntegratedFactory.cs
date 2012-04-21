@@ -178,7 +178,7 @@ namespace ChameleonCoder.ComponentCore
         /// <param name="parent">the new resource's parent resource</param>
         /// <returns>the 'blueprint' in form of a dictionary,
         /// containing the attributes the resource's XmlElement should have</returns>
-        public IDictionary<string, string> CreateResource(Type type, string name, IResource parent)
+        public System.Collections.Specialized.StringDictionary CreateResource(Type type, string name, IResource parent)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
             ResourceCreator creator = new ResourceCreator(type, parent_name, name, App);

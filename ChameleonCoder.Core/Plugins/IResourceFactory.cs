@@ -42,7 +42,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource</param>
         /// <returns>a dictionary containing the attributes the resource's XML element should have</returns>
         /// <remarks>this function must not create an instance of the specified resource!</remarks>
-        IDictionary<string, string> CreateResource(Type type, string name, IResource parent);
+        System.Collections.Specialized.StringDictionary CreateResource(Type type, string name, IResource parent);
 
         /// <summary>
         /// gets a list of all types registered by this factory

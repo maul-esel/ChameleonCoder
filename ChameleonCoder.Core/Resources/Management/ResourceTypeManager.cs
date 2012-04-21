@@ -87,7 +87,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Type type, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
+        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, DataFile file)
         {
             var document = file.Document;
             var manager = XmlNamespaceManagerFactory.GetManager(document);
@@ -100,9 +100,9 @@ namespace ChameleonCoder.Resources.Management
             else
                 parent.Xml.AppendChild(element);
 
-            foreach (var attribute in attributes)
+            foreach (string key in attributes.Keys)
             {
-                element.SetAttribute(attribute.Key, DataFile.NamespaceUri, attribute.Value);
+                element.SetAttribute(key, DataFile.NamespaceUri, attributes[key]);
             }
 
             element.SetAttribute("name", DataFile.NamespaceUri, name);
@@ -131,7 +131,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Guid key, string name, IDictionary<string, string> attributes, IResource parent, DataFile file)
+        public IResource CreateNewResource(Guid key, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, DataFile file)
         {
             return CreateNewResource(GetResourceType(key), name, attributes, parent, file);
         }

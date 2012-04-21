@@ -198,9 +198,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// gets the resource's future attributes
         /// </summary>
         /// <returns>a Dictionary&lt;string, string&gt; instance containing the attributes</returns>
-        public Dictionary<string, string> GetXmlAttributes()
+        public System.Collections.Specialized.StringDictionary GetXmlAttributes()
         {
-            var dict = new Dictionary<string, string>();
+            var dict = new System.Collections.Specialized.StringDictionary();
 
             dict.Add("name", ResName);
             dict.Add("id", ResGuid.ToString("b"));
