@@ -224,7 +224,7 @@ namespace ChameleonCoder.Files
         /// a list of referenced directories
         /// </summary>
         [ComVisible(false)]
-        private readonly List<string> dirList = new List<string>(new string[1] { Environment.CurrentDirectory }); // todo: remove currentDir and call OpenDirectory() from Main() instead
+        private readonly List<string> dirList = new List<string>();
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths

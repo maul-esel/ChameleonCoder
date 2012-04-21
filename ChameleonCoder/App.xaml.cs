@@ -81,6 +81,8 @@ namespace ChameleonCoder
 
             #endregion
 
+            obj.FileMan.OpenDirectory(Environment.CurrentDirectory);
+
             var load = System.Threading.Tasks.Task.Factory.StartNew(() =>
             {
                 obj.PluginMan.Load(); // load all plugins in the /Component/ folder
