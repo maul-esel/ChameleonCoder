@@ -324,7 +324,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenResourceList()
         {
-            var args = OnRepresentationNeeded(ResourceListPageModel.Instance, false);
+            var args = OnRepresentationNeeded(new ResourceListPageModel(App), false);
             if (args.Cancel)
                 return;
 

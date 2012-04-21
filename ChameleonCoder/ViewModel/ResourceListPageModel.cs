@@ -5,22 +5,9 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Navigation.ResourceListPage))]
     internal sealed class ResourceListPageModel : ViewModelBase
     {
-        private ResourceListPageModel()
+        internal ResourceListPageModel(ChameleonCoderApp app)
         {
         }
-
-        internal static ResourceListPageModel Instance
-        {
-            get
-            {
-                lock (modelInstance)
-                {
-                    return modelInstance;
-                }
-            }
-        }
-
-        private static readonly ResourceListPageModel modelInstance = new ResourceListPageModel();
         
         public static string Info_Name { get { return Res.Info_Name; } }
 

@@ -16,9 +16,10 @@ namespace ChameleonCoder.Navigation
         /// <summary>
         /// creates a new instance of this page
         /// </summary>
-        internal ResourceListPage()
+        internal ResourceListPage(ViewModel.ResourceListPageModel model)
         {
-            ModelClientHelper.InitializeModel(ViewModel.ResourceListPageModel.Instance);
+            ModelClientHelper.InitializeModel(model);
+            DataContext = model;
 
             CommandBindings.Add(new CommandBinding(NavigationCommands.Refresh,
                 RefreshList));
@@ -26,9 +27,7 @@ namespace ChameleonCoder.Navigation
                 SortingChanged));
             CommandBindings.Add(new CommandBinding(ChameleonCoderCommands.SetGroupingMode,
                 GroupingChanged));
-
-            DataContext = ViewModel.ResourceListPageModel.Instance;
-            CommandBindings.AddRange(ViewModel.ResourceListPageModel.Instance.Commands);
+            CommandBindings.AddRange(model.Commands);
 
             InitializeComponent();
         }
