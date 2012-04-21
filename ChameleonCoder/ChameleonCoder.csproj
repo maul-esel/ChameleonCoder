@@ -112,11 +112,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CCSearchReplaceDialog.xaml.cs">
+    <Compile Include="SearchReplace\CCSearchReplaceDialog.xaml.cs">
       <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChameleonCoderCommands.cs" />
     <Compile Include="DefaultRepresentationAttribute.cs" />
+    <Compile Include="SearchReplace\ISearchReplaceClient.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -209,7 +210,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CCSearchReplaceDialog.xaml">
+    <Page Include="SearchReplace\CCSearchReplaceDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

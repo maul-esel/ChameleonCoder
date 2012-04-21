@@ -9,7 +9,7 @@ namespace ChameleonCoder.ViewModel
     /// a view model class for editing an IEditable resource
     /// </summary>
     [DefaultRepresentation(typeof(Navigation.EditPage))]
-    internal sealed class EditPageModel : ViewModelBase
+    internal sealed class EditPageModel : ViewModelBase, SearchReplace.ISearchReplaceClient
     {
         /// <summary>
         /// creates a new instance for the given resource
@@ -105,17 +105,31 @@ namespace ChameleonCoder.ViewModel
 
         private void SearchReplace(bool replace)
         {
-            var dialog = new CCSearchReplaceDialog(
+            var dialog = new SearchReplace.CCSearchReplaceDialog(
                             App,
-                            () => Document.Text,
-                            (offset, length, replaceBy) => Document.Replace(offset, length, replaceBy),
-                            (offset, length) =>
-                            {
-                                OnSelectText(offset, length);
-                            },
+                            this,
                             replace);
             dialog.ShowDialog();
         }
+
+        #region ISearchReplaceClient
+
+        public string GetText()
+        {
+            return Document.Text;
+        }
+
+        public void ReplaceText(int offset, int length, string replaceText)
+        {
+            Document.Replace(offset, length, replaceText);
+        }
+
+        public void SelectText(int offset, int length)
+        {
+            OnSelectText(offset, length);
+        }
+
+        #endregion // "ISearchReplaceClient"
 
         /// <summary>
         /// gets the font size
@@ -150,9 +164,9 @@ namespace ChameleonCoder.ViewModel
             get
             {
                 ILanguageResource langRes = Resource as ILanguageResource;
-                if (langRes != null && Resource.File.App.PluginMan.IsModuleRegistered(langRes.Language))
+                if (langRes != null && App.PluginMan.IsModuleRegistered(langRes.Language))
                 {
-                    return Resource.File.App.PluginMan.GetModule(langRes.Language).Highlighting;
+                    return App.PluginMan.GetModule(langRes.Language).Highlighting;
                 }
                 return null;
             }
@@ -183,11 +197,11 @@ namespace ChameleonCoder.ViewModel
 
         #region events
 
-        internal event EventHandler<Interaction.TextSelectionEventArgs> SelectText;
+        internal event EventHandler<Interaction.TextSelectionEventArgs> SelectTextHandler;
 
         private void OnSelectText(int offset, int length)
         {
-            var handler = SelectText;
+            var handler = SelectTextHandler;
             if (handler != null)
             {
                 handler(this, new Interaction.TextSelectionEventArgs(offset, length));

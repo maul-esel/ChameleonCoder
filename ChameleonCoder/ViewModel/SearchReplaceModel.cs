@@ -5,7 +5,7 @@ namespace ChameleonCoder.ViewModel
     /// <summary>
     /// a class containing localization strings for the CCSearchReplace dialog
     /// </summary>
-    [DefaultRepresentation(typeof(CCSearchReplaceDialog))]
+    [DefaultRepresentation(typeof(SearchReplace.CCSearchReplaceDialog))]
     internal sealed class SearchReplaceModel : ViewModelBase
     {
         internal SearchReplaceModel(ChameleonCoderApp app)

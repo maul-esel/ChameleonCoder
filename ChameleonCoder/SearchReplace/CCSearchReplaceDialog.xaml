@@ -1,4 +1,4 @@
-﻿<Window x:Class="ChameleonCoder.CCSearchReplaceDialog" x:ClassModifier="internal"
+﻿<Window x:Class="ChameleonCoder.SearchReplace.CCSearchReplaceDialog" x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cc="clr-namespace:ChameleonCoder"

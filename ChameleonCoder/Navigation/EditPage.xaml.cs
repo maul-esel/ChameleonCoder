@@ -16,10 +16,11 @@
             DataContext = model;
             CommandBindings.AddRange(model.Commands);
 
-            model.SelectText += SelectText; 
+            model.SelectTextHandler += SelectText;
             InitializeComponent();
         }
 
+        [System.Obsolete]
         public ICSharpCode.AvalonEdit.TextEditor Editor
         {
             get { return editor; }

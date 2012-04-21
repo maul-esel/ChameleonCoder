@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 
-namespace ChameleonCoder
+namespace ChameleonCoder.SearchReplace
 {
     /// <summary>
     /// Interaktionslogik für CCSearchReplaceDialog.xaml
@@ -13,27 +13,20 @@ namespace ChameleonCoder
         /// <summary>
         /// creates a new instance of the CCSearchDialog
         /// </summary>
-        /// <param name="getText">a delegate to get the current edit text</param>
-        /// <param name="replaceText">a delegate to replace the specified area with the given text</param>
-        /// <param name="selectText">a delegate to select the specified area</param>
-        /// <param name="replace">a bool indicating whether to start in replace mode or not</param>
-        internal CCSearchReplaceDialog(ChameleonCoderApp app, Func<string> getText, Action<int, int, string> replaceText, Action<int, int> selectText, bool replace)
+        /// <param name="app">a reference to the app running the dialog</param>
+        /// <param name="client">an interface instance for providing information and management of the text to be worked on</param>
+        /// <param name="replace">true to begin in replace mode, false to begin in search mode</param>
+        internal CCSearchReplaceDialog(ChameleonCoderApp app, ISearchReplaceClient client, bool replace)
         {
             DataContext = new ViewModel.SearchReplaceModel(app);
             InitializeComponent();
 
-            getTextDelegate = getText;
-            replaceTextDelegate = replaceText;
-            selectTextDelegate = selectText;
+            this.client = client;
 
             enableReplace.IsChecked = replace;
         }
 
-        private Func<string> getTextDelegate;
-
-        private Action<int, int, string> replaceTextDelegate;
-
-        private Action<int, int> selectTextDelegate;
+        private readonly ISearchReplaceClient client = null;
 
         private int currentPos = 0;
 
@@ -56,7 +49,7 @@ namespace ChameleonCoder
         /// <param name="e">not used</param>
         private void Replace(object sender, EventArgs e)
         {
-            replaceTextDelegate(currentPos, currentLength, replaceBox.Text);
+            client.ReplaceText(currentPos, currentLength, replaceBox.Text);
         }
 
         /// <summary>
@@ -70,7 +63,7 @@ namespace ChameleonCoder
                 SearchNext();
             while (currentLength != 0)
             {
-                replaceTextDelegate(currentPos, currentLength, replaceBox.Text);
+                client.ReplaceText(currentPos, currentLength, replaceBox.Text);
                 SearchNext();
             }
         }
@@ -80,7 +73,7 @@ namespace ChameleonCoder
         /// </summary>
         private void SearchNext()
         {
-            string text = getTextDelegate(); // save the text to search
+            string text = client.GetText(); // save the text to search
 
             currentPos += currentLength; // update pos to avoid re-matching the same word
             currentLength = 0;
@@ -105,7 +98,7 @@ namespace ChameleonCoder
 
                 if (match != null) // if we found sth.
                 {
-                    selectTextDelegate(match.Index, match.Length); // select it
+                    client.SelectText(match.Index, match.Length); // select it
                     currentLength = match.Length; // update the current position & length
                     currentPos = match.Index;
                 }
