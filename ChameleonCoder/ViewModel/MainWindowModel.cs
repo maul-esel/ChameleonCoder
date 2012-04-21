@@ -302,7 +302,7 @@ namespace ChameleonCoder.ViewModel
 
         private void GoHome()
         {
-            var args = OnRepresentationNeeded(WelcomePageModel.Instance, false);
+            var args = OnRepresentationNeeded(new WelcomePageModel(App), false);
             if (args.Cancel)
                 return;
 
@@ -535,7 +535,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenNewTab()
         {
-            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(WelcomePageModel.Instance, false));
+            var context = new TabContext(CCTabPage.Home, OnRepresentationNeeded(new WelcomePageModel(App), false));
             Tabs.Add(context);
             ActiveTab = context;
 

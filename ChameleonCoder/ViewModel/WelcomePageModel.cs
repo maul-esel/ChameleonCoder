@@ -8,23 +8,10 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Navigation.WelcomePage))]
     internal sealed class WelcomePageModel : ViewModelBase
     {
-        private WelcomePageModel()
-            : base(null)
+        internal WelcomePageModel(ChameleonCoderApp app)
+            : base(app)
         {
         }
-
-        internal static WelcomePageModel Instance
-        {
-            get
-            {
-                lock (modelInstance)
-                {
-                    return modelInstance;
-                }
-            }
-        }
-
-        private static readonly WelcomePageModel modelInstance = new WelcomePageModel();
 
         public static string CreateResource { get { return Res.WP_CreateResource; } }
 

@@ -5,13 +5,11 @@
     /// </summary>
     internal sealed partial class WelcomePage : System.Windows.Controls.Page
     {
-        internal WelcomePage()
+        internal WelcomePage(ViewModel.WelcomePageModel model)
         {
-            ModelClientHelper.InitializeModel(ViewModel.WelcomePageModel.Instance);
-
-            DataContext = ViewModel.WelcomePageModel.Instance;
-            CommandBindings.AddRange(ViewModel.WelcomePageModel.Instance.Commands);
-
+            ModelClientHelper.InitializeModel(model);
+            DataContext = model;
+            CommandBindings.AddRange(model.Commands);
             InitializeComponent();
         }
     }
