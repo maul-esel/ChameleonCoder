@@ -30,7 +30,7 @@ namespace ChameleonCoder
         /// gets the full path to the application
         /// </summary>
         [ComVisible(false)]
-        internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } } // possibly make COM-visible
+        internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } } // possibly make COM-visible // todo: will fail in COM
 
         /// <summary>
         /// gets the initially loaded file
@@ -87,7 +87,6 @@ namespace ChameleonCoder
         /// exits the program
         /// <param name="exitCode">the exit code</param>
         /// </summary>
-        [DispId(1)]
         public void Exit(int exitCode)
         {
             PluginMan.Shutdown(); // inform plugins
@@ -97,7 +96,6 @@ namespace ChameleonCoder
             Environment.Exit(exitCode);
         }
 
-        [DispId(2)]
         public FileManager FileMan
         {
             get;
@@ -133,8 +131,7 @@ namespace ChameleonCoder
         /// <summary>
         /// registers the file extension *.ccr
         /// </summary>
-        [DispId(3)]
-        internal void RegisterExtension()
+        public void RegisterExtension()
         {
             RegistryManager.RegisterExtension();
         }
@@ -142,8 +139,7 @@ namespace ChameleonCoder
         /// <summary>
         /// unregisters the file extension *.ccr
         /// </summary>
-        [DispId(4)]
-        internal void UnRegisterExtension()
+        public void UnRegisterExtension()
         {
             RegistryManager.UnRegisterExtension();
         }
@@ -156,7 +152,6 @@ namespace ChameleonCoder
         /// creates the main window
         /// </summary>
         /// <exception cref="InvalidOperationException">thrown if the window had already been initialized</exception>
-        [DispId(6)]
         public void InitWindow()
         {
             if (Gui != null)
@@ -167,12 +162,11 @@ namespace ChameleonCoder
         /// <summary>
         /// shows the main window
         /// </summary>
-        /// <remarks>If <see cref="InitWindow"/> has not yet been called, it is called before showing thew window.</remarks>
-        [DispId(7)]
-        public void Show()
+        /// <remarks>If <see cref="InitWindow"/> has not yet been called, it is automatically called before showing thew window.</remarks>
+        public void ShowWindow()
         {
             if (Gui == null)
-                this.InitWindow();
+                InitWindow();
             Gui.Show();
         }
 
@@ -180,8 +174,7 @@ namespace ChameleonCoder
         /// hides the main window
         /// </summary>
         /// <exception cref="InvalidOperationException">throw if the window has not yet been initialized</exception>
-        [DispId(8)]
-        public void Hide()
+        public void HideWindow()
         {
             if (Gui == null)
                 throw new InvalidOperationException("Window has not yet been initialized.");
