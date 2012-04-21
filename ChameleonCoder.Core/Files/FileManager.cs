@@ -24,16 +24,18 @@ namespace ChameleonCoder.Files
         /// opens a given file
         /// </summary>
         /// <param name="path">the path to the file to open</param>
-        /// <returns>the opened file as <see cref="DataFile"/> instance</returns>
+        /// <returns>the opened file as <see cref="IDataFile"/> instance</returns>
         /// <exception cref="InvalidOperationException">thrown if the file is already opened. Use <see cref="IsFileOpen"/> to check this before.</exception>
-        public DataFile OpenFile(string path)
+        public IDataFile OpenFile(string path)
         {
             if (IsFileOpen(path))
             {
                 throw new InvalidOperationException("The file has already been opened.");
             }
 
-            DataFile file = new DataFile(Path.GetFullPath(path), App); // todo: use MakeAbsolutePath() (?)
+            IDataFile file = new DataFile();
+            file.Initialize(App);
+            file.Open(Path.GetFullPath(path)); // todo: use MakeAbsolutePath() (?)
 
             filesOpen.Add(file);
             pathsOpen.Add(file.FilePath);
@@ -86,7 +88,7 @@ namespace ChameleonCoder.Files
         /// removes a file instance from the manager
         /// </summary>
         /// <param name="file"></param>
-        public void Remove(DataFile file)
+        public void Remove(IDataFile file)
         {
             filesOpen.Remove(file);
             pathsOpen.Remove(file.FilePath);
@@ -110,7 +112,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         public void LoadAll()
         {
-            foreach (DataFile file in Files)
+            foreach (IDataFile file in Files)
             {
                 if (!file.IsLoaded)
                     file.Load();
@@ -122,7 +124,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         public void SaveAll()
         {
-            foreach (DataFile file in Files)
+            foreach (IDataFile file in Files)
                 file.Save();
         }
 
@@ -131,8 +133,8 @@ namespace ChameleonCoder.Files
         /// </summary>
         public void CloseAll()
         {
-            foreach (DataFile file in Files)
-                file.Close();
+            foreach (IDataFile file in Files)
+                ((DataFile)file).Close(); // HACK!
 
             filesOpen.Clear();
             pathsOpen.Clear();
@@ -157,7 +159,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// a list of all opened DataFile instances
         /// </summary>
-        public DataFile[] Files
+        public IDataFile[] Files
         {
             get
             {
@@ -232,7 +234,7 @@ namespace ChameleonCoder.Files
         /// contains a list of all loaded files in form of their DataFile instances
         /// </summary>
         [ComVisible(false)]
-        private readonly List<DataFile> filesOpen = new List<DataFile>();
+        private readonly List<IDataFile> filesOpen = new List<IDataFile>();
 
         #endregion // "private fields"
     }

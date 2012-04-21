@@ -206,7 +206,7 @@ namespace ChameleonCoder.ComponentCore
         /// <param name="data">the XmlElement representing the resource</param>
         /// <param name="parent">the parent resource</param>
         /// <returns>the newly created instance</returns>
-        public IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent, Files.DataFile file)
+        public IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent, Files.IDataFile file)
         {
             IResource resource = Activator.CreateInstance(resourceType) as IResource;
 

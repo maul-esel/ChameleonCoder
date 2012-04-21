@@ -147,7 +147,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource or null</param>
         /// <param name="name">the name for the resource</param>
         /// <returns>the new resource</returns>
-        public IResource Create(IResource parent, string name, Files.DataFile file)
+        public IResource Create(IResource parent, string name, Files.IDataFile file)
         {
             var attr = App.ResourceTypeMan.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
             if (attr != null)

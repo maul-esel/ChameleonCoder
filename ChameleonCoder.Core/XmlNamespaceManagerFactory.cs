@@ -6,7 +6,7 @@ namespace ChameleonCoder
     /// <summary>
     /// a class for managing XmlNamespaceManager instances
     /// </summary>
-    [System.Runtime.InteropServices.ComVisible(false)]
+    [System.Runtime.InteropServices.ComVisible(false)] // todo: make private subclass of DataFile
     internal static class XmlNamespaceManagerFactory
     {
         /// <summary>

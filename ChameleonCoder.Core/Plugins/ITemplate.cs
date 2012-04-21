@@ -36,6 +36,6 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource or null is it is a new top resource</param>
         /// <param name="name">the name for the new resource</param>
         /// <returns>the newly created resource</returns>
-        IResource Create(IResource parent, string name, Files.DataFile file);
+        IResource Create(IResource parent, string name, Files.IDataFile file);
     }
 }

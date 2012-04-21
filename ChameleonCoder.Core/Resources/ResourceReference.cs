@@ -15,7 +15,7 @@ namespace ChameleonCoder.Resources
         /// creates a new instance of the ResourceReference class
         /// </summary>
         /// <param name="data">the XmlElement representing the reference</param>
-        internal ResourceReference(System.Xml.XmlElement data, DataFile file)
+        internal ResourceReference(System.Xml.XmlElement data, IDataFile file)
         {
             Xml = data;
             File = file;
@@ -24,7 +24,7 @@ namespace ChameleonCoder.Resources
             Target = Guid.Parse(Xml.GetAttribute("target", DataFile.NamespaceUri));
         }
 
-        public DataFile File
+        public IDataFile File
         {
             get;
             private set;

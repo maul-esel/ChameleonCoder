@@ -40,7 +40,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         /// <param name="data">the XmlNode that contains the resource</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Update(XmlElement data, IResource parent, DataFile file)
+        public virtual void Update(XmlElement data, IResource parent, IDataFile file)
         {
             Xml = data;
             File = file;
@@ -96,7 +96,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         public Guid Identifier { get; protected set; }
 
-        public DataFile File { get; protected set; }
+        public IDataFile File { get; protected set; }
 
         /// <summary>
         /// gets a list containing the resource's references

@@ -61,6 +61,7 @@
     <Compile Include="Files\DataFileReferenceType.cs" />
     <Compile Include="Files\DocumentXPath.cs" />
     <Compile Include="Files\FileManager.cs" />
+    <Compile Include="Files\IDataFile.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="InstanceCollection.cs" />
     <Compile Include="XmlNamespaceManagerFactory.cs" />

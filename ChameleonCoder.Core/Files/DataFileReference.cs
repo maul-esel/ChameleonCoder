@@ -4,7 +4,7 @@ using System.IO;
 namespace ChameleonCoder.Files
 {
     [System.Runtime.InteropServices.ComVisible(false)]
-    internal struct DataFileReference
+    public struct DataFileReference
     {
         internal DataFileReference(Guid id, string path, DataFileReferenceType type)
             : this()

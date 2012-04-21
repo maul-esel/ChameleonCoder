@@ -57,6 +57,6 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource</param>
         /// <returns>the newly created instance</returns>
         /// <remarks>This method should NOT create a new resource but instead instantiate an existing one.</remarks>
-        IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent, Files.DataFile file);
+        IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent, Files.IDataFile file);
     }
 }

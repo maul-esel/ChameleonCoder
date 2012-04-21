@@ -29,7 +29,7 @@ namespace ChameleonCoder.ViewModel
         }
 
         [System.ComponentModel.NotifyParentProperty(false)]
-        public IList<DataFile> AllFiles
+        public IList<IDataFile> AllFiles
         {
             get
             {
@@ -177,7 +177,15 @@ namespace ChameleonCoder.ViewModel
                         throw new System.NotImplementedException();
                 }
 
-                ActiveFile.AddReference(path, type);
+                switch (type)
+                {
+                    case DataFileReferenceType.File:
+                        ActiveFile.AddFileReference(path);
+                        break;
+                    case DataFileReferenceType.Directory:
+                        ActiveFile.AddDirectoryReference(path);
+                        break;
+                }
                 OnPropertyChanged("References");
             }
         }

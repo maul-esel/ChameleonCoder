@@ -31,7 +31,7 @@ namespace ChameleonCoder
         /// gets the initially loaded file
         /// </summary>
         [Obsolete]
-        public DataFile DefaultFile { get; set; }
+        public IDataFile DefaultFile { get; set; }
 
         /// <summary>
         /// the running System.Windows.Application instance

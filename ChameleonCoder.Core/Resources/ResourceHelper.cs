@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml;
 using ChameleonCoder.Files;
 using ChameleonCoder.Resources.Interfaces;
@@ -62,7 +61,7 @@ namespace ChameleonCoder
         public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
         {
             var file = newParent == null ? resource.File : newParent.File;
-            var doc = file.Document;
+            var doc = ((DataFile)file).Document; // HACK!
             var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             var element = (XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
@@ -82,7 +81,7 @@ namespace ChameleonCoder
             else // if the copy receives a new Identifier:
                 element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
 
-            file.LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ...
+            ((DataFile)file).LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ... // HACK!
 
             resource.File.Save(); // save the documents
             if (newParent != null)
@@ -248,7 +247,7 @@ namespace ChameleonCoder
         /// <returns>the XmlElement containing the resource's data</returns>
         internal static XmlElement GetDataElement(IResource resource, bool create)
         {
-            var doc = resource.File.Document;
+            var doc = ((DataFile)resource.File).Document; // HACK!
             var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             var data = (XmlElement)doc.SelectSingleNode("/cc:ChameleonCoder/cc:data/cc:resourcedata[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);

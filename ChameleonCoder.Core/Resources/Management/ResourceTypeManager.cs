@@ -65,7 +65,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="data">the XmlElement representing the resource</param>
         /// <param name="parent">the resource's parent</param>
         /// <returns>the new instance</returns>
-        internal IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, DataFile file)
+        internal IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, IDataFile file)
         {
             Type resourceType = GetResourceType(key);
             if (resourceType != null)
@@ -87,9 +87,9 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, DataFile file)
+        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, IDataFile file)
         {
-            var document = file.Document;
+            var document = ((DataFile)file).Document; // HACK!
             var manager = XmlNamespaceManagerFactory.GetManager(document);
 
             var element = document.CreateElement("cc:resource", DataFile.NamespaceUri);
@@ -131,7 +131,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Guid key, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, DataFile file)
+        public IResource CreateNewResource(Guid key, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, IDataFile file)
         {
             return CreateNewResource(GetResourceType(key), name, attributes, parent, file);
         }

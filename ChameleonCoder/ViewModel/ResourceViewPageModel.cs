@@ -39,7 +39,7 @@ namespace ChameleonCoder.ViewModel
 
         private readonly IResource resourceInstance;
 
-        public System.Collections.Specialized.StringDictionary Metadata { get { return resourceInstance.File.GetResourceMetadata(resourceInstance); } }
+        public System.Collections.Specialized.StringDictionary Metadata { get { return resourceInstance.File.ResourceGetMetadata(resourceInstance); } }
 
         public object ActiveMetadata
         {
@@ -85,7 +85,7 @@ namespace ChameleonCoder.ViewModel
                 var key = ((KeyValuePair<string, string>)ActiveMetadata).Key;
                 if (!string.IsNullOrWhiteSpace(key))
                 {
-                    Resource.File.DeleteResourceMetadata(Resource, key);
+                    Resource.File.ResourceDeleteMetadata(Resource, key);
                     OnPropertyChanged("Metadata");
                 }
             }
@@ -119,13 +119,13 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreateMeta, Res.Error_MetaInvalidName, Interaction.MessageSeverity.Error);
                 return;
             }
-            else if (Resource.File.GetResourceMetadata(Resource, name) != null)
+            else if (Resource.File.ResourceGetMetadata(Resource, name) != null)
             {
                 OnReport(Res.Status_CreateMeta, Res.Error_MetaDuplicateName, Interaction.MessageSeverity.Error);
                 return;
             }
 
-            Resource.File.SetResourceMetadata(Resource, name, null);
+            Resource.File.ResourceSetMetadata(Resource, name, null);
             OnPropertyChanged("Metadata");
         }
 

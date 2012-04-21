@@ -30,12 +30,13 @@ namespace ChameleonCoder.Resources.Interfaces
         /// contains the XmlNode representing the resource
         /// Any changes to the resource should be immediately saved to this XmlNode.
         /// </summary>
+        [System.Obsolete]
         XmlElement Xml { get; }
 
         /// <summary>
         /// will contain the file in which the resource is defined
         /// </summary>
-        Files.DataFile File { get; }
+        Files.IDataFile File { get; }
 
         /// <summary>
         /// holds a reference to the resource's parent
@@ -57,7 +58,7 @@ namespace ChameleonCoder.Resources.Interfaces
         /// </summary>
         /// <param name="data">the XmlNode containing the resource data.</param>
         /// <param name="parent">the parent resource for the resource</param>
-        void Update(XmlElement data, IResource parent, Files.DataFile file);
+        void Update(XmlElement data, IResource parent, Files.IDataFile file);
 
         /// <summary>
         /// adds a new direct child resource to the resource

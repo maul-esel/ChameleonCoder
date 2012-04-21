@@ -382,7 +382,7 @@ namespace ChameleonCoder.Resources.Management
         {
             IResource resource = sender as IResource;
             if (resource != null)
-                resource.File.UpdateResourceLastModified(resource);
+                resource.File.ResourceUpdateLastModified(resource);
         }
     }
 }
