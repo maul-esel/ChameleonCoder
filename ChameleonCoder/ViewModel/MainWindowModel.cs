@@ -616,14 +616,14 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFile(string path)
         {
-            if (App.FileMan.IsOpen(path))
+            if (App.FileMan.IsFileOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);
                 return;
             }
 
-            App.FileMan.Open(path);
+            App.FileMan.OpenFile(path);
             App.FileMan.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
@@ -642,7 +642,7 @@ namespace ChameleonCoder.ViewModel
                 OnReport(Res.Status_CreatingFile, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
                 return;
             }
-            if (App.FileMan.IsOpen(path))
+            if (App.FileMan.IsFileOpen(path))
             {
                 OnReport(Res.Status_OpeningFile, string.Format(Res.Error_FileAlreadyLoaded, path),
                     Interaction.MessageSeverity.Critical);

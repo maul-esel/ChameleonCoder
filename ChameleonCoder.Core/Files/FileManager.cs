@@ -25,15 +25,15 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="path">the path to the file to open</param>
         /// <returns>the opened file as <see cref="DataFile"/> instance</returns>
-        /// <exception cref="InvalidOperationException">thrown if the file is already opened. Use <see cref="IsOpen"/> to check this before.</exception>
-        public DataFile Open(string path)
+        /// <exception cref="InvalidOperationException">thrown if the file is already opened. Use <see cref="IsFileOpen"/> to check this before.</exception>
+        public DataFile OpenFile(string path)
         {
-            if (IsOpen(path))
+            if (IsFileOpen(path))
             {
                 throw new InvalidOperationException("The file has already been opened.");
             }
 
-            DataFile file = new DataFile(Path.GetFullPath(path), App); // use MakeAbsolutePath() (?)
+            DataFile file = new DataFile(Path.GetFullPath(path), App); // todo: use MakeAbsolutePath() (?)
 
             filesOpen.Add(file);
             pathsOpen.Add(file.FilePath);
@@ -45,14 +45,17 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// opens a new directory, i.e. adding it ot the list of directories to use for files
         /// </summary>
-        /// <param name="path">the path to the directory to use</param>
+        /// <param name="path">the path to the directory to open</param>
         /// <exception cref="DirectoryNotFoundException">thrown if the directory doesn't exist</exception>
+        /// <exception cref="InvalidOperationException">thrown if the directory is already opened. Use <see cref="IsDirectoryOpen"/> to check that.</exception>
         public void OpenDirectory(string path)
         {
-            if (Directory.Exists(path))
-                dirList.Add(path);
-            // todo: check if already opened
-            throw new DirectoryNotFoundException();
+            if (!Directory.Exists(path)) // todo: check if it's a subdir of an already opened directory
+                throw new DirectoryNotFoundException();
+            if (dirList.Contains(path))
+                throw new InvalidOperationException("The directory has already been opened.");
+
+            dirList.Add(path);
         }
 
         /// <summary>
@@ -60,9 +63,19 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="path">the path to the file to chec</param>
         /// <returns>true if already opened, false otherwise</returns>
-        public bool IsOpen(string path)
+        public bool IsFileOpen(string path)
         {
-            return pathsOpen.Contains(path); // todo: add possibly support for directories
+            return pathsOpen.Contains(path);
+        }
+
+        /// <summary>
+        /// checks if a given directory has already been opened
+        /// </summary>
+        /// <param name="path">the path to the directory to check</param>
+        /// <returns></returns>
+        public bool IsDirectoryOpen(string path)
+        {
+            return dirList.Contains(path);
         }
 
         /// <summary>

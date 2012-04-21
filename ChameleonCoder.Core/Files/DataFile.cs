@@ -311,7 +311,7 @@ namespace ChameleonCoder.Files
                 switch (reference.Type)
                 {
                     case DataFileReferenceType.File:
-                        App.FileMan.Open(reference.Path);
+                        App.FileMan.OpenFile(reference.Path);
                         break;
                     case DataFileReferenceType.Directory:
                         App.FileMan.OpenDirectory(reference.Path);
