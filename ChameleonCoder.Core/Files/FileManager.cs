@@ -90,6 +90,8 @@ namespace ChameleonCoder.Files
         /// <param name="file"></param>
         public void Remove(IDataFile file)
         {
+            file.Shutdown();
+
             filesOpen.Remove(file);
             pathsOpen.Remove(file.FilePath);
         }
@@ -100,7 +102,7 @@ namespace ChameleonCoder.Files
         public void Shutdown()
         {
             SaveAll();
-            CloseAll();
+            RemoveAll();
 
             App = null;
         }
@@ -131,10 +133,10 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// closes all opened instances
         /// </summary>
-        public void CloseAll()
+        public void RemoveAll()
         {
             foreach (IDataFile file in Files)
-                ((DataFile)file).Close(); // HACK!
+                Remove(file);
 
             filesOpen.Clear();
             pathsOpen.Clear();

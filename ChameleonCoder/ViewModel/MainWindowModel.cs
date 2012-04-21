@@ -589,7 +589,7 @@ namespace ChameleonCoder.ViewModel
             if (OnConfirm(Res.Status_ClosingFiles, Res.File_ConfirmClose) == true)
             {
                 App.ResourceMan.RemoveAll();
-                App.FileMan.CloseAll();
+                App.FileMan.RemoveAll();
                 XmlNamespaceManagerFactory.ClearManagers();
             }
         }

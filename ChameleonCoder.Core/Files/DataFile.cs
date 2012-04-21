@@ -508,15 +508,6 @@ namespace ChameleonCoder.Files
         internal XmlDocument Document { get { return doc; } }
 
         /// <summary>
-        /// closes the instance
-        /// </summary>
-        [Obsolete]
-        public void Close()
-        {
-            App.FileMan.Remove(this);
-        }
-
-        /// <summary>
         /// appends the given text to the file's changelog, including an exact date-time stamp
         /// </summary>
         /// <param name="changelog">the text to append</param>
