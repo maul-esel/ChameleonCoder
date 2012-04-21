@@ -41,7 +41,7 @@ namespace ChameleonCoder
         {
             get
             {
-                return System.Windows.Application.Current;
+                return Application.Current;
             }
         }
 
