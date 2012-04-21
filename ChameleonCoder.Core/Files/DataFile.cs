@@ -372,7 +372,6 @@ namespace ChameleonCoder.Files
         public void UpdateResourceLastModified(IResource resource, DateTime time)
         {
             var res = GetResourceDataElement(resource, true);
-            var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
 
             var lastmod = res.SelectSingleNode("cc:lastmodified", manager);
 
@@ -415,8 +414,6 @@ namespace ChameleonCoder.Files
         /// <param name="value">the value</param>
         public void SetResourceMetadata(IResource resource, string key, string value)
         {
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
             // get the resource-data element for the resource
             XmlElement res = GetResourceDataElement(resource, true);
 
@@ -440,8 +437,6 @@ namespace ChameleonCoder.Files
         /// <returns>the metadata's value if found, null otherwise</returns>
         public string GetResourceMetadata(IResource resource, string key)
         {
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
             // get the resource's data element
             XmlElement res = GetResourceDataElement(resource, false);
             if (res == null) // if it doesn't exist:
@@ -462,7 +457,6 @@ namespace ChameleonCoder.Files
         /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
         public System.Collections.Specialized.StringDictionary GetResourceMetadata(IResource resource)
         {
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
             var dict = new System.Collections.Specialized.StringDictionary();
 
             // get the resource's data element
@@ -494,8 +488,6 @@ namespace ChameleonCoder.Files
         /// <param name="key">the metadata's key</param>
         public void DeleteResourceMetadata(IResource resource, string key)
         {
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
             // get the resource's data element
             XmlElement res = GetResourceDataElement(resource, false);
             if (res == null) // if it doesn't exist:
@@ -522,8 +514,6 @@ namespace ChameleonCoder.Files
         [ComVisible(false)]
         private XmlElement GetResourceDataElement(IResource resource, bool create)
         {
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
             var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceData + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)
             {
