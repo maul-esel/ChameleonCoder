@@ -5,12 +5,12 @@
     /// </summary>
     internal sealed partial class SettingsPage : System.Windows.Controls.Page
     {
-        internal SettingsPage()
+        internal SettingsPage(ViewModel.SettingsPageModel model)
         {
-            ModelClientHelper.InitializeModel(ViewModel.SettingsPageModel.Instance);
+            ModelClientHelper.InitializeModel(model);
 
-            DataContext = ViewModel.SettingsPageModel.Instance;
-            CommandBindings.AddRange(ViewModel.SettingsPageModel.Instance.Commands);
+            DataContext = model;
+            CommandBindings.AddRange(model.Commands);
 
             InitializeComponent();
         }

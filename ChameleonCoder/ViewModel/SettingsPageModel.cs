@@ -11,26 +11,13 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Navigation.SettingsPage))]
     internal sealed class SettingsPageModel : ViewModelBase
     {
-        private SettingsPageModel()
-            : base(null)
+        internal SettingsPageModel(ChameleonCoderApp app)
+            : base(app)
         {
         }
-
-        internal static SettingsPageModel Instance
-        {
-            get
-            {
-                lock (modelInstance)
-                {
-                    return modelInstance;
-                }
-            }
-        }
-
-        private static readonly SettingsPageModel modelInstance = new SettingsPageModel();
 
         [NotifyParentProperty(false)]
-        public static int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
+        public int[] availableTranslations { get { return new int[2] { 1031, 1033 }; } }
 
         public FontFamily CodeFont
         {
@@ -45,7 +32,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        private static FontFamily family = new FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
+        private FontFamily family = new FontFamily(Settings.ChameleonCoderSettings.Default.CodeFont);
 
         public int CodeFontSize
         {
@@ -103,6 +90,8 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
+        #region localization
+
         public static string Item_Settings { get { return Res.Item_Settings; } }
 
         public static string Setting_Language { get { return Res.SP_Language; } }
@@ -116,5 +105,7 @@ namespace ChameleonCoder.ViewModel
         public static string Setting_CodeFont { get { return Res.SP_CodeFont; } }
 
         public static string Setting_CodeFontSize { get { return Res.SP_CodeFontSize; } }
+
+        #endregion // "localization"
     }
 }

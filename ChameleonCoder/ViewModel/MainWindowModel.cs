@@ -347,7 +347,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenSettingsPage()
         {
-            var args = OnRepresentationNeeded(SettingsPageModel.Instance, false);
+            var args = OnRepresentationNeeded(new SettingsPageModel(App), false);
             if (args.Cancel)
                 return;
 
