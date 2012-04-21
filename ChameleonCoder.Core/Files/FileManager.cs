@@ -39,6 +39,10 @@ namespace ChameleonCoder.Files
             pathsOpen.Add(file.FilePath);
             dirList.Add(Path.GetDirectoryName(file.FilePath));
 
+#if DEBUG
+            App.DefaultFile = file; // TODO! HACK! (letting it be null causes exceptions)
+#endif
+
             return file;
         }
 
