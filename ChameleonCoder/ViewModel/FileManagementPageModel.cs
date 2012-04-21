@@ -28,6 +28,7 @@ namespace ChameleonCoder.ViewModel
                 (s, e) => e.CanExecute = ActiveFile != null && ActiveReference != null));
         }
 
+        [System.ComponentModel.NotifyParentProperty(false)]
         public IList<DataFile> AllFiles
         {
             get
