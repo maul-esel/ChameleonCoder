@@ -13,5 +13,19 @@
         {
             base.Add(instance.Identifier, instance);
         }
+
+        public ResourceCollection()
+            : base()
+        {
+        }
+
+        public ResourceCollection(System.Collections.Generic.IEnumerable<Interfaces.IResource> resources)
+            : this()
+        {
+            foreach (var resource in resources)
+            {
+                Add(resource);
+            }
+        }
     }
 }
