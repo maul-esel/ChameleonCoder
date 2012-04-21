@@ -18,5 +18,8 @@
 
         internal const string ResourceRoot = Root + "/" + prefix + "resources";
         internal const string Resources = ResourceRoot + "/" + prefix + "resource";
+
+        internal const string DataRoot = Root + "/" + prefix + "data";
+        internal const string ResourceData = DataRoot + "/" + prefix + "resourcedata";
     }
 }
