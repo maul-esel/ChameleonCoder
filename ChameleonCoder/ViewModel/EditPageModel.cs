@@ -106,6 +106,7 @@ namespace ChameleonCoder.ViewModel
         private void SearchReplace(bool replace)
         {
             var dialog = new CCSearchReplaceDialog(
+                            App,
                             () => Document.Text,
                             (offset, length, replaceBy) => Document.Replace(offset, length, replaceBy),
                             (offset, length) =>

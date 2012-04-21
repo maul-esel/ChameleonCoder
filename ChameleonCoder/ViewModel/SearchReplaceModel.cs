@@ -8,23 +8,10 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(CCSearchReplaceDialog))]
     internal sealed class SearchReplaceModel : ViewModelBase
     {
-        private SearchReplaceModel()
-            : base(null)
+        internal SearchReplaceModel(ChameleonCoderApp app)
+            : base(app)
         {
         }
-
-        internal static SearchReplaceModel Instance
-        {
-            get
-            {
-                lock (modelInstance)
-                {
-                    return modelInstance;
-                }
-            }
-        }
-
-        private static readonly SearchReplaceModel modelInstance = new SearchReplaceModel();
 
         #region localization
 
@@ -46,6 +33,6 @@ namespace ChameleonCoder.ViewModel
 
         public static string WrapAround { get { return Res.SR_WrapAround; } }
 
-        #endregion
+        #endregion // "localization"
     }
 }

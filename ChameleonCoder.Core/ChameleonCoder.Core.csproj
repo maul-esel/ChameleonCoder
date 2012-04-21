@@ -36,6 +36,7 @@
     <Reference Include="ICSharpCode.AvalonEdit, Version=4.0.0.7070, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Odyssey">
       <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>

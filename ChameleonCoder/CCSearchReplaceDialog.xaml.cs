@@ -17,9 +17,9 @@ namespace ChameleonCoder
         /// <param name="replaceText">a delegate to replace the specified area with the given text</param>
         /// <param name="selectText">a delegate to select the specified area</param>
         /// <param name="replace">a bool indicating whether to start in replace mode or not</param>
-        internal CCSearchReplaceDialog(Func<string> getText, Action<int, int, string> replaceText, Action<int, int> selectText, bool replace)
+        internal CCSearchReplaceDialog(ChameleonCoderApp app, Func<string> getText, Action<int, int, string> replaceText, Action<int, int> selectText, bool replace)
         {
-            DataContext = ViewModel.SearchReplaceModel.Instance;
+            DataContext = new ViewModel.SearchReplaceModel(app);
             InitializeComponent();
 
             getTextDelegate = getText;
