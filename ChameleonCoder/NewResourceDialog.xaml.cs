@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Data;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
 {
@@ -54,7 +53,7 @@ namespace ChameleonCoder
             DialogResult = true;
             Close();
 
-            IResource child = template.Create(ParentResource, name);
+            IResource child = template.Create(ParentResource, name, ChameleonCoderApp.DefaultFile);
             if (child != null)
                 ChameleonCoderApp.RunningObject.ResourceMan.Add(child, ParentResource);
         }

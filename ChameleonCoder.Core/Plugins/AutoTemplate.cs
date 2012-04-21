@@ -146,11 +146,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource or null</param>
         /// <param name="name">the name for the resource</param>
         /// <returns>the new resource</returns>
-        public IResource Create(IResource parent, string name)
+        public IResource Create(IResource parent, string name, Files.DataFile file)
         {
             var attr = App.ResourceTypeMan.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
             if (attr != null)
-                return App.ResourceTypeMan.CreateNewResource(ResourceType, name, attr, parent, parent != null ? parent.File : ChameleonCoderApp.DefaultFile);
+                return App.ResourceTypeMan.CreateNewResource(ResourceType, name, attr, parent, file);
             return null;
         }
         #endregion
