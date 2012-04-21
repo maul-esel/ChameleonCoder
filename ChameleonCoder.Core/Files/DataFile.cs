@@ -46,7 +46,7 @@ namespace ChameleonCoder.Files
             {
                 try
                 {
-                    Document.Load(path);
+                    doc.Load(path);
                 }
                 catch (XmlException e)
                 {
@@ -59,13 +59,13 @@ namespace ChameleonCoder.Files
                 {
                     using (var reader = XmlReader.Create(stream))
                     {
-                        Document.Schemas.Add(null, reader);
+                        doc.Schemas.Add(null, reader);
                     }
                 }
 
                 try
                 {
-                    Document.Validate(ValidateXmlHandler);
+                    doc.Validate(ValidateXmlHandler);
                 }
                 catch (XmlException)
                 {
@@ -105,7 +105,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// returns the XmlDocument
         /// </summary>
-        [ComVisible(false)]
+        [ComVisible(false), Obsolete]
         internal XmlDocument Document { get { return doc; } }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace ChameleonCoder.Files
         {
             get
             {
-                return Document.SelectSingleNode(DocumentXPath.SettingName, manager).InnerText;
+                return doc.SelectSingleNode(DocumentXPath.SettingName, manager).InnerText;
             }
         }
 
@@ -156,7 +156,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         public void Save()
         {
-            Document.Save(FilePath);
+            doc.Save(FilePath);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         public void Load()
         {
-            foreach (XmlNode node in Document.SelectNodes(DocumentXPath.Resources, manager))
+            foreach (XmlNode node in doc.SelectNodes(DocumentXPath.Resources, manager))
             {
                 var element = node as XmlElement;
                 if (element != null)
@@ -182,12 +182,12 @@ namespace ChameleonCoder.Files
         /// <param name="value">the metadata's new value</param>
         public void SetMetadata(string key, string value)
         {
-            var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
+            var meta = (XmlElement)doc.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
             if (meta == null)
             {
-                meta = (XmlElement)Document.CreateElement("cc:metadata", NamespaceUri);
+                meta = (XmlElement)doc.CreateElement("cc:metadata", NamespaceUri);
                 meta.SetAttribute("key", NamespaceUri, key);
-                Document.SelectSingleNode(DocumentXPath.MetadataRoot, manager).AppendChild(meta);
+                doc.SelectSingleNode(DocumentXPath.MetadataRoot, manager).AppendChild(meta);
             }
 
             meta.SetAttribute("value", NamespaceUri, value);
@@ -200,7 +200,7 @@ namespace ChameleonCoder.Files
         /// <returns>the metadata's value</returns>
         public string GetMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
+            var meta = (XmlElement)doc.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
             if (meta == null)
                 return null;
 
@@ -213,7 +213,7 @@ namespace ChameleonCoder.Files
         /// <returns>a dictionary containing the metadata</returns>
         public System.Collections.Specialized.StringDictionary GetMetadata()
         {
-            var set = (XmlElement)Document.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
+            var set = (XmlElement)doc.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
             if (set == null)
                 return null;
 
@@ -236,12 +236,12 @@ namespace ChameleonCoder.Files
         /// <param name="key">the metadata's name</param>
         public void DeleteMetadata(string key)
         {
-            var meta = (XmlElement)Document.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
+            var meta = (XmlElement)doc.SelectSingleNode(DocumentXPath.Metadata + "[@cc:key='" + key + "']", manager);
             if (meta != null)
                 meta.ParentNode.RemoveChild(meta);
         }
 
-        #endregion // metadata
+        #endregion // "metadata"
 
         #region references
 
@@ -265,12 +265,12 @@ namespace ChameleonCoder.Files
                 default:
                     throw new NotSupportedException("The given reference type is not known: " + type);
             }
-            var reference = Document.CreateElement(elementName, NamespaceUri);
+            var reference = doc.CreateElement(elementName, NamespaceUri);
 
             reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
             reference.SetAttribute("path", NamespaceUri, path);
 
-            Document.SelectSingleNode(DocumentXPath.ReferenceRoot, manager).AppendChild(reference);
+            doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager).AppendChild(reference);
 
             return id;
         }
@@ -281,7 +281,7 @@ namespace ChameleonCoder.Files
         /// <param name="id">the reference's unique id</param>
         public void DeleteReference(Guid id)
         {
-            var reference = Document.SelectSingleNode(DocumentXPath.References + "[@id='" + id.ToString("b") + "']", manager);
+            var reference = doc.SelectSingleNode(DocumentXPath.References + "[@id='" + id.ToString("b") + "']", manager);
 
             if (reference != null)
                 reference.ParentNode.RemoveChild(reference);
@@ -317,7 +317,7 @@ namespace ChameleonCoder.Files
         {
             var list = new List<DataFileReference>();
 
-            foreach (XmlElement element in Document.SelectNodes(DocumentXPath.References, manager))
+            foreach (XmlElement element in doc.SelectNodes(DocumentXPath.References, manager))
             {
                 var reference = DataFileReference.CreateReference(element);
                 list.Add(reference);
