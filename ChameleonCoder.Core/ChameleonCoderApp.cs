@@ -37,7 +37,7 @@ namespace ChameleonCoder
         /// gets the initially loaded file
         /// </summary>
         [Obsolete]
-        public static DataFile DefaultFile { get; private set; }
+        public DataFile DefaultFile { get; private set; }
 
         /// <summary>
         /// the running System.Windows.Application instance

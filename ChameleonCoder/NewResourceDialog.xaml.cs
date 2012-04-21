@@ -53,7 +53,7 @@ namespace ChameleonCoder
             DialogResult = true;
             Close();
 
-            IResource child = template.Create(ParentResource, name, ChameleonCoderApp.DefaultFile);
+            IResource child = template.Create(ParentResource, name, ChameleonCoderApp.RunningObject.DefaultFile);
             if (child != null)
                 ChameleonCoderApp.RunningObject.ResourceMan.Add(child, ParentResource);
         }
