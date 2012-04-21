@@ -73,5 +73,39 @@ namespace ChameleonCoder
                 instances.AddOrUpdate(key, value, (k, v) => value);
             }
         }
+
+        public TValue[] Values
+        {
+            get
+            {
+                TValue[] array = new TValue[instances.Values.Count];
+
+                int index = 0;
+                foreach (TValue value in instances.Values)
+                {
+                    array[index] = value;
+                    index++;
+                }
+
+                return array;
+            }
+        }
+
+        public TKey[] Keys
+        {
+            get
+            {
+                TKey[] array = new TKey[instances.Keys.Count];
+
+                int index = 0;
+                foreach (TKey key in instances.Keys)
+                {
+                    array[index] = key;
+                    index++;
+                }
+
+                return array;
+            }
+        }
     }
 }
