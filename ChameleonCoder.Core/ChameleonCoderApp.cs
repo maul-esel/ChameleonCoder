@@ -16,11 +16,6 @@ namespace ChameleonCoder
     public sealed class ChameleonCoderApp
     {
         /// <summary>
-        /// gets the application's main window
-        /// </summary>
-        public Window Gui { get; private set; }
-
-        /// <summary>
         /// gets the directory containing the application
         /// </summary>
         [ComVisible(false)]
@@ -149,14 +144,19 @@ namespace ChameleonCoder
         #region window management
 
         /// <summary>
+        /// gets the application's main window
+        /// </summary>
+        public Window Window { get; private set; }
+
+        /// <summary>
         /// creates the main window
         /// </summary>
         /// <exception cref="InvalidOperationException">thrown if the window had already been initialized</exception>
         public void InitWindow()
         {
-            if (Gui != null)
+            if (Window != null)
                 throw new InvalidOperationException("Window has already been initialized.");
-            Gui = (Window)Activator.CreateInstance(Assembly.GetEntryAssembly().GetType("ChameleonCoder.MainWindow"), new object[1] { this }); // TODO! (not elegant, will fail in COM)
+            Window = (Window)Activator.CreateInstance(Assembly.GetEntryAssembly().GetType("ChameleonCoder.MainWindow"), new object[1] { this }); // TODO! (not elegant, will fail in COM)
         }
 
         /// <summary>
@@ -165,9 +165,9 @@ namespace ChameleonCoder
         /// <remarks>If <see cref="InitWindow"/> has not yet been called, it is automatically called before showing thew window.</remarks>
         public void ShowWindow()
         {
-            if (Gui == null)
+            if (Window == null)
                 InitWindow();
-            Gui.Show();
+            Window.Show();
         }
 
         /// <summary>
@@ -176,9 +176,9 @@ namespace ChameleonCoder
         /// <exception cref="InvalidOperationException">throw if the window has not yet been initialized</exception>
         public void HideWindow()
         {
-            if (Gui == null)
+            if (Window == null)
                 throw new InvalidOperationException("Window has not yet been initialized.");
-            Gui.Hide();
+            Window.Hide();
         }
 
         #endregion

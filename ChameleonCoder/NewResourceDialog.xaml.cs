@@ -19,7 +19,7 @@ namespace ChameleonCoder
             DataContext = new ViewModel.NewResourceDialogModel(this.app = app);
             InitializeComponent();
 
-            Owner = app.Gui;
+            Owner = app.Window;
             ParentResource = parent;
         }
 

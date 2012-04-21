@@ -230,11 +230,11 @@ namespace ChameleonCoder.Plugins
                 if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
                 {
                     ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
-                        ChameleonCoderApp.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                        ChameleonCoderApp.Window.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                         module.Name, module.Version, module.Author, module.About)));
                 }
                 else
-                    ChameleonCoderApp.Gui.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
+                    ChameleonCoderApp.Window.CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
                         module.Name, module.Version, module.Author, module.About);
                 */
 
@@ -264,10 +264,10 @@ namespace ChameleonCoder.Plugins
             if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
             {
                 ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
-                    ChameleonCoderApp.Gui.CurrentModule.Text = string.Empty));
+                    ChameleonCoderApp.Window.CurrentModule.Text = string.Empty));
             }
             else
-                ChameleonCoderApp.Gui.CurrentModule.Text = string.Empty;
+                ChameleonCoderApp.Window.CurrentModule.Text = string.Empty;
             */
 
             OnModuleUnloaded(module, new EventArgs());
@@ -341,8 +341,8 @@ namespace ChameleonCoder.Plugins
 
             /*
              * moved to Mainwindow using event handler for IF.ServiceExecute
-            ChameleonCoderApp.Gui.CurrentActionProgress.IsIndeterminate = true;
-            ChameleonCoderApp.Gui.CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
+            ChameleonCoderApp.Window.CurrentActionProgress.IsIndeterminate = true;
+            ChameleonCoderApp.Window.CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
             */
 
             service.Execute();
@@ -351,8 +351,8 @@ namespace ChameleonCoder.Plugins
 
             /*
              * moved to Mainwindow using event handler for IF.ServiceExecuted
-            ChameleonCoderApp.Gui.CurrentActionProgress.IsIndeterminate = false;
-            ChameleonCoderApp.Gui.CurrentAction.Text = string.Empty;
+            ChameleonCoderApp.Window.CurrentActionProgress.IsIndeterminate = false;
+            ChameleonCoderApp.Window.CurrentAction.Text = string.Empty;
             */
 
             OnServiceExecuted(service, new EventArgs());
