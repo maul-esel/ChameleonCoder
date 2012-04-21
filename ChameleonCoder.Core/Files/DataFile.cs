@@ -356,6 +356,57 @@ namespace ChameleonCoder.Files
             */
         }
 
+        #region "old ResourceHelper"
+
+        #region lastmodified
+
+        public void UpdateResourceLastModified(IResource resource)
+        {
+            UpdateResourceLastModified(resource, DateTime.Now);
+        }
+
+        /// <summary>
+        /// updates the "last-modified"-data of a resource to the current time
+        /// </summary>
+        /// <param name="resource">the resource to update</param>
+        public void UpdateResourceLastModified(IResource resource, DateTime time)
+        {
+            var res = GetResourceDataElement(resource, true);
+            var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
+
+            var lastmod = res.SelectSingleNode("cc:lastmodified", manager);
+
+            if (lastmod == null)
+            {
+                lastmod = res.OwnerDocument.CreateElement("cc:lastmodified", NamespaceUri);
+                res.AppendChild(lastmod);
+            }
+
+            lastmod.InnerText = time.ToString("yyyy-MM-ddTHH:mm:ss");
+        }
+
+        /// <summary>
+        /// gets the "last-modified"-data of a resource
+        /// </summary>
+        /// <param name="resource">the resource to analyze</param>
+        /// <returns>the last-modified DateTime, or <code>default(DateTime)</code> if it couldn't be found.</returns>
+        public DateTime GetResourceLastModified(IResource resource)
+        {
+            var res = GetResourceDataElement(resource, false);
+            if (res == null)
+                return default(DateTime);
+
+            var lastmod = res.SelectSingleNode("lastmodified");
+            if (lastmod == null)
+                return default(DateTime);
+
+            return DateTime.Parse(lastmod.InnerText);
+        }
+
+        #endregion // "old ResourceHelper" > "lastmodified"
+
+        #endregion // "old ResourceHelper"
+
         /// <summary>
         /// parses a XmlElement and its child elements for resource definitions
         /// and creates instances for them, adding them to the global resource list

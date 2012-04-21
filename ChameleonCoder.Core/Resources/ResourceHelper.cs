@@ -208,45 +208,6 @@ namespace ChameleonCoder
             meta.ParentNode.RemoveChild(meta); // remove the node
         }
         #endregion
-
-        /// <summary>
-        /// updates the "last-modified"-data of a resource to the current time
-        /// </summary>
-        /// <param name="resource">the resource to update</param>
-        public static void UpdateLastModified(this IResource resource)
-        {
-            var res = GetDataElement(resource, true);
-            var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
-
-            var lastmod = res.SelectSingleNode("cc:lastmodified", manager);
-
-            if (lastmod == null)
-            {
-                lastmod = res.OwnerDocument.CreateElement("cc:lastmodified", DataFile.NamespaceUri);                
-                res.AppendChild(lastmod);
-            }
-
-            lastmod.InnerText = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-        }
-
-        /// <summary>
-        /// gets the "last-modified"-data of a resource
-        /// </summary>
-        /// <param name="resource">the resource to analyze</param>
-        /// <returns>the last-modified DateTime, or <code>default(DateTime)</code> if it couldn't be found.</returns>
-        public static DateTime GetLastModified(this IResource resource)
-        {
-            var res = GetDataElement(resource, false);
-            if (res == null)
-                return default(DateTime);
-
-            var lastmod = res.SelectSingleNode("lastmodified");
-            if (lastmod == null)
-                return default(DateTime);
-
-            return DateTime.Parse(lastmod.InnerText);
-        }
-
         /// <summary>
         /// parses the RichContent for a RichContentResource
         /// </summary>

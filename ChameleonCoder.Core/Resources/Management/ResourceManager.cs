@@ -381,7 +381,8 @@ namespace ChameleonCoder.Resources.Management
         private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             IResource resource = sender as IResource;
-            resource.UpdateLastModified();
+            if (resource != null)
+                resource.File.UpdateResourceLastModified(resource);
         }
     }
 }
