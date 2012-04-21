@@ -428,7 +428,7 @@ namespace ChameleonCoder
             if (path.StartsWith(start, StringComparison.Ordinal))
                 path = path.Remove(0, start.Length);
 
-            var collection = ChameleonCoderApp.RunningObject.ResourceMan.GetChildren();
+            var collection = ChameleonCoderApp.RunningObject.ResourceMan.Children;
             string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             IResource result = null;

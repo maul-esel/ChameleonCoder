@@ -419,7 +419,7 @@ namespace ChameleonCoder.ViewModel
 
         private void CopyResource(IResource resource)
         {
-            var model = new ViewModel.ResourceSelectorModel(App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
+            var model = new ViewModel.ResourceSelectorModel(App.ResourceMan.Children, 1) { ShowReferences = false };
             var args = OnRepresentationNeeded(model, true);
 
             if (args.Cancel)
@@ -434,7 +434,7 @@ namespace ChameleonCoder.ViewModel
 
         private void MoveResource(IResource resource)
         {
-            var model = new ViewModel.ResourceSelectorModel(App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
+            var model = new ViewModel.ResourceSelectorModel(App.ResourceMan.Children, 1) { ShowReferences = false };
             var args = OnRepresentationNeeded(model, true);
 
             if (args.Cancel)
@@ -492,7 +492,7 @@ namespace ChameleonCoder.ViewModel
                     new BreadcrumbContext[4]
                         {
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/list.png"),
-                            App.ResourceMan.GetChildren(),
+                            App.ResourceMan.Children,
                             CCTabPage.ResourceList),
                         new BreadcrumbContext(new Uri("pack://application:,,,/Images/RibbonTab1/settings.png"),
                             null,

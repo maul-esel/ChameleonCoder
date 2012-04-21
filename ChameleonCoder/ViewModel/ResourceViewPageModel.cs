@@ -131,7 +131,7 @@ namespace ChameleonCoder.ViewModel
 
         private void AddReference()
         {
-            var model = new ResourceSelectorModel(Resource.File.App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
+            var model = new ResourceSelectorModel(Resource.File.App.ResourceMan.Children, 1) { ShowReferences = false };
             OnRepresentationNeeded(model, true);
 
             if (model.SelectedResources.Count > 0)

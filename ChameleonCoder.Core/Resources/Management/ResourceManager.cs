@@ -29,13 +29,13 @@ namespace ChameleonCoder.Resources.Management
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
         [ComVisible(false)]
-        private ResourceCollection Children;
+        private ResourceCollection childrenCollection;
 
         /// <summary>
         /// contains a list of ALL resources
         /// </summary>
         [ComVisible(false)]
-        private ResourceCollection FlatList;
+        private ResourceCollection allResources;
 
         /// <summary>
         /// gets the currently loaded resource
@@ -56,8 +56,8 @@ namespace ChameleonCoder.Resources.Management
         [ComVisible(false)]
         internal void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
         {
-            FlatList = flat;
-            Children = hierarchy;
+            allResources = flat;
+            childrenCollection = hierarchy;
         }
 
         /// <summary>
@@ -71,10 +71,10 @@ namespace ChameleonCoder.Resources.Management
         /// If this is null, it will be added to the list of top-level resources</param>
         public void Add(IResource instance, IResource parent)
         {
-            FlatList.Add(instance);
+            allResources.Add(instance);
             if (parent == null)
             {
-                Children.Add(instance);
+                childrenCollection.Add(instance);
             }
             else
             {
@@ -92,11 +92,11 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="instance">the instance to remove</param>
         public void Remove(IResource instance)
         {
-            FlatList.Remove(instance);
+            allResources.Remove(instance);
 
             if (instance.Parent == null)
             {
-                Children.Remove(instance);
+                childrenCollection.Remove(instance);
             }
             else
             {
@@ -109,15 +109,17 @@ namespace ChameleonCoder.Resources.Management
         /// <summary>
         /// gets the Children list
         /// </summary>
-        /// <returns></returns>
-        public IResource[] GetChildren()
+        public IResource[] Children
         {
-            return Children.Values;
+            get
+            {
+                return childrenCollection.Values;
+            }
         }
 
         public IResource GetResource(Guid id)
         {
-            return FlatList.GetInstance(id);
+            return allResources.GetInstance(id);
         }
 
         /// <summary>
@@ -175,7 +177,7 @@ namespace ChameleonCoder.Resources.Management
 
         public void RemoveAll()
         {
-            foreach (IResource resource in FlatList)
+            foreach (IResource resource in allResources)
             {
                 Remove(resource); // use this so that event handlers are removed correctly etc.
             }
@@ -218,7 +220,7 @@ namespace ChameleonCoder.Resources.Management
         public IResource GetResourceFromIdPath(Guid[] path)
         {
             IResource result = null;
-            var collection = GetChildren();
+            var collection = Children;
             int currentIndex = 0;
 
             foreach (Guid currentId in path)
