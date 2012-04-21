@@ -419,7 +419,7 @@ namespace ChameleonCoder.ViewModel
 
         private void CopyResource(IResource resource)
         {
-            var model = new ViewModel.ResourceSelectorModel(resource.File.App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
+            var model = new ViewModel.ResourceSelectorModel(App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
             var args = OnRepresentationNeeded(model, true);
 
             if (args.Cancel)
@@ -434,7 +434,7 @@ namespace ChameleonCoder.ViewModel
 
         private void MoveResource(IResource resource)
         {
-            var model = new ViewModel.ResourceSelectorModel(resource.File.App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
+            var model = new ViewModel.ResourceSelectorModel(App.ResourceMan.GetChildren(), 1) { ShowReferences = false };
             var args = OnRepresentationNeeded(model, true);
 
             if (args.Cancel)
@@ -445,7 +445,7 @@ namespace ChameleonCoder.ViewModel
             if (model.SelectedResources.Count > 0 // user selected 1 resource
                 && newParent != null) // resource is not null
             {
-                if (!resource.File.App.ResourceMan.IsDescendantOf(resource, newParent) // can't be moved to descendant
+                if (!App.ResourceMan.IsDescendantOf(resource, newParent) // can't be moved to descendant
                     && newParent != resource.Parent) // resource is not already parent
                 {
                     resource.Move(newParent);
