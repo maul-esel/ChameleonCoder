@@ -9,6 +9,7 @@ namespace ChameleonCoder.ViewModel
     internal sealed class SearchReplaceModel : ViewModelBase
     {
         private SearchReplaceModel()
+            : base(null)
         {
         }
 

@@ -6,6 +6,7 @@ namespace ChameleonCoder.ViewModel
     internal sealed class ResourceListPageModel : ViewModelBase
     {
         internal ResourceListPageModel(ChameleonCoderApp app)
+            : base(app)
         {
         }
         

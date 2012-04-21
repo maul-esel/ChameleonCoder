@@ -12,6 +12,7 @@ namespace ChameleonCoder.ViewModel
     internal sealed class ResourceViewPageModel : ViewModelBase
     {
         internal ResourceViewPageModel(IResource resource)
+            : base(null)
         {
             resourceInstance = resource;
 

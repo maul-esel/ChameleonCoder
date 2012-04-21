@@ -8,7 +8,8 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Navigation.FileManagementPage))]
     internal sealed class FileManagementPageModel : ViewModelBase
     {
-        internal FileManagementPageModel()
+        internal FileManagementPageModel(ChameleonCoderApp app)
+            : base(app)
         {
             Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteMetadata,
                 DeleteMetadataCommandExecuted,
@@ -27,11 +28,11 @@ namespace ChameleonCoder.ViewModel
                 (s, e) => e.CanExecute = ActiveFile != null && ActiveReference != null));
         }
 
-        public static IList<DataFile> AllFiles
+        public IList<DataFile> AllFiles
         {
             get
             {
-                return ChameleonCoderApp.RunningObject.FileMan.Files;
+                return App.FileMan.Files;
             }
         }
 

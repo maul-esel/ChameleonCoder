@@ -8,17 +8,28 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(NewResourceDialog))]
     internal sealed class NewResourceDialogModel : ViewModelBase
     {
-        internal NewResourceDialogModel()
+        internal NewResourceDialogModel(ChameleonCoderApp app)
+            : base(app)
         {
-            foreach (var type in ChameleonCoderApp.RunningObject.ResourceTypeMan.GetResourceTypes())
+            templateList = new List<ITemplate>(App.PluginMan.GetTemplates());
+
+            foreach (var type in App.ResourceTypeMan.GetResourceTypes())
+            {
                 if (!Attribute.IsDefined(type, typeof(NoWrapperTemplateAttribute)))
+                {
                     templateList.Add(new AutoTemplate(type));
+                }
+            }
 
             foreach (var template in templateList)
             {
-                string group = string.IsNullOrWhiteSpace(template.Group) ? Properties.Resources.PropertyGroup_General : template.Group;
+                template.Initialize(App);
+
+                string group = string.IsNullOrWhiteSpace(template.Group) ? Res.PropertyGroup_General : template.Group;
                 if (!groupList.Contains(group))
+                {
                     groupList.Add(group);
+                }
             }
         }
 
@@ -27,7 +38,7 @@ namespace ChameleonCoder.ViewModel
             get { return templateList; }
         }
 
-        private readonly List<ITemplate> templateList = new List<ITemplate>(ChameleonCoderApp.RunningObject.PluginMan.GetTemplates());
+        private readonly List<ITemplate> templateList = null;
 
         public IList<string> Groups
         {

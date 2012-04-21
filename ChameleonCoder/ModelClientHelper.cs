@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows;
 using System.Reflection;
+using System.Windows;
 using ChameleonCoder.ViewModel.Interaction;
 
 namespace ChameleonCoder

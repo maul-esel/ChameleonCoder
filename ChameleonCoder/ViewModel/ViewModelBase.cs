@@ -10,10 +10,18 @@ namespace ChameleonCoder.ViewModel
     /// </summary>
     internal abstract class ViewModelBase : SecureNotifyPropertyChanged
     {
-        protected ViewModelBase()
+        protected ViewModelBase(ChameleonCoderApp app)
         {
+            appInstance = app;
             Shared.InformationProvider.LanguageChanged += (v) => UpdateAll();
         }
+
+        public ChameleonCoderApp App
+        {
+            get { return appInstance; }
+        }
+
+        private readonly ChameleonCoderApp appInstance = null;
 
         #region INotifyPropertyChanged
 

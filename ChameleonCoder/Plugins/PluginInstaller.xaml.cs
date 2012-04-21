@@ -15,7 +15,7 @@ namespace ChameleonCoder.Plugins
     {
         internal PluginInstaller(ViewModel.PluginInstallerModel model)
         {
-            DataContext = model;
+            DataContext = this.model = model;
             pluginList = model.PluginList;
             InitializeComponent();
         }
@@ -68,9 +68,10 @@ namespace ChameleonCoder.Plugins
                 Shared.InformationProvider.OnPluginInstalled(plugin);
             }
 
-            ChameleonCoderApp.RunningObject.PluginMan.Load(pluginTypes);
+            model.App.PluginMan.Load(pluginTypes);
         }
 
-        ObservableCollection<IPlugin> pluginList;
+        private readonly ObservableCollection<IPlugin> pluginList = null;
+        private readonly ViewModel.PluginInstallerModel model = null;
     }
 }

@@ -9,6 +9,7 @@ namespace ChameleonCoder.ViewModel
     internal sealed class WelcomePageModel : ViewModelBase
     {
         private WelcomePageModel()
+            : base(null)
         {
         }
 

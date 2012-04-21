@@ -14,18 +14,13 @@ namespace ChameleonCoder
     {
         #region constructors
 
-        internal NewResourceDialog(IResource parent)
+        internal NewResourceDialog(ChameleonCoderApp app, IResource parent)
         {
-            DataContext = new ViewModel.NewResourceDialogModel();
+            DataContext = new ViewModel.NewResourceDialogModel(this.app = app);
             InitializeComponent();
 
             Owner = ChameleonCoderApp.Gui;
             ParentResource = parent;
-        }
-
-        internal NewResourceDialog()
-            : this(null)
-        {
         }
 
         #endregion
@@ -53,13 +48,14 @@ namespace ChameleonCoder
             DialogResult = true;
             Close();
 
-            IResource child = template.Create(ParentResource, name, ChameleonCoderApp.RunningObject.DefaultFile);
+            IResource child = template.Create(ParentResource, name, app.DefaultFile);
             if (child != null)
-                ChameleonCoderApp.RunningObject.ResourceMan.Add(child, ParentResource);
+                app.ResourceMan.Add(child, ParentResource);
         }
 
         #endregion
 
         IResource ParentResource;
+        private readonly ChameleonCoderApp app = null;
     }
 }

@@ -17,6 +17,7 @@ namespace ChameleonCoder.ViewModel
         /// </summary>
         /// <param name="resource">the resource to edit</param>
         internal EditPageModel(IEditable resource)
+            : base(null)
         {
             resourceInstance = resource;
             resource.File.App.ResourceMan.Open(resource);

@@ -9,6 +9,7 @@ namespace ChameleonCoder.ViewModel
     internal sealed class ResourceSelectorModel : ViewModelBase
     {
         internal ResourceSelectorModel(ResourceCollection resources, int count)
+            : base(null)
         {
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddResource,
                 AddResourceCommandExecuted));

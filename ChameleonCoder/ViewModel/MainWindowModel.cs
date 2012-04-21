@@ -12,9 +12,8 @@ namespace ChameleonCoder.ViewModel
     internal sealed class MainWindowModel : ViewModelBase
     {
         internal MainWindowModel(ChameleonCoderApp app)
+            : base(app)
         {
-            App = app;
-
             Commands.Add(new CommandBinding(ApplicationCommands.Close,
                 CloseCommandExecuted));
 
@@ -57,12 +56,6 @@ namespace ChameleonCoder.ViewModel
                 OpenFileCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.CreateFile,
                 CreateFileCommandExecuted));
-        }
-
-        public ChameleonCoderApp App
-        {
-            get;
-            private set;
         }
 
         #region commanding
@@ -171,7 +164,7 @@ namespace ChameleonCoder.ViewModel
             e.Handled = true;
 
             var resource = e.Parameter as IResource;
-            NewResourceDialog dialog = new NewResourceDialog(resource);
+            NewResourceDialog dialog = new NewResourceDialog(App, resource);
             dialog.ShowDialog();
         }
 
@@ -369,7 +362,7 @@ namespace ChameleonCoder.ViewModel
 
         private void OpenFileManagementPage()
         {
-            var args = OnRepresentationNeeded(new FileManagementPageModel(), false);
+            var args = OnRepresentationNeeded(new FileManagementPageModel(App), false);
             if (args.Cancel)
                 return;
 

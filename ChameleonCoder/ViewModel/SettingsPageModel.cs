@@ -12,6 +12,7 @@ namespace ChameleonCoder.ViewModel
     internal sealed class SettingsPageModel : ViewModelBase
     {
         private SettingsPageModel()
+            : base(null)
         {
         }
 

@@ -14,9 +14,8 @@ namespace ChameleonCoder.ViewModel
     internal sealed class PluginPageModel : ViewModelBase
     {
         internal PluginPageModel(ChameleonCoderApp app)
+            : base(app)
         {
-            App = app;
-
             Commands.Add(new CommandBinding(ChameleonCoderCommands.UninstallPlugin,
                 UninstallPluginCommandExecuted));
             Commands.Add(new CommandBinding(ChameleonCoderCommands.InstallPlugin,
@@ -27,12 +26,6 @@ namespace ChameleonCoder.ViewModel
 
             Shared.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
             Shared.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
-        }
-
-        public ChameleonCoderApp App
-        {
-            get;
-            private set;
         }
 
         #region commanding
@@ -147,7 +140,7 @@ namespace ChameleonCoder.ViewModel
                 return;
             }
 
-            var representation = OnRepresentationNeeded(new PluginInstallerModel(newPlugins), true);
+            var representation = OnRepresentationNeeded(new PluginInstallerModel(App, newPlugins), true);
             Settings.ChameleonCoderSettings.Default.Save();
         }
 

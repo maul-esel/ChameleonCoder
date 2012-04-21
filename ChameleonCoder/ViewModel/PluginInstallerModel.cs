@@ -7,7 +7,8 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(PluginInstaller))]
     internal sealed class PluginInstallerModel : ViewModelBase
     {
-        internal PluginInstallerModel(ObservableCollection<IPlugin> plugins)
+        internal PluginInstallerModel(ChameleonCoderApp app, ObservableCollection<IPlugin> plugins)
+            : base(app)
         {
             this.plugins = plugins;
         }
