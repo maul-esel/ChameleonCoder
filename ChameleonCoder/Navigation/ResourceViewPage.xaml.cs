@@ -30,7 +30,8 @@ namespace ChameleonCoder.Navigation
             string value = box.Text;
             string key = ((KeyValuePair<string, string>)((box.TemplatedParent as ContentPresenter).Parent as GridViewRowPresenter).Content).Key;
 
-            (DataContext as ViewModel.ResourceViewPageModel).Resource.SetMetadata(key, value);
+            var resource = (DataContext as ViewModel.ResourceViewPageModel).Resource;
+            resource.File.SetResourceMetadata(resource, key, value);
             box.InvalidateProperty(System.Windows.FrameworkElement.WidthProperty);
         }
     }

@@ -405,6 +405,136 @@ namespace ChameleonCoder.Files
 
         #endregion // "old ResourceHelper" > "lastmodified"
 
+        #region metadata
+
+        /// <summary>
+        /// sets the value of a resource's metadata with the specified key and creates it if necessary
+        /// </summary>
+        /// <param name="resource">the resource to receive the metadata</param>
+        /// <param name="key">the metadata key</param>
+        /// <param name="value">the value</param>
+        public void SetResourceMetadata(IResource resource, string key, string value)
+        {
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+
+            // get the resource-data element for the resource
+            XmlElement res = GetResourceDataElement(resource, true);
+
+            // get the metadata element for the given key
+            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
+            if (meta == null) // if it doesn't exist:
+            {
+                meta = doc.CreateElement("cc:metadata", NamespaceUri); // create it
+                meta.SetAttribute("key", NamespaceUri, key); // give it the requested key
+                res.AppendChild(meta); // and insert it
+            }
+
+            meta.SetAttribute("value", NamespaceUri, value); // set the value
+        }
+
+        /// <summary>
+        /// gets the value of a specified metadata element for the resource
+        /// </summary>
+        /// <param name="resource">the resurce containing the metadata</param>
+        /// <param name="key">the metadata's key</param>
+        /// <returns>the metadata's value if found, null otherwise</returns>
+        public string GetResourceMetadata(IResource resource, string key)
+        {
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+
+            // get the resource's data element
+            XmlElement res = GetResourceDataElement(resource, false);
+            if (res == null) // if it doesn't exist:
+                return null; // there's no metadata --> return null
+
+            // get the metadata element
+            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
+            if (meta == null) // if it doesn't exist:
+                return null; // there's no such metadata --> return null
+
+            return meta.InnerText; // return the requested value
+        }
+
+        /// <summary>
+        /// gets a list of all metadata elements for the resource
+        /// </summary>
+        /// <param name="resource">the resource to analyze</param>
+        /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
+        public System.Collections.Specialized.StringDictionary GetResourceMetadata(IResource resource)
+        {
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+            var dict = new System.Collections.Specialized.StringDictionary();
+
+            // get the resource's data element
+            XmlElement res = GetResourceDataElement(resource, false);
+            if (res == null) // if it doesn't exist:
+                return dict; // there's no metadata --> return empty dictionary
+
+            var data = res.SelectNodes("cc:metadata/cc:metadata", manager); // get the list of metadata
+            if (data == null)
+                return dict;
+
+            foreach (XmlElement meta in data)
+            {
+                var name = meta.GetAttribute("key", NamespaceUri);
+                if (!string.IsNullOrWhiteSpace(name) && !dict.ContainsKey(name))
+                {
+                    dict.Add(meta.GetAttribute("key", NamespaceUri),
+                        meta.GetAttribute("value", NamespaceUri)); // add all metadata elements to the dictionary
+                }
+            }
+
+            return dict; // return the dictionary
+        }
+
+        /// <summary>
+        /// deletes a specified metadata
+        /// </summary>
+        /// <param name="resource">the resource to contain the metadata</param>
+        /// <param name="key">the metadata's key</param>
+        public void DeleteResourceMetadata(IResource resource, string key)
+        {
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+
+            // get the resource's data element
+            XmlElement res = GetResourceDataElement(resource, false);
+            if (res == null) // if it doesn't exist:
+                return; // there's no metadata --> return
+
+            // get the metadata element
+            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']");
+            if (meta == null) // if it doesn't exist:
+                return; // there's no such metadata --> return
+
+            meta.ParentNode.RemoveChild(meta); // remove the node
+        }
+
+        #endregion // "old ResourceHelper" > "metadata"
+
+
+
+        /// <summary>
+        /// gets the resource-data element for the resource, optionally creating it if not found
+        /// </summary>
+        /// <param name="resource">the resource whose data should be found</param>
+        /// <param name="create">true to create the element if not found, false otherwise</param>
+        /// <returns>the XmlElement containing the resource's data</returns>
+        [ComVisible(false)]
+        private XmlElement GetResourceDataElement(IResource resource, bool create)
+        {
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+
+            var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceData + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
+            if (data == null && create)
+            {
+                data = doc.CreateElement("cc:resourcedata", NamespaceUri); // create it
+                data.SetAttribute("id", NamespaceUri, resource.Identifier.ToString("b")); // associate it with the resource
+                doc.SelectSingleNode(DocumentXPath.DataRoot, manager).AppendChild(data); // and insert it into the document
+            }
+
+            return data;
+        }
+
         #endregion // "old ResourceHelper"
 
         /// <summary>

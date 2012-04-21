@@ -11,7 +11,7 @@ namespace ChameleonCoder
     /// <summary>
     /// a static class containing extension methods for IResource instances
     /// </summary>
-    [System.Runtime.InteropServices.ComVisible(false)]
+    [System.Runtime.InteropServices.ComVisible(false), Obsolete]
     internal static class ResourceHelper
     {
         /// <summary>
@@ -102,112 +102,6 @@ namespace ChameleonCoder
         }
         #endregion
 
-        #region metadata
-        /// <summary>
-        /// sets the value of a resource's metadata with the specified key and creates it if necessary
-        /// </summary>
-        /// <param name="resource">the resource to receive the metadata</param>
-        /// <param name="key">the metadata key</param>
-        /// <param name="value">the value</param>
-        public static void SetMetadata(this IResource resource, string key, string value)
-        {
-            var doc = resource.File.Document;
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
-            // get the resource-data element for the resource
-            XmlElement res = GetDataElement(resource, true);
-
-            // get the metadata element for the given key
-            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
-            if (meta == null) // if it doesn't exist:
-            {
-                meta = doc.CreateElement("cc:metadata", DataFile.NamespaceUri); // create it
-                meta.SetAttribute("key", DataFile.NamespaceUri, key); // give it the requested key
-                res.AppendChild(meta); // and insert it
-            }
-
-            meta.SetAttribute("value", DataFile.NamespaceUri, value); // set the value
-        }
-
-        /// <summary>
-        /// gets the value of a specified metadata element for the resource
-        /// </summary>
-        /// <param name="resource">the resurce containing the metadata</param>
-        /// <param name="key">the metadata's key</param>
-        /// <returns>the metadata's value if found, null otherwise</returns>
-        public static string GetMetadata(this IResource resource, string key)
-        {
-            var doc = resource.File.Document;
-
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
-            // get the resource's data element
-            XmlElement res = GetDataElement(resource, false);
-            if (res == null) // if it doesn't exist:
-                return null; // there's no metadata --> return null
-
-            // get the metadata element
-            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']", manager);
-            if (meta == null) // if it doesn't exist:
-                return null; // there's no such metadata --> return null
-
-            return meta.InnerText; // return the requested value
-        }
-
-        /// <summary>
-        /// gets a list of all metadata elements for the resource
-        /// </summary>
-        /// <param name="resource">the resource to analyze</param>
-        /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
-        public static Dictionary<string, string> GetMetadata(this IResource resource)
-        {
-            var doc = resource.File.Document;
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
-            var dict = new Dictionary<string, string>();
-
-            // get the resource's data element
-            XmlElement res = GetDataElement(resource, false);
-            if (res == null) // if it doesn't exist:
-                return dict; // there's no metadata --> return empty dictionary
-
-            var data = res.SelectNodes("cc:metadata/cc:metadata", manager); // get the list of metadata
-            foreach (XmlElement meta in data)
-            {
-                var name = meta.GetAttribute("key", DataFile.NamespaceUri);
-                if (!string.IsNullOrWhiteSpace(name) && !dict.ContainsKey(name))
-                {
-                    dict.Add(meta.GetAttribute("key", DataFile.NamespaceUri),
-                        meta.GetAttribute("value", DataFile.NamespaceUri)); // add all metadata elements to the dictionary
-                }
-            }
-
-            return dict; // return the dictionary
-        }
-
-        /// <summary>
-        /// deletes a specified metadata
-        /// </summary>
-        /// <param name="resource">the resource to contain the metadata</param>
-        /// <param name="key">the metadata's key</param>
-        public static void DeleteMetadata(this IResource resource, string key)
-        {
-            var doc = resource.File.Document;
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
-            // get the resource's data element
-            XmlElement res = GetDataElement(resource, false);
-            if (res == null) // if it doesn't exist:
-                return; // there's no metadata --> return
-
-            // get the metadata element
-            XmlElement meta = (XmlElement)res.SelectSingleNode("cc:metadata/cc:metadata[@cc:key='" + key + "']");
-            if (meta == null) // if it doesn't exist:
-                return; // there's no such metadata --> return
-
-            meta.ParentNode.RemoveChild(meta); // remove the node
-        }
-        #endregion
         /// <summary>
         /// parses the RichContent for a RichContentResource
         /// </summary>
