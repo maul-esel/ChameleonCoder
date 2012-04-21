@@ -276,6 +276,24 @@ namespace ChameleonCoder.Resources.Management
             return IsAncestorOf(descendant, ancestor);
         }
 
+        /// <summary>
+        /// gets a user-friendly path to the resource using the resource names
+        /// </summary>
+        /// <param name="resource">the resource to get the path for</param>
+        /// <returns>the path, separated by <see cref="ChameleonCoderApp.resourcePathSeparator"/></returns>
+        public string GetDisplayPath(IResource resource)
+        {
+            string path = string.Empty;
+
+            while (resource != null)
+            {
+                path = ChameleonCoderApp.resourcePathSeparator + resource.Name + path;
+                resource = resource.Parent;
+            }
+
+            return path;
+        }
+
         #endregion // "paths"
 
         #region events

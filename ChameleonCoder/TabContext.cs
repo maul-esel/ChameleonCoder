@@ -168,7 +168,7 @@ namespace ChameleonCoder
                             Res.Item_Home,
                             ChameleonCoderApp.resourcePathSeparator,
                             Res.Item_List,
-                            Resource.GetPath());
+                            Resource.File.App.ResourceMan.GetDisplayPath(Resource));
 
                     case CCTabPage.None:
                     default:

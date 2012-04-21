@@ -409,19 +409,6 @@ namespace ChameleonCoder
 
         #region path
 
-        [Obsolete("Use ResourceManager.GetIdPath()")]
-        public static string GetPath(this IResource resource)
-        {
-            string path = string.Empty;
-
-            while (resource != null)
-            {
-                path = ChameleonCoderApp.resourcePathSeparator + resource.Name + path;
-                resource = resource.Parent;
-            }
-            return path;
-        }
-
         [Obsolete("Use ResourceManager.GetResourceFromIdPath()")]
         public static IResource GetResourceFromPath(string path, string separator)
         {
