@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ChameleonCoder.Files;
 using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.ComponentCore.Resources
@@ -37,7 +36,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                string value = Xml.GetAttribute("enddate", DataFile.NamespaceUri);
+                string value = Attributes["enddate"]; // Xml.GetAttribute("enddate", DataFile.NamespaceUri);
                 DateTime date;
                 if (string.IsNullOrWhiteSpace(value) || !DateTime.TryParse(value, out date))
                     return DateTime.MaxValue;
@@ -45,7 +44,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Xml.SetAttribute("enddate", DataFile.NamespaceUri, value.ToString());
+                Attributes["enddate"] = value.ToString(); // Xml.SetAttribute("enddate", DataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("EndDate");
             }
         }

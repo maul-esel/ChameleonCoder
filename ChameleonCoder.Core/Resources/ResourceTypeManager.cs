@@ -8,7 +8,7 @@ using ChameleonCoder.Files;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Management
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// manages the registered resource types
@@ -59,28 +59,6 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.GetAlias(type);
         }
 
-        /*
-        /// <summary>
-        /// creates an instance of the type registered with the specified alias, using the given data
-        /// </summary>
-        /// <param name="key">the resource type key of the resource type</param>
-        /// <param name="data">the XmlElement representing the resource</param>
-        /// <param name="parent">the resource's parent</param>
-        /// <returns>the new instance</returns>
-        [Obsolete]
-        internal IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, IDataFile file)
-        {
-            Type resourceType = GetResourceType(key);
-            if (resourceType != null)
-            {
-                var factory = GetFactory(resourceType);
-                if (factory != null)
-                    return factory.CreateInstance(resourceType, data, parent, file);
-            }
-            return null;
-        }
-        */
-
         internal IResource CreateInstanceOf(Guid key, ObservableStringDictionary data, IResource parent, IDataFile file)
         {
             Type resourceType = GetResourceType(key);
@@ -103,8 +81,12 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, IDataFile file)
+        public IResource CreateNewResource(Type type, string name, ObservableStringDictionary attributes, IResource parent, IDataFile file)
         {
+            attributes["name"] = name; attributes["type"] = GetKey(type).ToString("B");
+            return file.ResourceCreateNew(type, attributes, parent);
+
+            /*
             var document = ((DataFile)file).Document; // HACK!
             var manager = XmlNamespaceManagerFactory.GetManager(document);
 
@@ -112,7 +94,7 @@ namespace ChameleonCoder.Resources.Management
             element.SetAttribute("type", DataFile.NamespaceUri, GetKey(type).ToString("b"));
 
             if (parent == null)
-                document.SelectSingleNode("/cc:ChameleonCoder/cc:resources", manager).AppendChild(element);
+                document.SelectSingleNode(DocumentXPath.ResourceRoot, manager).AppendChild(element);
             else
                 parent.Xml.AppendChild(element);
 
@@ -123,18 +105,15 @@ namespace ChameleonCoder.Resources.Management
 
             element.SetAttribute("name", DataFile.NamespaceUri, name);
 
-            IResource resource = GetFactory(type).CreateInstance(type, element, parent, file);
+            IResource resource = GetFactory(type).CreateInstance(type, attributes, parent, file);
             if (resource != null)
             {
                 file.App.ResourceMan.Add(resource, parent);
-
-                var data = ResourceHelper.GetDataElement(resource, true);
-                var created = (System.Xml.XmlElement)document.CreateElement("cc:created", DataFile.NamespaceUri);
-                created.InnerText = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                data.AppendChild(created);
+                file.ResourceSetCreatedDate(resource);
             }
 
             return resource;
+            */
         }
 
         /// <summary>
@@ -147,7 +126,7 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="attributes">a list of attributes for the XmlElement</param>
         /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
         /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Guid key, string name, System.Collections.Specialized.StringDictionary attributes, IResource parent, IDataFile file)
+        public IResource CreateNewResource(Guid key, string name, ObservableStringDictionary attributes, IResource parent, IDataFile file)
         {
             return CreateNewResource(GetResourceType(key), name, attributes, parent, file);
         }

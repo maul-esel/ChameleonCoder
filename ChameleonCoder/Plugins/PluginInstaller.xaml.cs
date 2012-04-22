@@ -50,7 +50,7 @@ namespace ChameleonCoder.Plugins
             Close();
         }
 
-        private void Install(IEnumerable<IPlugin> plugins)
+        private void Install(IEnumerable<IPlugin> plugins) // todo: move to PluginManager + also move InformationProvider events there
         {
             List<Type> pluginTypes = new List<Type>();
 

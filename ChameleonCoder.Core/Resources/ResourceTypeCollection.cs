@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChameleonCoder.Resources.Management
+namespace ChameleonCoder.Resources
 {
     [System.Runtime.InteropServices.ComVisible(false)]
     internal sealed class ResourceTypeCollection : ComponentCollection<Guid, Type>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Media;
 using System.Xml;
@@ -38,20 +39,20 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// serves as base initializer for inherited classes and sets general properties
         /// </summary>
-        /// <param name="data">the XmlNode that contains the resource</param>
+        /// <param name="data">a dictionary that contains the resource attributes</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Update(XmlElement data, IResource parent, IDataFile file)
+        public virtual void Update(ObservableStringDictionary data, IResource parent, IDataFile file)
         {
-            Xml = data;
             File = file;
+            Attributes = data;
             Parent = parent;
 
-            string guid = Xml.GetAttribute("id", DataFile.NamespaceUri);
             Guid id;
+            string guid = data["id"];
             if (!Guid.TryParse(guid, out id))
             {
                 id = Guid.NewGuid();
-                Xml.SetAttribute("id", DataFile.NamespaceUri, id.ToString("b"));
+                data["id"] = id.ToString("b");
             }
             Identifier = id;
         }
@@ -84,7 +85,14 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// gets the XmlElement representing the resource
         /// </summary>
         /// <value>This value is the XmlElement given to the resource in the <see cref="Update"/> method.</value>
+        [Obsolete]
         public XmlElement Xml { get; private set; }
+
+        public ObservableStringDictionary Attributes
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// when overriden in a derived class, gets the resource's icon
@@ -117,11 +125,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("name", DataFile.NamespaceUri);
+                return Attributes["name"]; // Xml.GetAttribute("name", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("name", DataFile.NamespaceUri, value);
+                Attributes["name"] = value; // Xml.SetAttribute("name", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Name");
             }
         }
@@ -135,11 +143,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("description", DataFile.NamespaceUri);
+                return Attributes["description"]; // Xml.GetAttribute("description", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("description", DataFile.NamespaceUri, value);
+                Attributes["description"] = value; // Xml.SetAttribute("description", DataFile.NamespaceUri, value);
                 this.OnPropertyChanged("Description");
             }
         }
@@ -152,11 +160,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("notes", DataFile.NamespaceUri);
+                return Attributes["notes"]; // Xml.GetAttribute("notes", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("notes", DataFile.NamespaceUri, value);
+                Attributes["notes"] = value; // Xml.SetAttribute("notes", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Notes");
             }
         }

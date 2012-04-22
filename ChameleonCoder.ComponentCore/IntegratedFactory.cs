@@ -204,12 +204,13 @@ namespace ChameleonCoder.ComponentCore
         /// creates a new instance of a resource type registered by this factory
         /// </summary>
         /// <param name="resourceType">the resource type to create an instance of</param>
-        /// <param name="data">the XmlElement representing the resource</param>
+        /// <param name="data">a dictionary of atttributes for the resource</param>
         /// <param name="parent">the parent resource</param>
         /// <returns>the newly created instance</returns>
-        public IResource CreateInstance(Type resourceType, System.Xml.XmlElement data, IResource parent, Files.IDataFile file)
+        public IResource CreateInstance(Type resourceType, ObservableStringDictionary data, IResource parent, Files.IDataFile file)
         {
             IResource resource = Activator.CreateInstance(resourceType) as IResource;
+            // todo: null-check
 
             resource.Update(data, parent, file);
 

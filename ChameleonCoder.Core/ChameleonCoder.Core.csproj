@@ -56,6 +56,7 @@
     <Compile Include="CCPluginAttribute.cs" />
     <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ComponentCollection.cs" />
+    <Compile Include="Files\XmlAttributeChangeListener.cs" />
     <Compile Include="ObservableStringDictionary.cs" />
     <Compile Include="Files\DataFile.cs" />
     <Compile Include="Files\DataFileReference.cs" />
@@ -92,9 +93,9 @@
     <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
     <Compile Include="Resources\Interfaces\IResource.cs" />
     <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
-    <Compile Include="Resources\Management\ResourceManager.cs" />
-    <Compile Include="Resources\Management\ResourceTypeCollection.cs" />
-    <Compile Include="Resources\Management\ResourceTypeManager.cs" />
+    <Compile Include="Resources\ResourceManager.cs" />
+    <Compile Include="Resources\ResourceTypeCollection.cs" />
+    <Compile Include="Resources\ResourceTypeManager.cs" />
     <Compile Include="Resources\PropertyDescription.cs" />
     <Compile Include="Resources\ReferenceCollection.cs" />
     <Compile Include="Resources\ResourceCollection.cs" />

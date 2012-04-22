@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using ChameleonCoder.Resources.Interfaces;
 
-namespace ChameleonCoder.Resources.Management
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// a delegate for resource events
@@ -105,6 +105,80 @@ namespace ChameleonCoder.Resources.Management
             }
 
             instance.PropertyChanged -= OnPropertyChanged;
+        }
+
+        public void DeleteResource(IResource resource)
+        {
+            foreach (IResource child in resource.Children) // remove references to all child resources
+            {
+                if (ActiveResource == child)
+                   Close(); // if a child is loaded: unload it
+                Remove(child);
+            }
+
+            if (ActiveResource == resource)
+                Close(); // unload the resource to delete
+            Remove(resource);
+
+            resource.File.ResourceDelete(resource);
+            resource.File.Save(); // save changes
+        }
+
+        public void MoveResource(IResource resource, IResource newParent)
+        {
+            if (resource.Parent == newParent)
+                return;
+
+            CopyResource(resource, newParent, true);
+            DeleteResource(resource);
+        }
+
+        public void CopyResource(IResource resource, IResource newParent)
+        {
+            CopyResource(resource, newParent, false);
+        }
+
+        public void CopyResource(IResource resource, IResource newParent, bool moveGUID) // TODO!!!!
+        {
+            var file = newParent == null ? resource.File : newParent.File;
+
+            // ======================================================================
+
+            // BAD:
+            var doc = ((Files.DataFile)file).Document; // HACK!
+            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+
+            var element = (System.Xml.XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
+            if (element.OwnerDocument != doc) //if we switch the document:
+                element = (System.Xml.XmlElement)doc.ImportNode(element, true); // import the XmlElement
+
+            if (newParent == null) // if no parent:
+                doc.SelectSingleNode(Files.DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
+            else // if parent:
+                newParent.Xml.AppendChild(element); // add element to parent's Children
+
+            // =====================================================================
+
+            // GOOD:
+            if (moveGUID) // if the copy should receive the original Identifier:
+            {
+                // resource.Xml.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
+                resource.Attributes["id"] = Guid.NewGuid().ToString("b"); // set the Identifier-attribute of the old instance
+                resource.Update(resource.Attributes, resource.Parent, file); // update it to apply the changes
+            }
+            // =====================================================================
+
+            // BAD:
+            else // if the copy receives a new Identifier:
+                element.SetAttribute("id", Files.DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
+
+            ((Files.DataFile)file).LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ... // HACK!
+
+            // ===============================================================================
+
+            resource.File.Save(); // save the documents
+            if (newParent != null)
+                newParent.File.Save();
         }
 
         /// <summary>

@@ -38,11 +38,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("author", DataFile.NamespaceUri);
+                return Attributes["author"]; // Xml.GetAttribute("author", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("author", DataFile.NamespaceUri, value);
+                Attributes["author"] = value; //Xml.SetAttribute("author", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Author");
             }
         }
@@ -56,11 +56,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("license", DataFile.NamespaceUri);
+                return Attributes["license"]; // Xml.GetAttribute("license", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("license", DataFile.NamespaceUri, value);
+                Attributes["license"] = value; // Xml.SetAttribute("license", DataFile.NamespaceUri, value);
                 OnPropertyChanged("License");
             }
         }
@@ -74,11 +74,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Xml.GetAttribute("version", DataFile.NamespaceUri);
+                return Attributes["version"]; // Xml.GetAttribute("version", DataFile.NamespaceUri);
             }
             set
             {
-                Xml.SetAttribute("version", DataFile.NamespaceUri, value);
+                Attributes["version"] = value; // Xml.SetAttribute("version", DataFile.NamespaceUri, value);
                 OnPropertyChanged("Version");
             }
         }

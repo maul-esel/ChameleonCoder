@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
-using System.Xml;
 
 namespace ChameleonCoder.Resources.Interfaces
 {
@@ -31,7 +31,9 @@ namespace ChameleonCoder.Resources.Interfaces
         /// Any changes to the resource should be immediately saved to this XmlNode.
         /// </summary>
         [System.Obsolete]
-        XmlElement Xml { get; }
+        System.Xml.XmlElement Xml { get; }
+
+        ObservableStringDictionary Attributes { get; }
 
         /// <summary>
         /// will contain the file in which the resource is defined
@@ -56,9 +58,9 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// updates the resource data
         /// </summary>
-        /// <param name="data">the XmlNode containing the resource data.</param>
+        /// <param name="data">a dictionary containing the resource attributes.</param>
         /// <param name="parent">the parent resource for the resource</param>
-        void Update(XmlElement data, IResource parent, Files.IDataFile file);
+        void Update(ObservableStringDictionary data, IResource parent, Files.IDataFile file);
 
         /// <summary>
         /// adds a new direct child resource to the resource

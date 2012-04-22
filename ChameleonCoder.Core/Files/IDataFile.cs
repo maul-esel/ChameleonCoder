@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
-using ChameleonCoder.Resources.Interfaces;
 using System.Runtime.InteropServices;
+using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Files
 {
@@ -30,6 +30,13 @@ namespace ChameleonCoder.Files
         string GetDirectoryReference(Guid id);
         DataFileReference[] GetReferences();
         void DeleteReference(Guid id);
+
+        void ResourceDelete(IResource resource);
+        IResource ResourceCreateNew(Type type, ObservableStringDictionary attributes, IResource parent);
+
+        void ResourceSetCreatedDate(IResource resource);
+        void ResourceSetCreatedDate(IResource resource, DateTime time);
+        DateTime ResourceGetCreatedDate(IResource resource);
 
         void ResourceUpdateLastModified(IResource resource);
         void ResourceUpdateLastModified(IResource resource, DateTime time);

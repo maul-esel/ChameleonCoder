@@ -14,94 +14,6 @@ namespace ChameleonCoder
     internal static class ResourceHelper
     {
         /// <summary>
-        /// deletes a resource by removing all references for it and deleting its XML
-        /// </summary>
-        /// <param name="resource">the resource to delete</param>
-        public static void Delete(this IResource resource)
-        {
-            var resMan = resource.File.App.ResourceMan;
-            foreach (IResource child in resource.Children) // remove references to all child resources
-            {
-                if (resMan.ActiveResource == child)
-                    resMan.Close(); // if a child is loaded: unload it
-                resMan.Remove(child);
-            }
-
-            if (resMan.ActiveResource == resource)
-                resMan.Close(); // unload the resource to delete
-
-            resource.Xml.ParentNode.RemoveChild(resource.Xml);
-
-            resMan.Remove(resource);
-
-            resource.File.Save(); // save changes
-        }
-
-        #region Copy & Move
-        /// <summary>
-        /// moves a resource to a new parent resource
-        /// </summary>
-        /// <param name="resource">the resource to move</param>
-        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
-        public static void Move(this IResource resource, IResource newParent)
-        {
-            if (resource.Parent == newParent)
-                return;
-
-            resource.Copy(newParent, true);
-            resource.Delete();
-        }
-
-        /// <summary>
-        /// copies a resource to a new parent
-        /// </summary>
-        /// <param name="resource">the resource to copy</param>
-        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
-        /// <param name="moveGUID">a bool defining whether the copy should receive the original Identifier or not.</param>
-        public static void Copy(this IResource resource, IResource newParent, bool moveGUID)
-        {
-            var file = newParent == null ? resource.File : newParent.File;
-            var doc = ((DataFile)file).Document; // HACK!
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
-
-            var element = (XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
-            if (element.OwnerDocument != doc) //if we switch the document:
-                element = (XmlElement)doc.ImportNode(element, true); // import the XmlElement
-
-            if (newParent == null) // if no parent:
-                doc.SelectSingleNode("/cc:ChameleonCoder/cc:resources", manager).AppendChild(element); // add element to resource list
-            else // if parent:
-                newParent.Xml.AppendChild(element); // add element to parent's Children
-
-            if (moveGUID) // if the copy should receive the original Identifier:
-            {
-                resource.Xml.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the Identifier-attribute of the old instance
-                resource.Update(resource.Xml, resource.Parent, file); // update it to apply the changes
-            }
-            else // if the copy receives a new Identifier:
-                element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
-
-            ((DataFile)file).LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ... // HACK!
-
-            resource.File.Save(); // save the documents
-            if (newParent != null)
-                newParent.File.Save();
-        }
-
-        /// <summary>
-        /// copies a resource to a new parent, giving it a new Identifier
-        /// </summary>
-        /// <param name="resource">the resource to copy</param>
-        /// <param name="newParent">the new parent resource or null to make it a top-level resource</param>
-        /// <remarks>this is an overload for the IResource.Copy(IResource, bool) method,
-        /// using <code>false</code> for <code>moveGUID</code>.</remarks>
-        public static void Copy(this IResource resource, IResource newParent)
-        {
-            resource.Copy(newParent, false);
-        }
-        #endregion
-
-        /// <summary>
         /// parses the RichContent for a RichContentResource
         /// </summary>
         /// <param name="resource">the resource to parse</param>
@@ -245,17 +157,17 @@ namespace ChameleonCoder
         /// <param name="resource">the resource whose data should be found</param>
         /// <param name="create">true to create the lement if not found, false otherwise</param>
         /// <returns>the XmlElement containing the resource's data</returns>
-        internal static XmlElement GetDataElement(IResource resource, bool create)
+        private static XmlElement GetDataElement(IResource resource, bool create)
         {
             var doc = ((DataFile)resource.File).Document; // HACK!
             var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
-            var data = (XmlElement)doc.SelectSingleNode("/cc:ChameleonCoder/cc:data/cc:resourcedata[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
+            var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceData + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)
             {
                 data = doc.CreateElement("cc:resourcedata", DataFile.NamespaceUri); // create it
                 data.SetAttribute("id", DataFile.NamespaceUri, resource.Identifier.ToString("b")); // associate it with the resource
-                doc.SelectSingleNode("/cc:ChameleonCoder/cc:data", manager).AppendChild(data); // and insert it into the document
+                doc.SelectSingleNode(DocumentXPath.DataRoot, manager).AppendChild(data); // and insert it into the document
             }
 
             return data;

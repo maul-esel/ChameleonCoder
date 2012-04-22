@@ -11,7 +11,7 @@ namespace ChameleonCoder.Files
     /// represents an opened resource file
     /// </summary>
     [ComVisible(true), ClassInterface(ClassInterfaceType.None), Guid("895F013D-2CD0-4AC0-8AF0-25F727176279")]
-    public sealed class DataFile : IDataFile
+    public sealed partial class DataFile : IDataFile
     {
         #region constants
 
@@ -321,6 +321,78 @@ namespace ChameleonCoder.Files
 
         #endregion // "references"
 
+        public void ResourceDelete(IResource resource)
+        {
+#if DEBUG
+            System.Diagnostics.Debug.Assert(resource.File == this, "Attempted to delete a resource in another file.");
+            System.Diagnostics.Debug.Assert(mappings.ContainsKey(resource), "Resource not in mappings.");
+            System.Diagnostics.Debug.Assert(listeners.ContainsKey(resource), "No listener attached to resource.");
+#endif
+            XmlElement resourceElement = mappings[resource];
+            resourceElement.ParentNode.RemoveChild(resourceElement);
+
+            mappings.Remove(resource);
+
+            listeners[resource].Free();
+            listeners.Remove(resource);
+        }
+
+        public IResource ResourceCreateNew(Type type, System.Collections.Specialized.ObservableStringDictionary attributes, IResource parent)
+        {
+#if DEBUG
+            if (parent != null)
+                System.Diagnostics.Debug.Assert(parent.File == this, "Attempted to create child resource in another file.");
+#endif
+            XmlElement element = doc.CreateElement("cc:resource", NamespaceUri);
+            foreach (string key in attributes.Keys)
+            {
+                element.SetAttribute(key, NamespaceUri, attributes[key]);
+            }
+
+            IResource resource = App.ResourceTypeMan.GetFactory(type).CreateInstance(type, attributes, parent, this);
+            if (resource != null)
+            {
+                App.ResourceMan.Add(resource, parent);
+                ResourceSetCreatedDate(resource);
+            }
+
+            if (parent == null)
+                doc.SelectSingleNode(DocumentXPath.ResourceRoot, manager).AppendChild(element);
+            else
+                mappings[parent].AppendChild(element);
+
+            return resource;
+        }
+
+        #region created date
+
+        public void ResourceSetCreatedDate(IResource resource)
+        {
+            ResourceSetCreatedDate(resource, DateTime.Now);
+        }
+
+        public void ResourceSetCreatedDate(IResource resource, DateTime time)
+        {
+            XmlElement data = GetResourceDataElement(resource, true);
+            XmlElement created = (XmlElement)doc.CreateElement("cc:created", NamespaceUri);
+
+            created.InnerText = time.ToString("yyyy-MM-ddTHH:mm:ss");
+            data.AppendChild(created);
+        }
+
+        public DateTime ResourceGetCreatedDate(IResource resource)
+        {
+            XmlElement data = GetResourceDataElement(resource, true);
+            XmlElement created = (XmlElement)data.SelectSingleNode("cc:created", manager);
+#if DEBUG
+            if (created == null)
+                throw new InvalidOperationException("Created date not set!");
+#endif
+            return DateTime.Parse(created.InnerText);
+        }
+
+        #endregion // "created date"
+
         #region resource last modified
 
         public void ResourceUpdateLastModified(IResource resource)
@@ -499,6 +571,12 @@ namespace ChameleonCoder.Files
         [ComVisible(false)]
         private readonly XmlNamespaceManager manager = null;
 
+        [ComVisible(false)]
+        private readonly Dictionary<IResource, XmlElement> mappings = new Dictionary<IResource, XmlElement>(); // todo: map XPath <-> Resource
+
+        [ComVisible(false)]
+        private readonly Dictionary<IResource, XmlAttributeChangeListener> listeners = new Dictionary<IResource, XmlAttributeChangeListener>();
+
         #endregion // private fields
 
         /// <summary>
@@ -567,13 +645,19 @@ namespace ChameleonCoder.Files
             Guid type;
             IResource resource = null;
 
+            var attributes = new System.Collections.Specialized.ObservableStringDictionary(); // todo: register event -> save changes
+            foreach (XmlAttribute attribute in node.Attributes)
+            {
+                attributes.Add(attribute.LocalName, attribute.Value);
+            }
+
             if (Guid.TryParse(node.GetAttribute("type", NamespaceUri), out type))
             {
-                resource = App.ResourceTypeMan.CreateInstanceOf(type, node, parent, this); // try to use the element's name as resource alias
+                resource = App.ResourceTypeMan.CreateInstanceOf(type, attributes, parent, this); // try to use the element's name as resource alias
             }
             else if (Guid.TryParse(node.GetAttribute("fallback", NamespaceUri), out type))
             {
-                resource = App.ResourceTypeMan.CreateInstanceOf(type, node, parent, this); // give it a "2nd chance"
+                resource = App.ResourceTypeMan.CreateInstanceOf(type, attributes, parent, this); // give it a "2nd chance"
             }
 
             if (resource == null) // if creation failed:
@@ -586,6 +670,8 @@ namespace ChameleonCoder.Files
             }
 
             App.ResourceMan.Add(resource, parent); // and add it to all required lists
+            listeners.Add(resource, new XmlAttributeChangeListener(resource, node));
+            mappings.Add(resource, node);
 
             foreach (XmlElement child in node.ChildNodes)
             {

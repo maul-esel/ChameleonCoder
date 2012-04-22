@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using ChameleonCoder.Files;
 using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Management;
 
 namespace ChameleonCoder
 {

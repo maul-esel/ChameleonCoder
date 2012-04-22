@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Xml;
 using ChameleonCoder.Files;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.Interfaces;
@@ -18,10 +17,10 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// initializes the current instance with the given information
         /// </summary>
-        /// <param name="data">the XmlElement containing the resource's definition</param>
+        /// <param name="data">the dictionary containing the resource's attributes</param>
         /// <param name="parent">the resource's parent resource,
         /// or null if the resource is a top-level resource.</param>
-        public override void Update(XmlElement data, IResource parent, IDataFile file)
+        public override void Update(System.Collections.Specialized.ObservableStringDictionary data, IResource parent, IDataFile file)
         {
             base.Update(data, parent, file);
             // todo: parse compatible languages
@@ -75,7 +74,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 Guid lang;
-                string guid = Xml.GetAttribute("language", DataFile.NamespaceUri);
+                string guid = Attributes["language"]; // Xml.GetAttribute("language", DataFile.NamespaceUri);
 
                 if (!Guid.TryParse(guid, out lang))
                     lang = Guid.Empty;
@@ -84,7 +83,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Xml.SetAttribute("language", DataFile.NamespaceUri, value.ToString());
+                Attributes["language"] = value.ToString("b"); // Xml.SetAttribute("language", DataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("Language");
             }
         }
@@ -112,14 +111,14 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 ProjectPriority priority;
-                string value = Xml.GetAttribute("priority", DataFile.NamespaceUri);
+                string value = Attributes["priority"]; // Xml.GetAttribute("priority", DataFile.NamespaceUri);
                 if (Enum.TryParse<ProjectPriority>(value, out priority))
                 	return priority;
                 return ProjectPriority.Low;
             }
             protected set
             {
-                Xml.SetAttribute("priority", DataFile.NamespaceUri, value.ToString());
+                Attributes["priority"] = value.ToString(); // Xml.SetAttribute("priority", DataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("Priority");
             }
         }

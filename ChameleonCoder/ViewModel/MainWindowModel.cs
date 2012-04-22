@@ -413,7 +413,7 @@ namespace ChameleonCoder.ViewModel
         {
             if (OnConfirm(Res.Status_DeleteResource, string.Format(Res.Del_Confirm, resource.Name)) == true)            
             {
-                resource.Delete();
+                App.ResourceMan.DeleteResource(resource);
             }
         }
 
@@ -428,7 +428,7 @@ namespace ChameleonCoder.ViewModel
             if (model.SelectedResources.Count > 0
                 && model.SelectedResources[0] != resource)
             {
-                resource.Copy(model.SelectedResources[0] as IResource);
+                App.ResourceMan.CopyResource(resource, model.SelectedResources[0] as IResource);
             }
         }
 
@@ -448,7 +448,7 @@ namespace ChameleonCoder.ViewModel
                 if (!App.ResourceMan.IsDescendantOf(resource, newParent) // can't be moved to descendant
                     && newParent != resource.Parent) // resource is not already parent
                 {
-                    resource.Move(newParent);
+                    App.ResourceMan.MoveResource(resource, newParent);
                 }
                 else
                 {
