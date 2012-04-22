@@ -94,9 +94,9 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// to whose coding languages this resource is compatible
         /// </summary>
         /// <value>(not yet implemented)</value>
-        public IEnumerable<Guid> CompatibleLanguages
+        public Guid[] CompatibleLanguages
         {
-            get { return languages; }
+            get { return languages.ToArray(); }
         }
 
         private List<Guid> languages = new List<Guid>();

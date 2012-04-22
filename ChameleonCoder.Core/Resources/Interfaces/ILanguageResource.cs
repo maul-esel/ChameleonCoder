@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace ChameleonCoder.Resources.Interfaces
@@ -18,6 +17,6 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// a list containing the identifiers of other coding languages the resource is compatible with
         /// </summary>
-        IEnumerable<Guid> CompatibleLanguages { get; }
+        Guid[] CompatibleLanguages { get; }
     }
 }
