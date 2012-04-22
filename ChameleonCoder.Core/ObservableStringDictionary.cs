@@ -13,15 +13,16 @@ namespace System.Collections.Specialized
             }
             set
             {
+                string old = this[key];
                 base[key] = value;
-                OnItemReplaced(key);
+                OnItemReplaced(key, old, value);
             }
         }
 
         public override void Add(string key, string value)
         {
             base.Add(key, value);
-            OnItemAdded(key);
+            OnItemAdded(key, value);
         }
 
         public override void Clear()
@@ -32,8 +33,9 @@ namespace System.Collections.Specialized
 
         public override void Remove(string key)
         {
+            string old = this[key];
             base.Remove(key);
-            OnItemRemoved(key);
+            OnItemRemoved(key, old);
         }
 
         #region INotifyCollectionChanged
@@ -41,21 +43,21 @@ namespace System.Collections.Specialized
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         [ComVisible(false)]
-        protected void OnItemReplaced(string key)
+        protected void OnItemReplaced(string key, string oldValue, string newValue)
         {
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, key));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, new DictionaryEntry(key, newValue), new DictionaryEntry(key, oldValue)));
         }
 
         [ComVisible(false)]
-        protected void OnItemAdded(string key)
+        protected void OnItemAdded(string key, string newValue)
         {
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, key));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new DictionaryEntry(key, newValue)));
         }
 
         [ComVisible(false)]
-        protected void OnItemRemoved(string key)
+        protected void OnItemRemoved(string key, string oldValue)
         {
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, key));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new DictionaryEntry(key, oldValue)));
         }
 
         [ComVisible(false)]
