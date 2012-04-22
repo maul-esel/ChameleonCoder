@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
+using System.Collections.Specialized;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Plugins
@@ -41,7 +42,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="parent">the parent resource</param>
         /// <returns>a dictionary containing the attributes the resource's XML element should have</returns>
         /// <remarks>this function must not create an instance of the specified resource!</remarks>
-        System.Collections.Specialized.StringDictionary CreateResource(Type type, string name, IResource parent);
+        ObservableStringDictionary CreateResource(Type type, string name, IResource parent);
 
         /// <summary>
         /// gets a list of all types registered by this factory

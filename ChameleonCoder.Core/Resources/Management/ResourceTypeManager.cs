@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 using ChameleonCoder.Files;
@@ -58,6 +59,7 @@ namespace ChameleonCoder.Resources.Management
             return ResourceTypes.GetAlias(type);
         }
 
+        /*
         /// <summary>
         /// creates an instance of the type registered with the specified alias, using the given data
         /// </summary>
@@ -65,7 +67,21 @@ namespace ChameleonCoder.Resources.Management
         /// <param name="data">the XmlElement representing the resource</param>
         /// <param name="parent">the resource's parent</param>
         /// <returns>the new instance</returns>
+        [Obsolete]
         internal IResource CreateInstanceOf(Guid key, System.Xml.XmlElement data, IResource parent, IDataFile file)
+        {
+            Type resourceType = GetResourceType(key);
+            if (resourceType != null)
+            {
+                var factory = GetFactory(resourceType);
+                if (factory != null)
+                    return factory.CreateInstance(resourceType, data, parent, file);
+            }
+            return null;
+        }
+        */
+
+        internal IResource CreateInstanceOf(Guid key, ObservableStringDictionary data, IResource parent, IDataFile file)
         {
             Type resourceType = GetResourceType(key);
             if (resourceType != null)
