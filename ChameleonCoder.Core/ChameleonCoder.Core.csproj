@@ -56,6 +56,7 @@
     <Compile Include="CCPluginAttribute.cs" />
     <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ComponentCollection.cs" />
+    <Compile Include="ObservableStringDictionary.cs" />
     <Compile Include="Files\DataFile.cs" />
     <Compile Include="Files\DataFileReference.cs" />
     <Compile Include="Files\DataFileReferenceType.cs" />
