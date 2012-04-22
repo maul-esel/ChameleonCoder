@@ -17,6 +17,18 @@ namespace ChameleonCoder.Resources.Interfaces
         /// <summary>
         /// the collection holding the RichContent
         /// </summary>
-        RichContent.RichContentCollection RichContent { get; }
+        RichContent.IContentMember[] RichContent { get; }
+
+        /// <summary>
+        /// adds a RichContent member to the resource
+        /// </summary>
+        /// <param name="member">the member to add</param>
+        void AddContentMember(RichContent.IContentMember member);
+
+        /// <summary>
+        /// removes a RichContent member from the resource
+        /// </summary>
+        /// <param name="member">the member to remove. The resource must free all references on this member.</param>
+        void RemoveContentMember(RichContent.IContentMember member);
     }
 }

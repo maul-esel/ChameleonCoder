@@ -98,9 +98,19 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// contains the resource's RichContent members
         /// </summary>
-        public RichContentCollection RichContent
+        public IContentMember[] RichContent
         {
-            get { return collection; }
+            get { return collection.Values; }
+        }
+
+        public void AddContentMember(IContentMember member)
+        {
+            collection.Add(member);
+        }
+
+        public void RemoveContentMember(IContentMember member)
+        {
+            collection.Remove(member);
         }
 
         private RichContentCollection collection = new RichContentCollection();

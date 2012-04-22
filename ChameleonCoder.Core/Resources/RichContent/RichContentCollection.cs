@@ -3,7 +3,7 @@
     /// <summary>
     /// a collection class for <see cref="ChameleonCoder.Resources.RichContent.IContentMember"/> instances
     /// </summary>
-    //[System.Runtime.InteropServices.ComVisible(false)]
+    [System.Runtime.InteropServices.ComVisible(false)]
     public class RichContentCollection : InstanceCollection<string, IContentMember>
     {
         /// <summary>

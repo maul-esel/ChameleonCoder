@@ -133,7 +133,7 @@ namespace ChameleonCoder
 
                 if (member != null)
                 {
-                    resource.RichContent.Add(member);
+                    resource.AddContentMember(member);
                     foreach (XmlElement child in node.ChildNodes)
                     {
                         AddRichContent(child, member, contentMemberMan);
