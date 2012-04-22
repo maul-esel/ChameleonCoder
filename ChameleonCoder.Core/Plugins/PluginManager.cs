@@ -179,17 +179,17 @@ namespace ChameleonCoder.Plugins
         /// returns a list of all registered plugins
         /// </summary>
         /// <returns>the list of plugins</returns>
-        internal IEnumerable<IPlugin> GetPlugins()
+        public IPlugin[] GetPlugins()
         {
             var plugins = new List<IPlugin>();
 
-            plugins.AddRange(GetModules());
-            plugins.AddRange(GetServices());
-            plugins.AddRange(GetTemplates());
-            plugins.AddRange(GetResourceFactories());
-            plugins.AddRange(GetRichContentFactories());
+            plugins.AddRange(Modules.Values);
+            plugins.AddRange(Services.Values);
+            plugins.AddRange(Templates.Values);
+            plugins.AddRange(ResourceFactories.Values);
+            plugins.AddRange(RichContentFactories.Values);
 
-            return plugins;
+            return plugins.ToArray();
         }
 
         #region ILanguageModule
@@ -312,9 +312,9 @@ namespace ChameleonCoder.Plugins
         /// gets a list with all registered modules
         /// </summary>
         /// <returns>a list with all registered modules</returns>
-        public IEnumerable<ILanguageModule> GetModules()
+        public ILanguageModule[] GetModules()
         {
-            return Modules.Values; // TODO: return clone?
+            return new List<ILanguageModule>(Modules.Values).ToArray();
         }
 
         #endregion
@@ -376,9 +376,9 @@ namespace ChameleonCoder.Plugins
         /// gets a list with all registered services
         /// </summary>
         /// <returns>a list with all registered services</returns>
-        public IEnumerable<IService> GetServices()
+        public IService[] GetServices()
         {
-            return Services.Values; // TODO: return clone?
+            return new List<IService>(Services.Values).ToArray();
         }
 
         #endregion
@@ -397,9 +397,9 @@ namespace ChameleonCoder.Plugins
         /// gets a list with all registered templates
         /// </summary>
         /// <returns>a list with all registered templates</returns>
-        public IEnumerable<ITemplate> GetTemplates()
+        public ITemplate[] GetTemplates()
         {
-            return Templates.Values;
+            return new List<ITemplate>(Templates.Values).ToArray();
         }
 
         #endregion
@@ -418,9 +418,9 @@ namespace ChameleonCoder.Plugins
         /// gets a list of all registered IResourceFactory
         /// </summary>
         /// <returns>the list</returns>
-        public IEnumerable<IResourceFactory> GetResourceFactories()
+        public IResourceFactory[] GetResourceFactories()
         {
-            return ResourceFactories.Values; // TODO: return clone?
+            return new List<IResourceFactory>(ResourceFactories.Values).ToArray();
         }
 
         public bool IsResourceFactoryRegistered(IResourceFactory factory)
@@ -444,9 +444,9 @@ namespace ChameleonCoder.Plugins
         /// gets a list of all registered IRichContentFactory
         /// </summary>
         /// <returns>the list</returns>
-        public IEnumerable<IRichContentFactory> GetRichContentFactories()
+        public IRichContentFactory[] GetRichContentFactories()
         {
-            return RichContentFactories.Values; // TODO: return clone?
+            return new List<IRichContentFactory>(RichContentFactories.Values).ToArray();
         }
 
         public bool IsRichContentFactoryRegistered(IRichContentFactory factory)
