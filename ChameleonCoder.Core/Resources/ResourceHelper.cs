@@ -19,11 +19,11 @@ namespace ChameleonCoder
         /// <param name="resource">the resource to parse</param>
         internal static void MakeRichContent(this IRichContentResource resource)
         {
-            var res = GetDataElement(resource, false);
+            XmlNamespaceManager manager;
+            var res = GetDataElement(resource, false, out manager);
             if (res == null)
                 return;
 
-            var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
             var content = (XmlElement)res.SelectSingleNode("cc:richcontent", manager);
             if (content == null)
                 return;
@@ -64,12 +64,11 @@ namespace ChameleonCoder
         {
             if (resource != null)
             {
-                var res = GetDataElement(resource, false);
+                XmlNamespaceManager manager;
+                var res = GetDataElement(resource, false, out manager);
 
                 if (res != null)
                 {
-                    var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
-
                     foreach (XmlElement reference in res.SelectNodes("cc:references/cc:reference", manager))
                     {
                         var dict = new System.Collections.Specialized.ObservableStringDictionary();
@@ -94,7 +93,8 @@ namespace ChameleonCoder
         {
             if (resource != null)
             {
-                var res = GetDataElement(resource, true);
+                XmlNamespaceManager manager;
+                var res = GetDataElement(resource, true, out manager);
 
                 if (res != null)
                 {
@@ -124,10 +124,11 @@ namespace ChameleonCoder
         {
             if (resource != null)
             {
-                var res = GetDataElement(resource, false);
+                XmlNamespaceManager manager;
+                var res = GetDataElement(resource, false, out manager);
                 if (res != null)
                 {
-                    var element = (XmlElement)res.SelectSingleNode("cc:references/cc:reference[@id='" + id.ToString("b") + "']");
+                    var element = (XmlElement)res.SelectSingleNode("cc:references/cc:reference[@id='" + id.ToString("b") + "']", manager);
                     if (element != null)
                         res.RemoveChild(element);
                 }
@@ -171,10 +172,10 @@ namespace ChameleonCoder
         /// <param name="resource">the resource whose data should be found</param>
         /// <param name="create">true to create the lement if not found, false otherwise</param>
         /// <returns>the XmlElement containing the resource's data</returns>
-        private static XmlElement GetDataElement(IResource resource, bool create)
+        private static XmlElement GetDataElement(IResource resource, bool create, out XmlNamespaceManager manager)
         {
             var doc = ((DataFile)resource.File).Document; // HACK!
-            var manager = XmlNamespaceManagerFactory.GetManager(doc);
+            manager = new XmlNamespaceManager(doc.NameTable);
 
             var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceData + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)

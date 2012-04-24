@@ -590,7 +590,6 @@ namespace ChameleonCoder.ViewModel
             {
                 App.ResourceMan.RemoveAll();
                 App.FileMan.RemoveAll();
-                XmlNamespaceManagerFactory.ClearManagers();
             }
         }
 
@@ -627,6 +626,7 @@ namespace ChameleonCoder.ViewModel
             App.FileMan.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
+        [Obsolete("move to core (FileManager)")]
         private void CreateFile()
         {
             var args = OnSelectFile(Res.Status_CreatingFile + " " + Res.File_SelectCreate,

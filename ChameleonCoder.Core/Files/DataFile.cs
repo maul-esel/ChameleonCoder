@@ -44,7 +44,7 @@ namespace ChameleonCoder.Files
 
         public DataFile()
         {
-            manager = XmlNamespaceManagerFactory.GetManager(doc);
+            manager = new XmlNamespaceManager(doc.NameTable);
         }
 
         public void Initialize(ChameleonCoderApp app)
