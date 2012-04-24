@@ -64,7 +64,7 @@ namespace ChameleonCoder.ViewModel
             set;
         }
 
-        public DataFile ActiveFile
+        public IDataFile ActiveFile
         {
             get { return file; }
             set
@@ -75,7 +75,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        private DataFile file;
+        private IDataFile file;
 
         public object ActiveMetadata
         {
