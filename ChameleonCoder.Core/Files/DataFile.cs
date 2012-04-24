@@ -337,23 +337,16 @@ namespace ChameleonCoder.Files
             listeners.Remove(resource);
         }
 
-        public IResource ResourceCreateNew(Type type, System.Collections.Specialized.ObservableStringDictionary attributes, IResource parent)
+        public void ResourceInsert(IResource resource, IResource parent)
         {
 #if DEBUG
             if (parent != null)
                 System.Diagnostics.Debug.Assert(parent.File == this, "Attempted to create child resource in another file.");
 #endif
             XmlElement element = doc.CreateElement("cc:resource", NamespaceUri);
-            foreach (string key in attributes.Keys)
+            foreach (string key in resource.Attributes.Keys)
             {
-                element.SetAttribute(key, NamespaceUri, attributes[key]);
-            }
-
-            IResource resource = App.ResourceTypeMan.GetFactory(type).CreateInstance(type, attributes, parent, this);
-            if (resource != null)
-            {
-                App.ResourceMan.Add(resource, parent);
-                ResourceSetCreatedDate(resource);
+                element.SetAttribute(key, NamespaceUri, resource.Attributes[key]);
             }
 
             if (parent == null)
@@ -361,7 +354,8 @@ namespace ChameleonCoder.Files
             else
                 mappings[parent].AppendChild(element);
 
-            return resource;
+            listeners.Add(resource, new XmlAttributeChangeListener(resource, element));
+            mappings.Add(resource, element);
         }
 
         #region created date

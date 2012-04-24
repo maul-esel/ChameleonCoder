@@ -32,7 +32,7 @@ namespace ChameleonCoder.Files
         void DeleteReference(Guid id);
 
         void ResourceDelete(IResource resource);
-        IResource ResourceCreateNew(Type type, ObservableStringDictionary attributes, IResource parent);
+        void ResourceInsert(IResource resource, IResource parent);
 
         void ResourceSetCreatedDate(IResource resource);
         void ResourceSetCreatedDate(IResource resource, DateTime time);

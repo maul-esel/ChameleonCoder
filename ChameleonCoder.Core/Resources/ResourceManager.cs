@@ -181,6 +181,21 @@ namespace ChameleonCoder.Resources
                 newParent.File.Save();
         }
 
+        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.ObservableStringDictionary attributes, IResource parent, Files.IDataFile file)
+        {
+            attributes["name"] = name; attributes["type"] = App.ResourceTypeMan.GetKey(type).ToString("B");
+
+            IResource resource = App.ResourceTypeMan.GetFactory(type).CreateInstance(type, attributes, parent, file);
+            if (resource != null)
+            {
+                App.ResourceMan.Add(resource, parent);
+                file.ResourceInsert(resource, parent);
+                file.ResourceSetCreatedDate(resource);
+            }
+
+            return resource;
+        }
+
         /// <summary>
         /// gets the Children list
         /// </summary>

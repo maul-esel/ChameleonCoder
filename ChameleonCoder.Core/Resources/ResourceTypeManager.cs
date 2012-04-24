@@ -72,66 +72,6 @@ namespace ChameleonCoder.Resources
         }
 
         /// <summary>
-        /// creates an instance of the specified type,
-        /// creates a new XmlElement representing the resource using the name and the specified attributes,
-        /// and initializes the resource using the XmlElement and the given parent resource.
-        /// </summary>
-        /// <param name="type">the type to create an instance of</param>
-        /// <param name="name">the name for the new resource</param>
-        /// <param name="attributes">a list of attributes for the XmlElement</param>
-        /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
-        /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Type type, string name, ObservableStringDictionary attributes, IResource parent, IDataFile file)
-        {
-            attributes["name"] = name; attributes["type"] = GetKey(type).ToString("B");
-            return file.ResourceCreateNew(type, attributes, parent);
-
-            /*
-            var document = ((DataFile)file).Document; // HACK!
-            var manager = XmlNamespaceManagerFactory.GetManager(document);
-
-            var element = document.CreateElement("cc:resource", DataFile.NamespaceUri);
-            element.SetAttribute("type", DataFile.NamespaceUri, GetKey(type).ToString("b"));
-
-            if (parent == null)
-                document.SelectSingleNode(DocumentXPath.ResourceRoot, manager).AppendChild(element);
-            else
-                parent.Xml.AppendChild(element);
-
-            foreach (string key in attributes.Keys)
-            {
-                element.SetAttribute(key, DataFile.NamespaceUri, attributes[key]);
-            }
-
-            element.SetAttribute("name", DataFile.NamespaceUri, name);
-
-            IResource resource = GetFactory(type).CreateInstance(type, attributes, parent, file);
-            if (resource != null)
-            {
-                file.App.ResourceMan.Add(resource, parent);
-                file.ResourceSetCreatedDate(resource);
-            }
-
-            return resource;
-            */
-        }
-
-        /// <summary>
-        /// creates an instance of the type with the specified alias,
-        /// creates a new XmlElement representing the resource using the name and the specified attributes,
-        /// and initializes the resource using the XmlElement and the given parent resource.
-        /// </summary>
-        /// <param name="key">the resource type key of the type to create an instance of</param>
-        /// <param name="name">the name for the new resource</param>
-        /// <param name="attributes">a list of attributes for the XmlElement</param>
-        /// <param name="parent">the parent resource or null if a top-level resource is being created</param>
-        /// <returns>the new resource</returns>
-        public IResource CreateNewResource(Guid key, string name, ObservableStringDictionary attributes, IResource parent, IDataFile file)
-        {
-            return CreateNewResource(GetResourceType(key), name, attributes, parent, file);
-        }
-
-        /// <summary>
         /// gets a list of all registered resource types
         /// </summary>
         /// <returns>the list</returns>
