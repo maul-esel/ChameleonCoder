@@ -672,7 +672,7 @@ namespace ChameleonCoder.Files
             Guid type;
             IResource resource = null;
 
-            var attributes = new System.Collections.Specialized.ObservableStringDictionary(); // todo: register event -> save changes
+            var attributes = new System.Collections.Specialized.ObservableStringDictionary();
             foreach (XmlAttribute attribute in node.Attributes)
             {
                 attributes.Add(attribute.LocalName, attribute.Value);
@@ -697,7 +697,7 @@ namespace ChameleonCoder.Files
             }
 
             App.ResourceMan.Add(resource, parent); // and add it to all required lists // TODO! do not do this here!
-            listeners.Add(resource, new XmlAttributeChangeListener(resource, node));
+            listeners.Add(resource, new XmlAttributeChangeListener(resource, node)); // listen to changes to save them
             mappings.Add(resource, node);
 
             foreach (XmlElement child in node.ChildNodes) // TODO! do not do this here!
