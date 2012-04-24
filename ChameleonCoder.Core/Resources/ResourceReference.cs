@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.Files;
@@ -8,20 +10,17 @@ namespace ChameleonCoder.Resources
     /// <summary>
     /// represents a reference to another resource
     /// </summary>
-    [System.Runtime.InteropServices.ComVisible(true), System.Runtime.InteropServices.ClassInterface(System.Runtime.InteropServices.ClassInterfaceType.AutoDual)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ResourceReference : IComponent
     {
         /// <summary>
         /// creates a new instance of the ResourceReference class
         /// </summary>
         /// <param name="data">the XmlElement representing the reference</param>
-        internal ResourceReference(System.Xml.XmlElement data, IDataFile file)
+        internal ResourceReference(ObservableStringDictionary data, IDataFile file)
         {
-            Xml = data;
+            Attributes = data;
             File = file;
-
-            Identifier = Guid.Parse(Xml.GetAttribute("id", DataFile.NamespaceUri));
-            Target = Guid.Parse(Xml.GetAttribute("target", DataFile.NamespaceUri));
         }
 
         public IDataFile File
@@ -43,8 +42,7 @@ namespace ChameleonCoder.Resources
         /// </summary>
         public Guid Identifier
         {
-            get;
-            private set;
+            get { return Guid.Parse(Attributes["id"]); }
         }
 
         /// <summary>
@@ -54,7 +52,7 @@ namespace ChameleonCoder.Resources
         {
             get
             {
-                return Xml.GetAttribute("name", DataFile.NamespaceUri);
+                return Attributes["name"];
             }
         }
 
@@ -71,14 +69,10 @@ namespace ChameleonCoder.Resources
         /// </summary>
         private Guid Target
         {
-            get;
-            set;
+            get { return Guid.Parse(Attributes["target"]); }
         }
 
-        /// <summary>
-        /// contains the XmlElement representing the reference
-        /// </summary>
-        public System.Xml.XmlElement Xml
+        public ObservableStringDictionary Attributes
         {
             get;
             private set;

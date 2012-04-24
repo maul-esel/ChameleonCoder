@@ -71,7 +71,15 @@ namespace ChameleonCoder
                     var manager = XmlNamespaceManagerFactory.GetManager(res.OwnerDocument);
 
                     foreach (XmlElement reference in res.SelectNodes("cc:references/cc:reference", manager))
-                        resource.AddReference(new Resources.ResourceReference(reference, resource.File));
+                    {
+                        var dict = new System.Collections.Specialized.ObservableStringDictionary();
+                        foreach (XmlAttribute attr in reference.Attributes)
+                        {
+                            dict.Add(attr.LocalName, attr.Value);
+                        }
+                        // todo: listen to dict changes
+                        resource.AddReference(new Resources.ResourceReference(dict, resource.File));
+                    }
                 }
             }
         }
@@ -96,7 +104,13 @@ namespace ChameleonCoder
                     element.SetAttribute("target", DataFile.NamespaceUri, target.ToString("b"));
                     res.AppendChild(element);
 
-                    resource.AddReference(new Resources.ResourceReference(element, resource.File));
+                    var dict = new System.Collections.Specialized.ObservableStringDictionary();
+                    foreach (XmlAttribute attr in element.Attributes)
+                    {
+                        dict.Add(attr.LocalName, attr.Value);
+                    }
+                    // todo: listen to dict changes
+                    resource.AddReference(new Resources.ResourceReference(dict, resource.File));
                 }
             }
         }
