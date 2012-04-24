@@ -124,13 +124,17 @@ namespace ChameleonCoder.Resources
             resource.File.Save(); // save changes
         }
 
-        public void MoveResource(IResource resource, IResource newParent)
+        public IResource MoveResource(IResource resource, IResource newParent)
         {
             if (resource.Parent == newParent)
-                return;
+                return resource;
+
+            Guid id = resource.Identifier;
 
             CopyResource(resource, newParent, true);
             DeleteResource(resource);
+
+            return GetResource(id);
         }
 
         public void CopyResource(IResource resource, IResource newParent)
