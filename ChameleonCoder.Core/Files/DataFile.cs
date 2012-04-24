@@ -40,6 +40,8 @@ namespace ChameleonCoder.Files
                                                 + "<cc:references/>"
                                             + "</cc:ChameleonCoder>";
 
+        internal const string XmlTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+
         #endregion // "constants"
 
         public DataFile()
@@ -375,7 +377,7 @@ namespace ChameleonCoder.Files
             XmlElement data = GetResourceDataElement(resource, true);
             XmlElement created = (XmlElement)doc.CreateElement("cc:created", NamespaceUri);
 
-            created.InnerText = time.ToString("yyyy-MM-ddTHH:mm:ss");
+            created.InnerText = time.ToString(XmlTimeFormat);
             data.AppendChild(created);
         }
 
@@ -415,7 +417,7 @@ namespace ChameleonCoder.Files
                 res.AppendChild(lastmod);
             }
 
-            lastmod.InnerText = time.ToString("yyyy-MM-ddTHH:mm:ss");
+            lastmod.InnerText = time.ToString(XmlTimeFormat);
         }
 
         /// <summary>
