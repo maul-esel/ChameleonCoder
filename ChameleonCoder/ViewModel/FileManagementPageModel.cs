@@ -47,6 +47,7 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
+        [System.Obsolete("Remove and replace by 2 lists for files and directories!")]
         public IList<DataFileReference> References
         {
             get

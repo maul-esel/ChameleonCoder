@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using ChameleonCoder.Files;
 using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources
@@ -142,14 +143,14 @@ namespace ChameleonCoder.Resources
             CopyResource(resource, newParent, false);
         }
 
-        public void CopyResource(IResource resource, IResource newParent, bool moveGUID) // TODO!!!!
+        private void CopyResource(IResource resource, IResource newParent, bool moveGUID) // TODO!!!!
         {
             var file = newParent == null ? resource.File : newParent.File;
 
             // ======================================================================
 
             // BAD:
-            var doc = ((Files.DataFile)file).Document; // HACK!
+            var doc = ((DataFile)file).Document; // HACK!
             var manager = XmlNamespaceManagerFactory.GetManager(doc);
 
             var element = (System.Xml.XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
@@ -157,7 +158,7 @@ namespace ChameleonCoder.Resources
                 element = (System.Xml.XmlElement)doc.ImportNode(element, true); // import the XmlElement
 
             if (newParent == null) // if no parent:
-                doc.SelectSingleNode(Files.DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
+                doc.SelectSingleNode(DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
             else // if parent:
                 newParent.Xml.AppendChild(element); // add element to parent's Children
 
@@ -174,9 +175,9 @@ namespace ChameleonCoder.Resources
 
             // BAD:
             else // if the copy receives a new Identifier:
-                element.SetAttribute("id", Files.DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
+                element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
 
-            ((Files.DataFile)file).LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ... // HACK!
+            ((DataFile)file).LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ... // HACK!
 
             // ===============================================================================
 
@@ -185,7 +186,7 @@ namespace ChameleonCoder.Resources
                 newParent.File.Save();
         }
 
-        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.ObservableStringDictionary attributes, IResource parent, Files.IDataFile file)
+        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.ObservableStringDictionary attributes, IResource parent, IDataFile file)
         {
             attributes["name"] = name; attributes["type"] = App.ResourceTypeMan.GetKey(type).ToString("B");
 

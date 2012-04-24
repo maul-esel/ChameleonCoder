@@ -5,6 +5,10 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using ChameleonCoder.Resources.Interfaces;
 
+#if DEBUG
+using System.Diagnostics;
+#endif
+
 namespace ChameleonCoder.Files
 {
     /// <summary>
@@ -18,7 +22,8 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// the Uri of the resource document schema
         /// </summary>
-        public const string NamespaceUri = "ChameleonCoder://Resources/Schema/2011";
+        [ComVisible(false), Obsolete("make private!")]
+        internal const string NamespaceUri = "ChameleonCoder://Resources/Schema/2011";
 
         /// <summary>
         /// a template for a new data file
@@ -324,9 +329,9 @@ namespace ChameleonCoder.Files
         public void ResourceDelete(IResource resource)
         {
 #if DEBUG
-            System.Diagnostics.Debug.Assert(resource.File == this, "Attempted to delete a resource in another file.");
-            System.Diagnostics.Debug.Assert(mappings.ContainsKey(resource), "Resource not in mappings.");
-            System.Diagnostics.Debug.Assert(listeners.ContainsKey(resource), "No listener attached to resource.");
+            Debug.Assert(resource.File == this, "Attempted to delete a resource in another file.");
+            Debug.Assert(mappings.ContainsKey(resource), "Resource not in mappings.");
+            Debug.Assert(listeners.ContainsKey(resource), "No listener attached to resource.");
 #endif
             XmlElement resourceElement = mappings[resource];
             resourceElement.ParentNode.RemoveChild(resourceElement);
@@ -341,7 +346,7 @@ namespace ChameleonCoder.Files
         {
 #if DEBUG
             if (parent != null)
-                System.Diagnostics.Debug.Assert(parent.File == this, "Attempted to create child resource in another file.");
+                Debug.Assert(parent.File == this, "Attempted to create child resource in another file.");
 #endif
             XmlElement element = doc.CreateElement("cc:resource", NamespaceUri);
             foreach (string key in resource.Attributes.Keys)
@@ -532,6 +537,31 @@ namespace ChameleonCoder.Files
 
         #endregion // "resource metadata"
 
+        #region resource references
+
+        // todo: somehow return reference?
+        public void ResourceInsertReference(IResource resource, string name, Guid targetResourceId)
+        {
+#if DEBUG
+            Debug.Assert(resource.File == this, "Attempted to add a reference to a resource in a different file!");
+#endif
+            if (resource != null)
+            {
+                XmlElement data = GetResourceDataElement(resource, true);
+
+                XmlElement referenceElement = doc.CreateElement("cc:reference", NamespaceUri);
+                referenceElement.SetAttribute("name", NamespaceUri, name);
+                referenceElement.SetAttribute("id", NamespaceUri, Guid.NewGuid().ToString("b"));
+                referenceElement.SetAttribute("target", NamespaceUri, targetResourceId.ToString("b")); // todo: check if valid?
+
+                data.AppendChild(referenceElement);
+            }
+            else
+                throw new ArgumentNullException("resource");
+        }
+
+        #endregion
+
         /// <summary>
         /// returns the path to the file represented by the instance
         /// </summary>
@@ -548,6 +578,9 @@ namespace ChameleonCoder.Files
             }
         }
 
+        /// <summary>
+        /// a backreference to the application instance that owns this file
+        /// </summary>
         public ChameleonCoderApp App
         {
             get;
@@ -566,7 +599,7 @@ namespace ChameleonCoder.Files
         private readonly XmlNamespaceManager manager = null;
 
         [ComVisible(false)]
-        private readonly Dictionary<IResource, XmlElement> mappings = new Dictionary<IResource, XmlElement>(); // todo: map XPath <-> Resource
+        private readonly Dictionary<IResource, XmlElement> mappings = new Dictionary<IResource, XmlElement>();
 
         [ComVisible(false)]
         private readonly Dictionary<IResource, XmlAttributeChangeListener> listeners = new Dictionary<IResource, XmlAttributeChangeListener>();
@@ -633,7 +666,7 @@ namespace ChameleonCoder.Files
         /// <param name="node">the XmlElement to parse</param>
         /// <param name="parent">the parent resource or null,
         /// if the resource represented by <paramref name="node"/> is a top-level resource.</param>
-        [ComVisible(false), Obsolete("make this private!")]
+        [ComVisible(false), Obsolete("make this private / remove it!")]
         internal void LoadResource(XmlElement node, IResource parent)
         {
             Guid type;
@@ -663,15 +696,15 @@ namespace ChameleonCoder.Files
                 return; // ignore
             }
 
-            App.ResourceMan.Add(resource, parent); // and add it to all required lists
+            App.ResourceMan.Add(resource, parent); // and add it to all required lists // TODO! do not do this here!
             listeners.Add(resource, new XmlAttributeChangeListener(resource, node));
             mappings.Add(resource, node);
 
-            foreach (XmlElement child in node.ChildNodes)
+            foreach (XmlElement child in node.ChildNodes) // TODO! do not do this here!
             {
                 LoadResource(child, resource); // parse all child resources
             }
-            resource.LoadReferences();
+            resource.LoadReferences(); // TODO! do not do this here!
 
             // convert it into a RichContentResource
             IRichContentResource richResource = resource as IRichContentResource;

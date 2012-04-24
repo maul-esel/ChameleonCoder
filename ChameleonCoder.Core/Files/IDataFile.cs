@@ -10,25 +10,35 @@ namespace ChameleonCoder.Files
     {
         void Initialize(ChameleonCoderApp app);
         void Shutdown();
+        bool IsInitialized { get; }
 
         void Open(string path);
-        void Load();
+        bool IsOpened { get; }
+
         void Save();
 
-        bool IsInitialized { get; }
-        bool IsOpened { get; }
+        [Obsolete]
         bool IsLoaded { get; }
+        [Obsolete]
+        void Load();
 
         void SetMetadata(string key, string value);
         string GetMetadata(string key);
         StringDictionary GetMetadata();
         void DeleteMetadata(string key);
 
+        // todo: remove reference identification by ID!
+        [Obsolete]
         Guid AddFileReference(string path);
+        [Obsolete]
         Guid AddDirectoryReference(string path);
+        [Obsolete]
         string GetFileReference(Guid id);
+        [Obsolete]
         string GetDirectoryReference(Guid id);
+        [Obsolete]
         DataFileReference[] GetReferences();
+        [Obsolete]
         void DeleteReference(Guid id);
 
         void ResourceDelete(IResource resource);
