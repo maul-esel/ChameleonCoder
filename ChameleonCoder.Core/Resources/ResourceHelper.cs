@@ -176,6 +176,7 @@ namespace ChameleonCoder
         {
             var doc = ((DataFile)resource.File).Document; // HACK!
             manager = new XmlNamespaceManager(doc.NameTable);
+            manager.AddNamespace("cc", DataFile.NamespaceUri);
 
             var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceData + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)

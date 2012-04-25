@@ -152,6 +152,7 @@ namespace ChameleonCoder.Resources
             // BAD:
             var doc = ((DataFile)file).Document; // HACK!
             var manager = new System.Xml.XmlNamespaceManager(doc.NameTable);
+            manager.AddNamespace("cc", DataFile.NamespaceUri);
 
             var element = (System.Xml.XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
             if (element.OwnerDocument != doc) //if we switch the document:

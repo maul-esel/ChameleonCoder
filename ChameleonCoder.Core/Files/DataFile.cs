@@ -47,6 +47,7 @@ namespace ChameleonCoder.Files
         public DataFile()
         {
             manager = new XmlNamespaceManager(doc.NameTable);
+            manager.AddNamespace("cc", NamespaceUri);
         }
 
         public void Initialize(ChameleonCoderApp app)
