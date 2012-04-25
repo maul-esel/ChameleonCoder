@@ -41,6 +41,15 @@ namespace ChameleonCoder.Files
             pathsOpen.Add(file.FilePath);
             dirList.Add(Path.GetDirectoryName(file.FilePath));
 
+            foreach (string dirPath in file.DirectoryReferences)
+            {
+                dirList.Add(Path.GetFullPath(dirPath)); // todo: use MakeAbsolutePath() (?)
+            }
+            foreach (string filePath in file.FileReferences)
+            {
+                OpenFile(filePath);
+            }
+
 #if DEBUG
             App.DefaultFile = file; // TODO! HACK! (letting it be null causes exceptions)
 #endif

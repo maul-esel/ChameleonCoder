@@ -91,7 +91,6 @@ namespace ChameleonCoder.Files
                     throw;
                 }
 
-                LoadReferences();
                 this.path = path;
             }
             else
@@ -237,19 +236,6 @@ namespace ChameleonCoder.Files
             GetReferenceRoot().AppendChild(reference);
         } // todo: instantly load (?)
 
-        private XmlElement GetReferenceRoot()
-        {
-            XmlElement root = (XmlElement)doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager);
-
-            if (root == null)
-            {
-                root = doc.CreateElement("cc:references", NamespaceUri);
-                doc.SelectSingleNode(DocumentXPath.Settings, manager).AppendChild(root);
-            }
-
-            return root;
-        }
-
         public bool HasFileReference(string path)
         {
             return GetReferenceElement(DocumentXPath.FileReferenceNode, path) != null;
@@ -302,51 +288,24 @@ namespace ChameleonCoder.Files
             }
         }
 
-        /// <summary>
-        /// gets a list of all referenced files and directories
-        /// </summary>
-        /// <returns>a list of DataFileReference instances</returns>
-        [ComVisible(false), Obsolete]
-        private Dictionary<DataFileReferenceType, string> GetReferences()
-        {
-            var dict = new Dictionary<DataFileReferenceType, string>();
-
-            foreach (XmlElement element in doc.SelectNodes(DocumentXPath.References, manager))
-            {
-                dict.Add(element.Name == DocumentXPath.FileReferenceNode ? DataFileReferenceType.File : DataFileReferenceType.Directory, element.InnerText);
-            }
-
-            return dict;
-        }
-
-        /// <summary>
-        /// loads the referenced files and directories
-        /// </summary>
-        [ComVisible(false), Obsolete]
-        private void LoadReferences()
-        {
-            foreach (KeyValuePair<DataFileReferenceType, string> reference in GetReferences())
-            {
-                switch (reference.Key)
-                {
-                    case DataFileReferenceType.File:
-                        if (!App.FileMan.IsFileOpen(reference.Value))
-                            App.FileMan.OpenFile(reference.Value);
-                        break;
-                    case DataFileReferenceType.Directory:
-                        if (!App.FileMan.IsDirectoryOpen(reference.Value))
-                            App.FileMan.OpenDirectory(reference.Value);
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-        }
-
         [ComVisible(false)]
         private XmlElement GetReferenceElement(string nodeName, string path)
         {
             return doc.SelectSingleNode(DocumentXPath.ReferenceRoot + "[" + nodeName + "='" + path + "']", manager) as XmlElement;
+        }
+
+        [ComVisible(false)]
+        private XmlElement GetReferenceRoot()
+        {
+            XmlElement root = (XmlElement)doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager);
+
+            if (root == null)
+            {
+                root = doc.CreateElement(DocumentXPath.ReferenceRootNode, NamespaceUri);
+                doc.SelectSingleNode(DocumentXPath.Settings, manager).AppendChild(root);
+            }
+
+            return root;
         }
 
         #endregion // "references"

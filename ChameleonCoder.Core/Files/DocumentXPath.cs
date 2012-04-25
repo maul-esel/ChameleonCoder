@@ -15,7 +15,8 @@
 
         #region DataFile references
 
-        internal const string ReferenceRoot = Settings + "/" + prefix + "references";
+        internal const string ReferenceRootNode = prefix + "references";
+        internal const string ReferenceRoot = Settings + "/" + ReferenceRootNode;
 
         internal const string FileReferenceNode = prefix + "file";
         internal const string FileReferenceList = ReferenceRoot + "/" + FileReferenceNode;
