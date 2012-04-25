@@ -133,7 +133,7 @@ namespace ChameleonCoder.ViewModel
         private void AddFileReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            AddReference(DataFileReferenceType.File);
+            AddFileReference();
         }
 
         private void DeleteFileReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -148,7 +148,7 @@ namespace ChameleonCoder.ViewModel
         private void AddDirectoryReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-            AddReference(DataFileReferenceType.Directory);
+            AddDirectoryReference();
         }
 
         private void DeleteDirectoryReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -164,51 +164,44 @@ namespace ChameleonCoder.ViewModel
 
         #endregion
 
-        private void AddReference(DataFileReferenceType type)
+        private void AddFileReference()
         {
             if (ActiveFile != null)
             {
                 string path = null;
+                var fileArgs = OnReferenceFileNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                if (fileArgs.Cancel)
+                    return;
 
-                switch (type)
+                path = fileArgs.Path;
+                if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
                 {
-                    case DataFileReferenceType.File:
-                        var fileArgs = OnReferenceFileNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
-                        if (fileArgs.Cancel)
-                            return;
-
-                        path = fileArgs.Path;
-                        if (string.IsNullOrWhiteSpace(path) || !System.IO.File.Exists(path))
-                        {
-                            OnReport(Res.Status_CreatingReference, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
-                            return;
-                        }
-                        break;
-                    case DataFileReferenceType.Directory:
-                        var directoryArgs = OnReferenceDirectoryNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
-                        if (directoryArgs.Cancel)
-                            return;
-
-                        path = directoryArgs.Path;
-                        if (string.IsNullOrWhiteSpace(path) || !System.IO.Directory.Exists(path))
-                        {
-                            OnReport(Res.Status_CreatingReference, string.Format(Res.Error_NonExistentDir, path), Interaction.MessageSeverity.Critical);
-                            return;
-                        }
-                        break;
-                    default:
-                        throw new System.NotImplementedException();
+                    OnReport(Res.Status_CreatingReference, string.Format(Res.Error_InvalidFile, path), Interaction.MessageSeverity.Critical);
+                    return;
                 }
 
-                switch (type)
+                ActiveFile.AddFileReference(path);
+                OnPropertyChanged("ActiveFile");
+            }
+        }
+
+        private void AddDirectoryReference()
+        {
+            if (ActiveFile != null)
+            {
+                string path = null;
+                var directoryArgs = OnReferenceDirectoryNeeded(Res.Status_CreatingReference + " " + Res.Ref_SelectTarget, true);
+                if (directoryArgs.Cancel)
+                    return;
+
+                path = directoryArgs.Path;
+                if (string.IsNullOrWhiteSpace(path) || !System.IO.Directory.Exists(path))
                 {
-                    case DataFileReferenceType.File:
-                        ActiveFile.AddFileReference(path);
-                        break;
-                    case DataFileReferenceType.Directory:
-                        ActiveFile.AddDirectoryReference(path);
-                        break;
+                    OnReport(Res.Status_CreatingReference, string.Format(Res.Error_NonExistentDir, path), Interaction.MessageSeverity.Critical);
+                    return;
                 }
+
+                ActiveFile.AddDirectoryReference(path);
                 OnPropertyChanged("ActiveFile");
             }
         }
