@@ -412,20 +412,26 @@
                         <odc:RibbonGroup><!-- add title ?-->
 
                             <odc:RibbonButton Content="{Binding Ref_AddFileRef}" LargeImage="Images\LargeIcon.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.AddReference}"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddFileReference}"
                                               CommandTarget="{Binding Path=ActiveTab.Content}"
                                               CommandParameter="file"/>
 
                             <odc:RibbonButton Content="{Binding Ref_AddDirRef}" LargeImage="Images\LargeIcon.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.AddReference}"
+                                              Command="{x:Static cc:ChameleonCoderCommands.AddDirectoryReference}"
                                               CommandTarget="{Binding Path=ActiveTab.Content}"
                                               CommandParameter="dir"/>
 
                             <odc:RibbonButton Content="{Binding Ref_Delete}" LargeImage="Images\LargeIcon.png"
-                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteReference}"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteFileReference}"
+                                              CommandTarget="{Binding Path=ActiveTab.Content}"/>
+
+                            <odc:RibbonButton Content="{Binding Ref_Delete}" LargeImage="Images\LargeIcon.png"
+                                              Command="{x:Static cc:ChameleonCoderCommands.DeleteDirectoryReference}"
                                               CommandTarget="{Binding Path=ActiveTab.Content}"/>
                             
                         </odc:RibbonGroup>
+
+                        <!-- todo: add buttons for save etc. -->
                     </odc:RibbonTabItem>
                 </odc:RibbonContextualTabSet>
                 

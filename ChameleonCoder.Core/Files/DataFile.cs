@@ -219,112 +219,134 @@ namespace ChameleonCoder.Files
         /// adds a file reference to the instance. Referenced files are opened whenever a file is opened.
         /// </summary>
         /// <param name="referencePath">the path to the file to reference</param>
-        /// <returns>the unique id of the reference</returns>
-        public Guid AddFileReference(string referencePath)
+        public void AddFileReference(string referencePath)
         {
-            Guid id = Guid.NewGuid();
-            var reference = doc.CreateElement("cc:file", NamespaceUri);
-
-            reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
-            reference.SetAttribute("path", NamespaceUri, referencePath);
-
-            doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager).AppendChild(reference);
-            return id;
+            XmlElement reference = doc.CreateElement(DocumentXPath.FileReferenceNode, NamespaceUri);
+            reference.InnerText = referencePath;
+            GetReferenceRoot().AppendChild(reference);
         } // todo: instantly load (?)
 
         /// <summary>
         /// adds a directory reference to the instance. Referenced directories are used to search files.
         /// </summary>
         /// <param name="referencePath">the path to the  directory to reference</param>
-        /// <returns>the unique id of the reference</returns>
-        public Guid AddDirectoryReference(string referencePath)
+        public void AddDirectoryReference(string referencePath)
         {
-            Guid id = Guid.NewGuid();
-            var reference = doc.CreateElement("cc:directory", NamespaceUri);
-
-            reference.SetAttribute("id", NamespaceUri, id.ToString("b"));
-            reference.SetAttribute("path", NamespaceUri, referencePath);
-
-            doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager).AppendChild(reference);
-            return id;
+            XmlElement reference = doc.CreateElement(DocumentXPath.DirectoryReferenceNode, NamespaceUri);
+            reference.InnerText = referencePath;
+            GetReferenceRoot().AppendChild(reference);
         } // todo: instantly load (?)
 
-        public string GetFileReference(Guid id)
+        private XmlElement GetReferenceRoot()
         {
-            var references = doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager);
-            if (references == null)
-                throw new InvalidOperationException("No references defined.");
+            XmlElement root = (XmlElement)doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager);
 
-            var element = (XmlElement)references.SelectSingleNode("cc:file[@id='" + id.ToString("b") + "']", manager);
-            if (element == null)
-                return null;
+            if (root == null)
+            {
+                root = doc.CreateElement("cc:references", NamespaceUri);
+                doc.SelectSingleNode(DocumentXPath.Settings, manager).AppendChild(root);
+            }
 
-            return element.GetAttribute("path", NamespaceUri);
+            return root;
         }
 
-        public string GetDirectoryReference(Guid id)
+        public bool HasFileReference(string path)
         {
-            var references = doc.SelectSingleNode(DocumentXPath.ReferenceRoot, manager);
-            if (references == null)
-                throw new InvalidOperationException("No references defined.");
+            return GetReferenceElement(DocumentXPath.FileReferenceNode, path) != null;
+        }
 
-            var element = (XmlElement)references.SelectSingleNode("cc:directory[@id='" + id.ToString("b") + "']", manager);
+        public bool HasDirectoryReference(string path)
+        {
+            return GetReferenceElement(DocumentXPath.DirectoryReferenceNode, path) != null;
+        }
+
+        public void DeleteFileReference(string path)
+        {
+            var element = GetReferenceElement(DocumentXPath.FileReferenceNode, path);
             if (element == null)
-                return null;
+                throw new InvalidOperationException();
+            element.ParentNode.RemoveChild(element);
+        }
 
-            return element.GetAttribute("path", NamespaceUri);
+        public void DeleteDirectoryReference(string path)
+        {
+            var element = GetReferenceElement(DocumentXPath.DirectoryReferenceNode, path);
+            if (element == null)
+                throw new InvalidOperationException();
+            element.ParentNode.RemoveChild(element);
+        }
+
+        public string[] FileReferences
+        {
+            get
+            {
+                var list = new List<string>();
+                foreach (XmlElement element in doc.SelectNodes(DocumentXPath.FileReferenceList, manager))
+                {
+                    list.Add(element.InnerText);
+                }
+                return list.ToArray();
+            }
+        }
+
+        public string[] DirectoryReferences
+        {
+            get
+            {
+                var list = new List<string>();
+                foreach (XmlElement element in doc.SelectNodes(DocumentXPath.DirectoryReferenceList, manager))
+                {
+                    list.Add(element.InnerText);
+                }
+                return list.ToArray();
+            }
         }
 
         /// <summary>
         /// gets a list of all referenced files and directories
         /// </summary>
         /// <returns>a list of DataFileReference instances</returns>
-        public DataFileReference[] GetReferences()
+        [ComVisible(false), Obsolete]
+        private Dictionary<DataFileReferenceType, string> GetReferences()
         {
-            var list = new List<DataFileReference>();
+            var dict = new Dictionary<DataFileReferenceType, string>();
 
             foreach (XmlElement element in doc.SelectNodes(DocumentXPath.References, manager))
             {
-                list.Add(DataFileReference.CreateReference(element));
+                dict.Add(element.Name == DocumentXPath.FileReferenceNode ? DataFileReferenceType.File : DataFileReferenceType.Directory, element.InnerText);
             }
 
-            return list.ToArray();
-        }
-
-        /// <summary>
-        /// deletes a reference from the DataFile
-        /// </summary>
-        /// <param name="id">the reference's unique id</param>
-        public void DeleteReference(Guid id)
-        {
-            var reference = doc.SelectSingleNode(DocumentXPath.References + "[@id='" + id.ToString("b") + "']", manager);
-
-            if (reference != null)
-                reference.ParentNode.RemoveChild(reference);
+            return dict;
         }
 
         /// <summary>
         /// loads the referenced files and directories
         /// </summary>
-        [ComVisible(false)]
+        [ComVisible(false), Obsolete]
         private void LoadReferences()
         {
-            foreach (var reference in GetReferences())
+            foreach (KeyValuePair<DataFileReferenceType, string> reference in GetReferences())
             {
-                switch (reference.Type)
+                switch (reference.Key)
                 {
                     case DataFileReferenceType.File:
-                        if (!App.FileMan.IsFileOpen(reference.Path))
-                            App.FileMan.OpenFile(reference.Path);
+                        if (!App.FileMan.IsFileOpen(reference.Value))
+                            App.FileMan.OpenFile(reference.Value);
                         break;
                     case DataFileReferenceType.Directory:
-                        if (!App.FileMan.IsDirectoryOpen(reference.Path))
-                            App.FileMan.OpenDirectory(reference.Path);
+                        if (!App.FileMan.IsDirectoryOpen(reference.Value))
+                            App.FileMan.OpenDirectory(reference.Value);
                         break;
                     default:
                         throw new NotImplementedException();
                 }
             }
+        }
+
+        [ComVisible(false)]
+        private XmlElement GetReferenceElement(string nodeName, string path)
+        {
+            return doc.SelectSingleNode(DocumentXPath.ReferenceRoot + "[" + nodeName + "='" + path + "']", manager) as XmlElement;
         }
 
         #endregion // "references"

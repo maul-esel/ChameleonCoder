@@ -19,13 +19,21 @@ namespace ChameleonCoder.ViewModel
                 AddMetadataCommandExecuted,
                 (s, e) => e.CanExecute = ActiveFile != null));
 
-            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddReference,
-                AddReferenceCommandExecuted,
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddFileReference,
+                AddFileReferenceCommandExecuted,
                 (s, e) => e.CanExecute = ActiveFile != null));
 
-            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteReference,
-                DeleteReferenceCommandExecuted,
-                (s, e) => e.CanExecute = ActiveFile != null && ActiveReference != null));
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteFileReference,
+                DeleteFileReferenceCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null && ActiveFileReference != null));
+
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.AddDirectoryReference,
+                AddDirectoryReferenceCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null));
+
+            Commands.Add(new CommandBinding(ChameleonCoderCommands.DeleteDirectoryReference,
+                DeleteDirectoryReferenceCommandExecuted,
+                (s, e) => e.CanExecute = ActiveFile != null && ActiveDirectoryReference != null));
         }
 
         [System.ComponentModel.NotifyParentProperty(false)]
@@ -47,22 +55,21 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        [System.Obsolete("Remove and replace by 2 lists for files and directories!")]
-        public IList<DataFileReference> References
-        {
-            get
-            {
-                if (ActiveFile != null)
-                    return ActiveFile.GetReferences();                
-                return null;
-            }
-        }
+        #region references
 
-        public object ActiveReference
+        public string ActiveFileReference
         {
             get;
             set;
         }
+
+        public string ActiveDirectoryReference
+        {
+            get;
+            set;
+        }
+
+        #endregion
 
         public IDataFile ActiveFile
         {
@@ -121,24 +128,39 @@ namespace ChameleonCoder.ViewModel
             }
         }
 
-        private void AddReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        #region references
+
+        private void AddFileReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-
-            AddReference(e.Parameter as string == "file" ? DataFileReferenceType.File : DataFileReferenceType.Directory);
+            AddReference(DataFileReferenceType.File);
         }
 
-        private void DeleteReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void DeleteFileReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             e.Handled = true;
-
-            if (ActiveFile != null && ActiveReference != null)
+            if (ActiveFile != null)
             {
-                ActiveFile.DeleteReference(((DataFileReference)ActiveReference).Identifier);
-                OnPropertyChanged("References");
-                OnPropertyChanged("ActiveReference");
+                ActiveFile.DeleteFileReference(ActiveFileReference);
             }
         }
+
+        private void AddDirectoryReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            AddReference(DataFileReferenceType.Directory);
+        }
+
+        private void DeleteDirectoryReferenceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (ActiveFile != null)
+            {
+                ActiveFile.DeleteDirectoryReference(ActiveDirectoryReference);
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -187,7 +209,7 @@ namespace ChameleonCoder.ViewModel
                         ActiveFile.AddDirectoryReference(path);
                         break;
                 }
-                OnPropertyChanged("References");
+                OnPropertyChanged("ActiveFile");
             }
         }
 

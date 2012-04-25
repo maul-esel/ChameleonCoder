@@ -195,20 +195,41 @@ namespace ChameleonCoder
                                 typeof(ChameleonCoderCommands));
         #endregion
 
-        #region references
+        #region resource references
         /// <summary>
-        /// the command for creating a new reference on a resource or file
+        /// the command for creating a new reference on a resource
         /// </summary>
         public static readonly RoutedCommand AddReference
             = new RoutedCommand("AddReference",
                                 typeof(ChameleonCoderCommands));
 
         /// <summary>
-        /// the command for deleting a reference on a resource or file
+        /// the command for deleting a reference on a resource
         /// </summary>
         public static readonly RoutedCommand DeleteReference
             = new RoutedCommand("DeleteReference",
                                 typeof(ChameleonCoderCommands));
+
+        #endregion
+
+        #region DataFile references
+
+        public static readonly RoutedCommand AddFileReference
+            = new RoutedCommand("AddFileReference",
+                                typeof(ChameleonCoderCommands));
+
+        public static readonly RoutedCommand DeleteFileReference
+            = new RoutedCommand("DeleteFileReference",
+                                typeof(ChameleonCoderCommands));
+
+        public static readonly RoutedCommand AddDirectoryReference
+            = new RoutedCommand("AddDirectoryReference",
+                                typeof(ChameleonCoderCommands));
+
+        public static readonly RoutedCommand DeleteDirectoryReference
+            = new RoutedCommand("DeleteDirectoryReference",
+                                typeof(ChameleonCoderCommands));
+
         #endregion
     }
 }

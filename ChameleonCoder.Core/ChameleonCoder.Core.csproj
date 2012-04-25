@@ -59,7 +59,6 @@
     <Compile Include="Files\XmlAttributeChangeListener.cs" />
     <Compile Include="ObservableStringDictionary.cs" />
     <Compile Include="Files\DataFile.cs" />
-    <Compile Include="Files\DataFileReference.cs" />
     <Compile Include="Files\DataFileReferenceType.cs" />
     <Compile Include="Files\DocumentXPath.cs" />
     <Compile Include="Files\FileManager.cs" />

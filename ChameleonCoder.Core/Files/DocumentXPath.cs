@@ -13,8 +13,20 @@
         internal const string MetadataRoot = Settings + "/" + prefix + "metadata";
         internal const string Metadata = MetadataRoot + "/" + prefix + "metadata";
 
+        #region DataFile references
+
         internal const string ReferenceRoot = Settings + "/" + prefix + "references";
+
+        internal const string FileReferenceNode = prefix + "file";
+        internal const string FileReferenceList = ReferenceRoot + "/" + FileReferenceNode;
+
+        internal const string DirectoryReferenceNode = prefix + "directory";
+        internal const string DirectoryReferenceList = ReferenceRoot + "/" + DirectoryReferenceNode;
+
+        [System.Obsolete]
         internal const string References = ReferenceRoot + "/" + prefix + "reference";
+
+        #endregion
 
         internal const string ResourceRoot = Root + "/" + prefix + "resources";
         internal const string Resources = ResourceRoot + "/" + prefix + "resource";

@@ -28,18 +28,14 @@ namespace ChameleonCoder.Files
         void DeleteMetadata(string key);
 
         // todo: remove reference identification by ID!
-        [Obsolete]
-        Guid AddFileReference(string path);
-        [Obsolete]
-        Guid AddDirectoryReference(string path);
-        [Obsolete]
-        string GetFileReference(Guid id);
-        [Obsolete]
-        string GetDirectoryReference(Guid id);
-        [Obsolete]
-        DataFileReference[] GetReferences();
-        [Obsolete]
-        void DeleteReference(Guid id);
+        void AddFileReference(string path);
+        void AddDirectoryReference(string path);
+        bool HasFileReference(string path);
+        bool HasDirectoryReference(string path);
+        string[] FileReferences { get; }
+        string[] DirectoryReferences { get; }
+        void DeleteFileReference(string path);
+        void DeleteDirectoryReference(string path);
 
         void ResourceDelete(IResource resource);
         void ResourceInsert(IResource resource, IResource parent);

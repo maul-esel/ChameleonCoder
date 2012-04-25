@@ -42,19 +42,9 @@
                        Grid.Row="1" Grid.Column="1"/>
         </Grid>
 
-        <!--references-->
-        <ListView ItemsSource="{Binding References}" SelectedItem="{Binding ActiveReference}"
-                  Grid.Column="1" Grid.Row="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
         <!--metadata-->
         <ListView SelectedItem="{Binding ActiveMetadata}" ItemsSource="{Binding Metadata}"
-                  Grid.Column="2" Grid.Row="1">
+                  Grid.Column="1" Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{Binding MetadataKey}" DisplayMemberBinding="{Binding Key}"/>
@@ -69,9 +59,24 @@
             </ListView.View>
         </ListView>
 
-        <!--changelog-->
-        <ListView Grid.Column="2" Grid.Row="0">
-            
+        <!--file references-->
+        <ListView ItemsSource="{Binding Path=ActiveFile.FileReferences}" SelectedItem="{Binding ActiveFileReference}"
+                  Grid.Column="2" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--directory references-->
+        <ListView ItemsSource="{Binding Path=ActiveFile.DirectoryReferences}" SelectedItem="{Binding ActiveFileReference}"
+                  Grid.Column="2" Grid.Row="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         
     </Grid>
