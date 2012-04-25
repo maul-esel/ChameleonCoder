@@ -228,7 +228,7 @@ namespace ChameleonCoder
                             break;
 
                         case Shared.CCTabPage.FileManagement:
-                            ChameleonCoderCommands.OpenFileManagementPage.Execute(App.DefaultFile, this);
+                            ChameleonCoderCommands.OpenFileManagementPage.Execute(null, this);
                             break;
                     }
                 }

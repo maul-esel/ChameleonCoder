@@ -27,12 +27,6 @@ namespace ChameleonCoder
         internal static string AppPath { get { return Assembly.GetEntryAssembly().Location; } } // possibly make COM-visible // todo: will fail in COM
 
         /// <summary>
-        /// gets the initially loaded file
-        /// </summary>
-        [Obsolete]
-        public IDataFile DefaultFile { get; set; }
-
-        /// <summary>
         /// the running System.Windows.Application instance
         /// </summary>
         [ComVisible(false), Obsolete("Attention: null if the instance is created via COM!")]

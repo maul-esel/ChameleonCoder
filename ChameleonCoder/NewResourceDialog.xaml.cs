@@ -48,7 +48,7 @@ namespace ChameleonCoder
             DialogResult = true;
             Close();
 
-            IResource child = template.Create(ParentResource, name, app.DefaultFile);
+            IResource child = template.Create(ParentResource, name, ParentResource.File); // todo: fails if parent is null!
             if (child != null)
                 app.ResourceMan.Add(child, ParentResource);
         }

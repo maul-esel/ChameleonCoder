@@ -50,10 +50,6 @@ namespace ChameleonCoder.Files
                 OpenFile(filePath);
             }
 
-#if DEBUG
-            App.DefaultFile = file; // TODO! HACK! (letting it be null causes exceptions)
-#endif
-
             return file;
         }
 
