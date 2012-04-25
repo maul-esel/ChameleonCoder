@@ -100,6 +100,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// loads the resources contained in the file
         /// </summary>
+        [Obsolete]
         public void Load()
         {
             foreach (XmlNode node in doc.SelectNodes(DocumentXPath.Resources, manager))
@@ -134,6 +135,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// gets whether the file instance is loaded or not
         /// </summary>
+        [Obsolete]
         public bool IsLoaded
         {
             get;

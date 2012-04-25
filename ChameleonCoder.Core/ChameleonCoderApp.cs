@@ -3,8 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
-using ChameleonCoder.Files;
-using ChameleonCoder.Resources;
 
 namespace ChameleonCoder
 {
@@ -58,9 +56,9 @@ namespace ChameleonCoder
         {
             FileMan = new Files.FileManager(this);
             PluginMan = new Plugins.PluginManager(this);
-            ResourceMan = new ResourceManager(this);
+            ResourceMan = new Resources.ResourceManager(this);
             ContentMemberMan = new Resources.RichContent.ContentMemberManager(this);
-            ResourceTypeMan = new ResourceTypeManager(this);
+            ResourceTypeMan = new Resources.ResourceTypeManager(this);
 
             RunningObject = this; // TODO!
 
@@ -68,7 +66,7 @@ namespace ChameleonCoder
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language); // setting retrieval fails if invoked from COM
 
             // associate the instances created in XAML with the classes
-            ResourceMan.SetCollections((ResourceCollection)RunningApp.Resources["resources"], (ResourceCollection)RunningApp.Resources["resourceHierarchy"]); // fails if invoked from cOM (App == null)
+            ResourceMan.SetCollections((Resources.ResourceCollection)RunningApp.Resources["resources"], (Resources.ResourceCollection)RunningApp.Resources["resourceHierarchy"]); // fails if invoked from cOM (App == null)
         }
 
         /// <summary>
@@ -84,7 +82,7 @@ namespace ChameleonCoder
             Environment.Exit(exitCode);
         }
 
-        public FileManager FileMan
+        public Files.FileManager FileMan
         {
             get;
             private set;
@@ -96,7 +94,7 @@ namespace ChameleonCoder
             private set;
         }
 
-        public ResourceManager ResourceMan
+        public Resources.ResourceManager ResourceMan
         {
             get;
             private set;
@@ -108,7 +106,7 @@ namespace ChameleonCoder
             private set;
         }
 
-        public ResourceTypeManager ResourceTypeMan
+        public Resources.ResourceTypeManager ResourceTypeMan
         {
             get;
             private set;

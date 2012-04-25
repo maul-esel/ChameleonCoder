@@ -117,6 +117,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// loads the resources in all opened files
         /// </summary>
+        [Obsolete]
         public void LoadAll()
         {
             foreach (IDataFile file in Files)
