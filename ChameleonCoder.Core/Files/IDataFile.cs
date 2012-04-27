@@ -27,7 +27,6 @@ namespace ChameleonCoder.Files
         StringDictionary GetMetadata();
         void DeleteMetadata(string key);
 
-        // todo: remove reference identification by ID!
         void AddFileReference(string path);
         void AddDirectoryReference(string path);
         bool HasFileReference(string path);
