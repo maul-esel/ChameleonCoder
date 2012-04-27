@@ -117,27 +117,25 @@ namespace ChameleonCoder
         }
 
         #region temp
-        private void ModuleLoaded(object sender, EventArgs e)
+        private void ModuleLoaded(object sender, Plugins.ModuleEventArgs e)
         {
-            var module = sender as Plugins.ILanguageModule;
-            if (module != null)
+            if (e.Module != null)
             {
                 if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
                 {
                     ChameleonCoderApp.RunningApp.Dispatcher.BeginInvoke(new Action(() =>
                         CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
-                        module.Name, module.Version, module.Author, module.About)));
+                        e.Module.Name, e.Module.Version, e.Module.Author, e.Module.About)));
                 }
                 else
                     CurrentModule.Text = string.Format(Properties.Resources.ModuleInfo,
-                        module.Name, module.Version, module.Author, module.About);
+                        e.Module.Name, e.Module.Version, e.Module.Author, e.Module.About);
             }
         }
 
-        private void ModuleUnloaded(object sender, EventArgs e)
+        private void ModuleUnloaded(object sender, Plugins.ModuleEventArgs e)
         {
-            var module = sender as Plugins.ILanguageModule;
-            if (module != null)
+            if (e.Module != null)
             {
                 if (!ChameleonCoderApp.RunningApp.Dispatcher.CheckAccess())
                 {
@@ -149,20 +147,18 @@ namespace ChameleonCoder
             }
         }
 
-        private void ServiceExecute(object sender, EventArgs e)
+        private void ServiceExecute(object sender, Plugins.ServiceEventArgs e)
         {
-            var service = sender as Plugins.IService;
-            if (service != null)
+            if (e.Service != null)
             {
                 CurrentActionProgress.IsIndeterminate = true;
-                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, service.Name, service.Version, service.Author, service.About);
+                CurrentAction.Text = string.Format(Properties.Resources.ServiceInfo, e.Service.Name, e.Service.Version, e.Service.Author, e.Service.About);
             }
         }
 
-        private void ServiceExecuted(object sender, EventArgs e)
+        private void ServiceExecuted(object sender, Plugins.ServiceEventArgs e)
         {
-            var service = sender as Plugins.IService;
-            if (service != null)
+            if (e.Service != null)
             {
                 CurrentActionProgress.IsIndeterminate = false;
                 CurrentAction.Text = string.Empty;

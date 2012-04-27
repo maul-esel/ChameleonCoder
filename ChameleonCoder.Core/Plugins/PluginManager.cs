@@ -14,14 +14,14 @@ namespace ChameleonCoder.Plugins
     /// </summary>
     /// <param name="sender">the LanguageModule raising the event</param>
     /// <param name="e">additional data</param>
-    public delegate void LanguageModuleEventHandler(object sender, EventArgs e);
+    public delegate void LanguageModuleEventHandler(object sender, ModuleEventArgs e);
 
     /// <summary>
     /// a delegate for Service Events
     /// </summary>
     /// <param name="sender">the service raising the event</param>
     /// <param name="e">additional data</param>
-    public delegate void ServiceEventHandler(object sender, EventArgs e);
+    public delegate void ServiceEventHandler(object sender, ServiceEventArgs e);
 
     #endregion
 
@@ -220,7 +220,7 @@ namespace ChameleonCoder.Plugins
             ILanguageModule module;
             if (Modules.TryGetValue(id, out module))
             {
-                OnModuleLoad(module, new EventArgs());
+                OnModuleLoad(module);
 
                 module.Load();
                 ActiveModule = module;
@@ -238,7 +238,7 @@ namespace ChameleonCoder.Plugins
                         module.Name, module.Version, module.Author, module.About);
                 */
 
-                OnModuleLoaded(module, new EventArgs());
+                OnModuleLoaded(module);
             }
             else
                 throw new ArgumentException("this module is not registered!\nGuid: " + id.ToString("b"));
@@ -254,7 +254,7 @@ namespace ChameleonCoder.Plugins
                 throw new InvalidOperationException("Module cannot be unloaded: no module loaded!");
 
             ILanguageModule module = ActiveModule;
-            OnModuleUnload(ActiveModule, new EventArgs());
+            OnModuleUnload(ActiveModule);
 
             ActiveModule.Unload();
             ActiveModule = null;
@@ -270,7 +270,7 @@ namespace ChameleonCoder.Plugins
                 ChameleonCoderApp.Window.CurrentModule.Text = string.Empty;
             */
 
-            OnModuleUnloaded(module, new EventArgs());
+            OnModuleUnloaded(module);
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace ChameleonCoder.Plugins
         {
             IService service = GetService(id);
 
-            OnServiceExecute(service, new EventArgs());
+            OnServiceExecute(service);
 
             /*
              * moved to Mainwindow using event handler for IF.ServiceExecute
@@ -355,7 +355,7 @@ namespace ChameleonCoder.Plugins
             ChameleonCoderApp.Window.CurrentAction.Text = string.Empty;
             */
 
-            OnServiceExecuted(service, new EventArgs());
+            OnServiceExecuted(service);
         }
 
         /// <summary>
@@ -498,11 +498,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleLoad(ILanguageModule sender, EventArgs e)
+        internal void OnModuleLoad(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleLoad;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ModuleEventArgs(module));
         }
 
         /// <summary>
@@ -511,11 +511,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleLoaded(ILanguageModule sender, EventArgs e)
+        internal void OnModuleLoaded(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleLoaded;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ModuleEventArgs(module));
         }
 
         /// <summary>
@@ -524,11 +524,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleUnload(ILanguageModule sender, EventArgs e)
+        internal void OnModuleUnload(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleUnload;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ModuleEventArgs(module));
         }
 
         /// <summary>
@@ -537,11 +537,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleUnloaded(ILanguageModule sender, EventArgs e)
+        internal void OnModuleUnloaded(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleUnloaded;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ModuleEventArgs(module));
         }
 
         /// <summary>
@@ -550,11 +550,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnServiceExecute(IService sender, EventArgs e)
+        internal void OnServiceExecute(IService service)
         {
             ServiceEventHandler handler = ServiceExecute;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ServiceEventArgs(service));
         }
 
         /// <summary>
@@ -563,11 +563,11 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnServiceExecuted(IService sender, EventArgs e)
+        internal void OnServiceExecuted(IService service)
         {
             ServiceEventHandler handler = ServiceExecuted;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ServiceEventArgs(service));
         }
 
         #endregion
