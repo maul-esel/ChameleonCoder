@@ -34,5 +34,8 @@
 
         internal const string DataRoot = Root + "/" + prefix + "data";
         internal const string ResourceData = DataRoot + "/" + prefix + "resourcedata";
+
+        internal const string RichContentNode = prefix + "richcontent";
+        internal const string RichContentList = DataRoot + "/" + RichContentNode;
     }
 }
