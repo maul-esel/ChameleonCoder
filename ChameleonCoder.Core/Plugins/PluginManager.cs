@@ -529,7 +529,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleLoad(ILanguageModule module)
+        private void OnModuleLoad(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleLoad;
             if (handler != null)
@@ -542,7 +542,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleLoaded(ILanguageModule module)
+        private void OnModuleLoaded(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleLoaded;
             if (handler != null)
@@ -555,7 +555,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleUnload(ILanguageModule module)
+        private void OnModuleUnload(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleUnload;
             if (handler != null)
@@ -568,7 +568,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the module raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnModuleUnloaded(ILanguageModule module)
+        private void OnModuleUnloaded(ILanguageModule module)
         {
             LanguageModuleEventHandler handler = ModuleUnloaded;
             if (handler != null)
@@ -581,7 +581,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnServiceExecute(IService service)
+        private void OnServiceExecute(IService service)
         {
             ServiceEventHandler handler = ServiceExecute;
             if (handler != null)
@@ -594,7 +594,7 @@ namespace ChameleonCoder.Plugins
         /// <param name="sender">the service raising the event</param>
         /// <param name="e">additional data</param>
         [ComVisible(false)]
-        internal void OnServiceExecuted(IService service)
+        private void OnServiceExecuted(IService service)
         {
             ServiceEventHandler handler = ServiceExecuted;
             if (handler != null)
@@ -602,7 +602,7 @@ namespace ChameleonCoder.Plugins
         }
 
         [ComVisible(false)]
-        internal void OnPluginInstalled(IPlugin plugin)
+        private void OnPluginInstalled(IPlugin plugin)
         {
             PluginEventHandler handler = PluginInstalled;
             if (handler != null)
@@ -610,7 +610,7 @@ namespace ChameleonCoder.Plugins
         }
 
         [ComVisible(false)]
-        internal void OnPluginUninstalled(IPlugin plugin)
+        private void OnPluginUninstalled(IPlugin plugin)
         {
             PluginEventHandler handler = PluginUninstalled;
             if (handler != null)
