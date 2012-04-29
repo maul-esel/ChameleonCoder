@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.Xml;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Files
 {

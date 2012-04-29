@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 using ChameleonCoder.Files;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Resources.RichContent;
 using Res = ChameleonCoder.Properties.Resources;
 

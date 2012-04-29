@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
 

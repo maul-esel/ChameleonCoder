@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Navigation
 {

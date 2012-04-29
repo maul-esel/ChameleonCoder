@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 using System.Collections.Specialized;
 using ChameleonCoder.ComponentCore.Resources;
 using ChameleonCoder.Plugins;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 using ChameleonCoder.Shared;
 using Res = ChameleonCoder.ComponentCore.Properties.Resources;
 

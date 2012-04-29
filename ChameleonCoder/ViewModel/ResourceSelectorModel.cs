@@ -8,7 +8,7 @@ namespace ChameleonCoder.ViewModel
     [DefaultRepresentation(typeof(Shared.ResourceSelector))]
     internal sealed class ResourceSelectorModel : ViewModelBase
     {
-        internal ResourceSelectorModel(IEnumerable<Resources.Interfaces.IResource> resources, int count)
+        internal ResourceSelectorModel(IEnumerable<IResource> resources, int count)
             : base(null)
         {
             Commands.Add(new CommandBinding(ChameleonCoderCommands.AddResource,
@@ -24,7 +24,7 @@ namespace ChameleonCoder.ViewModel
 
         private void AddResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var resource = e.Parameter as ChameleonCoder.Resources.Interfaces.IResource;
+            var resource = e.Parameter as ChameleonCoder.Resources.IResource;
             var reference = e.Parameter as ResourceReference;
             SelectedResources.Add(resource != null ? (IComponent)resource : reference);
 
@@ -33,7 +33,7 @@ namespace ChameleonCoder.ViewModel
 
         private void RemoveResourceCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var resource = e.Parameter as ChameleonCoder.Resources.Interfaces.IResource;
+            var resource = e.Parameter as ChameleonCoder.Resources.IResource;
             var reference = e.Parameter as ResourceReference;
             SelectedResources.Remove(resource != null ? (IComponent)resource : reference);
 

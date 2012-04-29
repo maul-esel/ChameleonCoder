@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace ChameleonCoder.Plugins

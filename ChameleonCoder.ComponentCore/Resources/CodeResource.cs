@@ -5,7 +5,6 @@ using System.Windows.Media.Imaging;
 using ChameleonCoder.Files;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Interfaces;
 using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.ComponentCore.Resources

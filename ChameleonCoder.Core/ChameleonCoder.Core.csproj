@@ -88,11 +88,11 @@
     </Compile>
     <Compile Include="RegistryManager.cs" />
     <Compile Include="Resources\CommonResourceProperty.cs" />
-    <Compile Include="Resources\Interfaces\IEditable.cs" />
-    <Compile Include="Resources\Interfaces\IFSComponent.cs" />
-    <Compile Include="Resources\Interfaces\ILanguageResource.cs" />
-    <Compile Include="Resources\Interfaces\IResource.cs" />
-    <Compile Include="Resources\Interfaces\IRichContentResource.cs" />
+    <Compile Include="Resources\IEditable.cs" />
+    <Compile Include="Resources\IFSComponent.cs" />
+    <Compile Include="Resources\ILanguageResource.cs" />
+    <Compile Include="Resources\IResource.cs" />
+    <Compile Include="Resources\IRichContentResource.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Resources\ResourceTypeCollection.cs" />
     <Compile Include="Resources\ResourceTypeManager.cs" />

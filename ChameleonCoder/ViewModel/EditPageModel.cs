@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 using ICSharpCode.AvalonEdit.Document;
 
 namespace ChameleonCoder.ViewModel

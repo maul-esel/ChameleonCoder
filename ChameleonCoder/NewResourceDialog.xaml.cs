@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 using ChameleonCoder.Plugins;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 
 namespace ChameleonCoder
 {

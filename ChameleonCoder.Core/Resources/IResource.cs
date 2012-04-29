@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 
-namespace ChameleonCoder.Resources.Interfaces
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// an interface to be implemented by resource types

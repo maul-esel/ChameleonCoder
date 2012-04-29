@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml;
-using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources;
 
 #if DEBUG
 using System.Diagnostics;

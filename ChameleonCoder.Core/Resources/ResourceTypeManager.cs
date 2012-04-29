@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Media;
 using ChameleonCoder.Files;
 using ChameleonCoder.Plugins;
-using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources
 {

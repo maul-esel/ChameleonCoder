@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ChameleonCoder.Resources.Interfaces
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// an interface to be implemented by resource types that correspond to a file system component

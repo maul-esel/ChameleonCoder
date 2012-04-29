@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace ChameleonCoder.Resources.Interfaces
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// an interface to implement by resources that are specific to a special coding langueg

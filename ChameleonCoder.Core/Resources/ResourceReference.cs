@@ -82,7 +82,7 @@ namespace ChameleonCoder.Resources
         /// gets the resource referenced by this instance
         /// </summary>
         /// <returns>the IResource instance for the resource</returns>
-        public Interfaces.IResource Resolve()
+        public IResource Resolve()
         {
             return File.App.ResourceMan.GetResource(Target);
         }        

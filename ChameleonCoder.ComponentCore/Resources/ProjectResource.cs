@@ -4,7 +4,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ChameleonCoder.Files;
 using ChameleonCoder.Resources;
-using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.ComponentCore.Resources
 {

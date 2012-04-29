@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using ChameleonCoder.Files;
-using ChameleonCoder.Resources.Interfaces;
 
 namespace ChameleonCoder.Resources
 {

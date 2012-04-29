@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ChameleonCoder.Resources.Interfaces
+namespace ChameleonCoder.Resources
 {
     /// <summary>
     /// an interface to implement by resources that can be edited

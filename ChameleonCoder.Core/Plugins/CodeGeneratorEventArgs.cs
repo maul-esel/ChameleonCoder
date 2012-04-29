@@ -26,5 +26,5 @@ namespace ChameleonCoder.Plugins
     /// <param name="sender">the resource to be worked on</param>
     /// <param name="args">additional data</param>
     [ComVisible(true)]
-    public delegate void CodeGeneratorEventHandler(Resources.Interfaces.IResource sender, CodeGeneratorEventArgs args);
+    public delegate void CodeGeneratorEventHandler(Resources.IResource sender, CodeGeneratorEventArgs args);
 }

@@ -21,7 +21,7 @@ namespace ChameleonCoder.Resources.RichContent
 
         Files.IDataFile File { get; }
 
-        Interfaces.IRichContentResource Resource { get; }
+        IRichContentResource Resource { get; }
 
         /// <summary>
         /// gets the member's html representation
