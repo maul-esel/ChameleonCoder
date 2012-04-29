@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using ChameleonCoder.Plugins;
 
 namespace ChameleonCoder.Shared
 {
@@ -171,10 +170,6 @@ namespace ChameleonCoder.Shared
         /// raised when the 'Language' setting changed
         /// </summary>
         public static event SettingsEventHandler LanguageChanged;
-
-        #endregion
-
-        #region event wrappers
 
         /// <summary>
         /// raises the LanguageChanged event
