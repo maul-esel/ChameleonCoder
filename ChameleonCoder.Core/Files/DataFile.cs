@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml;
@@ -182,14 +183,14 @@ namespace ChameleonCoder.Files
         /// gets all metadata related to the file
         /// </summary>
         /// <returns>a dictionary containing the metadata</returns>
-        public System.Collections.Specialized.StringDictionary GetMetadata()
+        public StringDictionary GetMetadata() // todo: make observable
         {
             var set = (XmlElement)doc.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
             if (set == null)
                 return null;
 
             var data = set.SelectNodes("cc:metadata", manager);
-            var dict = new System.Collections.Specialized.StringDictionary();
+            var dict = new StringDictionary();
 
             foreach (XmlElement meta in data)
             {
@@ -475,9 +476,9 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="resource">the resource to analyze</param>
         /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
-        public System.Collections.Specialized.StringDictionary ResourceGetMetadata(IResource resource)
+        public StringDictionary ResourceGetMetadata(IResource resource) // todo: make observable
         {
-            var dict = new System.Collections.Specialized.StringDictionary();
+            var dict = new StringDictionary();
 
             // get the resource's data element
             XmlElement res = GetResourceDataElement(resource, false);
@@ -658,7 +659,7 @@ namespace ChameleonCoder.Files
             Guid type;
             IResource resource = null;
 
-            var attributes = new System.Collections.Specialized.ObservableStringDictionary();
+            var attributes = new ObservableStringDictionary();
             foreach (XmlAttribute attribute in node.Attributes)
             {
                 attributes.Add(attribute.LocalName, attribute.Value);
