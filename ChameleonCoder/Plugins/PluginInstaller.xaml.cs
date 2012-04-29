@@ -56,6 +56,7 @@ namespace ChameleonCoder.Plugins
 
             foreach (IPlugin plugin in plugins)
             {
+                /*
                 Settings.ChameleonCoderSettings.Default.InstalledPlugins.Add(plugin.Identifier.ToString("n"));
                 pluginTypes.Add(plugin.GetType());
                 pluginList.Remove(plugin);
@@ -66,9 +67,11 @@ namespace ChameleonCoder.Plugins
                         Path.GetFileName(plugin.GetType().Assembly.Location)));
 
                 Shared.InformationProvider.OnPluginInstalled(plugin);
+                */
+                model.App.PluginMan.InstallPermanently(plugin);
             }
 
-            model.App.PluginMan.Load(pluginTypes);
+            //model.App.PluginMan.Load(pluginTypes);
         }
 
         private readonly ObservableCollection<IPlugin> pluginList = null;

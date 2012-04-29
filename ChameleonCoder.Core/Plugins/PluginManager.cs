@@ -23,6 +23,8 @@ namespace ChameleonCoder.Plugins
     /// <param name="e">additional data</param>
     public delegate void ServiceEventHandler(object sender, ServiceEventArgs e);
 
+    public delegate void PluginEventHandler(object sender, PluginEventArgs e);
+
     #endregion
 
     /// <summary>
@@ -190,6 +192,31 @@ namespace ChameleonCoder.Plugins
             plugins.AddRange(RichContentFactories.Values);
 
             return plugins.ToArray();
+        }
+
+        public void InstallPermanently(IPlugin plugin)
+        {
+            Settings.ChameleonCoderSettings.Default.InstalledPlugins.Add(plugin.Identifier.ToString("n"));
+
+            Type pluginType = plugin.GetType();
+            string pluginLocation = pluginType.Assembly.Location;
+
+            if (Path.GetDirectoryName(pluginLocation) != Path.Combine(ChameleonCoderApp.AppDir, "Components"))
+            {
+                File.Copy(pluginLocation,
+                    Path.Combine(ChameleonCoderApp.AppDir, "Components\\",
+                    Path.GetFileName(pluginLocation)));
+            }
+
+            OnPluginInstalled(plugin);
+
+            Load(new Type[1] { pluginType });
+        }
+
+        public void UninstallPermanently(IPlugin plugin)
+        {
+            Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
+            OnPluginUninstalled(plugin);
         }
 
         #region ILanguageModule
@@ -488,6 +515,10 @@ namespace ChameleonCoder.Plugins
         /// </summary>
         public event ServiceEventHandler ServiceExecuted;
 
+        public event PluginEventHandler PluginInstalled;
+
+        public event PluginEventHandler PluginUninstalled;
+
         #endregion
 
         #region event infrastructure
@@ -568,6 +599,22 @@ namespace ChameleonCoder.Plugins
             ServiceEventHandler handler = ServiceExecuted;
             if (handler != null)
                 handler(this, new ServiceEventArgs(service));
+        }
+
+        [ComVisible(false)]
+        internal void OnPluginInstalled(IPlugin plugin)
+        {
+            PluginEventHandler handler = PluginInstalled;
+            if (handler != null)
+                handler(this, new PluginEventArgs(plugin));
+        }
+
+        [ComVisible(false)]
+        internal void OnPluginUninstalled(IPlugin plugin)
+        {
+            PluginEventHandler handler = PluginUninstalled;
+            if (handler != null)
+                handler(this, new PluginEventArgs(plugin));
         }
 
         #endregion

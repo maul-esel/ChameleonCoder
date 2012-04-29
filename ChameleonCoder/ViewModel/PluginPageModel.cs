@@ -24,8 +24,8 @@ namespace ChameleonCoder.ViewModel
             plugins = new ObservableCollection<IPlugin>(App.PluginMan.GetPlugins());
             plugins.CollectionChanged += (s, e) => OnPropertyChanged("PluginList");
 
-            Shared.InformationProvider.PluginInstalled += (s, e) => plugins.Add(s as IPlugin);
-            Shared.InformationProvider.PluginUninstalled += (s, e) => plugins.Remove(s as IPlugin);
+            app.PluginMan.PluginInstalled += (s, e) => plugins.Add(e.Plugin);
+            app.PluginMan.PluginUninstalled += (s, e) => plugins.Remove(e.Plugin);
         }
 
         #region commanding
@@ -76,9 +76,12 @@ namespace ChameleonCoder.ViewModel
 
         private void UninstallPlugin(IPlugin plugin)
         {
+            App.PluginMan.UninstallPermanently(plugin);
+            /*
             Settings.ChameleonCoderSettings.Default.InstalledPlugins.Remove(plugin.Identifier.ToString("n"));
             Shared.InformationProvider.OnPluginUninstalled(plugin);
             Settings.ChameleonCoderSettings.Default.Save();
+            */
         }
 
         private void InstallPlugins()

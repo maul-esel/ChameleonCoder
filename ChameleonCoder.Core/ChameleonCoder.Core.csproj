@@ -74,6 +74,7 @@
     <Compile Include="Plugins\ITemplate.cs" />
     <Compile Include="Plugins\ModuleEventArgs.cs" />
     <Compile Include="Plugins\NoWrapperTemplateAttribute.cs" />
+    <Compile Include="Plugins\PluginEventArgs.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\ServiceEventArgs.cs" />
     <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
