@@ -24,7 +24,7 @@ namespace ChameleonCoder
             if (res == null)
                 return;
 
-            var content = (XmlElement)res.SelectSingleNode("cc:richcontent", manager);
+            var content = (XmlElement)res.SelectSingleNode(DocumentXPath.RichContentNode, manager);
             if (content == null)
                 return;
 

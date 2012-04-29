@@ -11,12 +11,17 @@ namespace ChameleonCoder.Resources.RichContent
         /// <summary>
         /// the list of Children the content member has
         /// </summary>
+        [System.Obsolete]
         RichContentCollection Children { get; }
 
         /// <summary>
         /// the member's parent member
         /// </summary>
         IContentMember Parent { get; }
+
+        Files.IDataFile File { get; }
+
+        Interfaces.IRichContentResource Resource { get; }
 
         /// <summary>
         /// gets the member's html representation

@@ -47,6 +47,9 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         public Guid Identifier { get; protected set; }
 
+        public ChameleonCoder.Resources.Interfaces.IRichContentResource Resource { get; private set; }
+        public Files.IDataFile File { get; private set; }
+
         /// <summary>
         /// gets the icon representing this instance to the user
         /// </summary>

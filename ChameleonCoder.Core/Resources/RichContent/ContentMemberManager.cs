@@ -88,7 +88,18 @@ namespace ChameleonCoder.Resources.RichContent
             throw new ArgumentException("this is not a registered content member type", "component");
         }
 
+        [Obsolete]
         internal IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent)
+        {
+            var dict = new System.Collections.Specialized.ObservableStringDictionary();
+            foreach (XmlAttribute attr in data.Attributes)
+            {
+                dict.Add(attr.Name, attr.Value);
+            }
+            return CreateInstanceOf(key, dict, parent, parent != null ? parent.File : null);
+        }
+
+        internal IContentMember CreateInstanceOf(Guid key, System.Collections.Specialized.ObservableStringDictionary data, IContentMember parent, Files.IDataFile file)
         {
             Type member = ContentMembers.GetMember(key);
             if (member != null)
@@ -96,11 +107,10 @@ namespace ChameleonCoder.Resources.RichContent
                 var factory = GetFactory(member);
                 if (factory != null)
                 {
-                    return factory.CreateInstance(member, data, parent);
+                    return factory.CreateInstance(member, data, parent, file);
                 }
             }
             return null;
         }
-        
     }
 }

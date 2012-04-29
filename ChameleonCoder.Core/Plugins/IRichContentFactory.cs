@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 using ChameleonCoder.Resources.RichContent;
 
@@ -26,6 +27,8 @@ namespace ChameleonCoder.Plugins
         [Obsolete("should return dictionary, same as in IResourceFactory", true)]
         IContentMember CreateMember(Type type, string name, IContentMember parent);
 
+        ObservableStringDictionary CreateContentMember(Type type, string name, IContentMember parent);
+
         /// <summary>
         /// creates an instance of the given registered type
         /// </summary>
@@ -33,6 +36,9 @@ namespace ChameleonCoder.Plugins
         /// <param name="data">the XmlElement representing the member</param>
         /// <param name="parent">the parent member</param>
         /// <returns>the newly created instance</returns>
+        [Obsolete]
         IContentMember CreateInstance(Type memberType, System.Xml.XmlElement data, IContentMember parent);
+
+        IContentMember CreateInstance(Type memberType, ObservableStringDictionary data, IContentMember parent, Files.IDataFile file);
     }
 }

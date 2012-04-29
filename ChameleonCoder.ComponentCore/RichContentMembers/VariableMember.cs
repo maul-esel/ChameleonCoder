@@ -51,6 +51,9 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <value>null, as this is not yet implemented</value>
         public System.Windows.Media.ImageSource Icon { get; private set; }
 
+        public ChameleonCoder.Resources.Interfaces.IRichContentResource Resource { get; private set; }
+        public Files.IDataFile File { get; private set; }
+
         /// <summary>
         /// initializes the instance
         /// </summary>

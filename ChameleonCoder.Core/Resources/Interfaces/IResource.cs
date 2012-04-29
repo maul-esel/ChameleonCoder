@@ -60,6 +60,7 @@ namespace ChameleonCoder.Resources.Interfaces
         /// </summary>
         /// <param name="data">a dictionary containing the resource attributes.</param>
         /// <param name="parent">the parent resource for the resource</param>
+        [System.Obsolete]
         void Update(ObservableStringDictionary data, IResource parent, Files.IDataFile file);
 
         /// <summary>

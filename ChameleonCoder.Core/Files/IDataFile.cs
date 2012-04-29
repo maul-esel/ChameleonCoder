@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 using ChameleonCoder.Resources.Interfaces;
+using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.Files
 {
@@ -23,7 +24,7 @@ namespace ChameleonCoder.Files
         void Load();
 
         void SetMetadata(string key, string value);
-        string GetMetadata(string key);
+        string GetMetadata(string key); // todo: make observable
         StringDictionary GetMetadata();
         void DeleteMetadata(string key);
 
@@ -49,8 +50,11 @@ namespace ChameleonCoder.Files
 
         void ResourceSetMetadata(IResource resource, string key, string value);
         string ResourceGetMetadata(IResource resource, string key);
-        StringDictionary ResourceGetMetadata(IResource resource);
+        StringDictionary ResourceGetMetadata(IResource resource); // todo: make observable
         void ResourceDeleteMetadata(IResource resource, string key);
+
+        ObservableStringDictionary[] ResourceGetRichContent(IRichContentResource resource);
+        ObservableStringDictionary[] ContentMemberGetChildren(IContentMember member);
 
         string FilePath { get; }
         string Name { get; }
