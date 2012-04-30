@@ -78,6 +78,7 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\ServiceEventArgs.cs" />
     <Compile Include="Plugins\Syntax\IProvideSyntaxInfo.cs" />
+    <Compile Include="Plugins\Syntax\SyntaxSupportLevel.cs" />
     <Compile Include="Plugins\Syntax\SyntaxElement.cs" />
     <Compile Include="Plugins\TemplateDefaultNameAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

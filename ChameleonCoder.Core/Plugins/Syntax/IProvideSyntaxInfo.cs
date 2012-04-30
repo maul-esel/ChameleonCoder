@@ -24,7 +24,7 @@ namespace ChameleonCoder.Plugins.Syntax
         /// <returns>true if the feature is supported, false if it is not supported.</returns>
         /// <remarks>As the SyntaxElement enum might grow over time,
         /// just return null if the handling of the given value is not implemented.</remarks>
-        bool? IsSupported(SyntaxElement element);
+        SyntaxSupportLevel IsSupported(SyntaxElement element);
 
         /// <summary>
         /// gets the syntax for the specified element
