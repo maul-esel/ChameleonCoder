@@ -403,12 +403,14 @@ namespace ChameleonCoder.Files
                 {
                     foreach (XmlElement node in contentList.ChildNodes)
                     {
-                        var dict = new ObservableStringDictionary(); // todo: listen (?)
+                        var dict = new ObservableStringDictionary();
                         foreach (XmlAttribute attr in node.Attributes)
                         {
                             dict.Add(attr.LocalName, attr.Value);
                         }
                         members.Add(dict);
+                        mappings.Add(dict, node);
+                        listeners.Add(dict, new XmlAttributeChangeListener(dict, node)); // listen for changes
                     }
                 }
             }
