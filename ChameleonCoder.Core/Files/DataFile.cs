@@ -334,7 +334,7 @@ namespace ChameleonCoder.Files
 #if DEBUG
                 Debug.Assert(parent.File == this, "Attempted to retrieve children for a resource in another file!");
 #endif
-                XmlElement parentNode = doc.SelectSingleNode(DocumentXPath.Resources + "[@id='" + parent.Identifier.ToString("b") + "']") as XmlElement;
+                XmlElement parentNode = doc.SelectSingleNode(DocumentXPath.Resources + "[@id='" + parent.Identifier.ToString("b") + "']", manager) as XmlElement;
                 if (parentNode != null)
                 {
                     nodeList = parentNode.ChildNodes;
