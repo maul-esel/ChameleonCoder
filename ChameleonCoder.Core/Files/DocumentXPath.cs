@@ -38,6 +38,9 @@
 
             internal const string RichContentNode = prefix + "richcontent";
             internal const string RichContentList = DataRoot + "/" + RichContentNode;
+
+            internal const string ResourceReferenceNode = prefix + "reference";
+            internal const string ResourceReferenceSubpath = prefix + "references/" + ResourceReferenceNode;
         }
     }
 }

@@ -328,6 +328,35 @@ namespace ChameleonCoder.Files
             return attrList.ToArray();
         }
 
+        public ObservableStringDictionary[] ResourceParseReferences(IResource resource)
+        {
+            if (resource == null)
+                throw new InvalidOperationException();
+#if DEBUG
+            Debug.Assert(resource.File == this, "Attempted to retrieve references for a resource in another file!");
+#endif
+
+            var referenceList = new List<ObservableStringDictionary>();
+            XmlElement res = GetResourceDataElement(resource, false);
+            if (res != null)
+            {
+                foreach (XmlElement node in res.SelectNodes(DocumentXPath.ResourceReferenceSubpath, manager))
+                {
+                    ObservableStringDictionary attributes = new ObservableStringDictionary();
+
+                    foreach (XmlAttribute attr in node.Attributes)
+                    {
+                        attributes.Add(attr.LocalName, attr.Value);
+                    }
+
+                    referenceList.Add(attributes);
+                    listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
+                    mappings.Add(attributes, node);
+                }
+            }
+            return referenceList.ToArray();
+        }
+
         public void ResourceDelete(IResource resource)
         {
 #if DEBUG

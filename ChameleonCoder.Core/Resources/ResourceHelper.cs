@@ -57,33 +57,6 @@ namespace ChameleonCoder
         #region references
 
         /// <summary>
-        /// loads all references
-        /// </summary>
-        /// <param name="resource">the resource to load the references on</param>
-        internal static void LoadReferences(this IResource resource)
-        {
-            if (resource != null)
-            {
-                XmlNamespaceManager manager;
-                var res = GetDataElement(resource, false, out manager);
-
-                if (res != null)
-                {
-                    foreach (XmlElement reference in res.SelectNodes("cc:references/cc:reference", manager))
-                    {
-                        var dict = new System.Collections.Specialized.ObservableStringDictionary();
-                        foreach (XmlAttribute attr in reference.Attributes)
-                        {
-                            dict.Add(attr.LocalName, attr.Value);
-                        }
-                        // todo: listen to dict changes
-                        resource.AddReference(new Resources.ResourceReference(dict, resource.File));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// adds a reference to the resource
         /// </summary>
         /// <param name="resource">the resource to add a reference on</param>
@@ -98,7 +71,7 @@ namespace ChameleonCoder
 
                 if (res != null)
                 {
-                    var element = (XmlElement)res.OwnerDocument.CreateElement("cc:reference", DataFile.NamespaceUri);
+                    var element = (XmlElement)res.OwnerDocument.CreateElement(DataFile.DocumentXPath.ResourceReferenceNode, DataFile.NamespaceUri);
                     element.SetAttribute("name", DataFile.NamespaceUri, name);
                     element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
                     element.SetAttribute("target", DataFile.NamespaceUri, target.ToString("b"));
@@ -128,7 +101,7 @@ namespace ChameleonCoder
                 var res = GetDataElement(resource, false, out manager);
                 if (res != null)
                 {
-                    var element = (XmlElement)res.SelectSingleNode("cc:references/cc:reference[@id='" + id.ToString("b") + "']", manager);
+                    var element = (XmlElement)res.SelectSingleNode(DataFile.DocumentXPath.ResourceReferenceSubpath + "[@id='" + id.ToString("b") + "']", manager);
                     if (element != null)
                         res.RemoveChild(element);
                 }

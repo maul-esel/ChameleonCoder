@@ -88,7 +88,11 @@ namespace ChameleonCoder.Resources
             {
                 richResource.MakeRichContent(); // parse the RichContent
             }
-            instance.LoadReferences();
+
+            foreach (var refAttr in instance.File.ResourceParseReferences(instance))
+            {
+                instance.AddReference(new ResourceReference(refAttr, instance.File));
+            }
         }
 
         public void AddRange(IResource[] resources, IResource parent)
