@@ -164,14 +164,14 @@ namespace ChameleonCoder.Files
         /// gets all metadata related to the file
         /// </summary>
         /// <returns>a dictionary containing the metadata</returns>
-        public StringDictionary GetMetadata() // todo: make observable
+        public ObservableStringDictionary GetMetadata()
         {
             var set = (XmlElement)doc.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
             if (set == null)
                 return null;
 
             var data = set.SelectNodes("cc:metadata", manager);
-            var dict = new StringDictionary();
+            var dict = new ObservableStringDictionary();
 
             foreach (XmlElement meta in data)
             {
@@ -589,9 +589,9 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="resource">the resource to analyze</param>
         /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
-        public StringDictionary ResourceGetMetadata(IResource resource) // todo: make observable
+        public ObservableStringDictionary ResourceGetMetadata(IResource resource)
         {
-            var dict = new StringDictionary();
+            var dict = new ObservableStringDictionary();
 
             // get the resource's data element
             XmlElement res = GetResourceDataElement(resource, false);

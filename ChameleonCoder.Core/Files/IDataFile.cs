@@ -19,8 +19,8 @@ namespace ChameleonCoder.Files
         void Save();
 
         void SetMetadata(string key, string value);
-        string GetMetadata(string key); // todo: make observable
-        StringDictionary GetMetadata();
+        string GetMetadata(string key);
+        ObservableStringDictionary GetMetadata();
         void DeleteMetadata(string key);
 
         void AddFileReference(string path);
@@ -56,7 +56,7 @@ namespace ChameleonCoder.Files
 
         void ResourceSetMetadata(IResource resource, string key, string value);
         string ResourceGetMetadata(IResource resource, string key);
-        StringDictionary ResourceGetMetadata(IResource resource); // todo: make observable
+        ObservableStringDictionary ResourceGetMetadata(IResource resource);
         void ResourceDeleteMetadata(IResource resource, string key);
 
         string FilePath { get; }
