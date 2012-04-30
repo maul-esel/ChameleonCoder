@@ -10,7 +10,7 @@ namespace ChameleonCoder.Resources
     /// <param name="sender">the resource raising the event</param>
     /// <param name="e">additional data</param>
     [ComVisible(true)]
-    public delegate void ResourceEventHandler(object sender, EventArgs e);
+    public delegate void ResourceEventHandler(object sender, ResourceEventArgs e);
 
     [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
     public sealed class ResourceManager
@@ -244,7 +244,7 @@ namespace ChameleonCoder.Resources
             if (ActiveResource != null)
                 Close();
 
-            OnResourceLoad(resource, new EventArgs());
+            OnResourceLoad(resource);
 
             ActiveResource = resource;
 
@@ -260,7 +260,7 @@ namespace ChameleonCoder.Resources
                         App.PluginMan.LoadModule(langRes.Language);
                 }
             }
-            OnResourceLoaded(resource, new EventArgs());
+            OnResourceLoaded(resource);
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace ChameleonCoder.Resources
         {
             if (ActiveResource != null)
             {
-                OnResourceUnload(ActiveResource, new EventArgs());
+                OnResourceUnload(ActiveResource);
 
                 ILanguageResource langRes = ActiveResource as ILanguageResource;
                 if (langRes != null)
@@ -282,7 +282,7 @@ namespace ChameleonCoder.Resources
                 var item = ActiveResource;
                 ActiveResource = null;
 
-                OnResourceUnloaded(item, new EventArgs());
+                OnResourceUnloaded(item);
             }
             else
                 throw new InvalidOperationException("no resource can be closed.");
@@ -439,11 +439,11 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal void OnResourceLoad(IResource sender, EventArgs e)
+        internal void OnResourceLoad(IResource resource)
         {
             ResourceEventHandler handler = ResourceLoad;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ResourceEventArgs(resource));
         }
 
         /// <summary>
@@ -451,11 +451,11 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal void OnResourceLoaded(IResource sender, EventArgs e)
+        internal void OnResourceLoaded(IResource resource)
         {
             ResourceEventHandler handler = ResourceLoaded;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ResourceEventArgs(resource));
         }
 
         /// <summary>
@@ -463,11 +463,11 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal void OnResourceUnload(IResource sender, EventArgs e)
+        internal void OnResourceUnload(IResource resource)
         {
             ResourceEventHandler handler = ResourceUnload;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ResourceEventArgs(resource));
         }
 
         /// <summary>
@@ -475,11 +475,11 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="sender">the resource raising the event</param>
         /// <param name="e">additional data</param>
-        internal void OnResourceUnloaded(IResource sender, EventArgs e)
+        internal void OnResourceUnloaded(IResource resource)
         {
             ResourceEventHandler handler = ResourceUnloaded;
             if (handler != null)
-                handler(sender, e);
+                handler(this, new ResourceEventArgs(resource));
         }
 
         #endregion

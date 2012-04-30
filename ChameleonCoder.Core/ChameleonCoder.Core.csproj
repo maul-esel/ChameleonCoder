@@ -94,6 +94,7 @@
     <Compile Include="Resources\ILanguageResource.cs" />
     <Compile Include="Resources\IResource.cs" />
     <Compile Include="Resources\IRichContentResource.cs" />
+    <Compile Include="Resources\ResourceEventArgs.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Resources\ResourceTypeCollection.cs" />
     <Compile Include="Resources\ResourceTypeManager.cs" />
