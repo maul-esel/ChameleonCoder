@@ -124,7 +124,7 @@ namespace ChameleonCoder.Files
             get { return FilePath == null; }
         }
 
-        #endregion
+        #endregion // "status"
 
         #region metadata
 
@@ -294,6 +294,8 @@ namespace ChameleonCoder.Files
 
         #endregion // "references"
 
+        #region resources
+
         public void ResourceRemove(IResource resource)
         {
             mappings.Remove(resource.Attributes);
@@ -427,9 +429,9 @@ namespace ChameleonCoder.Files
             return members.ToArray();
         }
 
-        #endregion
+        #endregion // "resources" > "parsing" > "RichContent"
 
-        #endregion
+        #endregion // "resources" > "parsing"
 
         public void ResourceDelete(IResource resource)
         {
@@ -492,9 +494,9 @@ namespace ChameleonCoder.Files
             return DateTime.Parse(created.InnerText);
         }
 
-        #endregion // "created date"
+        #endregion // "resources" > "created date"
 
-        #region resource last modified
+        #region last modified
 
         public void ResourceUpdateLastModified(IResource resource)
         {
@@ -538,9 +540,9 @@ namespace ChameleonCoder.Files
             return DateTime.Parse(lastmod.InnerText);
         }
 
-        #endregion // "lastmodified"
+        #endregion // "resources" > "lastmodified"
 
-        #region resource metadata
+        #region metadata
 
         /// <summary>
         /// sets the value of a resource's metadata with the specified key and creates it if necessary
@@ -637,9 +639,9 @@ namespace ChameleonCoder.Files
             meta.ParentNode.RemoveChild(meta); // remove the node
         }
 
-        #endregion // "resource metadata"
+        #endregion // "resources" > "metadata"
 
-        #region resource references
+        #region references
 
         // todo: somehow return reference?
         public void ResourceInsertReference(IResource resource, string name, Guid targetResourceId)
@@ -662,7 +664,9 @@ namespace ChameleonCoder.Files
                 throw new ArgumentNullException("resource");
         }
 
-        #endregion
+        #endregion // "resources" > "references"
+
+        #endregion // "resources"
 
         /// <summary>
         /// returns the path to the file represented by the instance
@@ -706,7 +710,7 @@ namespace ChameleonCoder.Files
         [ComVisible(false)]
         private readonly Dictionary<ObservableStringDictionary, XmlAttributeChangeListener> listeners = new Dictionary<ObservableStringDictionary, XmlAttributeChangeListener>();
 
-        #endregion // private fields
+        #endregion // "private fields"
 
         /// <summary>
         /// returns the XmlDocument

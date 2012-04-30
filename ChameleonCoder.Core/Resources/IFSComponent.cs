@@ -13,6 +13,6 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <returns>the path</returns>
         /// <remarks>always use relative paths for storing and returning!</remarks>
-        string GetFSPath();
+        string GetFSPath(); // todo: possibly replace by GetStream() and IStreamableResource
     }
 }
