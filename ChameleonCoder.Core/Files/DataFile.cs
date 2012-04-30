@@ -317,16 +317,16 @@ namespace ChameleonCoder.Files
         {
 #if DEBUG
             Debug.Assert(resource.File == this, "Attempted to delete a resource in another file.");
-            Debug.Assert(mappings.ContainsKey(resource), "Resource not in mappings.");
-            Debug.Assert(listeners.ContainsKey(resource), "No listener attached to resource.");
+            Debug.Assert(mappings.ContainsKey(resource.Attributes), "Resource not in mappings.");
+            Debug.Assert(listeners.ContainsKey(resource.Attributes), "No listener attached to resource.");
 #endif
-            XmlElement resourceElement = mappings[resource];
+            XmlElement resourceElement = mappings[resource.Attributes];
             resourceElement.ParentNode.RemoveChild(resourceElement);
 
-            mappings.Remove(resource);
+            mappings.Remove(resource.Attributes);
 
-            listeners[resource].Free();
-            listeners.Remove(resource);
+            listeners[resource.Attributes].Free();
+            listeners.Remove(resource.Attributes);
         }
 
         public void ResourceInsert(IResource resource, IResource parent)
@@ -344,10 +344,10 @@ namespace ChameleonCoder.Files
             if (parent == null)
                 doc.SelectSingleNode(DocumentXPath.ResourceRoot, manager).AppendChild(element);
             else
-                mappings[parent].AppendChild(element);
+                mappings[parent.Attributes].AppendChild(element);
 
-            listeners.Add(resource, new XmlAttributeChangeListener(resource, element));
-            mappings.Add(resource, element);
+            listeners.Add(resource.Attributes, new XmlAttributeChangeListener(resource.Attributes, element));
+            mappings.Add(resource.Attributes, element);
         }
 
         #region created date
@@ -624,10 +624,10 @@ namespace ChameleonCoder.Files
         private readonly XmlNamespaceManager manager = null;
 
         [ComVisible(false)]
-        private readonly Dictionary<IResource, XmlElement> mappings = new Dictionary<IResource, XmlElement>();
+        private readonly Dictionary<ObservableStringDictionary, XmlElement> mappings = new Dictionary<ObservableStringDictionary, XmlElement>();
 
         [ComVisible(false)]
-        private readonly Dictionary<IResource, XmlAttributeChangeListener> listeners = new Dictionary<IResource, XmlAttributeChangeListener>();
+        private readonly Dictionary<ObservableStringDictionary, XmlAttributeChangeListener> listeners = new Dictionary<ObservableStringDictionary, XmlAttributeChangeListener>();
 
         #endregion // private fields
 
@@ -722,8 +722,8 @@ namespace ChameleonCoder.Files
             }
 
             App.ResourceMan.Add(resource, parent); // and add it to all required lists // TODO! do not do this here!
-            listeners.Add(resource, new XmlAttributeChangeListener(resource, node)); // listen to changes to save them
-            mappings.Add(resource, node);
+            listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
+            mappings.Add(attributes, node);
 
             foreach (XmlElement child in node.ChildNodes) // TODO! do not do this here!
             {
