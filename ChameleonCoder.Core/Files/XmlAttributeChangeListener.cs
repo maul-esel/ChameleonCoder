@@ -53,7 +53,7 @@ namespace ChameleonCoder.Files
             {
                 foreach (DictionaryEntry attr in items)
                 {
-                    resourceElement.RemoveAttribute(DocumentXPath.prefix + (string)attr.Key, DataFile.NamespaceUri);
+                    resourceElement.RemoveAttribute(DocumentXPath.prefix + (string)attr.Key, NamespaceUri);
                 }
             }
 
@@ -61,7 +61,7 @@ namespace ChameleonCoder.Files
             {
                 foreach (DictionaryEntry attr in items)
                 {
-                    resourceElement.SetAttribute((string)attr.Key, DataFile.NamespaceUri, (string)attr.Value);
+                    resourceElement.SetAttribute((string)attr.Key, NamespaceUri, (string)attr.Value);
                 }
             }
 
