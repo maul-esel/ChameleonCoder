@@ -288,6 +288,8 @@ namespace ChameleonCoder.Files
 
         #endregion // "references"
 
+        #region parsing
+
         public ObservableStringDictionary[] ResourceParseChildren(IResource parent)
         {
             var attrList = new List<ObservableStringDictionary>();
@@ -356,6 +358,46 @@ namespace ChameleonCoder.Files
             }
             return referenceList.ToArray();
         }
+
+        #region RichContent
+
+        public ObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource)
+        {
+            var members = new List<ObservableStringDictionary>();
+
+            XmlElement dataElement = GetResourceDataElement(resource, false);
+            if (dataElement != null)
+            {
+                XmlElement contentList = dataElement.SelectSingleNode(DocumentXPath.RichContentNode, manager) as XmlElement;
+                if (contentList != null)
+                {
+                    foreach (XmlElement node in contentList.ChildNodes)
+                    {
+                        var dict = new ObservableStringDictionary(); // todo: listen (?)
+                        foreach (XmlAttribute attr in node.Attributes)
+                        {
+                            dict.Add(attr.LocalName, attr.Value);
+                        }
+                        members.Add(dict);
+                    }
+                }
+            }
+
+            return members.ToArray();
+        }
+
+        public ObservableStringDictionary[] ContentMemberParseChildren(Resources.RichContent.IContentMember member)
+        {
+            var members = new List<ObservableStringDictionary>();
+
+            // ... todo ...
+
+            return members.ToArray();
+        }
+
+        #endregion
+
+        #endregion
 
         public void ResourceDelete(IResource resource)
         {
@@ -589,44 +631,6 @@ namespace ChameleonCoder.Files
             }
             else
                 throw new ArgumentNullException("resource");
-        }
-
-        #endregion
-
-        #region RichContent
-
-        public ObservableStringDictionary[] ResourceGetRichContent(IRichContentResource resource)
-        {
-            var members = new List<ObservableStringDictionary>();
-
-            XmlElement dataElement = GetResourceDataElement(resource, false);
-            if (dataElement != null)
-            {
-                XmlElement contentList = dataElement.SelectSingleNode(DocumentXPath.RichContentNode, manager) as XmlElement;
-                if (contentList != null)
-                {
-                    foreach (XmlElement node in contentList.ChildNodes)
-                    {
-                        var dict = new ObservableStringDictionary(); // todo: listen (?)
-                        foreach (XmlAttribute attr in node.Attributes)
-                        {
-                            dict.Add(attr.LocalName, attr.Value);
-                        }
-                        members.Add(dict);
-                    }
-                }
-            }
-
-            return members.ToArray();
-        }
-
-        public ObservableStringDictionary[] ContentMemberGetChildren(Resources.RichContent.IContentMember member)
-        {
-            var members = new List<ObservableStringDictionary>();
-
-            // ... todo ...
-
-            return members.ToArray();
         }
 
         #endregion

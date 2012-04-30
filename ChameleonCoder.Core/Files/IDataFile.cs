@@ -32,8 +32,14 @@ namespace ChameleonCoder.Files
         void DeleteFileReference(string path);
         void DeleteDirectoryReference(string path);
 
+        #region parsing
+
         ObservableStringDictionary[] ResourceParseChildren(IResource parent);
         ObservableStringDictionary[] ResourceParseReferences(IResource resource);
+        ObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource);
+        ObservableStringDictionary[] ContentMemberParseChildren(IContentMember member);
+
+        #endregion
 
         void ResourceDelete(IResource resource);
         void ResourceInsert(IResource resource, IResource parent);
@@ -50,9 +56,6 @@ namespace ChameleonCoder.Files
         string ResourceGetMetadata(IResource resource, string key);
         StringDictionary ResourceGetMetadata(IResource resource); // todo: make observable
         void ResourceDeleteMetadata(IResource resource, string key);
-
-        ObservableStringDictionary[] ResourceGetRichContent(IRichContentResource resource);
-        ObservableStringDictionary[] ContentMemberGetChildren(IContentMember member);
 
         string FilePath { get; }
         string Name { get; }
