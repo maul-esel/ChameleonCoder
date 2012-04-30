@@ -43,11 +43,13 @@ namespace ChameleonCoder.Files
 
             foreach (string dirPath in file.DirectoryReferences)
             {
-                dirList.Add(Path.GetFullPath(dirPath)); // todo: use MakeAbsolutePath() (?)
+                if (!IsDirectoryOpen(dirPath))
+                    OpenDirectory(Path.GetFullPath(dirPath));
             }
             foreach (string filePath in file.FileReferences)
             {
-                OpenFile(filePath);
+                if (!IsFileOpen(filePath))
+                    OpenFile(filePath);
             }
 
             return file;
@@ -63,7 +65,7 @@ namespace ChameleonCoder.Files
         {
             if (!Directory.Exists(path)) // todo: check if it's a subdir of an already opened directory
                 throw new DirectoryNotFoundException();
-            if (dirList.Contains(path))
+            if (IsDirectoryOpen(path))
                 throw new InvalidOperationException("The directory has already been opened.");
 
             dirList.Add(path);
