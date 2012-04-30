@@ -303,27 +303,28 @@ namespace ChameleonCoder.Files
                 Debug.Assert(parent.File == this, "Attempted to retrieve children for a resource in another file!");
 #endif
                 XmlElement parentNode = doc.SelectSingleNode(DocumentXPath.Resources + "[@id='" + parent.Identifier.ToString("b") + "']") as XmlElement;
-                if (parentNode == null)
+                if (parentNode != null)
                 {
-
+                    nodeList = parentNode.ChildNodes;
                 }
-                nodeList = parentNode.ChildNodes;
             }
 
-            foreach (XmlElement node in nodeList)
+            if (nodeList != null)
             {
-                ObservableStringDictionary attributes = new ObservableStringDictionary();
-
-                foreach (XmlAttribute attr in node.Attributes)
+                foreach (XmlElement node in nodeList)
                 {
-                    attributes.Add(attr.LocalName, attr.Value);
+                    ObservableStringDictionary attributes = new ObservableStringDictionary();
+
+                    foreach (XmlAttribute attr in node.Attributes)
+                    {
+                        attributes.Add(attr.LocalName, attr.Value);
+                    }
+
+                    attrList.Add(attributes);
+                    listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
+                    mappings.Add(attributes, node);
                 }
-
-                attrList.Add(attributes);
-                listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
-                mappings.Add(attributes, node);
             }
-
             return attrList.ToArray();
         }
 
