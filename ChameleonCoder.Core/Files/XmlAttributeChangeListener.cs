@@ -11,17 +11,21 @@ namespace ChameleonCoder.Files
         private sealed class XmlAttributeChangeListener
         {
             internal XmlAttributeChangeListener(IResource resource, XmlElement element)
+                : this(resource.Attributes, element)
             {
-                resourceInstance = resource;
+            }
+
+            internal XmlAttributeChangeListener(ObservableStringDictionary attributes, XmlElement element)
+            {
                 resourceElement = element;
-                resourceInstance.Attributes.CollectionChanged += OnCollectionChanged;
+                resourceAttributes = attributes;
+                resourceAttributes.CollectionChanged += OnCollectionChanged;
             }
 
             internal void Free()
             {
-                resourceInstance = null;
                 resourceElement = null;
-                resourceInstance.Attributes.CollectionChanged -= OnCollectionChanged;
+                resourceAttributes.CollectionChanged -= OnCollectionChanged;
             }
 
             private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -53,7 +57,7 @@ namespace ChameleonCoder.Files
             {
                 foreach (DictionaryEntry attr in items)
                 {
-                    resourceElement.RemoveAttribute(DocumentXPath.prefix + (string)attr.Key, NamespaceUri);
+                    resourceElement.RemoveAttribute((string)attr.Key, NamespaceUri);
                 }
             }
 
@@ -65,7 +69,7 @@ namespace ChameleonCoder.Files
                 }
             }
 
-            private IResource resourceInstance = null;
+            private ObservableStringDictionary resourceAttributes = null;
             private XmlElement resourceElement = null;
         }
     }
