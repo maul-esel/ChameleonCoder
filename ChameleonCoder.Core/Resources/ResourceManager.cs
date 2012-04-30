@@ -84,6 +84,12 @@ namespace ChameleonCoder.Resources
             instance.PropertyChanged += OnPropertyChanged;
         }
 
+        public void AddRange(IResource[] resources, IResource parent)
+        {
+            foreach (IResource res in resources)
+                Add(res, parent);
+        }
+
         /// <summary>
         /// removes the resource
         /// 1) from the list of ALL resources
