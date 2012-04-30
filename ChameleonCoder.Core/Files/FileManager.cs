@@ -51,6 +51,7 @@ namespace ChameleonCoder.Files
                 if (!IsFileOpen(filePath))
                     OpenFile(filePath);
             }
+            LoadResources(file, null);
 
             return file;
         }
@@ -116,16 +117,32 @@ namespace ChameleonCoder.Files
 
         #region handle all
 
-        /// <summary>
-        /// loads the resources in all opened files
-        /// </summary>
-        [Obsolete]
-        public void LoadAll()
+        [ComVisible(false)]
+        private void LoadResources(IDataFile file, Resources.IResource parent)
         {
-            foreach (IDataFile file in Files)
+            foreach (var attributes in file.ResourceParseChildren(parent))
             {
-                if (!file.IsLoaded)
-                    file.Load();
+                Guid type; Resources.IResource resource = null;
+
+                if (Guid.TryParse(attributes["type"], out type))
+                {
+                    resource = App.ResourceTypeMan.CreateInstanceOf(type, attributes, parent, file); // try to use the element's name as resource alias
+                }
+                else if (Guid.TryParse(attributes["fallback"], out type))
+                {
+                    resource = App.ResourceTypeMan.CreateInstanceOf(type, attributes, parent, file); // give it a "2nd chance"
+                }
+
+                if (resource == null) // if creation failed:
+                {
+                    ChameleonCoderApp.Log("FileManager --> private void LoadResources(IDataFile, IResource)",
+                        "failed to create resource",
+                        "resource-creation failed in " + file.FilePath); // log
+                    return; // ignore
+                }
+
+                App.ResourceMan.Add(resource, parent);
+                LoadResources(file, resource);
             }
         }
 

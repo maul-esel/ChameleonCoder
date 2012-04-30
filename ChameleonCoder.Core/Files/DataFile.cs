@@ -99,21 +99,6 @@ namespace ChameleonCoder.Files
         }
 
         /// <summary>
-        /// loads the resources contained in the file
-        /// </summary>
-        [Obsolete]
-        public void Load()
-        {
-            foreach (XmlNode node in doc.SelectNodes(DocumentXPath.Resources, manager))
-            {
-                var element = node as XmlElement;
-                if (element != null)
-                    LoadResource(element, null); // parse the Xml
-            }
-            IsLoaded = true;
-        }
-
-        /// <summary>
         /// saves the changes made to the file
         /// </summary>
         public void Save()
@@ -131,16 +116,6 @@ namespace ChameleonCoder.Files
         public bool IsOpened
         {
             get { return FilePath == null; }
-        }
-
-        /// <summary>
-        /// gets whether the file instance is loaded or not
-        /// </summary>
-        [Obsolete]
-        public bool IsLoaded
-        {
-            get;
-            private set;
         }
 
         #endregion
@@ -312,6 +287,45 @@ namespace ChameleonCoder.Files
         }
 
         #endregion // "references"
+
+        public ObservableStringDictionary[] ResourceParseChildren(IResource parent)
+        {
+            var attrList = new List<ObservableStringDictionary>();
+            XmlNodeList nodeList = null;
+
+            if (parent == null)
+            {
+                nodeList = doc.SelectNodes(DocumentXPath.Resources, manager);
+            }
+            else
+            {
+#if DEBUG
+                Debug.Assert(parent.File == this, "Attempted to retrieve children for a resource in another file!");
+#endif
+                XmlElement parentNode = doc.SelectSingleNode(DocumentXPath.Resources + "[@id='" + parent.Identifier.ToString("b") + "']") as XmlElement;
+                if (parentNode == null)
+                {
+
+                }
+                nodeList = parentNode.ChildNodes;
+            }
+
+            foreach (XmlElement node in nodeList)
+            {
+                ObservableStringDictionary attributes = new ObservableStringDictionary();
+
+                foreach (XmlAttribute attr in node.Attributes)
+                {
+                    attributes.Add(attr.LocalName, attr.Value);
+                }
+
+                attrList.Add(attributes);
+                listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
+                mappings.Add(attributes, node);
+            }
+
+            return attrList.ToArray();
+        }
 
         public void ResourceDelete(IResource resource)
         {

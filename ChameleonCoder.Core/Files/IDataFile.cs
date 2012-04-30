@@ -18,11 +18,6 @@ namespace ChameleonCoder.Files
 
         void Save();
 
-        [Obsolete]
-        bool IsLoaded { get; }
-        [Obsolete]
-        void Load();
-
         void SetMetadata(string key, string value);
         string GetMetadata(string key); // todo: make observable
         StringDictionary GetMetadata();
@@ -37,6 +32,7 @@ namespace ChameleonCoder.Files
         void DeleteFileReference(string path);
         void DeleteDirectoryReference(string path);
 
+        ObservableStringDictionary[] ResourceParseChildren(IResource parent);
         void ResourceDelete(IResource resource);
         void ResourceInsert(IResource resource, IResource parent);
 

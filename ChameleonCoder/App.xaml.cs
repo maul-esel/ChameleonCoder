@@ -87,7 +87,6 @@ namespace ChameleonCoder
             {
                 obj.PluginMan.Load(); // load all plugins in the /Component/ folder
                 obj.FileMan.OpenFile(path); // open the file(s)
-                obj.FileMan.LoadAll();
             });
 
             obj.InitWindow(); // create the window during plugin & file loading

@@ -623,7 +623,6 @@ namespace ChameleonCoder.ViewModel
             }
 
             App.FileMan.OpenFile(path);
-            App.FileMan.LoadAll(); // do not use file.Load() here as otherwise referenced files won't be loaded
         }
 
         [Obsolete("move to core (FileManager)")]
