@@ -58,6 +58,12 @@ namespace ChameleonCoder.Files
 
         public void Shutdown()
         {
+            mappings.Clear();
+
+            foreach (XmlAttributeChangeListener listener in listeners.Values)
+                listener.Free();
+            listeners.Clear();
+
             App = null;
         }
 
@@ -288,6 +294,30 @@ namespace ChameleonCoder.Files
 
         #endregion // "references"
 
+        public void ResourceRemove(IResource resource)
+        {
+            mappings.Remove(resource.Attributes);
+
+            listeners[resource.Attributes].Free();
+            listeners.Remove(resource.Attributes);
+
+            foreach (ResourceReference reference in resource.References)
+            {
+                mappings.Remove(reference.Attributes);
+                listeners[reference.Attributes].Free();
+                listeners.Remove(reference.Attributes);
+            }
+
+            IRichContentResource richResource = resource as IRichContentResource;
+            if (richResource != null)
+            {
+                foreach (var member in richResource.RichContent)
+                {
+                    // remove attribute listeners etc.
+                }
+            }
+        }
+
         #region parsing
 
         public ObservableStringDictionary[] ResourceParseChildren(IResource parent)
@@ -409,10 +439,7 @@ namespace ChameleonCoder.Files
             XmlElement resourceElement = mappings[resource.Attributes];
             resourceElement.ParentNode.RemoveChild(resourceElement);
 
-            mappings.Remove(resource.Attributes);
-
-            listeners[resource.Attributes].Free();
-            listeners.Remove(resource.Attributes);
+            ResourceRemove(resource);
         }
 
         public void ResourceInsert(IResource resource, IResource parent)

@@ -32,6 +32,8 @@ namespace ChameleonCoder.Files
         void DeleteFileReference(string path);
         void DeleteDirectoryReference(string path);
 
+        void ResourceRemove(IResource resource);
+
         #region parsing
 
         ObservableStringDictionary[] ResourceParseChildren(IResource parent);
