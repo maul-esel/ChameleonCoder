@@ -686,7 +686,7 @@ namespace ChameleonCoder.Files
         [ComVisible(false)]
         private XmlElement GetResourceDataElement(IResource resource, bool create)
         {
-            var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceData + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
+            var data = (XmlElement)doc.SelectSingleNode(DocumentXPath.ResourceDataList + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)
             {
                 data = doc.CreateElement("cc:resourcedata", NamespaceUri); // create it

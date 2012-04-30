@@ -172,7 +172,7 @@ namespace ChameleonCoder.Resources
                 element = (System.Xml.XmlElement)doc.ImportNode(element, true); // import the XmlElement
 
             if (newParent == null) // if no parent:
-                doc.SelectSingleNode(DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
+                doc.SelectSingleNode(DataFile.DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
             else // if parent:
                 newParent.Xml.AppendChild(element); // add element to parent's Children
 
