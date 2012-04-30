@@ -466,8 +466,10 @@ namespace ChameleonCoder.ViewModel
         [System.ComponentModel.NotifyParentProperty(false)]
         public static string BreadcrumbSeparator
         {
-            get { return ChameleonCoderApp.resourcePathSeparator; }
+            get { return resourcePathSeparator; }
         }
+
+        internal const string resourcePathSeparator = "/";
 
         public string BreadcrumbPath
         {

@@ -43,12 +43,6 @@ namespace ChameleonCoder
         public static ChameleonCoderApp RunningObject { get; private set; }
 
         /// <summary>
-        /// the string used to separate resource paths
-        /// </summary>
-        [ComVisible(false), Obsolete]
-        internal const string resourcePathSeparator = "/";
-
-        /// <summary>
         /// creates a new instance of the class
         /// </summary>
         /// <remarks>This must be COM-compatible! Do not add parameters!</remarks>

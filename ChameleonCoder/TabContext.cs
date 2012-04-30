@@ -3,6 +3,7 @@ using System.ComponentModel;
 using ChameleonCoder.Resources;
 using ChameleonCoder.Shared;
 using Res = ChameleonCoder.Properties.Resources;
+using MVVM = ChameleonCoder.ViewModel.MainWindowModel;
 
 namespace ChameleonCoder
 {
@@ -141,34 +142,34 @@ namespace ChameleonCoder
                     case CCTabPage.FileManagement:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            ChameleonCoderApp.resourcePathSeparator,
+                            MVVM.resourcePathSeparator,
                             Res.Item_FileManagement);
 
                     case CCTabPage.Plugins:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            ChameleonCoderApp.resourcePathSeparator,
+                            MVVM.resourcePathSeparator,
                             Res.Item_Plugins);
 
                     case CCTabPage.ResourceList:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            ChameleonCoderApp.resourcePathSeparator,
+                            MVVM.resourcePathSeparator,
                             Res.Item_List);
 
                     case CCTabPage.Settings:
                         return string.Format("{0}{1}{2}",
                             Res.Item_Home,
-                            ChameleonCoderApp.resourcePathSeparator,
+                            MVVM.resourcePathSeparator,
                             Res.Item_Settings);
 
                     case CCTabPage.ResourceView:
                     case CCTabPage.ResourceEdit:
                         return string.Format("{0}{1}{2}{3}",
                             Res.Item_Home,
-                            ChameleonCoderApp.resourcePathSeparator,
+                            MVVM.resourcePathSeparator,
                             Res.Item_List,
-                            Resource.File.App.ResourceMan.GetDisplayPath(Resource));
+                            Resource.File.App.ResourceMan.GetDisplayPath(Resource, MVVM.resourcePathSeparator));
 
                     case CCTabPage.None:
                     default:
