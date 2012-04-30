@@ -729,14 +729,6 @@ namespace ChameleonCoder.Files
             {
                 LoadResource(child, resource); // parse all child resources
             }
-            resource.LoadReferences(); // TODO! do not do this here!
-
-            // convert it into a RichContentResource
-            IRichContentResource richResource = resource as IRichContentResource;
-            if (richResource != null) // if it is really a RichContentResource:
-            {
-                richResource.MakeRichContent(); // parse the RichContent
-            }
         }
 
         [ComVisible(false)]

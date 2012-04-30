@@ -82,6 +82,13 @@ namespace ChameleonCoder.Resources
                 parent.AddChild(instance);
             }
             instance.PropertyChanged += OnPropertyChanged;
+
+            IRichContentResource richResource = instance as IRichContentResource;
+            if (richResource != null) // if it is really a RichContentResource:
+            {
+                richResource.MakeRichContent(); // parse the RichContent
+            }
+            instance.LoadReferences();
         }
 
         public void AddRange(IResource[] resources, IResource parent)
@@ -148,6 +155,7 @@ namespace ChameleonCoder.Resources
             CopyResource(resource, newParent, false);
         }
 
+        [Obsolete]
         private void CopyResource(IResource resource, IResource newParent, bool moveGUID) // TODO!!!!
         {
             var file = newParent == null ? resource.File : newParent.File;
