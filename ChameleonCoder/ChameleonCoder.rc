@@ -2,5 +2,5 @@
 #define RESOURCE_H
 #endif
 
-IDI_ICON ICON "Images\logo.ico"
+IDI_ICON ICON "logo.ico"
 // note: I'm not an expert in this, it's just copied together ;-)
