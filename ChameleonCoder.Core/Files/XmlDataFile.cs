@@ -302,9 +302,7 @@ namespace ChameleonCoder.Files
 
             foreach (ResourceReference reference in resource.References)
             {
-                mappings.Remove(reference.Attributes);
-                listeners[reference.Attributes].Free();
-                listeners.Remove(reference.Attributes);
+                RemovePrivateDictionaryData(reference.Attributes);
             }
 
             IRichContentResource richResource = resource as IRichContentResource;
@@ -312,6 +310,7 @@ namespace ChameleonCoder.Files
             {
                 foreach (var member in richResource.RichContent)
                 {
+                    RemovePrivateDictionaryData(member.Attributes);
                     // remove attribute listeners etc.
                 }
             }
