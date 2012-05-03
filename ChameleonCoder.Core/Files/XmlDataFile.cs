@@ -321,7 +321,7 @@ namespace ChameleonCoder.Files
 
         public IObservableStringDictionary[] ResourceParseChildren(IResource parent)
         {
-            var attrList = new List<ObservableStringDictionary>();
+            var attrList = new List<IObservableStringDictionary>();
             XmlNodeList nodeList = null;
 
             if (parent == null)
@@ -340,13 +340,7 @@ namespace ChameleonCoder.Files
             {
                 foreach (XmlElement node in nodeList)
                 {
-                    ObservableStringDictionary attributes = new ObservableStringDictionary();
-
-                    foreach (XmlAttribute attr in node.Attributes)
-                    {
-                        attributes.Add(attr.LocalName, attr.Value);
-                    }
-
+                    var attributes = ParseElementToDictionary(node);
                     attrList.Add(attributes);
                     AddPrivateDictionaryData(attributes, node); // listen to changes to save them
                 }
@@ -362,19 +356,13 @@ namespace ChameleonCoder.Files
             Debug.Assert(resource.File == this, "Attempted to retrieve references for a resource in another file!");
 #endif
 
-            var referenceList = new List<ObservableStringDictionary>();
+            var referenceList = new List<IObservableStringDictionary>();
             XmlElement res = GetResourceDataElement(resource, false);
             if (res != null)
             {
                 foreach (XmlElement node in res.SelectNodes(DocumentXPath.ResourceReferenceSubpath, manager))
                 {
-                    ObservableStringDictionary attributes = new ObservableStringDictionary();
-
-                    foreach (XmlAttribute attr in node.Attributes)
-                    {
-                        attributes.Add(attr.LocalName, attr.Value);
-                    }
-
+                    var attributes = ParseElementToDictionary(node);
                     referenceList.Add(attributes);
                     AddPrivateDictionaryData(attributes, node); // listen to changes to save them
                 }
@@ -386,7 +374,7 @@ namespace ChameleonCoder.Files
 
         public IObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource)
         {
-            var members = new List<ObservableStringDictionary>();
+            var members = new List<IObservableStringDictionary>();
 
             XmlElement dataElement = GetResourceDataElement(resource, false);
             if (dataElement != null)
@@ -396,11 +384,7 @@ namespace ChameleonCoder.Files
                 {
                     foreach (XmlElement node in contentList.ChildNodes)
                     {
-                        var dict = new ObservableStringDictionary();
-                        foreach (XmlAttribute attr in node.Attributes)
-                        {
-                            dict.Add(attr.LocalName, attr.Value);
-                        }
+                        var dict = ParseElementToDictionary(node);
                         members.Add(dict);
                         AddPrivateDictionaryData(dict, node); // listen for changes
                     }
@@ -420,6 +404,16 @@ namespace ChameleonCoder.Files
         }
 
         #endregion // "resources" > "parsing" > "RichContent"
+
+        private IObservableStringDictionary ParseElementToDictionary(XmlElement element)
+        {
+            var dict = new ObservableStringDictionary();
+            foreach (XmlAttribute attr in element.Attributes)
+            {
+                dict.Add(attr.LocalName, attr.Value);
+            }
+            return dict;
+        }
 
         #endregion // "resources" > "parsing"
 
