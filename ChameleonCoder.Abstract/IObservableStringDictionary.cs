@@ -13,5 +13,7 @@ namespace System.Collections.Specialized
 
         ICollection Keys { get; }
         ICollection Values { get; }
+
+        IObservableStringDictionary Clone();
     }
 }

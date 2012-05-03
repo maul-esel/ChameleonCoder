@@ -38,6 +38,21 @@ namespace System.Collections.Specialized
             OnItemRemoved(key, old);
         }
 
+        public ObservableStringDictionary Clone()
+        {
+            ObservableStringDictionary clone = new ObservableStringDictionary();
+            foreach (DictionaryEntry entry in this)
+            {
+                clone.Add((string)entry.Key, (string)entry.Value);
+            }
+            return clone;
+        }
+
+        IObservableStringDictionary IObservableStringDictionary.Clone()
+        {
+            return Clone();
+        }
+
         #region INotifyCollectionChanged
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
