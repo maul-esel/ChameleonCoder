@@ -298,10 +298,7 @@ namespace ChameleonCoder.Files
 
         public void ResourceRemove(IResource resource)
         {
-            mappings.Remove(resource.Attributes);
-
-            listeners[resource.Attributes].Free();
-            listeners.Remove(resource.Attributes);
+            RemovePrivateResourceData(resource);
 
             foreach (ResourceReference reference in resource.References)
             {
@@ -351,8 +348,7 @@ namespace ChameleonCoder.Files
                     }
 
                     attrList.Add(attributes);
-                    listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
-                    mappings.Add(attributes, node);
+                    AddPrivateDictionaryData(attributes, node); // listen to changes to save them
                 }
             }
             return attrList.ToArray();
@@ -380,8 +376,7 @@ namespace ChameleonCoder.Files
                     }
 
                     referenceList.Add(attributes);
-                    listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
-                    mappings.Add(attributes, node);
+                    AddPrivateDictionaryData(attributes, node); // listen to changes to save them
                 }
             }
             return referenceList.ToArray();
@@ -407,8 +402,7 @@ namespace ChameleonCoder.Files
                             dict.Add(attr.LocalName, attr.Value);
                         }
                         members.Add(dict);
-                        mappings.Add(dict, node);
-                        listeners.Add(dict, new XmlAttributeChangeListener(dict, node)); // listen for changes
+                        AddPrivateDictionaryData(dict, node); // listen for changes
                     }
                 }
             }
@@ -436,10 +430,8 @@ namespace ChameleonCoder.Files
             Debug.Assert(mappings.ContainsKey(resource.Attributes), "Resource not in mappings.");
             Debug.Assert(listeners.ContainsKey(resource.Attributes), "No listener attached to resource.");
 #endif
-            XmlElement resourceElement = mappings[resource.Attributes];
-            resourceElement.ParentNode.RemoveChild(resourceElement);
-
-            ResourceRemove(resource);
+            DeleteResourceElement(resource); // delete XML element
+            RemovePrivateResourceData(resource); // remove all references to the instance
         }
 
         public void ResourceInsert(IResource resource, IResource parent)
@@ -459,9 +451,41 @@ namespace ChameleonCoder.Files
             else
                 mappings[parent.Attributes].AppendChild(element);
 
-            listeners.Add(resource.Attributes, new XmlAttributeChangeListener(resource.Attributes, element));
-            mappings.Add(resource.Attributes, element);
+            AddPrivateResourceData(resource, element);
         }
+
+        private void DeleteResourceElement(IResource resource)
+        {
+            XmlElement element = mappings[resource.Attributes];
+            element.ParentNode.RemoveChild(element);
+        }
+
+        #region private data
+
+        private void AddPrivateResourceData(IResource resource, XmlElement data)
+        {
+            AddPrivateDictionaryData(resource.Attributes, data);
+        }
+
+        private void AddPrivateDictionaryData(IObservableStringDictionary attributes, XmlElement data)
+        {
+            listeners.Add(attributes, new XmlAttributeChangeListener(attributes, data));
+            mappings.Add(attributes, data);
+        }
+
+        private void RemovePrivateResourceData(IResource resource)
+        {
+            RemovePrivateDictionaryData(resource.Attributes);
+        }
+
+        private void RemovePrivateDictionaryData(IObservableStringDictionary attributes)
+        {
+            listeners[attributes].Free();
+            listeners.Remove(attributes);
+            mappings.Remove(attributes);
+        }
+
+        #endregion
 
         #region created date
 
@@ -799,8 +823,7 @@ namespace ChameleonCoder.Files
             }
 
             App.ResourceMan.Add(resource, parent); // and add it to all required lists // TODO! do not do this here!
-            listeners.Add(attributes, new XmlAttributeChangeListener(attributes, node)); // listen to changes to save them
-            mappings.Add(attributes, node);
+            AddPrivateResourceData(resource, node); // listen to changes to save them
 
             foreach (XmlElement child in node.ChildNodes) // TODO! do not do this here!
             {
