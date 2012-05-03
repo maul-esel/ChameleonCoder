@@ -89,17 +89,17 @@ namespace ChameleonCoder.Resources.RichContent
         }
 
         [Obsolete]
-        internal IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent)
+        internal IContentMember CreateInstanceOf(Guid key, XmlElement data, IContentMember parent, IRichContentResource resource, Files.IDataFile file)
         {
             var dict = new System.Collections.Specialized.ObservableStringDictionary();
             foreach (XmlAttribute attr in data.Attributes)
             {
                 dict.Add(attr.Name, attr.Value);
             }
-            return CreateInstanceOf(key, dict, parent, parent != null ? parent.File : null);
+            return CreateInstanceOf(key, dict, parent, resource, file);
         }
 
-        internal IContentMember CreateInstanceOf(Guid key, System.Collections.Specialized.ObservableStringDictionary data, IContentMember parent, Files.IDataFile file)
+        internal IContentMember CreateInstanceOf(Guid key, System.Collections.Specialized.ObservableStringDictionary data, IContentMember parent, IRichContentResource resource, Files.IDataFile file)
         {
             Type member = ContentMembers.GetMember(key);
             if (member != null)
@@ -107,7 +107,7 @@ namespace ChameleonCoder.Resources.RichContent
                 var factory = GetFactory(member);
                 if (factory != null)
                 {
-                    return factory.CreateInstance(member, data, parent, file);
+                    return factory.CreateInstance(member, data, parent, resource, file);
                 }
             }
             return null;

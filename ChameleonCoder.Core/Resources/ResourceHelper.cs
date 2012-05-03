@@ -36,11 +36,11 @@ namespace ChameleonCoder
 
                 if (Guid.TryParse(node.GetAttribute("type", XmlDataFile.NamespaceUri), out type))
                 {
-                    member = contentMemberMan.CreateInstanceOf(type, node, null);
+                    member = contentMemberMan.CreateInstanceOf(type, node, null, resource, resource.File);
                 }
                 else if (Guid.TryParse(node.GetAttribute("fallback", XmlDataFile.NamespaceUri), out type))
                 {
-                    member = contentMemberMan.CreateInstanceOf(type, node, null);
+                    member = contentMemberMan.CreateInstanceOf(type, node, null, resource, resource.File);
                 }
 
                 if (member != null)
@@ -48,7 +48,7 @@ namespace ChameleonCoder
                     resource.AddContentMember(member);
                     foreach (XmlElement child in node.ChildNodes)
                     {
-                        AddRichContent(child, member, contentMemberMan);
+                        AddRichContent(resource, child, member, contentMemberMan);
                     }
                 }
             }
@@ -115,18 +115,18 @@ namespace ChameleonCoder
         /// </summary>
         /// <param name="node">the XmlElement representing the child member</param>
         /// <param name="parent">the parent member</param>
-        private static void AddRichContent(XmlElement node, IContentMember parent, ContentMemberManager contentMemberMan)
+        private static void AddRichContent(IRichContentResource resource, XmlElement node, IContentMember parent, ContentMemberManager contentMemberMan)
         {
             Guid type;
             IContentMember member = null;
 
             if (Guid.TryParse(node.GetAttribute("type", XmlDataFile.NamespaceUri), out type))
             {
-                member = contentMemberMan.CreateInstanceOf(type, node, null);
+                member = contentMemberMan.CreateInstanceOf(type, node, parent, resource, resource.File);
             }
             else if (Guid.TryParse(node.GetAttribute("fallback", XmlDataFile.NamespaceUri), out type))
             {
-                member = contentMemberMan.CreateInstanceOf(type, node, null);
+                member = contentMemberMan.CreateInstanceOf(type, node, parent, resource, resource.File);
             }
 
             if (member != null)
@@ -134,7 +134,7 @@ namespace ChameleonCoder
                 parent.AddChildMember(member);
                 foreach (XmlElement child in node.ChildNodes)
                 {
-                    AddRichContent(child, member, contentMemberMan);
+                    AddRichContent(resource, child, member, contentMemberMan);
                 }
             }
         }

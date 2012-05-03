@@ -33,12 +33,9 @@ namespace ChameleonCoder.Plugins
         /// creates an instance of the given registered type
         /// </summary>
         /// <param name="memberType">the type to create an instance of</param>
-        /// <param name="data">the XmlElement representing the member</param>
+        /// <param name="data">the attribute dictionary representing the member</param>
         /// <param name="parent">the parent member</param>
         /// <returns>the newly created instance</returns>
-        [Obsolete]
-        IContentMember CreateInstance(Type memberType, System.Xml.XmlElement data, IContentMember parent);
-
-        IContentMember CreateInstance(Type memberType, IObservableStringDictionary data, IContentMember parent, Files.IDataFile file);
+        IContentMember CreateInstance(Type memberType, IObservableStringDictionary data, IContentMember parent, Resources.IRichContentResource resource, Files.IDataFile file);
     }
 }

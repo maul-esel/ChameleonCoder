@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Collections.Specialized;
 
 namespace ChameleonCoder.Resources.RichContent
 {
@@ -24,6 +25,8 @@ namespace ChameleonCoder.Resources.RichContent
 
         IRichContentResource Resource { get; }
 
+        IObservableStringDictionary Attributes { get; }
+
         /// <summary>
         /// gets the member's html representation
         /// </summary>
@@ -46,6 +49,6 @@ namespace ChameleonCoder.Resources.RichContent
         /// <param name="node">the XmlElement containing the member's data</param>
         /// <param name="parent">the member's parent member, or null if this is a top-level member</param>
         [System.Obsolete("use factory for creation and initialization", true)]
-        void Initialize(System.Xml.XmlElement node, IContentMember parent);
+        void Initialize(IObservableStringDictionary data, IContentMember parent, IRichContentResource resource, Files.IDataFile file);
     }
 }

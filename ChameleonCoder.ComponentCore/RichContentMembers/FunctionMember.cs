@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using ChameleonCoder.Resources.RichContent;
 
 namespace ChameleonCoder.ComponentCore.RichContentMembers
@@ -54,6 +55,7 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
 
         public ChameleonCoder.Resources.IRichContentResource Resource { get; private set; }
         public Files.IDataFile File { get; private set; }
+        public IObservableStringDictionary Attributes { get; private set; }
 
         /// <summary>
         /// gets the icon representing this instance to the user
@@ -66,7 +68,13 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// </summary>
         /// <param name="node">the XmlElement representing the member</param>
         /// <param name="parent">the member's parent member</param>
-        public virtual void Initialize(System.Xml.XmlElement node, IContentMember parent) { }
+        public virtual void Initialize(IObservableStringDictionary data, IContentMember parent, ChameleonCoder.Resources.IRichContentResource resource, Files.IDataFile file)
+        {
+            Resource = resource;
+            File = file;
+            Attributes = data;
+            Parent = parent;
+        }
 
         #endregion
     }
