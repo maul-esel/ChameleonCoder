@@ -94,11 +94,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Attributes["path"]; // Xml.GetAttribute("path", DataFile.NamespaceUri);
+                return Attributes["path"]; // Xml.GetAttribute("path", XmlDataFile.NamespaceUri);
             }
             protected set
             {
-                Attributes["path"] = value; // Xml.SetAttribute("path", DataFile.NamespaceUri, value);
+                Attributes["path"] = value; // Xml.SetAttribute("path", XmlDataFile.NamespaceUri, value);
                 OnPropertyChanged("Path");
             }
         }

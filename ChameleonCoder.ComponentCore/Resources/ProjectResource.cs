@@ -73,7 +73,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 Guid lang;
-                string guid = Attributes["language"]; // Xml.GetAttribute("language", DataFile.NamespaceUri);
+                string guid = Attributes["language"]; // Xml.GetAttribute("language", XmlDataFile.NamespaceUri);
 
                 if (!Guid.TryParse(guid, out lang))
                     lang = Guid.Empty;
@@ -82,7 +82,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Attributes["language"] = value.ToString("b"); // Xml.SetAttribute("language", DataFile.NamespaceUri, value.ToString());
+                Attributes["language"] = value.ToString("b"); // Xml.SetAttribute("language", XmlDataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("Language");
             }
         }
@@ -110,14 +110,14 @@ namespace ChameleonCoder.ComponentCore.Resources
             get
             {
                 ProjectPriority priority;
-                string value = Attributes["priority"]; // Xml.GetAttribute("priority", DataFile.NamespaceUri);
+                string value = Attributes["priority"]; // Xml.GetAttribute("priority", XmlDataFile.NamespaceUri);
                 if (Enum.TryParse<ProjectPriority>(value, out priority))
                 	return priority;
                 return ProjectPriority.Low;
             }
             protected set
             {
-                Attributes["priority"] = value.ToString(); // Xml.SetAttribute("priority", DataFile.NamespaceUri, value.ToString());
+                Attributes["priority"] = value.ToString(); // Xml.SetAttribute("priority", XmlDataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("Priority");
             }
         }

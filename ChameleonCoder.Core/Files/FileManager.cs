@@ -32,7 +32,7 @@ namespace ChameleonCoder.Files
                 throw new InvalidOperationException("The file has already been opened.");
             }
 
-            IDataFile file = new DataFile();
+            IDataFile file = new XmlDataFile();
             file.Initialize(App);
             file.Open(Path.GetFullPath(path)); // todo: use MakeAbsolutePath() (?)
 
@@ -182,7 +182,7 @@ namespace ChameleonCoder.Files
         }
 
         /// <summary>
-        /// a list of all opened DataFile instances
+        /// a list of all opened IDataFile instances
         /// </summary>
         public IDataFile[] Files
         {
@@ -253,7 +253,7 @@ namespace ChameleonCoder.Files
         private readonly List<string> pathsOpen = new List<string>();
 
         /// <summary>
-        /// contains a list of all loaded files in form of their DataFile instances
+        /// contains a list of all loaded files in form of their IDataFile instances
         /// </summary>
         private readonly List<IDataFile> filesOpen = new List<IDataFile>();
 

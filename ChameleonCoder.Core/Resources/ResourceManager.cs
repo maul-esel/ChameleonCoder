@@ -187,16 +187,16 @@ namespace ChameleonCoder.Resources
             // ======================================================================
 
             // BAD:
-            var doc = ((DataFile)file).Document; // HACK!
+            var doc = ((XmlDataFile)file).Document; // HACK!
             var manager = new System.Xml.XmlNamespaceManager(doc.NameTable);
-            manager.AddNamespace("cc", DataFile.NamespaceUri);
+            manager.AddNamespace("cc", XmlDataFile.NamespaceUri);
 
             var element = (System.Xml.XmlElement)resource.Xml.CloneNode(true); // get a clone for the copy
             if (element.OwnerDocument != doc) //if we switch the document:
                 element = (System.Xml.XmlElement)doc.ImportNode(element, true); // import the XmlElement
 
             if (newParent == null) // if no parent:
-                doc.SelectSingleNode(DataFile.DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
+                doc.SelectSingleNode(XmlDataFile.DocumentXPath.ResourceRoot, manager).AppendChild(element); // add element to resource list
             else // if parent:
                 newParent.Xml.AppendChild(element); // add element to parent's Children
 
@@ -205,7 +205,7 @@ namespace ChameleonCoder.Resources
             // GOOD:
             if (moveGUID) // if the copy should receive the original Identifier:
             {
-                // resource.Xml.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
+                // resource.Xml.SetAttribute("id", XmlDataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
                 resource.Attributes["id"] = Guid.NewGuid().ToString("b"); // set the Identifier-attribute of the old instance
                 resource.Update(resource.Attributes, resource.Parent, file); // update it to apply the changes
             }
@@ -213,9 +213,9 @@ namespace ChameleonCoder.Resources
 
             // BAD:
             else // if the copy receives a new Identifier:
-                element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
+                element.SetAttribute("id", XmlDataFile.NamespaceUri, Guid.NewGuid().ToString("b")); // set the appropriate attribute
 
-            ((DataFile)file).LoadResource(element, newParent); // let the DataFile class create an instance, add it to the lists, init it, ... // HACK!
+            ((XmlDataFile)file).LoadResource(element, newParent); // let the XmlDataFile class create an instance, add it to the lists, init it, ... // HACK!
 
             // ===============================================================================
 

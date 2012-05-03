@@ -16,7 +16,7 @@ namespace ChameleonCoder.Files
     /// represents an opened resource file
     /// </summary>
     [ComVisible(true), ClassInterface(ClassInterfaceType.None), Guid("895F013D-2CD0-4AC0-8AF0-25F727176279")]
-    public sealed partial class DataFile : IDataFile // todo: rename to XmlDataFile
+    public sealed partial class XmlDataFile : IDataFile
     {
         #region constants
 
@@ -45,7 +45,7 @@ namespace ChameleonCoder.Files
 
         #endregion // "constants"
 
-        public DataFile()
+        public XmlDataFile()
         {
             manager = new XmlNamespaceManager(doc.NameTable);
             manager.AddNamespace("cc", NamespaceUri);
@@ -837,7 +837,7 @@ namespace ChameleonCoder.Files
 
             if (resource == null) // if creation failed:
             {
-                ChameleonCoderApp.Log("DataFile  --> internal void LoadResource(XmlElement, IResource)",
+                ChameleonCoderApp.Log("XmlDataFile  --> internal void LoadResource(XmlElement, IResource)",
                     "failed to create resource",
                     "resource-creation failed on:\n\t" +
                      node.OuterXml + " in " + parent.File.FilePath); // log

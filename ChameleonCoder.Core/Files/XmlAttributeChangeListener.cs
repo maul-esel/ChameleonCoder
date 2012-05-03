@@ -5,7 +5,7 @@ using ChameleonCoder.Resources;
 
 namespace ChameleonCoder.Files
 {
-    partial class DataFile
+    partial class XmlDataFile
     {
         [System.Runtime.InteropServices.ComVisible(false)]
         private sealed class XmlAttributeChangeListener

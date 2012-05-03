@@ -36,7 +36,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                string value = Attributes["enddate"]; // Xml.GetAttribute("enddate", DataFile.NamespaceUri);
+                string value = Attributes["enddate"]; // Xml.GetAttribute("enddate", XmlDataFile.NamespaceUri);
                 DateTime date;
                 if (string.IsNullOrWhiteSpace(value) || !DateTime.TryParse(value, out date))
                     return DateTime.MaxValue;
@@ -44,7 +44,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Attributes["enddate"] = value.ToString(); // Xml.SetAttribute("enddate", DataFile.NamespaceUri, value.ToString());
+                Attributes["enddate"] = value.ToString(); // Xml.SetAttribute("enddate", XmlDataFile.NamespaceUri, value.ToString());
                 OnPropertyChanged("EndDate");
             }
         }

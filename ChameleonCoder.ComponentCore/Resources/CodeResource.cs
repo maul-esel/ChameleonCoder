@@ -63,7 +63,7 @@ namespace ChameleonCoder.ComponentCore.Resources
             }
             protected set
             {
-                Attributes["language"] = value.ToString("b"); // Xml.SetAttribute("language", DataFile.NamespaceUri, value.ToString("b"));
+                Attributes["language"] = value.ToString("b"); // Xml.SetAttribute("language", XmlDataFile.NamespaceUri, value.ToString("b"));
                 OnPropertyChanged("Language");
             }
         }

@@ -1,9 +1,9 @@
 ﻿namespace ChameleonCoder.Files
 {
-    public partial class DataFile
+    public partial class XmlDataFile
     {
         [System.Runtime.InteropServices.ComVisible(false)]
-        internal static class DocumentXPath // todo: make private subclass of DataFile
+        internal static class DocumentXPath // todo: make private subclass of XmlDataFile
         {
             internal const string prefix = "cc:";
             internal const string Root = "/" + prefix + "ChameleonCoder";

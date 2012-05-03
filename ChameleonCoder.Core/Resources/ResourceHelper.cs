@@ -24,7 +24,7 @@ namespace ChameleonCoder
             if (res == null)
                 return;
 
-            var content = (XmlElement)res.SelectSingleNode(DataFile.DocumentXPath.RichContentNode, manager);
+            var content = (XmlElement)res.SelectSingleNode(XmlDataFile.DocumentXPath.RichContentNode, manager);
             if (content == null)
                 return;
 
@@ -34,11 +34,11 @@ namespace ChameleonCoder
                 Guid type;
                 IContentMember member = null;
 
-                if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
+                if (Guid.TryParse(node.GetAttribute("type", XmlDataFile.NamespaceUri), out type))
                 {
                     member = contentMemberMan.CreateInstanceOf(type, node, null);
                 }
-                else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
+                else if (Guid.TryParse(node.GetAttribute("fallback", XmlDataFile.NamespaceUri), out type))
                 {
                     member = contentMemberMan.CreateInstanceOf(type, node, null);
                 }
@@ -71,10 +71,10 @@ namespace ChameleonCoder
 
                 if (res != null)
                 {
-                    var element = (XmlElement)res.OwnerDocument.CreateElement(DataFile.DocumentXPath.ResourceReferenceNode, DataFile.NamespaceUri);
-                    element.SetAttribute("name", DataFile.NamespaceUri, name);
-                    element.SetAttribute("id", DataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
-                    element.SetAttribute("target", DataFile.NamespaceUri, target.ToString("b"));
+                    var element = (XmlElement)res.OwnerDocument.CreateElement(XmlDataFile.DocumentXPath.ResourceReferenceNode, XmlDataFile.NamespaceUri);
+                    element.SetAttribute("name", XmlDataFile.NamespaceUri, name);
+                    element.SetAttribute("id", XmlDataFile.NamespaceUri, Guid.NewGuid().ToString("b"));
+                    element.SetAttribute("target", XmlDataFile.NamespaceUri, target.ToString("b"));
                     res.AppendChild(element);
 
                     var dict = new System.Collections.Specialized.ObservableStringDictionary();
@@ -101,7 +101,7 @@ namespace ChameleonCoder
                 var res = GetDataElement(resource, false, out manager);
                 if (res != null)
                 {
-                    var element = (XmlElement)res.SelectSingleNode(DataFile.DocumentXPath.ResourceReferenceSubpath + "[@id='" + id.ToString("b") + "']", manager);
+                    var element = (XmlElement)res.SelectSingleNode(XmlDataFile.DocumentXPath.ResourceReferenceSubpath + "[@id='" + id.ToString("b") + "']", manager);
                     if (element != null)
                         res.RemoveChild(element);
                 }
@@ -120,11 +120,11 @@ namespace ChameleonCoder
             Guid type;
             IContentMember member = null;
 
-            if (Guid.TryParse(node.GetAttribute("type", DataFile.NamespaceUri), out type))
+            if (Guid.TryParse(node.GetAttribute("type", XmlDataFile.NamespaceUri), out type))
             {
                 member = contentMemberMan.CreateInstanceOf(type, node, null);
             }
-            else if (Guid.TryParse(node.GetAttribute("fallback", DataFile.NamespaceUri), out type))
+            else if (Guid.TryParse(node.GetAttribute("fallback", XmlDataFile.NamespaceUri), out type))
             {
                 member = contentMemberMan.CreateInstanceOf(type, node, null);
             }
@@ -147,16 +147,16 @@ namespace ChameleonCoder
         /// <returns>the XmlElement containing the resource's data</returns>
         private static XmlElement GetDataElement(IResource resource, bool create, out XmlNamespaceManager manager)
         {
-            var doc = ((DataFile)resource.File).Document; // HACK!
+            var doc = ((XmlDataFile)resource.File).Document; // HACK!
             manager = new XmlNamespaceManager(doc.NameTable);
-            manager.AddNamespace("cc", DataFile.NamespaceUri);
+            manager.AddNamespace("cc", XmlDataFile.NamespaceUri);
 
-            var data = (XmlElement)doc.SelectSingleNode(DataFile.DocumentXPath.ResourceDataList + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
+            var data = (XmlElement)doc.SelectSingleNode(XmlDataFile.DocumentXPath.ResourceDataList + "[@cc:id='" + resource.Identifier.ToString("b") + "']", manager);
             if (data == null && create)
             {
-                data = doc.CreateElement(DataFile.DocumentXPath.ResourceDataNode, DataFile.NamespaceUri); // create it
-                data.SetAttribute("id", DataFile.NamespaceUri, resource.Identifier.ToString("b")); // associate it with the resource
-                doc.SelectSingleNode(DataFile.DocumentXPath.DataRoot, manager).AppendChild(data); // and insert it into the document
+                data = doc.CreateElement(XmlDataFile.DocumentXPath.ResourceDataNode, XmlDataFile.NamespaceUri); // create it
+                data.SetAttribute("id", XmlDataFile.NamespaceUri, resource.Identifier.ToString("b")); // associate it with the resource
+                doc.SelectSingleNode(XmlDataFile.DocumentXPath.DataRoot, manager).AppendChild(data); // and insert it into the document
             }
 
             return data;

@@ -117,11 +117,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Attributes["name"]; // Xml.GetAttribute("name", DataFile.NamespaceUri);
+                return Attributes["name"]; // Xml.GetAttribute("name", XmlDataFile.NamespaceUri);
             }
             set
             {
-                Attributes["name"] = value; // Xml.SetAttribute("name", DataFile.NamespaceUri, value);
+                Attributes["name"] = value; // Xml.SetAttribute("name", XmlDataFile.NamespaceUri, value);
                 OnPropertyChanged("Name");
             }
         }
@@ -135,11 +135,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Attributes["description"]; // Xml.GetAttribute("description", DataFile.NamespaceUri);
+                return Attributes["description"]; // Xml.GetAttribute("description", XmlDataFile.NamespaceUri);
             }
             set
             {
-                Attributes["description"] = value; // Xml.SetAttribute("description", DataFile.NamespaceUri, value);
+                Attributes["description"] = value; // Xml.SetAttribute("description", XmlDataFile.NamespaceUri, value);
                 this.OnPropertyChanged("Description");
             }
         }
@@ -152,11 +152,11 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                return Attributes["notes"]; // Xml.GetAttribute("notes", DataFile.NamespaceUri);
+                return Attributes["notes"]; // Xml.GetAttribute("notes", XmlDataFile.NamespaceUri);
             }
             set
             {
-                Attributes["notes"] = value; // Xml.SetAttribute("notes", DataFile.NamespaceUri, value);
+                Attributes["notes"] = value; // Xml.SetAttribute("notes", XmlDataFile.NamespaceUri, value);
                 OnPropertyChanged("Notes");
             }
         }
