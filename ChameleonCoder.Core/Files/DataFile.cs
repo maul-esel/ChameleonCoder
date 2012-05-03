@@ -806,53 +806,6 @@ namespace ChameleonCoder.Files
             return data;
         }
 
-        /// <summary>
-        /// parses a XmlElement and its child elements for resource definitions
-        /// and creates instances for them, adding them to the global resource list
-        /// and to the given parent resource.
-        /// </summary>
-        /// <param name="node">the XmlElement to parse</param>
-        /// <param name="parent">the parent resource or null,
-        /// if the resource represented by <paramref name="node"/> is a top-level resource.</param>
-        [ComVisible(false), Obsolete("make this private / remove it!")]
-        internal void LoadResource(XmlElement node, IResource parent)
-        {
-            Guid type;
-            IResource resource = null;
-
-            var attributes = new ObservableStringDictionary();
-            foreach (XmlAttribute attribute in node.Attributes)
-            {
-                attributes.Add(attribute.LocalName, attribute.Value);
-            }
-
-            if (Guid.TryParse(node.GetAttribute("type", NamespaceUri), out type))
-            {
-                resource = App.ResourceTypeMan.CreateInstanceOf(type, attributes, parent, this); // try to use the element's name as resource alias
-            }
-            else if (Guid.TryParse(node.GetAttribute("fallback", NamespaceUri), out type))
-            {
-                resource = App.ResourceTypeMan.CreateInstanceOf(type, attributes, parent, this); // give it a "2nd chance"
-            }
-
-            if (resource == null) // if creation failed:
-            {
-                ChameleonCoderApp.Log("XmlDataFile  --> internal void LoadResource(XmlElement, IResource)",
-                    "failed to create resource",
-                    "resource-creation failed on:\n\t" +
-                     node.OuterXml + " in " + parent.File.FilePath); // log
-                return; // ignore
-            }
-
-            App.ResourceMan.Add(resource, parent); // and add it to all required lists // TODO! do not do this here!
-            AddPrivateResourceData(resource, node); // listen to changes to save them
-
-            foreach (XmlElement child in node.ChildNodes) // TODO! do not do this here!
-            {
-                LoadResource(child, resource); // parse all child resources
-            }
-        }
-
         [ComVisible(false)]
         private void ValidateXmlHandler(object sender, System.Xml.Schema.ValidationEventArgs e)
         {
