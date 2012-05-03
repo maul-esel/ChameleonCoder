@@ -454,6 +454,28 @@ namespace ChameleonCoder.Files
             AddPrivateResourceData(resource, element);
         }
 
+        public void ResourceMove(IResource resource, IResource newParent)
+        {
+            if (resource != null)
+            {
+                DeleteResourceElement(resource); // remove old XML element
+                RemovePrivateResourceData(resource); // remove all references to the resource
+
+                ResourceInsert(resource, newParent); // add new XML element and add references
+            }
+        }
+
+        public IResource ResourceCopy(IResource resource, IResource newParent)
+        {
+            if (resource != null)
+            {
+                IResource newResource = App.ResourceTypeMan.CreateInstanceOf(App.ResourceTypeMan.GetKey(resource.GetType()), resource.Attributes.Clone(), newParent, this);
+                ResourceInsert(newResource, newParent);
+                return newResource;
+            }
+            throw new ArgumentNullException("resource");
+        }
+
         private void DeleteResourceElement(IResource resource)
         {
             XmlElement element = mappings[resource.Attributes];

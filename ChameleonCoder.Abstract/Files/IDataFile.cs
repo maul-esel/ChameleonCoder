@@ -45,6 +45,8 @@ namespace ChameleonCoder.Files
 
         void ResourceDelete(IResource resource);
         void ResourceInsert(IResource resource, IResource parent);
+        void ResourceMove(IResource resource, IResource newParent);
+        IResource ResourceCopy(IResource resource, IResource newParent);
 
         void ResourceSetCreatedDate(IResource resource);
         void ResourceSetCreatedDate(IResource resource, DateTime time);
