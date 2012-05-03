@@ -51,7 +51,7 @@
     <Compile Include="ChameleonCoderApp.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Files\XmlAttributeChangeListener.cs" />
-    <Compile Include="Files\DataFile.cs" />
+    <Compile Include="Files\XmlDataFile.cs" />
     <Compile Include="Files\DocumentXPath.cs" />
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="ObservableStringDictionary.cs" />
