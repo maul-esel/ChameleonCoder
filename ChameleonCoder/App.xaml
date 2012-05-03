@@ -2,18 +2,10 @@
 <Application x:Class="ChameleonCoder.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:conv="clr-namespace:ChameleonCoder.Converter"
-             xmlns:res="clr-namespace:ChameleonCoder.Resources;assembly=ChameleonCoder.Core"
+             xmlns:res="clr-namespace:ChameleonCoder.Resources;assembly=ChameleonCoder.Shared"
              Startup="InitHandler">
     <Application.Resources>
         <res:ResourceCollection x:Key="resources"/>
         <res:ResourceCollection x:Key="resourceHierarchy"/>
-
-        <conv:ResourceTypeConverter x:Key="TypeConverter"/>
-        <conv:ModuleIconConverter x:Key="ModuleIconConverter"/>
-        <conv:CustomGroupConverter x:Key="CustomGroupConverter"/>
-        <conv:ColorConverter x:Key="ColorConverter"/>
-        <conv:CultureConverter x:Key="CultureConv"/>
-        <conv:ResourcePropertyConverter x:Key="PropConv"/>
     </Application.Resources>
 </Application>

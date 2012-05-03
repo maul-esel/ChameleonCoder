@@ -7,7 +7,6 @@ namespace ChameleonCoder
     /// <summary>
     /// a wrapper class to satisfy WPF
     /// </summary>
-    [System.Runtime.InteropServices.ComVisible(false)]
     partial class App : Application
     {
         #region parameter constants
@@ -41,6 +40,11 @@ namespace ChameleonCoder
         /// <param name="e"></param>
         void InitHandler(object sender, StartupEventArgs e)
         {
+            dummyMain(e.Args);
+        }
+
+        public static void dummyMain(string[] args)
+        {
             var obj = new ChameleonCoderApp();
 
             #region command line
@@ -50,19 +54,19 @@ namespace ChameleonCoder
             int argIndex = 0;
 
             // loop through all arguments
-            foreach (string arg in e.Args)
+            foreach (string arg in args)
             {
-                if (argIndex == e.Args.Length - 1 && File.Exists(arg)) // the last argument is an existing file
+                if (argIndex == args.Length - 1 && File.Exists(arg)) // the last argument is an existing file
                     path = arg;
                 else // handle other parameters
                 {
                     if (arg.Equals(paramInstallExt, StringComparison.OrdinalIgnoreCase))
                     {
-                        obj.RegisterExtension();
+                        obj.RegisterExtensions();
                     }
                     else if (arg.Equals(paramUnInstallExt, StringComparison.OrdinalIgnoreCase))
                     {
-                        obj.UnRegisterExtension();
+                        obj.UnregisterExtensions();
                     }
                     else if (arg.Equals(paramInstallCOM, StringComparison.OrdinalIgnoreCase))
                     {
@@ -85,7 +89,7 @@ namespace ChameleonCoder
 
             var load = System.Threading.Tasks.Task.Factory.StartNew(() =>
             {
-                obj.PluginMan.Load(); // load all plugins in the /Component/ folder
+                obj.PluginMan.LoadInstalledPlugins(); // load all plugins in the /Component/ folder
                 obj.FileMan.OpenFile(path); // open the file(s)
             });
 

@@ -19,7 +19,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="data">the dictionary containing the resource's attributes</param>
         /// <param name="parent">the resource's parent resource,
         /// or null if the resource is a top-level resource.</param>
-        public override void Update(System.Collections.Specialized.ObservableStringDictionary data, IResource parent, IDataFile file)
+        public override void Update(System.Collections.Specialized.IObservableStringDictionary data, IResource parent, IDataFile file)
         {
             base.Update(data, parent, file);
             // todo: parse compatible languages
@@ -130,9 +130,12 @@ namespace ChameleonCoder.ComponentCore.Resources
         {
             get
             {
-                Plugins.ILanguageModule module;
-                if (File.App.PluginMan.TryGetModule(Language, out module))
-                    return module.Name;
+                if (File.App.PluginMan.IsModuleRegistered(Language))
+                {
+                    Plugins.ILanguageModule module = File.App.PluginMan.GetModule(Language);
+                    if (module != null)
+                        return module.Name;
+                }
                 return "error: module could not be found";
             }
         }
@@ -148,10 +151,12 @@ namespace ChameleonCoder.ComponentCore.Resources
                 string list = string.Empty;
                 foreach (Guid lang in CompatibleLanguages)
                 {
-                    Plugins.ILanguageModule module;
-                    if (File.App.PluginMan.TryGetModule(lang, out module))
-                        list += module.Name + "; ";
-
+                    if (File.App.PluginMan.IsModuleRegistered(lang))
+                    {
+                        Plugins.ILanguageModule module = File.App.PluginMan.GetModule(lang);
+                        if (module != null)
+                            list += module.Name + "; ";
+                    }
                 }
                 return list;
             }

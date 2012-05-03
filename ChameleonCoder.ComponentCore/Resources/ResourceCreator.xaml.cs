@@ -96,7 +96,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <param name="target">The type to create a new resource of</param>
         /// <param name="parent">the name of the parent resource</param>
         /// <param name="name">the name of the new reosurce</param>
-        public ResourceCreator(Type target, string parent, string name, ChameleonCoderApp app)
+        public ResourceCreator(Type target, string parent, string name, IChameleonCoderApp app)
         {
             InitializeComponent();
             DataContext = this;
@@ -117,7 +117,7 @@ namespace ChameleonCoder.ComponentCore.Resources
                 _Language.Visibility = ResourceLanguage.Visibility = Visibility.Collapsed;
             else
             {
-                this.ResourceLanguage.ItemsSource = app.PluginMan.GetModules();
+                this.ResourceLanguage.ItemsSource = app.PluginMan.Modules;
                 customAttributes.Add("language", () => ResLanguage.Identifier.ToString("b"));
             }
 

@@ -36,15 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ChameleonCoder">
-      <HintPath>..\Deploy\ChameleonCoder.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Odyssey">
-      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -122,9 +113,21 @@
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChameleonCoder.Abstract\ChameleonCoder.Abstract.csproj">
+      <Project>{3800093A-9B81-49D4-96CB-74674418E4F9}</Project>
+      <Name>ChameleonCoder.Abstract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChameleonCoder.Core\ChameleonCoder.Core.csproj">
       <Project>{4DC8B45C-8AF4-4D36-968F-BEE5645C460E}</Project>
       <Name>ChameleonCoder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChameleonCoder.Shared\ChameleonCoder.Shared.csproj">
+      <Project>{E786D333-A415-4023-B95A-770511ED8DE1}</Project>
+      <Name>ChameleonCoder.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChameleonCoder.UI\ChameleonCoder.UI.csproj">
+      <Project>{553A82E3-8AF6-4349-A16E-DF663093166C}</Project>
+      <Name>ChameleonCoder.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

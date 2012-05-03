@@ -39,3 +39,4 @@ using System.Runtime.InteropServices;
 
 // make internals in this assembly visible to app project:
 [assembly: InternalsVisibleTo("ChameleonCoder")]
+[assembly: InternalsVisibleTo("ChameleonCoder.UI")]

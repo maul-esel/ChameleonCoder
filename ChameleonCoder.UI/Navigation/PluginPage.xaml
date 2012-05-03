@@ -1,0 +1,96 @@
+﻿<Page x:Class="ChameleonCoder.UI.Navigation.PluginPage" x:ClassModifier="internal"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:ui="clr-namespace:ChameleonCoder.UI"    
+                VerticalAlignment="Stretch">
+    
+    <Page.Resources>
+        <CollectionViewSource x:Key="pluginsList" Source="{Binding PluginList}" Filter="Filter">
+            <CollectionViewSource.SortDescriptions>
+                <SortDescription PropertyName="Name"
+                                 xmlns="clr-namespace:System.ComponentModel;assembly=WindowsBase"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </Page.Resources>
+
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel>
+            <ListBox x:Name="categories" x:FieldModifier="private"
+                     Grid.Column="0" VerticalAlignment="Top"
+                     SelectionChanged="RefreshFilter">
+                <ListBox.Resources>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0.5"/>
+                        <Setter Property="Background" Value="LightGray"/>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem Content="{Binding Types_All}"/>
+                <ListBoxItem Content="{Binding Types_Templates}"/>
+                <ListBoxItem Content="{Binding Types_Services}"/>
+                <ListBoxItem Content="{Binding Types_LanguageModules}"/>
+                <ListBoxItem Content="{Binding Types_ResourceFactories}"/>
+                <ListBoxItem Content="{Binding Types_RichContentFactories}"/>
+            </ListBox>
+
+            <Button Content="{Binding Uninstall}"
+                    Command="{x:Static ui:ChameleonCoderCommands.UninstallPlugin}"
+                    CommandParameter="{Binding ElementName=list, Path=SelectedItem}"
+                    Margin="10" Height="Auto" HorizontalAlignment="Stretch"/>
+
+            <Button Content="{Binding Install}"
+                    Command="{x:Static ui:ChameleonCoderCommands.InstallPlugin}"
+                    Margin="10" Height="Auto" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+        
+
+        <ListBox x:Name="list" x:FieldModifier="private"
+                 Grid.Column="1" Background="LightGray"
+                 ItemsSource="{Binding Source={StaticResource pluginsList}}"
+                 VirtualizingStackPanel.IsVirtualizing="True"
+                 VirtualizingStackPanel.VirtualizationMode="Recycling"
+                 HorizontalContentAlignment="Stretch">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border CornerRadius="5" BorderBrush="DarkGray" BorderThickness="2" Name="border" Background="{TemplateBinding Background}" Padding="5" Margin="0.5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Image Margin="5" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Icon}"/>
+                                        
+                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="0" Text="{Binding Name}" FontSize="14" FontWeight="DemiBold"/>
+                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Description}"/>
+                                        <TextBlock Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding About}" FontStyle="Italic"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="LightGray"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+    </Grid>
+</Page>

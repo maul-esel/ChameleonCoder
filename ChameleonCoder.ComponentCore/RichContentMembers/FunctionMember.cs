@@ -23,9 +23,14 @@ namespace ChameleonCoder.ComponentCore.RichContentMembers
         /// <summary>
         /// gets the collection of child members
         /// </summary>
-        public RichContentCollection Children { get { return childrenCollection; } }
+        public IContentMember[] Children { get { return childrenCollection.Values; } }
 
         private readonly RichContentCollection childrenCollection = new RichContentCollection();
+
+        public void AddChildMember(IContentMember child)
+        {
+            childrenCollection.Add(child);
+        }
 
         /// <summary>
         /// saves the current instance

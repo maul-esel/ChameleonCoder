@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Runtime.InteropServices;
 using System.Windows.Media;
 using ChameleonCoder.Files;
 using ChameleonCoder.Plugins;
@@ -12,15 +11,15 @@ namespace ChameleonCoder.Resources
     /// <summary>
     /// manages the registered resource types
     /// </summary>
-    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
-    public sealed class ResourceTypeManager
+    [System.Runtime.InteropServices.ComVisible(false)]
+    public sealed class ResourceTypeManager : IResourceTypeManager
     {
-        internal ResourceTypeManager(ChameleonCoderApp app)
+        internal ResourceTypeManager(IChameleonCoderApp app)
         {
             App = app;
         }
 
-        public ChameleonCoderApp App
+        public IChameleonCoderApp App
         {
             get;
             private set;
@@ -29,13 +28,11 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// the collection holding the resource types
         /// </summary>
-        [ComVisible(false)]
-        private ResourceTypeCollection ResourceTypes = new ResourceTypeCollection();
+        private ResourceTypeCollection resourceTypeCollection = new ResourceTypeCollection();
 
         /// <summary>
         /// a dictionary associating the resource types with the registering component factory
         /// </summary>
-        [ComVisible(false)]
         private ConcurrentDictionary<Type, IResourceFactory> Factories = new ConcurrentDictionary<Type, IResourceFactory>();
 
         /// <summary>
@@ -43,9 +40,9 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="key">resource type key</param>
         /// <returns>the type</returns>
-        internal Type GetResourceType(Guid key)
+        public Type GetResourceType(Guid key)
         {
-            return ResourceTypes.GetResourceType(key);
+            return resourceTypeCollection.GetResourceType(key);
         }
 
         /// <summary>
@@ -53,12 +50,12 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="type">the type</param>
         /// <returns>the alias</returns>
-        internal Guid GetKey(Type type)
+        public Guid GetKey(Type type)
         {
-            return ResourceTypes.GetAlias(type);
+            return resourceTypeCollection.GetAlias(type);
         }
 
-        internal IResource CreateInstanceOf(Guid key, ObservableStringDictionary data, IResource parent, IDataFile file)
+        public IResource CreateInstanceOf(Guid key, IObservableStringDictionary data, IResource parent, IDataFile file)
         {
             Type resourceType = GetResourceType(key);
             if (resourceType != null)
@@ -74,9 +71,12 @@ namespace ChameleonCoder.Resources
         /// gets a list of all registered resource types
         /// </summary>
         /// <returns>the list</returns>
-        internal IEnumerable<Type> GetResourceTypes()
+        public Type[] ResourceTypes
         {
-            return ResourceTypes.GetList();
+            get
+            {
+                return new List<Type>(resourceTypeCollection.GetList()).ToArray();
+            }
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace ChameleonCoder.Resources
         /// <returns>true if a type with the given key is registered, false otherwise</returns>
         public bool IsRegistered(Guid key)
         {
-            return ResourceTypes.IsRegistered(key);
+            return resourceTypeCollection.IsRegistered(key);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace ChameleonCoder.Resources
         /// <returns>true if the type is registered, false otherwise</returns>
         public bool IsRegistered(Type type)
         {
-            return ResourceTypes.IsRegistered(type);
+            return resourceTypeCollection.IsRegistered(type);
         }
 
         /// <summary>
@@ -153,11 +153,18 @@ namespace ChameleonCoder.Resources
             if (component.GetInterface(typeof(IResource).FullName) != null
                 && !component.IsAbstract && !component.IsInterface && !component.IsNotPublic // scope and type
                 && !IsRegistered(key) && !IsRegistered(component) // no double-registration
-                && App.PluginMan.IsResourceFactoryRegistered(factory)) // no anonymous registration
+                && App.PluginMan.IsResourceFactoryRegistered(factory.Identifier)) // no anonymous registration
             {
-                ResourceTypes.RegisterResourceType(key, component);
+                resourceTypeCollection.RegisterResourceType(key, component);
                 Factories.TryAdd(component, factory);
             }
+        }
+
+        public ITemplate GetDefaultTemplate(Type resourceType)
+        {
+            if (IsRegistered(resourceType))
+                return new AutoTemplate(resourceType);
+            return null;
         }
     }
 }

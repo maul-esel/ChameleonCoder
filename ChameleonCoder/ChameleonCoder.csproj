@@ -87,177 +87,25 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.AvalonEdit">
-      <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
-    <Reference Include="Odyssey, Version=1.4.21.36154, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SearchReplace\CCSearchReplaceDialog.xaml.cs">
-      <DependentUpon>CCSearchReplaceDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ChameleonCoderCommands.cs" />
-    <Compile Include="DefaultRepresentationAttribute.cs" />
-    <Compile Include="SearchReplace\ISearchReplaceClient.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ModelClientHelper.cs" />
-    <Compile Include="Navigation\FileManagementPage.xaml.cs">
-      <DependentUpon>FileManagementPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\PluginInstaller.xaml.cs">
-      <DependentUpon>PluginInstaller.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Shared\CCNumericUpDown.xaml.cs">
-      <DependentUpon>CCNumericUpDown.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converter\CollectionCombineConverter.cs" />
-    <Compile Include="Shared\InputBox.xaml.cs">
-      <DependentUpon>InputBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Navigation\PluginPage.xaml.cs">
-      <DependentUpon>PluginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BreadcrumbContext.cs" />
-    <Compile Include="Converter\CultureConverter.cs" />
-    <Compile Include="Converter\ResourcePropertyConverter.cs" />
-    <Compile Include="Shared\CCResourceCatalog.xaml.cs">
-      <DependentUpon>CCResourceCatalog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converter\ColorConverter.cs" />
-    <Compile Include="Converter\CustomGroupConverter.cs" />
-    <Compile Include="Shared\InvalidInputAdorner.cs" />
-    <Compile Include="Shared\ResourceSelector.xaml.cs">
-      <DependentUpon>ResourceSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Navigation\EditPage.xaml.cs">
-      <DependentUpon>EditPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Navigation\ResourceListPage.xaml.cs">
-      <DependentUpon>ResourceListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Navigation\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NewResourceDialog.xaml.cs">
-      <DependentUpon>NewResourceDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Navigation\ResourceViewPage.xaml.cs">
-      <DependentUpon>ResourceViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converter\ResourceTypeConverter.cs" />
-    <Compile Include="Converter\ModuleIconConverter.cs" />
-    <Compile Include="Navigation\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TabContext.cs" />
-    <Compile Include="ViewModel\EditPageModel.cs" />
-    <Compile Include="ViewModel\FileManagementPageModel.cs" />
-    <Compile Include="ViewModel\Interaction\ConfirmationEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\DirectorySelectionEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\FileSelectionEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\InformationEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\TextSelectionEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\UserInputEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\MessageSeverity.cs" />
-    <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\RepresentationEventArgs.cs" />
-    <Compile Include="ViewModel\Interaction\ViewEventArgs.cs" />
-    <Compile Include="ViewModel\MainWindowModel.cs" />
-    <Compile Include="ViewModel\NewResourceDialogModel.cs" />
-    <Compile Include="ViewModel\PluginInstallerModel.cs" />
-    <Compile Include="ViewModel\PluginPageModel.cs" />
-    <Compile Include="ViewModel\ResourceListPageModel.cs" />
-    <Compile Include="ViewModel\ResourceSelectorModel.cs" />
-    <Compile Include="ViewModel\ResourceViewPageModel.cs" />
-    <Compile Include="ViewModel\SearchReplaceModel.cs" />
-    <Compile Include="ViewModel\SettingsPageModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="ViewModel\WelcomePageModel.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\PluginInstaller.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Shared\CCNumericUpDown.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Shared\CCResourceCatalog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SearchReplace\CCSearchReplaceDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Shared\InputBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Shared\ResourceSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Navigation\EditPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Navigation\FileManagementPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Navigation\PluginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Navigation\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Navigation\WelcomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Navigation\ResourceListPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Navigation\ResourceViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NewResourceDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -269,57 +117,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\info.png" />
-    <Resource Include="Images\LargeIcon.png" />
-    <Resource Include="Images\logo.ico" />
-    <Resource Include="Images\SmallIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab1\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab1\restart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab1\create.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab1\help.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab1\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab1\info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\copy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\cut.png" />
-    <Resource Include="Images\RibbonTab2\paste.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\viewminus.png" />
-    <Resource Include="Images\RibbonTab2\viewplus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\function.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\redo.png" />
-    <Resource Include="Images\RibbonTab2\undo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\search.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\class.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -344,56 +141,30 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\view.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\RibbonTab2\filesave.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\edit.png" />
-    <Resource Include="Images\home.png" />
-    <Resource Include="Images\list.png" />
-    <Resource Include="Images\overview.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Go.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\choosevisibletypes.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\sort.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="license.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\copy.png" />
-    <Resource Include="Images\move.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\reference.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ChameleonCoder.rc" />
-    <Resource Include="Images\create_ccr.png" />
-    <Resource Include="Images\close_ccr.png" />
-    <Resource Include="Images\open_ccr.png" />
-    <Resource Include="Images\files.png" />
-    <Resource Include="Images\plugins.png" />
+    <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChameleonCoder.Abstract\ChameleonCoder.Abstract.csproj">
+      <Project>{3800093A-9B81-49D4-96CB-74674418E4F9}</Project>
+      <Name>ChameleonCoder.Abstract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChameleonCoder.Core\ChameleonCoder.Core.csproj">
       <Project>{4DC8B45C-8AF4-4D36-968F-BEE5645C460E}</Project>
       <Name>ChameleonCoder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChameleonCoder.Shared\ChameleonCoder.Shared.csproj">
+      <Project>{E786D333-A415-4023-B95A-770511ED8DE1}</Project>
+      <Name>ChameleonCoder.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChameleonCoder.UI\ChameleonCoder.UI.csproj">
+      <Project>{553A82E3-8AF6-4349-A16E-DF663093166C}</Project>
+      <Name>ChameleonCoder.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

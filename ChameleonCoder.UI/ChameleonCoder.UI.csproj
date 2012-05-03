@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{553A82E3-8AF6-4349-A16E-DF663093166C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChameleonCoder.UI</RootNamespace>
+    <AssemblyName>ChameleonCoder.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\..\Avalon\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="Odyssey">
+      <HintPath>..\..\Odyssey\Odyssey.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BreadcrumbContext.cs" />
+    <Compile Include="ChameleonCoderCommands.cs" />
+    <Compile Include="Converters\AppConverterBase.cs" />
+    <Compile Include="Converters\CollectionCombineConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
+    <Compile Include="Converters\CultureConverter.cs" />
+    <Compile Include="Converters\CustomGroupConverter.cs" />
+    <Compile Include="Converters\ModuleIconConverter.cs" />
+    <Compile Include="Converters\ResourcePropertyConverter.cs" />
+    <Compile Include="Resources\PropertyDescription.cs" />
+    <Compile Include="Converters\ResourceTypeConverter.cs" />
+    <Compile Include="DefaultRepresentationAttribute.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelClientHelper.cs" />
+    <Compile Include="Navigation\EditPage.xaml.cs">
+      <DependentUpon>EditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\FileManagementPage.xaml.cs">
+      <DependentUpon>FileManagementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\PluginPage.xaml.cs">
+      <DependentUpon>PluginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\ResourceListPage.xaml.cs">
+      <DependentUpon>ResourceListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\ResourceViewPage.xaml.cs">
+      <DependentUpon>ResourceViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewResourceDialog.xaml.cs">
+      <DependentUpon>NewResourceDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PluginInstaller.xaml.cs">
+      <DependentUpon>PluginInstaller.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchReplaceDialog.xaml.cs">
+      <DependentUpon>SearchReplaceDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ISearchReplaceClient.cs" />
+    <Compile Include="NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceCatalog.xaml.cs">
+      <DependentUpon>ResourceCatalog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox.xaml.cs">
+      <DependentUpon>InputBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InvalidInputAdorner.cs" />
+    <Compile Include="ResourceSelector.xaml.cs">
+      <DependentUpon>ResourceSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TabContext.cs" />
+    <Compile Include="ViewModel\EditPageModel.cs" />
+    <Compile Include="ViewModel\FileManagementPageModel.cs" />
+    <Compile Include="ViewModel\Interaction\ConfirmationEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\DirectorySelectionEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\FileSelectionEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\InformationEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\MessageSeverity.cs" />
+    <Compile Include="ViewModel\Interaction\ReportEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\RepresentationEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\TextSelectionEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\UserInputEventArgs.cs" />
+    <Compile Include="ViewModel\Interaction\ViewEventArgs.cs" />
+    <Compile Include="ViewModel\MainWindowModel.cs" />
+    <Compile Include="ViewModel\NewResourceDialogModel.cs" />
+    <Compile Include="ViewModel\PluginInstallerModel.cs" />
+    <Compile Include="ViewModel\PluginPageModel.cs" />
+    <Compile Include="ViewModel\ResourceListPageModel.cs" />
+    <Compile Include="ViewModel\ResourceSelectorModel.cs" />
+    <Compile Include="ViewModel\ResourceViewPageModel.cs" />
+    <Compile Include="ViewModel\SearchReplaceModel.cs" />
+    <Compile Include="ViewModel\SettingsPageModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\WelcomePageModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\EditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\FileManagementPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\PluginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\ResourceListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\ResourceViewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigation\WelcomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewResourceDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PluginInstaller.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchReplaceDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NumericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceCatalog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChameleonCoder.Abstract\ChameleonCoder.Abstract.csproj">
+      <Project>{3800093A-9B81-49D4-96CB-74674418E4F9}</Project>
+      <Name>ChameleonCoder.Abstract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChameleonCoder.Core\ChameleonCoder.Core.csproj">
+      <Project>{4DC8B45C-8AF4-4D36-968F-BEE5645C460E}</Project>
+      <Name>ChameleonCoder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChameleonCoder.Shared\ChameleonCoder.Shared.csproj">
+      <Project>{E786D333-A415-4023-B95A-770511ED8DE1}</Project>
+      <Name>ChameleonCoder.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\choosevisibletypes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close_ccr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\create_ccr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\files.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Go.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LargeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\open_ccr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\overview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\plugins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\reference.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab1\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab1\create.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab1\help.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab1\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab1\restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab1\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\class.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\filesave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\function.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\viewminus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RibbonTab2\viewplus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SmallIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\view.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

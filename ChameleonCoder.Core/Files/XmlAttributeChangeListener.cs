@@ -10,7 +10,7 @@ namespace ChameleonCoder.Files
         [System.Runtime.InteropServices.ComVisible(false)]
         private sealed class XmlAttributeChangeListener
         {
-            internal XmlAttributeChangeListener(ObservableStringDictionary attributes, XmlElement element)
+            internal XmlAttributeChangeListener(IObservableStringDictionary attributes, XmlElement element)
             {
                 resourceElement = element;
                 resourceAttributes = attributes;
@@ -64,7 +64,7 @@ namespace ChameleonCoder.Files
                 }
             }
 
-            private ObservableStringDictionary resourceAttributes = null;
+            private IObservableStringDictionary resourceAttributes = null;
             private XmlElement resourceElement = null;
         }
     }

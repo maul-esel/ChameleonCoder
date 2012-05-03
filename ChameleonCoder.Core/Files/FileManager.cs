@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace ChameleonCoder.Files
 {
     /// <summary>
     /// a class to manage the opened files
     /// </summary>
-    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
-    public sealed class FileManager
+    [System.Runtime.InteropServices.ComVisible(false)]
+    public sealed class FileManager : IFileManager
     {
         /// <summary>
         /// creates a new instance of the class
         /// </summary>
         /// <param name="app">the app instrance the manager belongs to</param>
-        internal FileManager(ChameleonCoderApp app)
+        internal FileManager(IChameleonCoderApp app)
         {
             App = app;
         }
@@ -117,7 +116,6 @@ namespace ChameleonCoder.Files
 
         #region handle all
 
-        [ComVisible(false)]
         private void LoadResources(IDataFile file, Resources.IResource parent)
         {
             foreach (var attributes in file.ResourceParseChildren(parent))
@@ -197,7 +195,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// a list of the paths of all opened files
         /// </summary>
-        public string[] Paths
+        public string[] FilePaths
         {
             get
             {
@@ -208,7 +206,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// a reference to the App that created this instance
         /// </summary>
-        public ChameleonCoderApp App
+        public IChameleonCoderApp App
         {
             get;
             private set;
@@ -221,7 +219,6 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="relativePath">the (relative) path</param>
         /// <returns>the absolute path, or null if not found</returns>
-        [ComVisible(false)]
         public string MakeAbsolutePath(string relativePath)
         {
             if (!string.IsNullOrWhiteSpace(relativePath))
@@ -248,19 +245,16 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// a list of referenced directories
         /// </summary>
-        [ComVisible(false)]
         private readonly List<string> dirList = new List<string>();
 
         /// <summary>
         /// contains a list of all loaded files in form of their file paths
         /// </summary>
-        [ComVisible(false)]
         private readonly List<string> pathsOpen = new List<string>();
 
         /// <summary>
         /// contains a list of all loaded files in form of their DataFile instances
         /// </summary>
-        [ComVisible(false)]
         private readonly List<IDataFile> filesOpen = new List<IDataFile>();
 
         #endregion // "private fields"

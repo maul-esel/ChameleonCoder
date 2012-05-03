@@ -4,23 +4,15 @@ using ChameleonCoder.Files;
 
 namespace ChameleonCoder.Resources
 {
-    /// <summary>
-    /// a delegate for resource events
-    /// </summary>
-    /// <param name="sender">the resource raising the event</param>
-    /// <param name="e">additional data</param>
-    [ComVisible(true)]
-    public delegate void ResourceEventHandler(object sender, ResourceEventArgs e);
-
-    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual)]
-    public sealed class ResourceManager
+    [ComVisible(false), Guid("5DBC99B9-88E0-4F9E-B0F2-D8A24C015A22"), ClassInterface(ClassInterfaceType.None), ComSourceInterfaces(typeof(IResourceManagerEvents))]
+    public sealed class ResourceManager : IResourceManager
     {
-        internal ResourceManager(ChameleonCoderApp app)
+        internal ResourceManager(IChameleonCoderApp app)
         {
             App = app;
         }
 
-        public ChameleonCoderApp App
+        public IChameleonCoderApp App
         {
             get;
             private set;
@@ -29,13 +21,11 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// contains all resources that don't have a direct parent (top-level resources)
         /// </summary>
-        [ComVisible(false)]
         private ResourceCollection childrenCollection;
 
         /// <summary>
         /// contains a list of ALL resources
         /// </summary>
-        [ComVisible(false)]
         private ResourceCollection allResources;
 
         /// <summary>
@@ -54,7 +44,6 @@ namespace ChameleonCoder.Resources
         /// <param name="hierarchy">the instance to use as list of top-level resources</param>
         /// <remarks>this is needed to make it possible to create the instances in XAML,
         /// from where they can be referenced in the UI.</remarks>
-        [ComVisible(false)]
         internal void SetCollections(ResourceCollection flat, ResourceCollection hierarchy)
         {
             allResources = flat;
@@ -124,7 +113,7 @@ namespace ChameleonCoder.Resources
             instance.PropertyChanged -= OnPropertyChanged;
         }
 
-        public void DeleteResource(IResource resource)
+        public void Delete(IResource resource)
         {
             foreach (IResource child in resource.Children) // remove references to all child resources
             {
@@ -141,7 +130,7 @@ namespace ChameleonCoder.Resources
             resource.File.Save(); // save changes
         }
 
-        public IResource MoveResource(IResource resource, IResource newParent)
+        public IResource Move(IResource resource, IResource newParent)
         {
             if (resource.Parent == newParent)
                 return resource;
@@ -149,14 +138,15 @@ namespace ChameleonCoder.Resources
             Guid id = resource.Identifier;
 
             CopyResource(resource, newParent, true);
-            DeleteResource(resource);
+            Delete(resource);
 
             return GetResource(id);
         }
 
-        public void CopyResource(IResource resource, IResource newParent)
+        public IResource Copy(IResource resource, IResource newParent)
         {
             CopyResource(resource, newParent, false);
+            return null; // Todo!
         }
 
         [Obsolete]
@@ -204,10 +194,11 @@ namespace ChameleonCoder.Resources
                 newParent.File.Save();
         }
 
-        public IResource CreateNewResource(Type type, string name, System.Collections.Specialized.ObservableStringDictionary attributes, IResource parent, IDataFile file)
+        public IResource Create(Guid key, string name, System.Collections.Specialized.IObservableStringDictionary attributes, IResource parent, IDataFile file)
         {
-            attributes["name"] = name; attributes["type"] = App.ResourceTypeMan.GetKey(type).ToString("B");
+            attributes["name"] = name; attributes["type"] = key.ToString("B");
 
+            Type type = App.ResourceTypeMan.GetResourceType(key);
             IResource resource = App.ResourceTypeMan.GetFactory(type).CreateInstance(type, attributes, parent, file);
             if (resource != null)
             {
@@ -222,12 +213,17 @@ namespace ChameleonCoder.Resources
         /// <summary>
         /// gets the Children list
         /// </summary>
-        public IResource[] Children
+        public IResource[] ChildResources
         {
             get
             {
                 return childrenCollection.Values;
             }
+        }
+
+        public IResource[] Resources
+        {
+            get { return allResources.Values; }
         }
 
         public IResource GetResource(Guid id)
@@ -257,7 +253,7 @@ namespace ChameleonCoder.Resources
                 {
                     App.PluginMan.UnloadModule();
                     if (App.PluginMan.IsModuleRegistered(langRes.Language))
-                        App.PluginMan.LoadModule(langRes.Language);
+                        App.PluginMan.LoadModule(App.PluginMan.GetModule(langRes.Language));
                 }
             }
             OnResourceLoaded(resource);
@@ -330,10 +326,10 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="path">the path array of GUIDs</param>
         /// <returns>the resource if it exists within this ResourceManager, null otherwise</returns>
-        public IResource GetResourceFromIdPath(Guid[] path)
+        public IResource GetFromIdPath(Guid[] path)
         {
             IResource result = null;
-            var collection = Children;
+            var collection = ChildResources;
             int currentIndex = 0;
 
             foreach (Guid currentId in path)
@@ -404,6 +400,35 @@ namespace ChameleonCoder.Resources
             }
 
             return path;
+        }
+
+        [Obsolete]
+        public IResource GetResourceFromDisplayPath(string path, string separator)
+        {
+            var start = ChameleonCoder.Properties.Resources.Item_Home + separator + ChameleonCoder.Properties.Resources.Item_List;
+            if (path.StartsWith(start, StringComparison.Ordinal))
+                path = path.Remove(0, start.Length);
+
+            var collection = ChildResources;
+            string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+
+            IResource result = null;
+            int i = 0;
+            foreach (string segment in segments)
+            {
+                i++;
+                foreach (IResource res in collection)
+                {
+                    if (res.Name != segment)
+                        continue;
+                    if (segments.Length > i)
+                        collection = res.Children;
+                    else if (segments.Length == i)
+                        result = res;
+                    break;
+                }
+            }
+            return result;
         }
 
         #endregion // "paths"
@@ -489,7 +514,6 @@ namespace ChameleonCoder.Resources
         /// </summary>
         /// <param name="sender">the resource that changed</param>
         /// <param name="args">additional data</param>
-        [ComVisible(false)]
         private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             IResource resource = sender as IResource;

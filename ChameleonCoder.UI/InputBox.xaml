@@ -1,0 +1,14 @@
+﻿<Window x:Class="ChameleonCoder.UI.InputBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="SingleBorderWindow" Topmost="True">
+    <StackPanel>
+        <TextBlock Name="PromptText" Margin="10" HorizontalAlignment="Center"/>
+        <TextBox TextChanged="TextEntered" x:Name="entered" Width="300" Margin="10" HorizontalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button IsCancel="True" Name="CancelBtn" Width="100" Margin="10" HorizontalAlignment="Left"/>
+            <Button IsDefault="True" Name="OKBtn" Click="Close" Width="100" Margin="10" HorizontalAlignment="Right"/>
+        </StackPanel>
+       
+    </StackPanel>
+</Window>

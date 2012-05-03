@@ -9,8 +9,8 @@ namespace ChameleonCoder
     /// <summary>
     /// The COM-visible new main class for the app
     /// </summary>
-    [ComVisible(true), ProgId("ChameleonCoder.Application"), Guid("712fc748-468f-45db-ab09-e472b6a97b69"), ClassInterface(ClassInterfaceType.AutoDual)]
-    public sealed class ChameleonCoderApp
+    [ComVisible(true), ProgId("ChameleonCoder.Application"), Guid("712fc748-468f-45db-ab09-e472b6a97b69"), ClassInterface(ClassInterfaceType.None)]
+    public sealed class ChameleonCoderApp : IChameleonCoderApp
     {
         /// <summary>
         /// gets the directory containing the application
@@ -37,12 +37,6 @@ namespace ChameleonCoder
         }
 
         /// <summary>
-        /// the running ChameleonCoderApp instance
-        /// </summary>
-        [ComVisible(false), Obsolete("Don't use if avoidable!")]
-        public static ChameleonCoderApp RunningObject { get; private set; }
-
-        /// <summary>
         /// creates a new instance of the class
         /// </summary>
         /// <remarks>This must be COM-compatible! Do not add parameters!</remarks>
@@ -54,13 +48,11 @@ namespace ChameleonCoder
             ContentMemberMan = new Resources.RichContent.ContentMemberManager(this);
             ResourceTypeMan = new Resources.ResourceTypeManager(this);
 
-            RunningObject = this; // TODO!
-
             // setting the Language the user chose
             ChameleonCoder.Properties.Resources.Culture = new System.Globalization.CultureInfo(Settings.ChameleonCoderSettings.Default.Language); // setting retrieval fails if invoked from COM
 
             // associate the instances created in XAML with the classes
-            ResourceMan.SetCollections((Resources.ResourceCollection)RunningApp.Resources["resources"], (Resources.ResourceCollection)RunningApp.Resources["resourceHierarchy"]); // fails if invoked from cOM (App == null)
+            ((Resources.ResourceManager)ResourceMan).SetCollections((Resources.ResourceCollection)RunningApp.Resources["resources"], (Resources.ResourceCollection)RunningApp.Resources["resourceHierarchy"]); // fails if invoked from cOM (App == null)
         }
 
         /// <summary>
@@ -76,19 +68,19 @@ namespace ChameleonCoder
             Environment.Exit(exitCode);
         }
 
-        public Files.FileManager FileMan
+        public Files.IFileManager FileMan
         {
             get;
             private set;
         }
 
-        public Plugins.PluginManager PluginMan
+        public Plugins.IPluginManager PluginMan
         {
             get;
             private set;
         }
 
-        public Resources.ResourceManager ResourceMan
+        public Resources.IResourceManager ResourceMan
         {
             get;
             private set;
@@ -100,7 +92,7 @@ namespace ChameleonCoder
             private set;
         }
 
-        public Resources.ResourceTypeManager ResourceTypeMan
+        public Resources.IResourceTypeManager ResourceTypeMan
         {
             get;
             private set;
@@ -111,7 +103,7 @@ namespace ChameleonCoder
         /// <summary>
         /// registers the file extension *.ccr
         /// </summary>
-        public void RegisterExtension()
+        public void RegisterExtensions()
         {
             RegistryManager.RegisterExtension();
         }
@@ -119,7 +111,7 @@ namespace ChameleonCoder
         /// <summary>
         /// unregisters the file extension *.ccr
         /// </summary>
-        public void UnRegisterExtension()
+        public void UnregisterExtensions()
         {
             RegistryManager.UnRegisterExtension();
         }
@@ -141,7 +133,18 @@ namespace ChameleonCoder
         {
             if (Window != null)
                 throw new InvalidOperationException("Window has already been initialized.");
-            Window = (Window)Activator.CreateInstance(Assembly.GetEntryAssembly().GetType("ChameleonCoder.MainWindow"), new object[1] { this }); // TODO! (not elegant, will fail in COM)
+
+            foreach (var _a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var _t in _a.GetTypes())
+                {
+                    if (_t.FullName == "ChameleonCoder.UI.MainWindow")
+                    {
+                        Window = (Window)Activator.CreateInstance(_t, new object[1] { this }); // TODO! (not elegant, will fail in COM)
+                        break;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -180,10 +183,10 @@ namespace ChameleonCoder
         /// a template for the logging
         /// </summary>
         [ComVisible(false)]
-        private const string logTemplate = "new event:"
-                                          + "\n\tsender: {0}"
-                                          + "\n\treason: {1}"
-                                          + "\n\t\t{2}"
+        private const string logTemplate = "new event at {0}:"
+                                          + "\n\tsender: {1}"
+                                          + "\n\treason: {2}"
+                                          + "\n\t\t{3}"
                                           + "\n===========================================\n\n";
 
         /// <summary>
@@ -197,7 +200,7 @@ namespace ChameleonCoder
         {
             if (!File.Exists(logPath)) // create file if necessary
                 File.Create(logPath).Close(); // (and immediately close the stream)
-            File.AppendAllText(logPath, string.Format(logTemplate, sender, reason, text)); // log
+            File.AppendAllText(logPath, string.Format(logTemplate, DateTime.Now, sender, reason, text)); // log
         }
 
         #endregion

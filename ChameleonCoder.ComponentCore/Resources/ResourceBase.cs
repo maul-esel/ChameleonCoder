@@ -40,7 +40,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// </summary>
         /// <param name="data">a dictionary that contains the resource attributes</param>
         /// <param name="parent">the parent resource</param>
-        public virtual void Update(ObservableStringDictionary data, IResource parent, IDataFile file)
+        public virtual void Update(IObservableStringDictionary data, IResource parent, IDataFile file)
         {
             File = file;
             Attributes = data;
@@ -68,13 +68,13 @@ namespace ChameleonCoder.ComponentCore.Resources
             OnPropertyChanged("Children");
         }
 
-        public virtual void AddReference(ResourceReference reference)
+        public virtual void AddReference(IResourceReference reference)
         {
             referenceCollection.Add(reference);
             OnPropertyChanged("References");
         }
 
-        public virtual void RemoveReference(ResourceReference reference)
+        public virtual void RemoveReference(IResourceReference reference)
         {
             referenceCollection.Remove(reference);
             OnPropertyChanged("References");
@@ -87,7 +87,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         [Obsolete]
         public XmlElement Xml { get; private set; }
 
-        public ObservableStringDictionary Attributes
+        public IObservableStringDictionary Attributes
         {
             get;
             private set;
@@ -108,7 +108,7 @@ namespace ChameleonCoder.ComponentCore.Resources
         /// <summary>
         /// gets a list containing the resource's references
         /// </summary>
-        public ResourceReference[] References
+        public IResourceReference[] References
         {
             get { return referenceCollection.Values; }
         }

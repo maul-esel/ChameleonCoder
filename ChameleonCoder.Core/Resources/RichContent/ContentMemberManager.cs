@@ -47,7 +47,7 @@ namespace ChameleonCoder.Resources.RichContent
                 && !member.IsAbstract && !member.IsInterface && !member.IsNotPublic // scope and type
                 && member.GetConstructor(Type.EmptyTypes) != null // creation
                 && !IsRegistered(key) && !IsRegistered(member) // no double-registration
-                && App.PluginMan.IsRichContentFactoryRegistered(factory)) // no anonymous registration
+                && App.PluginMan.IsRichContentFactoryRegistered(factory.Identifier)) // no anonymous registration
             {
                 ContentMembers.RegisterContentMember(key, member);
                 Factories.TryAdd(member, factory);

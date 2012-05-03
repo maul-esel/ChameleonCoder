@@ -28,7 +28,7 @@ namespace ChameleonCoder
             if (content == null)
                 return;
 
-            var contentMemberMan = resource.File.App.ContentMemberMan;
+            var contentMemberMan = ((ChameleonCoderApp)resource.File.App).ContentMemberMan;
             foreach (XmlElement node in content.ChildNodes)
             {
                 Guid type;
@@ -131,7 +131,7 @@ namespace ChameleonCoder
 
             if (member != null)
             {
-                parent.Children.Add(member);
+                parent.AddChildMember(member);
                 foreach (XmlElement child in node.ChildNodes)
                 {
                     AddRichContent(child, member, contentMemberMan);
@@ -161,38 +161,5 @@ namespace ChameleonCoder
 
             return data;
         }
-
-        #region path
-
-        [Obsolete("Use ResourceManager.GetResourceFromIdPath()")]
-        public static IResource GetResourceFromPath(string path, string separator)
-        {
-            var start = Res.Item_Home + separator + Res.Item_List;
-            if (path.StartsWith(start, StringComparison.Ordinal))
-                path = path.Remove(0, start.Length);
-
-            var collection = ChameleonCoderApp.RunningObject.ResourceMan.Children;
-            string[] segments = path.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
-
-            IResource result = null;
-            int i = 0;
-            foreach (string segment in segments)
-            {
-                i++;
-                foreach (IResource res in collection)
-                {
-                    if (res.Name != segment)
-                        continue;
-                    if (segments.Length > i)
-                        collection = res.Children;
-                    else if (segments.Length == i)
-                        result = res;
-                    break;
-                }
-            }
-            return result;
-        }
-
-        #endregion
     }
 }

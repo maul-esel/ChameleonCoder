@@ -2,8 +2,8 @@
 
 namespace System.Collections.Specialized
 {
-    [ComVisible(true), ClassInterface(ClassInterfaceType.AutoDual), Guid("40fa63ee-5ced-4597-99cb-4baa7227d23c")]
-    public class ObservableStringDictionary : StringDictionary, INotifyCollectionChanged
+    [ComVisible(true), ClassInterface(ClassInterfaceType.None), Guid("40fa63ee-5ced-4597-99cb-4baa7227d23c")]
+    public class ObservableStringDictionary : StringDictionary, IObservableStringDictionary
     {
         public override string this[string key]
         {

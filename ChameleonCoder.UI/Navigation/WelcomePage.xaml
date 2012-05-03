@@ -1,0 +1,61 @@
+﻿<Page x:Class="ChameleonCoder.UI.Navigation.WelcomePage" x:ClassModifier="internal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="clr-namespace:ChameleonCoder.UI">
+    
+    <Page.Resources>
+        <Style x:Key="GoButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Cursor="Hand" CornerRadius="5" Background="White" BorderBrush="LightBlue" BorderThickness="3" Padding="10,5,5,5">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="25" CornerRadius="12.5" Background="LightBlue" Margin="2">
+                                    <Image Source="..\Images\Go.png" Margin="2.5,2,1,2"/>
+                                </Border>
+                                <ContentPresenter Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <StackPanel Background="AliceBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            
+            <Image Source="..\Images\logo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+            
+            <Border CornerRadius="15" Background="Aquamarine" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5">
+                
+                <TextBlock Text="{Binding Welcome}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontFamily="Comic Sans MS" FontSize="18" Foreground="Red"/>
+                
+            </Border>
+            
+            <Image Source="..\Images\logo.png" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100"/>
+            
+        </StackPanel>
+        
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10" Text="{Binding StartSelection}"/>
+
+        <Button Content="{Binding GoList}"
+                Command="{x:Static ui:ChameleonCoderCommands.OpenResourceListPage}"
+                Style="{StaticResource GoButton}" Margin="5"/>
+
+        <Button Content="{Binding GoSettings}"
+                Command="{x:Static ui:ChameleonCoderCommands.OpenSettingsPage}"
+                Style="{StaticResource GoButton}" Margin="5"/>
+
+        <Button Content="{Binding GoPlugins}"
+                Command="{x:Static ui:ChameleonCoderCommands.OpenPluginPage}"
+                Style="{StaticResource GoButton}" Margin="5"/>
+
+        <Button Content="{Binding CreateResource}"
+                Command="{x:Static ui:ChameleonCoderCommands.CreateResource}"
+                Style="{StaticResource GoButton}" Margin="5"/>
+        
+    </StackPanel>
+</Page>

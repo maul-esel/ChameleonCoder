@@ -16,7 +16,7 @@ namespace ChameleonCoder.Files
     /// represents an opened resource file
     /// </summary>
     [ComVisible(true), ClassInterface(ClassInterfaceType.None), Guid("895F013D-2CD0-4AC0-8AF0-25F727176279")]
-    public sealed partial class DataFile : IDataFile
+    public sealed partial class DataFile : IDataFile // todo: rename to XmlDataFile
     {
         #region constants
 
@@ -51,7 +51,7 @@ namespace ChameleonCoder.Files
             manager.AddNamespace("cc", NamespaceUri);
         }
 
-        public void Initialize(ChameleonCoderApp app)
+        public void Initialize(IChameleonCoderApp app)
         {
             App = app;
         }
@@ -164,7 +164,7 @@ namespace ChameleonCoder.Files
         /// gets all metadata related to the file
         /// </summary>
         /// <returns>a dictionary containing the metadata</returns>
-        public ObservableStringDictionary GetMetadata()
+        public IObservableStringDictionary GetMetadata()
         {
             var set = (XmlElement)doc.SelectSingleNode(DocumentXPath.MetadataRoot, manager);
             if (set == null)
@@ -322,7 +322,7 @@ namespace ChameleonCoder.Files
 
         #region parsing
 
-        public ObservableStringDictionary[] ResourceParseChildren(IResource parent)
+        public IObservableStringDictionary[] ResourceParseChildren(IResource parent)
         {
             var attrList = new List<ObservableStringDictionary>();
             XmlNodeList nodeList = null;
@@ -336,11 +336,7 @@ namespace ChameleonCoder.Files
 #if DEBUG
                 Debug.Assert(parent.File == this, "Attempted to retrieve children for a resource in another file!");
 #endif
-                XmlElement parentNode = doc.SelectSingleNode(DocumentXPath.Resources + "[@id='" + parent.Identifier.ToString("b") + "']", manager) as XmlElement;
-                if (parentNode != null)
-                {
-                    nodeList = parentNode.ChildNodes;
-                }
+                nodeList = mappings[parent.Attributes].ChildNodes;
             }
 
             if (nodeList != null)
@@ -362,7 +358,7 @@ namespace ChameleonCoder.Files
             return attrList.ToArray();
         }
 
-        public ObservableStringDictionary[] ResourceParseReferences(IResource resource)
+        public IObservableStringDictionary[] ResourceParseReferences(IResource resource)
         {
             if (resource == null)
                 throw new InvalidOperationException();
@@ -393,7 +389,7 @@ namespace ChameleonCoder.Files
 
         #region RichContent
 
-        public ObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource)
+        public IObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource)
         {
             var members = new List<ObservableStringDictionary>();
 
@@ -420,7 +416,7 @@ namespace ChameleonCoder.Files
             return members.ToArray();
         }
 
-        public ObservableStringDictionary[] ContentMemberParseChildren(Resources.RichContent.IContentMember member)
+        public IObservableStringDictionary[] ContentMemberParseChildren(Resources.RichContent.IContentMember member)
         {
             var members = new List<ObservableStringDictionary>();
 
@@ -593,7 +589,7 @@ namespace ChameleonCoder.Files
         /// </summary>
         /// <param name="resource">the resource to analyze</param>
         /// <returns>a dictionary containing the metadata, which is empty if None is found</returns>
-        public ObservableStringDictionary ResourceGetMetadata(IResource resource)
+        public IObservableStringDictionary ResourceGetMetadata(IResource resource)
         {
             var dict = new ObservableStringDictionary();
 
@@ -687,7 +683,7 @@ namespace ChameleonCoder.Files
         /// <summary>
         /// a backreference to the application instance that owns this file
         /// </summary>
-        public ChameleonCoderApp App
+        public IChameleonCoderApp App
         {
             get;
             private set;
@@ -705,10 +701,10 @@ namespace ChameleonCoder.Files
         private readonly XmlNamespaceManager manager = null;
 
         [ComVisible(false)]
-        private readonly Dictionary<ObservableStringDictionary, XmlElement> mappings = new Dictionary<ObservableStringDictionary, XmlElement>();
+        private readonly Dictionary<IObservableStringDictionary, XmlElement> mappings = new Dictionary<IObservableStringDictionary, XmlElement>();
 
         [ComVisible(false)]
-        private readonly Dictionary<ObservableStringDictionary, XmlAttributeChangeListener> listeners = new Dictionary<ObservableStringDictionary, XmlAttributeChangeListener>();
+        private readonly Dictionary<IObservableStringDictionary, XmlAttributeChangeListener> listeners = new Dictionary<IObservableStringDictionary, XmlAttributeChangeListener>();
 
         #endregion // "private fields"
 

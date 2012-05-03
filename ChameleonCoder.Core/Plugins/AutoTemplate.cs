@@ -80,7 +80,7 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// initializes the template
         /// </summary>
-        public void Initialize(ChameleonCoderApp app)
+        public void Initialize(IChameleonCoderApp app)
         {
             App = app;
         }
@@ -96,7 +96,7 @@ namespace ChameleonCoder.Plugins
         /// <summary>
         /// a backreference to the app instance that loaded the template
         /// </summary>
-        public ChameleonCoderApp App
+        public IChameleonCoderApp App
         {
             get;
             private set;
@@ -151,7 +151,7 @@ namespace ChameleonCoder.Plugins
         {
             var attr = App.ResourceTypeMan.GetFactory(ResourceType).CreateResource(ResourceType, name, parent);
             if (attr != null)
-                return App.ResourceMan.CreateNewResource(ResourceType, name, attr, parent, file);
+                return App.ResourceMan.Create(App.ResourceTypeMan.GetKey(ResourceType), name, attr, parent, file);
             return null;
         }
         #endregion

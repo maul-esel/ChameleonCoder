@@ -1,0 +1,56 @@
+﻿<Window x:Class="ChameleonCoder.UI.SearchReplaceDialog" x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cc="clr-namespace:ChameleonCoder"
+        Title="{Binding Title}" MinHeight="200" Width="400" SizeToContent="Height">    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5"
+                   Text="{Binding SearchFor}"/>
+        
+        <TextBox Name="searchBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"/>
+        
+        <CheckBox Name="enableReplace" Grid.Row="1" Grid.Column="0" Margin="5"
+                  Content="{Binding ReplaceBy}"
+                  VerticalAlignment="Top"/>
+        
+        <TextBox Name="replaceBox"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"
+                 VerticalAlignment="Top"
+                 IsEnabled="{Binding ElementName=enableReplace, Path=IsChecked}"/>
+
+        <CheckBox Name="wholeOnly" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding MatchWholeWord}" Margin="5"
+                  VerticalAlignment="Center"/>
+
+        <CheckBox Name="matchCase" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding MatchCase}" Margin="5"
+                  VerticalAlignment="Center"/>
+
+        <CheckBox Name="wrapAround" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding WrapAround}" Margin="5"
+                  VerticalAlignment="Center"/>
+        
+        <Button Grid.Row="2" Grid.Column="2" Content="{Binding FindNext}"
+                Click="SearchNext"
+                VerticalAlignment="Center" Margin="5" IsDefault="True"/>
+        
+        <Button Grid.Row="3" Grid.Column="2" Content="{Binding Replace}"
+                Click="Replace"
+                VerticalAlignment="Center" Margin="5"
+                IsEnabled="{Binding ElementName=enableReplace, Path=IsChecked}"/>
+
+        <Button Grid.Row="4" Grid.Column="2" Content="{Binding ReplaceAll}"
+                Click="ReplaceAll"
+                VerticalAlignment="Center" Margin="5"
+                IsEnabled="{Binding ElementName=enableReplace, Path=IsChecked}"/>
+    </Grid>
+</Window>

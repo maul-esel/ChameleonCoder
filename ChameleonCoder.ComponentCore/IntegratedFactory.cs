@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Collections.Specialized;
 using ChameleonCoder.ComponentCore.Resources;
 using ChameleonCoder.Plugins;
 using ChameleonCoder.Resources;
@@ -37,7 +37,7 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// gets an icon representing this plugin to the user
         /// </summary>
-        public ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/Images/logo.png")); } }
+        public ImageSource Icon { get { return new BitmapImage(new Uri("pack://application:,,,/ChameleonCoder.UI;component/Images/logo.png")); } }
 
         /// <summary>
         /// gets an globally unique identifier identifying the plugin
@@ -57,7 +57,7 @@ namespace ChameleonCoder.ComponentCore
         /// <summary>
         /// initializes the plugin
         /// </summary>
-        public void Initialize(ChameleonCoderApp app)
+        public void Initialize(IChameleonCoderApp app)
         {
             App = app;
 
@@ -80,7 +80,7 @@ namespace ChameleonCoder.ComponentCore
             App = null;
         }
 
-        public ChameleonCoderApp App
+        public IChameleonCoderApp App
         {
             get;
             private set;
@@ -178,7 +178,7 @@ namespace ChameleonCoder.ComponentCore
         /// <param name="parent">the new resource's parent resource</param>
         /// <returns>the 'blueprint' in form of a dictionary,
         /// containing the attributes the resource's XmlElement should have</returns>
-        public ObservableStringDictionary CreateResource(Type type, string name, IResource parent)
+        public IObservableStringDictionary CreateResource(Type type, string name, IResource parent)
         {
             string parent_name = parent != null ? parent.Name : string.Empty;
             ResourceCreator creator = new ResourceCreator(type, parent_name, name, App);
@@ -207,7 +207,7 @@ namespace ChameleonCoder.ComponentCore
         /// <param name="data">a dictionary of atttributes for the resource</param>
         /// <param name="parent">the parent resource</param>
         /// <returns>the newly created instance</returns>
-        public IResource CreateInstance(Type resourceType, ObservableStringDictionary data, IResource parent, Files.IDataFile file)
+        public IResource CreateInstance(Type resourceType, IObservableStringDictionary data, IResource parent, Files.IDataFile file)
         {
             IResource resource = Activator.CreateInstance(resourceType) as IResource;
             // todo: null-check
