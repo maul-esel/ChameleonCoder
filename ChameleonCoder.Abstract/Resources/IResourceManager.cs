@@ -19,7 +19,7 @@ namespace ChameleonCoder.Resources
         void Close();
 
         void Delete(IResource resource);
-        IResource Move(IResource resource, IResource newParent);
+        void Move(IResource resource, IResource newParent);
         IResource Copy(IResource resource, IResource newParent);
 
         IResource[] ChildResources { get; }

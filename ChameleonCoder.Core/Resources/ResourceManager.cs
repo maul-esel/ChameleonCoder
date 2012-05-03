@@ -130,19 +130,49 @@ namespace ChameleonCoder.Resources
             resource.File.Save(); // save changes
         }
 
-        public IResource Move(IResource resource, IResource newParent)
+        public void Move(IResource resource, IResource newParent)
         {
-            if (resource.Parent == newParent)
-                return resource;
-
-            Guid id = resource.Identifier;
-
-            CopyResource(resource, newParent, true);
-            Delete(resource);
-
-            return GetResource(id);
+            if (resource != null)
+            {
+                if (resource.Parent != newParent)
+                {
+                    if (newParent != null && newParent.File != resource.File)
+                    {
+                        // todo!
+                    }
+                    else
+                    {
+                        resource.File.ResourceMove(resource, newParent);
+                    }
+                }
+            }
+            else
+                throw new ArgumentNullException("resource");
         }
 
+        public IResource Copy(IResource resource, IResource newParent)
+        {
+            if (resource != null)
+            {
+                IResource newResource = null;
+
+                if (newParent != null && newParent.File != resource.File)
+                {
+                    // todo!
+                }
+                else
+                {
+                    newResource = resource.File.ResourceCopy(resource, newParent);
+                }
+
+                Add(newResource, newParent);
+                return newResource;
+            }
+            else
+                throw new ArgumentNullException("resource");
+        }
+
+        /*
         public IResource Copy(IResource resource, IResource newParent)
         {
             CopyResource(resource, newParent, false);
@@ -193,6 +223,7 @@ namespace ChameleonCoder.Resources
             if (newParent != null)
                 newParent.File.Save();
         }
+        */
 
         public IResource Create(Guid key, string name, System.Collections.Specialized.IObservableStringDictionary attributes, IResource parent, IDataFile file)
         {
