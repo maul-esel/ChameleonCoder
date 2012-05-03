@@ -26,13 +26,6 @@ namespace ChameleonCoder.Resources
         /// </summary>
         ImageSource SpecialVisualProperty { get; }
 
-        /// <summary>
-        /// contains the XmlNode representing the resource
-        /// Any changes to the resource should be immediately saved to this XmlNode.
-        /// </summary>
-        [System.Obsolete]
-        System.Xml.XmlElement Xml { get; }
-
         IObservableStringDictionary Attributes { get; }
 
         /// <summary>

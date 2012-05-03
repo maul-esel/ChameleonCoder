@@ -80,13 +80,6 @@ namespace ChameleonCoder.ComponentCore.Resources
             OnPropertyChanged("References");
         }
 
-        /// <summary>
-        /// gets the XmlElement representing the resource
-        /// </summary>
-        /// <value>This value is the XmlElement given to the resource in the <see cref="Update"/> method.</value>
-        [Obsolete]
-        public XmlElement Xml { get; private set; }
-
         public IObservableStringDictionary Attributes
         {
             get;
