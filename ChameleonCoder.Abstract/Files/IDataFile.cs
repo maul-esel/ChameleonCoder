@@ -38,8 +38,7 @@ namespace ChameleonCoder.Files
 
         IObservableStringDictionary[] ResourceParseChildren(IResource parent);
         IObservableStringDictionary[] ResourceParseReferences(IResource resource);
-        IObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource);
-        IObservableStringDictionary[] ContentMemberParseChildren(IContentMember member);
+        IObservableStringDictionary[] ContentMemberParseChildren(IRichContentResource resource, Resources.RichContent.IContentMember member);
 
         #endregion
 

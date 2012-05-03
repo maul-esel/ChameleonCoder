@@ -13,46 +13,6 @@ namespace ChameleonCoder
     [System.Runtime.InteropServices.ComVisible(false), Obsolete]
     internal static class ResourceHelper
     {
-        /// <summary>
-        /// parses the RichContent for a RichContentResource
-        /// </summary>
-        /// <param name="resource">the resource to parse</param>
-        internal static void MakeRichContent(this IRichContentResource resource)
-        {
-            XmlNamespaceManager manager;
-            var res = GetDataElement(resource, false, out manager);
-            if (res == null)
-                return;
-
-            var content = (XmlElement)res.SelectSingleNode(XmlDataFile.DocumentXPath.RichContentNode, manager);
-            if (content == null)
-                return;
-
-            var contentMemberMan = ((ChameleonCoderApp)resource.File.App).ContentMemberMan;
-            foreach (XmlElement node in content.ChildNodes)
-            {
-                Guid type;
-                IContentMember member = null;
-
-                if (Guid.TryParse(node.GetAttribute("type", XmlDataFile.NamespaceUri), out type))
-                {
-                    member = contentMemberMan.CreateInstanceOf(type, node, null, resource, resource.File);
-                }
-                else if (Guid.TryParse(node.GetAttribute("fallback", XmlDataFile.NamespaceUri), out type))
-                {
-                    member = contentMemberMan.CreateInstanceOf(type, node, null, resource, resource.File);
-                }
-
-                if (member != null)
-                {
-                    resource.AddContentMember(member);
-                    foreach (XmlElement child in node.ChildNodes)
-                    {
-                        AddRichContent(resource, child, member, contentMemberMan);
-                    }
-                }
-            }
-        }
 
         #region references
 
@@ -109,35 +69,6 @@ namespace ChameleonCoder
         }
 
         #endregion
-
-        /// <summary>
-        /// parses the RichContent child members of a given RichConhtentMember instance
-        /// </summary>
-        /// <param name="node">the XmlElement representing the child member</param>
-        /// <param name="parent">the parent member</param>
-        private static void AddRichContent(IRichContentResource resource, XmlElement node, IContentMember parent, ContentMemberManager contentMemberMan)
-        {
-            Guid type;
-            IContentMember member = null;
-
-            if (Guid.TryParse(node.GetAttribute("type", XmlDataFile.NamespaceUri), out type))
-            {
-                member = contentMemberMan.CreateInstanceOf(type, node, parent, resource, resource.File);
-            }
-            else if (Guid.TryParse(node.GetAttribute("fallback", XmlDataFile.NamespaceUri), out type))
-            {
-                member = contentMemberMan.CreateInstanceOf(type, node, parent, resource, resource.File);
-            }
-
-            if (member != null)
-            {
-                parent.AddChildMember(member);
-                foreach (XmlElement child in node.ChildNodes)
-                {
-                    AddRichContent(resource, child, member, contentMemberMan);
-                }
-            }
-        }
 
         /// <summary>
         /// gets the resource-data element for the resource, optionally creating it if not found

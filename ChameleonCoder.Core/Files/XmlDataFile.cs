@@ -371,33 +371,37 @@ namespace ChameleonCoder.Files
 
         #region RichContent
 
-        public IObservableStringDictionary[] ResourceParseRichContent(IRichContentResource resource)
+        public IObservableStringDictionary[] ContentMemberParseChildren(IRichContentResource resource, Resources.RichContent.IContentMember member)
         {
             var members = new List<IObservableStringDictionary>();
+            XmlNodeList nodes = null;
 
-            XmlElement dataElement = GetResourceDataElement(resource, false);
-            if (dataElement != null)
+            if (member == null)
             {
-                XmlElement contentList = dataElement.SelectSingleNode(DocumentXPath.RichContentNode, manager) as XmlElement;
-                if (contentList != null)
+                XmlElement resElement = GetResourceDataElement(resource, false);
+                if (resElement != null)
                 {
-                    foreach (XmlElement node in contentList.ChildNodes)
+                    XmlElement content = resElement.SelectSingleNode(DocumentXPath.RichContentNode, manager) as XmlElement;
+                    if (content != null)
                     {
-                        var dict = ParseElementToDictionary(node);
-                        members.Add(dict);
-                        AddPrivateDictionaryData(dict, node); // listen for changes
+                        nodes = content.ChildNodes;
                     }
                 }
             }
+            else
+            {
+                nodes = mappings[member.Attributes].ChildNodes;
+            }
 
-            return members.ToArray();
-        }
-
-        public IObservableStringDictionary[] ContentMemberParseChildren(Resources.RichContent.IContentMember member)
-        {
-            var members = new List<ObservableStringDictionary>();
-
-            // ... todo ...
+            if (nodes != null)
+            {
+                foreach (XmlElement node in nodes)
+                {
+                    var dict = ParseElementToDictionary(node);
+                    members.Add(dict);
+                    AddPrivateDictionaryData(dict, node);
+                }
+            }
 
             return members.ToArray();
         }

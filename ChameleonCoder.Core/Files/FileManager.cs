@@ -114,7 +114,8 @@ namespace ChameleonCoder.Files
             App = null;
         }
 
-        #region handle all
+        #region loading
+        // todo: move these possibly to ResourceManager
 
         private void LoadResources(IDataFile file, Resources.IResource parent)
         {
@@ -139,10 +140,48 @@ namespace ChameleonCoder.Files
                     return; // ignore
                 }
 
-                App.ResourceMan.Add(resource, parent);
+                var richResource = resource as Resources.IRichContentResource;
+                if (richResource != null)
+                {
+                    LoadRichContent(file, richResource, null);
+                }
+
                 LoadResources(file, resource);
+                App.ResourceMan.Add(resource, parent);
             }
         }
+
+        private void LoadRichContent(IDataFile file, Resources.IRichContentResource resource, Resources.RichContent.IContentMember parent)
+        {
+            foreach (var attributes in file.ContentMemberParseChildren(resource, parent))
+            {
+                Guid type;
+                Resources.RichContent.IContentMember member = null;
+                var contentMemberMan = ((ChameleonCoderApp)App).ContentMemberMan;
+
+                if (Guid.TryParse(attributes["type"], out type))
+                {
+                    member = contentMemberMan.CreateInstanceOf(type, attributes, parent, resource, file);
+                }
+                else if (Guid.TryParse(attributes["fallback"], out type))
+                {
+                    member = contentMemberMan.CreateInstanceOf(type, attributes, parent, resource, file);
+                }
+
+                if (resource == null)
+                {
+                    // todo: log etc.
+                    return;
+                }
+
+                LoadRichContent(file, resource, member);
+                // todo: add to RichContentManager etc.
+            }
+        }
+
+        #endregion
+
+        #region handle all
 
         /// <summary>
         /// saves all opened instances

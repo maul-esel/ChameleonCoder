@@ -72,12 +72,6 @@ namespace ChameleonCoder.Resources
             }
             instance.PropertyChanged += OnPropertyChanged;
 
-            IRichContentResource richResource = instance as IRichContentResource;
-            if (richResource != null) // if it is really a RichContentResource:
-            {
-                richResource.MakeRichContent(); // parse the RichContent
-            }
-
             foreach (var refAttr in instance.File.ResourceParseReferences(instance))
             {
                 instance.AddReference(new ResourceReference(refAttr, instance.File));
